@@ -5,6 +5,7 @@ import path from 'path';
 import reload from 'reload';
 import fs from 'fs';
 import {userDao} from "./daos/userDao";
+import * as mysql from "mysql2";
 
 type Request = express$Request;
 type Response = express$Response;
