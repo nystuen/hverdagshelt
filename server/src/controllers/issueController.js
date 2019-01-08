@@ -18,4 +18,21 @@ module.exports = function(app: Object, issueDao: Object) {
       res.json(data);
     });
   });
+
+    app.get("/UserIssues/:UserMail", (req, res) => {
+        console.log("got get request from issue from one user");
+        issueDao.getUserIssue(req.params.UserMail,(status, data) => {
+            res.status(status);
+            res.json(data);
+        });
+    });
+
+    app.get("/CompanyIssues/:CompanyMail", (req, res) => {
+        console.log("got get request from allIssues");
+        issueDao.getCompanyIssue(req.params.CompanyMail,(status, data) => {
+            res.status(status);
+            res.json(data);
+        });
+    });
+
 };
