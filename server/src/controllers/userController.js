@@ -1,4 +1,4 @@
-//@flow
+// @flow
 
 let bodyParser = require('body-parser');
 let urlencodedParser = bodyParser.urlencoded({extended: false});
