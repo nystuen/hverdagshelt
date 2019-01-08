@@ -8,7 +8,7 @@ export class User {
     typeName: string;
     phone: string;
     points: number;
-    countyName: string;
+    countyId: number;
     active: number;
 
     constructor(mail: string, firstName: string, lastName: string, typeName: string, phone: string, points: number, countyId: number, active: number) {
