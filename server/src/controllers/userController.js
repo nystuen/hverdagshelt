@@ -10,6 +10,14 @@ module.exports = function (app: Object, userDao: Object) {
         userDao.addUser(req.body, (status, data) => {
             res.status(status);
             res.json(data);
-        })
+        });
+    });
+
+    app.get('/verify_user', urlencodedParser, (req,res) => {
+        console.log('got get request from get_user');
+        userDao.getUser(req.userMail,req.password,(status,data) => {
+            res.status(status);
+            res.json(data);
+        });
     });
 };

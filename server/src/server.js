@@ -4,7 +4,7 @@ import express from 'express';
 import path from 'path';
 import reload from 'reload';
 import fs from 'fs';
-import {userDao} from "./daos/userDao";
+import {UserDao} from "./daos/userDao";
 import userController from './controllers/userController.js'
 import * as mysql from "mysql2";
 
