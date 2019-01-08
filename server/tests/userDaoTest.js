@@ -2,12 +2,13 @@ import mysql from "mysql2";
 import runsqlfile from './runSqlFile';
 import {UserDao} from "../src/daos/userDao";
 
+// GitLab CI Pool
 let pool = mysql.createPool({
     connectionLimit: 1,
     host: "mysql",
     user: "root",
-    password: "",
-    database: "School",
+    password: "abc123",
+    database: "testdb",
     debug: false,
     multipleStatements: true
 });
