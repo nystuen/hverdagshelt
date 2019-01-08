@@ -1,6 +1,6 @@
 // @flow
 
-class User {
+export class User {
     mail: string;
     firstName: string;
     lastName: string;
@@ -22,7 +22,7 @@ class User {
     }
 }
 
-class Issue {
+export class Issue {
     issueId: number;
     userMail: string;
     latitude: number;
@@ -51,7 +51,7 @@ class Issue {
 
 }
 
-class Type {
+export class Type {
     typeName: string;
     active: number;
 
@@ -61,7 +61,7 @@ class Type {
     }
 }
 
-class Company extends Type {
+export class Company extends Type {
     companyMail: string;
     companyName: string;
     description: string;
@@ -75,7 +75,7 @@ class Company extends Type {
     }
 }
 
-class Category {
+export class Category {
     categoryId: number;
     name: string;
     priority: number;
@@ -90,7 +90,7 @@ class Category {
     }
 }
 
-class Event {
+export class Event {
     eventId: number;
     title: string;
     text: string;
