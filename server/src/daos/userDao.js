@@ -5,6 +5,7 @@ import {Dao} from "../dao";
 const bcrypt = require('bcrypt'); //to hash password
 
 export class userDao extends Dao {
+
     addUser(json: Object, callback: Function) {
         let hashed = '';
         bcrypt.hash(json.password,10,function (error,hash) {
