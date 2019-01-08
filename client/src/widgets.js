@@ -8,6 +8,7 @@ import { Component } from 'react-simplified';
  * Renders alert messages using Bootstrap classes.
  */
 
+
 export class Alert extends Component {
   alerts: { text: React.Node, type: string }[] = [];
 

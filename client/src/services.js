@@ -11,4 +11,5 @@ export class UserService {
     addUser(newUser: User): Promise<Response> {
         return axios.post('/add_user', newUser);
     }
+
 }
