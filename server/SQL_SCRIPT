@@ -149,3 +149,6 @@ ADD CONSTRAINT category2_fk foreign key(categoryId) REFERENCES category(category
 
 ALTER TABLE pushAlerts
 ADD CONSTRAINT user3_fk foreign(userMail) REFERENCES user(mail);
+
+ALTER TABLE company
+ ADD COLUMN orgNumber varchar(30) after description;

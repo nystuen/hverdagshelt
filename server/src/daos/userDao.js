@@ -4,7 +4,7 @@ import {Dao} from "../dao";
 
 const bcrypt = require('bcrypt'); //to hash password
 
-export class userDao extends Dao {
+export class UserDao extends Dao {
 
     addUser(json: Object, callback: Function) {
         let hashed = '';
@@ -20,4 +20,8 @@ export class userDao extends Dao {
             callback
         );
     }
+
+    getUser(userMail: string, password: string, callback: Function){
+        super.query("select mail,password from user where mail=? ", [userMail], callback);
+    }//end method
 }
