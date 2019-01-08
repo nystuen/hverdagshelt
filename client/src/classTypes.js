@@ -4,10 +4,11 @@ export class User {
     mail: string;
     firstName: string;
     lastName: string;
+    password: string;
     typeName: string;
     phone: string;
     points: number;
-    countyId: number;
+    countyName: string;
     active: number;
 
     constructor(mail: string, firstName: string, lastName: string, typeName: string, phone: string, points: number, countyId: number, active: number) {
