@@ -69,6 +69,7 @@ CREATE TABLE status(
 CREATE TABLE county(
   countyId int not null AUTO_INCREMENT,
   name varchar(30) not null,
+  active tinyint(1) not null,
   CONSTRAINT county_pk primary key(countyId)
 );
 
