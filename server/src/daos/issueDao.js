@@ -37,4 +37,8 @@ export class IssueDao extends Dao {
       callback
     );
   }
+
+  getCategoryIssue(id: number, callback: Function) {
+    super.query("select * from issues where categoryId = ?", [id], callback);
+  }
 }
