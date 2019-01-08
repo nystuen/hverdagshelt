@@ -4,7 +4,7 @@ import {UserDao} from "../src/daos/userDao";
 
 let pool = mysql.createPool({
     connectionLimit: 1,
-    host: "mysql2",
+    host: "mysql",
     user: "root",
     password: "",
     database: "School",
