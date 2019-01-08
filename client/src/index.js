@@ -16,7 +16,24 @@ if (process.env.NODE_ENV !== 'production') {
 import createHashHistory from 'history/createHashHistory';
 const history = createHashHistory(); // Use history.push(...) to programmatically change path, for instance after successfully saving a student
 
+class User extends Component{
+    firstname = "";
+    surname = "";
+    address = "";
+    email = "";
+    password = "";
+    phoneNumber = "";
+    county = "";
 
+    registerUser = new RegisterUser();
+    render(){
+        return(
+            Lay
+
+        )
+    }
+
+}
 
 const root = document.getElementById('root');
 if (root)
