@@ -10,7 +10,6 @@ export class MinSideMenu extends React.Component <{ type: string }> {
                 {
                     this.props.type === 'privat' ? (
                         <div>
-                            <h5>Min Side</h5>
                             <ListGroup flush>
                                 <ListGroupItem tag="a" href="/#min_side/mine_saker">Mine Saker</ListGroupItem>
                                 <ListGroupItem tag="a" href="/#min_side/informasjon">Informasjon</ListGroupItem>
@@ -27,7 +26,6 @@ export class MinSideMenu extends React.Component <{ type: string }> {
                 {
                     this.props.type === 'admin' ? (
                         <div>
-                            <p>Min Side</p>
                             <ListGroup flush>
                                 <ListGroupItem tag="a" href="/#min_side/informasjon">Informasjon</ListGroupItem>
                                 <ListGroupItem tag="a" href="/#min_side/endre_passord">Endre Passord</ListGroupItem>
@@ -40,7 +38,6 @@ export class MinSideMenu extends React.Component <{ type: string }> {
                 {
                     this.props.type === 'bedrift' || this.props.type === 'ansatt' ? (
                         <div>
-                            <p>Min Bedrift</p>
                             <ListGroup flush>
                                 <ListGroupItem tag="a" href="/#min_side/arbeids_omraade">Arbeidsområde</ListGroupItem>
                                 <ListGroupItem tag="a" href="/#min_side/informasjon">Informasjon</ListGroupItem>
