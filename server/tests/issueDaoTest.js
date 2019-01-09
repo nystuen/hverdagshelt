@@ -36,9 +36,9 @@ test("Add a issue to database", done => {
 
     function callback2(status, data) {
         console.log(
-            "Test callback: status=" + status + ", data=" + JSON.stringify(data)
-        );
-        expect(data[0].userMail).toBe('petter@usermail.com');
+            "Test callback: status=" + status + ", data=" + JSON.stringify(data));
+
+        expect(data[0].userMail).toBe("petter@usermail.com");
         expect(data[0].latitude).toBe(23.234);
         expect(data[0].longitude).toBe(40.91);
         expect(data[0].text).toBe('TEST');
