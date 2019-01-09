@@ -104,6 +104,23 @@ CREATE TABLE companyComment(
   CONSTRAINT companyComment_fk primary key(commentId)
 );
 
+
+CREATE TABLE category2(
+  category2Id int not null AUTO_INCREMENT,
+  categoryId int not null,
+  name varchar(30) not null,
+  active boolean not null,
+  CONSTRAINT category2_pk primary key(category2Id)
+);
+
+CREATE TABLE category3(
+  category3Id int not null AUTO_INCREMENT,
+  category2Id int not null,
+  name varchar(30) not null,
+  active boolean not null,
+  CONSTRAINT category3_pk primary key(category3Id)
+);
+
 ALTER TABLE user
 ADD CONSTRAINT type_fk foreign key(typeName) REFERENCES types(typeName);
 
@@ -166,3 +183,9 @@ ADD COLUMN longitude double after text;
 
 ALTER TABLE event
   ADD COLUMN latitude double after text;
+
+ALTER TABLE category2
+ADD CONSTRAINT underCat_fk foreign key(categoryId) REFERENCES category(categoryId);
+
+ALTER TABLE category3
+ADD CONSTRAINT underCat2_fk foreign key(category2Id) REFERENCES category2(category2Id);
