@@ -28,10 +28,10 @@ export class NavbarMenu extends React.Component {
                     <Collapse isOpen={this.state.isOpen} navbar>
                         <Nav className="ml-auto" navbar>
                             <NavItem>
-                                <NavLink href="/login">Min Side</NavLink>
+                                <NavLink href="/#min_side/">Min Side</NavLink>
                             </NavItem>
                             <NavItem>
-                                <NavLink href="/login">Login</NavLink>
+                                <NavLink href="/#login/">Login</NavLink>
                             </NavItem>
                         </Nav>
                     </Collapse>

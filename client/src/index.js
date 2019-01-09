@@ -27,7 +27,7 @@ if (root)
             <div>
                 <NavbarMenu/>
                 <Alert/>
-                <Route path="/login" component={Login} />
+                <Route path="/#login" component={Login} />
             </div>
         </HashRouter>,
         root
