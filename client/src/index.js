@@ -7,6 +7,8 @@ import {HashRouter, Route, NavLink} from 'react-router-dom';
 import {Alert} from './widgets';
 import {NavbarMenu} from "./components/NavbarMenu/NavbarMenu";
 
+import {Login} from "./components/login/login";
+
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== 'production') {
     let script = document.createElement('script');
@@ -15,7 +17,6 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 import createHashHistory from 'history/createHashHistory';
-
 const history = createHashHistory(); // Use history.push(...) to programmatically change path, for instance after successfully saving a student
 
 
@@ -26,6 +27,7 @@ if (root)
             <div>
                 <NavbarMenu/>
                 <Alert/>
+                <Route path="/login" component={Login} />
             </div>
         </HashRouter>,
         root

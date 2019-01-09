@@ -2,7 +2,7 @@
 
 import {Dao} from "../dao";
 
-const bcrypt = require('bcrypt'); //to hash password
+const bcrypt = require('bcrypt-nodejs'); //to hash password
 
 export class UserDao extends Dao {
 
