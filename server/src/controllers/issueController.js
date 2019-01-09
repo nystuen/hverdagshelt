@@ -11,7 +11,7 @@ module.exports = function(app: Object, issueDao: Object) {
     });
   });
 
-  app.get("/allIssues", (req, res) => {
+  app.get("/Issues", (req, res) => {
     console.log("received get request from allIssues");
     issueDao.getAllIssues((status, data) => {
       res.status(status);
@@ -22,6 +22,14 @@ module.exports = function(app: Object, issueDao: Object) {
   app.get("/UserIssues/:UserMail", (req, res) => {
     console.log("received get request from issue from one user");
     issueDao.getUserIssue(req.params.UserMail, (status, data) => {
+      res.status(status);
+      res.json(data);
+    });
+  });
+
+  app.get("/Issues/:id", (req, res) => {
+    console.log("received get request from issues/:id");
+    issueDao.getOneIssue(req.params.id, (status, data) => {
       res.status(status);
       res.json(data);
     });
