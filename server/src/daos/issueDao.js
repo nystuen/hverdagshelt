@@ -27,12 +27,12 @@ export class IssueDao extends Dao {
   }
 
   getUserIssue(id: String, callback: Function) {
-    super.query("select * from issues where id = ?", [id], callback);
+    super.query("select * from issues where userMail = ?", [id], callback);
   }
 
   getCompanyIssue(id: String, callback: Function) {
     super.query(
-      "select * from issues NATURAL JOIN companyIssues ON issueId where companyMail = ?",
+      "select * from issues NATURAL JOIN companyIssues where companyMail = ?",
       [id],
       callback
     );
