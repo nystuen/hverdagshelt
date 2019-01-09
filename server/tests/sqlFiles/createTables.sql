@@ -1,3 +1,9 @@
+CREATE TABLE types(
+  typeName varchar(30) not null,
+  active boolean not null,
+  CONSTRAINT type_pk primary key(typeName)
+);
+
 CREATE TABLE user(
   mail varchar(30) not null,
   firstName varchar(30) not null,
@@ -11,10 +17,9 @@ CREATE TABLE user(
   CONSTRAINT user_pk primary key(mail)
 );
 
-CREATE TABLE types(
-  typeName varchar(30) not null,
-  active boolean not null,
-  CONSTRAINT type_pk primary key(typeName)
+CREATE TABLE status(
+  statusName varchar(30) not null,
+  CONSTRAINT status_pk primary key(statusName)
 );
 
 CREATE TABLE company(
@@ -23,6 +28,14 @@ CREATE TABLE company(
   companyName varchar(30),
   description text,
   CONSTRAINT company_pk primary key(typeName,companyMail)
+);
+
+
+CREATE TABLE county(
+  countyId int not null AUTO_INCREMENT,
+  name varchar(30) not null,
+  active tinyint(1) not null,
+  CONSTRAINT county_pk primary key(countyId)
 );
 
 CREATE TABLE category(
@@ -61,17 +74,8 @@ CREATE TABLE companyIssues(
   CONSTRAINT CI_pk primary key(issueId,typeName,companyMail)
 );
 
-CREATE TABLE status(
-  statusName varchar(30) not null,
-  CONSTRAINT status_pk primary key(statusName)
-);
 
-CREATE TABLE county(
-  countyId int not null AUTO_INCREMENT,
-  name varchar(30) not null,
-  active tinyint(1) not null,
-  CONSTRAINT county_pk primary key(countyId)
-);
+
 
 CREATE TABLE userCounties(
   userMail varchar(30) not null,
