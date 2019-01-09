@@ -19,7 +19,8 @@
     "bcrypt": "^3.0.3",
     "react": "^16.7.0",
     "react-router-dom": "^4.3.1",
-    "react-simplified": "^1.5.2"
+    "react-simplified": "^1.5.2",
+    "reactstrap": "^7.0.2"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
