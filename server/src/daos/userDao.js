@@ -17,4 +17,8 @@ export class UserDao extends Dao {
       callback
     );
   }
+    getUser(userMail: string, callback: Function) {
+        super.query("select * from user where mail=? ", [userMail], callback);
+    }//end method}
+
 }
