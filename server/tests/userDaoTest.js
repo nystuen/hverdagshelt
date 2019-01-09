@@ -56,5 +56,4 @@ test("Add a user to database", done => {
     userDao.addUser(post, callback);
     userDao.getUser('halo', callback2);
 
-
 });
