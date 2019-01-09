@@ -15,6 +15,8 @@ class RegisterUser extends Component{
     countyName: string;
     active: number;
 
+
+
     render(){
         return(
             <Form>

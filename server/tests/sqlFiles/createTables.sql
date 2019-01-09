@@ -1,5 +1,4 @@
 
-
 CREATE TABLE user(
   mail varchar(30) not null,
   firstName varchar(30) not null,
