@@ -1,51 +1,37 @@
 // @flow
 
 import React from 'react';
-import {Nav, NavItem, NavLink} from 'reactstrap';
+import {Nav, NavItem, NavLink, ListGroup, ListGroupItem} from 'reactstrap';
 
 export class MinSideMenu extends React.Component <{ type: string }> {
     render() {
         return (
             <div>
                 {
-                    this.props.type = 'privat' ? (
+                    this.props.type === 'privat' ? (
                         <div>
-                            <p>Min Side</p>
-                            <Nav vertical>
-                                <NavItem>
-                                    <NavLink href="/#min_side/mine_saker">Mine Saker</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink href="/#min_side/informasjon">Informasjon</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink href="/#min_side/kommuner">Kommuner</NavLink>
-                                </NavItem>
-                                <hr/>
-                                <NavItem>
-                                    <NavLink href="/#min_side/varselinstillinger">Varselinstillinger</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink href="/#min_side/endre_passord">Endre Passord</NavLink>
-                                </NavItem>
-                            </Nav>
+                            <h5>Min Side</h5>
+                            <ListGroup flush>
+                                <ListGroupItem tag="a" href="/#min_side/mine_saker">Mine Saker</ListGroupItem>
+                                <ListGroupItem tag="a" href="/#min_side/informasjon">Informasjon</ListGroupItem>
+                                <ListGroupItem tag="a" href="/#min_side/kommuner">Kommuner</ListGroupItem>
+                                <hr className="my-2"/>
+                                <ListGroupItem tag="a" href="/#min_side/varselinstillinger">Varselinstillinger</ListGroupItem>
+                                <ListGroupItem tag="a" href="/#min_side/endre_passord">Endre Passord</ListGroupItem>
+                            </ListGroup>
                         </div>
                     ) : (
                         <div/>
                     )
                 }
                 {
-                    this.props.type = 'admin' ? (
+                    this.props.type === 'admin' ? (
                         <div>
                             <p>Min Side</p>
-                            <Nav vertical>
-                                <NavItem>
-                                    <NavLink href="/#min_side/informasjon">Informasjon</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink href="/#min_side/endre_passord">Endre Passord</NavLink>
-                                </NavItem>
-                            </Nav>
+                            <ListGroup flush>
+                                <ListGroupItem tag="a" href="/#min_side/informasjon">Informasjon</ListGroupItem>
+                                <ListGroupItem tag="a" href="/#min_side/endre_passord">Endre Passord</ListGroupItem>
+                            </ListGroup>
                         </div>
                     ) : (
                         <div/>
@@ -55,21 +41,13 @@ export class MinSideMenu extends React.Component <{ type: string }> {
                     this.props.type === 'bedrift' || this.props.type === 'ansatt' ? (
                         <div>
                             <p>Min Bedrift</p>
-                            <Nav vertical>
-                                <NavItem>
-                                    <NavLink href="/#min_side/arbeidsomraade">Arbeidsområde</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink href="/#min_side/informasjon">Informasjon</NavLink>
-                                </NavItem>
-                                <NavItem>
-                                    <NavLink href="/#min_side/kommuner">Kommuner</NavLink>
-                                </NavItem>
-                                <hr/>
-                                <NavItem>
-                                    <NavLink href="/#min_side/endre_passord">Endre Passord</NavLink>
-                                </NavItem>
-                            </Nav>
+                            <ListGroup flush>
+                                <ListGroupItem tag="a" href="/#min_side/arbeids_omraade">Arbeidsområde</ListGroupItem>
+                                <ListGroupItem tag="a" href="/#min_side/informasjon">Informasjon</ListGroupItem>
+                                <ListGroupItem tag="a" href="/#min_side/kommuner">Kommuner</ListGroupItem>
+                                <hr className="my-2"/>
+                                <ListGroupItem tag="a" href="/#min_side/endre_passord">Endre Passord</ListGroupItem>
+                            </ListGroup>
                         </div>
                     ) : (
                         <div/>
