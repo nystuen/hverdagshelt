@@ -2,7 +2,7 @@
 
 import {Dao} from "../dao";
 
-export class userDao extends Dao {
+export class UserDao extends Dao {
 
     addUser(json: Object, callback: Function) {
         let val = [json.mail, json.typeName, json.phone, json.password, json.countyId];
