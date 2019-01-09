@@ -1,7 +1,8 @@
 // @flow
 
 import React, { Component, createRef } from 'react'
-import { Map, TileLayer, Marker, Popup } from 'react-leaflet'
+import { Map, TileLayer, Marker, Popup, withLeaflet } from 'react-leaflet'
+import Search from './Search'
 
 type State = {
   hasLocation: boolean,
@@ -35,10 +36,6 @@ export class MapComponent extends Component<{}, State> {
       hasLocation: true,
       latlng: e.latlng
     })
-    //const map = this.mapRef.current
-    //if(map != null) {
-    //  map.leafletElement.locate()
-    //}
   }
 
   handleLocationFound = (e: Object) => {
@@ -55,28 +52,33 @@ export class MapComponent extends Component<{}, State> {
     }
 
     let marker = this.state.hasLocation ? (
-      <Marker position={this.state.latlng}>
+      <Marker
+        position={this.state.latlng}
+        retainZoomLevel={true}>
       </Marker>
     ): null
+
+    const GeoSearch = withLeaflet(Search)
 
     return (
       <div className="test" style={styles}>
         <Map
           center={this.state.latlng}
           length={12}
-          onClick={this.handleClick}
           onLocationFound={this.handleLocationFound}
           ref={this.mapRef}
           minZoom={8}
           maxZoom={19}
           zoom={15}
         >
-          <TileLayer
-            attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-          />
-          {marker}
-        </Map>
+            <TileLayer
+              onClick={this.handleClick}
+              attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            <GeoSearch/>
+            {marker}
+          </Map>
       </div>
     )
   }
