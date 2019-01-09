@@ -31,7 +31,6 @@ let pool = mysql.createPool({
 
 let userDao = new UserDao(pool);
 
-
 // fire controllers
 userController(app, userDao);
 
