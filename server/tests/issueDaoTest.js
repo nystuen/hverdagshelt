@@ -66,7 +66,7 @@ test("Add a issue to database", done => {
 
     issueDao.addIssue(post, callback);
 
-    issueDao.getUserIssue('petter@usermail.com', callback2);
+    issueDao.getOneIssue(3, callback2);
 
 
 });
