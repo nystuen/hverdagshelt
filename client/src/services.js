@@ -17,7 +17,7 @@ export class UserService {
     }//end method
 
     getUser(mail: string): Promise<User>{
-        return axios.get('/get_user', mail);
+        return axios.get('/get_user/' + mail);
     }//end method
 
 }//end class
