@@ -14,6 +14,7 @@ export class MinSide extends React.Component {
                     </Col>
                     <Col xs="8">
                         <h1>Min Side</h1>
+
                     </Col>
                 </Row>
             </Grid>
