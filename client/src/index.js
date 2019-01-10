@@ -6,8 +6,8 @@ import {Component} from 'react-simplified';
 import {HashRouter, Route, NavLink} from 'react-router-dom';
 import {Alert} from './widgets';
 import {NavbarMenu} from "./components/NavbarMenu/NavbarMenu";
-import {MinSide} from "./views/MinSidePrivat/MinSidePrivat";
 import {Login} from "./views/login/login";
+import {MinSide} from "./views/MinSide/MinSide";
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== 'production') {
