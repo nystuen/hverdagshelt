@@ -1,15 +1,72 @@
 import {Container, Card, Col, Row, Button, Form, FormGroup, Label, Input, FormText , Table, Media, CardText} from 'reactstrap';
-import {CountyService, UserService} from "../../services";
+import {CountyService, UserService, getCounties} from "../../services";
 import {Component} from 'react';
 import * as React from 'react';
+import {Alert} from "../../widgets";
 import ReactDOM from 'react-dom';
+import {County} from "../../classTypes";
 
 let countyService = new CountyService();
 let userService = new UserService();
 
-export class RegisterUser extends Component{
+interface State{
+    mail: string;
+    firstName: string;
+    lastName: string;
+    postnumber: number;
+    password: string;
+    password2: string;
+    typeName: string;
+    phone: string;
+    points: number;
+    county: County;
+    countyName: string;
+    active: number;
+    isLoaded: boolean;
+}
+interface Props{
+    match: Object,
+}
 
-    user = {};
+export class RegisterUser extends Component<Props, State>{
+
+    state = {
+        mail: "",
+        firstName: "",
+        lastName: "",
+        postnumber: -1,
+        password: "",
+        password2: "",
+        typeName: "",
+        phone: -1,
+        points: -1,
+        county: [],
+        countyName: [],
+        active: -1,
+        isLoaded: false,
+    }
+
+    handleStringChange = (name: string) =>(event:SyntheticEvent<HTMLInputElement>)=>{
+        this.setState({
+            // $FlowFixMe
+            [name]:event.target.value,
+        })
+    };
+
+    handleNumberChange = (value: number) =>(event:SyntheticEvent<HTMLInputElement>)=>{
+        this.setState({
+            // $FlowFixMe
+            [value]:event.target.value,
+        })
+    };
+
+    handleChangeCounty = (event: SyntheticEvent<HTMLButtonElement>)=> {
+        this.setState({
+            // $FlowFixMe
+            countyId : event.target.value,
+        })
+    }
+
 
     render(){
         return(
@@ -19,20 +76,16 @@ export class RegisterUser extends Component{
                     <Row>
                             <FormGroup>
                                 <Col>
-                                    <Input type="text" value={this.user.firstName} placeholder="Fornavn"
-                                           onChange={(event: SyntheticInputEvent<HTMLInputElement>)=>{
-                                               if(this.user) this.user.firstName = event.target.value;
-                                           }}
+                                    <Input type="text" value={this.state.firstName} placeholder="Fornavn"
+                                           onChange={this.handleStringChange("firstName")}
                                     />
                                 </Col>
                             </FormGroup>
                             {' '}
                             <FormGroup>
                                 <Col>
-                                    <Input type="text" value={this.user.lastName} placeholder="Etternavn"
-                                           onChange={(event: SyntheticInputEvent<HTMLInputElement>)=>{
-                                               if(this.user) this.user.lastName = event.target.value;
-                                           }}
+                                    <Input type="text" value={this.state.lastName} placeholder="Etternavn"
+                                           onChange={this.handleStringChange("lastName")}
                                     />
                                 </Col>
                             </FormGroup>
@@ -41,20 +94,16 @@ export class RegisterUser extends Component{
                     <Row>
                             <FormGroup>
                                 <Col>
-                                    <Input type="text" value={this.user.address} placeholder="Addresse"
-                                           onChange={(event: SyntheticInputEvent<HTMLInputElement>)=>{
-                                               if(this.user) this.user.address = event.target.value;
-                                           }}
+                                    <Input type="text" value={this.state.address} placeholder="Addresse"
+                                           onChange={this.handleStringChange("address")}
                                     />
                                 </Col>
                             </FormGroup>
                         {' '}
                             <FormGroup>
                                 <Col>
-                                    <Input type="text" value={this.user.postNumber} placeholder="Postnummer"
-                                           onChange={(event: SyntheticInputEvent<HTMLInputElement>)=>{
-                                               if(this.user) this.user.postNumber = event.target.value;
-                                           }}
+                                    <Input type="text" value={this.state.postnumber} placeholder="Postnummer"
+                                           onChange={this.handleNumberChange("postnumber")}
                                     />
                                 </Col>
                             </FormGroup>
@@ -63,27 +112,32 @@ export class RegisterUser extends Component{
                     <Row>
                         <FormGroup>
                             <Col>
-                                <Input type="text" value={this.user.phone} placeholder="Telefonnummer"
-                                onChange={(event: SyntheticInputEvent<HTMLInputElement>)=>{
-                                if(this.user) this.user.phone = event.target.value;
-                                }}
+                                <Input type="text" value={this.state.phone} placeholder="Telefonnummer"
+                                onChange={this.handleNumberChange("phone")}
                                 />
                             </Col>
                         </FormGroup>
-                        {' '}
+                    </Row>
+                    <Row>
                         <FormGroup>
-                            <Col>
-
+                            <Col xs="6">
+                                <select className="selectpicker" data-style="btn-inverse" data-live-search="true">
+                                    value={this.state.countyName}
+                                    onChange={(e)=>this.handleChangeCounty(e)}>
+                                    {this.state.countyName.map((r, i) => {
+                                        return <option key={i} value={r}>{r}
+                                        </option>
+                                    })
+                                    }
+                                </select>
                             </Col>
                         </FormGroup>
-                        {' '}
-
+                    </Row>
+                    <Row>
                         <FormGroup>
                             <Col sm="12">
-                                <Input type="text" value={this.user.email} placeholder="Epost"
-                                onChange={(event: SyntheticInputEvent<HTMLInputElement>)=>{
-                                if(this.user) this.user.email = event.target.value;
-                                }}
+                                <Input type="text" value={this.state.email} placeholder="Epost"
+                                onChange={this.handleStringChange("email")}
                                 />
                             </Col>
                         </FormGroup>
@@ -91,52 +145,53 @@ export class RegisterUser extends Component{
                     <Row>
                         <FormGroup>
                             <Col>
-                                <Input type="text" value={this.user.password} placeholder="Passord"
-                                       onChange={(event: SyntheticInputEvent<HTMLInputElement>)=>{
-                                           if(this.user) this.user.password = event.target.value;
-                                       }}
+                                <Input type="text" value={this.state.password} placeholder="Passord"
+                                       onChange={this.handleStringChange("password")}
                                 />
                             </Col>
                         </FormGroup>
                         {' '}
                         <FormGroup>
                             <Col>
-                                <Input type="text" value={this.user.password2} placeholder="Gjenta passord"
-                                       onChange={(event: SyntheticInputEvent<HTMLInputElement>)=>{
-                                           if(this.user) this.user.password2 = event.target.value;
-                                       }}
+                                <Input type="text" value={this.state.password2} placeholder="Gjenta passord"
+                                       onChange={this.handleStringChange("password2")}
                                 />
                             </Col>
                         </FormGroup>
                         {' '}
                     </Row>
-                    <Button type="button" onClick={this.register}>Registrer</Button>
+                    <Button type="button" onClick={this.checkPass}>Registrer</Button>
                 </Form>
             </Container>
         );
+    }
+    checkPass(){
+        if(this.state.password===this.state.password2){
+            this.register();
+            Alert.success();
+        }else{
+            //Alert.warning();
+        }
     }
 
     componentDidMount() {
         countyService
             .getCounties()
             .then(county2 => {
-                this.county = county2;
-                console.log(county2)})
+                county2.map(e => this.state.county.push(e.id, e.name));
+                console.log(county2);
+            this.state.countyName.push(this.state.county.name)})
+            .catch((error: Error)=>Alert.danger(error.message))
+
     }
 
+
     register = () => {
-        console.log("test", this.user)
+        console.log("test", this.state.phone)
         userService
             .addUser(this.user)
             .then(user =>(this.user = user))
             .catch((error: Error)=>Alert.danger(error.message))
     }
 }
-/*<Input type="select" value={this.user.county} placeholder="Hjemmekommune"
-onChange={(event: SyntheticInputEvent<HTMLInputElement>)=>{
-if(this.user) this.user.county = event.target.value;
-}}
-{this.county.map(county1=>(
-<option key=
-{county1.county}>{county1.county}</option>
-))}/>*/
+/**/

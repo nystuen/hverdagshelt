@@ -14,14 +14,15 @@ export class User {
     mail: string;
     firstName: string;
     lastName: string;
+    postnumber: number;
     password: string;
     typeName: string;
-    phone: string;
+    phone: number;
     points: number;
     countyId: number;
     active: number;
 
-    constructor(mail: string, firstName: string, lastName: string, typeName: string, phone: string, points: number, countyId: number, active: number) {
+    constructor(mail: string, firstName: string, lastName: string, typeName: string, phone: number, points: number, countyId: number, active: number) {
         this.mail = mail;
         this.firstName = firstName;
         this.lastName = lastName;
