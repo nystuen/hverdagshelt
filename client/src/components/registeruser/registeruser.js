@@ -5,6 +5,8 @@ import * as React from 'react';
 import {Alert} from "../../widgets";
 import ReactDOM from 'react-dom';
 import {County} from "../../classTypes";
+import DropdownButton from "react-bootstrap/es/DropdownButton";
+import MenuItem from "react-bootstrap/es/MenuItem";
 
 let countyService = new CountyService();
 let userService = new UserService();
@@ -26,6 +28,57 @@ interface State{
 }
 interface Props{
     match: Object,
+}
+
+class BindDropDown extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            values:[
+                {name: "Bergen", id: 1}
+                //{ name: this.county.name, id: this.county.id}
+            ]
+        }
+    }
+
+    componentWillMount() {
+        var arr = []
+        countyService
+            .getCounties()
+            .then(county2 => {
+                county2.map(e => {
+                    var elem = {
+                        name: e.name,
+                        id: e.countyId
+                    }
+                    arr = arr.concat(elem)
+
+                });
+                this.setState({
+                    values: arr
+                })
+            })
+
+
+                //this.state.countyName.push(this.state.county.name)})
+            .catch((error: Error)=>Alert.danger(error.message))
+
+    }
+
+    render(){
+        console.log(this.state.values)
+        let optionTemplate = this.state.values.map(v => (
+            <option key={v.id} value={v.id}> {v.name}</option>
+        ))
+        return (
+            <label>
+                Velg Kommune:
+                <select value={this.state.value} onChange={this.handleChange}>
+                    {optionTemplate}
+                </select>
+            </label>
+        )
+    }
 }
 
 export class RegisterUser extends Component<Props, State>{
@@ -120,16 +173,9 @@ export class RegisterUser extends Component<Props, State>{
                     </Row>
                     <Row>
                         <FormGroup>
-                            <Col xs="6">
-                                <select className="selectpicker" data-style="btn-inverse" data-live-search="true">
-                                    value={this.state.countyName}
-                                    onChange={(e)=>this.handleChangeCounty(e)}>
-                                    {this.state.countyName.map((r, i) => {
-                                        return <option key={i} value={r}>{r}
-                                        </option>
-                                    })
-                                    }
-                                </select>
+                            <Col>
+                                <BindDropDown/>
+
                             </Col>
                         </FormGroup>
                     </Row>
@@ -174,16 +220,7 @@ export class RegisterUser extends Component<Props, State>{
         }
     }
 
-    componentDidMount() {
-        countyService
-            .getCounties()
-            .then(county2 => {
-                county2.map(e => this.state.county.push(e.id, e.name));
-                console.log(county2);
-            this.state.countyName.push(this.state.county.name)})
-            .catch((error: Error)=>Alert.danger(error.message))
 
-    }
 
 
     register = () => {
@@ -194,4 +231,15 @@ export class RegisterUser extends Component<Props, State>{
             .catch((error: Error)=>Alert.danger(error.message))
     }
 }
-/**/
+/*
+* <DropdownButton title="Hjemmekommune">
+                                     value={this.state.countyName}
+                                              onChange={(e)=>this.handleChangeCounty(e)}>
+                                        {this.state.countyName.map((r, i) => {
+                                            return <option key={i} value={r}>{r}
+                                            </option>
+                                        })
+                                        }
+
+                                </DropdownButton>
+* */
