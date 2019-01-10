@@ -88,12 +88,18 @@ export class Login extends Component<Props,State>{
     save = () =>{
         console.log(this.state.email);
         userService.getUserLogin(this.state.email).then(response => {
-            console.log(response[0].storedPassword);
             this.setState({
                 storedPassword: response[0].password,
-            })
+            });
+            console.log(this.state.storedPassword);
+            bcrypt.compare(this.state.password, response[0].password,function (err,res) {
+               if(res){
+                   
+               } else{
+                   Alert.danger('Feil passord!');
+               }//end condition
+            });
         }).catch((error:Error) => Alert.danger(error.message));
-        console.log(this.state.storedPassword);
     }//end method
 
 }//end class
