@@ -4,7 +4,8 @@ import React from 'react';
 import {MinSideMenu} from "../../components/MinSideMenu/MinSideMenu";
 import {Container, Col, Row} from "reactstrap";
 
-export class MinSide extends React.Component {
+export class MinSide extends React.Component <{match: {params: {menuChoice: string }}}> {
+
     render() {
         return (
             <Container fluid>
