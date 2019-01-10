@@ -6,7 +6,11 @@ import { Component } from "react-simplified";
 import { HashRouter, Route, NavLink } from "react-router-dom";
 import { Alert } from "./widgets";
 import { RegisterIssue } from "./components/RegisterIssue.js";
+<<<<<<< HEAD
 import { MultiStepForm } from "./MultiStepForm";
+=======
+import { countySubscription } from "./components/countySubscription.js";
+>>>>>>> eca7f26d31eb3edcbeeb9637956ef200c577224e
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
@@ -25,7 +29,11 @@ if (root)
       <div>
         <Alert />
         <Route exact path="/registerIssue" component={RegisterIssue} />
+<<<<<<< HEAD
         <Route exact path="/RegisterMultiStep" component={MultiStepForm} />
+=======
+          <Route exact path="/countySubscription" component={countySubscription} />
+>>>>>>> eca7f26d31eb3edcbeeb9637956ef200c577224e
       </div>
     </HashRouter>,
     root

@@ -1,3 +1,46 @@
+CREATE TABLE category(
+  categoryId int not null AUTO_INCREMENT,
+  name varchar(30) not null,
+  priority int not null,
+  active boolean not null,
+  CONSTRAINT category_pk primary key(categoryId)
+);
+
+
+CREATE TABLE types(
+  typeName varchar(30) not null,
+  active boolean not null,
+  CONSTRAINT type_pk primary key(typeName)
+);
+
+
+CREATE TABLE county(
+  countyId int not null AUTO_INCREMENT,
+  name varchar(30) not null,
+  active tinyint(1) not null,
+  CONSTRAINT county_pk primary key(countyId)
+);
+
+CREATE TABLE status(
+  statusName varchar(30) not null,
+  CONSTRAINT status_pk primary key(statusName)
+);
+
+CREATE TABLE company(
+  typeName varchar(30) not null,
+  companyMail varchar(30) not null,
+  companyName varchar(30),
+  description text,
+  CONSTRAINT company_pk primary key(typeName,companyMail)
+);
+
+CREATE TABLE companyCategories(
+  companyMail varchar(30) not null,
+  categoryId int not null,
+  CONSTRAINT CC_pk primary key(companyMail,categoryId)
+);
+
+
 CREATE TABLE user(
   mail varchar(30) not null,
   firstName varchar(30) not null,
@@ -9,34 +52,6 @@ CREATE TABLE user(
   countyId int not null,
   active boolean not null,
   CONSTRAINT user_pk primary key(mail)
-);
-
-CREATE TABLE types(
-  typeName varchar(30) not null,
-  active boolean not null,
-  CONSTRAINT type_pk primary key(typeName)
-);
-
-CREATE TABLE company(
-  typeName varchar(30) not null,
-  companyMail varchar(30) not null,
-  companyName varchar(30),
-  description text,
-  CONSTRAINT company_pk primary key(typeName,companyMail)
-);
-
-CREATE TABLE category(
-  categoryId int not null AUTO_INCREMENT,
-  name varchar(30) not null,
-  priority int not null,
-  active boolean not null,
-  CONSTRAINT category_pk primary key(categoryId)
-);
-
-CREATE TABLE companyCategories(
-  companyMail varchar(30) not null,
-  categoryId int not null,
-  CONSTRAINT CC_pk primary key(companyMail,categoryId)
 );
 
 CREATE TABLE issues(
@@ -61,23 +76,6 @@ CREATE TABLE companyIssues(
   CONSTRAINT CI_pk primary key(issueId,typeName,companyMail)
 );
 
-CREATE TABLE status(
-  statusName varchar(30) not null,
-  CONSTRAINT status_pk primary key(statusName)
-);
-
-CREATE TABLE county(
-  countyId int not null AUTO_INCREMENT,
-  name varchar(30) not null,
-  active tinyint(1) not null,
-  CONSTRAINT county_pk primary key(countyId)
-);
-
-CREATE TABLE userCounties(
-  userMail varchar(30) not null,
-  countyId int not null,
-  CONSTRAINT UC_pk primary key(userMail,countyId)
-);
 
 CREATE TABLE event(
   eventId int not null AUTO_INCREMENT,
@@ -102,6 +100,12 @@ CREATE TABLE companyComment(
   issueId int not null,
   text text,
   CONSTRAINT companyComment_fk primary key(commentId)
+);
+
+CREATE TABLE userCounties(
+  userMail varchar(30) not null,
+  countyId int not null,
+  CONSTRAINT UC_pk primary key(userMail,countyId)
 );
 
 ALTER TABLE user

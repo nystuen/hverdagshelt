@@ -1,5 +1,8 @@
 
 
+
+
+
 Insert into category(categoryId, name, priority, active) values (1,'Strøm',1,1);
 Insert into category(categoryId, name, priority, active) values (2,'Vann og avløp',2,1);
 
