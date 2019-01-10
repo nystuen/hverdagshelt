@@ -88,7 +88,7 @@ export class Login extends Component<Props,State>{
     save = () =>{
         console.log(this.state.email);
         userService.getUserLogin(this.state.email).then(response => {
-            console.log(response);
+            console.log(response[0].storedPassword);
             this.setState({
                 storedPassword: response[0].password,
             })
