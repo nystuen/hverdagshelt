@@ -8,7 +8,7 @@ export class UserDao extends Dao {
 
     addUser(json: Object, callback: Function) {
         let hashed = '';
-        bcrypt.hash(json.password,10,function (error,hash) {
+        bcrypt.hash(json.password, 10, function (error, hash) {
             hashed = hash;
         });
 
@@ -21,7 +21,11 @@ export class UserDao extends Dao {
         );
     }
 
-    getUser(userMail: string, password: string, callback: Function){
-        super.query("select mail,password from user where mail=? ", [userMail], callback);
+    getUserLogin(userMail: string, callback: Function) {
+        super.query("select mail, password from user where mail=? ", [userMail], callback);
     }//end method
+
+    getUser(userMail: string, callback: Function) {
+        super.query("select * from user where mail=? ", [userMail], callback);
+    }//end method}
 }

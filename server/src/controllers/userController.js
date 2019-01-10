@@ -15,8 +15,16 @@ module.exports = function (app: Object, userDao: Object) {
     });
 
     app.get('/verify_user', urlencodedParser, (req,res) => {
-        console.log('got get request from get_user');
-        userDao.getUser(req.userMail,req.password,(status,data) => {
+        console.log('got get request from verify_user');
+        userDao.getUserLogin(req.userMail,req.password,(status,data) => {
+            res.status(status);
+            res.json(data);
+        });
+    });
+
+    app.get('/get_user', urlencodedParser, (req, res) => {
+        console.log('got request from get_user');
+        userDao.getUser(req.userMail, (status, data) => {
             res.status(status);
             res.json(data);
         });

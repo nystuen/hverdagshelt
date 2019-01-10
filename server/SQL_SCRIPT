@@ -97,6 +97,13 @@ CREATE TABLE pushAlerts(
   CONSTRAINT PA_pk primary key(countyId,categoryId,userMail)
 );
 
+CREATE TABLE companyComment(
+  commentId int not null AUTO_INCREMENT,
+  issueId int not null,
+  text text,
+  CONSTRAINT companyComment_fk primary key(commentId)
+);
+
 ALTER TABLE user
 ADD CONSTRAINT type_fk foreign key(typeName) REFERENCES types(typeName);
 
@@ -153,3 +160,9 @@ ADD CONSTRAINT user3_fk foreign(userMail) REFERENCES user(mail);
 
 ALTER TABLE company
  ADD COLUMN orgNumber varchar(30) after description;
+
+ALTER TABLE event
+ADD COLUMN longitude double after text;
+
+ALTER TABLE event
+  ADD COLUMN latitude double after text;
