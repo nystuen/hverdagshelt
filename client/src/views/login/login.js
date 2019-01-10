@@ -14,8 +14,34 @@ import {Alert} from "../../widgets";
 let userService = new UserService();
 const bcrypt = require('bcrypt-nodejs');
 
-export class Login extends Component{
-    user = {};
+interface State {
+    email: string;
+    password: string;
+    storedPassword: string;
+}//end interface
+
+interface Props{}
+
+export class Login extends Component<Props,State>{
+    state = {
+        email: '',
+        password: '',
+        storedPassword: '',
+    };
+
+    handleChangeEmail = (event: SyntheticEvent<HTMLButtonElement>) => {
+        this.setState({
+            email: event.target.value,
+        })
+    };
+
+    handleChangePassword = (event: SyntheticEvent<HTMLButtonElement>) => {
+      this.setState({
+          password: event.target.value,
+      })
+    };
+
+
     render(){
         return(
             <Container>
@@ -30,14 +56,14 @@ export class Login extends Component{
                             <Col>
                                 <Input placeholder='Email'
                                    type="text"
-                                   value={this.user.email}
-                                   onChange={(event: SyntheicInputEvent<HTMLInputElement>) => (this.user.email = event.target.value)}/>
+                                   value={this.state.email}
+                                   onChange={this.handleChangeEmail}/>
                             </Col>
                             <Col>
                                 <Input placeholder='Passord'
                                     type="text"
-                                    value={this.user.password}
-                                    onChange={(event: SyntheicInputEvent<HTMLInputElement>) => (this.user.password = event.target.value)}/>
+                                    value={this.state.password}
+                                    onChange={this.handleChangePassword}/>
                             </Col>
                         </Row>
                         <Row>
@@ -57,5 +83,17 @@ export class Login extends Component{
             </Container>
         )
     }//end method
-    
+
+
+    save = () =>{
+        console.log(this.state.email);
+        userService.getUserLogin(this.state.email).then(response => {
+            console.log(response);
+            this.setState({
+                storedPassword: response[0].password,
+            })
+        }).catch((error:Error) => Alert.danger(error.message));
+        console.log(this.state.storedPassword);
+    }//end method
+
 }//end class

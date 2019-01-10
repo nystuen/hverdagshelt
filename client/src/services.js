@@ -12,12 +12,12 @@ export class UserService {
         return axios.post('/add_user', newUser);
     }//end method
 
-    getUserLogin(mail: string): Promise<string[]>{
-        return axios.get('/verify_user', mail);
+    getUserLogin(email: string): Promise<string[]>{
+        return axios.get('/verify_user/' + email);
     }//end method
 
     getUser(mail: string): Promise<User>{
-        return axios.get('/get_user', mail);
+        return axios.get('/get_user/' +  mail);
     }//end method
 
 }//end class
