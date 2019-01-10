@@ -17,7 +17,6 @@ export class MinSideMenuController extends React.Component <{type: string, menuC
                     )
                 }
 
-
                 {
                     this.props.menuChoice === 'mine_saker' ? (
                         <div>
@@ -27,7 +26,6 @@ export class MinSideMenuController extends React.Component <{type: string, menuC
                         <div/>
                     )
                 }
-
 
                 {
                     this.props.menuChoice === 'arbeidsomraade' ? (
@@ -39,7 +37,6 @@ export class MinSideMenuController extends React.Component <{type: string, menuC
                     )
                 }
 
-
                 {
                     this.props.menuChoice === 'kommuner' ? (
                         <div>
@@ -49,7 +46,6 @@ export class MinSideMenuController extends React.Component <{type: string, menuC
                         <div/>
                     )
                 }
-
 
                 {
                     this.props.menuChoice === 'varselinstillinger' ? (
