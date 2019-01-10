@@ -94,7 +94,9 @@ export class Login extends Component<Props,State>{
             console.log(this.state.storedPassword);
             bcrypt.compare(this.state.password, response[0].password,function (err,res) {
                if(res){
-                   
+                    userService.login(response[0].mail).then(r => {
+                        ///
+                    }).catch((error:Error) => Alert.danger(error.message));
                } else{
                    Alert.danger('Feil passord!');
                }//end condition

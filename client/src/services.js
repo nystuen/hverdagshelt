@@ -20,5 +20,9 @@ export class UserService {
         return axios.get('/get_user/' +  mail);
     }//end method
 
+    login(userMail: string): Promise<void>{
+        return axios.post('/login/', userMail)
+    }//end method
+
 }//end class
 
