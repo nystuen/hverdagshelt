@@ -1,6 +1,6 @@
 // @flow
 import axios from 'axios';
-import {User, Issue, Category, Company, Event, Type} from "./classTypes";
+import {User, County, Issue, Category, Company, Event, Type} from "./classTypes";
 
 axios.interceptors.response.use(response => response.data);
 
@@ -12,4 +12,10 @@ export class UserService {
         return axios.post('/add_user', newUser);
     }
 
+}
+
+export class CountyService{
+    getCounties(): Promise<County[]>{
+        return axios.get('/getCounties');
+    }
 }
