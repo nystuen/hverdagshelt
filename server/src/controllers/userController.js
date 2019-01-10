@@ -3,6 +3,7 @@
 let jwt = require("jsonwebtoken");
 let bodyParser = require('body-parser');
 let urlencodedParser = bodyParser.urlencoded({extended: false});
+const bcrypt = require('bcrypt-nodejs'); //to hash password
 
 module.exports = function (app: Object, userDao: Object) {
 
@@ -10,11 +11,15 @@ module.exports = function (app: Object, userDao: Object) {
         console.log('got post request from add_user');
         console.log(req.body);
 
-
-        userDao.addUser(req.body, (status, data) => {
-            res.status(status);
-            res.json(data);
+        let hashed = '';
+        bcrypt.hash(req.body.password, null, null, function (error, hash) {
+            hashed = hash;
+            userDao.addUser(req.body, hashed ,(status, data) => {
+                res.status(status);
+                res.json(data);
+            });
         });
+
     });
 
     app.get('/verify_user/:email', urlencodedParser, (req,res) => {
