@@ -16,6 +16,8 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "axios": "^0.18.0",
+    "esri-leaflet": "^2.2.3",
+    "esri-leaflet-geocoder": "^2.2.13",
     "leaflet": "^1.4.0",
     "leaflet-geosearch": "^2.7.0",
     "react-leaflet": "^2.1.4",
