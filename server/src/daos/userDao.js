@@ -8,16 +8,19 @@ export class UserDao extends Dao {
 
     addUser(json: Object, callback: Function) {
         let hashed = '';
-        bcrypt.hash(json.password, 10, function (error, hash) {
+        bcrypt.hash(json.password, null, null, function (error, hash) {
             hashed = hash;
+            let val = [json.mail, json.firstName, json.lastName, hashed, json.typeName, json.phone, json.countyId];
+            super.query(
+                "insert into user (mail, firstName, lastName, password, typeName, phone, points, countyId, active) values(?, ?, ?, ?, ?, ?, 0, ?, 1)",
+                val,
+                callback
+            );
         });
+        console.log(hashed);
 
-        let val = [json.mail, json.typeName, json.phone, hashed, json.countyId];
-        super.query(
-            "insert into user (mail, typeName, phone, password, points, countyId, active) values(?, ?, ?, ?, 0, ?, 1)",
-            val,
-            callback
-        );
+
+
     }
 
     getUserLogin(userMail: string, callback: Function) {

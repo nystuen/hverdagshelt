@@ -8,6 +8,9 @@ module.exports = function (app: Object, userDao: Object) {
 
     app.post('/add_user', urlencodedParser, (req, res) => {
         console.log('got post request from add_user');
+        console.log(req.body);
+
+
         userDao.addUser(req.body, (status, data) => {
             res.status(status);
             res.json(data);
