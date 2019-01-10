@@ -6,6 +6,7 @@ import { Component } from "react-simplified";
 import { HashRouter, Route, NavLink } from "react-router-dom";
 import { Alert } from "./widgets";
 import { RegisterIssue } from "./components/RegisterIssue.js";
+import { countySubscription } from "./components/countySubscription.js";
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
@@ -24,6 +25,7 @@ if (root)
       <div>
         <Alert />
         <Route exact path="/registerIssue" component={RegisterIssue} />
+          <Route exact path="/countySubscription" component={countySubscription} />
       </div>
     </HashRouter>,
     root
