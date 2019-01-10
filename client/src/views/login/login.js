@@ -7,8 +7,10 @@ import {User} from "../../classTypes";
 
 export class Login extends Component{
     render(){
-        <form className="">
+        return (
+            <form className="">
 
-        </form>
+            </form>
+        );
     }
 }//end class
