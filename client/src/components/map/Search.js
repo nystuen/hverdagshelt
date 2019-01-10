@@ -1,11 +1,7 @@
 import { GeoSearchControl, OpenStreetMapProvider } from 'leaflet-geosearch';
-import L from "leaflet";
-import { Map, TileLayer, MapControl } from 'react-leaflet';
+import { Map, TileLayer, MapControl, Marker, Popup } from 'react-leaflet';
 
 class Search extends MapControl {
-  constructor(props, context) {
-    super(props);
-  }
 
   createLeafletElement(opts) {
     const provider = new OpenStreetMapProvider();
@@ -14,11 +10,11 @@ class Search extends MapControl {
       style: 'bar',
       showMarker: true,
       showPopup: true,
-      autoClose: true,
-      retainZoomLevel: false,
+      autoClose: false,
+      retainZoomLevel: true,
       animateZoom: true,
       keepResult: false,
-      searchLabel: 'search'
+      searchLabel: 'Søk'
     });
 
     return searchControl;

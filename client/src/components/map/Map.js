@@ -31,11 +31,17 @@ export class MapComponent extends Component<{}, State> {
 
   mapRef = createRef<Map>()
 
-  handleClick = (e: Object) => {
+  handleMapClick = (e: Object) => {
+    console.log('MapClick')
     this.setState({
       hasLocation: true,
       latlng: e.latlng
     })
+  }
+
+  handleSearchClick = (e: Object) => {
+    e.stopPropagation()
+    console.log('SearchClick')
   }
 
   handleLocationFound = (e: Object) => {
@@ -52,19 +58,18 @@ export class MapComponent extends Component<{}, State> {
     }
 
     let marker = this.state.hasLocation ? (
-      <Marker
-        position={this.state.latlng}
-        retainZoomLevel={true}>
+      <Marker position={this.state.latlng}>
       </Marker>
     ): null
 
     const GeoSearch = withLeaflet(Search)
 
     return (
-      <div className="test" style={styles}>
+      <div className="test" onClick={this.handleSearchClick} style={styles}>
         <Map
           center={this.state.latlng}
           length={12}
+          onClick={this.handleMapClick}
           onLocationFound={this.handleLocationFound}
           ref={this.mapRef}
           minZoom={8}
@@ -72,11 +77,12 @@ export class MapComponent extends Component<{}, State> {
           zoom={15}
         >
             <TileLayer
-              onClick={this.handleClick}
               attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
-            <GeoSearch/>
+            <GeoSearch
+              onClick={this.handleSearchClick}
+            />
             {marker}
           </Map>
       </div>
