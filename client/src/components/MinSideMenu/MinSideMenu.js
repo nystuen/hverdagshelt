@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import {Nav, NavItem, NavLink, ListGroup, ListGroupItem} from 'reactstrap';
+import {ListGroup, ListGroupItem} from 'react-bootstrap';
 
 export class MinSideMenu extends React.Component <{ type: string }> {
     render() {
