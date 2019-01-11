@@ -10,6 +10,8 @@ import Col from "reactstrap/es/Col";
 import Input from "reactstrap/es/Input";
 import {UserService} from "../../services";
 import {Alert} from "../../widgets";
+let jwt = require("jsonwebtoken");
+
 
 let userService = new UserService();
 const bcrypt = require('bcrypt-nodejs');
@@ -75,6 +77,9 @@ export class Login extends Component<Props,State>{
                                 <button type="button" className="btn btn-dark float-left" onClick={this.save}>
                                 Login
                             </button>
+                                <button type="button" className="btn btn-dark float-left" onClick={this.sjekk}>
+                                    Sjekk
+                                </button>
                             </Col>
                             <Col> </Col>
                         </Row>
@@ -86,20 +91,32 @@ export class Login extends Component<Props,State>{
 
 
     save = () =>{
-        console.log(this.state.email);
+        //console.log(this.state.email);
         userService.getUserLogin(this.state.email).then(response => {
             this.setState({
                 storedPassword: response[0].password,
             });
-            console.log(this.state.storedPassword);
             bcrypt.compare(this.state.password, response[0].password,function (err,res) {
                if(res){
-                   Alert.success('EEY');
+                    userService.login({ userMail : response[0].mail, typeId : response[0].typeName}).then(r => {
+                        let token = r.jwt;
+                       // console.log(r.jwt);
+                        window.localStorage.setItem('userToken', token)
+                    }).catch((error:Error) => Alert.danger(error.message));
                } else{
                    Alert.danger('Feil passord!');
                }//end condition
             });
         }).catch((error:Error) => Alert.danger(error.message));
     }//end method
+
+    sjekk = () => {
+        let decoded = jwt.verify(window.localStorage.getItem('userToken'), "shhhhhverysecret");
+        console.log(decoded.email + '\n' + 'type: ' + decoded.typeId);
+        userService.getUser(decoded.email)
+            .then(e => {
+                console.log(e);
+            })
+    }
 
 }//end class
