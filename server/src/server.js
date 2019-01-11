@@ -1,15 +1,16 @@
 // @flow
 
-import {IssueDao} from "./daos/issueDao"
 import express from 'express';
 import path from 'path';
 import reload from 'reload';
 import fs from 'fs';
 import {UserDao} from "./daos/userDao";
 import {CountyDao} from "./daos/countyDao";
+import {IssueDao} from "./daos/issueDao";
 import userController from './controllers/userController.js'
 import issueController from "./controllers/issueController.js";
 import countyController from "./controllers/countyController.js"
+import {IssueDao} from "./daos/issueDao"
 import * as mysql from "mysql2";
 
 type Request = express$Request;
@@ -24,12 +25,12 @@ app.use(express.json()); // For parsing application/json
 
 // connect to database
 let pool = mysql.createPool({
-  connectionLimit: 10,
-  host: "mysql.stud.iie.ntnu.no",
-  user: "magnusrm",
-  password: "fKzwPFN3",
-  database: "magnusrm",
-  debug: false
+    connectionLimit: 10,
+    host: "mysql.stud.iie.ntnu.no",
+    user: "magnusrm",
+    password: "fKzwPFN3",
+    database: "magnusrm",
+    debug: false
 });
 
 let userDao = new UserDao(pool);
@@ -43,16 +44,16 @@ countyController(app, countyDao);
 
 // Hot reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
-  let reloadServer = reload(app);
-  fs.watch(public_path, () => reloadServer.reload());
+    let reloadServer = reload(app);
+    fs.watch(public_path, () => reloadServer.reload());
 }
 
 // The listen promise can be used to wait for the web server to start (for instance in your tests)
 export let listen = new Promise<void>((resolve, reject) => {
-  app.listen(3000, error => {
-    console.log(error);
-    if (error) reject(error.message);
-    console.log("Server started");
-    resolve();
-  });
+    app.listen(3000, error => {
+        console.log(error);
+        if (error) reject(error.message);
+        console.log("Server started");
+        resolve();
+    });
 });

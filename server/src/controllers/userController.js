@@ -21,9 +21,9 @@ module.exports = function (app: Object, userDao: Object) {
         });
     });
 
-    app.get('/get_user', urlencodedParser, (req, res) => {
+    app.get('/get_user/:userMail', urlencodedParser, (req, res) => {
         console.log('got request from get_user');
-        userDao.getUser(req.userMail, (status, data) => {
+        userDao.getUser(req.params.userMail, (status, data) => {
             res.status(status);
             res.json(data);
         });
