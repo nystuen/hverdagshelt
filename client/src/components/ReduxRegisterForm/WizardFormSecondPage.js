@@ -2,6 +2,7 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 import validate from "./validate";
 import renderField from "./renderField";
+import { Button } from "react-bootstrap";
 
 const renderError = ({ meta: { touched, error } }) =>
   touched && error ? <span>{error}</span> : false;
@@ -17,12 +18,17 @@ const WizardFormSecondPage = props => {
         label="Category ID"
       />
       <div>
-        <button type="button" className="previous" onClick={previousPage}>
+        <Button
+          bsStyle="primary"
+          type="button"
+          className="previous"
+          onClick={previousPage}
+        >
           Previous
-        </button>
-        <button type="submit" className="next">
+        </Button>
+        <Button bsStyle="primary" type="submit" className="next">
           Next
-        </button>
+        </Button>
       </div>
     </form>
   );

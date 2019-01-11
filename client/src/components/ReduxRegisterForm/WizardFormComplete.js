@@ -10,11 +10,8 @@ export class WizardFormComplete extends React.Component {
     return (
       <Provider store={store}>
         <div className="container">
-          <div>
+          <div style={{ marginLeft: "200px", marginRight: "200px" }}>
             <WizardForm onSubmit={showResults} />
-          </div>
-          <div className="container">
-            <h6>Test</h6>
           </div>
         </div>
       </Provider>
