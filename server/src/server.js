@@ -10,7 +10,6 @@ import {IssueDao} from "./daos/issueDao";
 import userController from './controllers/userController.js'
 import issueController from "./controllers/issueController.js";
 import countyController from "./controllers/countyController.js"
-import {IssueDao} from "./daos/issueDao"
 import * as mysql from "mysql2";
 
 type Request = express$Request;
