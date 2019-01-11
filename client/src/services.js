@@ -22,11 +22,6 @@ export class UserService {
 
 }//end class
 
-export class MyPage{
-
-
-
-}
 
 export function getAllCounties(usermail:string): Promise<County[]> {
     return axios.get('/getAllCountiesMinusUsers/'+ usermail);
