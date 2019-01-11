@@ -73,8 +73,6 @@ module.exports = function (app: Object, userDao: Object) {
             res.json(data);
         });
     });
-
-
 };
 
 
