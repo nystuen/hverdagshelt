@@ -16,8 +16,15 @@
   "dependencies": {
     "@babel/polyfill": "^7.0.0",
     "axios": "^0.18.0",
+    "prop-types": "^15.6.2",
+    "react-bootstrap": "^0.32.4",
+    "react-multistep": "^3.2.5",
+    "react-redux": "^6.0.0",
     "react-router-dom": "^4.3.1",
-    "react-simplified": "^1.5.2"
+    "react-simplified": "^1.5.2",
+    "reactstrap": "^7.0.2",
+    "redux": "^4.0.1",
+    "redux-form": "^8.1.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
