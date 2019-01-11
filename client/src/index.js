@@ -30,7 +30,6 @@ if (root)
                 <Alert/>
                 <Route path="/login" component={Login} />
                 <Route path="/min_side" component={MinSide} />
-                <Route path="/velgKategori" component={ChooseCategory} />
             </div>
         </HashRouter>,
         root
