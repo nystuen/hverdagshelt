@@ -1,14 +1,15 @@
 // @flow
 
-
-import { UserDao } from "./daos/userDao";
+import {IssueDao} from "./daos/issueDao"
 import express from 'express';
 import path from 'path';
 import reload from 'reload';
 import fs from 'fs';
 import {UserDao} from "./daos/userDao";
+import {CountyDao} from "./daos/countyDao";
 import userController from './controllers/userController.js'
 import issueController from "./controllers/issueController.js";
+import countyController from "./controllers/countyController.js"
 import * as mysql from "mysql2";
 
 type Request = express$Request;
@@ -33,10 +34,12 @@ let pool = mysql.createPool({
 
 let userDao = new UserDao(pool);
 let issueDao = new IssueDao(pool);
+let countyDao = new CountyDao(pool);
 
 //fire controllers
 issueController(app, issueDao);
 userController(app, userDao);
+countyController(app, countyDao);
 
 // Hot reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {

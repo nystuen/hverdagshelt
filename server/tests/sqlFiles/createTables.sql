@@ -1,3 +1,8 @@
+drop table if exists userCounties;
+drop table if exists companyComment;
+
+
+
 CREATE TABLE category(
   categoryId int not null AUTO_INCREMENT,
   name varchar(30) not null,
