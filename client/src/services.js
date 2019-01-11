@@ -17,11 +17,11 @@ export class UserService {
     }//end method
 
     getUser(mail: string): Promise<User>{
-        return axios.get('/get_user/' +  mail);
+        return axios.get('/user/get_user/' +  mail, window.localStorage.getItem('userToken'));
     }//end method
 
-    login(userMail: string): Promise<void>{
-        return axios.post('/login/', userMail)
+    login(userMail: Object<JSON>): Promise<void>{
+        return axios.post('/login/', userMail);
     }//end method
 
 }//end class
