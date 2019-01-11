@@ -4,7 +4,8 @@ import React from 'react';
 import {Grid, Col, Row, Button} from "react-bootstrap";
 import {ChooseCategory} from "../../components/ChooseCategory/ChooseCategory";
 
-export class MinSide extends React.Component {
+export class MinSide extends React.Component <{match: {params: {menuChoice: string }}}> {
+
     render() {
         return (
             <Grid fluid>
