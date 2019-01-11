@@ -2,14 +2,27 @@
 
 
 import React from 'react';
+import jwt from 'jsonwebtoken';
 import {Grid, Row, Col, ListGroup, ListGroupItem} from 'react-bootstrap';
 
-export class KontoOversikt extends React.Component <{type: string}> {
+interface State {
+    decoded: Object
+}
+
+export class KontoOversikt extends React.Component <State> {
+
+state = {
+    decoded : jwt.verify(window.localStorage.getItem('userToken'), "shhhhhverysecret")
+
+};
+
+
     render() {
         return(
             <Grid>
+                {console.log(this.state.decoded)}
                 {
-                    this.props.type === 'person' ? (
+                    this.state.decoded.typeId === 'User' ? (
                         <div>
                             <ListGroup>
                                 <ListGroupItem header="Navn">per</ListGroupItem>
@@ -26,7 +39,7 @@ export class KontoOversikt extends React.Component <{type: string}> {
                 }
 
                 {
-                    this.props.type === 'bedrift' ? (
+                    this.state.decoded.typeId === 'Company' ? (
                         <div>
                             <ListGroup>
                                 <ListGroupItem header="Bedriftens navn">data</ListGroupItem>
@@ -49,7 +62,7 @@ export class KontoOversikt extends React.Component <{type: string}> {
                 }
 
                 {
-                    this.props.type === 'person' ? (
+                    this.state.decoded.typeId === 'Admin' || this.state.decoded.typeId === 'Employee' ? (
                         <div>
                             <ListGroup>
                                 <ListGroupItem header="Fornavn">per</ListGroupItem>
