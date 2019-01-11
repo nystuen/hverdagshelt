@@ -65,7 +65,7 @@ const WizardFormThirdPage = props => {
             component={renderField}
             label="Beskrivelse"
           />
-          <Field name="pic" type="text" component={renderField} label="Bilde" />
+          <Field name="pic" component={renderField} label="Bilde" />
           <Field name="date" type="text" component={renderField} label="Dato" />
         </div>
       </div>
