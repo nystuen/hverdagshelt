@@ -32,8 +32,14 @@ let pool = mysql.createPool({
 let userDao = new UserDao(pool);
 let issueDao = new IssueDao(pool);
 
+<<<<<<< HEAD
 //fire controllers
 issueController(app, issueDao);
+=======
+let userDao = new UserDao(pool);
+
+
+>>>>>>> feature/leaflet/get_location_of_marker
 
 // Hot reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {

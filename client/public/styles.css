@@ -1,0 +1,19 @@
+html {
+  height: 100%;
+}
+
+body {
+  height: 100%;
+}
+
+#app div{
+height:100%
+}
+
+#root {
+  height: 100%
+}
+
+.leaflet-container {
+    height: 100%;
+}
