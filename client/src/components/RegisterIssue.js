@@ -16,7 +16,7 @@ import {
   Table,
   Media,
   CardText
-} from "reactstrap";
+} from "react-bootstrap";
 
 export class RegisterIssue extends Component {
   userMail = "";
@@ -36,7 +36,7 @@ export class RegisterIssue extends Component {
           <Row>
             <Col md={6}>
               <FormGroup>
-                <Input
+                <input
                   type="text"
                   value={this.userMail}
                   placeholder="UserMail"
@@ -46,7 +46,7 @@ export class RegisterIssue extends Component {
                 />
               </FormGroup>
               <FormGroup>
-                <Input
+                <input
                   type="text"
                   value={this.latitude}
                   placeholder="Latitude"
@@ -56,7 +56,7 @@ export class RegisterIssue extends Component {
                 />
               </FormGroup>
               <FormGroup>
-                <Input
+                <input
                   type="text"
                   value={this.longitude}
                   placeholder="longitude"
@@ -66,7 +66,7 @@ export class RegisterIssue extends Component {
                 />
               </FormGroup>
               <FormGroup>
-                <Input
+                <input
                   type="text"
                   value={this.text}
                   placeholder="Text"
@@ -76,7 +76,7 @@ export class RegisterIssue extends Component {
                 />
               </FormGroup>
               <FormGroup>
-                <Input
+                <input
                   type="text"
                   value={this.picture}
                   placeholder="Picture"
@@ -86,7 +86,7 @@ export class RegisterIssue extends Component {
                 />
               </FormGroup>
               <FormGroup>
-                <Input
+                <input
                   type="text"
                   value={this.date}
                   placeholder="Date"
@@ -96,7 +96,7 @@ export class RegisterIssue extends Component {
                 />
               </FormGroup>
               <FormGroup>
-                <Input
+                <input
                   type="text"
                   value={this.statusName}
                   placeholder="StatusName"
@@ -106,7 +106,7 @@ export class RegisterIssue extends Component {
                 />
               </FormGroup>
               <FormGroup>
-                <Input
+                <input
                   type="text"
                   value={this.categoryId}
                   placeholder="Category ID"
@@ -116,7 +116,7 @@ export class RegisterIssue extends Component {
                 />
               </FormGroup>
               <FormGroup>
-                <Input
+                <input
                   type="text"
                   value={this.countyId}
                   placeholder="County ID"

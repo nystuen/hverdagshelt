@@ -1,6 +1,6 @@
 // @flow
 import axios from 'axios';
-import {User, Issue, Category, Company, Event, Type} from "./classTypes";
+import {User, Issue, Category, Company, Event, Type, County} from "./classTypes";
 
 axios.interceptors.response.use(response => response.data);
 
@@ -21,3 +21,27 @@ export class UserService {
     }//end method
 
 }//end class
+
+export class MyPage{
+
+
+
+}
+
+export function getAllCounties(usermail:string): Promise<County[]> {
+    return axios.get('/getAllCountiesMinusUsers/'+ usermail);
+}
+
+export function getUsersCounties(usermail: string): Promise<County[]>{
+    return axios.get('/getSubscribedCounties/'+ usermail);
+}
+
+export function deleteSubscription(usermail: string){
+    return axios.delete('/deleteAllSubscribedCounties/'+ usermail);
+}
+
+export function addSubscription(json: Object){
+    return axios.post('/addSubscription', json);
+}
+
+

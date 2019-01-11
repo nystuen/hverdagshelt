@@ -30,7 +30,7 @@ if (root)
                 <Alert/>
                 <NavbarMenu/>
                 <Route exact path="/registerIssue" component={RegisterIssue}/>
-                <Route exact path="/countySubscription" component={countySubscription}/>
+                <Route path="/countySubscription/:userMail" component={countySubscription}/>
                 <Route path="/min_side" component={MinSide}/>
                 <Route path="/login" component={Login}/>
             </div>
