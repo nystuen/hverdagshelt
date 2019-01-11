@@ -1,8 +1,7 @@
 // @flow
 
 import React from 'react';
-import {MinSideMenu} from "../../components/MinSideMenu/MinSideMenu";
-import {Grid, Col, Row} from "react-bootstrap";
+import {Grid, Col, Row, Button} from "react-bootstrap";
 
 export class MinSide extends React.Component <{match: {params: {menuChoice: string }}}> {
 
@@ -12,7 +11,6 @@ export class MinSide extends React.Component <{match: {params: {menuChoice: stri
                 <Row>
                     <Col xs="2">
                         <div className="border-right">
-                            <MinSideMenu type='privat'/>
                         </div>
                     </Col>
                     <Col xs="8">
