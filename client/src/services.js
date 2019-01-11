@@ -17,7 +17,7 @@ export class UserService {
     }//end method
 
     getUser(mail: string): Promise<User>{
-        return axios.get('/user/get_user/' +  mail, window.localStorage.getItem('userToken'));
+        return axios.get('/user/get_user/' +  mail);
     }//end method
 
     login(userMail: Object<JSON>): Promise<void>{
