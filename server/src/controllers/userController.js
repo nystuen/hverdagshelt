@@ -10,6 +10,7 @@ let privateKey = "shhhhhverysecret";
 
 module.exports = function (app: Object, userDao: Object) {
 
+    /*
     app.use("/user", (req, res, next) => {
         let token = req.body;
         console.log(req.body);
@@ -26,7 +27,7 @@ module.exports = function (app: Object, userDao: Object) {
             }
         });
     });
-
+*/
     app.post('/add_user', urlencodedParser, (req, res) => {
         console.log('got post request from add_user');
         console.log(req.body);
@@ -76,6 +77,8 @@ module.exports = function (app: Object, userDao: Object) {
 
 };
 
+
+/*
 const checkToken = (req, res, next) => {
     const header = req.headers['authorization'];
 
@@ -90,3 +93,4 @@ const checkToken = (req, res, next) => {
         res.sendStatus(403)
     }
 };
+*/

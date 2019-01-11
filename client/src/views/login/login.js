@@ -108,7 +108,7 @@ export class Login extends Component<Props,State>{
                }//end condition
             });
         }).catch((error:Error) => Alert.danger(error.message));
-    }//end method
+    };//end method
 
     sjekk = () => {
         let decoded = jwt.verify(window.localStorage.getItem('userToken'), "shhhhhverysecret");
