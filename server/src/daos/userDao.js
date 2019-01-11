@@ -15,7 +15,7 @@ export class UserDao extends Dao {
 
         let val = [json.mail, json.typeName, json.phone, hashed, json.countyId];
         super.query(
-            "insert into user (mail, typeName, phone, password, points, countyId, active) values(?, ?, ?, ?, 0, ?, 1)",
+            "insert into user (mail, typeName, phone, password, points, countyId, active) values(?, private, ?, ?, 0, ?, 1)",
             val,
             callback
         );

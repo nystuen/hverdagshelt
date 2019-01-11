@@ -15,13 +15,12 @@ interface State{
     mail: string;
     firstName: string;
     lastName: string;
-    postnumber: number;
     password: string;
     password2: string;
     typeName: string;
     phone: string;
     points: number;
-    county: County;
+    countyId: number;
     countyName: string;
     active: number;
     isLoaded: boolean;
@@ -34,23 +33,35 @@ class BindDropDown extends Component {
     constructor(props) {
         super(props);
         this.state = {
+            choosen: {name: "Bergen", countyId: 1},
             values:[
-                {name: "Bergen", id: 1}
-                //{ name: this.county.name, id: this.county.id}
+                {name: "Bergen", countyId: 1}
+                //{ name: this.county.name, countyId: this.county.countyId}
             ]
         }
+
+        this.handleChangeCounty = this.handleChangeCounty.bind(this)
     }
 
+    handleChangeCounty(e: Object){
+        console.log(this.state.choosen.countyId)
+        this.setState({
+            choosen: JSON.parse(e.target.value)
+        })
+
+
+    };
+
     componentWillMount() {
-        var arr = []
+        var arr = [];
         countyService
             .getCounties()
             .then(county2 => {
                 county2.map(e => {
                     var elem = {
                         name: e.name,
-                        id: e.countyId
-                    }
+                        countyId: e.countyId
+                    };
                     arr = arr.concat(elem)
 
                 });
@@ -65,15 +76,17 @@ class BindDropDown extends Component {
 
     }
 
+
+
     render(){
-        console.log(this.state.values)
-        let optionTemplate = this.state.values.map(v => (
-            <option key={v.id} value={v.id}> {v.name}</option>
-        ))
+        let optionTemplate = this.state.values.map(v => {
+            var data = {name: v.name, countyId: v.countyId}
+            return(<option key={v.countyId} value={JSON.stringify(data)}> {v.name}</option>)
+        });
         return (
             <label>
                 Velg Kommune:
-                <select value={this.state.value} onChange={this.handleChange}>
+                <select value={this.state.values.countyId} onChange={this.handleChangeCounty}>
                     {optionTemplate}
                 </select>
             </label>
@@ -87,17 +100,15 @@ export class RegisterUser extends Component<Props, State>{
         mail: "",
         firstName: "",
         lastName: "",
-        postnumber: -1,
+        postnumber: 0,
         password: "",
         password2: "",
         typeName: "",
-        phone: -1,
-        points: -1,
-        county: [],
-        countyName: [],
-        active: -1,
+        phone: 0,
+        points: 0,
+        active: 0,
         isLoaded: false,
-    }
+    };
 
     handleStringChange = (name: string) =>(event:SyntheticEvent<HTMLInputElement>)=>{
         this.setState({
@@ -113,12 +124,6 @@ export class RegisterUser extends Component<Props, State>{
         })
     };
 
-    handleChangeCounty = (event: SyntheticEvent<HTMLButtonElement>)=> {
-        this.setState({
-            // $FlowFixMe
-            countyId : event.target.value,
-        })
-    }
 
 
     render(){
@@ -145,24 +150,6 @@ export class RegisterUser extends Component<Props, State>{
                                 {' '}
                     </Row>
                     <Row>
-                            <FormGroup>
-                                <Col>
-                                    <Input type="text" value={this.state.address} placeholder="Addresse"
-                                           onChange={this.handleStringChange("address")}
-                                    />
-                                </Col>
-                            </FormGroup>
-                        {' '}
-                            <FormGroup>
-                                <Col>
-                                    <Input type="text" value={this.state.postnumber} placeholder="Postnummer"
-                                           onChange={this.handleNumberChange("postnumber")}
-                                    />
-                                </Col>
-                            </FormGroup>
-                        {' '}
-                    </Row>
-                    <Row>
                         <FormGroup>
                             <Col>
                                 <Input type="text" value={this.state.phone} placeholder="Telefonnummer"
@@ -174,7 +161,7 @@ export class RegisterUser extends Component<Props, State>{
                     <Row>
                         <FormGroup>
                             <Col>
-                                <BindDropDown/>
+                                <BindDropDown />
 
                             </Col>
                         </FormGroup>
@@ -182,8 +169,8 @@ export class RegisterUser extends Component<Props, State>{
                     <Row>
                         <FormGroup>
                             <Col sm="12">
-                                <Input type="text" value={this.state.email} placeholder="Epost"
-                                onChange={this.handleStringChange("email")}
+                                <Input type="text" value={this.state.mail} placeholder="Epost"
+                                onChange={this.handleStringChange("mail")}
                                 />
                             </Col>
                         </FormGroup>
@@ -211,12 +198,12 @@ export class RegisterUser extends Component<Props, State>{
             </Container>
         );
     }
-    checkPass(){
-        if(this.state.password===this.state.password2){
+    checkPass = () => {
+        if (this.state.password !== this.state.password2) {
+            console.log("To ulike passord");
+            Alert.warning("Du skrev to ulike passord");
+        } else {
             this.register();
-            Alert.success();
-        }else{
-            //Alert.warning();
         }
     }
 
@@ -224,12 +211,19 @@ export class RegisterUser extends Component<Props, State>{
 
 
     register = () => {
-        console.log("test", this.state.phone)
+        console.log("test", this.state);
+        var mail = this.state.mail
+        var firstName = this.state.firstName
+        var lastName = this.state.lastName
+        var password = this.state.password
+        var phone = this.state.phone
+        var countyId = this.state.countyId
+        console.log("county", countyId)
         userService
-            .addUser(this.user)
-            .then(user =>(this.user = user))
+            .addUser(this.state.mail, this.state.firstName, this.state.lastName, this.state.password, this.state.phone, this.state.choosen.countyId)
+            .then(user =>(this.state = user)).then(Alert.success("Bruker registrert"))
             .catch((error: Error)=>Alert.danger(error.message))
-    }
+    };
 }
 /*
 * <DropdownButton title="Hjemmekommune">
@@ -242,4 +236,16 @@ export class RegisterUser extends Component<Props, State>{
                                         }
 
                                 </DropdownButton>
-* */
+
+    checkPass(){
+        console.log(state);
+        if(this.state.password==this.state.password2){
+            this.register();
+            Alert.success();
+        }else{
+            Alert.warning();
+        }
+    }
+
+
+*/
