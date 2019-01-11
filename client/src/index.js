@@ -14,6 +14,7 @@ import { Alert } from "./widgets";
 import { WizardFormComplete } from "./components/ReduxRegisterForm/WizardFormComplete";
 import store from "./components/ReduxRegisterForm/store";
 import { Provider } from "react-redux";
+import { Map } from "./components/map/Map"
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
@@ -32,6 +33,7 @@ if (root)
       <div>
         <Alert />
         <Route exact path="/WizardForm" component={WizardFormComplete} />
+        <Route path="/Map" component={ Map }
       </div>
     </HashRouter>,
     root
