@@ -109,6 +109,63 @@ export class RegisterUser extends Component<Props, State>{
         active: 0,
         isLoaded: false,
     };
+    constructor(props) {
+        super(props);
+        this.state = {
+            mail: "",
+            firstName: "",
+            lastName: "",
+            postnumber: 0,
+            password: "",
+            password2: "",
+            typeName: "",
+            phone: 0,
+            points: 0,
+            active: 0,
+            isLoaded: false,
+            choosen: {name: "Bergen", countyId: 1},
+            values:[
+                {name: "Bergen", countyId: 1}
+                //{ name: this.county.name, countyId: this.county.countyId}
+            ]
+        }
+
+        this.handleChangeCounty = this.handleChangeCounty.bind(this)
+    }
+
+
+    handleChangeCounty(e: Object){
+        console.log(this.state.choosen.countyId)
+        this.setState({
+            choosen: JSON.parse(e.target.value)
+        })
+
+
+    };
+
+    componentWillMount() {
+        var arr = [];
+        countyService
+            .getCounties()
+            .then(county2 => {
+                county2.map(e => {
+                    var elem = {
+                        name: e.name,
+                        countyId: e.countyId
+                    };
+                    arr = arr.concat(elem)
+
+                });
+                this.setState({
+                    values: arr
+                })
+            })
+
+
+            //this.state.countyName.push(this.state.county.name)})
+            .catch((error: Error)=>Alert.danger(error.message))
+
+    }
 
     handleStringChange = (name: string) =>(event:SyntheticEvent<HTMLInputElement>)=>{
         this.setState({
@@ -127,6 +184,10 @@ export class RegisterUser extends Component<Props, State>{
 
 
     render(){
+        let optionTemplate = this.state.values.map(v => {
+            var data = {name: v.name, countyId: v.countyId}
+            return(<option key={v.countyId} value={JSON.stringify(data)}> {v.name}</option>)
+        });
         return(
             <Container>
                 <Form>
@@ -161,8 +222,12 @@ export class RegisterUser extends Component<Props, State>{
                     <Row>
                         <FormGroup>
                             <Col>
-                                <BindDropDown />
-
+                                <label>
+                                    Velg Kommune:
+                                    <select value={this.state.values.countyId} onChange={this.handleChangeCounty}>
+                                        {optionTemplate}
+                                    </select>
+                                </label>
                             </Col>
                         </FormGroup>
                     </Row>
@@ -217,7 +282,7 @@ export class RegisterUser extends Component<Props, State>{
         var lastName = this.state.lastName
         var password = this.state.password
         var phone = this.state.phone
-        var countyId = this.state.countyId
+        var countyId = this.state.choosen.countyId
         console.log("county", countyId)
         userService
             .addUser(this.state.mail, this.state.firstName, this.state.lastName, this.state.password, this.state.phone, this.state.choosen.countyId)
