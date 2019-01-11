@@ -48,7 +48,9 @@ export class MapComponent extends Component<{}, State> {
 
     searchControl.on('results', (data) => {
       results.clearLayers()
+      console.log(data.results)
       this.setState({
+        address: data.results[0].properties.LongLabel,
         latlng: data.results[0].latlng,
         zoom: 17
       })
@@ -95,7 +97,7 @@ export class MapComponent extends Component<{}, State> {
 
     let marker = this.state.hasLocation ? (
       <Marker position={this.state.latlng}>
-        <Popup open={true}>{this.state.address}</Popup>
+        <Popup>{this.state.address}</Popup>
       </Marker>
     ): null
 
