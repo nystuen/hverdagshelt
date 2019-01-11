@@ -1,7 +1,6 @@
 // @flow
 import axios from 'axios';
-import {User, Issue, Category, Company, Event, Type, County} from "./classTypes";
-import {User, Issue, Category, Category2, Category3, Company, Event, Type} from "./classTypes";
+import {User, Issue, Category, Category2, Category3,  Company, Event, Type, County} from "./classTypes";
 
 axios.interceptors.response.use(response => response.data);
 

@@ -26,7 +26,6 @@ if (root)
     ReactDOM.render(
         <HashRouter>
             <div>
-                <NavbarMenu/>
                 <Alert/>
                 <NavbarMenu/>
                 <Route exact path="/registerIssue" component={RegisterIssue}/>

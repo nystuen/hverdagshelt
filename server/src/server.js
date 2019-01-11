@@ -5,7 +5,6 @@ import path from 'path';
 import reload from 'reload';
 import fs from 'fs';
 import {UserDao} from "./daos/userDao";
-import userController from './controllers/userController.js';
 import categoryController from './controllers/categoryController.js';
 import {CountyDao} from "./daos/countyDao";
 import {IssueDao} from "./daos/issueDao";
