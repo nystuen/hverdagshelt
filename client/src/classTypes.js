@@ -91,6 +91,30 @@ export class Category {
     }
 }
 
+export class Category2 extends Category {
+    category2Id: number;
+
+    constructor(categoryId: number, category2Id: number, name: string, priority: number, active: number) {
+
+        // noinspection JSAnnotator
+        this.category2Id = categoryId;
+
+        super(category2Id, name, priority, active);
+    }
+}
+
+export class Category3 extends Category {
+    category2Id: number;
+
+    constructor(categoryId2: number, categoryId3: number, name: string, priority: number, active: number) {
+
+        // noinspection JSAnnotator
+        this.category2Id = categoryId2;
+
+        super(categoryId3, name, priority, active);
+    }
+}
+
 export class Event {
     eventId: number;
     title: string;

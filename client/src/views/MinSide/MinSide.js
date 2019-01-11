@@ -2,6 +2,7 @@
 
 import React from 'react';
 import {Grid, Col, Row, Button} from "react-bootstrap";
+import {ChooseCategory} from "../../components/ChooseCategory/ChooseCategory";
 
 export class MinSide extends React.Component {
     render() {
@@ -14,6 +15,7 @@ export class MinSide extends React.Component {
                     </Col>
                     <Col xs="8">
                         <h1>Min Side</h1>
+
 
                     </Col>
                 </Row>

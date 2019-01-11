@@ -5,8 +5,10 @@ import path from 'path';
 import reload from 'reload';
 import fs from 'fs';
 import {UserDao} from "./daos/userDao";
-import userController from './controllers/userController.js'
+import userController from './controllers/userController.js';
+import categoryController from './controllers/categoryController.js';
 import * as mysql from "mysql2";
+import {CategoryDao} from "./daos/catergoryDao";
 
 type Request = express$Request;
 type Response = express$Response;
@@ -30,9 +32,12 @@ let pool = mysql.createPool({
 
 
 let userDao = new UserDao(pool);
+let categoryDao = new CategoryDao(pool);
+
 
 // fire controllers
 userController(app, userDao);
+categoryController(app, categoryDao);
 
 // Hot reload application when not in production environment
 if (process.env.NODE_ENV !== 'production') {
