@@ -6,15 +6,10 @@ import { Component } from 'react-simplified';
 import { HashRouter, Route, NavLink } from 'react-router-dom';
 import { Alert } from './widgets';
 import { ExampleEvents } from './components/map/Map'
-import ReactDOM from "react-dom";
-import * as React from "react";
-import { Component } from "react-simplified";
-import { HashRouter, Route, NavLink } from "react-router-dom";
-import { Alert } from "./widgets";
 import { WizardFormComplete } from "./components/ReduxRegisterForm/WizardFormComplete";
 import store from "./components/ReduxRegisterForm/store";
 import { Provider } from "react-redux";
-import { Map } from "./components/map/Map"
+import { MapComponent } from "./components/map/Map"
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
@@ -30,10 +25,10 @@ const root = document.getElementById("root");
 if (root)
   ReactDOM.render(
     <HashRouter>
-      <div>
+      <div className="route-container">
         <Alert />
         <Route exact path="/WizardForm" component={WizardFormComplete} />
-        <Route path="/Map" component={ Map }
+        <Route path="/Map" component={ MapComponent } />
       </div>
     </HashRouter>,
     root
