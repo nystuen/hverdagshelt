@@ -14,7 +14,6 @@ import { MapComponent } from "./components/map/Map"
 import {NavbarMenu} from "./components/NavbarMenu/NavbarMenu";
 import {Login} from "./views/login/login";
 import {MinSide} from "./views/MinSide/MinSide";
-import {RegisterIssue} from "./components/RegisterIssue.js";
 import {countySubscription} from "./components/countySubscription.js";
 
 // Reload application when not in production environment
@@ -34,7 +33,6 @@ if (root)
         <HashRouter>
             <div className="route-container">
                 <NavbarMenu/>
-                <Route exact path="/registerIssue" component={RegisterIssue}/>
                 <Route path="/wizardForm" component={WizardFormComplete} />
                 <Route path="/countySubscription/:userMail" component={countySubscription}/>
                 <Route path="/min_side" component={MinSide}/>
