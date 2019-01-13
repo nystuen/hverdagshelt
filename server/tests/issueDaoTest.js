@@ -52,7 +52,6 @@ test("Add a issue to database", done => {
 
     issueDao.addIssue(post, callback);
 
-
 });
 
 test("check if added issue is added", done => {

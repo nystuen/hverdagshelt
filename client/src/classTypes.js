@@ -1,14 +1,15 @@
 // @flow
 
 export class User {
-  mail: string;
-  firstName: string;
-  lastName: string;
-  typeName: string;
-  phone: string;
-  points: number;
-  countyId: number;
-  active: number;
+    mail: string;
+    firstName: string;
+    lastName: string;
+    password: string;
+    typeName: string;
+    phone: string;
+    points: number;
+    countyId: number;
+    active: number;
 
   constructor(
     mail: string,
@@ -139,4 +140,13 @@ export class Event {
     this.userMail = userMail;
     this.active = active;
   }
+}
+export class County{
+    id: number;
+    name: string;
+
+    constructor(id: number, name: string){
+        this.id = id;
+        this.name = name;
+    }
 }
