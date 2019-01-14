@@ -17,3 +17,11 @@ height:100%
 .leaflet-container {
     height: 100%;
 }
+
+.alert {
+  color: red;
+  border: 1px red;
+  border-radius: 5px;
+  font-size: 10px;
+  max-width: 300px;
+}

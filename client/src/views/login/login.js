@@ -6,7 +6,7 @@ import { Component } from 'react';
 import {User} from "../../classTypes";
 import {Grid, Row, Col} from 'react-bootstrap';
 import {UserService} from "../../services";
-import {Alert} from "../../widgets";
+import { Alert } from "react-bootstrap"
 let jwt = require("jsonwebtoken");
 
 
@@ -14,6 +14,7 @@ let userService = new UserService();
 const bcrypt = require('bcrypt-nodejs');
 
 interface State {
+    error: boolean;
     email: string;
     password: string;
     storedPassword: string;
@@ -23,6 +24,7 @@ interface Props{}
 
 export class Login extends Component<Props,State>{
     state = {
+      error: false,
         email: '',
         password: '',
         storedPassword: '',
@@ -42,6 +44,18 @@ export class Login extends Component<Props,State>{
 
 
     render(){
+
+      let alert_login;
+      if(this.state.error){
+        alert_login = (
+          <Alert bsStyle="danger">
+            <h6>Brukernavn eller passord er feil. Prøv igjen!</h6>
+          </Alert>)
+      } else {
+        alert_login = (
+          <p></p>
+        )
+      }
         return(
             <Grid>
                 <div className="container text-md-center">
@@ -80,6 +94,7 @@ export class Login extends Component<Props,State>{
                             </Col>
                             <Col> </Col>
                         </Row>
+                        {alert_login}
                     </form>
                 </div>
             </Grid>
@@ -90,21 +105,31 @@ export class Login extends Component<Props,State>{
     save = () =>{
         //console.log(this.state.email);
         userService.getUserLogin(this.state.email).then(response => {
+          console.log(response)
             this.setState({
                 storedPassword: response[0].password,
             });
-            bcrypt.compare(this.state.password, response[0].password,function (err,res) {
+            console.log('2')
+            bcrypt.compare(this.state.password, response[0].password, (err,res) => {
+              console.log('3')
                if(res){
                     userService.login({ userMail : response[0].mail, typeId : response[0].typeName}).then(r => {
                         let token = r.jwt;
                        console.log('hello');
                         window.localStorage.setItem('userToken', token)
                     }).catch((error:Error) => Alert.danger(error.message));
-               } else{
-                   Alert.danger('Feil passord!');
-               }//end condition
+               } else {
+                 this.setState({
+                   error: true
+                 })
+               }
             });
-        }).catch((error:Error) => Alert.danger(error.message));
+        }).catch((error:Error) => {
+          console.log(error)
+          this.setState({
+            error: true
+          })
+        })
     };//end method
 
     sjekk = () => {
