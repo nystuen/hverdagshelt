@@ -46,49 +46,60 @@ export class Login extends Component<Props, State> {
   };
 
 
-  render() {
-    return (
-      <Grid>
+    render(){
 
-        <Form>
+      let alert_login;
+      if(this.state.error){
+        alert_login = (
+          <Alert bsStyle="danger">
+            <h6>Brukernavn eller passord er feil. Prøv igjen!</h6>
+          </Alert>)
+      } else {
+        alert_login = (
+          <p></p>
+        )
+      }
+        return(
+          <Grid>
 
-
-          <Col xs={2} md={4}>
-
-          </Col>
-
-          <Col xs={8} md={4}>
-            <Row className="show-grid">
-              <FormGroup>
-                <FormControl type="text" placeholder="Email" value={this.state.email}
-                             onChange={this.handleChangeEmail}/>
-              </FormGroup>
-            </Row>
-
-            <Row className="show-grid" align='center'>
-              <FormGroup>
-                <FormControl type="text" placeholder="Passord" value={this.state.password}
-                             onChange={this.handleChangePassword}/>
-              </FormGroup>
-            </Row>
-
-            <Row className="show-grid" align='center'>
-              <Button type="button" onClick={this.save} bsStyle="success">Login</Button>
-              <Button type="button" onClick={this.sjekk}>Sjekk</Button>
-            </Row>
-
-          </Col>
-
-          <Col xs={2} md={4}>
-
-          </Col>
-
-        </Form>
+            <Form>
 
 
-      </Grid>
-    );
-  }//end method
+              <Col xs={2} md={4}>
+
+              </Col>
+
+              <Col xs={8} md={4}>
+                <Row className="show-grid">
+                  <FormGroup>
+                    <FormControl type="text" placeholder="Email" value={this.state.email}
+                                 onChange={this.handleChangeEmail}/>
+                  </FormGroup>
+                </Row>
+
+                <Row className="show-grid" align='center'>
+                  <FormGroup>
+                    <FormControl type="text" placeholder="Passord" value={this.state.password}
+                                 onChange={this.handleChangePassword}/>
+                  </FormGroup>
+                </Row>
+
+                <Row className="show-grid" align='center'>
+                  <Button type="button" onClick={this.save} bsStyle="success">Login</Button>
+                  <Button type="button" onClick={this.sjekk}>Sjekk</Button>
+                </Row>
+
+              </Col>
+
+              <Col xs={2} md={4}>
+
+              </Col>
+            </Form>
+
+
+          </Grid>
+        )
+    }//end method
 
 
   save = () => {

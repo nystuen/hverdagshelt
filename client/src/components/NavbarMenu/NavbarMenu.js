@@ -1,4 +1,4 @@
-// @flow
+
 
 import React from 'react';
 import {
@@ -12,6 +12,7 @@ import {
 } from 'react-bootstrap';
 
 export class NavbarMenu extends React.Component {
+
     constructor(props) {
         super(props);
 

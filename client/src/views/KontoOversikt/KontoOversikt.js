@@ -4,11 +4,11 @@
 import React from 'react';
 import jwt from 'jsonwebtoken';
 import { Grid, Row, Col, ListGroup, ListGroupItem } from 'react-bootstrap';
-import { Alert } from '../../widgets';
-import { ChooseCategory } from '../ChooseCategory/ChooseCategory';
+import { Alert } from '../../../widgets';
+import { ChooseCategory } from '../../../components/ChooseCategory/ChooseCategory';
 import Button from 'react-bootstrap/es/Button';
-import { Category, Category2, Category3, User } from '../../classTypes';
-import { UserService } from '../../services';
+import { Category, Category2, Category3, User } from '../../../classTypes';
+import { UserService } from '../../../services';
 
 let userService = new UserService();
 
