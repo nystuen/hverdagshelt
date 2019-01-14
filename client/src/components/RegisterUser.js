@@ -5,15 +5,7 @@ import {Card, Col, Row, Button, Form, FormGroup, Label, Input, FormText , Table,
 class RegisterUser extends Component{
 
     user = {};
-    mail: string;
-    firstName: string;
-    lastName: string;
-    password: string;
-    typeName: string;
-    phone: string;
-    points: number;
-    countyName: string;
-    active: number;
+
 
 
 
