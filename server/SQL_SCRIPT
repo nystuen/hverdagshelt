@@ -216,3 +216,6 @@ ADD COLUMN lastName varchar(30) after firstName;
 
 ALTER TABLE company
 ADD COLUMN phone varchar(30) after lastName;
+
+ALTER TABLE company
+ADD COLUMN password varchar(30) after phone;

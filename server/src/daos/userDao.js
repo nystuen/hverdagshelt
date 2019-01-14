@@ -12,7 +12,7 @@ export class UserDao extends Dao {
             "insert into user (mail, firstName, lastName, password, typeName, phone, points, countyId, active) values(?, ?, ?, ?, ?, ?, 0, ?, 1)",
             val,
             callback);
-    }
+    }//end method
 
     getUserLogin(userMail: string, callback: Function) {
         super.query("select mail, password, typeName from user where mail=? ", [userMail], callback);
@@ -21,4 +21,8 @@ export class UserDao extends Dao {
     getUser(userMail: string, callback: Function) {
         super.query("select * from user where mail=? ", [userMail], callback);
     }//end method}
+
+    getIssuesForOneUser(userMail: string, callback: Function){
+      super.query("select * from issues where userMail=? and active=1", [userMail], callback);
+    }//end method
 }

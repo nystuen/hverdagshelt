@@ -74,6 +74,14 @@ module.exports = function (app: Object, userDao: Object) {
         });
     });
 
+    app.get('/user/getMyIssues/:email', urlencodedParser, (req,res) => {
+       console.log('got request from getMyIssues');
+       userDao.getIssuesForOneUser(req.params.email, (status, data) => {
+           res.status(status);
+           res.json(data);
+       })
+    });
+
 
 };
 

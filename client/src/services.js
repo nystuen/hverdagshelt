@@ -24,5 +24,9 @@ export class UserService {
         return axios.post('/login/', userMail);
     }//end method
 
+    getMyIssues(userMail: string): Promise<JSON>{
+        return axios.get('/user/getMyIssues/' + userMail);
+    }//end method
+
 }//end class
 

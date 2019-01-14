@@ -8,6 +8,7 @@ import {Alert} from './widgets';
 import {NavbarMenu} from "./components/NavbarMenu/NavbarMenu";
 import {Login} from "./views/login/login";
 import {MinSide} from "./views/MinSide/MinSide";
+import {MineSaker} from "./views/MinSide/mineSaker/mineSaker";
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== 'production') {
@@ -29,6 +30,7 @@ if (root)
                 <Alert/>
                 <Route path="/login" component={Login} />
                 <Route path="/min_side" component={MinSide} />
+                <Route path="/min_side/mine_saker" component={MineSaker}/>
             </div>
         </HashRouter>,
         root
