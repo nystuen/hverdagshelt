@@ -109,3 +109,25 @@ export class Event {
         this.active = active;
     }
 }
+
+export class Status{
+    progressBar: String;
+    progress: number;
+
+    constructor(status: string){
+        //if issue is registered
+        if(status === 'Registered'){
+            this.progressBar= "info";
+            this.progress = 100;
+
+            //if issue is under processing
+        }else if(status === 'In progress'){
+            this.progressBar ="warning";
+            this.progress = 50;
+            //if issue is resolved
+        }else{
+            this.progressBar = "success";
+            this.progress = 100;
+        }//end condition
+    }//end constructor
+}//end class

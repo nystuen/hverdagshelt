@@ -5,14 +5,17 @@ import {Grid, Col, Row, Button, Table} from "react-bootstrap";
 import {Issue} from "../../../classTypes";
 import {UserService} from "../../../services";
 import {Alert} from "../../../widgets";
+import ProgressBar from "react-bootstrap/es/ProgressBar";
+import {Status} from "../../../classTypes";
 
 let jwt = require("jsonwebtoken");
 let userService = new UserService();
 
+let status = null;
+
 interface State{
     issues: Object[];
-    progressType: string;
-    progress: number;
+    category: Object[];
 }//end interface
 
 interface Props{}
@@ -20,8 +23,7 @@ interface Props{}
 export class MineSaker extends React.Component<Props,State>{
     state = {
         issues: [],
-        progressType: '',
-        progress: 0
+        category: []
     };
     render(){
         return(
@@ -43,15 +45,17 @@ export class MineSaker extends React.Component<Props,State>{
                 <tbody>
                 {this.state.issues.map(e => {
                     return(
-                        <tr>
+                        <tr key={e.text}>
                             <td>
                                 {e.text}
                             </td>
                             <td>
-                                {e.categoryId}
+                                {e.category}
                             </td>
                             <td>
-                                {e.statusName}
+                                {this.updateStatus(e.statusName)}
+                                <ProgressBar bsStyle={this.status.progressBar} now={this.status.progress}
+                                label={e.statusName}/>
                             </td>
                         </tr>
                     )
@@ -67,20 +71,11 @@ export class MineSaker extends React.Component<Props,State>{
         userService.getMyIssues(decoded.email).then(response => {
             this.setState({issues: response});
         }).catch((error: Error) => Alert.danger(error.message));
-    }//end
-
-    checkProgress = (status: string) => {
-        //if issue is registered
-        if(status === 'Mottatt' || 'mottatt'){
-            this.setState({progressBar: "info", progress: 0});
-
-        //if issue is under processing
-        }else if(status === 'Under behandling' || 'under behandling'){
-            this.setState({progressBar: "warning", progress: 50 });
-
-        //if issue is resolved
-        }else{
-            this.setState({progressBar: "success", progress: 100});
-        }//end condition
     }//end method
+
+    //to set progressbar
+    updateStatus(status: string){
+        this.status = new Status(status);
+    }//end method
+
 }//end class

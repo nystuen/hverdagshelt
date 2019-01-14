@@ -9,11 +9,11 @@ export class MinSide extends React.Component <{match: {params: {menuChoice: stri
         return (
             <Grid fluid>
                 <Row>
-                    <Col xs="2">
+                    <Col xs={2}>
                         <div className="border-right">
                         </div>
                     </Col>
-                    <Col xs="8">
+                    <Col xs={8}>
                         <h1>Min Side</h1>
                     </Col>
                 </Row>

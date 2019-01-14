@@ -22,9 +22,9 @@ app.use(express.json()); // For parsing application/json
 let pool = mysql.createPool({
     connectionLimit: 10,
     host: "mysql.stud.iie.ntnu.no",
-    user: "magnusrm",
-    password: "fKzwPFN3",
-    database: "magnusrm",
+    user: "annabesa",
+    password: "fMxJCDSo",
+    database: "annabesa",
     debug: false
 });
 
