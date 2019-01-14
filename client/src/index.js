@@ -2,26 +2,17 @@
 
 import ReactDOM from 'react-dom';
 import * as React from 'react';
-
 import { Component } from 'react-simplified';
 import { HashRouter, Route, NavLink } from 'react-router-dom';
 import { Alert } from './widgets';
-import { ExampleEvents } from './components/map/Map'
-import ReactDOM from "react-dom";
-import * as React from "react";
-import { Component } from "react-simplified";
-import { HashRouter, Route, NavLink } from "react-router-dom";
-import { Alert } from "./widgets";
 import { WizardFormComplete } from "./components/ReduxRegisterForm/WizardFormComplete";
 import store from "./components/ReduxRegisterForm/store";
 import { Provider } from "react-redux";
-import {HashRouter, Route, NavLink} from 'react-router-dom';
-import {Alert} from './widgets';
-import {NavbarMenu} from "./components/NavbarMenu/NavbarMenu";
-import {Login} from "./views/login/login";
-import {MinSide} from "./views/MinSide/MinSide";
-import {RegisterIssue} from "./components/RegisterIssue.js";
-import {countySubscription} from "./components/countySubscription.js";
+import { MapComponent } from "./components/map/Map"
+import { NavbarMenu } from "./components/NavbarMenu/NavbarMenu";
+import { Login } from "./views/login/login";
+import { KontoOversikt } from "./components/KontoOversikt/KontoOversikt";
+import { countySubscription } from "./components/countySubscription";
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== 'production') {
@@ -38,14 +29,13 @@ const root = document.getElementById("root");
 if (root)
     ReactDOM.render(
         <HashRouter>
-            <div>
-                <Alert/>
+            <div className="route-container">
                 <NavbarMenu/>
-                <Route exact path="/registerIssue" component={RegisterIssue}/>
-                <Route path="/WizardForm" component={WizardFormComplete} />
-                <Route path="/countySubscription/:userMail" component={countySubscription}/>
-                <Route path="/min_side" component={MinSide}/>
+                <Route path="/wizardForm" component={WizardFormComplete} />
+                <Route path="/countySubscription/:userMail" component={ countySubscription }/>
+                <Route path="/min_side/kontooversikt" component={KontoOversikt}/>
                 <Route path="/login" component={Login}/>
+                <Route path="/map" component={ MapComponent } />
             </div>
         </HashRouter>,
         root

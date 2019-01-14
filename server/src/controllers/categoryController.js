@@ -33,8 +33,6 @@ module.exports = function (app: Object, categoriesDao: Object) {
 
     });
 
-
-
     app.post('/add_category1', urlencodedParser, (req, res) => {
         console.log('got request from get_user');
         categoriesDao.addCategory1(req.body,(status, data) => {

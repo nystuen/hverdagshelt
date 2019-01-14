@@ -11,11 +11,9 @@
     "testURL": "http://localhost"
   },
   "dependencies": {
-    "bcrypt": "^3.0.3",
     "bcrypt-nodejs": "0.0.3",
-    "bcryptjs": "^2.4.3",
     "express": "^4.16.4",
-    "mysql": "^2.16.0",
+    "jsonwebtoken": "^8.4.0",
     "mysql2": "^1.6.1",
     "node-gyp": "^3.8.0",
     "reload": "^2.3.1",
