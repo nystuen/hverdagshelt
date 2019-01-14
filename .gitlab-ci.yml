@@ -1,14 +1,44 @@
-variables:
-  MYSQL_DATABASE: School
-  MYSQL_USER: root
-  MYSQL_ROOT_PASSWORD: ''
-  MYSQL_ALLOW_EMPTY_PASSWORD: 1
+image: node:8
 
-test:
+# Set up MySQL test-database
+services:
+- mysql:5.5
+
+# Configure test-database
+variables:
+  MYSQL_DATABASE: testdb
+  MYSQL_ROOT_PASSWORD: abc123
+
+before_script:
+- npm install -g flow-bin
+- cd server && npm install
+- cd ../client && npm install
+
+run_tests:
+  stage: test
   image: node:latest
-  services:
-    - mysql:5 # The JS mysql-library does not yet support the newest mysql protocol
   script:
-    - npm install -g flow-bin
-    - cd server && npm install && npm test && flow check src
-    - cd ../client && npm install && npm test && flow check src
+  - npm test && flow check src
+  - cd ../server && npm test && flow check src
+  artifacts:
+    paths:
+    - client/coverage
+    - server/coverage
+
+
+pages:
+  stage: deploy
+  dependencies:
+  - run_tests
+  script:
+  - cd ../
+  - mkdir .public
+  - cp -r client/* .public
+  - cp -r server/* .public
+  - mv .public public
+
+  artifacts:
+    paths:
+    - public
+  only:
+  - master
