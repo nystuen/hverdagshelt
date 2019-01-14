@@ -4,7 +4,10 @@ import ReactDOM from 'react-dom';
 import * as React from 'react';
 import { Component } from 'react';
 import {User} from "../../classTypes";
-import {Grid, Row, Col} from 'react-bootstrap';
+import Container from "reactstrap/es/Container";
+import Row from "reactstrap/es/Row";
+import Col from "reactstrap/es/Col";
+import Input from "reactstrap/es/Input";
 import {UserService} from "../../services";
 import { Alert } from "react-bootstrap"
 let jwt = require("jsonwebtoken");
@@ -57,7 +60,7 @@ export class Login extends Component<Props,State>{
         )
       }
         return(
-            <Grid>
+            <Container>
                 <div className="container text-md-center">
                     <br/>
                     <h2>Login</h2>
@@ -67,13 +70,13 @@ export class Login extends Component<Props,State>{
                     <form>
                         <Row>
                             <Col>
-                                <input placeholder='Email'
+                                <Input placeholder='Email'
                                    type="text"
                                    value={this.state.email}
                                    onChange={this.handleChangeEmail}/>
                             </Col>
                             <Col>
-                                <input placeholder='Passord'
+                                <Input placeholder='Passord'
                                     type="text"
                                     value={this.state.password}
                                     onChange={this.handleChangePassword}/>
@@ -97,7 +100,7 @@ export class Login extends Component<Props,State>{
                         {alert_login}
                     </form>
                 </div>
-            </Grid>
+            </Container>
         )
     }//end method
 

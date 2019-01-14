@@ -40,7 +40,6 @@ let countyDao = new CountyDao(pool);
 let categoryDao = new CategoryDao(pool);
 
 
-
 //fire controllers
 issueController(app, issueDao);
 userController(app, userDao);

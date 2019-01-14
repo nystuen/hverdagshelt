@@ -10,6 +10,7 @@ import {
 } from 'react-bootstrap';
 
 export class NavbarMenu extends React.Component {
+
     constructor(props) {
         super(props);
 
@@ -37,9 +38,9 @@ export class NavbarMenu extends React.Component {
 
                 <Navbar.Collapse>
                     <Nav pullRight>
-                        <NavDropdown title={"Min side"} id={"MinSide"}>
+                        <NavDropdown title={"Min side"} id='1'>
                             <MenuItem eventKey={2} href="/#min_side/mine_saker">Mine saker</MenuItem>
-                            <MenuItem eventKey={1} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
+                            <MenuItem eventKey={1} href="/#min_side/informasjon">Informasjon </MenuItem>
                             <MenuItem eventKey={1} href="/#min_side/kommuner">Kommuner</MenuItem>
                             <MenuItem eventKey={1} href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
                         </NavDropdown>
