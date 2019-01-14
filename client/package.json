@@ -27,6 +27,7 @@
     "prop-types": "^15.6.2",
     "react": "^16.7.0",
     "react-bootstrap": "^0.32.4",
+    "react-geocode": "^0.1.2",
     "react-leaflet": "^2.1.4",
     "react-leaflet-search": "^0.6.0",
     "react-multistep": "^3.2.5",

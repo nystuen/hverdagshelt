@@ -22,10 +22,13 @@ export class WizardForm extends Component {
   }
 
   render() {
+    let styles = {
+      height: '100%'
+    }
     const { onSubmit } = this.props;
     const { page } = this.state;
     return (
-      <div>
+      <div style={styles}>
         {page === 1 && <WizardFormFirstPage onSubmit={this.nextPage} />}
         {page === 2 && (
           <WizardFormSecondPage

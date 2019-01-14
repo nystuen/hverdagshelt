@@ -16,6 +16,41 @@ height:100%
 
 .leaflet-container {
     height: 100%;
+    position: relative;
+    z-index: 100;
+}
+
+.navbar {
+  margin-bottom: 0px;
+}
+
+.route-container {
+  height: 100%;
+}
+
+.choice-map-container {
+  position: absolute;
+  left: 50%;
+  bottom: 100px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+.choice-map {
+  color: black;
+  width: 350px;
+  position: relative;
+  z-index: 1000;
+  margin: 0 auto;
+}
+
+.input-map {
+  height: 35px;
+  width: 250px;
+  margin: 10px;
+  border-radius: 5px;
+  border: 1px solid grey;
 }
 
 .alert {
