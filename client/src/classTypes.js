@@ -4,6 +4,7 @@ export class User {
   mail: string;
   firstName: string;
   lastName: string;
+  password: string;
   typeName: string;
   phone: string;
   points: number;
@@ -116,6 +117,40 @@ export class Category {
   }
 }
 
+export class Category2 extends Category {
+  category2Id: number;
+
+  constructor(
+    categoryId: number,
+    category2Id: number,
+    name: string,
+    priority: number,
+    active: number
+  ) {
+    // noinspection JSAnnotator
+    this.category2Id = categoryId;
+
+    super(category2Id, name, priority, active);
+  }
+}
+
+export class Category3 extends Category {
+  category2Id: number;
+
+  constructor(
+    categoryId2: number,
+    categoryId3: number,
+    name: string,
+    priority: number,
+    active: number
+  ) {
+    // noinspection JSAnnotator
+    this.category2Id = categoryId2;
+
+    super(categoryId3, name, priority, active);
+  }
+}
+
 export class Event {
   eventId: number;
   title: string;
@@ -138,5 +173,14 @@ export class Event {
     this.date = date;
     this.userMail = userMail;
     this.active = active;
+  }
+}
+export class County {
+  id: number;
+  name: string;
+
+  constructor(id: number, name: string) {
+    this.id = id;
+    this.name = name;
   }
 }

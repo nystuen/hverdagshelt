@@ -8,6 +8,7 @@ import { Alert } from "./widgets";
 import { WizardFormComplete } from "./components/ReduxRegisterForm/WizardFormComplete";
 import store from "./components/ReduxRegisterForm/store";
 import { Provider } from "react-redux";
+import { ChooseCategory } from "./components/ChooseCategory/ChooseCategory.js";
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
@@ -26,6 +27,7 @@ if (root)
       <div>
         <Alert />
         <Route exact path="/WizardForm" component={WizardFormComplete} />
+        <Route exact path="/ChooseCategory" component={ChooseCategory} />
       </div>
     </HashRouter>,
     root
