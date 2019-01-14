@@ -12,7 +12,7 @@ import { MapComponent } from "./components/map/Map"
 import { NavbarMenu } from "./components/NavbarMenu/NavbarMenu";
 import { Login } from "./views/login/login";
 import { KontoOversikt } from "./components/KontoOversikt/KontoOversikt";
-import { countySubscription } from "./components/countySubscription.js";
+import { countySubscription } from "./components/countySubscription";
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== 'production') {

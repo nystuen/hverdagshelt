@@ -1,12 +1,10 @@
-// @flow
+
 
 import React from 'react';
 import {
     Navbar,
-    NavbarToggler,
     Nav,
     NavItem,
-    NavLink,
     NavDropdown,
     MenuItem,
 } from 'react-bootstrap';

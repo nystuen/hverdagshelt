@@ -97,7 +97,7 @@ export class Login extends Component<Props,State>{
                if(res){
                     userService.login({ userMail : response[0].mail, typeId : response[0].typeName}).then(r => {
                         let token = r.jwt;
-                       // console.log(r.jwt);
+                       console.log('hello');
                         window.localStorage.setItem('userToken', token)
                     }).catch((error:Error) => Alert.danger(error.message));
                } else{
