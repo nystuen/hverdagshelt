@@ -12,14 +12,9 @@ import cloneDeep from 'lodash/cloneDeep';
 
 let categoryService = new CategoryService();
 
-export class ChooseCategory extends Component {
-
-
-    /*
-
-        To get the selected category
-
-     */
+export class ChooseCategory extends Component<{
+  registerCategory ?: boolean
+}> {
 
 
     constructor(props) {
@@ -92,23 +87,26 @@ export class ChooseCategory extends Component {
             });
         });
 
+      if(!this.props.registerCategory){ // only load cat3 if this component is not in registerCategory
+
         categoryService.getCategory3().then(resources => {
 
-            resources.map(r => {
-                let elem: Category3 = {
-                    name: r.name,
-                    id: r.category3Id,
-                    idUp: r.category2Id,
-                    priority: r.priority,
-                    active: r.active,
-                };
-                kat3 = kat3.concat(elem);
-            });
+          resources.map(r => {
+            let elem: Category3 = {
+              name: r.name,
+              id: r.category3Id,
+              idUp: r.category2Id,
+              priority: r.priority,
+              active: r.active,
+            };
+            kat3 = kat3.concat(elem);
+          });
 
-            this.setState({
-                category3: kat3
-            });
+          this.setState({
+            category3: kat3
+          });
         });
+      }
 
     }
 
