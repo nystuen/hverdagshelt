@@ -22,6 +22,8 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 import createHashHistory from 'history/createHashHistory';
+import {MineSaker} from "./views/MinSide/mineSaker/mineSaker";
+import {MinSide} from "./views/MinSide/MinSide";
 const history = createHashHistory(); // Use history.push(...) to programmatically change path, for instance after successfully saving a student
 
 

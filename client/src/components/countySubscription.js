@@ -125,7 +125,7 @@ export class countySubscription extends Component<Props,State> {
                             }
                         </ListGroup>
                     </Col>
-                    <Col xs={6} md={4}>
+                    <Col >
                         <div className="container">
                         <Col xs={6} md={4}>
                             <Image src="/" circle />

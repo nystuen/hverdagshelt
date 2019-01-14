@@ -1,3 +1,35 @@
+Drop table if exists companyComment;
+Drop table if exists pushAlerts;
+Drop table if exists companyCategories;
+Drop table if exists companyIssues;
+Drop table if exists event;
+Drop table if exists issues;
+Drop table if exists userCounties;
+Drop table if exists status;
+Drop table if exists category3;
+Drop table if exists category2;
+Drop table if exists category;
+Drop table if exists company;
+Drop table if exists user;
+Drop table if exists types;
+Drop table if exists county;
+
+
+
+CREATE TABLE county(
+  countyId int not null AUTO_INCREMENT,
+  name varchar(30) not null,
+  active tinyint(1) not null,
+  CONSTRAINT county_pk primary key(countyId)
+);
+
+
+CREATE TABLE types(
+  typeName varchar(30) not null,
+  active boolean not null,
+  CONSTRAINT type_pk primary key(typeName)
+);
+
 CREATE TABLE user(
   mail varchar(30) not null,
   firstName varchar(30) not null,
@@ -11,18 +43,20 @@ CREATE TABLE user(
   CONSTRAINT user_pk primary key(mail)
 );
 
-CREATE TABLE types(
-  typeName varchar(30) not null,
-  active boolean not null,
-  CONSTRAINT type_pk primary key(typeName)
-);
+
 
 CREATE TABLE company(
-  typeName varchar(30) not null,
   companyMail varchar(30) not null,
   companyName varchar(30),
+  firstName varchar(30),
+  lastName varchar(30),
+  adresse varchar(30),
+  postnr int,
+  password text,
+  phone varchar(30),
   description text,
-  CONSTRAINT company_pk primary key(typeName,companyMail)
+  orgNumber varchar(30),
+  CONSTRAINT company_pk primary key(companyMail, orgNumber)
 );
 
 CREATE TABLE category(
@@ -32,6 +66,32 @@ CREATE TABLE category(
   active boolean not null,
   CONSTRAINT category_pk primary key(categoryId)
 );
+
+
+
+CREATE TABLE category2(
+  category2Id int not null AUTO_INCREMENT,
+  categoryId int not null,
+  name varchar(30) not null,
+  active boolean not null,
+  CONSTRAINT category2_pk primary key(category2Id)
+);
+
+CREATE TABLE category3(
+  category3Id int not null AUTO_INCREMENT,
+  category2Id int not null,
+  name varchar(30) not null,
+  active boolean not null,
+  CONSTRAINT category3_pk primary key(category3Id)
+);
+
+
+CREATE TABLE status(
+  statusName varchar(30) not null,
+  CONSTRAINT status_pk primary key(statusName)
+);
+
+
 
 CREATE TABLE companyCategories(
   companyMail varchar(30) not null,
@@ -56,22 +116,10 @@ CREATE TABLE issues(
 
 CREATE TABLE companyIssues(
   issueId int not null,
-  typeName varchar(30) not null,
   companyMail varchar(30) not null,
-  CONSTRAINT CI_pk primary key(issueId,typeName,companyMail)
+  CONSTRAINT CI_pk primary key(issueId,companyMail)
 );
 
-CREATE TABLE status(
-  statusName varchar(30) not null,
-  CONSTRAINT status_pk primary key(statusName)
-);
-
-CREATE TABLE county(
-  countyId int not null AUTO_INCREMENT,
-  name varchar(30) not null,
-  active tinyint(1) not null,
-  CONSTRAINT county_pk primary key(countyId)
-);
 
 CREATE TABLE userCounties(
   userMail varchar(30) not null,
@@ -83,6 +131,8 @@ CREATE TABLE event(
   eventId int not null AUTO_INCREMENT,
   title varchar(30) not null,
   text text,
+  latitude double,
+  longitude double,
   date varchar(30),
   userMail varchar(30) not null,
   countyId int not null,
@@ -105,21 +155,6 @@ CREATE TABLE companyComment(
 );
 
 
-CREATE TABLE category2(
-  category2Id int not null AUTO_INCREMENT,
-  categoryId int not null,
-  name varchar(30) not null,
-  active boolean not null,
-  CONSTRAINT category2_pk primary key(category2Id)
-);
-
-CREATE TABLE category3(
-  category3Id int not null AUTO_INCREMENT,
-  category2Id int not null,
-  name varchar(30) not null,
-  active boolean not null,
-  CONSTRAINT category3_pk primary key(category3Id)
-);
 
 ALTER TABLE user
 ADD CONSTRAINT type_fk foreign key(typeName) REFERENCES types(typeName);
@@ -127,32 +162,13 @@ ADD CONSTRAINT type_fk foreign key(typeName) REFERENCES types(typeName);
 ALTER TABLE user
 ADD CONSTRAINT county_fk foreign key(countyId) REFERENCES county(countyId);
 
-ALTER TABLE company
-ADD CONSTRAINT type1_fk foreign key (typeName) REFERENCES types(typeName);
 
-ALTER TABLE companyIssues
-ADD CONSTRAINT type2_fk foreign key(typeName) REFERENCES types(typeName);
+ALTER TABLE category2
+ADD CONSTRAINT underCat_fk foreign key(categoryId) REFERENCES category(categoryId);
 
-ALTER TABLE companyIssues
-ADD CONSTRAINT issue_fk foreign key(issueId) REFERENCES issues(issueId);
+ALTER TABLE category3
+ADD CONSTRAINT underCat2_fk foreign key(category2Id) REFERENCES category2(category2Id);
 
-ALTER TABLE companyCategories
-ADD CONSTRAINT company_fk foreign key(companyMail) REFERENCES company(companyMail);
-
-ALTER TABLE companyCategories
-ADD CONSTRAINT category_fk foreign key(categoryId) REFERENCES category(categoryId);
-
-ALTER TABLE issues
-ADD CONSTRAINT user_fk foreign key(userMail) REFERENCES user(mail);
-
-ALTER TABLE issues
-ADD CONSTRAINT status_fk foreign key(statusName) REFERENCES status(statusName);
-
-ALTER TABLE issues
-ADD CONSTRAINT category1_fk foreign key(categoryId) REFERENCES category(categoryId);
-
-ALTER TABLE issues
-ADD CONSTRAINT county1_fk foreign key(countyId) REFERENCES county(countyId);
 
 ALTER TABLE userCounties
 ADD CONSTRAINT user1_fk foreign key(userMail) REFERENCES user(mail);
@@ -164,7 +180,30 @@ ALTER TABLE event
 ADD CONSTRAINT user2_fk foreign key(userMail) REFERENCES user(mail);
 
 ALTER TABLE event
-ADD CONSTRAINT county3_fk foreign key(countyId) REFERENCES county(countyId);
+ADD CONSTRAINT county4_fk foreign key(countyId) REFERENCES county(countyId);
+
+ALTER TABLE issues
+ADD CONSTRAINT user_fk foreign key(userMail) REFERENCES user(mail);
+
+ALTER TABLE issues
+ADD CONSTRAINT status_fk foreign key(statusName) REFERENCES status(statusName);
+
+ALTER TABLE issues
+ADD CONSTRAINT category1_fk foreign key(categoryId) REFERENCES category(categoryId);
+
+
+ALTER TABLE issues
+ADD CONSTRAINT county1_fk foreign key(countyId) REFERENCES county(countyId);
+
+
+ALTER TABLE companyIssues
+ADD CONSTRAINT issue_fk foreign key(issueId) REFERENCES issues(issueId);
+
+ALTER TABLE companyCategories
+ADD CONSTRAINT company_fk foreign key(companyMail) REFERENCES company(companyMail);
+
+ALTER TABLE companyCategories
+ADD CONSTRAINT category_fk foreign key(categoryId) REFERENCES category(categoryId);
 
 ALTER TABLE pushAlerts
 ADD CONSTRAINT county3_fk foreign key(countyId) REFERENCES county(countyId);
@@ -173,49 +212,5 @@ ALTER TABLE pushAlerts
 ADD CONSTRAINT category2_fk foreign key(categoryId) REFERENCES category(categoryId);
 
 ALTER TABLE pushAlerts
-ADD CONSTRAINT user3_fk foreign(userMail) REFERENCES user(mail);
+ADD CONSTRAINT user3_fk foreign key(userMail) REFERENCES user(mail);
 
-ALTER TABLE company
- ADD COLUMN orgNumber varchar(30) after description;
-
-ALTER TABLE event
-ADD COLUMN longitude double after text;
-
-ALTER TABLE event
-  ADD COLUMN latitude double after text;
-
-ALTER TABLE category2
-ADD CONSTRAINT underCat_fk foreign key(categoryId) REFERENCES category(categoryId);
-
-ALTER TABLE category3
-ADD CONSTRAINT underCat2_fk foreign key(category2Id) REFERENCES category2(category2Id);
-
-ALTER TABLE event
-ADD COLUMN  categoryId varchar(30) after countyId;
-
-ALTER TABLE event
-ADD CONSTRAINT  category3_fk foreign key(categoryId) REFERENCES category(categoryId);
-
-ALTER TABLE pushAlerts
-ADD COLUMN wantEvent tinyint(1) after userMail;
-
-ALTER TABLE pushAlerts
-  ADD COLUMN statusSend tinyint(1) after wantEvent;
-
-ALTER TABLE pushAlerts
-  ADD COLUMN statusUpdate tinyint(1) after statusSend;
-
-ALTER TABLE pushAlerts
-  ADD COLUMN statusFinished tinyint(1) after statusUpdate;
-
-ALTER TABLE company
-ADD COLUMN firstName varchar(30) after orgNumber;
-
-ALTER TABLE company
-ADD COLUMN lastName varchar(30) after firstName;
-
-ALTER TABLE company
-ADD COLUMN phone varchar(30) after lastName;
-
-ALTER TABLE company
-ADD COLUMN password varchar(30) after phone;
