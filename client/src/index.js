@@ -3,8 +3,6 @@
 import ReactDOM from 'react-dom';
 import * as React from 'react';
 import { Component } from 'react-simplified';
-import { HashRouter, Route, NavLink } from 'react-router-dom';
-import { Alert } from './widgets';
 import {RegisterUser} from './components/registeruser/registeruser';
 import {HashRouter, Route, NavLink} from 'react-router-dom';
 import {Alert} from './widgets';
@@ -12,6 +10,7 @@ import {NavbarMenu} from "./components/NavbarMenu/NavbarMenu";
 import {Login} from "./views/login/login";
 import {KontoOversikt} from "./components/KontoOversikt/KontoOversikt";
 import {RegisterIssue} from "./components/RegisterIssue.js";
+import {RegisterCompany} from "./components/registercompany/registercompany.js";
 import {countySubscription} from "./components/countySubscription.js";
 
 // Reload application when not in production environment
@@ -32,6 +31,8 @@ if (root)
             <div>
                 <Alert/>
                 <NavbarMenu/>
+                <Route exact path="/register" component={RegisterUser}/>
+                <Route exact path="/register/company" component={RegisterCompany}/>
                 <Route exact path="/registerIssue" component={RegisterIssue}/>
                 <Route path="/countySubscription/:userMail" component={countySubscription}/>
                 <Route path="/min_side/kontooversikt" component={KontoOversikt}/>

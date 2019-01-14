@@ -109,3 +109,15 @@ export class Event {
         this.active = active;
     }
 }
+export class Company{
+    companyMail: string;
+    companyName: string;
+    firstName: string;
+    lastName: string;
+    adresse: string;
+    postnr: string;
+    password: string;
+    phone: number;
+
+    a
+}

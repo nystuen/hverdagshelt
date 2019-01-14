@@ -12,9 +12,7 @@ module.exports = function (app: Object, countyDao: Object) {
             res.json(data);
         })
     })
-<<<<<<< HEAD
-};
-=======
+
 
 
     app.get('/getAllCountiesMinusUsers/:UserMail', (req, res)=>{
@@ -51,4 +49,4 @@ module.exports = function (app: Object, countyDao: Object) {
     })
 
 };
->>>>>>> 68360b499c04450330682b03f6edc5cf80cdcf8b
+

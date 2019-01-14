@@ -96,7 +96,7 @@ class BindDropDown extends Component {
 
 export class RegisterUser extends Component<Props, State>{
 
-    state = {
+    /*state = {
         mail: "",
         firstName: "",
         lastName: "",
@@ -108,7 +108,7 @@ export class RegisterUser extends Component<Props, State>{
         points: 0,
         active: 0,
         isLoaded: false,
-    };
+    };*/
     constructor(props) {
         super(props);
         this.state = {
@@ -258,18 +258,39 @@ export class RegisterUser extends Component<Props, State>{
                         </FormGroup>
                         {' '}
                     </Row>
-                    <Button type="button" onClick={this.checkPass}>Registrer</Button>
+                    <Button type="button" onClick={this.checkMail}>Registrer</Button>
                 </Form>
             </Container>
         );
     }
+    checkMail = () =>{
+        var validator = require("email-validator");
+
+        if(!(validator.validate(this.state.mail))){
+            Alert.warning("Eposten eksisterer ikke")
+        }else{
+            this.register();
+        }
+    }
+
     checkPass = () => {
+
         if (this.state.password !== this.state.password2) {
             console.log("To ulike passord");
             Alert.warning("Du skrev to ulike passord");
-        } else {
-            this.register();
         }
+        else {
+            let decimal = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
+            if(this.state.password.match(decimal))
+            {
+                this.register();
+            }
+            else
+            {
+                Alert.warning('Password has to be between 8 to 15 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character')
+            }
+        }
+
     }
 
 

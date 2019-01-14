@@ -7,11 +7,8 @@ import fs from 'fs';
 import {UserDao} from "./daos/userDao";
 import {CountyDao} from "./daos/countyDao";
 import userController from './controllers/userController.js';
-import countyController from './controllers/countyController';
 import categoryController from './controllers/categoryController.js';
-import {CountyDao} from "./daos/countyDao";
 import {IssueDao} from "./daos/issueDao";
-import userController from './controllers/userController.js'
 import issueController from "./controllers/issueController.js";
 import countyController from "./controllers/countyController.js"
 import * as mysql from "mysql2";
@@ -40,7 +37,6 @@ let pool = mysql.createPool({
 let userDao = new UserDao(pool);
 let countyDao = new CountyDao(pool);
 let issueDao = new IssueDao(pool);
-let countyDao = new CountyDao(pool);
 let categoryDao = new CategoryDao(pool);
 
 
