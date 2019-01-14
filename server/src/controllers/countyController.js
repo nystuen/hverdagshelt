@@ -40,7 +40,6 @@ module.exports = function (app: Object, countyDao: Object) {
 
     app.post('/addSubscription', (req, res)=>{
         console.log("post all subscribed counties request");
-        console.log(req.body)
         countyDao.addSubscription(req.body,(status, data)=>{
             res.status(status);
             res.json(data);

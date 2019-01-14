@@ -4,10 +4,10 @@ import { Layout } from "../widgets";
 import {
 Grid, Row, Col, ListGroup,ListGroupItem, Table, Image, Panel
 } from "react-bootstrap"
-import {MyPage, getAllCounties, getUsersCounties, deleteSubscription,addSubscription} from "../services";
+import {getAllCounties, getUsersCounties, deleteSubscription,addSubscription} from "../services";
 
 
-const myPage = new MyPage();
+
 //Databasekall
 //Få alle kommuner som finnes som er active og som bruker ikke abonerer på
 // Få alle kommuner som den personen abonerer på
@@ -71,10 +71,6 @@ export class countySubscription extends Component<Props,State> {
 
         deleteSubscription(id);
 
-        console.log(this.state.userCounties);
-        console.log(this.state.allCounties);
-
-
         this.state.userCounties.map((e)=>{
             let theBody: Object = {
                 countyId : e.countyId,
@@ -82,9 +78,6 @@ export class countySubscription extends Component<Props,State> {
             };
             addSubscription(theBody);
         });
-
-
-
 
     };
 
@@ -98,9 +91,7 @@ export class countySubscription extends Component<Props,State> {
 
     getInformation = async ()=>{
         let id:string = this.props.match.params.userMail;
-        console.log('id: '+id);
         await getAllCounties(id).then((r: Array<Object>) => {
-            console.log(r);
             this.setState({
                allCounties: r
             });
@@ -108,7 +99,6 @@ export class countySubscription extends Component<Props,State> {
         });
 
         await getUsersCounties(id).then((r: Array<Object>)=> {
-            console.log(r)
             this.setState({
             userCounties: r
         });
@@ -135,7 +125,7 @@ export class countySubscription extends Component<Props,State> {
                             }
                         </ListGroup>
                     </Col>
-                    <Col xs={6} md={4}>
+                    <Col >
                         <div className="container">
                         <Col xs={6} md={4}>
                             <Image src="/" circle />
@@ -163,14 +153,3 @@ export class countySubscription extends Component<Props,State> {
     }
 
 }
-
-
-/* {
-                                this.state.userCounties.map((r,i)=>{
-                                   return <ListGroupItem key={i} >{r.name}</ListGroupItem>
-                                })
-
-                                  this.state.allCounties.map((r,i) =>{
-                                    return <tr><td key={i}>{r.name}</td></tr>
-                                })
-                            }*/
