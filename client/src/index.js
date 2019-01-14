@@ -13,6 +13,9 @@ import { NavbarMenu } from "./components/NavbarMenu/NavbarMenu";
 import { Login } from "./views/login/login";
 import { KontoOversikt } from "./components/KontoOversikt/KontoOversikt";
 import { countySubscription } from "./components/countySubscription";
+import { RegisterUser } from "./components/RegisterUser";
+import {NotificationSettings} from "./components/NotificationSettings/NotificationSettings";
+
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== 'production') {
@@ -36,6 +39,8 @@ if (root)
                 <Route path="/min_side/kontooversikt" component={KontoOversikt}/>
                 <Route path="/login" component={Login}/>
                 <Route path="/map" component={ MapComponent } />
+                <Route path="/register_user" component={ RegisterUser}/>
+                <Route path="/min_side/notification_settings" component ={NotificationSettings}/>
             </div>
         </HashRouter>,
         root

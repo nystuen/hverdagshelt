@@ -41,7 +41,7 @@ export class NavbarMenu extends React.Component {
                             <MenuItem eventKey={2} href="/#min_side/mine_saker">Mine saker</MenuItem>
                             <MenuItem eventKey={1} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
                             <MenuItem eventKey={1} href="/#min_side/kommuner">Kommuner</MenuItem>
-                            <MenuItem eventKey={1} href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
+                            <MenuItem eventKey={1} href="/#min_side/notification_settings">Varselinstillinger</MenuItem>
                         </NavDropdown>
                         <NavItem eventKey={1} href="/#login">Login</NavItem>
                     </Nav>

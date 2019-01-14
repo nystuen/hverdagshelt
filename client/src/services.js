@@ -16,8 +16,8 @@ export class UserService {
         return axios.get('/verify_user/' + email);
     }//end method
 
-    getUser(mail: string): Promise<User>{
-        return axios.get('/user/get_user/' +  mail);
+    getUser(email: string): Promise<User>{
+        return axios.get('/user/get_user/' +  email);
     }//end method
 
     login(userMail: Object<JSON>): Promise<void>{
@@ -38,6 +38,13 @@ export class CategoryService {
 
     getCategory3(): Promise<Category3[]>{
         return axios.get('/get_category3');
+    }
+}
+
+export class NotificationSettingsService {
+
+    getNotificationSettings(email: string): Promise<Category[]> {
+        return axios.get('/get_notification_settings/' + email);
     }
 }
 
