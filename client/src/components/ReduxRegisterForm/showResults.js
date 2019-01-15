@@ -2,7 +2,7 @@ const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 export default (async function showResults(values) {
   await sleep(500); // simulate server latency
-  window.alert("You submitted: " + JSON.stringify(values.longitude));
+  window.alert("You submitted: " + JSON.stringify(values));
   fetch("http://localhost:3000/add_issue", {
     method: "POST",
     headers: {

@@ -53,6 +53,11 @@ height:100%
   border: 1px solid grey;
 }
 
+.submitButton {
+  z-index: 1000;
+  position: absolute;
+}
+
 .alert {
   color: red;
   border: 1px red;
