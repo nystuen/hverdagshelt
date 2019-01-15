@@ -16,6 +16,8 @@ import { countySubscription } from './views/MinSide/countySubscription/countySub
 import createHashHistory from 'history/createHashHistory';
 import { MineSaker } from './views/MinSide/mineSaker/mineSaker';
 import { MinSide } from './views/MinSide/MinSide';
+import { EditAccountInformation } from './views/MinSide/KontoOversikt/editAccountInformation';
+import { SendTextMailWindow } from './components/Mail/SendMail';
 
 
 // Reload application when not in production environment
@@ -25,7 +27,7 @@ if (process.env.NODE_ENV !== 'production') {
   if (document.body) document.body.appendChild(script);
 }
 
-const history = createHashHistory(); // Use history.push(...) to programmatically change path, for instance after successfully saving a student
+export const history = createHashHistory(); // Use history.push(...) to programmatically change path, for instance after successfully saving a student
 
 
 const root = document.getElementById('root');
@@ -37,9 +39,11 @@ if (root)
         <Route path="/wizardForm" component={WizardFormComplete}/>
         <Route path="/min_side/kommuner" component={countySubscription}/>
         <Route path="/min_side/kontooversikt" component={KontoOversikt}/>
+        <Route path="/min_side/editAccountInformation" component={EditAccountInformation}/>
         <Route path="/login" component={Login}/>
         <Route path="/map" component={MapComponent}/>
         <Route path="/min_side/mine_saker" component={MineSaker}/>
+        <Route path="/sendTextMail" component={SendTextMailWindow}/>
       </div>
     </HashRouter>,
     root

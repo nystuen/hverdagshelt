@@ -7,7 +7,7 @@ import { Grid, Row, Col, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { ChooseCategory } from '../../../components/ChooseCategory/ChooseCategory';
 import Button from 'react-bootstrap/es/Button';
 import { Category, Category2, Category3, User } from '../../../classTypes';
-import { UserService } from '../../../services';
+import { MailService, UserService } from '../../../services';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
 
 let userService = new UserService();
@@ -39,9 +39,11 @@ class AccountInfoCard extends React.Component<{
   phone: string
 }> {
 
+
   render() {
     return (
       <div>
+
 
         <div>
 
@@ -66,7 +68,7 @@ class AccountInfoCard extends React.Component<{
           </Grid>
 
           <div align="center">
-            <Button>Endre kontoinformasjon</Button>
+            <Button href={'/#/min_side/editAccountInformation'}>Endre kontoinformasjon</Button>
             <Button>Endre passord</Button>
           </div>
 
@@ -81,7 +83,8 @@ export class KontoOversikt extends React.Component <State> {
 
   state = {
     decoded: jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret'),
-    user: User
+    user: User,
+    value: String
   };
 
   componentDidMount() {
@@ -92,13 +95,12 @@ export class KontoOversikt extends React.Component <State> {
     });
   }
 
+
   render() {
-    console.log(this.state.user);
     return (
       <Grid>
-        
-        <PageHeader title={"Kontooversikt"}/>
-        
+        <PageHeader title={'Kontooversikt'}/>
+
         {
           this.state.decoded.typeId === 'Admin' || this.state.decoded.typeId === 'Employee' || this.state.decoded.typeId === 'User' ? (
             <div>

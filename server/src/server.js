@@ -11,8 +11,10 @@ import {IssueDao} from "./daos/issueDao";
 import userController from './controllers/userController.js'
 import issueController from "./controllers/issueController.js";
 import countyController from "./controllers/countyController.js"
+import mailController from './controllers/mailController.js';
 import * as mysql from "mysql2";
 import {CategoryDao} from "./daos/catergoryDao";
+import { MailDao } from './daos/mailDao';
 
 type Request = express$Request;
 type Response = express$Response;
@@ -38,15 +40,15 @@ let userDao = new UserDao(pool);
 let issueDao = new IssueDao(pool);
 let countyDao = new CountyDao(pool);
 let categoryDao = new CategoryDao(pool);
+let mailDao = new MailDao(pool);
 
 
 //fire controllers
 issueController(app, issueDao);
-
-
 userController(app, userDao);
 countyController(app, countyDao);
 categoryController(app, categoryDao);
+mailController(app, userDao);
 
 // Hot reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {

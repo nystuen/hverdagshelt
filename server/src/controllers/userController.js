@@ -82,6 +82,14 @@ module.exports = function (app: Object, userDao: Object) {
        })
     });
 
+    app.put('/user/updateUser/', urlencodedParser, (req, res) => {
+        console.log('got req from updateUser');
+        userDao.updateUser(req.body, (status, data) => {
+          res.status(status);
+          res.json(data);
+        })
+    });
+
 
 };
 
