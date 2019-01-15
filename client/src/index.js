@@ -12,7 +12,7 @@ import { Alert } from './widgets';
 import store from './components/ReduxRegisterForm/store';
 import { Provider } from 'react-redux';
 import {KontoOversikt} from './views/MinSide/KontoOversikt/kontoOversikt';
-import { countySubscription } from './views/countySubscription/countySubscription';
+import { countySubscription } from './views/MinSide/countySubscription/countySubscription';
 import createHashHistory from 'history/createHashHistory';
 import { MineSaker } from './views/MinSide/mineSaker/mineSaker';
 import { MinSide } from './views/MinSide/MinSide';

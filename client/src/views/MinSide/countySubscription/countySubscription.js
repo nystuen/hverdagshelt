@@ -1,8 +1,8 @@
 //@flow
 import React, { Component } from 'react';
-import { Layout } from '../../widgets';
+import { Layout } from '../../../widgets';
 import { Grid, Row, Col, ListGroup,ListGroupItem, Table, Image, Panel } from "react-bootstrap"
-import {getAllCounties, getUsersCounties, deleteSubscription,addSubscription} from "../../services";
+import {getAllCounties, getUsersCounties, deleteSubscription,addSubscription} from "../../../services";
 import * as jwt from 'jsonwebtoken';
 import Glyphicon from 'react-bootstrap/es/Glyphicon';
 import Button from 'react-bootstrap/es/Button';
