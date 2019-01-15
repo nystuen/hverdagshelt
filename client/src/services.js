@@ -73,8 +73,16 @@ export class MyPage{
   }
 }
 
-export function getAllCounties(usermail: string): Promise<County[]> {
-  return axios.get("/getAllCountiesMinusUsers/" + usermail);
+
+
+export function getImportantEvents(countyId:number): Promise<Event[]> {
+    console.log("Id inn til services" + countyId)
+        return axios.get('/importantEvents/'+countyId);
+}
+
+export function getAllCounties(usermail:string): Promise<County[]> {
+    return axios.get('/getAllCountiesMinusUsers/'+ usermail);
+
 }
 
 export function getUsersCounties(usermail: string): Promise<County[]> {
@@ -88,3 +96,4 @@ export function deleteSubscription(usermail: string) {
 export function addSubscription(json: Object) {
   return axios.post("/addSubscription", json);
 }
+

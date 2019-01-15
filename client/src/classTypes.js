@@ -96,8 +96,10 @@ export class Category {
 }
 
 
+
 export class Category2 extends Category {
   category2Id: number;
+
 
   constructor(
     categoryId: number,
@@ -131,26 +133,36 @@ export class Category3 extends Category {
 }
 
 export class Event {
-  eventId: number;
-  title: string;
-  text: string;
-  date: string;
-  userMail: string;
-  active: number;
+
+    eventId: number;
+    title: string;
+    text: string;
+    latitude: double;
+    longitude: double;
+    date: string;
+    userMail: string;
+    countyId: number;
+    active: number;
 
   constructor(
     eventId: number,
     title: string,
     text: string,
+    latitude: double,
+    longitude: double,
     date: string,
     userMail: string,
+    countyId:number,
     active: number
   ) {
     this.eventId = eventId;
     this.title = title;
     this.text = text;
+    this.latitude = latitude;
+    this.longitude = longitude;
     this.date = date;
     this.userMail = userMail;
+    this.countyId = countyId;
     this.active = active;
   }
 }
@@ -186,5 +198,6 @@ export class Company{
     postnr: string;
     password: string;
     phone: number;
+
 }
 

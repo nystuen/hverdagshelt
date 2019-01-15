@@ -1,6 +1,7 @@
 // @flow
 
 
+
 import express from "express";
 import path from "path";
 import reload from "reload";
@@ -12,8 +13,17 @@ import { IssueDao } from "./daos/issueDao";
 import userController from "./controllers/userController.js";
 import issueController from "./controllers/issueController.js";
 import countyController from "./controllers/countyController.js";
-const notificationController = require("./controllers/notificationController");
 import { CategoryDao } from "./daos/catergoryDao";
+
+
+
+
+import {EventDao} from "./daos/eventDao.js";
+
+
+
+import eventController from "./controllers/eventController.js";
+
 import * as mysql from "mysql2";
 
 type Request = express$Request;
@@ -36,6 +46,9 @@ let pool = mysql.createPool({
   debug: false
 });
 
+
+let eventDao = new EventDao(pool);
+
 let userDao = new UserDao(pool);
 let countyDao = new CountyDao(pool);
 let issueDao = new IssueDao(pool);
@@ -43,8 +56,8 @@ let categoryDao = new CategoryDao(pool);
 
 //fire controllers
 issueController(app, issueDao);
+eventController(app, eventDao);
 userController(app, userDao);
-countyController(app, countyDao);
 countyController(app, countyDao);
 categoryController(app, categoryDao);
 
