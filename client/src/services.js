@@ -74,3 +74,9 @@ export function deleteSubscription(usermail: string){
 export function addSubscription(json: Object){
     return axios.post('/addSubscription', json);
 }
+
+export class CountyService{
+    getCounties(): Promise<County[]>{
+        return axios.get('/getCounties');
+    }
+}

@@ -7,6 +7,7 @@ import { WizardFormComplete } from './components/ReduxRegisterForm/WizardFormCom
 import { MapComponent } from './components/map/Map';
 import { NavbarMenu } from './components/NavbarMenu/NavbarMenu';
 import { Login } from './views/login/login';
+import { Frontpage} from './views/frontpage/frontpage';
 import { Component } from 'react-simplified';
 import { Alert } from './widgets';
 import store from './components/ReduxRegisterForm/store';
@@ -35,6 +36,7 @@ if (root)
     <HashRouter>
       <div className="route-container">
         <NavbarMenu/>
+        <Route path="/frontpage" component={Frontpage}/>
         <Route path="/wizardForm" component={WizardFormComplete}/>
         <Route path="/min_side/kommuner" component={countySubscription}/>
         <Route path="/min_side/kontooversikt" component={KontoOversikt}/>
