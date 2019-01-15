@@ -124,14 +124,12 @@ export class Login extends Component<Props, State> {
       this.setState({
         storedPassword: response[0].password
       });
-      console.log('2');
       bcrypt.compare(this.state.password, response[0].password, (err, res) => {
-        console.log('3');
         if (res) {
           userService.login({ userMail: response[0].mail, typeId: response[0].typeName }).then(r => {
             let token = r.jwt;
-            console.log('hello');
             window.localStorage.setItem('userToken', token);
+            console.log("login in success")
           }).catch((error: Error) => Alert.danger(error.message));
         } else {
           this.setState({
