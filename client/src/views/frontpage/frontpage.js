@@ -66,15 +66,15 @@ export class Frontpage extends Component<Props, State> {
             <Grid>
                 <FormGroup>
                     <Select
-                        placeholder={"Velg kommune"}
+                        placeholder={"Klikk her for å velge kommune"}
                         name="colors"
                         options={optionTemplate}
-                        className="basic"
+                        className="Choose county"
                         classNamePrefix="select"
                         onChange={this.handleChangeCounty}
                     />
                 </FormGroup>
-                <Button class={"btn btn-primary btn-lg"} href={"/#home/"+ this.state.choosen}>Gå videre!</Button>
+                <Button className={"Go to chosen county"} href={"/#home/"+ this.state.choosen}>Gå videre!</Button>
             </Grid>
         );
     }
