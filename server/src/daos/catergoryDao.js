@@ -11,7 +11,7 @@ export class CategoryDao extends Dao {
     }
 
     getCategory1(callback: Function){
-        super.query("select * from category",[], callback);
+        super.query("select * from category and active=1",[], callback);
     }
 
     getCategory2(callback: Function){
@@ -20,6 +20,18 @@ export class CategoryDao extends Dao {
 
     getCategory3(callback: Function){
         super.query("select * from category3",[], callback);
+    }
+
+    getOneCategory1(categoryId: number, callback: Function){
+        super.query("select * from category where categoryId=?",[categoryId], callback);
+    }
+
+    getOneCategory2(categoryId: number, callback: Function){
+        super.query("select * from category2 where categoryId=?",[categoryId], callback);
+    }
+
+    getOneCategory3(categoryId: number, callback: Function){
+        super.query("select * from category3 where categoryId=?",[categoryId], callback);
     }
 
 

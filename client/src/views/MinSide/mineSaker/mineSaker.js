@@ -7,6 +7,9 @@ import {UserService} from "../../../services";
 import {Alert} from "../../../widgets";
 import ProgressBar from "react-bootstrap/es/ProgressBar";
 import {Status} from "../../../classTypes";
+import NavLink from "react-router-dom/es/NavLink";
+import Nav from "react-bootstrap/es/Nav";
+import NavItem from "react-bootstrap/es/NavItem";
 
 let jwt = require("jsonwebtoken");
 let userService = new UserService();
@@ -16,6 +19,7 @@ let status = null;
 interface State{
     issues: Object[];
     category: Object[];
+    decoded: Object;
 }//end interface
 
 interface Props{}
@@ -23,11 +27,14 @@ interface Props{}
 export class MineSaker extends React.Component<Props,State>{
     state = {
         issues: [],
-        category: []
+        category: [],
+        decoded: jwt.verify(window.localStorage.getItem('userToken'), "shhhhhverysecret")
     };
     render(){
         return(
             <Grid>
+                <br/>
+                <br/>
             <Table>
                 <thead>
                     <tr>
@@ -47,7 +54,11 @@ export class MineSaker extends React.Component<Props,State>{
                     return(
                         <tr key={e.text}>
                             <td>
-                                {e.text}
+                                <Nav bsStyle="pills">
+                                    <NavItem href={"/#min_side/sakoversikt/" + this.state.decoded.email + "/" + e.issueId}>
+                                    {e.text}
+                                    </NavItem>
+                                </Nav>
                             </td>
                             <td>
                                 {e.category}

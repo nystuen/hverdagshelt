@@ -10,6 +10,7 @@ Drop table if exists category3;
 Drop table if exists category2;
 Drop table if exists category;
 Drop table if exists company;
+Drop table if exists notifications;
 Drop table if exists user;
 Drop table if exists types;
 Drop table if exists county;
@@ -41,6 +42,14 @@ CREATE TABLE user(
   countyId int not null,
   active boolean not null,
   CONSTRAINT user_pk primary key(mail)
+);
+
+CREATE TABLE notifications(
+  userMail varchar(30) not null,
+  registered boolean,
+  inProgress boolean,
+  completed boolean,
+  CONSTRAINT noti_pk primary key(userMail);
 );
 
 
@@ -162,6 +171,8 @@ ADD CONSTRAINT type_fk foreign key(typeName) REFERENCES types(typeName);
 ALTER TABLE user
 ADD CONSTRAINT county_fk foreign key(countyId) REFERENCES county(countyId);
 
+ALTER TABLE notifications
+ADD CONSTRAINT userMail_fk foreign key(userMail) REFERENCES user(mail);
 
 ALTER TABLE category2
 ADD CONSTRAINT underCat_fk foreign key(categoryId) REFERENCES category(categoryId);

@@ -24,6 +24,7 @@ if (process.env.NODE_ENV !== 'production') {
 import createHashHistory from 'history/createHashHistory';
 import {MineSaker} from "./views/MinSide/mineSaker/mineSaker";
 import {MinSide} from "./views/MinSide/MinSide";
+import {OversiktOverSak} from "./views/oversiktOverSak/oversiktOverSak";
 const history = createHashHistory(); // Use history.push(...) to programmatically change path, for instance after successfully saving a student
 
 
@@ -41,6 +42,7 @@ if (root)
                 <Route path="/login" component={Login} />
                 <Route path="/min_side" component={MinSide} />
                 <Route path="/min_side/mine_saker" component={MineSaker}/>
+                <Route path="/min_side/sakoversikt/:email/:issueId" component={OversiktOverSak} />
             </div>
         </HashRouter>,
         root

@@ -30,7 +30,30 @@ module.exports = function (app: Object, categoriesDao: Object) {
             res.status(status);
             res.json(data);
         });
+    });
 
+    app.get('/getOneCategory1/:id', urlencodedParser, (req,res) => {
+        console.log('got request from getOneCategory1');
+        categoriesDao.getOneCategory1(req.params.id, (status,data) => {
+            res.status(status);
+            res.json(data);
+        });
+    });
+
+    app.get('/getOneCategory2/:id', urlencodedParser, (req,res) => {
+        console.log('got request from getOneCategory2');
+        categoriesDao.getOneCategory2(req.params.id, (status,data) => {
+            res.status(status);
+            res.json(data);
+        });
+    });
+
+    app.get('/getOneCategory3/:id', urlencodedParser, (req,res) => {
+        console.log('got request from getOneCategory3');
+        categoriesDao.getOneCategory3(req.params.id, (status,data) => {
+            res.status(status);
+            res.json(data);
+        });
     });
 
     app.post('/add_category1', urlencodedParser, (req, res) => {

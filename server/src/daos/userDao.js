@@ -27,4 +27,4 @@ export class UserDao extends Dao {
           "date, statusName, countyId, name as 'category', priority from issues " +
           "natural join category where userMail='per@usermail.com' and active=1", [userMail], callback);
     }//end method
-}
+}//end class

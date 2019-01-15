@@ -35,6 +35,15 @@ module.exports = function(app: Object, issueDao: Object) {
     });
   });
 
+  app.get("/oversiktOverSak/:id", (req,res) => {
+    console.log('received get request from /oversiktOverSak');
+    console.log(req.body.id);
+    issueDao.getIssueAndCounty(req.params.id, (status,data) => {
+      res.status(status);
+      res.json(data);
+    });
+  });
+
   app.get("/CompanyIssues/:CompanyMail", (req, res) => {
     console.log("received get request from companyIssues");
     issueDao.getCompanyIssue(req.params.CompanyMail, (status, data) => {
