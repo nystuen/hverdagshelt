@@ -37,17 +37,28 @@ export class UserService {
 } //end class
 
 export class CategoryService {
-  getCategory1(): Promise<Category[]> {
-    return axios.get("/get_category1");
-  }
+    getCategory1(): Promise<Category[]> {
+        return axios.get("/get_category1");
+    }
 
-  getCategory2(): Promise<Category2[]> {
-    return axios.get("/get_category2");
-  }
+    getCategory2(): Promise<Category2[]> {
+        return axios.get("/get_category2");
+    }
 
-  getCategory3(): Promise<Category3[]> {
-    return axios.get("/get_category3");
-  }
+
+    getCategory3(): Promise<Category3[]> {
+        return axios.get("/get_category3");
+    }
+}
+
+export class CountyService{
+    getCounties(): Promise<County[]>{
+        return axios.get('/getCounties');
+    }
+}
+
+export class MyPage{
+
 
   addCategory1(json: Object) {
     return axios.post("/add_category1", json);
