@@ -12,6 +12,7 @@ export class CountyDao extends Dao {
   }
 
 
+
     //get all counties where the user dosnt use
 
   getAllCountiesMinusUsers(id: string, callback: Function) {
@@ -21,6 +22,7 @@ export class CountyDao extends Dao {
       callback
     );
   }
+
 
     getSubscribedCounties(id: string, callback: Function){
         super.query("SELECT * FROM county NATURAL JOIN userCounties where userCounties.userMail = ?", [id], callback);

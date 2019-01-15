@@ -12,9 +12,9 @@ import cloneDeep from 'lodash/cloneDeep';
 
 let categoryService = new CategoryService();
 
-export class ChooseCategory extends Component<{
-  registerCategory ?: boolean
-}> {
+
+export class ChooseCategory extends Component<{registerCategory ?: boolean}> {
+
 
 
     constructor(props) {
@@ -25,11 +25,18 @@ export class ChooseCategory extends Component<{
             category3: [],
             selectedCategory: {name: 'ingen'},
             selectedCategoryType: 0,
-            selectedCategoryId: -1
+            selectedCategoryId: -1,
+            newCategoryHeader:'Den nye overkategorien'
         };
 
         this.handleClick = this.handleClick.bind(this)
     }
+
+    //used in adminAddCategory to get the chosen category header
+    //Finn ut hva som skal tas imot fra den andre
+    onChangeCategoryHeader=()=>{
+        this.props.changeCategoryHeader(this.state.selectedCategoryId, this.state.selectedCategoryType);
+    };
 
     getSelectedCategoryId() {
         return this.state.selectedCategoryId;
@@ -87,6 +94,7 @@ export class ChooseCategory extends Component<{
             });
         });
 
+
       if(!this.props.registerCategory){ // only load cat3 if this component is not in registerCategory
 
         categoryService.getCategory3().then(resources => {
@@ -107,7 +115,6 @@ export class ChooseCategory extends Component<{
           });
         });
       }
-
     }
 
     handleClick(cat1: Category) {
@@ -129,7 +136,8 @@ export class ChooseCategory extends Component<{
             selectedCategory: cat1,
             selectedCategoryType: this.getCategoryType(cat1),
             selectedCategoryId: cat1.id
-        })
+        },this.onChangeCategoryHeader.bind(this) );
+
 
     }
 
@@ -152,7 +160,7 @@ export class ChooseCategory extends Component<{
             selectedCategory: cat2,
             selectedCategoryType: this.getCategoryType(cat2),
             selectedCategoryId: cat2.id
-        })
+        },this.onChangeCategoryHeader.bind(this))
 
     }
 
@@ -165,7 +173,9 @@ export class ChooseCategory extends Component<{
             selectedCategory: cat3,
             selectedCategoryType: this.getCategoryType(cat3),
             selectedCategoryId: cat3.id
-        })
+        },this.onChangeCategoryHeader.bind(this))
+
+
     }
 
     getCategoryType(category) {

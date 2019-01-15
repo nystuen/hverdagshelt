@@ -11,8 +11,10 @@ import {IssueDao} from "./daos/issueDao";
 import userController from './controllers/userController.js'
 import issueController from "./controllers/issueController.js";
 import countyController from "./controllers/countyController.js"
+const notificationController = require('./controllers/notificationController');
 import * as mysql from "mysql2";
 import {CategoryDao} from "./daos/catergoryDao";
+import {sendMail} from "./sendMessage/sendMail";
 
 type Request = express$Request;
 type Response = express$Response;
@@ -34,6 +36,9 @@ let pool = mysql.createPool({
     debug: false
 });
 
+
+
+
 let userDao = new UserDao(pool);
 let issueDao = new IssueDao(pool);
 let countyDao = new CountyDao(pool);
@@ -42,6 +47,7 @@ let categoryDao = new CategoryDao(pool);
 
 //fire controllers
 issueController(app, issueDao);
+
 
 
 userController(app, userDao);
