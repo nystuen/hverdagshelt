@@ -4,6 +4,10 @@ import React, { Component, createRef } from 'react'
 import { Map, TileLayer, Marker, Popup, withLeaflet } from 'react-leaflet'
 import * as ELG from 'esri-leaflet-geocoder'
 import L from 'leaflet'
+import { Button } from 'react-bootstrap';
+import Geocode from "react-geocode";
+
+Geocode.setApiKey("AIzaSyDVZREoJuiobrxWVmBFhemEk1VdRB0MsSI");
 
 type State = {
   hasLocation: boolean,
@@ -24,13 +28,14 @@ export class MapComponent extends Component<{}, State> {
       hasLocation: false,
       address: "",
       latlng: {
-          lat: 63.43075,
-          lng: 10.394906
+          lat: 65.107877,
+          lng: 12.074429
       },
-      zoom: 12
+      zoom: 5
     };
 
       this.handleMapClick = this.handleMapClick.bind(this);
+      this.handleClick = this.handleClick.bind(this);
 
   }
 
@@ -41,20 +46,6 @@ export class MapComponent extends Component<{}, State> {
     if(map != null) {
       map.locate()
     }
-
-    var geocodeService = new ELG.geocodeService();
-    const searchControl = new ELG.Geosearch().addTo(map);
-    const results = new L.LayerGroup().addTo(map)
-
-    searchControl.on('results', (data) => {
-      results.clearLayers()
-      console.log(data.results)
-      this.setState({
-        address: data.results[0].properties.LongLabel,
-        latlng: data.results[0].latlng,
-        zoom: 17
-      })
-    })
   }
 
   mapRef = createRef<Map>()
@@ -66,33 +57,71 @@ export class MapComponent extends Component<{}, State> {
       zoom: 17
     })
 
-
-    const map = this.mapRef.current.leafletElement;
-    var markers = new L.LayerGroup().addTo(map)
-    var markerLatLng
-    var markerAdress
-    console.log(this.state)
-    var geocodeService = new ELG.geocodeService();
-    geocodeService.reverse().latlng(e.latlng).run((error, result) => {
-      this.setState({
-        latlng: result.latlng,
-        address: result.address.LongLabel
-      })
-      //L.marker(result.latlng).addTo(map).bindPopup(result.address.LongLabel).openPopup();
-    });
+    Geocode.fromLatLng(e.latlng.lat, e.latlng.lng).then(
+      response => {
+        const address_found = response.results[0].formatted_address;
+        this.setState({
+          hasLocation: true,
+          latlng: e.latlng,
+          address: address_found
+        })
+      },
+      error => {
+        console.error(error);
+      }
+    );
   }
 
   handleLocationFound = (e: Object) => {
+    Geocode.fromLatLng(e.latlng.lat, e.latlng.lng).then(
+      response => {
+        const address_found = response.results[0].formatted_address;
+        this.setState({
+          hasLocation: true,
+          latlng: e.latlng,
+          address: address_found,
+          zoom: 15
+        })
+      },
+      error => {
+        console.error(error);
+      }
+    );
+  }
+
+  onChange = (e: Object) => {
     this.setState({
-      hasLocation: true,
-      latlng: e.latlng
-    })
+      address: e.target.value
+    });
+  }
+
+  handleClick = (e: Object) => {
+    Geocode.fromAddress(this.state.address).then(
+      response => {
+        const { lat, lng } = response.results[0].geometry.location;
+        this.setState({
+          latlng: {lat,lng},
+          zoom: 17,
+          hasLocation: true
+        })
+      },
+      error => {
+        console.error(error);
+      }
+    );
   }
 
   render() {
 
     let styles = {
       height: '100%'
+    }
+
+    let mapStyle = {
+      top: '0',
+      bottom: '0',
+      left: '0',
+      right: '0',
     }
 
     let marker = this.state.hasLocation ? (
@@ -111,6 +140,7 @@ export class MapComponent extends Component<{}, State> {
           ref={this.mapRef}
           zoom={this.state.zoom}
           doubleClickZoom= {true}
+          style={mapStyle}
         >
             <TileLayer
               attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
@@ -118,6 +148,12 @@ export class MapComponent extends Component<{}, State> {
             />
             {marker}
         </Map>
+        <div className="choice-map-container">
+          <div className="choice-map">
+            <input className="input-map" placeholder="Adresse, by" onChange={this.onChange.bind(this)} value={this.state.address}></input>
+            <Button bsStyle="primary" onClick={this.handleClick}>Meld feil</Button>
+          </div>
+        </div>
       </div>
     )
   }
