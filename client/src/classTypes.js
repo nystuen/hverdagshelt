@@ -174,3 +174,15 @@ export class County{
         this.name = name;
     }
 }
+
+export class NotificationSetting {
+    countyId: number;
+    categoryId: number;
+    userMail: string;
+
+    constructor(countyId: number, categoryId: number, userMail: string) {
+        this.countyId = countyId;
+        this.categoryId = categoryId;
+        this.userMail = userMail;
+    }
+}

@@ -1,6 +1,6 @@
 // @flow
 import axios from 'axios';
-import {User, Issue, Category, Category2, Category3,  Company, Event, Type, County} from "./classTypes";
+import {User, Issue, Category, Category2, Category3,  Company, Event, Type, County, NotificationSetting} from "./classTypes";
 
 axios.interceptors.response.use(response => response.data);
 
@@ -43,8 +43,16 @@ export class CategoryService {
 
 export class NotificationSettingsService {
 
-    getNotificationSettings(email: string): Promise<Category[]> {
+    getNotificationSettings(email: string): Promise<Object[]> {
         return axios.get('/get_notification_settings/' + email);
+    }
+
+    deleteNotificationSettings(email: string): Promise<void> {
+        return axios.delete('/delete_notification_settings/' + email);
+    }
+
+    addNotificationSettings(newSetting: NotificationSetting): Promise<Response> {
+        return axios.post('/add_notification_settings', newSetting)
     }
 }
 

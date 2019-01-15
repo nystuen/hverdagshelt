@@ -30,7 +30,7 @@ export class NotificationSettings extends React.Component <State> {
             <Grid>
             <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
                 <Tab eventKey={1} title="Hjemkommune">
-                    <NotificationSettingsForm notificationCategories={['halo']} chosenNotifications={['halo']}/>
+                    <NotificationSettingsForm />
                 </Tab>
                 <Tab eventKey={2} title="Andre kommuner">
                     Tab 2 content
