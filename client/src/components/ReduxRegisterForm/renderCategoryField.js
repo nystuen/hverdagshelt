@@ -1,11 +1,16 @@
 import React from "react";
 import { FormControl } from "react-bootstrap";
 
-const renderField = ({ input, label, type, meta: { touched, error } }) => (
+const renderCategoryField = ({
+  input,
+  label,
+  type,
+  defaultValue,
+  meta: { touched, error }
+}) => (
   <div>
-    <label>{label}</label>
     <div>
-      <FormControl {...input} placeholder={label} type={type} />
+      <FormControl {...input} type={type} label={label} value={defaultValue} />
       {touched &&
         error && (
           <div>
@@ -21,4 +26,4 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
   </div>
 );
 
-export default renderField;
+export default renderCategoryField;

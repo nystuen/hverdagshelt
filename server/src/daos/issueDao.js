@@ -13,10 +13,11 @@ export class IssueDao extends Dao {
       json.date,
       json.statusName,
       json.categoryId,
+      json.categoryLevel,
       json.countyId
     ];
     super.query(
-      "insert into issues (userMail, latitude, longitude, text, pic, date, statusName, categoryId, countyId, active) values(?, ?, ?, ?, ?, ?, ?, ?, ?, 1)",
+      "insert into issues (userMail, latitude, longitude, text, pic, date, statusName, categoryId, categoryLevel, countyId, active) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)",
       val,
       callback
     );
