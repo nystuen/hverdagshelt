@@ -50,4 +50,12 @@ module.exports = function(app: Object, issueDao: Object) {
       res.json(data);
     });
   });
+
+  app.get("/Categories", (req, res) => {
+    console.log("received get request from category");
+    issueDao.getAllCategories((status, data) => {
+      res.status(status);
+      res.json(data);
+    });
+  });
 };

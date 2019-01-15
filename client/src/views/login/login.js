@@ -4,9 +4,12 @@ import ReactDOM from 'react-dom';
 import * as React from 'react';
 import { Component } from 'react';
 import {User} from "../../classTypes";
-import {Grid, Row, Col} from 'react-bootstrap';
+import Container from "reactstrap/es/Container";
+import Row from "reactstrap/es/Row";
+import Col from "reactstrap/es/Col";
+import Input from "reactstrap/es/Input";
 import {UserService} from "../../services";
-import {Alert} from "../../widgets";
+import { Alert } from "react-bootstrap"
 let jwt = require("jsonwebtoken");
 
 
@@ -14,6 +17,7 @@ let userService = new UserService();
 const bcrypt = require('bcrypt-nodejs');
 
 interface State {
+    error: boolean;
     email: string;
     password: string;
     storedPassword: string;
@@ -23,6 +27,7 @@ interface Props{}
 
 export class Login extends Component<Props,State>{
     state = {
+      error: false,
         email: '',
         password: '',
         storedPassword: '',
@@ -42,8 +47,20 @@ export class Login extends Component<Props,State>{
 
 
     render(){
+
+      let alert_login;
+      if(this.state.error){
+        alert_login = (
+          <Alert bsStyle="danger">
+            <h6>Brukernavn eller passord er feil. Prøv igjen!</h6>
+          </Alert>)
+      } else {
+        alert_login = (
+          <p></p>
+        )
+      }
         return(
-            <Grid>
+            <Container>
                 <div className="container text-md-center">
                     <br/>
                     <h2>Login</h2>
@@ -53,13 +70,13 @@ export class Login extends Component<Props,State>{
                     <form>
                         <Row>
                             <Col>
-                                <input placeholder='Email'
+                                <Input placeholder='Email'
                                    type="text"
                                    value={this.state.email}
                                    onChange={this.handleChangeEmail}/>
                             </Col>
                             <Col>
-                                <input placeholder='Passord'
+                                <Input placeholder='Passord'
                                     type="text"
                                     value={this.state.password}
                                     onChange={this.handleChangePassword}/>
@@ -80,9 +97,10 @@ export class Login extends Component<Props,State>{
                             </Col>
                             <Col> </Col>
                         </Row>
+                        {alert_login}
                     </form>
                 </div>
-            </Grid>
+            </Container>
         )
     }//end method
 
@@ -90,21 +108,31 @@ export class Login extends Component<Props,State>{
     save = () =>{
         //console.log(this.state.email);
         userService.getUserLogin(this.state.email).then(response => {
+          console.log(response)
             this.setState({
                 storedPassword: response[0].password,
             });
-            bcrypt.compare(this.state.password, response[0].password,function (err,res) {
+            console.log('2')
+            bcrypt.compare(this.state.password, response[0].password, (err,res) => {
+              console.log('3')
                if(res){
                     userService.login({ userMail : response[0].mail, typeId : response[0].typeName}).then(r => {
                         let token = r.jwt;
-                       // console.log(r.jwt);
+                       console.log('hello');
                         window.localStorage.setItem('userToken', token)
                     }).catch((error:Error) => Alert.danger(error.message));
-               } else{
-                   Alert.danger('Feil passord!');
-               }//end condition
+               } else {
+                 this.setState({
+                   error: true
+                 })
+               }
             });
-        }).catch((error:Error) => Alert.danger(error.message));
+        }).catch((error:Error) => {
+          console.log(error)
+          this.setState({
+            error: true
+          })
+        })
     };//end method
 
     sjekk = () => {

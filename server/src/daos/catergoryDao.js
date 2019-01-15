@@ -24,4 +24,20 @@ export class CategoryDao extends Dao {
 
 
 
+    addCategory1(json:Object, callback:Function){
+        var body=[json.name, json.priority];
+        super.query('insert into category(categoryId, name, priority, active) values (default,?,?,1)',body,callback);
+    }
+
+    addCategory2(json:Object, callback:Function){
+        var body=[json.categoryId, json.name];
+        super.query('insert into category2(categoryId, category2Id, name, active)values(?, default, ?,1)',body,callback);
+    }
+
+    addCategory3(json:Object, callback:Function){
+        var body=[json.category2Id, json.name];
+        super.query('insert into category3(category2Id,category3Id, name, active)values(?, default, ?, 1)',body,callback);
+    }
+
 }
+

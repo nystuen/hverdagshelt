@@ -24,17 +24,16 @@ export class User {
 }
 
 export class Issue {
-    issueId: number;
-    userMail: string;
-    latitude: number;
-    longitude: number;
-    text: string;
-    pic: string;
-    date: string;
-    statusName: string;
-    categoryId: number;
-    countyId: number;
-    active: number;
+  issueId: number;
+  userMail: string;
+  latitude: number;
+  longitude: number;
+  text: string;
+  pic: string;
+  date: string;
+  statusName: string;
+  categoryId: number;
+  countyId: number;
 
     constructor(issueId: number, userMail: string, latitude: number, longitude: number, text: string, pic: string, date: string, statusName: string, categoryId: number, countyId: number, active: number) {
         this.issueId = issueId;
@@ -53,8 +52,8 @@ export class Issue {
 }
 
 export class Type {
-    typeName: string;
-    active: number;
+  typeName: string;
+  active: number;
 
     constructor(typeName: string, active: number) {
         this.typeName = typeName;
@@ -63,53 +62,92 @@ export class Type {
 }
 
 export class Company extends Type {
-    companyMail: string;
-    companyName: string;
-    description: string;
+  companyMail: string;
+  companyName: string;
+  description: string;
 
-
-    constructor(typeName: string, active: number, companyMail: string, companyName: string, description: string) {
-        super(typeName, active);
-        this.companyMail = companyMail;
-        this.companyName = companyName;
-        this.description = description;
-    }
+  constructor(
+    typeName: string,
+    active: number,
+    companyMail: string,
+    companyName: string,
+    description: string
+  ) {
+    super(typeName, active);
+    this.companyMail = companyMail;
+    this.companyName = companyName;
+    this.description = description;
+  }
 }
 
 export class Category {
-    categoryId: number;
-    name: string;
-    priority: number;
-    active: number;
+  categoryId: number;
+  name: string;
+  priority: number;
+  active: number;
 
+  constructor(
+    categoryId: number,
+    name: string,
+    priority: number,
+    active: number
+  ) {
+    this.categoryId = categoryId;
+    this.name = name;
+    this.priority = priority;
+    this.active = active;
+  }
+}
 
-    constructor(categoryId: number, name: string, priority: number, active: number) {
-        this.categoryId = categoryId;
-        this.name = name;
-        this.priority = priority;
-        this.active = active;
+export class Category2 extends Category {
+    category2Id: number;
+
+    constructor(categoryId: number, category2Id: number, name: string, priority: number, active: number) {
+
+        // noinspection JSAnnotator
+        this.category2Id = categoryId;
+
+        super(category2Id, name, priority, active);
+    }
+}
+
+export class Category3 extends Category {
+    category2Id: number;
+
+    constructor(categoryId2: number, categoryId3: number, name: string, priority: number, active: number) {
+
+        // noinspection JSAnnotator
+        this.category2Id = categoryId2;
+
+        super(categoryId3, name, priority, active);
     }
 }
 
 export class Event {
-    eventId: number;
-    title: string;
-    text: string;
-    date: string;
-    userMail: string;
-    active: number;
+  eventId: number;
+  title: string;
+  text: string;
+  date: string;
+  userMail: string;
+  active: number;
 
-
-    constructor(eventId: number, title: string, text: string, date: string, userMail: string, active: number) {
-        this.eventId = eventId;
-        this.title = title;
-        this.text = text;
-        this.date = date;
-        this.userMail = userMail;
-        this.active = active;
-    }
+  constructor(
+    eventId: number,
+    title: string,
+    text: string,
+    date: string,
+    userMail: string,
+    active: number
+  ) {
+    this.eventId = eventId;
+    this.title = title;
+    this.text = text;
+    this.date = date;
+    this.userMail = userMail;
+    this.active = active;
+  }
 }
-export class Company{
+export class Company {
     companyMail: string;
     companyName: string;
     firstName: string;
@@ -118,6 +156,26 @@ export class Company{
     postnr: string;
     password: string;
     phone: number;
-
-    a
 }
+export class Status{
+    progressBar: String;
+    progress: number;
+
+
+    constructor(status: string){
+        //if issue is registered
+        if(status === 'Registered'){
+            this.progressBar= "info";
+            this.progress = 100;
+
+            //if issue is under processing
+        }else if(status === 'In progress'){
+            this.progressBar ="warning";
+            this.progress = 50;
+            //if issue is resolved
+        }else{
+            this.progressBar = "success";
+            this.progress = 100;
+        }//end condition
+    }//end constructor
+}//end class

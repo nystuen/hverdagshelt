@@ -1,51 +1,56 @@
-Insert into magnusrm.category(categoryId, name, priority, active) values (1,'Strøm',1,1);
-Insert into magnusrm.category(categoryId, name, priority, active) values (2,'Vann og avløp',2,1);
+Insert into annabesa.category(categoryId, name, priority, active) values (1,'Strøm',1,1);
+Insert into annabesa.category(categoryId, name, priority, active) values (2,'Vann og avløp',2,1);
 
-Insert into magnusrm.types(typeName, active) values('Company', 1);
-Insert into magnusrm.types(typeName, active) values('Admin', 1);
-Insert into magnusrm.types(typeName, active) values('Employee', 1);
+Insert into annabesa.category2(category2Id,categoryId, name, active) values (1,1,'Strømbrudd',1);
+Insert into annabesa.category2(category2Id,categoryId, name, active) values (2,2,'Vannstopp',1);
 
-Insert into magnusrm.county(name, active) values ('Oslo', 1);
-Insert into magnusrm.county(name, active) values('Trondheim', 1);
-Insert into magnusrm.county(name, active) values('Kristiansand', 1);
+Insert into annabesa.category3(category3Id,category2Id, name, active) values (1,2,'Vannmangel',1);
 
+Insert into annabesa.types(typeName, active) values('Company', 1);
+Insert into annabesa.types(typeName, active) values('Admin', 1);
+Insert into annabesa.types(typeName, active) values('Employee', 1);
 
-Insert into magnusrm.status(statusName) values('Registered');
-Insert into magnusrm.status(statusName) values('In progress');
-Insert into magnusrm.status(statusName) values('Completed');
-
-Insert into magnusrm.company(typeName, companyMail, companyName, description, orgNumber) values ('Company','Company1','company1@company.com','this is a company',1234);
-Insert into magnusrm.company(typeName, companyMail, companyName, description, orgNumber) values ('Company','Company2','company2@company.com','a description',3456);
+Insert into annabesa.county(name, active) values ('Oslo', 1);
+Insert into annabesa.county(name, active) values('Trondheim', 1);
+Insert into annabesa.county(name, active) values('Kristiansand', 1);
 
 
-Insert into magnusrm.companyCategories(companyMail, categoryId) values ('company1@company.com',1);
-Insert into magnusrm.companyCategories(companyMail, categoryId) values ('company2@company.com',2);
+Insert into annabesa.status(statusName) values('Registered');
+Insert into annabesa.status(statusName) values('In progress');
+Insert into annabesa.status(statusName) values('Completed');
 
-Insert into magnusrm.user(mail, firstName, lastName, password, typeName, phone, points, countyId, active) values ('ola@usermail.com', 'Ola', 'Nordman','password1' , 'Admin', 97723342, 0, 1,1);
-Insert into magnusrm.user(mail, firstName, lastName, password, typeName, phone, points, countyId, active) values ('kari@usermail.com', 'Kari', 'Olsen', 'password2' , 'Admin', 97766641, 0, 2,1);
-
-Insert into magnusrm.issues(issueId, userMail, latitude, longitude, text, pic, date, statusName, categoryId, countyId, active) values (1, 'ola@usermail.com', 23.432, 43.12, 'en tekst', 'picture', '2001-01-01', 'In progress', 1, 1, 1);
-Insert into magnusrm.issues(issueId, userMail, latitude, longitude, text, pic, date, statusName, categoryId, countyId, active) values (2, 'kari@usermail.com', 73.432, 54.12, 'this is a text', 'picture2', '2019-01-01', 'Registered', 1, 1, 1);
+Insert into annabesa.company(companyMail, companyName, firstName, lastName,adresse, postnr, password, phone, description, orgNumber) values ('company1@company.com','Company1','Ola','Pettersen','Adresse1', 2020, 'fghj','123456','this is a company',1234);
+Insert into annabesa.company(companyMail, companyName, firstName, lastName, adresse, postnr, password, phone, description, orgNumber) values ('company2@company.com','Company2','Ola','Pettersen','Adresse2',4040, 'fghj','123456','a description',3456);
 
 
-Insert into magnusrm.companyIssues(issueId, typeName, companyMail) values (1, 'Company' ,'company1@company.com');
-Insert into magnusrm.companyIssues(issueId, typeName, companyMail) values (2, 'Company' ,'company2@company.com');
+Insert into annabesa.companyCategories(companyMail, categoryId) values ('company1@company.com',1);
+Insert into annabesa.companyCategories(companyMail, categoryId) values ('company2@company.com',2);
+
+Insert into annabesa.user(mail, firstName, lastName, password, typeName, phone, points, countyId, active) values ('ola@usermail.com', 'Ola', 'Nordman','password1' , 'Admin', 97723342, 0, 1,1);
+Insert into annabesa.user(mail, firstName, lastName, password, typeName, phone, points, countyId, active) values ('kari@usermail.com', 'Kari', 'Olsen', 'password2' , 'Admin', 97766641, 0, 2,1);
+
+Insert into annabesa.issues(issueId, userMail, latitude, longitude, text, pic, date, statusName, categoryId, countyId, active) values (1, 'ola@usermail.com', 23.432, 43.12, 'en tekst', 'picture', '2001-01-01', 'In progress', 1, 1, 1);
+Insert into annabesa.issues(issueId, userMail, latitude, longitude, text, pic, date, statusName, categoryId, countyId, active) values (2, 'kari@usermail.com', 73.432, 54.12, 'this is a text', 'picture2', '2019-01-01', 'Registered', 1, 1, 1);
 
 
-
-
-
-Insert into magnusrm.event(title, text, latitude, longitude, date, userMail, countyId, active) values ('Veiarbeid i midtbyen', 'Veiarbeid i midtbyen torsdag kveld', 0, 0, '10.01.2019', 'ola@usermail.com', 2, 1);
-Insert into magnusrm.event(title, text, latitude, longitude, date, userMail, countyId, active) values ('Konsert', 'Konsert kan skape kø ut av byen mellom 20.00 og 23.00', 0, 0, '13.01.2019', 'kari@usermail.com', 3, 1);
+Insert into annabesa.companyIssues(issueId, companyMail) values (1 ,'company1@company.com');
+Insert into annabesa.companyIssues(issueId, companyMail) values (2 ,'company2@company.com');
 
 
 
 
-Insert into magnusrm.pushAlerts(countyId, categoryId, userMail) values(1, 1, 'kari@usermail.com');
+
+Insert into annabesa.event(title, text, latitude, longitude, date, userMail, countyId, active) values ('Veiarbeid i midtbyen', 'Veiarbeid i midtbyen torsdag kveld', 0, 0, '10.01.2019', 'ola@usermail.com', 2, 1);
+Insert into annabesa.event(title, text, latitude, longitude, date, userMail, countyId, active) values ('Konsert', 'Konsert kan skape kø ut av byen mellom 20.00 og 23.00', 0, 0, '13.01.2019', 'kari@usermail.com', 3, 1);
 
 
-Insert into magnusrm.userCounties(userMail, countyId) values('ola@usermail.com', 1);
-Insert into magnusrm.userCounties(userMail, countyId) values('ola@usermail.com', 2);
-Insert into magnusrm.userCounties(userMail, countyId) values('kari@usermail.com', 1);
+
+
+Insert into annabesa.pushAlerts(countyId, categoryId, userMail) values(1, 1, 'kari@usermail.com');
+
+
+Insert into annabesa.userCounties(userMail, countyId) values('ola@usermail.com', 1);
+Insert into annabesa.userCounties(userMail, countyId) values('ola@usermail.com', 2);
+Insert into annabesa.userCounties(userMail, countyId) values('kari@usermail.com', 1);
 
 
