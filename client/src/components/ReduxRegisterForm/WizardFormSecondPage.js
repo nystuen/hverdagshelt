@@ -10,40 +10,64 @@ const renderError = ({ meta: { touched, error } }) =>
   touched && error ? <span>{error}</span> : false;
 
 export class WizardFormSecondPage extends React.Component {
+  setProps = () => {
+    this.props.change("categoryid", this.state.selectedCategoryId);
+    this.props.change("categorylevel", this.state.selectedCategoryType);
+    console.log("setting props!");
+  };
   onChangeCategoryHeader = (name1, name2) => {
-    this.setState({ selectedCategoryId: name1, selectedCategoryType: name2 });
+    this.setState(
+      { selectedCategoryId: name1, selectedCategoryType: name2 },
+      this.setProps.bind(this)
+    );
+    //this.props.change("categoryid", this.state.selectedCategoryId);
+    //  this.props.change("categorylevel", this.state.selectedCategoryType);
   };
 
-  constructor() {
-    super();
+  constructor(props) {
+    super(props);
     this.state = {
       selectedCategoryId: -1,
       selectedCategoryType: -1
     };
+    //  this.handleCategoryClick = this.handleCategoryClick.bind(this);
   }
+  /*
+  handleCategoryClick = e => {
+    this.setState(
+      {
+        selectedCategoryId: e.selectedCategoryId,
+        selectedCategoryType: e.selectedCategoryType
+      },
+      this.props.change("categoryid", e.selectedCategoryId).bind(this)
+    );
+    this.props.change("categorylevel", e.selectededCategoryType);
+  };
+*/
   render() {
     const { handleSubmit, previousPage, onChangeCategoryHeader } = this.props;
     return (
       <div>
         <ChooseCategory
           changeCategoryHeader={this.onChangeCategoryHeader.bind(this)}
-          onClick={console.log(this.state)}
+          //  onClick={this.handleCategoryClick.bind(this)}
           registerCategory={false}
         />
         <form onSubmit={handleSubmit}>
           <Field
             name="categoryId"
-            type="text"
-            label="Category ID"
+            type="hidden"
+            label="categoryid"
             component={renderCategoryField}
-            defaultValue={this.state.selectedCategoryId}
+            defaultValue={this.state.selectedCategory}
           />
           <Field
             name="categoryLevel"
-            type="text"
+            type="hidden"
+            //onChange={this.handleCategoryClick.bind(this)}
             component={renderCategoryField}
-            label="Category Level"
-            defaultValue={this.state.selectedCategoryType}
+            label="categorylevel"
+            //defaultValue={this.state.selectedCategoryType}
           />
           <div>
             <Button

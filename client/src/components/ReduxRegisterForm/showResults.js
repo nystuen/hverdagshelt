@@ -16,8 +16,8 @@ export default (async function showResults(values) {
       pic: values.pic,
       date: values.date,
       statusName: "Registered",
-      categoryId: values.categoryId,
-      categoryLevel: values.categoryLevel,
+      categoryId: values.categoryid,
+      categoryLevel: values.categorylevel,
       countyId: values.countyId
     })
   });

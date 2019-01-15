@@ -9,7 +9,6 @@ const renderCategoryField = ({
   meta: { touched, error }
 }) => (
   <div>
-    <label>{label}</label>
     <div>
       <FormControl {...input} type={type} label={label} value={defaultValue} />
       {touched &&
