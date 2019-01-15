@@ -36,28 +36,10 @@ const EventFormThirdPage = props => {
       <div>
         <div>
           <Field
-            name="userMail"
-            type="email"
-            component={renderField}
-            label="Epost"
-          />
-          <Field
-            name="firstName"
-            type="firstName"
-            component={renderField}
-            label="Fornavn"
-          />
-          <Field
-            name="lastName"
-            type="lastName"
-            component={renderField}
-            label="Etternavn"
-          />
-          <Field
-            name="phone"
+            name="title"
             type="text"
             component={renderField}
-            label="Telefon"
+            label="Tittel"
           />
           <Field
             name="text"
@@ -65,8 +47,24 @@ const EventFormThirdPage = props => {
             component={renderField}
             label="Beskrivelse"
           />
-          <Field name="pic" type="text" component={renderField} label="Bilde" />
-          <Field name="date" type="text" component={renderField} label="Dato" />
+          <Field
+            name="date"
+            type="text"
+            component={renderField}
+            label="[Midlertidig] Dato"
+          />
+          <Field
+            name="userMail"
+            type="text"
+            component={renderField}
+            label="[Midlertidig] Epost"
+          />
+          <Field
+            name="countyId"
+            type="text"
+            component={renderField}
+            label="[Midlertidig] County ID"
+          />
         </div>
       </div>
       <div>
