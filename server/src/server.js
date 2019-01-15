@@ -1,5 +1,6 @@
 // @flow
 
+
 import express from "express";
 import path from "path";
 import reload from "reload";
@@ -36,8 +37,8 @@ let pool = mysql.createPool({
 });
 
 let userDao = new UserDao(pool);
-let issueDao = new IssueDao(pool);
 let countyDao = new CountyDao(pool);
+let issueDao = new IssueDao(pool);
 let categoryDao = new CategoryDao(pool);
 
 //fire controllers
@@ -45,6 +46,7 @@ issueController(app, issueDao);
 categoryController(app, categoryDao);
 
 userController(app, userDao);
+countyController(app, countyDao);
 countyController(app, countyDao);
 categoryController(app, categoryDao);
 
