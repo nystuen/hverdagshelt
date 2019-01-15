@@ -13,6 +13,7 @@ import { NavbarMenu } from "./components/NavbarMenu/NavbarMenu";
 import { Login } from "./views/login/login";
 import { KontoOversikt } from "./components/KontoOversikt/KontoOversikt";
 import { countySubscription } from "./components/countySubscription";
+import {adminAddCategory} from "./components/AdminAddCategory/adminAddCategory";
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== 'production') {
@@ -22,6 +23,7 @@ if (process.env.NODE_ENV !== 'production') {
 }
 
 import createHashHistory from "history/createHashHistory";
+
 
 const history = createHashHistory(); // Use history.push(...) to programmatically change path, for instance after successfully saving a student
 
@@ -34,6 +36,7 @@ if (root)
                 <Route path="/wizardForm" component={WizardFormComplete} />
                 <Route path="/countySubscription/:userMail" component={ countySubscription }/>
                 <Route path="/min_side/kontooversikt" component={KontoOversikt}/>
+                <Route path="/addCategory" component={adminAddCategory}/>
                 <Route path="/login" component={Login}/>
                 <Route path="/map" component={ MapComponent } />
             </div>

@@ -12,7 +12,7 @@ import cloneDeep from 'lodash/cloneDeep';
 
 let categoryService = new CategoryService();
 
-export class ChooseCategory extends Component {
+export class ChooseCategory extends Component<{registerCategory ?: boolean}> {
 
 
     /*
@@ -30,11 +30,18 @@ export class ChooseCategory extends Component {
             category3: [],
             selectedCategory: {name: 'ingen'},
             selectedCategoryType: 0,
-            selectedCategoryId: -1
+            selectedCategoryId: -1,
+            newCategoryHeader:'Den nye overkategorien'
         };
 
         this.handleClick = this.handleClick.bind(this)
     }
+
+    //used in adminAddCategory to get the chosen category header
+    //Finn ut hva som skal tas imot fra den andre
+    onChangeCategoryHeader=()=>{
+        this.props.changeCategoryHeader(this.state.selectedCategoryId, this.state.selectedCategoryType);
+    };
 
     getSelectedCategoryId() {
         return this.state.selectedCategoryId;
@@ -91,25 +98,26 @@ export class ChooseCategory extends Component {
                 category2: kat2
             });
         });
+        if (!this.props.registerCategory) {
+            categoryService.getCategory3().then(resources => {
 
-        categoryService.getCategory3().then(resources => {
+                resources.map(r => {
+                    let elem: Category3 = {
+                        name: r.name,
+                        id: r.category3Id,
+                        idUp: r.category2Id,
+                        priority: r.priority,
+                        active: r.active,
+                    };
+                    kat3 = kat3.concat(elem);
+                });
 
-            resources.map(r => {
-                let elem: Category3 = {
-                    name: r.name,
-                    id: r.category3Id,
-                    idUp: r.category2Id,
-                    priority: r.priority,
-                    active: r.active,
-                };
-                kat3 = kat3.concat(elem);
+                this.setState({
+                    category3: kat3
+                });
             });
 
-            this.setState({
-                category3: kat3
-            });
-        });
-
+        }
     }
 
     handleClick(cat1: Category) {
@@ -131,7 +139,8 @@ export class ChooseCategory extends Component {
             selectedCategory: cat1,
             selectedCategoryType: this.getCategoryType(cat1),
             selectedCategoryId: cat1.id
-        })
+        },this.onChangeCategoryHeader.bind(this) );
+
 
     }
 
@@ -154,7 +163,7 @@ export class ChooseCategory extends Component {
             selectedCategory: cat2,
             selectedCategoryType: this.getCategoryType(cat2),
             selectedCategoryId: cat2.id
-        })
+        },this.onChangeCategoryHeader.bind(this))
 
     }
 
@@ -167,7 +176,9 @@ export class ChooseCategory extends Component {
             selectedCategory: cat3,
             selectedCategoryType: this.getCategoryType(cat3),
             selectedCategoryId: cat3.id
-        })
+        },this.onChangeCategoryHeader.bind(this))
+
+
     }
 
     getCategoryType(category) {

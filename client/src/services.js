@@ -39,6 +39,19 @@ export class CategoryService {
     getCategory3(): Promise<Category3[]>{
         return axios.get('/get_category3');
     }
+
+    addCategory1(json:Object){
+        return axios.post('/add_category1',json);
+    }
+
+    addCategory2(json:Object){
+        return axios.post('/add_category2',json);
+    }
+
+    addCategory3(json:Object){
+        return axios.post('/add_category3',json);
+    }
+
 }
 
 export function getAllCounties(usermail:string): Promise<County[]> {
