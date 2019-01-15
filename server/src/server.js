@@ -8,10 +8,11 @@ import {UserDao} from "./daos/userDao";
 import categoryController from './controllers/categoryController.js';
 import {CountyDao} from "./daos/countyDao";
 import {IssueDao} from "./daos/issueDao";
+import {EventDao} from "./daos/eventDao.js";
 import userController from './controllers/userController.js'
 import issueController from "./controllers/issueController.js";
 import countyController from "./controllers/countyController.js"
-const notificationController = require('./controllers/notificationController');
+import eventController from "./controllers/eventController.js";
 import * as mysql from "mysql2";
 import {CategoryDao} from "./daos/catergoryDao";
 
@@ -38,7 +39,7 @@ let pool = mysql.createPool({
 
 
 
-
+let eventDao = new EventDao(pool);
 let userDao = new UserDao(pool);
 let issueDao = new IssueDao(pool);
 let countyDao = new CountyDao(pool);
@@ -47,9 +48,7 @@ let categoryDao = new CategoryDao(pool);
 
 //fire controllers
 issueController(app, issueDao);
-
-
-
+eventController(app, eventDao);
 userController(app, userDao);
 countyController(app, countyDao);
 categoryController(app, categoryDao);

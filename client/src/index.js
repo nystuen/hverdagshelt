@@ -17,6 +17,7 @@ import { MineSaker } from './views/MinSide/mineSaker/mineSaker';
 import { MinSide } from './views/MinSide/MinSide';
 import { Provider } from "react-redux";
 import {adminAddCategory} from "./components/AdminAddCategory/adminAddCategory";
+import {forside} from "./views/forside/forside";
 
 
 // Reload application when not in production environment
@@ -43,6 +44,7 @@ if (root)
         <Route path="/map" component={MapComponent}/>
         <Route path="/min_side/mine_saker" component={MineSaker}/>
         <Route path="/addCategory" component={adminAddCategory}/>
+          <Route path="/home/:countyId" component={forside}/>
       </div>
     </HashRouter>,
     root
