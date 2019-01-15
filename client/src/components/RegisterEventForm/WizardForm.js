@@ -1,10 +1,10 @@
 import React, { Component } from "react";
 import PropTypes from "prop-types";
-import WizardFormFirstPage from "./WizardFormFirstPage";
-import WizardFormSecondPage from "./WizardFormSecondPage";
-import WizardFormThirdPage from "./WizardFormThirdPage";
+import EventFormFirstPage from "./EventFormFirstPage";
+import EventFormSecondPage from "./EventFormSecondPage";
+import EventFormThirdPage from "./EventFormThirdPage";
 
-export class WizardForm extends Component {
+export class EventWizardForm extends Component {
   constructor(props) {
     super(props);
     this.nextPage = this.nextPage.bind(this);
@@ -25,21 +25,21 @@ export class WizardForm extends Component {
 
   render() {
     let styles = {
-      height: '100%'
-    }
+      height: "100%"
+    };
     const { onSubmit } = this.props;
     const { page } = this.state;
     return (
       <div style={styles}>
-        {page === 1 && <WizardFormFirstPage onSubmit={this.nextPage} />}
+        {page === 1 && <EventFormFirstPage onSubmit={this.nextPage} />}
         {page === 2 && (
-          <WizardFormSecondPage
+          <EventFormSecondPage
             previousPage={this.previousPage}
             onSubmit={this.nextPage}
           />
         )}
         {page === 3 && (
-          <WizardFormThirdPage
+          <EventFormThirdPage
             previousPage={this.previousPage}
             onSubmit={onSubmit}
           />
@@ -49,8 +49,8 @@ export class WizardForm extends Component {
   }
 }
 
-WizardForm.propTypes = {
+EventWizardForm.propTypes = {
   onSubmit: PropTypes.func.isRequired
 };
 
-export default WizardForm;
+export default EventWizardForm;

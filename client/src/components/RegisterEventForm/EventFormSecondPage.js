@@ -9,7 +9,7 @@ import { ChooseCategory } from "../ChooseCategory/ChooseCategory";
 const renderError = ({ meta: { touched, error } }) =>
   touched && error ? <span>{error}</span> : false;
 
-export class WizardFormSecondPage extends React.Component {
+export class EventFormSecondPage extends React.Component {
   setProps = () => {
     this.props.change("categoryid", this.state.selectedCategoryId);
     this.props.change("categorylevel", this.state.selectedCategoryType);
@@ -93,4 +93,4 @@ export default reduxForm({
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate
-})(WizardFormSecondPage);
+})(EventFormSecondPage);

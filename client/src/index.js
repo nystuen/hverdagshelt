@@ -17,10 +17,10 @@ import { MineSaker } from "./views/MinSide/mineSaker/mineSaker";
 import { MinSide } from "./views/MinSide/MinSide";
 import { Provider } from "react-redux";
 import { adminAddCategory } from "./components/AdminAddCategory/adminAddCategory";
-import {RegisterCompany} from "./components/registercompany/registercompany.js";
-import {RegisterUser} from './components/registeruser/registeruser';
+import { RegisterCompany } from "./components/registercompany/registercompany.js";
+import { RegisterUser } from "./components/registeruser/registeruser";
 import { ChooseCategory } from "./components/ChooseCategory/ChooseCategory.js";
-
+import { EventWizardFormComplete } from "./components/RegisterEventForm/EventWizardFormComplete";
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
@@ -46,10 +46,14 @@ if (root)
         <Route path="/map" component={MapComponent} />
         <Route path="/min_side/mine_saker" component={MineSaker} />
         <Route path="/addCategory" component={adminAddCategory} />
-          <Route exact path="/register" component={RegisterUser}/>
-          <Route exact path="/register/company" component={RegisterCompany}/>
+        <Route exact path="/register" component={RegisterUser} />
+        <Route exact path="/register/company" component={RegisterCompany} />
+        <Route
+          exact
+          path="/registerEvent"
+          component={EventWizardFormComplete}
+        />
       </div>
     </HashRouter>,
     root
   );
-

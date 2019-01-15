@@ -21,7 +21,7 @@ type State = {
   zoom: number
 };
 
-export class WizardFormFirstPage extends Component<{}, State> {
+export class EventFormFirstPage extends Component<{}, State> {
   constructor(props) {
     super(props);
 
@@ -199,4 +199,4 @@ export default reduxForm({
   destroyOnUnmount: false, // <------ preserve form data
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate
-})(WizardFormFirstPage);
+})(EventFormFirstPage);

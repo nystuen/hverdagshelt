@@ -5,7 +5,7 @@ import store from "./store";
 import showResults from "./showResults";
 import WizardForm from "./WizardForm";
 
-export class WizardFormComplete extends React.Component {
+export class EventWizardFormComplete extends React.Component {
   render() {
     let styles = {
       height: "100%",
