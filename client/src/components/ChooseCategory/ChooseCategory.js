@@ -135,13 +135,15 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
     this.state.category1[objectIndex].open = !this.state.category1[objectIndex]
       .open;
 
-    this.setState({
-      category1: arr,
-      selectedCategory: cat1,
-      selectedCategoryType: this.getCategoryType(cat1),
-      selectedCategoryId: cat1.id
-    });
-    this.onChangeCategoryHeader();
+    this.setState(
+      {
+        category1: arr,
+        selectedCategory: cat1,
+        selectedCategoryType: this.getCategoryType(cat1),
+        selectedCategoryId: cat1.id
+      },
+      this.onChangeCategoryHeader.bind(this)
+    );
   }
 
   handleClick2(cat2: Category2) {
@@ -157,24 +159,28 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
 
     arr[objectIndex].open = !this.state.category2[objectIndex].open;
 
-    this.setState({
-      category2: arr,
-      selectedCategory: cat2,
-      selectedCategoryType: this.getCategoryType(cat2),
-      selectedCategoryId: cat2.id
-    });
-    this.onChangeCategoryHeader();
+    this.setState(
+      {
+        category2: arr,
+        selectedCategory: cat2,
+        selectedCategoryType: this.getCategoryType(cat2),
+        selectedCategoryId: cat2.id
+      },
+      this.onChangeCategoryHeader.bind(this)
+    );
   }
 
   handleClick3(cat3: Category3) {
     console.log("cat3Id:", cat3);
 
-    this.setState({
-      selectedCategory: cat3,
-      selectedCategoryType: this.getCategoryType(cat3),
-      selectedCategoryId: cat3.id
-    });
-    this.onChangeCategoryHeader();
+    this.setState(
+      {
+        selectedCategory: cat3,
+        selectedCategoryType: this.getCategoryType(cat3),
+        selectedCategoryId: cat3.id
+      },
+      this.onChangeCategoryHeader.bind(this)
+    );
   }
 
   getCategoryType(category) {
