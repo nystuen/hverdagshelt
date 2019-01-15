@@ -43,11 +43,11 @@ let userDao = new UserDao(pool);
 let issueDao = new IssueDao(pool);
 let countyDao = new CountyDao(pool);
 let categoryDao = new CategoryDao(pool);
-//let SendMail = new sendMail();
+
 
 //fire controllers
 issueController(app, issueDao);
-//notificationController(app, SendMail);
+
 
 
 userController(app, userDao);

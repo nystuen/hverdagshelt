@@ -84,11 +84,6 @@ export class countySubscription extends Component<Props,State> {
 
 
 
-
-
-
-
-
     getInformation = async ()=>{
         let id:string = this.props.match.params.userMail;
         await getAllCounties(id).then((r: Array<Object>) => {
