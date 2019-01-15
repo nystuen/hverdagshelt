@@ -47,9 +47,6 @@ let categoryDao = new CategoryDao(pool);
 
 //fire controllers
 issueController(app, issueDao);
-
-
-
 userController(app, userDao);
 countyController(app, countyDao);
 categoryController(app, categoryDao);
