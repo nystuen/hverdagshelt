@@ -14,7 +14,7 @@ import countyController from "./controllers/countyController.js"
 const notificationController = require('./controllers/notificationController');
 import * as mysql from "mysql2";
 import {CategoryDao} from "./daos/catergoryDao";
-import {sendMail} from "./sendMessage/sendMail";
+
 
 type Request = express$Request;
 type Response = express$Response;

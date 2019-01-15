@@ -10,17 +10,12 @@ import { Login } from './views/login/login';
 import { Component } from 'react-simplified';
 import { Alert } from './widgets';
 import store from './components/ReduxRegisterForm/store';
-import { Provider } from 'react-redux';
 import {KontoOversikt} from './views/MinSide/KontoOversikt/kontoOversikt';
 import { countySubscription } from './views/MinSide/countySubscription/countySubscription';
 import createHashHistory from 'history/createHashHistory';
 import { MineSaker } from './views/MinSide/mineSaker/mineSaker';
 import { MinSide } from './views/MinSide/MinSide';
 import { Provider } from "react-redux";
-import { MapComponent } from "./components/map/Map"
-import { NavbarMenu } from "./components/NavbarMenu/NavbarMenu";
-import { Login } from "./views/login/login";
-import { countySubscription } from "./components/countySubscription";
 import {adminAddCategory} from "./components/AdminAddCategory/adminAddCategory";
 
 
@@ -31,7 +26,7 @@ if (process.env.NODE_ENV !== 'production') {
   if (document.body) document.body.appendChild(script);
 }
 
-import createHashHistory from "history/createHashHistory";
+
 
 
 const root = document.getElementById('root');
