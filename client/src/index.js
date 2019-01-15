@@ -35,7 +35,6 @@ if (root)
                 <NavbarMenu/>
                 <Route exact path="/register" component={RegisterUser}/>
                 <Route exact path="/register/company" component={RegisterCompany}/>
-                <Route exact path="/registerIssue" component={RegisterIssue}/>
                 <Route path="/countySubscription/:userMail" component={countySubscription}/>
                 <Route path="/wizardForm" component={WizardFormComplete} />
                 <Route path="/countySubscription/:userMail" component={ countySubscription }/>
