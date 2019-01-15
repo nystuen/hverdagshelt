@@ -30,6 +30,10 @@ export class IssueDao extends Dao {
     super.query("select * from issues where issueId = ?", [id], callback);
   }
 
+  getAllCategories(callback: Function) {
+    super.query("select * from category", [], callback);
+  }
+
   getUserIssue(id: String, callback: Function) {
     super.query("select * from issues where userMail = ?", [id], callback);
   }

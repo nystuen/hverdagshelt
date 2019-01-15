@@ -17,11 +17,16 @@ export class UserService {
     }//end method
 
     getUser(mail: string): Promise<User>{
+
         return axios.get('/user/get_user/' +  mail);
     }//end method
 
     login(userMail: Object<JSON>): Promise<void>{
         return axios.post('/login/', userMail);
+    }//end method
+
+    getMyIssues(userMail: string): Promise<JSON>{
+        return axios.get('/user/getMyIssues/' + userMail);
     }//end method
 
 }//end class
@@ -39,12 +44,6 @@ export class CategoryService {
     getCategory3(): Promise<Category3[]>{
         return axios.get('/get_category3');
     }
-}
-
-export class MyPage{
-
-
-
 }
 
 export function getAllCounties(usermail:string): Promise<County[]> {

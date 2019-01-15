@@ -1,10 +1,12 @@
 //@flow
 import React, { Component } from 'react';
 import { Layout } from '../../widgets';
-import {
-Grid, Row, Col, ListGroup,ListGroupItem, Table, Image, Panel
-} from "react-bootstrap"
+import { Grid, Row, Col, ListGroup,ListGroupItem, Table, Image, Panel } from "react-bootstrap"
 import {getAllCounties, getUsersCounties, deleteSubscription,addSubscription} from "../../services";
+import * as jwt from 'jsonwebtoken';
+import Glyphicon from 'react-bootstrap/es/Glyphicon';
+import Button from 'react-bootstrap/es/Button';
+import css from './countySubscription.css';
 
 
 //Databasekall
@@ -26,7 +28,6 @@ interface State {
 interface Props {
 }
 
-
 export class countySubscription extends Component<Props, State> {
 
   state = {
@@ -34,7 +35,6 @@ export class countySubscription extends Component<Props, State> {
     allCounties: [],
     userCounties: []
   };
-
 
   //fra Alle kommuner til abonerte kommuner
   addCounty = (name, index) => {
@@ -110,10 +110,15 @@ export class countySubscription extends Component<Props, State> {
     return (
       <div class="countySubscription">
         <Grid>
+
+          <Col md={2} >
+          </Col>
+
+          <Col md={8}>
           <Row>
-            <Col xs={12} md={4}>
+            <Col xs={12} md={5}>
               <ListGroup>
-                <h5>Kommuner</h5>
+                <h5 align="center">Kommuner</h5>
                 {
                   this.state.allCounties.map((r, i) => {
                     return <ListGroupItem onClick={() => {
@@ -124,7 +129,7 @@ export class countySubscription extends Component<Props, State> {
               </ListGroup>
             </Col>
 
-            <Col xs={12} md={4} align={"center"} className="arrows">
+            <Col xs={12} md={2} align={"center"} className="arrows">
 
               <Row>
                 <span> <Glyphicon glyph="arrow-left"/></span>
@@ -136,9 +141,9 @@ export class countySubscription extends Component<Props, State> {
 
             </Col>
 
-            <Col xs={12} md={4}>
+            <Col xs={12} md={5}>
               <ListGroup>
-                <h5>Mine Kommuner</h5>
+                <h5 align="center">Mine Kommuner</h5>
                 {
                   this.state.userCounties.map((r, i) => {
                     return <ListGroupItem onClick={() => {
@@ -153,6 +158,10 @@ export class countySubscription extends Component<Props, State> {
           <Row align={'right'}>
             <Button bsStyle="success" onClick={() => this.change()}>Lagre endringer</Button>
           </Row>
+          </Col>
+
+          <Col md={2}>
+          </Col>
 
         </Grid>
 

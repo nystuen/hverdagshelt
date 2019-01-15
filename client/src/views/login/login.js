@@ -4,20 +4,26 @@ import ReactDOM from 'react-dom';
 import * as React from 'react';
 import { Component } from 'react';
 import { User } from '../../classTypes';
-import { Grid, Row, Col, ControlLabel } from 'react-bootstrap';
+import Container from 'reactstrap/es/Container';
+import Row from 'reactstrap/es/Row';
+import Col from 'reactstrap/es/Col';
+import Input from 'reactstrap/es/Input';
 import { UserService } from '../../services';
-import { Alert } from '../../widgets';
+import { Alert } from 'react-bootstrap';
 
 let jwt = require('jsonwebtoken');
 import FormGroup from 'react-bootstrap/es/FormGroup';
 import Form from 'react-bootstrap/es/Form';
 import FormControl from 'react-bootstrap/es/FormControl';
 import Button from 'react-bootstrap/es/Button';
+import Grid from 'react-bootstrap/es/Grid';
+import login from './login.css';
 
 let userService = new UserService();
 const bcrypt = require('bcrypt-nodejs');
 
 interface State {
+  error: boolean;
   email: string;
   password: string;
   storedPassword: string;
@@ -28,6 +34,7 @@ interface Props {
 
 export class Login extends Component<Props, State> {
   state = {
+    error: false,
     email: '',
     password: '',
     storedPassword: ''
@@ -46,60 +53,69 @@ export class Login extends Component<Props, State> {
   };
 
 
-    render(){
+  render() {
 
-      let alert_login;
-      if(this.state.error){
-        alert_login = (
-          <Alert bsStyle="danger">
-            <h6>Brukernavn eller passord er feil. Prøv igjen!</h6>
-          </Alert>)
-      } else {
-        alert_login = (
-          <p></p>
-        )
-      }
-        return(
-          <Grid>
-
-            <Form>
+    let alert_login;
+    if (this.state.error) {
+      alert_login = (
+        <Alert bsStyle="danger">
+          <h6>Brukernavn eller passord er feil. Prøv igjen!</h6>
+        </Alert>);
+    } else {
+      alert_login = (
+        <p></p>
+      );
+    }
 
 
-              <Col xs={2} md={4}>
+    return (
 
-              </Col>
+      <div>
+        <Grid>
 
-              <Col xs={8} md={4}>
+          <Form>
+
+
+            <Col xs={5} md={4}>
+
+            </Col>
+
+            <Col xs={2} md={4}>
+              <div className="loginBox">
                 <Row className="show-grid">
                   <FormGroup>
                     <FormControl type="text" placeholder="Email" value={this.state.email}
-                                 onChange={this.handleChangeEmail}/>
+                                 onChange={this.handleChangeEmail.bind(this)}/>
                   </FormGroup>
                 </Row>
 
                 <Row className="show-grid" align='center'>
                   <FormGroup>
                     <FormControl type="text" placeholder="Passord" value={this.state.password}
-                                 onChange={this.handleChangePassword}/>
+                                 onChange={this.handleChangePassword.bind(this)}/>
                   </FormGroup>
                 </Row>
 
                 <Row className="show-grid" align='center'>
                   <Button type="button" onClick={this.save} bsStyle="success">Login</Button>
                   <Button type="button" onClick={this.sjekk}>Sjekk</Button>
+                  {alert_login}
                 </Row>
+              </div>
+            </Col>
 
-              </Col>
+            <Col xs={5} md={4}>
 
-              <Col xs={2} md={4}>
-
-              </Col>
-            </Form>
+            </Col>
 
 
-          </Grid>
-        )
-    }//end method
+          </Form>
+
+
+        </Grid>
+      </div>
+    );
+  }//end method
 
 
   save = () => {
@@ -108,20 +124,27 @@ export class Login extends Component<Props, State> {
       this.setState({
         storedPassword: response[0].password
       });
-      bcrypt.compare(this.state.password, response[0].password, function(err, res) {
+      console.log('2');
+      bcrypt.compare(this.state.password, response[0].password, (err, res) => {
+        console.log('3');
         if (res) {
           userService.login({ userMail: response[0].mail, typeId: response[0].typeName }).then(r => {
-
-
             let token = r.jwt;
-            // console.log(r.jwt);
+            console.log('hello');
             window.localStorage.setItem('userToken', token);
           }).catch((error: Error) => Alert.danger(error.message));
         } else {
-          Alert.danger('Feil passord!');
-        }//end condition
+          this.setState({
+            error: true
+          });
+        }
       });
-    }).catch((error: Error) => Alert.danger(error.message));
+    }).catch((error: Error) => {
+      console.log(error);
+      this.setState({
+        error: true
+      });
+    });
   };//end method
 
   sjekk = () => {

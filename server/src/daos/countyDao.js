@@ -1,6 +1,6 @@
 // @flow
 
-import { Dao } from '../dao';
+import {Dao} from "../dao";
 
 const bcrypt = require('bcrypt'); //to hash password
 
@@ -28,14 +28,14 @@ export class CountyDao extends Dao {
         super.query("SELECT * FROM county NATURAL JOIN userCounties where userCounties.userMail = ?", [id], callback);
     }
 
-  deleteAllSubscribedCounties(id: string, calback: Function) {
-    super.query('delete from userCounties where userMail =?', [id], calback);
-  }
+    deleteAllSubscribedCounties(id:string, calback: Function){
+        super.query("delete from userCounties where userMail =?",[id],calback);
+    }
 
-  addSubscription(json: Object, callback: Function) {
-    var body = [json.userMail, json.countyId];
-    super.query('insert into userCounties(userMail, countyId) value (?,?)', body, callback);
-  }
+    addSubscription(json: Object, callback: Function){
+        var body = [json.userMail,json.countyId ];
+        super.query("insert into userCounties(userMail, countyId) value (?,?)",body,callback);
+    }
 
 }
 /*SELECT * FROM county

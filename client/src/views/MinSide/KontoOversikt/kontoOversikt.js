@@ -4,11 +4,11 @@
 import React from 'react';
 import jwt from 'jsonwebtoken';
 import { Grid, Row, Col, ListGroup, ListGroupItem } from 'react-bootstrap';
-import { Alert } from '../../../widgets';
 import { ChooseCategory } from '../../../components/ChooseCategory/ChooseCategory';
 import Button from 'react-bootstrap/es/Button';
 import { Category, Category2, Category3, User } from '../../../classTypes';
 import { UserService } from '../../../services';
+import { PageHeader } from '../../../components/PageHeader/PageHeader';
 
 let userService = new UserService();
 
@@ -96,6 +96,9 @@ export class KontoOversikt extends React.Component <State> {
     console.log(this.state.user);
     return (
       <Grid>
+        
+        <PageHeader title={"Kontooversikt"}/>
+        
         {
           this.state.decoded.typeId === 'Admin' || this.state.decoded.typeId === 'Employee' || this.state.decoded.typeId === 'User' ? (
             <div>
