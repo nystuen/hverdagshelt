@@ -38,12 +38,14 @@ export class OversiktOverSak extends React.Component{
                     <Col>
                         <PageHeader> <small>Beskrivelse</small> </PageHeader>
                     </Col>
+                </Row>
+                <Row>
+                    <Col>
+                    {this.showPic()}
+                    </Col>
                     <Col>
                         <h4>{this.state.issue.text}</h4>
                     </Col>
-                </Row>
-                <Row>
-                    {this.showPic()}
                 </Row>
                 <Row>
                     <Col>
