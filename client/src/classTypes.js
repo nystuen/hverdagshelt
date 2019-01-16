@@ -76,6 +76,25 @@ export class Type {
     }
 }
 
+export class Company extends Type {
+  companyMail: string;
+  companyName: string;
+  description: string;
+
+  constructor(
+    typeName: string,
+    active: number,
+    companyMail: string,
+    companyName: string,
+    description: string
+  ) {
+    super(typeName, active);
+    this.companyMail = companyMail;
+    this.companyName = companyName;
+    this.description = description;
+  }
+}
+
 export class Category {
     categoryId: number;
     name: string;
@@ -131,26 +150,36 @@ export class Category3 extends Category {
 }
 
 export class Event {
-  eventId: number;
-  title: string;
-  text: string;
-  date: string;
-  userMail: string;
-  active: number;
+
+    eventId: number;
+    title: string;
+    text: string;
+    latitude: double;
+    longitude: double;
+    date: string;
+    userMail: string;
+    countyId: number;
+    active: number;
 
   constructor(
     eventId: number,
     title: string,
     text: string,
+    latitude: double,
+    longitude: double,
     date: string,
     userMail: string,
+    countyId:number,
     active: number
   ) {
     this.eventId = eventId;
     this.title = title;
     this.text = text;
+    this.latitude = latitude;
+    this.longitude = longitude;
     this.date = date;
     this.userMail = userMail;
+    this.countyId = countyId;
     this.active = active;
   }
 }
@@ -176,15 +205,3 @@ export class Status {
     } //end condition
   } //end constructor
 } //end class
-
-export class Company{
-    companyMail: string;
-    companyName: string;
-    firstName: string;
-    lastName: string;
-    adresse: string;
-    postnr: string;
-    password: string;
-    phone: number;
-}
-

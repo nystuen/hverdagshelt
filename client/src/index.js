@@ -21,6 +21,8 @@ import { adminAddCategory } from "./components/AdminAddCategory/adminAddCategory
 import {RegisterCompany} from "./components/registercompany/registercompany.js";
 import {RegisterUser} from './components/registeruser/registeruser';
 import { ChooseCategory } from "./components/ChooseCategory/ChooseCategory.js";
+import {forside} from "./views/forside/forside";
+
 
 
 // Reload application when not in production environment
@@ -54,4 +56,3 @@ if (root)
     </HashRouter>,
     root
   );
-

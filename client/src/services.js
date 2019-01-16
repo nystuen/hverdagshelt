@@ -27,9 +27,9 @@ export class UserService {
     return axios.get("/user/get_user/" + mail);
   } //end method
 
-  login(userMail: Object<JSON>): Promise<void> {
-    return axios.post("/login/", userMail);
-  } //end method
+    login(userMail: Object<JSON>): Promise<void>{
+        return axios.post('/login/', userMail);
+    }//end method
 
   getMyIssues(userMail: string): Promise<JSON> {
     return axios.get("/user/getMyIssues/" + userMail);
@@ -44,7 +44,6 @@ export class CategoryService {
     getCategory2(): Promise<Category2[]> {
         return axios.get("/get_category2");
     }
-
 
     getCategory3(): Promise<Category3[]> {
         return axios.get("/get_category3");
@@ -73,8 +72,16 @@ export class MyPage{
   }
 }
 
-export function getAllCounties(usermail: string): Promise<County[]> {
-  return axios.get("/getAllCountiesMinusUsers/" + usermail);
+
+
+export function getImportantEvents(countyId:number): Promise<Event[]> {
+    console.log("Id inn til services" + countyId)
+        return axios.get('/importantEvents/'+countyId);
+}
+
+export function getAllCounties(usermail:string): Promise<County[]> {
+    return axios.get('/getAllCountiesMinusUsers/'+ usermail);
+
 }
 
 export function getUsersCounties(usermail: string): Promise<County[]> {
@@ -88,3 +95,4 @@ export function deleteSubscription(usermail: string) {
 export function addSubscription(json: Object) {
   return axios.post("/addSubscription", json);
 }
+
