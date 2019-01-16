@@ -46,10 +46,9 @@ if (root)
         <Route path="/map" component={MapComponent} />
         <Route path="/min_side/mine_saker" component={MineSaker} />
         <Route path="/addCategory" component={adminAddCategory} />
-          <Route exact path="/register" component={RegisterUser}/>
-          <Route exact path="/register/company" component={RegisterCompany}/>
+        <Route exact path="/register" component={RegisterUser}/>
+        <Route exact path="/register/company" component={RegisterCompany}/>
       </div>
     </HashRouter>,
     root
   );
-

@@ -260,6 +260,10 @@ export class RegisterUser extends Component<Props, State>{
                     </Row>
                     <Button type="button" onClick={this.checkMail}>Registrer</Button>
                 </Form>
+                <form action="/upload" method="post" enctype="multipart/form-data">
+                  <input type="file" name="avatar" />
+                  <Button onclick={this.checkMail}>Send inn bilde</Button>
+                </form>
             </Container>
         );
     }

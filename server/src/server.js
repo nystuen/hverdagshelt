@@ -5,6 +5,9 @@ import express from "express";
 import path from "path";
 import reload from "reload";
 import fs from "fs";
+let bodyParser = require('body-parser');
+let urlencodedParser = bodyParser.urlencoded({extended: false});
+const multer = require("multer");
 import { UserDao } from "./daos/userDao";
 import categoryController from "./controllers/categoryController.js";
 import { CountyDao } from "./daos/countyDao";
@@ -13,6 +16,7 @@ import userController from "./controllers/userController.js";
 import issueController from "./controllers/issueController.js";
 import countyController from "./controllers/countyController.js";
 const notificationController = require("./controllers/notificationController");
+import imageRoute from "./controllers/imageRoute.js";
 import { CategoryDao } from "./daos/catergoryDao";
 import * as mysql from "mysql2";
 
@@ -47,6 +51,14 @@ userController(app, userDao);
 countyController(app, countyDao);
 countyController(app, countyDao);
 categoryController(app, categoryDao);
+imageRoute(app)
+
+const handleError = (err, res) => {
+  res
+    .status(500)
+    .contentType("text/plain")
+    .end("Oops! Something went wrong!");
+};
 
 // Hot reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
