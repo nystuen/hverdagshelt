@@ -43,6 +43,10 @@ export class UserService {
   updateUser(user: User): Promise<Response> {
     return axios.put('/user/updateUser', user);
   }
+
+    addCompany(json: Object) {
+        return axios.post("/registrateCompany", json);
+    }
 }//end class
 
 
@@ -81,6 +85,12 @@ export class CategoryService {
   getOneCategory3(id: number){
     return axios.get('/getOneCategory3/' + id);
   }//end method
+
+    addCompanyCategories(json:Object){
+    return axios.post("/add_CompanyCategories",json);
+    }
+
+
 }//end class
 
 export class IssueService{
