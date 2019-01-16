@@ -1,4 +1,4 @@
-import {Col, Button, Form, FormGroup, Label} from 'react-bootstrap';
+import {Col, Button, Form, FormGroup, Label, Grid} from 'react-bootstrap';
 import {CountyService, UserService, getCounties} from "../../services";
 import {Component} from 'react';
 import * as React from 'react';
@@ -7,7 +7,6 @@ import ReactDOM from 'react-dom';
 import {County} from "../../classTypes";
 import DropdownButton from "react-bootstrap/es/DropdownButton";
 import MenuItem from "react-bootstrap/es/MenuItem";
-import Grid from "react-bootstrap/es/Grid";
 import {FormControl, PageHeader} from "react-bootstrap";
 import Checkbox from "react-bootstrap/es/Checkbox";
 import Select from "react-select";
@@ -16,94 +15,16 @@ let countyService = new CountyService();
 let userService = new UserService();
 
 
+export class RegisterAdmin extends Component<Props, State>{
 
-/*class BindDropDown extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            choosen: {name: "Bergen", countyId: 1},
-            values:[
-                {name: "Bergen", countyId: 1}
-                //{ name: this.county.name, countyId: this.county.countyId}
-            ]
-        }
-
-        this.handleChangeCounty = this.handleChangeCounty.bind(this)
-    }
-
-    handleChangeCounty(e: Object){
-        console.log(this.state.choosen.countyId)
-        this.setState({
-            choosen: JSON.parse(e.target.value)
-        })
-
-
-    };
-
-    componentWillMount() {
-        var arr = [];
-        countyService
-            .getCounties()
-            .then(county2 => {
-                county2.map(e => {
-                    var elem = {
-                        name: e.name,
-                        countyId: e.countyId
-                    };
-                    arr = arr.concat(elem)
-
-                });
-                this.setState({
-                    values: arr
-                })
-            })
-
-
-                //this.state.countyName.push(this.state.county.name)})
-            .catch((error: Error)=>Alert.danger(error.message))
-
-    }
-
-
-
-    render(){
-        let optionTemplate = this.state.values.map(v => {
-            var data = {name: v.name, countyId: v.countyId}
-            return(<option key={v.countyId} value={JSON.stringify(data)}> {v.name}</option>)
-        });
-        return (
-            <label>
-                Velg Kommune:
-                <select value={this.state.values.countyId} onChange={this.handleChangeCounty}>
-                    {optionTemplate}
-                </select>
-            </label>
-        )
-    }
-}*/
-
-export class RegisterUser extends Component<Props, State>{
-
-    /*state = {
-        mail: "",
-        firstName: "",
-        lastName: "",
-        postnumber: 0,
-        password: "",
-        password2: "",
-        typeName: "",
-        phone: 0,
-        points: 0,
-        active: 0,
-        isLoaded: false,
-    };*/
     constructor(props) {
         super(props);
         this.state = {
             mail: "",
             firstName: "",
             lastName: "",
-            postnumber: 0,
+            adress: "",
+            postNumber: "",
             password: "",
             password2: "",
             typeName: "",
@@ -194,7 +115,7 @@ export class RegisterUser extends Component<Props, State>{
                                     <Col md={3}></Col>
                                     <Col md={6}>
                                         <PageHeader>
-                                            Registrer bruker
+                                            Registrer admin
                                         </PageHeader>
                                     </Col>
                                     <Col md={3}></Col>
@@ -227,21 +148,20 @@ export class RegisterUser extends Component<Props, State>{
                                 </Col>
                                 <Col md={6}>
                                     <FormGroup>
-                                        <FormControl type="password" value={this.state.password} placeholder="Passord"
-                                                     onChange={this.handleStringChange("password")}
+                                        <FormControl type="text" value={this.state.address} placeholder="Addresse"
+                                                     onChange={this.handleStringChange("address")}
                                         />
                                     </FormGroup>
                                 </Col>
                                 <Col md={6}>
                                     <FormGroup>
-                                        <FormControl type="password" value={this.state.password2} placeholder="Gjenta passord"
-                                                     onChange={this.handleStringChange("password2")}/>
+                                        <FormControl type="number" value={this.state.postNumber} placeholder="Postnummer"
+                                                     onChange={this.handleNumberChange("postNumber")}/>
                                     </FormGroup>
                                 </Col>
-                            </FormGroup>
+                        </FormGroup>
                             <FormGroup>
                                 <Col md={4}>
-
                                 </Col>
                                 <Col md={4}>
                                     <FormGroup>
@@ -280,29 +200,9 @@ export class RegisterUser extends Component<Props, State>{
         if(!(validator.validate(this.state.mail))){
             Alert.warning("Eposten eksisterer ikke")
         }else{
-            this.checkPass();
+            this.register();
         }
     };
-
-    checkPass = () => {
-
-        if (this.state.password !== this.state.password2) {
-            console.log("To ulike passord");
-            Alert.warning("Du skrev to ulike passord");
-        }
-        else {
-            let decimal = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,64}$/;
-            if(this.state.password.match(decimal))
-            {
-                this.register();
-            }
-            else {
-                Alert.warning('Password has to be between 8 and 64 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character')
-            }
-        }
-    };
-
-
 
 
     register = () => {

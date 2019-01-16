@@ -21,6 +21,7 @@ import {RegisterCompany} from "./components/registercompany/registercompany.js";
 import {RegisterUser} from './components/registeruser/registeruser';
 import { ChooseCategory } from "./components/ChooseCategory/ChooseCategory.js";
 import {forside} from "./views/forside/forside";
+import {RegisterAdmin} from './components/registeradmin/registeradmin';
 
 
 
@@ -40,6 +41,7 @@ if (root)
         <Route path="/wizardForm" component={WizardFormComplete} />
         <Route path="/min_side/kommuner" component={countySubscription} />
         <Route path="/min_side/kontooversikt" component={KontoOversikt} />
+        <Route exact path="/register/admin" component={RegisterAdmin}/>
         <Route
           path="/countySubscription/:userMail"
           component={countySubscription}
@@ -48,8 +50,8 @@ if (root)
         <Route path="/map" component={MapComponent} />
         <Route path="/min_side/mine_saker" component={MineSaker} />
         <Route path="/addCategory" component={adminAddCategory} />
-          <Route exact path="/register" component={RegisterUser}/>
-          <Route exact path="/register/company" component={RegisterCompany}/>
+        <Route exact path="/register" component={RegisterUser}/>
+        <Route exact path="/register/company" component={RegisterCompany}/>
       </div>
     </HashRouter>,
     root
