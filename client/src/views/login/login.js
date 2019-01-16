@@ -18,6 +18,7 @@ import FormControl from 'react-bootstrap/es/FormControl';
 import Button from 'react-bootstrap/es/Button';
 import Grid from 'react-bootstrap/es/Grid';
 import login from './login.css';
+import {history} from "../../index";
 
 let userService = new UserService();
 const bcrypt = require('bcrypt-nodejs');
@@ -124,23 +125,60 @@ export class Login extends Component<Props, State> {
       this.setState({
         storedPassword: response[0].password
       });
+
       bcrypt.compare(this.state.password, response[0].password, (err, res) => {
         if (res) {
           userService.login({ userMail: response[0].mail, typeId: response[0].typeName }).then(r => {
             let token = r.jwt;
             window.localStorage.setItem('userToken', token);
             console.log('login in success');
+            history.push('/#forside');
           }).catch((error: Error) => Alert.danger(error.message));
-        } else {
-          this.setState({
-            error: true
-          });
-        }
+        } else { //check if the email is a company email
+            userService.getCompanyLogin(this.state.email).then(r => {
+              bcrypt.compare(this.state.password, r[0].password, (err,res) => {
+                if(res){
+                  userService.login({ userMail: r[0].mail, typeId: 'Company' }).then(r => {
+                    let token = r.jwt;
+                    window.localStorage.setItem('userToken', token);
+                    console.log('login in success');
+                    history.push('/#forside');
+                  }).catch((error: Error) => Alert.danger(error.message));
+                }else{
+                  this.setState({
+                    error: true
+                  });
+                }//end condition
+              });
+            }).catch((error: Error) => {
+              console.log(error);
+              this.setState({
+                error: true
+              });
+            });
+        }//end condition
       });
     }).catch((error: Error) => {
-      console.log(error);
-      this.setState({
-        error: true
+      userService.getCompanyLogin(this.state.email).then(r => {
+        bcrypt.compare(this.state.password, r[0].password, (err,res) => {
+          if(res){
+            userService.login({ userMail: this.state.email, typeId: 'Company' }).then(r => {
+              let token = r.jwt;
+              window.localStorage.setItem('userToken', token);
+              console.log('login in success');
+              history.push('/#forside');
+            }).catch((error: Error) => Alert.danger(error.message));
+          }else{
+            this.setState({
+              error: true
+            });
+          }//end condition
+        });
+      }).catch((error: Error) => {
+        console.log(error);
+        this.setState({
+          error: true
+        });
       });
     });
   };//end method

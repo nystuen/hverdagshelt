@@ -26,6 +26,10 @@ export class UserService {
     return axios.get("/verify_user/" + email);
   } //end method
 
+  getCompanyLogin(email: string): Promise<Object>{
+    return axios.get("/verify_company/" + email);
+  }//end method
+
   getUser(mail: string): Promise<User> {
     return axios.get("/user/get_user/" + mail);
   } //end method
@@ -37,6 +41,10 @@ export class UserService {
   getMyIssues(userMail: string): Promise<JSON> {
     return axios.get("/user/getMyIssues/" + userMail);
   } //end method
+
+  getCompanyIssues(companyMail: string): Promise<JSON>{
+    return axios.get("/getCompanyIssues/" + companyMail);
+  }//end method
 
   updateUser(user: User): Promise<Response> {
     return axios.put("/user/updateUser", user);

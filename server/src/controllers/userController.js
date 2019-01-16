@@ -65,6 +65,14 @@ module.exports = function (app: Object, userDao: Object) {
         });
     });
 
+    app.get('/verify_company/:email', urlencodedParser, (req,res) => {
+        console.log('got get request from verify_company')  ;
+        userDao.getCompanyLogin(req.params.email, (status,data) => {
+           res.status(status);
+           res.json(data);
+        });
+    });
+
 
     app.post('/login/', urlencodedParser, (req, res) => {
         console.log('got login request');
@@ -95,6 +103,14 @@ module.exports = function (app: Object, userDao: Object) {
            res.status(status);
            res.json(data);
        })
+    });
+
+    app.get('/getCompanyIssues/:email', urlencodedParser, (req,res) => {
+        console.log('got request from getCompanyIssues', req.params.email);
+        userDao.getCompanyIssues(req.params.email, (status, data) => {
+            res.status(status);
+            res.json(data);
+        })
     });
 
     app.put('/user/updateUser/', urlencodedParser, (req, res) => {
