@@ -25,6 +25,7 @@ export default (async function showResults(values) {
       userMail: values.userMail,
       latitude: values.latitude,
       longitude: values.longitude,
+      address: values.address,
       text: values.text,
       pic: values.pic,
       date: day.day + "." + day.month + "." + day.year,
