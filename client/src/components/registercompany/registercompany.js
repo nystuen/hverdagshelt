@@ -282,7 +282,7 @@ export class RegisterCompany extends Component<Props, State>{
                                         />
                                     </FormGroup>
                                 </Col>
-                                <Col md={4}> /*Ikke gjør noe med det her enda, vi kan vente å se hvor god tid vi får*/
+                                <Col md={4}>
                                     <FormGroup>
                                         <Label>Velg arbeidsområder</Label>
                                     </FormGroup>
