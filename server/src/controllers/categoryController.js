@@ -52,4 +52,12 @@ module.exports = function(app: Object, categoriesDao: Object) {
       res.json(data);
     });
   });
+
+    app.post("/add_CompanyCategories", urlencodedParser, (req, res) => {
+        console.log("got request from add user categories");
+        categoriesDao.addCompanyCategories(req.body, (status, data) => {
+            res.status(status);
+            res.json(data);
+        });
+    });
 };

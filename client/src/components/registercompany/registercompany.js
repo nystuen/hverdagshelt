@@ -1,9 +1,9 @@
-import {CountyService, UserService,addSubscription} from "../../services";
+import {CountyService, UserService, addSubscription, CategoryService,MyPage} from "../../services";
 import {Component} from 'react';
 import * as React from 'react';
 import {Alert} from "../../widgets";
 import ReactDOM from 'react-dom';
-import {County} from "../../classTypes";
+import {Category, County} from "../../classTypes";
 import DropdownButton from "react-bootstrap/es/DropdownButton";
 import MenuItem from "react-bootstrap/es/MenuItem";
 import Row from "react-bootstrap/es/Row";
@@ -16,7 +16,8 @@ import Grid from "react-bootstrap/es/Grid";
 import Checkbox from "react-bootstrap/es/Checkbox";
 import Select from "react-select";
 
-
+let myPage = new MyPage();
+let categoryService = new CategoryService();
 let countyService = new CountyService();
 let userService = new UserService();
 
@@ -69,11 +70,14 @@ export class RegisterCompany extends Component<Props, State>{
             ],
             description: "",
             orgNumber: "",
-            countySubscription:[]
+            countySubscription:[],
+            categorySubscription:[]
+
         };
 
         this.handleChangeCounty = this.handleChangeCounty.bind(this);
         this.onChangeCountySubscription = this.onChangeCountySubscription.bind(this);
+        this.onChangeCategorySubscription = this.onChangeCategorySubscription.bind(this);
     }
 
 
@@ -87,6 +91,7 @@ export class RegisterCompany extends Component<Props, State>{
 
     componentWillMount() {
         var arr = [];
+        let kat1 = [];
         countyService
             .getCounties()
             .then(county2 => {
@@ -102,10 +107,24 @@ export class RegisterCompany extends Component<Props, State>{
                     values: arr
                 })
             })
+            .catch((error: Error)=>Alert.danger(error.message));
 
+        categoryService.getCategory1().then(resources => {
+            resources.map(r => {
+                let elem: Category = {
+                    name: r.name,
+                    categoryId: r.categoryId,
+                    priority: r.priority,
+                    active: r.active,
+                    open: false
+                };
+                kat1 = kat1.concat(elem);
+            });
 
-            //this.state.countyName.push(this.state.county.name)})
-            .catch((error: Error)=>Alert.danger(error.message))
+            this.setState({
+                category: kat1
+            });
+        });
 
     }
 
@@ -130,11 +149,22 @@ export class RegisterCompany extends Component<Props, State>{
         });
     };
 
+    onChangeCategorySubscription(value){
+        this.setState({
+            categorySubscription: value
+        });
+    };
+
     render(){
         let optionTemplate = this.state.values.map(v => {
             const data = {label: v.name, value: v.countyId};
             return(data)
         });
+        let optionTemplateCategory = this.state.category.map(s => {
+            const data2 = {label: s.name, value: s.categoryId};
+            return(data2)
+        });
+
         return(
             <Grid>
                 <Col md={3}></Col>
@@ -247,6 +277,9 @@ export class RegisterCompany extends Component<Props, State>{
                                 </Col>
                                 <Col md={4}>
                                     <FormGroup>
+                                        <Label>Velg andre kommuner</Label>
+                                    </FormGroup>
+                                    <FormGroup>
                                         <Select
                                             placeholder={"Kommuner å følge"}
                                             isMulti
@@ -258,12 +291,20 @@ export class RegisterCompany extends Component<Props, State>{
                                         />
                                     </FormGroup>
                                 </Col>
-                                <Col md={4}> /*Ikke gjør noe med det her enda, vi kan vente å se hvor god tid vi får*/
+                                <Col md={4}>
                                     <FormGroup>
                                         <Label>Velg arbeidsområder</Label>
                                     </FormGroup>
                                     <FormGroup>
-                                        <Checkbox inline>Vann og avløp</Checkbox><Checkbox>Veiarbeid</Checkbox><Checkbox>Strømbrudd</Checkbox>
+                                        <Select
+                                            placeholder={"Kategorier"}
+                                            isMulti
+                                            name="colors"
+                                            options={optionTemplateCategory}
+                                            className="basic-multi-select"
+                                            classNamePrefix="select"
+                                            onChange={this.onChangeCategorySubscription}
+                                        />
                                     </FormGroup>
                                 </Col>
                             </FormGroup>
@@ -318,7 +359,7 @@ export class RegisterCompany extends Component<Props, State>{
 
 
 
-    register = () => {
+    register = async () => {
         console.log("test", this.state);
         var mail = this.state.mail;
         var firstName = this.state.firstName;
@@ -327,19 +368,26 @@ export class RegisterCompany extends Component<Props, State>{
         var phone = this.state.phone;
         var countyId = this.state.choosen.countyId;
         console.log("county", countyId);
-        userService
+       await userService
             .addUser(this.state.mail, this.state.firstName, this.state.lastName, this.state.password, this.state.phone, this.state.choosen.countyId)
             .then(user =>(this.state = user)).then(Alert.success("Bruker registrert"))
             .catch((error: Error)=>Alert.danger(error.message))
 
-        this.state.countySubscription.map((e) => {
+        await this.state.countySubscription.map((e) => {
             let theBody : Object={
             userMail : e.value,
             countyId : e.label,
             };
-            addSubscription(theBody);
+             addSubscription(theBody);
         });
 
+        await this.state.categorySubscription.map((e) => {
+            let theBody2 : Object={
+                userMail : e.value,
+                countyId : e.label,
+            };
+            myPage.addCategory1(theBody2);
+        });
 
 
     };

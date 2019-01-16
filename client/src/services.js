@@ -49,6 +49,10 @@ export class CategoryService {
     getCategory3(): Promise<Category3[]> {
         return axios.get("/get_category3");
     }
+
+    addCompanyCategories(){
+        return axios.post("/add_CompanyCategories");
+    }
 }
 
 export class CountyService{

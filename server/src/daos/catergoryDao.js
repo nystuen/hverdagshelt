@@ -49,4 +49,10 @@ export class CategoryDao extends Dao {
       callback
     );
   }
+
+  addCompanyCategories(json: Object, callback:Function){
+    var body = [ json.companyMail,json.categoryId];
+    super.query("insert into companyCategories(companyMail,categoryId)values (?,?)", body,callback);
+  }
+
 }
