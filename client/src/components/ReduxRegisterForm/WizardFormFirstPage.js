@@ -2,11 +2,11 @@
 import { Field, reduxForm } from "redux-form";
 import validate from "./validate";
 import renderField from "./renderField";
-import React, { Component, createRef } from 'react'
-import { Map, TileLayer, Marker, Popup, withLeaflet } from 'react-leaflet'
-import * as ELG from 'esri-leaflet-geocoder'
-import L from 'leaflet'
-import { Button } from 'react-bootstrap';
+import React, { Component, createRef } from "react";
+import { Map, TileLayer, Marker, Popup, withLeaflet } from "react-leaflet";
+import * as ELG from "esri-leaflet-geocoder";
+import L from "leaflet";
+import { Button } from "react-bootstrap";
 import Geocode from "react-geocode";
 
 Geocode.setApiKey("AIzaSyDVZREoJuiobrxWVmBFhemEk1VdRB0MsSI");
@@ -16,50 +16,47 @@ type State = {
   address: string,
   latlng: {
     lat: number,
-    lng: number,
+    lng: number
   },
   zoom: number
-}
+};
 
 export class WizardFormFirstPage extends Component<{}, State> {
-
-  constructor (props){
+  constructor(props) {
     super(props);
 
     this.state = {
       hasLocation: false,
       address: "",
       latlng: {
-          lat: 65.107877,
-          lng: 12.074429
+        lat: 65.107877,
+        lng: 12.074429
       },
       zoom: 5
     };
 
-      this.handleMapClick = this.handleMapClick.bind(this);
-      this.handleClick = this.handleClick.bind(this);
-
+    this.handleMapClick = this.handleMapClick.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
-
 
   componentDidMount() {
     const map = this.mapRef.current.leafletElement;
-    if(map != null) {
-      map.locate()
+    if (map != null) {
+      map.locate();
     }
   }
 
-  mapRef = createRef<Map>()
+  mapRef = createRef<Map>();
 
   handleMapClick = (e: Object) => {
     this.setState({
       hasLocation: true,
       latlng: e.latlng,
       zoom: 17
-    })
+    });
 
-    this.props.change('latitude', e.latlng.lat);
-    this.props.change('longitude', e.latlng.lng);
+    this.props.change("latitude", e.latlng.lat);
+    this.props.change("longitude", e.latlng.lng);
 
     Geocode.fromLatLng(e.latlng.lat, e.latlng.lng).then(
       response => {
@@ -68,17 +65,17 @@ export class WizardFormFirstPage extends Component<{}, State> {
           hasLocation: true,
           latlng: e.latlng,
           address: address_found
-        })
+        });
       },
       error => {
         console.error(error);
       }
     );
-  }
+  };
 
   handleLocationFound = (e: Object) => {
-    this.props.change('latitude', e.latlng.lat);
-    this.props.change('longitude', e.latlng.lng);
+    this.props.change("latitude", e.latlng.lat);
+    this.props.change("longitude", e.latlng.lng);
     Geocode.fromLatLng(e.latlng.lat, e.latlng.lng).then(
       response => {
         const address_found = response.results[0].formatted_address;
@@ -87,57 +84,57 @@ export class WizardFormFirstPage extends Component<{}, State> {
           latlng: e.latlng,
           address: address_found,
           zoom: 15
-        })
+        });
       },
       error => {
         console.error(error);
       }
     );
-  }
+  };
 
   onChange = (e: Object) => {
     this.setState({
       address: e.target.value
     });
-  }
+  };
 
   handleClick = (e: Object) => {
     Geocode.fromAddress(this.state.address).then(
       response => {
         const { lat, lng } = response.results[0].geometry.location;
-        this.props.change('latitude', lat);
-        this.props.change('longitude', lng);
+        this.props.change("latitude", lat);
+        this.props.change("longitude", lng);
         this.setState({
-          latlng: {lat,lng},
+          latlng: { lat, lng },
           zoom: 17,
           hasLocation: true
-        })
+        });
       },
       error => {
         console.error(error);
       }
     );
-  }
+  };
 
   render() {
-    const { handleSubmit, previousPage } = this.props
+    const { handleSubmit, previousPage } = this.props;
 
     let styles = {
-      height: '100%'
-    }
+      height: "100%"
+    };
 
     let mapStyle = {
-      top: '0',
-      bottom: '0',
-      left: '0',
-      right: '0',
-    }
+      top: "0",
+      bottom: "0",
+      left: "0",
+      right: "0"
+    };
 
     let marker = this.state.hasLocation ? (
       <Marker position={this.state.latlng}>
         <Popup>{this.state.address}</Popup>
       </Marker>
-    ): null
+    ) : null;
 
     return (
       <div style={styles}>
@@ -148,19 +145,26 @@ export class WizardFormFirstPage extends Component<{}, State> {
           onLocationFound={this.handleLocationFound}
           ref={this.mapRef}
           zoom={this.state.zoom}
-          doubleClickZoom= {true}
+          doubleClickZoom={true}
           style={mapStyle}
         >
-            <TileLayer
-              attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
-              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
-            />
-            {marker}
+          <TileLayer
+            attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
+            url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+          />
+          {marker}
         </Map>
         <div className="choice-map-container">
           <div className="choice-map">
-            <input className="input-map" placeholder="Adresse, by" onChange={this.onChange.bind(this)} value={this.state.address}></input>
-            <Button bsStyle="primary" onClick={this.handleClick}>Meld feil</Button>
+            <input
+              className="input-map"
+              placeholder="Adresse, by"
+              onChange={this.onChange.bind(this)}
+              value={this.state.address}
+            />
+            <Button bsStyle="primary" onClick={this.handleClick}>
+              Meld feil
+            </Button>
           </div>
           <form onSubmit={handleSubmit}>
             <Field
@@ -175,11 +179,18 @@ export class WizardFormFirstPage extends Component<{}, State> {
               label="longitude"
               component={renderField}
             />
-          <Button bsStyle="primary" type="submit" className="next + ' ' + submitButton" onClick={this.handleSubmit}>Next</Button>
+            <Button
+              bsStyle="primary"
+              type="submit"
+              className="next + ' ' + submitButton"
+              onClick={this.handleSubmit}
+            >
+              Next
+            </Button>
           </form>
         </div>
       </div>
-    )
+    );
   }
 }
 

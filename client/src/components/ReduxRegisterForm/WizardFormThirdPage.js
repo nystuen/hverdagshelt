@@ -2,6 +2,7 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 import validate from "./validate";
 import renderField from "./renderField";
+import { Button } from "react-bootstrap";
 
 const countyID = ["1", "2", "3"];
 const counties = [
@@ -41,6 +42,24 @@ const WizardFormThirdPage = props => {
             label="Epost"
           />
           <Field
+            name="firstName"
+            type="firstName"
+            component={renderField}
+            label="Fornavn"
+          />
+          <Field
+            name="lastName"
+            type="lastName"
+            component={renderField}
+            label="Etternavn"
+          />
+          <Field
+            name="phone"
+            type="text"
+            component={renderField}
+            label="Telefon"
+          />
+          <Field
             name="text"
             type="text"
             component={renderField}
@@ -51,12 +70,21 @@ const WizardFormThirdPage = props => {
         </div>
       </div>
       <div>
-        <button type="button" className="previous" onClick={previousPage}>
+        <Button
+          bsStyle="primary"
+          type="button"
+          className="previous"
+          onClick={previousPage}
+        >
           Previous
-        </button>
-        <button type="submit" disabled={pristine || submitting}>
+        </Button>
+        <Button
+          bsStyle="primary"
+          type="submit"
+          disabled={pristine || submitting}
+        >
           Submit
-        </button>
+        </Button>
       </div>
     </form>
   );

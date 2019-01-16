@@ -22,6 +22,8 @@
     "jsonwebtoken": "^8.4.0",
     "leaflet": "^1.4.0",
     "leaflet-geosearch": "^2.7.0",
+    "email-existence": "^0.1.6",
+    "email-validator": "^2.0.4",
     "lodash": "^4.17.11",
     "node-gyp": "^3.8.0",
     "nodemailer": "^5.1.1",
@@ -38,7 +40,8 @@
     "react-simplified": "^1.5.2",
     "reactstrap": "^7.0.2",
     "redux": "^4.0.1",
-    "redux-form": "^8.1.0"
+    "redux-form": "^8.1.0",
+    "react-dom": "^16.7.0"
   },
   "devDependencies": {
     "@babel/core": "^7.1.2",
