@@ -127,7 +127,7 @@ export class KontoOversikt extends React.Component <State> {
         <PageHeader title={'Kontooversikt'}/>
 
         {
-          this.state.decoded.typeId === 'Admin' || this.state.decoded.typeId === 'Employee' || this.state.decoded.typeId === 'User' ? (
+          this.state.decoded.typeId === 'Admin' || this.state.decoded.typeId === 'Employee' || this.state.decoded.typeId === 'Private' ? (
             <div>
 
               <AccountInfoCard firstName={this.state.user.firstName} lastName={this.state.user.lastName}

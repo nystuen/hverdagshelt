@@ -60,8 +60,8 @@ export class Login extends Component<Props, State> {
     if (this.state.error) {
       alert_login = (
         <Alert bsStyle="danger">
-        <h6>Brukernavn eller passord er feil. Prøv igjen!</h6>
-      </Alert>);
+          <h6>Brukernavn eller passord er feil. Prøv igjen!</h6>
+        </Alert>);
     } else {
       alert_login = (
         <p></p>
@@ -98,6 +98,15 @@ export class Login extends Component<Props, State> {
                   <Button type="button" onClick={this.sjekk}>Sjekk</Button>
                   {alert_login}
                 </Row>
+
+                <div align="center">
+                  <p>Har du ikke bruker?</p>
+                  
+                  <p>Registrer deg <a href={'/#/register'}>her</a> hvis du er privatperson, og <a> her</a> hvis du er
+                    bedrift.</p>
+                </div>
+
+
               </div>
             </Col>
 
@@ -120,7 +129,7 @@ export class Login extends Component<Props, State> {
           userService.login({ userMail: response[0].mail, typeId: response[0].typeName }).then(r => {
             let token = r.jwt;
             window.localStorage.setItem('userToken', token);
-            console.log("login in success")
+            console.log('login in success');
           }).catch((error: Error) => Alert.danger(error.message));
         } else {
           this.setState({

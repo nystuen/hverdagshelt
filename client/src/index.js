@@ -40,7 +40,8 @@ if (root)
     <HashRouter>
       <div className="route-container">
         <NavbarMenu/>
-        <Route path="/forside" component={Frontpage}/>
+        <Route exact path="/" component={Frontpage}/>
+        <Route path="/forside" component={forside}/>
         <Route path="/wizardForm" component={WizardFormComplete}/>
         <Route path="/min_side/kommuner" component={countySubscription}/>
         <Route path="/min_side/kontooversikt" component={KontoOversikt}/>
@@ -50,8 +51,8 @@ if (root)
         <Route path="/map" component={MapComponent}/>
         <Route path="/min_side/mine_saker" component={MineSaker}/>
         <Route path="/addCategory" component={adminAddCategory}/>
-        <Route exact path="/register" component={RegisterUser}/>
-        <Route exact path="/register/company" component={RegisterCompany}/>
+        <Route path="/register" component={RegisterUser}/>
+        <Route path="/register/company" component={RegisterCompany}/>
       </div>
     </HashRouter>,
     root
