@@ -11,8 +11,9 @@ import {
   Type,
   County,
   NotificationSetting,
-  IssueNotificationSetting
-} from './classTypes';
+  IssueNotificationSetting,
+  EventCategory
+} from "./classTypes";
 
 axios.interceptors.response.use(response => response.data);
 
@@ -41,6 +42,12 @@ export class UserService {
     return axios.put('/user/updateUser', user);
   }
 }//end class
+
+export class EventCategoryService {
+  getEventCategory(): Promise<EventCategory[]> {
+    return axios.get('get_eventcategory');
+  }
+}
 
 export class CategoryService {
 
@@ -102,7 +109,7 @@ export class NotificationSettingsService {
   }
 
   updateIssueNotificationSettings(newSetting: IssueNotificationSetting): Promise<Response> {
-    return axios.put('/update_issue_notification_settings', newSetting);
+    return axios.put("/update_issue_notification_settings", newSetting);
   }
 }
 
