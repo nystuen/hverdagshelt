@@ -9,6 +9,7 @@ import {MyIssuesNotificationSettingsForm} from "../MyIssuesNotificationSettingsF
 import {NotificationSettingsForm} from "../NotificationSettingsForm/NotificationSettingsForm";
 import {NotificationSettingsMyCountiesForm} from "../NotificationSettingsMyCountiesForm/NotificationSettingsMyCountiesForm";
 
+import css from './NotificationSettings.css';
 
 interface State {
     decoded: Object,
@@ -29,7 +30,7 @@ export class NotificationSettings extends React.Component <State> {
 
     render() {
         return(
-            <Grid>
+            <Grid className="notifications">
             <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
                 <Tab eventKey={1} title="Hjemkommune">
                     <NotificationSettingsForm />

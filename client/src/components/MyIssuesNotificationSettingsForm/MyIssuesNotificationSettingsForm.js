@@ -143,7 +143,7 @@ export class MyIssuesNotificationSettingsForm extends React.Component <State> {
                                   }}>Fullført</Checkbox>
                     </FormGroup>
 
-                    <Button onClick={() => {
+                    <Button  onClick={() => {
                         this.save()
                     }}>Lagre</Button>
                 </Grid>

@@ -10,7 +10,7 @@ export class CountyDao extends Dao {
       callback
     );
   }
-    //get all counties where the user dosnt use
+
 
   getAllCountiesMinusUsers(id: string, callback: Function) {
     var val = [id, id];
@@ -30,11 +30,15 @@ export class CountyDao extends Dao {
     }
 
     addSubscription(json: Object, callback: Function){
-        var body = [json.userMail,json.countyId ];
+        let body = [json.userMail,json.countyId ];
         super.query("insert into userCounties(userMail, countyId) value (?,?)",body,callback);
     }
 
+    addCompanySubscription(json:Object, callback:Function){
+        let body = [json.companyMail,json.countyId ];
+        super.query("insert into companyCounties(companyMail, countyId) value (?,?)",body,callback);
+    }
+
+
 }
-/*SELECT * FROM county
-where county.countyId = (SELECT userCounties.countyId FROM userCounties WHERE userCounties.userMail != 'ola@usermail.com' )
-OR county.countyId NOT IN(SELECT userCounties.countyId FROM userCounties)*/
+

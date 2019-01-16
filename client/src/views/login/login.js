@@ -18,6 +18,7 @@ import FormControl from 'react-bootstrap/es/FormControl';
 import Button from 'react-bootstrap/es/Button';
 import Grid from 'react-bootstrap/es/Grid';
 import login from './login.css';
+import {history} from '../../index';
 
 let userService = new UserService();
 const bcrypt = require('bcrypt-nodejs');
@@ -27,6 +28,7 @@ interface State {
   email: string;
   password: string;
   storedPassword: string;
+  countyId: number;
 }//end interface
 
 interface Props {
@@ -37,7 +39,8 @@ export class Login extends Component<Props, State> {
     error: false,
     email: '',
     password: '',
-    storedPassword: ''
+    storedPassword: '',
+    countyId: 0
   };
 
   handleChangeEmail = (event: SyntheticEvent<HTMLButtonElement>) => {
@@ -60,8 +63,8 @@ export class Login extends Component<Props, State> {
     if (this.state.error) {
       alert_login = (
         <Alert bsStyle="danger">
-        <h6>Brukernavn eller passord er feil. Prøv igjen!</h6>
-      </Alert>);
+          <h6>Brukernavn eller passord er feil. Prøv igjen!</h6>
+        </Alert>);
     } else {
       alert_login = (
         <p></p>
@@ -98,6 +101,15 @@ export class Login extends Component<Props, State> {
                   <Button type="button" onClick={this.sjekk}>Sjekk</Button>
                   {alert_login}
                 </Row>
+
+                <div align="center">
+                  <p>Har du ikke bruker?</p>
+                  
+                  <p>Registrer deg <a href={'/#/register'}>her</a> hvis du er privatperson, og <a> her</a> hvis du er
+                    bedrift.</p>
+                </div>
+
+
               </div>
             </Col>
 
@@ -113,6 +125,7 @@ export class Login extends Component<Props, State> {
     //console.log(this.state.email);
     userService.getUserLogin(this.state.email).then(response => {
       this.setState({
+        countyId : response[0].countyId,
         storedPassword: response[0].password
       });
       bcrypt.compare(this.state.password, response[0].password, (err, res) => {
@@ -120,7 +133,10 @@ export class Login extends Component<Props, State> {
           userService.login({ userMail: response[0].mail, typeId: response[0].typeName }).then(r => {
             let token = r.jwt;
             window.localStorage.setItem('userToken', token);
-            console.log("login in success")
+            console.log('login in success');
+
+            history.push('/forside/' + this.state.countyId);
+
           }).catch((error: Error) => Alert.danger(error.message));
         } else {
           this.setState({

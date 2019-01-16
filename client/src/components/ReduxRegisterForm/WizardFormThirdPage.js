@@ -2,7 +2,13 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 import validate from "./validate";
 import renderField from "./renderField";
+import renderEmail from "./renderEmail";
 import { Button } from "react-bootstrap";
+import jwt from "jsonwebtoken";
+import { User } from "../../classTypes";
+import { UserService } from "../../services";
+
+let userService = new UserService();
 
 const countyID = ["1", "2", "3"];
 const counties = [
@@ -25,70 +31,91 @@ const renderCountySelector = ({ input, meta: { touched, error } }) => (
   </div>
 );
 
-const WizardFormThirdPage = props => {
-  const { handleSubmit, pristine, previousPage, submitting } = props;
-  return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Choose your county</label>
-        <Field name="countyId" component={renderCountySelector} />
-      </div>
-      <div>
+export class WizardFormThirdPage extends React.Component {
+  setProps = () => {
+    this.props.change("userMail", this.state.decoded.email);
+    this.props.change("countyId", this.state.user.countyId);
+    console.log("setting props! mail");
+    console.log(this.state.user.countyId);
+  };
+  state = {
+    decoded: jwt.verify(
+      window.localStorage.getItem("userToken"),
+      "shhhhhverysecret"
+    ),
+    user: User,
+    value: String
+  };
+
+  constructor(props) {
+    super(props);
+  }
+
+  componentDidMount() {
+    userService.getUser(this.state.decoded.email).then(newUser => {
+      this.setState({
+        user: newUser[0]
+      });
+    });
+    this.setProps.bind(this);
+  }
+
+  render() {
+    const { handleSubmit, pristine, previousPage, submitting } = this.props;
+    return (
+      <form onSubmit={handleSubmit}>
         <div>
           <Field
-            name="userMail"
-            type="email"
-            component={renderField}
-            label="Epost"
+            name="countyId"
+            type="hidden"
+            component={renderEmail}
+            label="countyId"
           />
-          <Field
-            name="firstName"
-            type="firstName"
-            component={renderField}
-            label="Fornavn"
-          />
-          <Field
-            name="lastName"
-            type="lastName"
-            component={renderField}
-            label="Etternavn"
-          />
-          <Field
-            name="phone"
-            type="text"
-            component={renderField}
-            label="Telefon"
-          />
-          <Field
-            name="text"
-            type="text"
-            component={renderField}
-            label="Beskrivelse"
-          />
-          <Field name="pic" type="text" component={renderField} label="Bilde" />
-          <Field name="date" type="text" component={renderField} label="Dato" />
         </div>
-      </div>
-      <div>
-        <Button
-          bsStyle="primary"
-          type="button"
-          className="previous"
-          onClick={previousPage}
-        >
-          Previous
-        </Button>
-        <Button
-          bsStyle="primary"
-          type="submit"
-          disabled={pristine || submitting}
-        >
-          Submit
-        </Button>
-      </div>
-    </form>
-  );
-};
+        <div>
+          <div>
+            <Field
+              name="userMail"
+              type="hidden"
+              component={renderEmail}
+              label="Epost"
+            />
+            <Field
+              name="text"
+              type="text"
+              component={renderField}
+              label="Beskrivelse"
+            />
+            <Field
+              name="pic"
+              type="text"
+              component={renderField}
+              label="Bilde"
+            />
+          </div>
+        </div>
+        <div>
+          <Button
+            bsStyle="primary"
+            type="button"
+            className="previous"
+            onClick={previousPage}
+          >
+            Previous
+          </Button>
+          <Button
+            bsStyle="primary"
+            type="submit"
+            onClick={this.setProps.bind(this)}
+            disabled={pristine || submitting}
+          >
+            Submit
+          </Button>
+        </div>
+      </form>
+    );
+  }
+}
 export default reduxForm({
   form: "wizard", //Form name is same
   destroyOnUnmount: false,
