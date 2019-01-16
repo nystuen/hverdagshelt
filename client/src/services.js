@@ -55,6 +55,8 @@ export class CountyService{
     getCounties(): Promise<County[]>{
         return axios.get('/getCounties');
     }
+
+
 }
 
 export class MyPage{

@@ -37,6 +37,7 @@ export class CountyDao extends Dao {
         super.query("insert into userCounties(userMail, countyId) value (?,?)",body,callback);
     }
 
+
 }
 /*SELECT * FROM county
 where county.countyId = (SELECT userCounties.countyId FROM userCounties WHERE userCounties.userMail != 'ola@usermail.com' )

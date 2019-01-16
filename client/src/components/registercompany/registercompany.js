@@ -1,4 +1,4 @@
-import {CountyService, UserService} from "../../services";
+import {CountyService, UserService,addSubscription} from "../../services";
 import {Component} from 'react';
 import * as React from 'react';
 import {Alert} from "../../widgets";
@@ -14,11 +14,13 @@ import {Form, FormControl, Label, PageHeader} from 'react-bootstrap';
 import ControlLabel from "react-bootstrap/es/ControlLabel";
 import Grid from "react-bootstrap/es/Grid";
 import Checkbox from "react-bootstrap/es/Checkbox";
+import Select from "react-select";
+
 
 let countyService = new CountyService();
 let userService = new UserService();
 
-interface State{
+/*interface State{
     companyName: string;
     category: Array<Object>;
     mail: string;
@@ -40,7 +42,7 @@ interface State{
 }
 interface Props{
     match: Object,
-}
+}*/
 export class RegisterCompany extends Component<Props, State>{
 
     constructor(props) {
@@ -51,8 +53,8 @@ export class RegisterCompany extends Component<Props, State>{
             mail: "",
             firstName: "",
             lastName: "",
-            address: null,
-            postNumber: null,
+            address: "",
+            postNumber: "",
             password: "",
             password2: "",
             typeName: "",
@@ -66,21 +68,22 @@ export class RegisterCompany extends Component<Props, State>{
                 //{ name: this.county.name, countyId: this.county.countyId}
             ],
             description: "",
-            orgNumber: null
-        }
+            orgNumber: "",
+            countySubscription:[]
+        };
 
-        this.handleChangeCounty = this.handleChangeCounty.bind(this)
+        this.handleChangeCounty = this.handleChangeCounty.bind(this);
+        this.onChangeCountySubscription = this.onChangeCountySubscription.bind(this);
     }
 
 
     handleChangeCounty(e: Object){
-        console.log(this.state.choosen.countyId)
         this.setState({
-            choosen: JSON.parse(e.target.value)
+            choosen: JSON.parse(e.value)
         })
 
-
     };
+
 
     componentWillMount() {
         var arr = [];
@@ -121,11 +124,16 @@ export class RegisterCompany extends Component<Props, State>{
     };
 
 
+    onChangeCountySubscription(value){
+        this.setState({
+            countySubscription: value
+        });
+    };
 
     render(){
         let optionTemplate = this.state.values.map(v => {
-            var data = {name: v.name, countyId: v.countyId}
-            return(<option key={v.countyId} value={JSON.stringify(data)}> {v.name}</option>)
+            const data = {label: v.name, value: v.countyId};
+            return(data)
         });
         return(
             <Grid>
@@ -147,15 +155,15 @@ export class RegisterCompany extends Component<Props, State>{
                                 <Col md={6}>
                                     <FormGroup>
                                         <FormControl type="text" value={this.state.firstName} placeholder="Fornavn"
-                                                 onChange={this.handleStringChange("firstName")}
+                                                     onChange={this.handleStringChange("firstName")}
                                         />
                                     </FormGroup>
                                 </Col>
                                 <Col md={6}>
                                     <FormGroup>
-                                    <FormControl type="text" value={this.state.lastName} placeholder="Etternavn"
-                                                 onChange={this.handleStringChange("lastName")}/>
-                                     </FormGroup>
+                                        <FormControl type="text" value={this.state.lastName} placeholder="Etternavn"
+                                                     onChange={this.handleStringChange("lastName")}/>
+                                    </FormGroup>
                                 </Col>
                             </FormGroup>
                             <FormGroup>
@@ -200,21 +208,21 @@ export class RegisterCompany extends Component<Props, State>{
                                 <Col md={6}>
                                     <FormGroup>
                                         <FormControl type="text" value={this.state.mail} placeholder="Organisasjonsnummer"
-                                                     onChange={this.handleStringChange("mail")}/>
+                                                     onChange={this.handleStringChange("orgNumber")}/>
                                     </FormGroup>
                                 </Col>
                             </FormGroup>
                             <FormGroup>
                                 <Col md={6}>
                                     <FormGroup>
-                                        <FormControl type="text" value={this.state.password} placeholder="Passord"
-                                                     onChange={this.handleStringChange("passward")}
+                                        <FormControl type="password" value={this.state.password} placeholder="Passord"
+                                                     onChange={this.handleStringChange("password")}
                                         />
                                     </FormGroup>
                                 </Col>
                                 <Col md={6}>
                                     <FormGroup>
-                                        <FormControl type="text" value={this.state.password2} placeholder="Gjenta passord"
+                                        <FormControl type="password" value={this.state.password2} placeholder="Gjenta passord"
                                                      onChange={this.handleStringChange("password2")}/>
                                     </FormGroup>
                                 </Col>
@@ -227,20 +235,30 @@ export class RegisterCompany extends Component<Props, State>{
                                         </Label>
                                     </FormGroup>
                                     <FormGroup>
-                                            <select value={this.state.values.countyId} onChange={this.handleChangeCounty}>
-                                                {optionTemplate}
-                                            </select>
+                                        <Select
+                                            placeholder={"Hjemmekommune"}
+                                            name="colors"
+                                            options={optionTemplate}
+                                            className="basic-multi-select"
+                                            classNamePrefix="select"
+                                            onChange={this.handleChangeCounty}
+                                        />
                                     </FormGroup>
                                 </Col>
                                 <Col md={4}>
                                     <FormGroup>
-                                        <Label>Velg kommuner å følge</Label>
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Checkbox inline>Oslo</Checkbox><Checkbox>Trondheim</Checkbox><Checkbox>Bergen</Checkbox>
+                                        <Select
+                                            placeholder={"Kommuner å følge"}
+                                            isMulti
+                                            name="colors"
+                                            options={optionTemplate}
+                                            className="basic-multi-select"
+                                            classNamePrefix="select"
+                                            onChange={this.onChangeCountySubscription}
+                                        />
                                     </FormGroup>
                                 </Col>
-                                <Col md={4}>
+                                <Col md={4}> /*Ikke gjør noe med det her enda, vi kan vente å se hvor god tid vi får*/
                                     <FormGroup>
                                         <Label>Velg arbeidsområder</Label>
                                     </FormGroup>
@@ -264,6 +282,9 @@ export class RegisterCompany extends Component<Props, State>{
             </Grid>
         );
     }
+
+
+
     checkMail = () =>{
         var validator = require("email-validator");
 
@@ -299,18 +320,31 @@ export class RegisterCompany extends Component<Props, State>{
 
     register = () => {
         console.log("test", this.state);
-        var mail = this.state.mail
-        var firstName = this.state.firstName
-        var lastName = this.state.lastName
-        var password = this.state.password
-        var phone = this.state.phone
-        var countyId = this.state.choosen.countyId
-        console.log("county", countyId)
+        var mail = this.state.mail;
+        var firstName = this.state.firstName;
+        var lastName = this.state.lastName;
+        var password = this.state.password;
+        var phone = this.state.phone;
+        var countyId = this.state.choosen.countyId;
+        console.log("county", countyId);
         userService
             .addUser(this.state.mail, this.state.firstName, this.state.lastName, this.state.password, this.state.phone, this.state.choosen.countyId)
             .then(user =>(this.state = user)).then(Alert.success("Bruker registrert"))
             .catch((error: Error)=>Alert.danger(error.message))
+
+        this.state.countySubscription.map((e) => {
+            let theBody : Object={
+            userMail : e.value,
+            countyId : e.label,
+            };
+            addSubscription(theBody);
+        });
+
+
+
     };
+
+
 }
 
 /*{' '}
