@@ -13,8 +13,8 @@ class FindDate {
 }
 
 export default (async function showResults(values) {
+  var day = new FindDate();
   await sleep(500); // simulate server latency
-  window.alert("You submitted: " + JSON.stringify(values));
   fetch("http://localhost:3000/add_issue", {
     method: "POST",
     headers: {
@@ -24,6 +24,7 @@ export default (async function showResults(values) {
       userMail: values.userMail,
       latitude: values.latitude,
       longitude: values.longitude,
+      address: values.address,
       text: values.text,
       pic: values.pic,
       date: day.day + "." + day.month + "." + day.year,

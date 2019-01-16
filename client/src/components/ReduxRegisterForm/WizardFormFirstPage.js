@@ -61,6 +61,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
     Geocode.fromLatLng(e.latlng.lat, e.latlng.lng).then(
       response => {
         const address_found = response.results[0].formatted_address;
+        this.props.change("address", address_found);
         this.setState({
           hasLocation: true,
           latlng: e.latlng,
@@ -79,6 +80,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
     Geocode.fromLatLng(e.latlng.lat, e.latlng.lng).then(
       response => {
         const address_found = response.results[0].formatted_address;
+        this.props.change("address", address_found);
         this.setState({
           hasLocation: true,
           latlng: e.latlng,
@@ -104,6 +106,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
         const { lat, lng } = response.results[0].geometry.location;
         this.props.change("latitude", lat);
         this.props.change("longitude", lng);
+        this.props.change("address", this.state.address);
         this.setState({
           latlng: { lat, lng },
           zoom: 17,
@@ -177,6 +180,12 @@ export class WizardFormFirstPage extends Component<{}, State> {
               name="lng"
               type="text"
               label="longitude"
+              component={renderField}
+            />
+            <Field
+              name="adr"
+              type="text"
+              label="addresse"
               component={renderField}
             />
             <Button
