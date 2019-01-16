@@ -21,7 +21,7 @@ import { ChooseCategory } from './components/ChooseCategory/ChooseCategory.js';
 import { forside } from './views/forside/forside';
 import { Frontpage } from './views/frontpage/frontpage';
 import { editAccountInformation } from './views/MinSide/KontoOversikt/editAccountInformation';
-import {NotificationSettings} from "./components/NotificationSettings/NotificationSettings";
+import { NotificationSettings } from './components/NotificationSettings/NotificationSettings';
 
 
 // Reload application when not in production environment
@@ -41,7 +41,7 @@ if (root)
       <div className="route-container">
         <NavbarMenu/>
         <Route exact path="/" component={Frontpage}/>
-        <Route path="/forside" component={forside}/>
+        <Route path="/forside/:countyId" component={forside}/>
         <Route path="/wizardForm" component={WizardFormComplete}/>
         <Route path="/min_side/kommuner" component={countySubscription}/>
         <Route path="/min_side/kontooversikt" component={KontoOversikt}/>
@@ -53,7 +53,7 @@ if (root)
         <Route path="/addCategory" component={adminAddCategory}/>
         <Route exact path="/register" component={RegisterUser}/>
         <Route exact path="/register/company" component={RegisterCompany}/>
-          <Route path="/min_side/varselinstillinger" component ={NotificationSettings}/>
+        <Route path="/min_side/varselinstillinger" component={NotificationSettings}/>
       </div>
     </HashRouter>,
     root

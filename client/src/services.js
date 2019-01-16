@@ -1,18 +1,18 @@
 // @flow
 import axios from 'axios';
 import {
-    User,
-    Issue,
-    Category,
-    Category2,
-    Category3,
-    Company,
-    Event,
-    Type,
-    County,
-    NotificationSetting,
-    IssueNotificationSetting
-} from "./classTypes";
+  User,
+  Issue,
+  Category,
+  Category2,
+  Category3,
+  Company,
+  Event,
+  Type,
+  County,
+  NotificationSetting,
+  IssueNotificationSetting
+} from './classTypes';
 
 axios.interceptors.response.use(response => response.data);
 
@@ -81,29 +81,29 @@ export class MyPage {
 
 export class NotificationSettingsService {
 
-    getNotificationSettings(email: string): Promise<Object[]> {
-        return axios.get('/get_notification_settings/' + email);
-    }
+  getNotificationSettings(email: string): Promise<Object[]> {
+    return axios.get('/get_notification_settings/' + email);
+  }
 
-    deleteNotificationSettings(email: string): Promise<void> {
-        return axios.delete('/delete_notification_settings/' + email);
-    }
+  deleteNotificationSettings(email: string): Promise<void> {
+    return axios.delete('/delete_notification_settings/' + email);
+  }
 
-    addNotificationSettings(newSetting: NotificationSetting): Promise<Response> {
-        return axios.post('/add_notification_settings', newSetting)
-    }
+  addNotificationSettings(newSetting: NotificationSetting): Promise<Response> {
+    return axios.post('/add_notification_settings', newSetting);
+  }
 
-    addIssueNotificationSettings(newSetting: IssueNotificationSetting): Promise<Response> {
-        return axios.post('/add_issue_notification_settings', newSetting);
-    }
+  addIssueNotificationSettings(newSetting: IssueNotificationSetting): Promise<Response> {
+    return axios.post('/add_issue_notification_settings', newSetting);
+  }
 
-    getIssueNotificationSettings(email: string): Promise<Object[]> {
-        return axios.get('/get_issue_notification_settings/' + email);
-    }
+  getIssueNotificationSettings(email: string): Promise<Object[]> {
+    return axios.get('/get_issue_notification_settings/' + email);
+  }
 
-    updateIssueNotificationSettings(newSetting: IssueNotificationSetting): Promise<Response> {
-        return axios.put('/update_issue_notification_settings', newSetting);
-    }
+  updateIssueNotificationSettings(newSetting: IssueNotificationSetting): Promise<Response> {
+    return axios.put('/update_issue_notification_settings', newSetting);
+  }
 }
 
 export function getImportantEvents(countyId: number): Promise<Event[]> {
@@ -112,7 +112,7 @@ export function getImportantEvents(countyId: number): Promise<Event[]> {
 }
 
 export function getAllCounties(usermail: string): Promise<County[]> {
-    return axios.get('/getAllCountiesMinusUsers/' + usermail);
+  return axios.get('/getAllCountiesMinusUsers/' + usermail);
 }
 
 export function getUsersCounties(usermail: string): Promise<County[]> {

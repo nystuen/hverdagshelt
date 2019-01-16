@@ -1,3 +1,8 @@
+root {
+  --main-light: #354050;
+  --main-dark: #232932;
+}
+
 html {
   height: 100%;
 }
