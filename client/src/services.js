@@ -115,10 +115,6 @@ export function getAllCounties(usermail: string): Promise<County[]> {
     return axios.get('/getAllCountiesMinusUsers/' + usermail);
 }
 
-export function getAllCounties(usermail:string): Promise<County[]> {
-    return axios.get('/getAllCountiesMinusUsers/'+ usermail);
-}
-
 export function getUsersCounties(usermail: string): Promise<County[]> {
   return axios.get('/getSubscribedCounties/' + usermail);
 }

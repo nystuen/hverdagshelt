@@ -36,7 +36,7 @@ export class MyIssuesNotificationSettingsForm extends React.Component <State> {
 
     onclickHandler = (e) => {
         let value = -1;
-        let bool = false
+        let bool = false;
         let newSettings = null;
 
         if (e === 1) {
@@ -46,7 +46,6 @@ export class MyIssuesNotificationSettingsForm extends React.Component <State> {
             } else {
                 value = 1;
                 bool = true;
-                console.log('heoi')
             }
             newSettings = new IssueNotificationSetting(this.state.notifications.userMail, value, this.state.notifications.inProgress, this.state.notifications.completed);
             this.setState({
@@ -60,7 +59,6 @@ export class MyIssuesNotificationSettingsForm extends React.Component <State> {
             } else {
                 value = 1;
                 bool = true;
-                console.log('heoi')
             }
             newSettings = new IssueNotificationSetting(this.state.notifications.userMail, this.state.notifications.registered, value, this.state.notifications.completed);
 
@@ -69,17 +67,14 @@ export class MyIssuesNotificationSettingsForm extends React.Component <State> {
                 inProgress: bool
             });
         } else if (e === 3) {
-            console.log('3');
             if (this.state.completed) {
                 value = 0;
                 bool = false;
             } else {
                 value = 1;
                 bool = true;
-                console.log('heoi')
             }
             newSettings = new IssueNotificationSetting(this.state.notifications.userMail, this.state.notifications.registered, this.state.notifications.inProgress, value);
-            console.log(newSettings);
             this.setState({
                 notifications: newSettings,
                 completed: bool

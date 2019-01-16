@@ -7,7 +7,6 @@ import { WizardFormComplete } from './components/ReduxRegisterForm/WizardFormCom
 import { MapComponent } from './components/map/Map';
 import { NavbarMenu } from './components/NavbarMenu/NavbarMenu';
 import { Login } from './views/login/login';
-import { Component } from 'react-simplified';
 import { Alert } from './widgets';
 import store from './components/ReduxRegisterForm/store';
 import { KontoOversikt } from './views/MinSide/KontoOversikt/kontoOversikt';
@@ -53,22 +52,9 @@ if (root)
         <Route path="/addCategory" component={adminAddCategory}/>
         <Route exact path="/register" component={RegisterUser}/>
         <Route exact path="/register/company" component={RegisterCompany}/>
+          <Route path="/min_side/varselinstillinger" component ={NotificationSettings}/>
       </div>
     </HashRouter>,
     root
   );
-    ReactDOM.render(
-        <HashRouter>
-            <div className="route-container">
-                <NavbarMenu/>
-                <Route path="/wizardForm" component={WizardFormComplete} />
-                <Route path="/countySubscription/:userMail" component={ countySubscription }/>
-                <Route path="/min_side/kontooversikt" component={KontoOversikt}/>
-                <Route path="/login" component={Login}/>
-                <Route path="/map" component={ MapComponent } />
-                <Route path="/register_user" component={ RegisterUser}/>
-                <Route path="/min_side/notification_settings" component ={NotificationSettings}/>
-            </div>
-        </HashRouter>,
-        root
-    );
+

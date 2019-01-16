@@ -31,7 +31,6 @@
     "cross-env": "^5.2.0",
     "generate-password": "^1.4.1",
     "jest": "^23.6.0",
-    "n": "^2.1.12",
     "nodemailer": "^5.1.1",
     "nodemon": "^1.18.4"
   }

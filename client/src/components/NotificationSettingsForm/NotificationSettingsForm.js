@@ -53,7 +53,6 @@ export class NotificationSettingsForm extends React.Component <State> {
                 chosenCatString: array
             });
         }
-        console.log(this.state.chosenCatString);
 
     };
 
@@ -161,7 +160,6 @@ export class NotificationSettingsForm extends React.Component <State> {
         });
 
         // add new settings
-        console.log(array);
         array.map(e => {
             let elem = new NotificationSetting(e.countyId, e.categoryId, e.userMail);
             notificationSettingsService.addNotificationSettings(elem)
@@ -174,6 +172,5 @@ export class NotificationSettingsForm extends React.Component <State> {
         this.setState({
             chosenNotifications: array
         });
-        console.log(array);
     }
 }
