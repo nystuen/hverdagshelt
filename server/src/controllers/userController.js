@@ -42,6 +42,21 @@ module.exports = function (app: Object, userDao: Object) {
         });
     });
 
+    app.post('/registrateCompany', urlencodedParser, (req, res) => {
+        console.log('got post request from registrateCompany');
+        console.log(req.body);
+
+        let hashed = '';
+        bcrypt.hash(req.body.password, null, null, function (error, hash) {
+            hashed = hash;
+            userDao.addCompany(req.body, hashed ,(status, data) => {
+                res.status(status);
+                res.json(data);
+            });
+        });
+    });
+
+
     app.get('/verify_user/:email', urlencodedParser, (req,res) => {
         console.log('got get request from verify_user');
         userDao.getUserLogin(req.params.email,(status,data) => {

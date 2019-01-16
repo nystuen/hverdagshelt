@@ -26,4 +26,10 @@ export class UserDao extends Dao {
     getIssuesForOneUser(userMail: string, callback: Function){
       super.query("select * from issues where userMail=? and active=1", [userMail], callback);
     }//end method
+
+    addCompany(json:Object, hashed:string, callback:Function){
+        let val =[json.companyMail,json.companyName, json.firstName, json.lastName,json.adresse,json.postnr,hashed,json.phone,json.description,json.orgNumber];
+        super.query('insert into company(companyMail, companyName, firstName, lastName, adresse, postnr, password,phone, description, orgNumber)values(?,?,?,?,?,?,?,?,?,?)',val,callback)
+    }
+
 }//end class
