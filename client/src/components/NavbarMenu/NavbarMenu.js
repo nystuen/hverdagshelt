@@ -75,7 +75,6 @@ export class NavbarMenu extends React.Component {
         if (window.localStorage.getItem('userToken') !== '') {
             let decoded = jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret');
             if (decoded.typeId === 'Company') {
-                console.log("show company");
                 return <MenuItem eventKey={2} href="/#min_side/mine_sakerBedrift">Mine saker</MenuItem>
             } else {
                 return <MenuItem eventKey={2} href="/#min_side/mine_saker">Mine saker</MenuItem>

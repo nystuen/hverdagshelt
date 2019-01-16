@@ -30,14 +30,80 @@ export class mineSakerBedrift extends React.Component<State>{
     componentWillMount() {
         userService.getCompanyIssues(this.state.decoded.email).then(response => {
             this.setState({issues: response});
+            this.getSorted();
         }).catch((error: Error) => Alert.danger(error.message));
     }//end method
 
     render(){
         return(
             <Grid>
-                ss
+                <br/>
+                <br/>
+                <Table>
+                    <thead>
+                    <tr>
+                        <th>
+                            Beskrivelse
+                        </th>
+                        <th>
+                            Adresse
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {this.state.issues.map(e => {
+                        return(
+                            <tr key={e.issueId}>
+                                <td>
+                                    <Nav bsStyle="pills">
+                                        <NavItem href={"/#min_side/sakoversikt/" + this.state.decoded.email + "/" + e.issueId}>
+                                            {e.text}
+                                        </NavItem>
+                                    </Nav>
+                                </td>
+                                <td>
+                                    {e.address}
+                                </td>
+                                <td>
+                                    {this.updateStatus(e.statusName)}
+                                    <ProgressBar bsStyle={this.status.progressBar} now={this.status.progress}
+                                             label={e.statusName}/>
+                                </td>
+                            </tr>
+                        )
+                    })}
+                    </tbody>
+                </Table>
             </Grid>
         )
     }//end method
+
+    //To set progressbar
+    updateStatus(status: string){
+        this.status = new Status(status);
+    }//end method
+
+    getSorted = () => {
+        //Sorting view so completed issues are listed at the bottom
+        let sorted: Object = [];
+        this.state.issues.map(e => {
+            if(e.statusName == 'Registered'){
+                sorted.push(e)
+            }
+        });
+        this.state.issues.map(e => {
+            if(e.statusName === 'In progress'){
+                sorted.push(e)
+            }
+        });
+        this.state.issues.map(e => {
+            if(e.statusName === 'Completed'){
+                sorted.push(e)
+            }
+        });
+        this.setState({issues: sorted});
+    };//end method
 }//end class

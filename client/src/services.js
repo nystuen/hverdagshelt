@@ -87,6 +87,10 @@ export class IssueService{
   getIssueAndCounty(issue: number): Promise<Object>{
     return axios.get('/oversiktOverSak/' + issue);
   }//end method
+
+  updateStatusOneIssue(id: number, statusName: string){
+    return axios.get('/updateStatusOneIssue/' + id,statusName);
+  }//end method
 }//end class
 
 

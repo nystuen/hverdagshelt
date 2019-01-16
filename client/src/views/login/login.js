@@ -89,7 +89,7 @@ export class Login extends Component<Props, State> {
 
                 <Row className="show-grid" align='center'>
                   <FormGroup>
-                    <FormControl type="text" placeholder="Passord" value={this.state.password}
+                    <FormControl type="password" placeholder="Passord" value={this.state.password}
                                  onChange={this.handleChangePassword.bind(this)}/>
                   </FormGroup>
                 </Row>

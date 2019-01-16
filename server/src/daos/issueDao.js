@@ -55,4 +55,8 @@ export class IssueDao extends Dao {
   getCategoryIssue(id: number, callback: Function) {
     super.query("select * from issues where categoryId = ?", [id], callback);
   }
-}
+
+  updateStatusOneIssue(id: number,statusName: string, callback: Function){
+    super.query("update issues set statusName=? where issueId=?", [statusName,id], callback);
+  }//end method
+}//end class

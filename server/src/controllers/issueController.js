@@ -37,7 +37,7 @@ module.exports = function(app: Object, issueDao: Object) {
 
   app.get("/oversiktOverSak/:id", (req,res) => {
     console.log('received get request from /oversiktOverSak');
-    console.log(req.body.id);
+    console.log(req);
     issueDao.getIssueAndCounty(req.params.id, (status,data) => {
       res.status(status);
       res.json(data);
@@ -48,6 +48,14 @@ module.exports = function(app: Object, issueDao: Object) {
   app.get("/CompanyIssues/:CompanyMail", (req, res) => {
     console.log("received get request from companyIssues");
     issueDao.getCompanyIssue(req.params.CompanyMail, (status, data) => {
+      res.status(status);
+      res.json(data);
+    });
+  });
+
+  app.post("/updateStatusOneIssue/:id", (req,res) => {
+    console.log("received update request for status on issue " + req.params.id);
+    issueDao.updateStatusOneIssue(req.params.id, req.statusName, (status,data) => {
       res.status(status);
       res.json(data);
     });
