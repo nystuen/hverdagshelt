@@ -124,6 +124,7 @@ export function deleteSubscription(usermail: string) {
 }
 
 export function addSubscription(json: Object) {
+  console.log('addSubscription', json);
   return axios.post('/addSubscription', json);
 }
 
