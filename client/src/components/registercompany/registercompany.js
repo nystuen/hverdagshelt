@@ -14,11 +14,12 @@ import {Form, FormControl, Label, PageHeader} from 'react-bootstrap';
 import ControlLabel from "react-bootstrap/es/ControlLabel";
 import Grid from "react-bootstrap/es/Grid";
 import Checkbox from "react-bootstrap/es/Checkbox";
+import Select from "react-select";
 
 let countyService = new CountyService();
 let userService = new UserService();
 
-interface State{
+/*interface State{
     companyName: string;
     category: Array<Object>;
     mail: string;
@@ -40,7 +41,7 @@ interface State{
 }
 interface Props{
     match: Object,
-}
+}*/
 export class RegisterCompany extends Component<Props, State>{
 
     constructor(props) {
@@ -51,8 +52,8 @@ export class RegisterCompany extends Component<Props, State>{
             mail: "",
             firstName: "",
             lastName: "",
-            address: null,
-            postNumber: null,
+            address: "",
+            postNumber: "",
             password: "",
             password2: "",
             typeName: "",
@@ -66,21 +67,19 @@ export class RegisterCompany extends Component<Props, State>{
                 //{ name: this.county.name, countyId: this.county.countyId}
             ],
             description: "",
-            orgNumber: null
-        }
+            orgNumber: ""
+        };
 
         this.handleChangeCounty = this.handleChangeCounty.bind(this)
     }
 
 
     handleChangeCounty(e: Object){
-        console.log(this.state.choosen.countyId)
         this.setState({
-            choosen: JSON.parse(e.target.value)
+            choosen: JSON.parse(e.value)
         })
-
-
     };
+
 
     componentWillMount() {
         var arr = [];
@@ -124,8 +123,8 @@ export class RegisterCompany extends Component<Props, State>{
 
     render(){
         let optionTemplate = this.state.values.map(v => {
-            var data = {name: v.name, countyId: v.countyId}
-            return(<option key={v.countyId} value={JSON.stringify(data)}> {v.name}</option>)
+            const data = {label: v.name, value: v.countyId, countyId: v.countyId};
+            return(data)
         });
         return(
             <Grid>
@@ -200,21 +199,21 @@ export class RegisterCompany extends Component<Props, State>{
                                 <Col md={6}>
                                     <FormGroup>
                                         <FormControl type="text" value={this.state.mail} placeholder="Organisasjonsnummer"
-                                                     onChange={this.handleStringChange("mail")}/>
+                                                     onChange={this.handleStringChange("orgNumber")}/>
                                     </FormGroup>
                                 </Col>
                             </FormGroup>
                             <FormGroup>
                                 <Col md={6}>
                                     <FormGroup>
-                                        <FormControl type="text" value={this.state.password} placeholder="Passord"
-                                                     onChange={this.handleStringChange("passward")}
+                                        <FormControl type="password" value={this.state.password} placeholder="Passord"
+                                                     onChange={this.handleStringChange("password")}
                                         />
                                     </FormGroup>
                                 </Col>
                                 <Col md={6}>
                                     <FormGroup>
-                                        <FormControl type="text" value={this.state.password2} placeholder="Gjenta passord"
+                                        <FormControl type="password" value={this.state.password2} placeholder="Gjenta passord"
                                                      onChange={this.handleStringChange("password2")}/>
                                     </FormGroup>
                                 </Col>
@@ -227,20 +226,29 @@ export class RegisterCompany extends Component<Props, State>{
                                         </Label>
                                     </FormGroup>
                                     <FormGroup>
-                                            <select value={this.state.values.countyId} onChange={this.handleChangeCounty}>
-                                                {optionTemplate}
-                                            </select>
+                                        <Select
+                                            placeholder={"Hjemmekommune"}
+                                            name="colors"
+                                            options={optionTemplate}
+                                            className="basic-multi-select"
+                                            classNamePrefix="select"
+                                            onChange={this.handleChangeCounty}
+                                        />
                                     </FormGroup>
                                 </Col>
                                 <Col md={4}>
                                     <FormGroup>
-                                        <Label>Velg kommuner å følge</Label>
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Checkbox inline>Oslo</Checkbox><Checkbox>Trondheim</Checkbox><Checkbox>Bergen</Checkbox>
+                                        <Select
+                                            placeholder={"Kommuner å følge"}
+                                            isMulti
+                                            name="colors"
+                                            options={optionTemplate}
+                                            className="basic-multi-select"
+                                            classNamePrefix="select"
+                                        />
                                     </FormGroup>
                                 </Col>
-                                <Col md={4}>
+                                <Col md={4}> /*Ikke gjør noe med det her enda, vi kan vente å se hvor god tid vi får*/
                                     <FormGroup>
                                         <Label>Velg arbeidsområder</Label>
                                     </FormGroup>

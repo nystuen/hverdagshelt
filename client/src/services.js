@@ -1,24 +1,31 @@
 // @flow
 import axios from 'axios';
-import { User, Issue, Category, Category2, Category3, Company, Event, Type, County } from './classTypes';
+import {
+  User,
+  Issue,
+  Category,
+  Category2,
+  Category3,
+  Company,
+  Event,
+  Type,
+  County
+} from './classTypes';
 
 axios.interceptors.response.use(response => response.data);
 
-
 export class UserService {
-
   addUser(newUser: User): Promise<Response> {
     return axios.post('/add_user', newUser);
-  }//end method
+  } //end method
 
   getUserLogin(email: string): Promise<string[]> {
     return axios.get('/verify_user/' + email);
-  }//end method
+  } //end method
 
   getUser(mail: string): Promise<User> {
-
     return axios.get('/user/get_user/' + mail);
-  }//end method
+  } //end method
 
   login(userMail: Object<JSON>): Promise<void> {
     return axios.post('/login/', userMail);
@@ -70,8 +77,15 @@ export class MyPage {
   }
 }
 
+
+export function getImportantEvents(countyId: number): Promise<Event[]> {
+  console.log('Id inn til services' + countyId);
+  return axios.get('/importantEvents/' + countyId);
+}
+
 export function getAllCounties(usermail: string): Promise<County[]> {
   return axios.get('/getAllCountiesMinusUsers/' + usermail);
+
 }
 
 export function getUsersCounties(usermail: string): Promise<County[]> {

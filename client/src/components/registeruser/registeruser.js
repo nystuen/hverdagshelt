@@ -1,4 +1,4 @@
-import {UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem,Container, Card, Col, Row, Button, Form, FormGroup, Label, Input, FormText , Table, Media, CardText} from 'reactstrap';
+import {Col, Button, Form, FormGroup, Label} from 'react-bootstrap';
 import {CountyService, UserService, getCounties} from "../../services";
 import {Component} from 'react';
 import * as React from 'react';
@@ -7,6 +7,10 @@ import ReactDOM from 'react-dom';
 import {County} from "../../classTypes";
 import DropdownButton from "react-bootstrap/es/DropdownButton";
 import MenuItem from "react-bootstrap/es/MenuItem";
+import Grid from "react-bootstrap/es/Grid";
+import {FormControl, PageHeader} from "react-bootstrap";
+import Checkbox from "react-bootstrap/es/Checkbox";
+import Select from "react-select";
 
 let countyService = new CountyService();
 let userService = new UserService();
@@ -29,7 +33,7 @@ interface Props{
     match: Object,
 }
 
-class BindDropDown extends Component {
+/*class BindDropDown extends Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -92,7 +96,7 @@ class BindDropDown extends Component {
             </label>
         )
     }
-}
+}*/
 
 export class RegisterUser extends Component<Props, State>{
 
@@ -119,13 +123,13 @@ export class RegisterUser extends Component<Props, State>{
             password: "",
             password2: "",
             typeName: "",
-            phone: 0,
+            phone: "",
             points: 0,
             active: 0,
             isLoaded: false,
-            choosen: {name: "Bergen", countyId: 1},
+            choosen: {label: "Bergen", countyId: 1},
             values:[
-                {name: "Bergen", countyId: 1}
+                {label: "Bergen", countyId: 1}
                 //{ name: this.county.name, countyId: this.county.countyId}
             ]
         }
@@ -135,12 +139,9 @@ export class RegisterUser extends Component<Props, State>{
 
 
     handleChangeCounty(e: Object){
-        console.log(this.state.choosen.countyId)
         this.setState({
-            choosen: JSON.parse(e.target.value)
+            choosen: JSON.parse(e.value)
         })
-
-
     };
 
     componentWillMount() {
@@ -181,86 +182,127 @@ export class RegisterUser extends Component<Props, State>{
         })
     };
 
+    /*;*/
+    /*;*/
 
-
+    /*let optionTemplate = this.state.values.map(v => {
+        var data = {label: v.name, countyId: v.countyId}
+        return(  <Select
+            placeholder={"Hjemmekommune"}
+            name="colors"
+            options={optiontem}
+            className="basic-multi-select"
+            classNamePrefix="select"
+        />)})*/
     render(){
         let optionTemplate = this.state.values.map(v => {
-            var data = {name: v.name, countyId: v.countyId}
-            return(<option key={v.countyId} value={JSON.stringify(data)}> {v.name}</option>)
+            const data = {label: v.name, value: v.countyId, countyId: v.countyId};
+            return(data)
         });
         return(
-            <Container>
-                <Form>
-                    <Label>Registrer bruker</Label>
-                    <Row>
+            <Grid>
+                <Col md={3}></Col>
+                <Col md={6}>
+                    <Form horizontal>
+                        <FormGroup controlId="formHorizontalEmail">
                             <FormGroup>
-                                <Col>
-                                    <Input type="text" value={this.state.firstName} placeholder="Fornavn"
-                                           onChange={this.handleStringChange("firstName")}
-                                    />
+                                <FormGroup>
+                                    <Col md={3}></Col>
+                                    <Col md={6}>
+                                        <PageHeader>
+                                            Registrer bruker
+                                        </PageHeader>
+                                    </Col>
+                                    <Col md={3}></Col>
+                                </FormGroup>
+                                <Col md={6}>
+                                    <FormGroup>
+                                        <FormControl type="text" value={this.state.firstName} placeholder="Fornavn"
+                                                     onChange={this.handleStringChange("firstName")}
+                                        />
+                                    </FormGroup>
+                                </Col>
+                                <Col md={6}>
+                                    <FormGroup>
+                                        <FormControl type="text" value={this.state.lastName} placeholder="Etternavn"
+                                                     onChange={this.handleStringChange("lastName")}/>
+                                    </FormGroup>
+                                </Col>
+                                <Col md={6}>
+                                    <FormGroup>
+                                        <FormControl type="number" value={this.state.phone} placeholder="Telefonnummer"
+                                                     onChange={this.handleStringChange("phone")}
+                                        />
+                                    </FormGroup>
+                                </Col>
+                                <Col md={6}>
+                                    <FormGroup>
+                                        <FormControl type="text" value={this.state.mail} placeholder="Epost"
+                                                     onChange={this.handleStringChange("mail")}/>
+                                    </FormGroup>
+                                </Col>
+                                <Col md={6}>
+                                    <FormGroup>
+                                        <FormControl type="password" value={this.state.password} placeholder="Passord"
+                                                     onChange={this.handleStringChange("password")}
+                                        />
+                                    </FormGroup>
+                                </Col>
+                                <Col md={6}>
+                                    <FormGroup>
+                                        <FormControl type="password" value={this.state.password2} placeholder="Gjenta passord"
+                                                     onChange={this.handleStringChange("password2")}/>
+                                    </FormGroup>
                                 </Col>
                             </FormGroup>
-                            {' '}
                             <FormGroup>
-                                <Col>
-                                    <Input type="text" value={this.state.lastName} placeholder="Etternavn"
-                                           onChange={this.handleStringChange("lastName")}
-                                    />
+                                <Col md={4}>
+                                    <FormGroup>
+                                        <Label>
+                                            Hjemmekommune
+                                        </Label>
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Select
+                                            placeholder={"Hjemmekommune"}
+                                            name="colors"
+                                            options={optionTemplate}
+                                            className="basic-multi-select"
+                                            classNamePrefix="select"
+                                            onChange={this.handleChangeCounty}
+                                        />
+                                    </FormGroup>
+                                </Col>
+                                <Col md={4}>
+                                    <FormGroup>
+                                        <Label>Velg kommuner du vil følge</Label>
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Checkbox inline>Oslo</Checkbox><Checkbox>Trondheim</Checkbox><Checkbox>Bergen</Checkbox>
+                                    </FormGroup>
+                                </Col>
+                                <Col md={4}>
+                                    <FormGroup>
+                                        <Label>Velg arbeidsområder</Label>
+                                    </FormGroup>
+                                    <FormGroup>
+                                        <Checkbox inline>Vann og avløp</Checkbox><Checkbox>Veiarbeid</Checkbox><Checkbox>Strømbrudd</Checkbox>
+                                    </FormGroup>
                                 </Col>
                             </FormGroup>
-                                {' '}
-                    </Row>
-                    <Row>
-                        <FormGroup>
-                            <Col>
-                                <Input type="text" value={this.state.phone} placeholder="Telefonnummer"
-                                onChange={this.handleNumberChange("phone")}
-                                />
-                            </Col>
+                            <FormGroup>
+                                <Col md={4}/>
+                                <Col md ={4}>
+                                    <Button type="button" onClick={this.checkMail}>Registrer</Button>
+                                </Col>
+                                <Col md={4}>
+                                </Col>
+                            </FormGroup>
                         </FormGroup>
-                    </Row>
-                    <Row>
-                        <FormGroup>
-                            <Col>
-                                <label>
-                                    Velg Kommune:
-                                    <select value={this.state.values.countyId} onChange={this.handleChangeCounty}>
-                                        {optionTemplate}
-                                    </select>
-                                </label>
-                            </Col>
-                        </FormGroup>
-                    </Row>
-                    <Row>
-                        <FormGroup>
-                            <Col sm="12">
-                                <Input type="text" value={this.state.mail} placeholder="Epost"
-                                onChange={this.handleStringChange("mail")}
-                                />
-                            </Col>
-                        </FormGroup>
-                    </Row>
-                    <Row>
-                        <FormGroup>
-                            <Col>
-                                <Input type="text" value={this.state.password} placeholder="Passord"
-                                       onChange={this.handleStringChange("password")}
-                                />
-                            </Col>
-                        </FormGroup>
-                        {' '}
-                        <FormGroup>
-                            <Col>
-                                <Input type="text" value={this.state.password2} placeholder="Gjenta passord"
-                                       onChange={this.handleStringChange("password2")}
-                                />
-                            </Col>
-                        </FormGroup>
-                        {' '}
-                    </Row>
-                    <Button type="button" onClick={this.checkMail}>Registrer</Button>
-                </Form>
-            </Container>
+                    </Form>
+                </Col>
+                <Col md={3}></Col>
+            </Grid>
         );
     }
     checkMail = () =>{
@@ -298,18 +340,22 @@ export class RegisterUser extends Component<Props, State>{
 
     register = () => {
         console.log("test", this.state);
-        var mail = this.state.mail
-        var firstName = this.state.firstName
-        var lastName = this.state.lastName
-        var password = this.state.password
-        var phone = this.state.phone
-        var countyId = this.state.choosen.countyId
-        console.log("county", countyId)
+
+        const newUser = {
+            mail: this.state.mail,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            password: this.state.password,
+            phone: this.state.phone,
+            countyId: this.state.choosen,
+        };
+
+        console.log("county", this.state.choosen)
         userService
-            .addUser(this.state.mail, this.state.firstName, this.state.lastName, this.state.password, this.state.phone, this.state.choosen.countyId)
+            .addUser(newUser)
             .then(user =>(this.state = user)).then(Alert.success("Bruker registrert"))
             .catch((error: Error)=>Alert.danger(error.message))
-    };
+    }
 }
 /*
 * <DropdownButton title="Hjemmekommune">

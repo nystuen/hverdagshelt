@@ -15,13 +15,12 @@ import { countySubscription } from './views/MinSide/countySubscription/countySub
 import createHashHistory from 'history/createHashHistory';
 import { MineSaker } from './views/MinSide/mineSaker/mineSaker';
 import { MinSide } from './views/MinSide/MinSide';
-import { SendTextMailWindow } from './components/Mail/SendMail';
 import { Provider } from 'react-redux';
 import { adminAddCategory } from './components/AdminAddCategory/adminAddCategory';
 import { RegisterCompany } from './components/registercompany/registercompany.js';
 import { RegisterUser } from './components/registeruser/registeruser';
-import {editAccountInformation} from './views/MinSide/KontoOversikt/editAccountInformation';
-
+import { ChooseCategory } from './components/ChooseCategory/ChooseCategory.js';
+import { forside } from './views/forside/forside';
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== 'production') {
@@ -39,6 +38,7 @@ if (root)
     <HashRouter>
       <div className="route-container">
         <NavbarMenu/>
+        <Route path="/frontpage" component={Frontpage}/>
         <Route path="/wizardForm" component={WizardFormComplete}/>
         <Route path="/min_side/kommuner" component={countySubscription}/>
         <Route path="/min_side/kontooversikt" component={KontoOversikt}/>
@@ -47,10 +47,11 @@ if (root)
         <Route path="/login" component={Login}/>
         <Route path="/map" component={MapComponent}/>
         <Route path="/min_side/mine_saker" component={MineSaker}/>
-        <Route path="/addCategory" component={adminAddCategory} />
+        <Route path="/addCategory" component={adminAddCategory}/>
         <Route exact path="/register" component={RegisterUser}/>
         <Route exact path="/register/company" component={RegisterCompany}/>
       </div>
     </HashRouter>,
     root
   );
+
