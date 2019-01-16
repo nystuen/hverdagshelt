@@ -37,7 +37,6 @@ if (root)
                 <Route path="/wizardForm" component={WizardFormComplete} />
                 <Route path="/countySubscription/:userMail" component={ countySubscription }/>
                 <Route path="/min_side/kontooversikt" component={KontoOversikt}/>
-                <Route path="/login" component={Login}/>
                 <Route path="/map" component={ MapComponent } />
                 <Route path="/login" component={Login} />
                 <Route path="/min_side" component={MinSide} />

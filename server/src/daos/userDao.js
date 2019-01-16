@@ -23,8 +23,6 @@ export class UserDao extends Dao {
     }//end method}
 
     getIssuesForOneUser(userMail: string, callback: Function){
-      super.query("select categoryId, issues.active, issueId, userMail, latitude, longitude, text, pic, " +
-          "date, statusName, countyId, name as 'category', priority from issues " +
-          "natural join category where userMail='per@usermail.com' and active=1", [userMail], callback);
+      super.query("select * from issues where userMail=? and active=1", [userMail], callback);
     }//end method
 }//end class

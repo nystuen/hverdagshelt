@@ -9,6 +9,8 @@ import {
     MenuItem,
 } from 'react-bootstrap';
 
+let loginButton;
+
 export class NavbarMenu extends React.Component {
 
     constructor(props) {
@@ -25,8 +27,12 @@ export class NavbarMenu extends React.Component {
             isOpen: !this.state.isOpen
         });
     }
-
     render() {
+       if(window.localStorage.getItem('userToken') === ''){
+            loginButton = <NavItem eventKey={1} href="/#login">Login</NavItem>
+        }else{
+           loginButton = <NavItem eventKey={1} href="/#login" onClick={() => this.logout()}> Logout</NavItem>
+       }//end condition
         return (
             <Navbar collapseOnSelect fluid>
                 <Navbar.Header>
@@ -44,10 +50,15 @@ export class NavbarMenu extends React.Component {
                             <MenuItem eventKey={1} href="/#min_side/kommuner">Kommuner</MenuItem>
                             <MenuItem eventKey={1} href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
                         </NavDropdown>
-                        <NavItem eventKey={1} href="/#login">Login</NavItem>
+                        {loginButton}
                     </Nav>
                 </Navbar.Collapse>
             </Navbar>
         );
-    }
+    }//end method
+
+    logout = () => {
+        window.localStorage.setItem('userToken', '');
+        loginButton = <NavItem eventKey={1} href="/#login">Login</NavItem>
+    }//end method
 }

@@ -94,6 +94,13 @@ CREATE TABLE category3(
   CONSTRAINT category3_pk primary key(category3Id)
 );
 
+CREATE TABLE eventCategory(
+  eventCategoryId int not null AUTO_INCREMENT,
+  name varchar(30) not null,
+  active boolean not null,
+  CONSTRAINT eventCat_pk primary key(eventCategoryId)
+);
+
 
 CREATE TABLE status(
   statusName varchar(30) not null,
@@ -179,6 +186,9 @@ ADD CONSTRAINT underCat_fk foreign key(categoryId) REFERENCES category(categoryI
 
 ALTER TABLE category3
 ADD CONSTRAINT underCat2_fk foreign key(category2Id) REFERENCES category2(category2Id);
+
+ALTER TABLE event
+ADD CONSTRAINT eventCat_fk foreign key(eventCategoryId) REFERENCES eventCategory(eventCategoryId);
 
 
 ALTER TABLE userCounties

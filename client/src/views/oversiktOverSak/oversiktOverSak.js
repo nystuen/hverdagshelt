@@ -7,6 +7,9 @@ import {Alert} from "../../widgets";
 import Row from "react-bootstrap/es/Row";
 import Col from "react-bootstrap/es/Col";
 import PageHeader from "react-bootstrap/es/PageHeader";
+import Table from "react-bootstrap/es/Table";
+import{Status} from "../../classTypes";
+import ProgressBar from "react-bootstrap/es/ProgressBar";
 
 let issueService = new IssueService();
 let categoryService = new CategoryService();
@@ -20,6 +23,7 @@ export class OversiktOverSak extends React.Component{
             category1: {},
             category2: {},
             category3: {},
+            status: {},
             categoryLevel: 1, //1 means the issue is not registered under any subcategories
             editCase: false //if the issue is in progress or completed, user cannot edit issue
         };
@@ -29,18 +33,16 @@ export class OversiktOverSak extends React.Component{
     render(){
         return(
            <Grid>
-                <Row>
-                    <Col>
-                    <PageHeader>Sakoversikt</PageHeader>
-                    </Col>
-                </Row>
                <Row>
                    <Col>
                    <PageHeader> <small>Beskrivelse</small> </PageHeader>
                    </Col>
                    <Col>
-                       {this.state.issue.text}
+                       <h4>{this.state.issue.text}</h4>
                    </Col>
+               </Row>
+               <Row>
+                   {this.showPic()}
                </Row>
                <Row>
                    <Col>
@@ -50,6 +52,32 @@ export class OversiktOverSak extends React.Component{
                        {this.Categories()}
                    </Col>
                </Row>
+               <Row>
+                   <Col>
+                       <PageHeader> <small> Dato sendt inn</small></PageHeader>
+                   </Col>
+                   <Col>
+                       <h4>{this.state.issue.date}</h4>
+                   </Col>
+               </Row>
+               <Row>
+                   <Col>
+                       <PageHeader> <small> Adresse</small></PageHeader>
+                   </Col>
+                   <Col>
+                       <h4><b> {this.state.issue.name} </b> - {this.state.issue.address} </h4>
+                   </Col>
+               </Row>
+               <Row>
+                   <Col>
+                       <PageHeader> <small>Status</small></PageHeader>
+                   </Col>
+                   <Col>
+                      <ProgressBar bsStyle={this.state.status.progressBar} now={this.state.status.progress}
+                      label={this.state.issue.statusName}/>
+                   </Col>
+               </Row>
+               <br/>
            </Grid>
         )
     }//end method
@@ -60,6 +88,8 @@ export class OversiktOverSak extends React.Component{
             this.setState({issue: response[0], categoryLevel: response[0].categoryLevel});
             if(response.statusName === 'Registered')this.setState({editCase: true});
             else this.setState({editCase:false});
+
+            this.setState({status: new Status(response[0].statusName)});
 
             //if the category is not instance of any subcategories
             if(this.state.categoryLevel === 1){
@@ -78,7 +108,7 @@ export class OversiktOverSak extends React.Component{
                 }).catch((error: Error) => Alert.danger(error.message));
 
             }else{ //if it's a subcategory of a subcategory, fetch all levels.
-                categoryService.getOneCategory3(this.state.issue.categoryLevel).then(r => {
+                categoryService.getOneCategory3(this.state.issue.categoryId).then(r => {
                     this.setState({category3: r[0]});
                     categoryService.getOneCategory2(r[0].category2Id).then(r2 => {
                         this.setState({category2: r2[0]});
@@ -93,19 +123,77 @@ export class OversiktOverSak extends React.Component{
 
      Categories(){
         if(this.state.categoryLevel === 1){
-            return <p>{this.state.category1.name}</p>
-        }else if(this.state.categoryLevel === 2){
-
+            return <h3><b>{this.state.issue.categoryId}.0 </b> {this.state.category1.name}</h3>
         }else{
+            return(
+                <div>
+                    {this.showCategory2()}
+                </div>
 
+            )
         }//end condition
     }//end method
 
     showCategory2(){
         if(this.state.categoryLevel === 3){
-
+            return <div>{this.showCategory3()}</div>
         }else{
-            return <p>{this.state.category2.name}</p>
+            return (
+                <Table striped bordered condensed hover>
+                    <tbody>
+                        <tr>
+                            <th>
+                                <h3><b>{this.state.issue.categoryId}.0 </b> {this.state.category1.name}</h3>
+                            </th>
+                        </tr>
+                        <tr>
+                            <th>
+                                <Col xsOffset={1}>
+                                <h4><b>{this.state.issue.categoryId}.{this.state.category2.category2Id} </b>
+                                    {this.state.category2.name}</h4>
+                                </Col>
+                            </th>
+                        </tr>
+                    </tbody>
+                </Table>
+            )
+        }//end condition
+    }//end method
+
+    showCategory3() {
+        return (
+            <Table striped bordered condensed hover>
+                <tbody>
+                <tr>
+                    <th>
+                        <h3><b>{this.state.issue.categoryId}.0 </b> {this.state.category1.name}</h3>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <Col xsOffset={1}>
+                            <h4><b>{this.state.issue.categoryId}.{this.state.category2.category2Id} </b>
+                                {this.state.category2.name}</h4>
+                        </Col>
+                    </th>
+                </tr>
+                <tr>
+                    <th>
+                        <Col xsOffset={2}>
+                            <h5><b>
+                                {this.state.issue.categoryId}.{this.state.category2.category2Id}.{this.state.category3.category3Id}
+                            </b> {this.state.category3.name}</h5>
+                        </Col>
+                    </th>
+                </tr>
+                </tbody>
+            </Table>
+        )
+    }//end method
+
+    showPic(){
+        if(this.state.issue.pic !== null){
+            return <img src={this.state.issue.pic}/>
         }
     }//end method
 
