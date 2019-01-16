@@ -5,6 +5,7 @@ import jwt from 'jsonwebtoken';
 import {Grid, Row, Col, ListGroup, ListGroupItem, Tabs, Tab} from 'react-bootstrap';
 import {User} from "../../classTypes";
 import Button from "react-bootstrap/es/Button";
+import {MyIssuesNotificationSettingsForm} from "../MyIssuesNotificationSettingsForm/MyIssuesNotificationSettingsForm";
 import {NotificationSettingsForm} from "../NotificationSettingsForm/NotificationSettingsForm";
 
 
@@ -34,6 +35,9 @@ export class NotificationSettings extends React.Component <State> {
                 </Tab>
                 <Tab eventKey={2} title="Andre kommuner">
                     Tab 2 content
+                </Tab>
+                <Tab eventKey={3} title="Mine saker">
+                    <MyIssuesNotificationSettingsForm />
                 </Tab>
             </Tabs>
             </Grid>

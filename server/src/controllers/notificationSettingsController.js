@@ -32,4 +32,31 @@ module.exports = function (app: Object, notificationSettingsDao: Object) {
             res.json(data);
         });
     });
+
+    app.post('/add_issue_notification_settings', urlencodedParser, (req, res) => {
+        console.log('got request from add_issue_notification_settings');
+
+        notificationSettingsDao.addIssueNotificationSettings(req.body, (status, data) => {
+            res.status(status);
+            res.json(data);
+        });
+    });
+
+    app.get('/get_issue_notification_settings/:email', urlencodedParser, (req, res) => {
+        console.log('got request from get_issue_notification_settings');
+
+        notificationSettingsDao.getIssueNotificationSettings(req.params.email, (status, data) => {
+            res.status(status);
+            res.json(data);
+        });
+    });
+
+    app.put('/update_issue_notification_settings', urlencodedParser, (req, res) => {
+        console.log('got request from update_issue_notification_settings');
+
+        notificationSettingsDao.updateIssueNotificationSettings(req.body, (status, data) => {
+            res.status(status);
+            res.json(data);
+        });
+    });
 };

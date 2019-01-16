@@ -186,3 +186,17 @@ export class NotificationSetting {
         this.userMail = userMail;
     }
 }
+
+export class IssueNotificationSetting {
+    userMail: string;
+    registered: number;
+    inProgress: number;
+    completed: number;
+
+    constructor(userMail: string, registered: number, inProgress: number, completed: number) {
+        this.userMail = userMail;
+        this.registered = registered;
+        this.inProgress = inProgress;
+        this.completed = completed;
+    }
+}
