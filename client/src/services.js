@@ -34,6 +34,12 @@ export class UserService {
   getMyIssues(userMail: string): Promise<JSON> {
     return axios.get("/user/getMyIssues/" + userMail);
   } //end method
+
+  addCompany(json: Object){
+      return axios.post("/registrateCompany",json);
+  }
+
+
 } //end class
 
 export class CategoryService {

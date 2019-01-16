@@ -206,7 +206,7 @@ export class RegisterCompany extends Component<Props, State>{
                                 </Col>
                                 <Col md={6}>
                                     <FormGroup>
-                                        <FormControl type="number" value={this.state.postNumber} placeholder="Postnummer"
+                                        <FormControl type="text" value={this.state.postNumber} placeholder="Postnummer"
                                                      onChange={this.handleNumberChange("postNumber")}/>
                                     </FormGroup>
                                 </Col>
@@ -222,7 +222,7 @@ export class RegisterCompany extends Component<Props, State>{
                                 {'  '}
                                 <Col md={6}>
                                     <FormGroup>
-                                        <FormControl type="number" value={this.state.phone} placeholder="Telefonnummer"
+                                        <FormControl type="text" value={this.state.phone} placeholder="Telefonnummer"
                                                      onChange={this.handleStringChange("phone")}
                                         />
                                     </FormGroup>
@@ -237,8 +237,15 @@ export class RegisterCompany extends Component<Props, State>{
                                 </Col>
                                 <Col md={6}>
                                     <FormGroup>
-                                        <FormControl type="text" value={this.state.mail} placeholder="Organisasjonsnummer"
+                                        <FormControl type="text" value={this.state.orgNumber} placeholder="Organisasjonsnummer"
                                                      onChange={this.handleStringChange("orgNumber")}/>
+                                    </FormGroup>
+                                </Col>
+
+                                <Col md={6}>
+                                    <FormGroup>
+                                        <FormControl type="text" value={this.state.description} placeholder="Beskrivelse"
+                                                     onChange={this.handleStringChange("description")}/>
                                     </FormGroup>
                                 </Col>
                             </FormGroup>
@@ -328,51 +335,63 @@ export class RegisterCompany extends Component<Props, State>{
 
     checkMail = () =>{
         var validator = require("email-validator");
-
+        console.log("HEi");
         if(!(validator.validate(this.state.mail))){
             Alert.warning("Eposten eksisterer ikke")
         }else{
-            this.register();
+            this.checkPass();
+            console.log("HEi2");
         }
-    }
+
+    };
 
     checkPass = () => {
 
         if (this.state.password !== this.state.password2) {
             console.log("To ulike passord");
             Alert.warning("Du skrev to ulike passord");
+
         }
         else {
+            console.log("HEi3");
             let decimal = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
             if(this.state.password.match(decimal))
             {
+                console.log("halla")
                 this.register();
             }
             else
             {
                 Alert.warning('Password has to be between 8 to 15 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character')
             }
+
+
         }
 
-    }
+
+    };
 
 
 
 
     register = async () => {
-        console.log("test", this.state);
-        var mail = this.state.mail;
-        var firstName = this.state.firstName;
-        var lastName = this.state.lastName;
-        var password = this.state.password;
-        var phone = this.state.phone;
-        var countyId = this.state.choosen.countyId;
-        console.log("county", countyId);
-       await userService
-            .addUser(this.state.mail, this.state.firstName, this.state.lastName, this.state.password, this.state.phone, this.state.choosen.countyId)
-            .then(user =>(this.state = user)).then(Alert.success("Bruker registrert"))
-            .catch((error: Error)=>Alert.danger(error.message))
+        console.log("lager bedrift");
+        let theBody3: Object={
+            companyMail : this.state.mail,
+            companyName : this.state.companyName,
+            firstName: this.state.firstName,
+            lastName:this.state.lastName,
+            adresse: this.state.address,
+            postnr: this.state.postNumber,
+            password:this.state.password,
+            phone: this.state.phone,
+            description:this.state.description,
+            orgNumber:this.state.orgNumber,
+        };
 
+        await userService.addCompany(theBody3);
+
+        console.log("kommune abondering");
         await this.state.countySubscription.map((e) => {
             let theBody : Object={
             userMail : e.value,
@@ -380,6 +399,7 @@ export class RegisterCompany extends Component<Props, State>{
             };
              addSubscription(theBody);
         });
+        console.log("kategori abonering");
 
         await this.state.categorySubscription.map((e) => {
             let theBody2 : Object={

@@ -27,4 +27,13 @@ export class UserDao extends Dao {
           "date, statusName, countyId, name as 'category', priority from issues " +
           "natural join category where userMail='per@usermail.com' and active=1", [userMail], callback);
     }//end method
+
+    addCompany(json:Object, hashed:string, callback:Function){
+        let val =[json.companyMail,json.companyName, json.firstName, json.lastName,json.adresse,json.postnr,hashed,json.phone,json.description,json.orgNumber];
+        super.query('insert into company(companyMail, companyName, firstName, lastName, adresse, postnr, password,phone, description, orgNumber)values(?,?,?,?,?,?,?,?,?,?)',val,callback)
+    }
+
+
+
+
 }
