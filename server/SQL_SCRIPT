@@ -99,6 +99,12 @@ CREATE TABLE companyCategories(
   CONSTRAINT CC_pk primary key(companyMail,categoryId)
 );
 
+CREATE TABLE companyCounties(
+   companyMail varchar(30) not null,
+   countyId int not null,
+   CONSTRAINT CCounties_pk primary key(companyMail,countyId)
+);
+
 CREATE TABLE issues(
   issueId int not null AUTO_INCREMENT,
   userMail varchar(30) not null,
@@ -205,6 +211,12 @@ ADD CONSTRAINT company_fk foreign key(companyMail) REFERENCES company(companyMai
 ALTER TABLE companyCategories
 ADD CONSTRAINT category_fk foreign key(categoryId) REFERENCES category(categoryId);
 
+ALTER TABLE companyCounties
+ADD CONSTRAINT CCounties1_fk foreign key(companyMail) REFERENCES company(companyMail);
+
+ALTER TABLE companyCounties
+ADD CONSTRAINT CCounties2_fk foreign key(countyId) REFERENCES company(countyId);
+
 ALTER TABLE pushAlerts
 ADD CONSTRAINT county3_fk foreign key(countyId) REFERENCES county(countyId);
 
@@ -213,4 +225,3 @@ ADD CONSTRAINT category2_fk foreign key(categoryId) REFERENCES category(category
 
 ALTER TABLE pushAlerts
 ADD CONSTRAINT user3_fk foreign key(userMail) REFERENCES user(mail);
-

@@ -56,14 +56,18 @@ export class CategoryService {
         return axios.get("/get_category3");
     }
 
-    addCompanyCategories(){
-        return axios.post("/add_CompanyCategories");
+    addCompanyCategories(json:Object){
+        return axios.post("/add_CompanyCategories",json);
     }
 }
 
 export class CountyService{
     getCounties(): Promise<County[]>{
         return axios.get('/getCounties');
+    }
+
+    addCompanyCounties(json:Object){
+        return axios.post("/add_companyCounties",json);
     }
 
 

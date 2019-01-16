@@ -391,22 +391,24 @@ export class RegisterCompany extends Component<Props, State>{
 
         await userService.addCompany(theBody3);
 
-        console.log("kommune abondering");
+        console.log("kommune abonnering");
         await this.state.countySubscription.map((e) => {
+            console.log("hei", e)
             let theBody : Object={
-            userMail : e.value,
-            countyId : e.label,
+                companyMail : this.state.mail,
+                countyId : e.value,
             };
-             addSubscription(theBody);
+            console.log("boyd", theBody)
+            countyService.addCompanyCounties(theBody);
         });
         console.log("kategori abonering");
 
         await this.state.categorySubscription.map((e) => {
             let theBody2 : Object={
-                userMail : e.value,
-                countyId : e.label,
+                companyMail : this.state.mail,
+                categoryId : e.value,
             };
-            myPage.addCategory1(theBody2);
+            categoryService.addCompanyCategories(theBody2);
         });
 
 

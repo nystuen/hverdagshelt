@@ -33,8 +33,13 @@ export class CountyDao extends Dao {
     }
 
     addSubscription(json: Object, callback: Function){
-        var body = [json.userMail,json.countyId ];
+        let body = [json.userMail,json.countyId ];
         super.query("insert into userCounties(userMail, countyId) value (?,?)",body,callback);
+    }
+
+    addCompanySubscription(json:Object, callback:Function){
+        let body = [json.companyMail,json.countyId ];
+        super.query("insert into companyCounties(companyMail, countyId) value (?,?)",body,callback);
     }
 
 
