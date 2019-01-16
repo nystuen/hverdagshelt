@@ -36,6 +36,16 @@ export class UserService {
   } //end method
 } //end class
 
+export class ImageService {
+  uploadImage(): Promise<JSON>{
+    return axios.post("/upload")
+  }
+
+  getImage(imagePath: string): Promise<JSON>{
+    return axios.get("/image/" + imagePath);
+  }
+}
+
 export class CategoryService {
     getCategory1(): Promise<Category[]> {
         return axios.get("/get_category1");

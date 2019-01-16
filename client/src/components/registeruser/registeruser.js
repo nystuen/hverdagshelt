@@ -1,5 +1,5 @@
 import {UncontrolledDropdown, DropdownToggle, DropdownMenu, DropdownItem,Container, Card, Col, Row, Button, Form, FormGroup, Label, Input, FormText , Table, Media, CardText} from 'reactstrap';
-import {CountyService, UserService, getCounties} from "../../services";
+import {CountyService, UserService, getCounties, ImageService} from "../../services";
 import {Component} from 'react';
 import * as React from 'react';
 import {Alert} from "../../widgets";
@@ -10,6 +10,7 @@ import MenuItem from "react-bootstrap/es/MenuItem";
 
 let countyService = new CountyService();
 let userService = new UserService();
+let imageService = new ImageService();
 
 interface State{
     mail: string;
@@ -119,6 +120,7 @@ export class RegisterUser extends Component<Props, State>{
             password: "",
             password2: "",
             typeName: "",
+            image: "",
             phone: 0,
             points: 0,
             active: 0,
@@ -131,6 +133,7 @@ export class RegisterUser extends Component<Props, State>{
         }
 
         this.handleChangeCounty = this.handleChangeCounty.bind(this)
+        this.handleImageUpload = this.handleImageUpload.bind(this)
     }
 
 
@@ -142,6 +145,12 @@ export class RegisterUser extends Component<Props, State>{
 
 
     };
+
+    handleImageUpload(e: Object){
+      this.setState({
+        image: e[0]
+      })
+    }
 
     componentWillMount() {
         var arr = [];
@@ -181,6 +190,10 @@ export class RegisterUser extends Component<Props, State>{
         })
     };
 
+    uploadImage = () => {
+      imageService
+        .uploadImage()
+    }
 
 
     render(){
@@ -260,9 +273,9 @@ export class RegisterUser extends Component<Props, State>{
                     </Row>
                     <Button type="button" onClick={this.checkMail}>Registrer</Button>
                 </Form>
-                <form action="/upload" method="post" enctype="multipart/form-data">
-                  <input type="file" name="avatar" />
-                  <Button onclick={this.checkMail}>Send inn bilde</Button>
+                <form encType="multipart/form-data">
+                  <input type="file" name="avatar" placeholder="Bilde"  onChange={ (e) => this.handleImageUpload(e.target.files) }/>
+                  <Button className="btn-primary" onClick={this.uploadImage}>Send inn bilde</Button>
                 </form>
             </Container>
         );
