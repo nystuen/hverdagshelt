@@ -9,7 +9,8 @@ import {
   Company,
   Event,
   Type,
-  County
+  County,
+  EventCategory
 } from "./classTypes";
 
 axios.interceptors.response.use(response => response.data);
@@ -36,30 +37,33 @@ export class UserService {
   } //end method
 } //end class
 
+export class EventCategoryService {
+  getEventCategory(): Promise<EventCategory[]> {
+    return axios.get("get_eventcategory");
+  }
+}
+
 export class CategoryService {
-    getCategory1(): Promise<Category[]> {
-        return axios.get("/get_category1");
-    }
+  getCategory1(): Promise<Category[]> {
+    return axios.get("/get_category1");
+  }
 
-    getCategory2(): Promise<Category2[]> {
-        return axios.get("/get_category2");
-    }
+  getCategory2(): Promise<Category2[]> {
+    return axios.get("/get_category2");
+  }
 
-
-    getCategory3(): Promise<Category3[]> {
-        return axios.get("/get_category3");
-    }
+  getCategory3(): Promise<Category3[]> {
+    return axios.get("/get_category3");
+  }
 }
 
-export class CountyService{
-    getCounties(): Promise<County[]>{
-        return axios.get('/getCounties');
-    }
+export class CountyService {
+  getCounties(): Promise<County[]> {
+    return axios.get("/getCounties");
+  }
 }
 
-export class MyPage{
-
-
+export class MyPage {
   addCategory1(json: Object) {
     return axios.post("/add_category1", json);
   }

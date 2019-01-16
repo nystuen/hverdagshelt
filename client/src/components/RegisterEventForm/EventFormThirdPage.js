@@ -48,12 +48,6 @@ const EventFormThirdPage = props => {
             label="Beskrivelse"
           />
           <Field
-            name="date"
-            type="text"
-            component={renderField}
-            label="[Midlertidig] Dato"
-          />
-          <Field
             name="userMail"
             type="text"
             component={renderField}

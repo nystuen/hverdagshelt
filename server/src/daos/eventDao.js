@@ -11,10 +11,11 @@ export class EventDao extends Dao {
       json.longitude,
       json.date,
       json.userMail,
-      json.countyId
+      json.countyId,
+      json.eventCategoryId
     ];
     super.query(
-      "insert into event (title, text, latitude, longitude, date, userMail, countyId, active) values(?, ?, ?, ?, ?, ?, ?, 1)",
+      "insert into event (title, text, latitude, longitude, date, userMail, countyId, eventCategoryId, active) values(?, ?, ?, ?, ?, ?, ?, ?, 1)",
       val,
       callback
     );

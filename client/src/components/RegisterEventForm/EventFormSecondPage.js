@@ -5,6 +5,7 @@ import renderField from "./renderField";
 import renderCategoryField from "./renderCategoryField";
 import { Button } from "react-bootstrap";
 import { ChooseCategory } from "../ChooseCategory/ChooseCategory";
+import { ChooseEventCategory } from "../ChooseEventCategory/ChooseEventCategory";
 import store from "./store";
 
 const renderError = ({ meta: { touched, error } }) =>
@@ -15,6 +16,7 @@ export class EventFormSecondPage extends React.Component {
     this.props.change("categoryid", this.state.selectedCategoryId);
     this.props.change("categorylevel", this.state.selectedCategoryType);
     console.log("setting props!");
+    console.log(this.state.selectedCategoryId);
   };
   onChangeCategoryHeader = (name1, name2) => {
     this.setState(
@@ -49,7 +51,7 @@ export class EventFormSecondPage extends React.Component {
     const { handleSubmit, previousPage, onChangeCategoryHeader } = this.props;
     return (
       <div>
-        <ChooseCategory
+        <ChooseEventCategory
           changeCategoryHeader={this.onChangeCategoryHeader.bind(this)}
           //  onClick={this.handleCategoryClick.bind(this)}
           registerCategory={false}

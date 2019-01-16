@@ -1,5 +1,17 @@
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
+class FindDate {
+  day;
+  month;
+  year;
+  constructor() {
+    var today = new Date();
+    this.day = today.getDate();
+    this.month = today.getMonth() + 1;
+    this.year = today.getFullYear();
+  }
+}
+
 export default (async function showResults(values) {
   await sleep(500); // simulate server latency
   window.alert("You submitted: " + JSON.stringify(values));
@@ -14,7 +26,7 @@ export default (async function showResults(values) {
       longitude: values.longitude,
       text: values.text,
       pic: values.pic,
-      date: values.date,
+      date: day.day + "." + day.month + "." + day.year,
       statusName: "Registered",
       categoryId: values.categoryid,
       categoryLevel: values.categorylevel,

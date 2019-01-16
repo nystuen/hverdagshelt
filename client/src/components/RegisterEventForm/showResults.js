@@ -28,6 +28,7 @@ export default (async function showResults(values) {
       longitude: values.longitude,
       date: day.day + "." + day.month + "." + day.year,
       userMail: values.userMail,
+      eventCategoryId: values.categoryid,
       countyId: values.countyId
     })
   });

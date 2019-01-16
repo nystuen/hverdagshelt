@@ -16,6 +16,8 @@ import { CategoryDao } from "./daos/catergoryDao";
 import * as mysql from "mysql2";
 import { EventDao } from "./daos/eventDao";
 import eventController from "./controllers/eventController.js";
+import { EventCategoryDao } from "./daos/eventCategoryDao";
+import eventCategoryController from "./controllers/eventCategoryController.js";
 
 type Request = express$Request;
 type Response = express$Response;
@@ -42,6 +44,7 @@ let countyDao = new CountyDao(pool);
 let issueDao = new IssueDao(pool);
 let categoryDao = new CategoryDao(pool);
 let eventDao = new EventDao(pool);
+let eventCategoryDao = new EventCategoryDao(pool);
 
 //fire controllers
 issueController(app, issueDao);
@@ -51,6 +54,7 @@ userController(app, userDao);
 countyController(app, countyDao);
 countyController(app, countyDao);
 categoryController(app, categoryDao);
+eventCategoryController(app, eventCategoryDao);
 
 // Hot reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {

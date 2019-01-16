@@ -48,6 +48,7 @@ export class WizardFormSecondPage extends React.Component {
     const { handleSubmit, previousPage, onChangeCategoryHeader } = this.props;
     return (
       <div>
+        <h2>Velg passende kategori</h2>
         <ChooseCategory
           changeCategoryHeader={this.onChangeCategoryHeader.bind(this)}
           //  onClick={this.handleCategoryClick.bind(this)}
