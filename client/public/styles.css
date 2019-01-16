@@ -16,4 +16,62 @@ height:100%
 
 .leaflet-container {
     height: 100%;
+    position: relative;
+    z-index: 100;
+}
+
+.navbar {
+  margin-bottom: 0px;
+}
+
+.route-container {
+  height: 100%;
+}
+
+.choice-map-container {
+  position: absolute;
+  left: 50%;
+  bottom: 100px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+.choice-map {
+  color: black;
+  width: 350px;
+  position: relative;
+  z-index: 1000;
+  margin: 0 auto;
+}
+
+.input-map {
+  height: 35px;
+  width: 250px;
+  margin: 10px;
+  border-radius: 5px;
+  border: 1px solid grey;
+}
+
+.submitButton {
+  z-index: 1000;
+  position: absolute;
+}
+
+.alert {
+  color: red;
+  border: 1px red;
+  border-radius: 5px;
+  font-size: 10px;
+  max-width: 300px;
+}
+
+.register-form {
+  height: 10em;
+  margin: 0;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  margin-right: -50%;
+  transform: translate(-50%, -50%)
 }

@@ -73,6 +73,24 @@ module.exports = function (app: Object, userDao: Object) {
             res.json(data);
         });
     });
+
+    app.get('/user/getMyIssues/:email', urlencodedParser, (req,res) => {
+       console.log('got request from getMyIssues', req.params.email);
+       userDao.getIssuesForOneUser(req.params.email, (status, data) => {
+           res.status(status);
+           res.json(data);
+       })
+    });
+
+    app.put('/user/updateUser/', urlencodedParser, (req, res) => {
+        console.log('got req from updateUser');
+        userDao.updateUser(req.body, (status, data) => {
+          res.status(status);
+          res.json(data);
+        })
+    });
+
+
 };
 
 
