@@ -67,14 +67,12 @@ export class Frontpage extends Component<Props, State> {
                 <FormGroup>
                     <Select
                         placeholder={"Klikk her for å velge kommune"}
-                        name="colors"
                         options={optionTemplate}
-                        className="Choose county"
-                        classNamePrefix="select"
+                        className="frontpage-county"
                         onChange={this.handleChangeCounty}
                     />
                 </FormGroup>
-                <Button className={"Go to chosen county"} href={"/#home/"+ this.state.choosen}>Gå videre!</Button>
+                <Button className={"frontpage-button"} href={"/#home/"+ this.state.choosen}>Gå videre!</Button>
             </Grid>
         );
     }
