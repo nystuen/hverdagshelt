@@ -12,9 +12,6 @@ export class CountyDao extends Dao {
   }
 
 
-
-    //get all counties where the user dosnt use
-
   getAllCountiesMinusUsers(id: string, callback: Function) {
     var val = [id, id];
     super.query('SELECT * from county where (county.countyId IN (SELECT userCounties.countyId FROM userCounties WHERE userCounties.userMail != ?) AND county.countyId NOT IN (SELECT userCounties.countyId FROM userCounties WHERE userCounties.userMail = ?)) OR county.countyId NOT IN (SELECT userCounties.countyId FROM userCounties)',
@@ -44,6 +41,4 @@ export class CountyDao extends Dao {
 
 
 }
-/*SELECT * FROM county
-where county.countyId = (SELECT userCounties.countyId FROM userCounties WHERE userCounties.userMail != 'ola@usermail.com' )
-OR county.countyId NOT IN(SELECT userCounties.countyId FROM userCounties)*/
+

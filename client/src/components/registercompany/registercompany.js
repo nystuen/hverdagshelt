@@ -1,4 +1,4 @@
-import {CountyService, UserService, addSubscription, CategoryService,MyPage} from "../../services";
+import {CountyService, UserService, addSubscription, CategoryService} from "../../services";
 import {Component} from 'react';
 import * as React from 'react';
 import {Alert} from "../../widgets";
@@ -16,34 +16,12 @@ import Grid from "react-bootstrap/es/Grid";
 import Checkbox from "react-bootstrap/es/Checkbox";
 import Select from "react-select";
 
-let myPage = new MyPage();
+
 let categoryService = new CategoryService();
 let countyService = new CountyService();
 let userService = new UserService();
 
-/*interface State{
-    companyName: string;
-    category: Array<Object>;
-    mail: string;
-    firstName: string;
-    lastName: string;
-    address: string;
-    postNumber: string;
-    password: string;
-    password2: string;
-    typeName: string;
-    phone: string;
-    points: number;
-    countyId: number;
-    countyName: string;
-    description: string;
-    orgNumber: number;
-    active: number;
-    isLoaded: boolean;
-}
-interface Props{
-    match: Object,
-}*/
+
 export class RegisterCompany extends Component<Props, State>{
 
     constructor(props) {
@@ -242,7 +220,7 @@ export class RegisterCompany extends Component<Props, State>{
                                     </FormGroup>
                                 </Col>
 
-                                <Col md={6}>
+                                <Col md={12}>
                                     <FormGroup>
                                         <FormControl type="text" value={this.state.description} placeholder="Beskrivelse"
                                                      onChange={this.handleStringChange("description")}/>
@@ -335,14 +313,11 @@ export class RegisterCompany extends Component<Props, State>{
 
     checkMail = () =>{
         var validator = require("email-validator");
-        console.log("HEi");
         if(!(validator.validate(this.state.mail))){
             Alert.warning("Eposten eksisterer ikke")
         }else{
             this.checkPass();
-            console.log("HEi2");
         }
-
     };
 
     checkPass = () => {
@@ -353,29 +328,22 @@ export class RegisterCompany extends Component<Props, State>{
 
         }
         else {
-            console.log("HEi3");
             let decimal = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
             if(this.state.password.match(decimal))
             {
-                console.log("halla")
                 this.register();
             }
             else
             {
                 Alert.warning('Password has to be between 8 to 15 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character')
             }
-
-
         }
-
-
     };
 
 
 
 
     register = async () => {
-        console.log("lager bedrift");
         let theBody3: Object={
             companyMail : this.state.mail,
             companyName : this.state.companyName,
@@ -391,17 +359,14 @@ export class RegisterCompany extends Component<Props, State>{
 
         await userService.addCompany(theBody3);
 
-        console.log("kommune abonnering");
+
         await this.state.countySubscription.map((e) => {
-            console.log("hei", e)
             let theBody : Object={
                 companyMail : this.state.mail,
                 countyId : e.value,
             };
-            console.log("boyd", theBody)
             countyService.addCompanyCounties(theBody);
         });
-        console.log("kategori abonering");
 
         await this.state.categorySubscription.map((e) => {
             let theBody2 : Object={
@@ -410,68 +375,6 @@ export class RegisterCompany extends Component<Props, State>{
             };
             categoryService.addCompanyCategories(theBody2);
         });
-
-
     };
-
-
 }
 
-/*{' '}
-<FormGroup>
-    <Col>
-        <Input type="text" value={this.state.lastName} placeholder="Etternavn"
-               onChange={this.handleStringChange("lastName")}
-        />
-    </Col>
-</FormGroup>
-{' '}
-</Row>
-<Row>
-<FormGroup>
-    <Col>
-        <Input type="text" value={this.state.phone} placeholder="Telefonnummer"
-               onChange={this.handleNumberChange("phone")}
-        />
-    </Col>
-</FormGroup>
-</Row>
-<Row>
-<FormGroup>
-    <Col>
-        <label>
-            Velg Kommune:
-            <select value={this.state.values.countyId} onChange={this.handleChangeCounty}>
-                {optionTemplate}
-            </select>
-        </label>
-    </Col>
-</FormGroup>
-</Row>
-<Row>
-<FormGroup>
-    <Col sm="12">
-        <Input type="text" value={this.state.mail} placeholder="Epost"
-               onChange={this.handleStringChange("mail")}
-        />
-    </Col>
-</FormGroup>
-</Row>
-<Row>
-<FormGroup>
-    <Col>
-        <Input type="text" value={this.state.password} placeholder="Passord"
-               onChange={this.handleStringChange("password")}
-        />
-    </Col>
-</FormGroup>
-{' '}
-<FormGroup>
-    <Col>
-        <Input type="text" value={this.state.password2} placeholder="Gjenta passord"
-               onChange={this.handleStringChange("password2")}
-        />
-    </Col>
-</FormGroup>
-{' '}
-</Row>*/

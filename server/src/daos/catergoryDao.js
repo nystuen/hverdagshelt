@@ -52,7 +52,6 @@ export class CategoryDao extends Dao {
 
   addCompanyCategories(json: Object, callback:Function){
     var body = [ json.companyMail,json.categoryId];
-    console.log(body)
     super.query("insert into companyCategories(companyMail,categoryId)values (?,?)", body,callback);
   }
 

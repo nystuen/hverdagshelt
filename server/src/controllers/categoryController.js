@@ -55,7 +55,6 @@ module.exports = function(app: Object, categoriesDao: Object) {
 
     app.post("/add_CompanyCategories", urlencodedParser, (req, res) => {
         console.log("got request from add user categories");
-        console.log("req.body: ", req.body)
         categoriesDao.addCompanyCategories(req.body, (status, data) => {
             res.status(status);
             res.json(data);
