@@ -15,6 +15,7 @@ import Panel from "react-bootstrap/es/Panel";
 import ListGroup from "react-bootstrap/es/ListGroup";
 import ListGroupItem from "react-bootstrap/es/ListGroupItem";
 import cloneDeep from "lodash/cloneDeep";
+import css from './chooseCategory.css';
 
 let categoryService = new CategoryService();
 
@@ -224,7 +225,7 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
                       if (cat2.idUp == cat1.id) {
                         return (
                           <div key={cat2.id}>
-                            <ListGroupItem
+                            <ListGroupItem className="cat2"
                               onClick={() => this.handleClick2(cat2)}
                             >
                               ___cat2: {cat2.name}
@@ -236,7 +237,7 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
                                   if (cat3.idUp == cat2.id) {
                                     return (
                                       <div key={cat3.id}>
-                                        <ListGroupItem
+                                        <ListGroupItem className="cat3"
                                           onClick={() =>
                                             this.handleClick3(cat3)
                                           }

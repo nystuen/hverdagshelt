@@ -47,7 +47,6 @@ export class User {
 }
 
 export class Issue {
-
   issueId: number;
   userMail: string;
   latitude: number;
@@ -86,8 +85,6 @@ export class Issue {
     this.active = active;
   }
 }
-
-
 
 export class Type {
     typeName: string;
@@ -136,7 +133,6 @@ export class Category {
         this.active = active;
     }
 }
-
 
 export class Category2 extends Category {
   category2Id: number;
@@ -229,3 +225,30 @@ export class Status {
   } //end constructor
 } //end class
 
+
+
+export class NotificationSetting {
+    countyId: number;
+    categoryId: number;
+    userMail: string;
+
+    constructor(countyId: number, categoryId: number, userMail: string) {
+        this.countyId = countyId;
+        this.categoryId = categoryId;
+        this.userMail = userMail;
+    }
+}
+
+export class IssueNotificationSetting {
+    userMail: string;
+    registered: number;
+    inProgress: number;
+    completed: number;
+
+    constructor(userMail: string, registered: number, inProgress: number, completed: number) {
+        this.userMail = userMail;
+        this.registered = registered;
+        this.inProgress = inProgress;
+        this.completed = completed;
+    }
+}

@@ -2,6 +2,7 @@ import {Category, Event} from "../../classTypes";
 import React, { Component } from 'react';
 import { Grid, Row, Col, ListGroup,ListGroupItem, Table, Image, Panel, Button, ButtonGroup } from "react-bootstrap"
 import {getAllCounties, getImportantEvents} from "../../services"
+import css from './forside.css';
 // get viktige hendelser
 export class forside extends Component{
 
@@ -46,7 +47,8 @@ export class forside extends Component{
 
     render(){
         return(
-            <Grid>
+          <div className="frontpage">
+            <Grid >
                 <Col md={4} ></Col>
                 <Col xs={12} md={4} align={"center"} >
 
@@ -76,6 +78,8 @@ export class forside extends Component{
                 </Col>
 
             </Grid>
+
+          </div>
 
         );
     }

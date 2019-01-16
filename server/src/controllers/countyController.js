@@ -11,7 +11,7 @@ module.exports = function (app: Object, countyDao: Object) {
             res.status(status);
             res.json(data);
         })
-    })
+    });
 
 
 
@@ -21,7 +21,7 @@ module.exports = function (app: Object, countyDao: Object) {
             res.status(status);
             res.json(data);
         })
-    })
+    });
 
     app.get('/getSubscribedCounties/:UserMail', (req, res)=>{
         console.log("get all counties that the user subscribe to got request");

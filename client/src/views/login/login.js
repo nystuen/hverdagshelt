@@ -56,6 +56,7 @@ export class Login extends Component<Props, State> {
   render() {
 
     let alert_login;
+
     if (this.state.error) {
       alert_login = (
         <Alert bsStyle="danger">
@@ -72,12 +73,8 @@ export class Login extends Component<Props, State> {
 
       <div>
         <Grid>
-
           <Form>
-
-
             <Col xs={5} md={4}>
-
             </Col>
 
             <Col xs={2} md={4}>
@@ -101,22 +98,25 @@ export class Login extends Component<Props, State> {
                   <Button type="button" onClick={this.sjekk}>Sjekk</Button>
                   {alert_login}
                 </Row>
+
+                <div align="center">
+                  <p>Har du ikke bruker?</p>
+                  
+                  <p>Registrer deg <a href={'/#/register'}>her</a> hvis du er privatperson, og <a> her</a> hvis du er
+                    bedrift.</p>
+                </div>
+
+
               </div>
             </Col>
 
             <Col xs={5} md={4}>
-
             </Col>
-
-
           </Form>
-
-
         </Grid>
       </div>
     );
   }//end method
-
 
   save = () => {
     //console.log(this.state.email);
@@ -129,7 +129,7 @@ export class Login extends Component<Props, State> {
           userService.login({ userMail: response[0].mail, typeId: response[0].typeName }).then(r => {
             let token = r.jwt;
             window.localStorage.setItem('userToken', token);
-            console.log("login in success")
+            console.log('login in success');
           }).catch((error: Error) => Alert.danger(error.message));
         } else {
           this.setState({

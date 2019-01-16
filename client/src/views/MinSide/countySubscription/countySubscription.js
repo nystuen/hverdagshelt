@@ -7,6 +7,7 @@ import * as jwt from 'jsonwebtoken';
 import Glyphicon from 'react-bootstrap/es/Glyphicon';
 import Button from 'react-bootstrap/es/Button';
 import css from './countySubscription.css';
+import { PageHeader } from '../../../components/PageHeader/PageHeader';
 
 
 //Databasekall
@@ -108,8 +109,9 @@ export class countySubscription extends Component<Props, State> {
 
   render() {
     return (
-      <div className="countySubscription">
+      <div class="countySubscription">
         <Grid>
+        <PageHeader title={"Kommuneinstillinger"}/>
 
           <Col md={2} >
           </Col>
