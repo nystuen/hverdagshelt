@@ -36,6 +36,7 @@ export class UserService {
   }//end method
 
   getMyIssues(userMail: string): Promise<JSON> {
+
     return axios.get('/user/getMyIssues/' + userMail);
   }//end method
 
@@ -44,11 +45,15 @@ export class UserService {
   }
 }//end class
 
+
+
 export class EventCategoryService {
   getEventCategory(): Promise<EventCategory[]> {
     return axios.get('get_eventcategory');
   }
-}
+
+} //end class
+
 
 export class CategoryService {
 
@@ -59,6 +64,7 @@ export class CategoryService {
   getCategory2(): Promise<Category2[]> {
     return axios.get('/get_category2');
   }
+
 
   getCategory3(): Promise<Category3[]> {
     return axios.get('/get_category3');
@@ -84,10 +90,22 @@ export class IssueService{
 }//end class
 
 
-export class CountyService {
-  getCounties(): Promise<County[]> {
-    return axios.get('/getCounties');
-  }
+
+
+export class CountyService{
+    getCounties(): Promise<County[]>{
+        return axios.get('/getCounties');
+    }
+
+    getCategory3(): Promise<Category3[]> {
+    return axios.get("/get_category3");
+}
+    addCompanyCounties(json:Object){
+        return axios.post("/add_companyCounties",json);
+    }
+
+
+
 }
 
 export class MyPage {

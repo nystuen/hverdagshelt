@@ -6,6 +6,7 @@ const bcrypt = require('bcrypt-nodejs'); //to hash password
 
 export class UserDao extends Dao {
 
+
   addUser(json: Object, hashed: string, callback: Function) {
     let val = [json.mail, json.firstName, json.lastName, hashed, json.typeName, json.phone, json.countyId];
     super.query(

@@ -47,5 +47,13 @@ module.exports = function (app: Object, countyDao: Object) {
         })
     })
 
+    app.post('/add_companyCounties', (req, res)=>{
+        console.log("post all subscribed counties from county request");
+        countyDao.addCompanySubscription(req.body,(status, data)=>{
+            res.status(status);
+            res.json(data);
+        })
+    })
+
 };
 
