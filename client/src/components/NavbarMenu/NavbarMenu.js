@@ -31,7 +31,7 @@ export class NavbarMenu extends React.Component {
        if(window.localStorage.getItem('userToken') === ''){
             loginButton = <NavItem eventKey={1} href="/#login">Login</NavItem>
         }else{
-           loginButton = <NavItem eventKey={1} href="/#login" onClick={() => this.logout()}> Logout</NavItem>
+           loginButton = <NavItem eventKey={1} href="/#login" onClick={() => this.logout()}> Log out</NavItem>
        }//end condition
         return (
             <Navbar collapseOnSelect fluid>

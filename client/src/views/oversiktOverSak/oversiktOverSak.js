@@ -10,6 +10,7 @@ import PageHeader from "react-bootstrap/es/PageHeader";
 import Table from "react-bootstrap/es/Table";
 import{Status} from "../../classTypes";
 import ProgressBar from "react-bootstrap/es/ProgressBar";
+import Image from "react-bootstrap/es/Image";
 
 let issueService = new IssueService();
 let categoryService = new CategoryService();
@@ -193,7 +194,7 @@ export class OversiktOverSak extends React.Component{
 
     showPic(){
         if(this.state.issue.pic !== null){
-            return <img src={this.state.issue.pic}/>
+            return <Image src={this.state.issue.pic} rounded/>
         }
     }//end method
 
