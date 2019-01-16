@@ -9,15 +9,10 @@ import Panel from 'react-bootstrap/es/Panel';
 import ListGroup from 'react-bootstrap/es/ListGroup';
 import ListGroupItem from 'react-bootstrap/es/ListGroupItem';
 import cloneDeep from 'lodash/cloneDeep';
-import Radio from 'react-bootstrap/es/Radio';
 
 let categoryService = new CategoryService();
 
-export class ChooseCategory extends Component<{
-  registerCategory?: boolean
-}> {
-
-
+export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
   constructor(props) {
     super(props);
     this.state = {
@@ -26,11 +21,21 @@ export class ChooseCategory extends Component<{
       category3: [],
       selectedCategory: { name: 'ingen' },
       selectedCategoryType: 0,
-      selectedCategoryId: -1
+      selectedCategoryId: -1,
+      newCategoryHeader: 'Den nye overkategorien'
     };
 
     this.handleClick = this.handleClick.bind(this);
   }
+
+  //used in adminAddCategory to get the chosen category header
+  //Finn ut hva som skal tas imot fra den andre
+  onChangeCategoryHeader = () => {
+    this.props.changeCategoryHeader(
+      this.state.selectedCategoryId,
+      this.state.selectedCategoryType
+    );
+  };
 
   getSelectedCategoryId() {
     return this.state.selectedCategoryId;
@@ -50,7 +55,6 @@ export class ChooseCategory extends Component<{
     let kat3 = [];
 
     categoryService.getCategory1().then(resources => {
-
       resources.map(r => {
         let elem: Category = {
           name: r.name,
@@ -65,11 +69,9 @@ export class ChooseCategory extends Component<{
       this.setState({
         category1: kat1
       });
-
     });
 
     categoryService.getCategory2().then(resources => {
-
       resources.map(r => {
         let elem: Category2 = {
           name: r.name,
@@ -112,7 +114,6 @@ export class ChooseCategory extends Component<{
 
   handleClick(cat1: Category) {
 
-
     let arr = cloneDeep(this.state.category1);
 
     let objectIndex = this.state.category1.indexOf(cat1);
@@ -125,13 +126,14 @@ export class ChooseCategory extends Component<{
 
     this.state.category1[objectIndex].open = !this.state.category1[objectIndex].open;
 
-
     this.setState({
-      category1: arr,
-      selectedCategory: cat1,
-      selectedCategoryType: this.getCategoryType(cat1),
-      selectedCategoryId: cat1.id
-    });
+        category1: arr,
+        selectedCategory: cat1,
+        selectedCategoryType: this.getCategoryType(cat1),
+        selectedCategoryId: cat1.id
+      },
+      this.onChangeCategoryHeader.bind(this)
+    );
 
   }
 
@@ -161,89 +163,94 @@ export class ChooseCategory extends Component<{
 
   handleClick3(cat3: Category3) {
 
-
-    this.setState({
-      selectedCategory: cat3,
-      selectedCategoryType: this.getCategoryType(cat3),
-      selectedCategoryId: cat3.id
-    });
+    this.setState(
+      {
+        selectedCategory: cat3,
+        selectedCategoryType: this.getCategoryType(cat3),
+        selectedCategoryId: cat3.id
+      },
+      this.onChangeCategoryHeader.bind(this)
+    );
   }
 
   getCategoryType(category) {
-
-    let returnValue = '0';
-
+    let returnValue = "0";
 
     this.state.category1.map(cat1 => {
       if (cat1.name == category.name) {
-        returnValue = '1';
+        returnValue = "1";
       }
-
     });
-
 
     this.state.category2.map(cat2 => {
       if (cat2.name == category.name) {
-        returnValue = '2';
+        returnValue = "2";
       }
     });
 
     this.state.category3.map(cat3 => {
       if (cat3.name == category.name) {
-        returnValue = '3';
+        returnValue = "3";
       }
     });
 
+    console.log("returnvalue:", returnValue);
     return returnValue;
   }
 
-
   render() {
-    console.log('id', this.state.selectedCategoryId);
-    console.log('type', this.state.selectedCategoryType);
     return (
       <div>
-
         <ListGroup>
           {this.state.category1.map(cat1 => {
             return (
               <div key={cat1.id}>
-                <ListGroupItem onClick={() => this.handleClick(cat1)}>cat1: {cat1.name}</ListGroupItem>
+                <ListGroupItem onClick={() => this.handleClick(cat1)}>
+                  cat1: {cat1.name}
+                </ListGroupItem>
 
                 <Collapse in={cat1.open}>
                   <div>
                     {this.state.category2.map(cat2 => {
                       if (cat2.idUp == cat1.id) {
-                        return (<div key={cat2.id}>
-                          <ListGroupItem
-                            onClick={() => this.handleClick2(cat2)}>___cat2: {cat2.name}</ListGroupItem>
+                        return (
+                          <div key={cat2.id}>
+                            <ListGroupItem
+                              onClick={() => this.handleClick2(cat2)}
+                            >
+                              ___cat2: {cat2.name}
+                            </ListGroupItem>
 
-
-                          <Collapse in={cat2.open}>
-                            <div>
-                              {this.state.category3.map(cat3 => {
-                                if (cat3.idUp == cat2.id) {
-                                  return (<div key={cat3.id}>
-                                    <ListGroupItem
-                                      onClick={() => this.handleClick3(cat3)}>______cat3: {cat3.name}</ListGroupItem>
-
-                                  </div>);
-                                }
-                              })}
-                            </div>
-                          </Collapse>
-
-                        </div>);
+                            <Collapse in={cat2.open}>
+                              <div>
+                                {this.state.category3.map(cat3 => {
+                                  if (cat3.idUp == cat2.id) {
+                                    return (
+                                      <div key={cat3.id}>
+                                        <ListGroupItem
+                                          onClick={() =>
+                                            this.handleClick3(cat3)
+                                          }
+                                        >
+                                          ______cat3: {cat3.name}
+                                        </ListGroupItem>
+                                      </div>
+                                    );
+                                  }
+                                })}
+                              </div>
+                            </Collapse>
+                          </div>
+                        );
                       }
                     })}
                   </div>
                 </Collapse>
-
-              </div>);
+              </div>
+            );
           })}
         </ListGroup>
       </div>
     );
   }
-
 }

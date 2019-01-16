@@ -28,10 +28,9 @@ export class UserService {
     return axios.get('/user/getMyIssues/' + userMail);
   }//end method
 
-  updateUser(user: User): Promise<Response>{
+  updateUser(user: User): Promise<Response> {
     return axios.put('/user/updateUser', user);
   }
-
 }//end class
 
 export class CategoryService {
@@ -49,12 +48,27 @@ export class CategoryService {
   }
 }
 
-export class CountyService{
-  getCounties(): Promise<County[]>{
+export class CountyService {
+  getCounties(): Promise<County[]> {
     return axios.get('/getCounties');
   }
 }
 
+export class MyPage {
+
+
+  addCategory1(json: Object) {
+    return axios.post('/add_category1', json);
+  }
+
+  addCategory2(json: Object) {
+    return axios.post('/add_category2', json);
+  }
+
+  addCategory3(json: Object) {
+    return axios.post('/add_category3', json);
+  }
+}
 
 export function getAllCounties(usermail: string): Promise<County[]> {
   return axios.get('/getAllCountiesMinusUsers/' + usermail);

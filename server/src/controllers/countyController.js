@@ -14,6 +14,7 @@ module.exports = function (app: Object, countyDao: Object) {
     });
 
 
+
     app.get('/getAllCountiesMinusUsers/:UserMail', (req, res)=>{
         console.log("get all counties that the user dosnt subscribe to got request");
         countyDao.getAllCountiesMinusUsers(req.params.UserMail,(status, data)=>{
@@ -47,3 +48,4 @@ module.exports = function (app: Object, countyDao: Object) {
     })
 
 };
+

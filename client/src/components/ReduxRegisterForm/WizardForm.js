@@ -10,7 +10,9 @@ export class WizardForm extends Component {
     this.nextPage = this.nextPage.bind(this);
     this.previousPage = this.previousPage.bind(this);
     this.state = {
-      page: 1
+      page: 1,
+      selectedCategoryId: -1,
+      selectedCategoryType: -1
     };
   }
   nextPage() {
@@ -22,10 +24,13 @@ export class WizardForm extends Component {
   }
 
   render() {
+    let styles = {
+      height: '100%'
+    }
     const { onSubmit } = this.props;
     const { page } = this.state;
     return (
-      <div>
+      <div style={styles}>
         {page === 1 && <WizardFormFirstPage onSubmit={this.nextPage} />}
         {page === 2 && (
           <WizardFormSecondPage

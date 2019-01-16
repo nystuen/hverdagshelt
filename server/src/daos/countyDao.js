@@ -2,8 +2,6 @@
 
 import {Dao} from "../dao";
 
-const bcrypt = require('bcrypt'); //to hash password
-
 export class CountyDao extends Dao {
 
   getAllCounties(callback: Function) {
@@ -12,6 +10,7 @@ export class CountyDao extends Dao {
       callback
     );
   }
+
 
 
     //get all counties where the user dosnt use
@@ -23,6 +22,7 @@ export class CountyDao extends Dao {
       callback
     );
   }
+
 
     getSubscribedCounties(id: string, callback: Function){
         super.query("SELECT * FROM county NATURAL JOIN userCounties where userCounties.userMail = ?", [id], callback);

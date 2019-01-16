@@ -110,8 +110,6 @@ export class countySubscription extends Component<Props, State> {
   render() {
     return (
       <div class="countySubscription">
-        
-        
         <Grid>
         <PageHeader title={"Kommuneinstillinger"}/>
 
