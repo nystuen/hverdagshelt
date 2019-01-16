@@ -1,14 +1,21 @@
-import ReactDOM from 'react-dom';
-import * as React from 'react';
-import { Component } from 'react-simplified';
-import { ButtonToolbar, ToggleButtonGroup, ToggleButton, Collapse, Button } from 'react-bootstrap';
-import { CategoryService } from '../../services';
-import { Category, Category2, Category3 } from '../../classTypes';
-import PanelGroup from 'react-bootstrap/es/PanelGroup';
-import Panel from 'react-bootstrap/es/Panel';
-import ListGroup from 'react-bootstrap/es/ListGroup';
-import ListGroupItem from 'react-bootstrap/es/ListGroupItem';
-import cloneDeep from 'lodash/cloneDeep';
+import ReactDOM from "react-dom";
+import * as React from "react";
+import { Component } from "react-simplified";
+import {
+  ButtonToolbar,
+  ToggleButtonGroup,
+  ToggleButton,
+  Collapse,
+  Button
+} from "react-bootstrap";
+import { CategoryService } from "../../services";
+import { Category, Category2, Category3 } from "../../classTypes";
+import PanelGroup from "react-bootstrap/es/PanelGroup";
+import Panel from "react-bootstrap/es/Panel";
+import ListGroup from "react-bootstrap/es/ListGroup";
+import ListGroupItem from "react-bootstrap/es/ListGroupItem";
+import cloneDeep from "lodash/cloneDeep";
+import css from './chooseCategory.css';
 
 let categoryService = new CategoryService();
 
@@ -19,10 +26,10 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
       category1: [],
       category2: [],
       category3: [],
-      selectedCategory: { name: 'ingen' },
+      selectedCategory: { name: "ingen" },
       selectedCategoryType: 0,
       selectedCategoryId: -1,
-      newCategoryHeader: 'Den nye overkategorien'
+      newCategoryHeader: "Den nye overkategorien"
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -84,15 +91,16 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
         kat2 = kat2.concat(elem);
       });
 
+      console.log("kat2", kat2);
       this.setState({
         category2: kat2
       });
     });
 
-    if (!this.props.registerCategory) { // only load cat3 if this component is not in registerCategory
+    if (!this.props.registerCategory) {
+      // only load cat3 if this component is not in registerCategory
 
       categoryService.getCategory3().then(resources => {
-
         resources.map(r => {
           let elem: Category3 = {
             name: r.name,
@@ -109,11 +117,9 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
         });
       });
     }
-
   }
 
   handleClick(cat1: Category) {
-
     let arr = cloneDeep(this.state.category1);
 
     let objectIndex = this.state.category1.indexOf(cat1);
@@ -124,9 +130,11 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
 
     arr[objectIndex].open = !this.state.category1[objectIndex].open;
 
-    this.state.category1[objectIndex].open = !this.state.category1[objectIndex].open;
+    this.state.category1[objectIndex].open = !this.state.category1[objectIndex]
+      .open;
 
-    this.setState({
+    this.setState(
+      {
         category1: arr,
         selectedCategory: cat1,
         selectedCategoryType: this.getCategoryType(cat1),
@@ -134,11 +142,9 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
       },
       this.onChangeCategoryHeader.bind(this)
     );
-
   }
 
   handleClick2(cat2: Category2) {
-
     const arr = cloneDeep(this.state.category2);
 
     let objectIndex = this.state.category2.indexOf(cat2);
@@ -151,17 +157,19 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
 
     arr[objectIndex].open = !this.state.category2[objectIndex].open;
 
-    this.setState({
-      category2: arr,
-      selectedCategory: cat2,
-      selectedCategoryType: this.getCategoryType(cat2),
-      selectedCategoryId: cat2.id
-    });
-
+    this.setState(
+      {
+        category2: arr,
+        selectedCategory: cat2,
+        selectedCategoryType: this.getCategoryType(cat2),
+        selectedCategoryId: cat2.id
+      },
+      this.onChangeCategoryHeader.bind(this)
+    );
   }
 
-
   handleClick3(cat3: Category3) {
+    console.log("cat3Id:", cat3);
 
     this.setState(
       {
@@ -175,6 +183,8 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
 
   getCategoryType(category) {
     let returnValue = "0";
+
+    console.log("nameInGetCategoryType:", category.name);
 
     this.state.category1.map(cat1 => {
       if (cat1.name == category.name) {
@@ -215,7 +225,7 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
                       if (cat2.idUp == cat1.id) {
                         return (
                           <div key={cat2.id}>
-                            <ListGroupItem
+                            <ListGroupItem className="cat2"
                               onClick={() => this.handleClick2(cat2)}
                             >
                               ___cat2: {cat2.name}
@@ -227,7 +237,7 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
                                   if (cat3.idUp == cat2.id) {
                                     return (
                                       <div key={cat3.id}>
-                                        <ListGroupItem
+                                        <ListGroupItem className="cat3"
                                           onClick={() =>
                                             this.handleClick3(cat3)
                                           }

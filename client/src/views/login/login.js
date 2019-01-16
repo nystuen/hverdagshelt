@@ -56,11 +56,12 @@ export class Login extends Component<Props, State> {
   render() {
 
     let alert_login;
+
     if (this.state.error) {
       alert_login = (
         <Alert bsStyle="danger">
-          <h6>Brukernavn eller passord er feil. Prøv igjen!</h6>
-        </Alert>);
+        <h6>Brukernavn eller passord er feil. Prøv igjen!</h6>
+      </Alert>);
     } else {
       alert_login = (
         <p></p>
@@ -72,12 +73,8 @@ export class Login extends Component<Props, State> {
 
       <div>
         <Grid>
-
           <Form>
-
-
             <Col xs={5} md={4}>
-
             </Col>
 
             <Col xs={2} md={4}>
@@ -105,18 +102,12 @@ export class Login extends Component<Props, State> {
             </Col>
 
             <Col xs={5} md={4}>
-
             </Col>
-
-
           </Form>
-
-
         </Grid>
       </div>
     );
   }//end method
-
 
   save = () => {
     //console.log(this.state.email);

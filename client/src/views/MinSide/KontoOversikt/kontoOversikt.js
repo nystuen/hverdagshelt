@@ -4,18 +4,23 @@
 import React from 'react';
 import jwt from 'jsonwebtoken';
 import { Grid, Row, Col, ListGroup, ListGroupItem } from 'react-bootstrap';
-import { ChooseCategory } from '../../../components/ChooseCategory/ChooseCategory';
 import Button from 'react-bootstrap/es/Button';
 import { Category, Category2, Category3, User } from '../../../classTypes';
 import { MailService, UserService } from '../../../services';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
+import { ChooseCategory } from '../../../components/ChooseCategory/ChooseCategory';
+import FormGroup from 'react-bootstrap/es/FormGroup';
+import ControlLabel from 'react-bootstrap/es/ControlLabel';
+import FormControl from 'react-bootstrap/es/FormControl';
+import Form from 'react-bootstrap/es/Form';
+import { ChangePassword } from '../../../components/ChangePassword/ChangePassword';
 
 let userService = new UserService();
 
-
-interface State {
+type State = {
   decoded: Object,
-  user: Object
+  user: Object,
+  changePassword: boolean
 }
 
 class InformationCard extends React.Component<{ header: string, content: string }> {
@@ -39,14 +44,31 @@ class AccountInfoCard extends React.Component<{
   phone: string
 }> {
 
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      changePassword: false
+
+    };
+
+  }
+
+  changePassword = () => {
+    this.setState({
+      changePassword: !this.state.changePassword
+    });
+  };
 
   render() {
+
+
+    let change_password = this.state.changePassword ? (
+      <ChangePassword/>) : null;
+
     return (
       <div>
-
-
         <div>
-
           <Grid>
             <Col xs={2} md={2}>
             </Col>
@@ -69,15 +91,16 @@ class AccountInfoCard extends React.Component<{
 
           <div align="center">
             <Button href={'/#/min_side/editAccountInformation'}>Endre kontoinformasjon</Button>
-            <Button>Endre passord</Button>
+            <Button onClick={() => this.changePassword()}>Endre passord</Button>
           </div>
 
         </div>
-
+        {change_password}
       </div>
     );
   }
 }
+
 
 export class KontoOversikt extends React.Component <State> {
 
@@ -97,7 +120,9 @@ export class KontoOversikt extends React.Component <State> {
 
 
   render() {
+
     return (
+
       <Grid>
         <PageHeader title={'Kontooversikt'}/>
 

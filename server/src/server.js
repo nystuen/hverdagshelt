@@ -11,8 +11,11 @@ import { IssueDao } from './daos/issueDao';
 import userController from './controllers/userController.js';
 import issueController from './controllers/issueController.js';
 import countyController from './controllers/countyController.js';
+import mailController from './controllers/mailController.js';
 import * as mysql from 'mysql2';
 import { CategoryDao } from './daos/catergoryDao';
+import { MailDao } from './daos/mailDao';
+
 
 type Request = express$Request;
 type Response = express$Response;

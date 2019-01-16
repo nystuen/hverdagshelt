@@ -61,6 +61,7 @@ export class CountyList extends Component<Props, State> {
     })
     return (
           <Select
+            placeholder={'' + this.state.countyId}
             name="colors"
             options={optionTemplate}
             className="basic"

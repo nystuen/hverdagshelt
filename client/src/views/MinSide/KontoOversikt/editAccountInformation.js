@@ -3,7 +3,7 @@
 
 import React from 'react';
 import jwt from 'jsonwebtoken';
-import { Grid, Row, Col, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Grid, Row, Col, ListGroup, ListGroupItem, Alert } from 'react-bootstrap';
 import { ChooseCategory } from '../../../components/ChooseCategory/ChooseCategory';
 import Button from 'react-bootstrap/es/Button';
 import { Category, Category2, Category3, User } from '../../../classTypes';
@@ -60,13 +60,21 @@ class AccountInfoEditCard extends React.Component<{
             </Col>
             <Col xs={2} md={2}>
             </Col>
+
+            <Row>
+              <div align="center">
+                <Button>Endre kontoinformasjon</Button>
+                <Button>Endre passord</Button>
+              </div>
+            </Row>
+
+            <Row>
+              <div align="center">
+
+              </div>
+            </Row>
+
           </Grid>
-
-          <div align="center">
-            <Button>Endre kontoinformasjon</Button>
-            <Button>Endre passord</Button>
-          </div>
-
         </div>
 
       </div>
@@ -74,7 +82,7 @@ class AccountInfoEditCard extends React.Component<{
   }
 }
 
-export class EditAccountInformation extends React.Component <State> {
+export class editAccountInformation extends React.Component <State> {
 
   state = {
     decoded: jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret'),
@@ -94,7 +102,6 @@ export class EditAccountInformation extends React.Component <State> {
     });
   }
 
-
   handleChangeUser() {
 
 
@@ -102,20 +109,20 @@ export class EditAccountInformation extends React.Component <State> {
       this.state.user.countyId = this.state.countyId;
     }
 
-    if(this.state.firstName != ''){
+    if (this.state.firstName != '') {
       this.state.user.firstName = this.state.firstName;
     }
 
-    if(this.state.lastName != ''){
+    if (this.state.lastName != '') {
       this.state.user.lastName = this.state.lastName;
     }
 
-    if(this.state.phone != ''){
+    if (this.state.phone != '') {
       this.state.user.phone = this.state.phone;
     }
 
 
-    userService.updateUser(this.state.user).then(response=> {
+    userService.updateUser(this.state.user).then(response => {
       console.log('res', response);
     });
 
