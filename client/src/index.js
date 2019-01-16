@@ -62,4 +62,3 @@ if (root)
     </HashRouter>,
     root
   );
-

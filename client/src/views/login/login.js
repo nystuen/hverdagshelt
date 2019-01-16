@@ -18,6 +18,7 @@ import FormControl from 'react-bootstrap/es/FormControl';
 import Button from 'react-bootstrap/es/Button';
 import Grid from 'react-bootstrap/es/Grid';
 import login from './login.css';
+import {history} from '../../index';
 
 let userService = new UserService();
 const bcrypt = require('bcrypt-nodejs');
@@ -27,6 +28,7 @@ interface State {
   email: string;
   password: string;
   storedPassword: string;
+  countyId: number;
 }//end interface
 
 interface Props {
@@ -37,7 +39,8 @@ export class Login extends Component<Props, State> {
     error: false,
     email: '',
     password: '',
-    storedPassword: ''
+    storedPassword: '',
+    countyId: 0
   };
 
   handleChangeEmail = (event: SyntheticEvent<HTMLButtonElement>) => {
@@ -122,6 +125,7 @@ export class Login extends Component<Props, State> {
     //console.log(this.state.email);
     userService.getUserLogin(this.state.email).then(response => {
       this.setState({
+        countyId : response[0].countyId,
         storedPassword: response[0].password
       });
       bcrypt.compare(this.state.password, response[0].password, (err, res) => {
@@ -130,6 +134,9 @@ export class Login extends Component<Props, State> {
             let token = r.jwt;
             window.localStorage.setItem('userToken', token);
             console.log('login in success');
+
+            history.push('/forside/' + this.state.countyId);
+
           }).catch((error: Error) => Alert.danger(error.message));
         } else {
           this.setState({
