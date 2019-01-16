@@ -27,9 +27,9 @@ export class UserService {
     return axios.get("/user/get_user/" + mail);
   } //end method
 
-  login(userMail: Object<JSON>): Promise<void> {
-    return axios.post("/login/", userMail);
-  } //end method
+    login(userMail: Object<JSON>): Promise<void>{
+        return axios.post('/login/', userMail);
+    }//end method
 
   getMyIssues(userMail: string): Promise<JSON> {
     return axios.get("/user/getMyIssues/" + userMail);
@@ -44,7 +44,6 @@ export class CategoryService {
     getCategory2(): Promise<Category2[]> {
         return axios.get("/get_category2");
     }
-
 
     getCategory3(): Promise<Category3[]> {
         return axios.get("/get_category3");

@@ -64,11 +64,11 @@ export class Issue {
   }
 }
 
-
+}
 
 export class Type {
-    typeName: string;
-    active: number;
+  typeName: string;
+  active: number;
 
     constructor(typeName: string, active: number) {
         this.typeName = typeName;
@@ -76,12 +76,42 @@ export class Type {
     }
 }
 
-export class Category {
-    categoryId: number;
-    name: string;
-    priority: number;
-    active: number;
+export class Company extends Type {
+  companyMail: string;
+  companyName: string;
+  description: string;
 
+  constructor(
+    typeName: string,
+    active: number,
+    companyMail: string,
+    companyName: string,
+    description: string
+  ) {
+    super(typeName, active);
+    this.companyMail = companyMail;
+    this.companyName = companyName;
+    this.description = description;
+  }
+}
+
+export class Category {
+  categoryId: number;
+  name: string;
+  priority: number;
+  active: number;
+
+  constructor(
+    categoryId: number,
+    name: string,
+    priority: number,
+    active: number
+  ) {
+    this.categoryId = categoryId;
+    this.name = name;
+    this.priority = priority;
+    this.active = active;
+  }
     constructor(
         categoryId: number,
         name: string,
@@ -94,6 +124,8 @@ export class Category {
         this.active = active;
     }
 }
+
+
 
 
 export class Category2 extends Category {
@@ -131,12 +163,12 @@ export class Category3 extends Category {
 }
 
 export class Event {
-  eventId: number;
-  title: string;
-  text: string;
-  date: string;
-  userMail: string;
-  active: number;
+    eventId: number;
+    title: string;
+    text: string;
+    date: string;
+    userMail: string;
+    active: number;
 
   constructor(
     eventId: number,
@@ -154,16 +186,23 @@ export class Event {
     this.active = active;
   }
 }
+<<<<<<<<< Temporary merge branch 1
 
-export class Status {
-  progressBar: String;
-  progress: number;
+export class Status{
+    progressBar: String;
+    progress: number;
 
   constructor(status: string) {
     //if issue is registered
     if (status === "Registered") {
       this.progressBar = "info";
       this.progress = 100;
+
+    constructor(status: string){
+        //if issue is registered
+        if(status === 'Registered'){
+            this.progressBar= "info";
+            this.progress = 100;
 
       //if issue is under processing
     } else if (status === "In progress") {
@@ -188,3 +227,15 @@ export class Company{
     phone: number;
 }
 
+
+            //if issue is under processing
+        }else if(status === 'In progress'){
+            this.progressBar ="warning";
+            this.progress = 50;
+            //if issue is resolved
+        }else{
+            this.progressBar = "success";
+            this.progress = 100;
+        }//end condition
+    }//end constructor
+}//end class
