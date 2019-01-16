@@ -205,15 +205,3 @@ export class Status {
     } //end condition
   } //end constructor
 } //end class
-
-export class Company{
-    companyMail: string;
-    companyName: string;
-    firstName: string;
-    lastName: string;
-    adresse: string;
-    postnr: string;
-    password: string;
-    phone: number;
-}
-
