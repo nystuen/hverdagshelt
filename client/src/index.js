@@ -11,8 +11,6 @@ import { Alert } from './widgets';
 import store from './components/ReduxRegisterForm/store';
 import { KontoOversikt } from './views/MinSide/KontoOversikt/kontoOversikt';
 import { countySubscription } from './views/MinSide/countySubscription/countySubscription';
-import createHashHistory from 'history/createHashHistory';
-import { MineSaker } from './views/MinSide/mineSaker/mineSaker';
 import { Provider } from 'react-redux';
 import { adminAddCategory } from './components/AdminAddCategory/adminAddCategory';
 import { RegisterCompany } from './components/registercompany/registercompany.js';
@@ -31,7 +29,12 @@ if (process.env.NODE_ENV !== 'production') {
   if (document.body) document.body.appendChild(script);
 }
 
+import createHashHistory from 'history/createHashHistory';
 export const history = createHashHistory(); // Use history.push(...) to programmatically change path, for instance after successfully saving a student
+
+import {MineSaker} from "./views/MinSide/mineSaker/mineSaker";
+import {MinSide} from "./views/MinSide/MinSide";
+import {OversiktOverSak} from "./views/oversiktOverSak/oversiktOverSak";
 
 
 const root = document.getElementById('root');
@@ -53,7 +56,8 @@ if (root)
         <Route path="/addCategory" component={adminAddCategory}/>
         <Route exact path="/register" component={RegisterUser}/>
         <Route exact path="/register/company" component={RegisterCompany}/>
-          <Route path="/min_side/varselinstillinger" component ={NotificationSettings}/>
+        <Route path="/min_side/sakoversikt/:email/:issueId" component={OversiktOverSak} />
+        <Route path="/min_side/varselinstillinger" component ={NotificationSettings}/>
       </div>
     </HashRouter>,
     root

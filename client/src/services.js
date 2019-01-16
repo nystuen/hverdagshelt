@@ -104,7 +104,25 @@ export class NotificationSettingsService {
     updateIssueNotificationSettings(newSetting: IssueNotificationSetting): Promise<Response> {
         return axios.put('/update_issue_notification_settings', newSetting);
     }
-}
+
+    getOneCategory1(id: number){
+        return axios.get('/getOneCategory1/' + id);
+    }//end method
+
+    getOneCategory2(id: number){
+        return axios.get('/getOneCategory2/' + id);
+    }//end method
+
+    getOneCategory3(id: number){
+        return axios.get('/getOneCategory3/' + id);
+    }//end method
+}//end class
+
+export class IssueService{
+    getIssueAndCounty(issue: number): Promise<Object>{
+        return axios.get('/oversiktOverSak/' + issue);
+    }//end method
+}//end class
 
 export function getImportantEvents(countyId: number): Promise<Event[]> {
   console.log('Id inn til services' + countyId);
