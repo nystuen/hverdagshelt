@@ -195,7 +195,7 @@ export class EventFormFirstPage extends Component<{}, State> {
 }
 
 export default reduxForm({
-  form: "wizard", // <------ same form name
+  form: "EventWizard", // <------ same form name
   destroyOnUnmount: false, // <------ preserve form data
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate

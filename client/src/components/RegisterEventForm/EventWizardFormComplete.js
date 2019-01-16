@@ -3,7 +3,7 @@ import ReactDOM from "react-dom";
 import { Provider } from "react-redux";
 import store from "./store";
 import showResults from "./showResults";
-import WizardForm from "./WizardForm";
+import EventWizardForm from "./EventWizardForm";
 
 export class EventWizardFormComplete extends React.Component {
   render() {
@@ -15,7 +15,7 @@ export class EventWizardFormComplete extends React.Component {
       <Provider store={store}>
         <div className="container" style={styles}>
           <div style={styles}>
-            <WizardForm onSubmit={showResults} />
+            <EventWizardForm onSubmit={showResults} />
           </div>
         </div>
       </Provider>

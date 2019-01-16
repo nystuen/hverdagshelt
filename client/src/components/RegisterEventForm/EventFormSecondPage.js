@@ -5,6 +5,7 @@ import renderField from "./renderField";
 import renderCategoryField from "./renderCategoryField";
 import { Button } from "react-bootstrap";
 import { ChooseCategory } from "../ChooseCategory/ChooseCategory";
+import store from "./store";
 
 const renderError = ({ meta: { touched, error } }) =>
   touched && error ? <span>{error}</span> : false;
@@ -89,7 +90,7 @@ export class EventFormSecondPage extends React.Component {
 }
 
 export default reduxForm({
-  form: "wizard", //Form name is same
+  form: "EventWizard", //Form name is same
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate
