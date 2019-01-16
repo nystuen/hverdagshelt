@@ -21,6 +21,8 @@ import { RegisterCompany } from './components/registercompany/registercompany.js
 import { RegisterUser } from './components/registeruser/registeruser';
 import { ChooseCategory } from './components/ChooseCategory/ChooseCategory.js';
 import { forside } from './views/forside/forside';
+import { Frontpage } from './views/frontpage/frontpage';
+import { editAccountInformation } from './views/MinSide/KontoOversikt/editAccountInformation';
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== 'production') {
@@ -38,7 +40,7 @@ if (root)
     <HashRouter>
       <div className="route-container">
         <NavbarMenu/>
-        <Route path="/frontpage" component={Frontpage}/>
+        <Route path="/forside" component={Frontpage}/>
         <Route path="/wizardForm" component={WizardFormComplete}/>
         <Route path="/min_side/kommuner" component={countySubscription}/>
         <Route path="/min_side/kontooversikt" component={KontoOversikt}/>

@@ -13,11 +13,11 @@ import userController from "./controllers/userController.js";
 import issueController from "./controllers/issueController.js";
 import countyController from "./controllers/countyController.js";
 import mailController from './controllers/mailController.js';
-const notificationController = require("./controllers/notificationController");
 import { CategoryDao } from "./daos/catergoryDao";
 import * as mysql from "mysql2";
 import { MailDao } from './daos/mailDao';
 import eventController from "./controllers/eventController.js";
+import {EventDao} from './daos/eventDao';
 
 
 type Request = express$Request;

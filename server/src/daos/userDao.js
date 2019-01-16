@@ -19,13 +19,14 @@ export class UserDao extends Dao {
     }//end method
 
     getUser(userMail: string, callback: Function) {
+      console.log('usermail, dao', userMail);
         super.query("SELECT countyId, active, mail, firstName, lastName, password, typeName, phone, points, name AS 'county' FROM user NATURAL JOIN county where mail=? ", [userMail], callback);
     }//end method}
 
   getIssuesForOneUser(userMail: string, callback: Function) {
     super.query("select categoryId, issues.active, issueId, userMail, latitude, longitude, text, pic, " +
       "date, statusName, countyId, name as 'category', priority from issues " +
-      "natural join category where userMail='?' and active=1", [userMail], callback);
+      "natural join category where userMail=? and active=1", [userMail], callback);
   }//end method
 
   resetPassword(json: Object, hashed: string, callback: Function) {
