@@ -71,7 +71,7 @@ const WizardFormThirdPage = props => {
       </div>
       <div>
         <Button
-          bsStyle="primary"
+          bsStyle="success"
           type="button"
           className="previous"
           onClick={previousPage}
@@ -79,7 +79,7 @@ const WizardFormThirdPage = props => {
           Previous
         </Button>
         <Button
-          bsStyle="primary"
+          bsStyle="success"
           type="submit"
           disabled={pristine || submitting}
         >

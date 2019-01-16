@@ -1,5 +1,3 @@
-
-
 import React from 'react';
 import {
   Navbar,
@@ -10,6 +8,11 @@ import {
 } from 'react-bootstrap';
 import css from './NavbarMenu.css';
 import { PageHeader } from '../PageHeader/PageHeader';
+import css from './NavbarMenu.css';
+import jwt from 'jsonwebtoken';
+import { User } from '../../classTypes';
+import { UserService } from '../../services';
+let userService = new UserService();
 
 
 let loginButton;
@@ -21,9 +24,24 @@ export class NavbarMenu extends React.Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      isOpen: false
+      decoded: jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret'),
+      isOpen: false,
+      user: User
     };
   }
+
+
+  componentWillMount() {
+    console.log(this.state.decoded.email)
+
+    userService.getUser(this.state.decoded.email).then(newUser => {
+      this.setState({
+        user: newUser[0]
+      });
+    });
+
+  }
+
 
     toggle() {
         this.setState({

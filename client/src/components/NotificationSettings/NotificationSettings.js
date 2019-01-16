@@ -7,7 +7,7 @@ import {User} from "../../classTypes";
 import Button from "react-bootstrap/es/Button";
 import {MyIssuesNotificationSettingsForm} from "../MyIssuesNotificationSettingsForm/MyIssuesNotificationSettingsForm";
 import {NotificationSettingsForm} from "../NotificationSettingsForm/NotificationSettingsForm";
-
+import css from './NotificationSettings.css';
 
 interface State {
     decoded: Object,
@@ -28,7 +28,7 @@ export class NotificationSettings extends React.Component <State> {
 
     render() {
         return(
-            <Grid>
+            <Grid className="notifications">
             <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
                 <Tab eventKey={1} title="Hjemkommune">
                     <NotificationSettingsForm />
