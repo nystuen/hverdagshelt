@@ -29,7 +29,7 @@ module.exports = function (app: Object, countyDao: Object) {
             res.status(status);
             res.json(data);
         })
-    })
+    });
 
     app.delete('/deleteAllSubscribedCounties/:UserMail', (req, res)=>{
         console.log("delete all subscribed counties request");
@@ -37,7 +37,7 @@ module.exports = function (app: Object, countyDao: Object) {
             res.status(status);
             res.json(data);
         })
-    })
+    });
 
     app.post('/addSubscription', (req, res)=>{
         console.log("post all subscribed counties request");

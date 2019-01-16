@@ -101,6 +101,10 @@ export class NotificationSettingsService {
         return axios.get('/get_issue_notification_settings/' + email);
     }
 
+    getNotificationSettingsWithNames(email: string): Promise<Object[]> {
+        return axios.get('/get_notification_settings_with_names/' + email)
+    }
+
     updateIssueNotificationSettings(newSetting: IssueNotificationSetting): Promise<Response> {
         return axios.put('/update_issue_notification_settings', newSetting);
     }
@@ -115,7 +119,7 @@ export function getAllCounties(usermail: string): Promise<County[]> {
     return axios.get('/getAllCountiesMinusUsers/' + usermail);
 }
 
-export function getUsersCounties(usermail: string): Promise<County[]> {
+export function getUsersCounties(usermail: string): Promise<Object[]> {
   return axios.get('/getSubscribedCounties/' + usermail);
 }
 
@@ -125,6 +129,10 @@ export function deleteSubscription(usermail: string) {
 
 export function addSubscription(json: Object) {
   return axios.post('/addSubscription', json);
+}
+
+export function getCounties() {
+    return axios.get('/getCounties');
 }
 
 export class MailService {

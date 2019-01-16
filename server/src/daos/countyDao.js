@@ -10,9 +10,6 @@ export class CountyDao extends Dao {
       callback
     );
   }
-
-
-
     //get all counties where the user dosnt use
 
   getAllCountiesMinusUsers(id: string, callback: Function) {
