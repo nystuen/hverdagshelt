@@ -108,7 +108,7 @@ export class countySubscription extends Component<Props, State> {
 
   render() {
     return (
-      <div class="countySubscription">
+      <div className="countySubscription">
         <Grid>
 
           <Col md={2} >
