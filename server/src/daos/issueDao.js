@@ -31,12 +31,17 @@ export class IssueDao extends Dao {
     super.query("select * from issues where issueId = ?", [id], callback);
   }
 
+  getIssueAndCounty(id: number, callback: Function){
+    super.query("select * from issues natural join county where issueId=?", [id], callback);
+  }//end method
+
+
   getAllCategories(callback: Function) {
     super.query("select * from category", [], callback);
   }
 
   getUserIssue(id: String, callback: Function) {
-    super.query("select * from issues where userMail = ?", [id], callback);
+    super.query("select * from issues where userMail = ? and active=1", [id], callback);
   }
 
   getCompanyIssue(id: String, callback: Function) {
