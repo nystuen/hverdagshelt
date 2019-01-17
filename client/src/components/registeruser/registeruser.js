@@ -231,7 +231,7 @@ export class RegisterUser extends Component<Props, State> {
                 </Col>
                 <Col md={6}>
                   <FormGroup>
-                    <FormControl type="number" value={this.state.phone} placeholder="Telefonnummer"
+                    <FormControl type="text" value={this.state.phone} placeholder="Telefonnummer"
                                  onChange={this.handleStringChange('phone')}
                     />
                   </FormGroup>
@@ -314,7 +314,7 @@ export class RegisterUser extends Component<Props, State> {
     if (!(validator.validate(this.state.mail))) {
       Alert.warning('Eposten eksisterer ikke');
     } else {
-      this.register();
+      this.checkPass();
     }
   };
 
@@ -322,7 +322,7 @@ export class RegisterUser extends Component<Props, State> {
 
     if (this.state.password !== this.state.password2) {
       console.log('To ulike passord');
-      Alert.warning('Du skrev to ulike passord');
+      Alert.warning('Gjenta passord matcher ikke passord');
     }
     else {
       let decimal = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;

@@ -22,6 +22,7 @@ import { forside } from './views/forside/forside';
 import { Frontpage } from './views/frontpage/frontpage';
 import { editAccountInformation } from './views/MinSide/KontoOversikt/editAccountInformation';
 import {NotificationSettings} from "./components/NotificationSettings/NotificationSettings";
+import {RegisterAdmin} from "./components/registeradmin/registeradmin";
 
 
 // Reload application when not in production environment
@@ -51,6 +52,7 @@ if (root)
         <Route path="/map" component={MapComponent}/>
         <Route path="/min_side/mine_saker" component={MineSaker}/>
         <Route path="/addCategory" component={adminAddCategory}/>
+        <Route path="/registrer/admin" component={RegisterAdmin}/>
         <Route exact path="/register" component={RegisterUser}/>
         <Route exact path="/register/company" component={RegisterCompany}/>
           <Route path="/min_side/varselinstillinger" component ={NotificationSettings}/>

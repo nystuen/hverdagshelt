@@ -40,6 +40,9 @@ export class UserService {
   updateUser(user: User): Promise<Response> {
     return axios.put('/user/updateUser', user);
   }
+  addAdmin(newAdmin: Admin): Promise<Response>{
+      return axios.post('/add_admin', newAdmin);
+  }
 }//end class
 
 export class CategoryService {

@@ -1,5 +1,5 @@
 import {Col, Button, Form, FormGroup, Label, Grid} from 'react-bootstrap';
-import {CountyService, UserService, getCounties} from "../../services";
+import {CountyService, UserService, getCounties, addSubscription} from "../../services";
 import {Component} from 'react';
 import * as React from 'react';
 import {Alert} from "../../widgets";
@@ -23,7 +23,7 @@ export class RegisterAdmin extends Component<Props, State>{
             mail: "",
             firstName: "",
             lastName: "",
-            adress: "",
+            address: "",
             postNumber: "",
             password: "",
             password2: "",
@@ -208,21 +208,31 @@ export class RegisterAdmin extends Component<Props, State>{
     register = () => {
         console.log("test", this.state);
 
-        const newUser = {
+        const newAdmin = {
             mail: this.state.mail,
             firstName: this.state.firstName,
             lastName: this.state.lastName,
-            password: this.state.password,
+            typeName: 'Admin',
+            address: this.state.address,
+            postNumber: this.state.postNumber,
             phone: this.state.phone,
             countyId: this.state.choosen,
         };
 
-        console.log("county", this.state.choosen)
+        console.log("county", this.state.choosen);
         userService
-            .addUser(newUser)
-            .then(user =>(this.state = user)).then(Alert.success("Bruker registrert"))
-            .catch((error: Error)=>Alert.danger(error.message))
-    }
+            .addAdmin(newAdmin)
+            .then(user => (this.state = user)).then(Alert.success('Bruker registrert'))
+            .catch((error: Error) => Alert.danger(error.message));
+
+        let theBody: Object = {
+            countyId: newAdmin.countyId,
+            userMail: newAdmin.mail
+        };
+
+        addSubscription(theBody);
+
+    };
 }
 /*
 * <DropdownButton title="Hjemmekommune">

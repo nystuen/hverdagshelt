@@ -1,14 +1,24 @@
 // @flow
-
 let jwt = require("jsonwebtoken");
 let bodyParser = require('body-parser');
 let urlencodedParser = bodyParser.urlencoded({extended: false});
 const bcrypt = require('bcrypt-nodejs'); //to hash password
+let nodemailer = require('nodemailer');
+import generator from 'generate-password';
 
 let privateKey = "shhhhhverysecret";
 
+let transporter = nodemailer.createTransport({
+    service: 'gmail',
+    auth: {
+        user: 'hverdagshelt.scrum@gmail.com',
+        pass: 'Dreamteam'
+    }
+});
 
 module.exports = function (app: Object, userDao: Object) {
+
+
 
     /*
     app.use("/user", (req, res, next) => {
@@ -28,6 +38,43 @@ module.exports = function (app: Object, userDao: Object) {
         });
     });
 */
+    app.post('/add_admin', urlencodedParser, (req, res) =>{
+        console.log('got post request from add_admin');
+        console.log(req.body);
+        console.log('got request from sendTextMail');
+        let newPassword = generator.generate({length: 10, numbers: true});
+        console.log('newPassword:',newPassword);
+
+        let hashed = '';
+        bcrypt.hash(req.body.password, null, null, function (error, hash) {
+            hashed = hash;
+            userDao.addUser(req.body, hashed ,(status, data) => {
+                res.status(status);
+                res.json(data);
+            });
+        });
+
+        console.log("Før mailoptions");
+
+        let mailOptions = {
+            from: 'hverdagshelt.scrum@gmail.com',
+            to: req.body.mail,
+            subject: 'Hverdagshelt - Adminbruker',
+            text: 'Ditt autogenererte passord er: ' + newPassword + ''
+        };
+        console.log("Midten");
+
+        transporter.sendMail(mailOptions, function(error, info) {
+            if (error) {
+                console.log("her skjer feilen");
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
+        console.log("Etter transporter");
+    });
+
     app.post('/add_user', urlencodedParser, (req, res) => {
         console.log('got post request from add_user');
         console.log(req.body);
