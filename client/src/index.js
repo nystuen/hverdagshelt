@@ -26,6 +26,7 @@ import { Component } from 'react-simplified';
 import { MinSide } from './views/MinSide/MinSide';
 import { EventWizardFormComplete } from './components/RegisterEventForm/EventWizardFormComplete';
 import { OversiktOverSak } from './views/oversiktOverSak/oversiktOverSak';
+import {mineSakerBedrift} from "./views/MinSide/mineSaker/mineSakerBedrift";
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== 'production') {
@@ -52,7 +53,8 @@ if (root)
         <Route path="/login" component={Login}/>
         <Route path="/map" component={MapComponent}/>
         <Route path="/min_side/mine_saker" component={MineSaker}/>
-        <Route path="/addCategory" component={adminAddCategory}/>
+          <Route path="/min_side/mine_sakerBedrift" component={mineSakerBedrift} />
+          <Route path="/addCategory" component={adminAddCategory}/>
         <Route exact path="/register" component={RegisterUser}/>
         <Route exact path="/register/company" component={RegisterCompany}/>
         <Route path="/min_side/varselinstillinger" component={NotificationSettings}/>

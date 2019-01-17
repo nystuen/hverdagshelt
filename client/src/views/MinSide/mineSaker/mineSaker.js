@@ -41,11 +41,12 @@ export class MineSaker extends React.Component<Props, State> {
     category3: []
   };
 
-  componentWillMount() {
-    let decoded = jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret');
-    userService.getMyIssues(decoded.email).then(response => {
-      this.setState({ issues: response });
-    }).catch((error: Error) => Alert.danger(error.message));
+    componentWillMount(){
+        let decoded = jwt.verify(window.localStorage.getItem('userToken'), "shhhhhverysecret");
+        userService.getMyIssues(decoded.email).then(response => {
+            this.setState({issues: response});
+            this.getSorted();
+        }).catch((error: Error) => Alert.danger(error.message));
 
     categoryService.getCategory1().then(response => {
       this.setState({ category1: response });
@@ -127,17 +128,26 @@ export class MineSaker extends React.Component<Props, State> {
     this.status = new Status(status);
   }//end method
 
-  getSorted() {
-    //Sorting view so completed issues are listed at the bottom
-    let sorted: Object = [];
-    this.state.issues.map(e => {
-      if (e.statusName !== 'Completed') sorted.push(e);
-    });
-    this.state.issues.map(e => {
-      if (e.statusName === 'Completed') sorted.push(e);
-    });
-    this.setState({ issues: sorted });
-  }//end method
+    getSorted = () => {
+        //Sorting view so completed issues are listed at the bottom
+        let sorted: Object = [];
+        this.state.issues.map(e => {
+            if(e.statusName === 'Registered'){
+                sorted.push(e)
+            }
+        });
+        this.state.issues.map(e => {
+            if(e.statusName === 'In progress'){
+                sorted.push(e)
+            }
+        });
+        this.state.issues.map(e => {
+            if(e.statusName === 'Completed'){
+                sorted.push(e)
+            }
+        });
+        this.setState({issues: sorted});
+    };//end method
 
   setCategory = (cat: Object[], i: number) => {
     if (cat[i] !== undefined)

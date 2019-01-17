@@ -8,30 +8,26 @@ import {
 } from 'react-bootstrap';
 import css from './NavbarMenu.css';
 import { PageHeader } from '../PageHeader/PageHeader';
-import jwt from 'jsonwebtoken';
+import * as jwt from "jsonwebtoken";
 import { User } from '../../classTypes';
 import { UserService } from '../../services';
 import Glyphicon from 'react-bootstrap/es/Glyphicon';
 
 let userService = new UserService();
 
-
 let loginButton;
-let hverdagsHelt;
+let myCases;
 
 export class NavbarMenu extends React.Component {
 
   constructor(props) {
     super(props);
 
-    this.toggle = this.toggle.bind(this);
-
-    this.state = {
-      isOpen: false
-    };
-
-  }
-
+        this.toggle = this.toggle.bind(this);
+        this.state = {
+            isOpen: false
+        };
+    }
 
   toggle() {
     this.setState({
@@ -39,12 +35,13 @@ export class NavbarMenu extends React.Component {
     });
   }
 
-  render() {
-    if (window.localStorage.getItem('userToken') === '') {
-      loginButton = <NavItem eventKey={1} href="/#login">Login</NavItem>;
-    } else {
-      loginButton = <NavItem eventKey={1} href="/#login" onClick={() => this.logout()}> Log out</NavItem>;
-    }//end condition
+    render() {
+        if (window.localStorage.getItem('userToken') === '') {
+            loginButton = <NavItem eventKey={1} href="/#login">Login</NavItem>
+        } else {
+            loginButton = <NavItem eventKey={1} href="/#login" onClick={() => this.logout()}> Log out</NavItem>
+            this.viewCases();
+        }//end condition
 
     return (
       <Navbar collapseOnSelect fluid>
@@ -68,7 +65,7 @@ export class NavbarMenu extends React.Component {
 
           <Nav pullRight>
             <NavDropdown title={'Min side'} id='1'>
-              <MenuItem eventKey={2} href="/#min_side/mine_saker">Mine saker</MenuItem>
+              {this.viewCases()}
               <MenuItem eventKey={1} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
               <MenuItem eventKey={1} href="/#min_side/kommuner">Kommuner</MenuItem>
               <MenuItem eventKey={1} href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
@@ -77,13 +74,27 @@ export class NavbarMenu extends React.Component {
           </Nav>
         </Navbar.Collapse>
 
-      </Navbar>
-    )
-      ;
+  </Navbar>
+  )
+    ;
   }//end method
 
-  logout = () => {
-    window.localStorage.setItem('userToken', '');
-    loginButton = <NavItem eventKey={1} href="/#login">Login</NavItem>;
-  };//end method
+    logout = () => {
+        window.localStorage.setItem('userToken', '');
+        this.viewCases();
+        loginButton = <NavItem eventKey={1} href="/#login">Login</NavItem>
+    };//end method
+
+    viewCases = () => {
+        if (window.localStorage.getItem('userToken') !== '') {
+            let decoded = jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret');
+            if (decoded.typeId === 'Company') {
+                return <MenuItem eventKey={2} href="/#min_side/mine_sakerBedrift">Mine saker</MenuItem>
+            } else {
+                return <MenuItem eventKey={2} href="/#min_side/mine_saker">Mine saker</MenuItem>
+            }//end condition}
+        }else{
+            return <MenuItem eventKey={2} href="/#login">Mine saker</MenuItem>
+        }//end condition
+    };//end method
 }
