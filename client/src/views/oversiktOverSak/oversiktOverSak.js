@@ -16,6 +16,7 @@ import * as jwt from "jsonwebtoken";
 import MenuItem from "react-bootstrap/es/MenuItem";
 import Button from "react-bootstrap/es/Button";
 import {history} from "../../index";
+import css from './oversiktOverSak.css';
 
 let issueService = new IssueService();
 let categoryService = new CategoryService();
@@ -62,53 +63,31 @@ export class OversiktOverSak extends React.Component{
             editStatus = this.state.editStatus;
         }
         return(
-            <Grid>
-                <Row>
-                    <Col>
-                        <PageHeader> <small>Beskrivelse</small> </PageHeader>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
+            <Grid className="sak">
+                <Col xs={12} md={4}>
+
+                    <h3>Beskrivelse</h3>
+                    <p>{this.state.issue.text}</p>
+
+                    <h3>Status</h3>
+                    <ProgressBar bsStyle={this.state.status.progressBar} now={this.state.status.progress}
+                                 label={this.state.issue.statusName}/>
+
+                    <h3>Dato sendt inn</h3>
+                    <p>{this.state.issue.date}</p>
+
+                    <h3>Adresse</h3>
+                    <p>{this.state.issue.address}</p>
+
+                    <h3>Kategori</h3>
+                    <p>{this.Categories()}</p>
+
+                </Col>
+
+                <Col xs={12} md={8}>
                     {this.showPic()}
-                    </Col>
-                    <Col>
-                        <h4>{this.state.issue.text}</h4>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <PageHeader> <small>Kategori</small></PageHeader>
-                    </Col>
-                    <Col>
-                        {this.Categories()}
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <PageHeader> <small> Dato sendt inn</small></PageHeader>
-                    </Col>
-                    <Col>
-                        <h4>{this.state.issue.date}</h4>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <PageHeader> <small> Adresse</small></PageHeader>
-                    </Col>
-                    <Col>
-                        <h4><b> {this.state.issue.name} </b> - {this.state.issue.address} </h4>
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <PageHeader> <small>Status</small></PageHeader>
-                    </Col>
-                    <Col>
-                        <ProgressBar bsStyle={this.state.status.progressBar} now={this.state.status.progress}
-                                     label={this.state.issue.statusName}/>
-                    </Col>
-                </Row>
+                </Col>
+
                 <Row>
                     <Col>
                         {editStatus}
@@ -159,15 +138,10 @@ export class OversiktOverSak extends React.Component{
     }//end method
 
     Categories(){
-        if(this.state.categoryLevel === 1){
-            return <h3><b>{this.state.issue.categoryId}.0 </b> {this.state.category1.name}</h3>
-        }else{
-            return(
-                <div>
-                    {this.showCategory2()}
-                </div>
-
-            )
+        if (this.state.categoryLevel === 1) {
+            return (<p>{this.state.category1.name}</p>);
+        } else if (this.state.categoryLevel === 2) {
+            return (<p>{this.state.category1.name} - {this.state.category2.name}</p>);
         }//end condition
     }//end method
 
