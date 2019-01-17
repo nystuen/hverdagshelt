@@ -89,7 +89,7 @@ export class IssueService{
   }//end method
 
   updateStatusOneIssue(id: number, statusName: string){
-    return axios.get('/updateStatusOneIssue/' + id,statusName);
+    return axios.post('/updateStatusOneIssue/' + id,{statusName: statusName});
   }//end method
 }//end class
 

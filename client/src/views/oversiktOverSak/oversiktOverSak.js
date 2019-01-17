@@ -14,10 +14,11 @@ import Image from "react-bootstrap/es/Image";
 import DropdownButton from "react-bootstrap/es/DropdownButton";
 import * as jwt from "jsonwebtoken";
 import MenuItem from "react-bootstrap/es/MenuItem";
+import Button from "react-bootstrap/es/Button";
+import {history} from "../../index";
 
 let issueService = new IssueService();
 let categoryService = new CategoryService();
-let decoded = jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret');
 
 interface State{
     issue: Object[];
@@ -39,24 +40,27 @@ export class OversiktOverSak extends React.Component{
             category2: {},
             category3: {},
             status: {},
-            statusName: '',
+            statusName:'',
             categoryLevel: 1, //1 means the issue is not registered under any subcategories
-            editCase: false //if the issue is in progress or completed, user cannot edit issue
+            editCase: false, //if the issue is in progress or completed, user cannot edit issue
+            editStatus: <div>
+                <select onChange={this.setStatus}>
+                    <option value="">Oppdater status </option>
+                    <option value="In progress">In progress </option>
+                    <option value="Completed"> Completed</option>
+                </select>
+                <Button onClick={this.saveThisStatus}> Lagre status</Button>
+            </div>
         };
     }//end constructor
 
 
     render(){
-       /* let editStatus;
+       let editStatus;
+       let decoded = jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret');
         if(decoded.typeId === 'Company'){
-            editStatus =  <div>
-                <select>
-                    <option value="" onChange={this.setStatus('')}>Oppdater status </option>
-                    <option value="In progress" onChange={this.setStatus('In progress')}>In progress </option>
-                    <option value="Completed" onChange={this.setStatus('Completed')}> Completed</option>
-                </select>
-            </div>
-        }*/
+            editStatus = this.state.editStatus;
+        }
         return(
             <Grid>
                 <Row>
@@ -107,7 +111,7 @@ export class OversiktOverSak extends React.Component{
                 </Row>
                 <Row>
                     <Col>
-
+                        {editStatus}
                     </Col>
                 </Row>
                 <br/>
@@ -230,7 +234,7 @@ export class OversiktOverSak extends React.Component{
         }
     }//end method
 
-    /*editStatus = () =>{
+    editStatus(){
             return(
                 <div>
                    <select>
@@ -238,18 +242,19 @@ export class OversiktOverSak extends React.Component{
                        <option value="In progress" onChange={this.setStatus('In progress')}>In progress </option>
                        <option value="Completed" onChange={this.setStatus('Completed')}> Completed</option>
                    </select>
+                    <Button onClick={this.saveThisStatus}> Lagre status</Button>
                 </div>
             )
-    };//end method*/
-
-    setStatus = (event: string) =>{
-        this.setState({statusName: event})
     };//end method
 
-    saveThisStatus(){
+    setStatus = (event: Event) =>{
+        this.setState({statusName: event.target.value})
+    };//end method
+
+    saveThisStatus = () =>{
         issueService.updateStatusOneIssue(this.state.issue.issueId, this.state.statusName).then(response => {
-            history.push('/#min_side/mine_sakerBedrift');
         }).catch((error: Error) => Alert.danger(error.message));
-    }//end method
+        history.push('/min_side/mine_sakerBedrift');
+    };//end method
 }//end class
 

@@ -45,7 +45,7 @@ export class NavbarMenu extends React.Component {
             <Navbar collapseOnSelect fluid>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <a href="/#/forside">Hverdagshelt</a>
+                        <a href="/#/forside/2">Hverdagshelt</a>
                     </Navbar.Brand>
                     <Navbar.Toggle/>
                 </Navbar.Header>

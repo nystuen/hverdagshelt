@@ -55,7 +55,8 @@ module.exports = function(app: Object, issueDao: Object) {
 
   app.post("/updateStatusOneIssue/:id", (req,res) => {
     console.log("received update request for status on issue " + req.params.id);
-    issueDao.updateStatusOneIssue(req.params.id, req.statusName, (status,data) => {
+    console.log(req.body.statusName);
+    issueDao.updateStatusOneIssue(req.params.id, req.body.statusName, (status,data) => {
       res.status(status);
       res.json(data);
     });
