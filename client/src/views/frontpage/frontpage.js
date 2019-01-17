@@ -70,10 +70,10 @@ export class Frontpage extends Component<Props, State> {
       <div className="frontpage">
         <Grid className="chooseCounty">
           <Form>
-            <Col xs={5} md={4}>
+            <Col xs={1} md={4}>
             </Col>
 
-            <Col xs={2} md={4}>
+            <Col xs={10} md={4}>
               <FormGroup>
                 <Select
                   placeholder={'Klikk her for å velge kommune'}
@@ -89,7 +89,7 @@ export class Frontpage extends Component<Props, State> {
               </div>
             </Col>
 
-            <Col xs={5} md={4}>
+            <Col xs={1} md={4}>
             </Col>
           </Form>
         </Grid>

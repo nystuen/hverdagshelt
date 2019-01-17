@@ -90,8 +90,7 @@ export class Login extends Component<Props, State> {
                        rounded/>
               </div>
               <div className="loginBox">
-
-
+                
                 <Row className="show-grid">
                   <FormGroup>
                     <FormControl type="text" placeholder="Email" value={this.state.email}
