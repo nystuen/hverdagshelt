@@ -162,14 +162,14 @@ export class RegisterCompany extends Component<Props, State>{
                             <FormGroup>
                                 <Col md={6}>
                                     <FormGroup>
-                                        <FormControl type="text" value={this.state.firstName} placeholder="Fornavn"
+                                        <FormControl type="text" value={this.state.firstName} placeholder="Kontaktpersonens Fornavn"
                                                      onChange={this.handleStringChange("firstName")}
                                         />
                                     </FormGroup>
                                 </Col>
                                 <Col md={6}>
                                     <FormGroup>
-                                        <FormControl type="text" value={this.state.lastName} placeholder="Etternavn"
+                                        <FormControl type="text" value={this.state.lastName} placeholder="Kontaktpersonens Etternavn"
                                                      onChange={this.handleStringChange("lastName")}/>
                                     </FormGroup>
                                 </Col>
@@ -177,14 +177,14 @@ export class RegisterCompany extends Component<Props, State>{
                             <FormGroup>
                                 <Col md={6}>
                                     <FormGroup>
-                                        <FormControl type="text" value={this.state.address} placeholder="Addresse"
+                                        <FormControl type="text" value={this.state.address} placeholder="Bedriftens Addresse"
                                                      onChange={this.handleStringChange("address")}
                                         />
                                     </FormGroup>
                                 </Col>
                                 <Col md={6}>
                                     <FormGroup>
-                                        <FormControl type="text" value={this.state.postNumber} placeholder="Postnummer"
+                                        <FormControl type="text" value={this.state.postNumber} placeholder="Bedriftens Postnummer"
                                                      onChange={this.handleNumberChange("postNumber")}/>
                                     </FormGroup>
                                 </Col>

@@ -53,20 +53,26 @@ export class NavbarMenu extends React.Component {
           </Navbar.Brand>
           <Navbar.Toggle/>
         </Navbar.Header>
+        <Nav>
 
-        <Navbar.Collapse>
-          <Nav pullRight>
-            <NavDropdown title={'Min side'} id='1'>
-              <MenuItem eventKey={2} href="/#min_side/mine_saker">Mine saker</MenuItem>
-              <MenuItem eventKey={1} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
-              <MenuItem eventKey={1} href="/#min_side/kommuner">Kommuner</MenuItem>
-              <MenuItem eventKey={1} href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
-            </NavDropdown>
-            {loginButton}
-          </Nav>
-        </Navbar.Collapse>
+          <NavItem href={"/#/"}>Velg kommune</NavItem>
+
+          <Navbar.Collapse>
+            <Nav pullRight>
+              <NavDropdown title={'Min side'} id='1'>
+                <MenuItem eventKey={2} href="/#min_side/mine_saker">Mine saker</MenuItem>
+                <MenuItem eventKey={1} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
+                <MenuItem eventKey={1} href="/#min_side/kommuner">Kommuner</MenuItem>
+                <MenuItem eventKey={1} href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
+              </NavDropdown>
+              {loginButton}
+            </Nav>
+          </Navbar.Collapse>
+
+        </Nav>
       </Navbar>
-    );
+    )
+      ;
   }//end method
 
   logout = () => {
