@@ -11,6 +11,8 @@ import Grid from 'react-bootstrap/es/Grid';
 import { FormControl, PageHeader } from 'react-bootstrap';
 import Checkbox from 'react-bootstrap/es/Checkbox';
 import Select from 'react-select';
+import { history } from '../../index';
+
 
 let countyService = new CountyService();
 let userService = new UserService();
@@ -351,6 +353,8 @@ export class RegisterUser extends Component<Props, State> {
     };
 
     addSubscription(theBody);
+
+    history.push('/login');
 
   };
 }

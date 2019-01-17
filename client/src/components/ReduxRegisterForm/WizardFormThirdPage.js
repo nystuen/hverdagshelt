@@ -1,20 +1,21 @@
-import React from "react";
-import { Field, reduxForm } from "redux-form";
-import validate from "./validate";
-import renderField from "./renderField";
-import renderEmail from "./renderEmail";
-import { Button } from "react-bootstrap";
-import jwt from "jsonwebtoken";
-import { User } from "../../classTypes";
-import { UserService } from "../../services";
+import React from 'react';
+import { Field, reduxForm } from 'redux-form';
+import validate from './validate';
+import renderField from './renderField';
+import renderEmail from './renderEmail';
+import { Button } from 'react-bootstrap';
+import jwt from 'jsonwebtoken';
+import { User } from '../../classTypes';
+import { UserService } from '../../services';
+import { history } from '../../index';
 
 let userService = new UserService();
 
-const countyID = ["1", "2", "3"];
+const countyID = ['1', '2', '3'];
 const counties = [
-  { county: "Oslo", id: "1" },
-  { county: "Trondheim", id: "2" },
-  { county: "jhbdsahbds", id: "3" }
+  { county: 'Oslo', id: '1' },
+  { county: 'Trondheim', id: '2' },
+  { county: 'jhbdsahbds', id: '3' }
 ];
 
 const renderCountySelector = ({ input, meta: { touched, error } }) => (
@@ -33,15 +34,18 @@ const renderCountySelector = ({ input, meta: { touched, error } }) => (
 
 export class WizardFormThirdPage extends React.Component {
   setProps = () => {
-    this.props.change("userMail", this.state.decoded.email);
-    this.props.change("countyId", this.state.user.countyId);
-    console.log("setting props! mail");
+    this.props.change('userMail', this.state.decoded.email);
+    this.props.change('countyId', this.state.user.countyId);
+    console.log('setting props! mail');
     console.log(this.state.user.countyId);
+    setTimeout(function() {
+      history.push('/min_side/mine_saker').bind(this)
+    }, 1000);
   };
   state = {
     decoded: jwt.verify(
-      window.localStorage.getItem("userToken"),
-      "shhhhhverysecret"
+      window.localStorage.getItem('userToken'),
+      'shhhhhverysecret'
     ),
     user: User,
     value: String
@@ -116,8 +120,9 @@ export class WizardFormThirdPage extends React.Component {
     );
   }
 }
+
 export default reduxForm({
-  form: "wizard", //Form name is same
+  form: 'wizard', //Form name is same
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate

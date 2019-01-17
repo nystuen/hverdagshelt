@@ -36,7 +36,6 @@ export class OversiktOverSak extends React.Component {
     return (
       <Grid className="sak">
 
-
         <Col xs={12} md={4}>
 
           <h3>Beskrivelse</h3>
@@ -57,12 +56,8 @@ export class OversiktOverSak extends React.Component {
 
         </Col>
 
-        <Col xs={12} md={4}>
+        <Col xs={12} md={8}>
           {this.showPic()}
-        </Col>
-
-        <Col xs={0} md={4}>
-
         </Col>
 
 
