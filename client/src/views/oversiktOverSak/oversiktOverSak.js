@@ -24,7 +24,6 @@ export class OversiktOverSak extends React.Component {
       issue: {},
       category1: {},
       category2: {},
-      category3: {},
       status: {},
       categoryLevel: 1, //1 means the issue is not registered under any subcategories
       editCase: false //if the issue is in progress or completed, user cannot edit issue

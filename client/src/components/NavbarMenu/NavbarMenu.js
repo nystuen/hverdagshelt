@@ -11,6 +11,7 @@ import { PageHeader } from '../PageHeader/PageHeader';
 import jwt from 'jsonwebtoken';
 import { User } from '../../classTypes';
 import { UserService } from '../../services';
+import Glyphicon from 'react-bootstrap/es/Glyphicon';
 
 let userService = new UserService();
 
@@ -46,16 +47,21 @@ export class NavbarMenu extends React.Component {
     }//end condition
 
     return (
-      <Navbar collapseOnSelect fluid>
-        <Navbar.Header>
-          <Navbar.Brand>
-            <a href={'/#/forside/2'}>Hverdagshelt</a>
-          </Navbar.Brand>
-          <Navbar.Toggle/>
-        </Navbar.Header>
-        <Nav>
+        <Navbar collapseOnSelect fluid>
+          <Navbar.Header>
+            <Navbar.Brand>
+              <a href={'/#/wizardForm'}>Hverdagshelt</a>
+            </Navbar.Brand>
+            <Navbar.Toggle/>
+          </Navbar.Header>
 
-          <NavItem href={"/#/"}>Velg kommune</NavItem>
+      <Nav>
+          <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-th-list"/> Velg kommune</NavItem>
+          <NavItem href={'/#/wizardForm'}><Glyphicon glyph="glyphicon glyphicon-plus"/> Legg til sak</NavItem>
+          <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-road"/> Eventer</NavItem>
+          <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
+          <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-question-sign"/> Hjelp</NavItem>
+      </Nav>
 
           <Navbar.Collapse>
             <Nav pullRight>
@@ -69,10 +75,9 @@ export class NavbarMenu extends React.Component {
             </Nav>
           </Navbar.Collapse>
 
-        </Nav>
-      </Navbar>
-    )
-      ;
+  </Navbar>
+  )
+    ;
   }//end method
 
   logout = () => {

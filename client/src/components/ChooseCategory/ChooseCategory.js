@@ -1,20 +1,20 @@
-import ReactDOM from "react-dom";
-import * as React from "react";
-import { Component } from "react-simplified";
+import ReactDOM from 'react-dom';
+import * as React from 'react';
+import { Component } from 'react-simplified';
 import {
   ButtonToolbar,
   ToggleButtonGroup,
   ToggleButton,
   Collapse,
   Button
-} from "react-bootstrap";
-import { CategoryService } from "../../services";
-import { Category, Category2, Category3 } from "../../classTypes";
-import PanelGroup from "react-bootstrap/es/PanelGroup";
-import Panel from "react-bootstrap/es/Panel";
-import ListGroup from "react-bootstrap/es/ListGroup";
-import ListGroupItem from "react-bootstrap/es/ListGroupItem";
-import cloneDeep from "lodash/cloneDeep";
+} from 'react-bootstrap';
+import { CategoryService } from '../../services';
+import { Category, Category2, Category3 } from '../../classTypes';
+import PanelGroup from 'react-bootstrap/es/PanelGroup';
+import Panel from 'react-bootstrap/es/Panel';
+import ListGroup from 'react-bootstrap/es/ListGroup';
+import ListGroupItem from 'react-bootstrap/es/ListGroupItem';
+import cloneDeep from 'lodash/cloneDeep';
 import css from './chooseCategory.css';
 
 let categoryService = new CategoryService();
@@ -25,11 +25,10 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
     this.state = {
       category1: [],
       category2: [],
-      category3: [],
-      selectedCategory: { name: "ingen" },
+      selectedCategory: { name: 'ingen' },
       selectedCategoryType: 0,
       selectedCategoryId: -1,
-      newCategoryHeader: "Den nye overkategorien"
+      newCategoryHeader: 'Den nye overkategorien'
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -59,7 +58,6 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
   componentDidMount() {
     let kat1 = [];
     let kat2 = [];
-    let kat3 = [];
 
     categoryService.getCategory1().then(resources => {
       resources.map(r => {
@@ -78,44 +76,28 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
       });
     });
 
-    categoryService.getCategory2().then(resources => {
-      resources.map(r => {
-        let elem: Category2 = {
-          name: r.name,
-          id: r.category2Id,
-          idUp: r.categoryId,
-          priority: r.priority,
-          active: r.active,
-          open: false
-        };
-        kat2 = kat2.concat(elem);
-      });
-
-      console.log("kat2", kat2);
-      this.setState({
-        category2: kat2
-      });
-    });
-
     if (!this.props.registerCategory) {
-      // only load cat3 if this component is not in registerCategory
 
-      categoryService.getCategory3().then(resources => {
+      categoryService.getCategory2().then(resources => {
         resources.map(r => {
-          let elem: Category3 = {
+          let elem: Category2 = {
             name: r.name,
-            id: r.category3Id,
-            idUp: r.category2Id,
+            id: r.category2Id,
+            idUp: r.categoryId,
             priority: r.priority,
-            active: r.active
+            active: r.active,
+            open: false
           };
-          kat3 = kat3.concat(elem);
+          kat2 = kat2.concat(elem);
         });
 
+        console.log('kat2', kat2);
         this.setState({
-          category3: kat3
+          category2: kat2
         });
       });
+
+
     }
   }
 
@@ -168,43 +150,25 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
     );
   }
 
-  handleClick3(cat3: Category3) {
-    console.log("cat3Id:", cat3);
-
-    this.setState(
-      {
-        selectedCategory: cat3,
-        selectedCategoryType: this.getCategoryType(cat3),
-        selectedCategoryId: cat3.id
-      },
-      this.onChangeCategoryHeader.bind(this)
-    );
-  }
-
   getCategoryType(category) {
-    let returnValue = "0";
+    let returnValue = '0';
 
-    console.log("nameInGetCategoryType:", category.name);
+    console.log('nameInGetCategoryType:', category.name);
 
     this.state.category1.map(cat1 => {
       if (cat1.name == category.name) {
-        returnValue = "1";
+        returnValue = '1';
       }
     });
 
     this.state.category2.map(cat2 => {
       if (cat2.name == category.name) {
-        returnValue = "2";
+        returnValue = '2';
       }
     });
 
-    this.state.category3.map(cat3 => {
-      if (cat3.name == category.name) {
-        returnValue = "3";
-      }
-    });
 
-    console.log("returnvalue:", returnValue);
+    console.log('returnvalue:', returnValue);
     return returnValue;
   }
 
@@ -226,30 +190,9 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
                         return (
                           <div key={cat2.id}>
                             <ListGroupItem className="cat2"
-                              onClick={() => this.handleClick2(cat2)}
-                            >
+                                           onClick={() => this.handleClick2(cat2)}>
                               ___cat2: {cat2.name}
                             </ListGroupItem>
-
-                            <Collapse in={cat2.open}>
-                              <div>
-                                {this.state.category3.map(cat3 => {
-                                  if (cat3.idUp == cat2.id) {
-                                    return (
-                                      <div key={cat3.id}>
-                                        <ListGroupItem className="cat3"
-                                          onClick={() =>
-                                            this.handleClick3(cat3)
-                                          }
-                                        >
-                                          ______cat3: {cat3.name}
-                                        </ListGroupItem>
-                                      </div>
-                                    );
-                                  }
-                                })}
-                              </div>
-                            </Collapse>
                           </div>
                         );
                       }
