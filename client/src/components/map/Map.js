@@ -151,7 +151,7 @@ export class MapComponent extends Component<{}, State> {
         <div className="choice-map-container">
           <div className="choice-map">
             <input className="input-map" placeholder="Adresse, by" onChange={this.onChange.bind(this)} value={this.state.address}></input>
-            <Button bsStyle="primary" onClick={this.handleClick}>Meld feil</Button>
+            <Button bsStyle="success" onClick={this.handleClick}>Meld feil</Button>
           </div>
         </div>
       </div>

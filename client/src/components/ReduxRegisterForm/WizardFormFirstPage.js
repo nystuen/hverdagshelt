@@ -61,6 +61,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
     Geocode.fromLatLng(e.latlng.lat, e.latlng.lng).then(
       response => {
         const address_found = response.results[0].formatted_address;
+        this.props.change("address", address_found);
         this.setState({
           hasLocation: true,
           latlng: e.latlng,
@@ -79,6 +80,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
     Geocode.fromLatLng(e.latlng.lat, e.latlng.lng).then(
       response => {
         const address_found = response.results[0].formatted_address;
+        this.props.change("address", address_found);
         this.setState({
           hasLocation: true,
           latlng: e.latlng,
@@ -104,6 +106,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
         const { lat, lng } = response.results[0].geometry.location;
         this.props.change("latitude", lat);
         this.props.change("longitude", lng);
+        this.props.change("address", this.state.address);
         this.setState({
           latlng: { lat, lng },
           zoom: 17,
@@ -162,7 +165,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
               onChange={this.onChange.bind(this)}
               value={this.state.address}
             />
-            <Button bsStyle="primary" onClick={this.handleClick}>
+            <Button bsStyle="success" onClick={this.handleClick}>
               Meld feil
             </Button>
           </div>
@@ -179,8 +182,14 @@ export class WizardFormFirstPage extends Component<{}, State> {
               label="longitude"
               component={renderField}
             />
+            <Field
+              name="adr"
+              type="text"
+              label="addresse"
+              component={renderField}
+            />
             <Button
-              bsStyle="primary"
+              bsStyle="success"
               type="submit"
               className="next + ' ' + submitButton"
               onClick={this.handleSubmit}

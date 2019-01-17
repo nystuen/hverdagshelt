@@ -41,7 +41,9 @@ export class Login extends Component<Props, State> {
     error: false,
     email: '',
     password: '',
-    storedPassword: ''
+    storedPassword: '',
+    countyId: 0,
+    string: './logo.png'
   };
 
   handleChangeEmail = (event: SyntheticEvent<HTMLButtonElement>) => {
@@ -89,6 +91,7 @@ export class Login extends Component<Props, State> {
               </div>
 
               <div className="loginBox">
+
                 <Row className="show-grid">
                   <FormGroup>
                     <FormControl type="text" placeholder="Email" value={this.state.email}
@@ -132,6 +135,7 @@ export class Login extends Component<Props, State> {
     //console.log(this.state.email);
     userService.getUserLogin(this.state.email).then(response => {
       this.setState({
+        countyId: response[0].countyId,
         storedPassword: response[0].password
       });
 
@@ -141,7 +145,9 @@ export class Login extends Component<Props, State> {
             let token = r.jwt;
             window.localStorage.setItem('userToken', token);
             console.log('login in success');
-            history.push('/#forside/2');
+
+            history.push('/forside/' + this.state.countyId);
+
           }).catch((error: Error) => Alert.danger(error.message));
         } else { //check if the email is a company email
             userService.getCompanyLogin(this.state.email).then(r => {

@@ -11,7 +11,8 @@ import Select from 'react-select';
 import Row from 'react-bootstrap/es/Row';
 
 let countyService = new CountyService();
-let imageUrl = '../../../public/resources/osloBackground.png';
+import logo from './osloBackground.png';
+import FormControl from 'react-bootstrap/es/FormControl';
 
 
 export class Frontpage extends Component<Props, State> {
@@ -23,12 +24,12 @@ export class Frontpage extends Component<Props, State> {
       choosen: { label: 'Bergen', countyId: 1 },
       values: [
         { label: 'Bergen', countyId: 1 }
-      ]
+      ],
+      background: logo
     };
 
     this.handleChangeCounty = this.handleChangeCounty.bind(this);
   }
-
 
   handleChangeCounty(e: Object) {
     console.log(e.value);
@@ -67,16 +68,30 @@ export class Frontpage extends Component<Props, State> {
     });
     return (
       <div className="frontpage">
-        <Grid>
-          <FormGroup>
-            <Select
-              placeholder={'Klikk her for å velge kommune'}
-              options={optionTemplate}
-              className="frontpage-county"
-              onChange={this.handleChangeCounty}
-            />
-          </FormGroup>
-          <Button className={'frontpage-button'} href={'/#home/' + this.state.choosen}>Gå videre!</Button>
+        <Grid className="chooseCounty">
+          <Form>
+            <Col xs={1} md={4}>
+            </Col>
+
+            <Col xs={10} md={4}>
+              <FormGroup>
+                <Select
+                  placeholder={'Klikk her for å velge kommune'}
+                  options={optionTemplate}
+                  className="frontpage-county"
+                  onChange={this.handleChangeCounty}
+                />
+              </FormGroup>
+
+              <div align="center">
+                <Button bsStyle="success" className={'frontpage-button'} href={'/#forside/' + this.state.choosen}>Gå
+                  videre!</Button>
+              </div>
+            </Col>
+
+            <Col xs={1} md={4}>
+            </Col>
+          </Form>
         </Grid>
       </div>
     );
