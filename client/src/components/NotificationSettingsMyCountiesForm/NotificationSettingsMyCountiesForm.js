@@ -25,7 +25,7 @@ interface State {
     notificationSettings: Object[],
     userCounties: Object[],
     categories: Object[],
-    selectedCounty: Object
+    selectedCounty: number
 
 }
 
@@ -35,7 +35,7 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
         notificationSettings: [],
         userCounties: [],
         categories: [],
-        selectedCounty: Object
+        selectedCounty: -1
 
     };
 
@@ -122,7 +122,7 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
         this.setState(
             {
                 userCounties: countyArr,
-                selectedCounty: county,
+                selectedCounty: county.countyId,
                 categories: catArr
             }
         );
@@ -130,22 +130,43 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
 
     onClickHandler(category: Object) {
         let catArr = cloneDeep(this.state.categories);
+        let settingsArr = cloneDeep(this.state.notificationSettings);
 
+        // invert the selected category's checked status
         let catIndex = this.state.categories.indexOf(category);
         catArr[catIndex].checked = !this.state.categories[catIndex].checked;
         this.state.categories[catIndex].checked = !this.state.categories[catIndex].checked;
 
+        // remove all settings for the selected county
+        this.state.notificationSettings.map(e => {
+            let settingIndex = this.state.notificationSettings.indexOf(e);
+            if (e.countyId === this.state.selectedCounty) {
+                settingsArr.splice(settingIndex, 1);
+            }
+        });
+
+        // add all checked categories for the selected county
+        catArr.map(e => {
+            if (e.checked) {
+                let settingObj = {
+                    countyId: this.state.selectedCounty,
+                    categoryId: e.categoryId,
+                };
+                settingsArr.push(settingObj)
+            }
+        });
+
         this.setState({
+            notificationSettings: settingsArr,
             categories: catArr
-        })
+        });
     }
 
     render() {
         return (
             <form>
                 <Grid>
-                    <h3>Velg kategorier du vil har varselmeldinger på:</h3>
-                    <p>Funker ikke opp mot database enda!!</p>
+                    <h3>Velg en kommune for å vise varselinnstillinger:</h3>
                     <ListGroup>
                         {
                             this.state.userCounties.map(e => {
@@ -182,7 +203,6 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
                         }
                     </ListGroup>
 
-
                     <Button onClick={() => {
                         this.save()
                     }}>Lagre</Button>
@@ -192,6 +212,19 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
     }
 
     save = () => {
+        console.log(this.state.notificationSettings);
 
+        notificationSettingsService.deleteNotificationSettings(this.state.decoded.email)
+            .catch(error => {
+                console.log('Noe gikk galt ved sletting av notificationsettings: ' + 'n\ ' + error.message)
+            });
+
+        this.state.notificationSettings.map(e => {
+            let elem = new NotificationSetting(e.countyId, e.categoryId, this.state.decoded.email);
+            notificationSettingsService.addNotificationSettings(elem)
+                .catch(error => {
+                    console.log('Error when adding: ' + e + 'n\ ' + 'error: ' + error.message)
+                })
+        })
     }
 }
