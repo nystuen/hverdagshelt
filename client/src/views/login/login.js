@@ -18,7 +18,8 @@ import FormControl from 'react-bootstrap/es/FormControl';
 import Button from 'react-bootstrap/es/Button';
 import Grid from 'react-bootstrap/es/Grid';
 import login from './login.css';
-import {history} from '../../index';
+import { history } from '../../index';
+import Image from 'react-bootstrap/es/Image';
 
 let userService = new UserService();
 const bcrypt = require('bcrypt-nodejs');
@@ -29,6 +30,7 @@ interface State {
   password: string;
   storedPassword: string;
   countyId: number;
+  pic: string;
 }//end interface
 
 interface Props {
@@ -40,7 +42,8 @@ export class Login extends Component<Props, State> {
     email: '',
     password: '',
     storedPassword: '',
-    countyId: 0
+    countyId: 0,
+    string: './logo.png'
   };
 
   handleChangeEmail = (event: SyntheticEvent<HTMLButtonElement>) => {
@@ -81,7 +84,14 @@ export class Login extends Component<Props, State> {
             </Col>
 
             <Col xs={2} md={4}>
+              <div className="center">
+                <Image className="picture"
+                       src={'https://lh6.googleusercontent.com/PfK5JYJcvPmaTCnKjlVkQYJ_qSvRiNHrMIYyX9DxRdYirDgoIIJaZPJXnPVbXvRDCxpv4FhrZPTDjpqFnavL=w2788-h1534-rw'}
+                       rounded/>
+              </div>
               <div className="loginBox">
+
+
                 <Row className="show-grid">
                   <FormGroup>
                     <FormControl type="text" placeholder="Email" value={this.state.email}
@@ -104,8 +114,9 @@ export class Login extends Component<Props, State> {
 
                 <div align="center">
                   <p>Har du ikke bruker?</p>
-                  
-                  <p>Registrer deg <a href={'/#/register'}>her</a> hvis du er privatperson, og <a href="/#/register/company"> her</a> hvis du er
+
+                  <p>Registrer deg <a href={'/#/register'}>her</a> hvis du er privatperson, og <a
+                    href="/#/register/company"> her</a> hvis du er
                     bedrift.</p>
                 </div>
               </div>
@@ -123,7 +134,7 @@ export class Login extends Component<Props, State> {
     //console.log(this.state.email);
     userService.getUserLogin(this.state.email).then(response => {
       this.setState({
-        countyId : response[0].countyId,
+        countyId: response[0].countyId,
         storedPassword: response[0].password
       });
       bcrypt.compare(this.state.password, response[0].password, (err, res) => {

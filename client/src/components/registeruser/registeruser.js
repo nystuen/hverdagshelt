@@ -258,6 +258,8 @@ export class RegisterUser extends Component<Props, State> {
               </FormGroup>
               <FormGroup>
                 <Col md={4}>
+                </Col>
+                <Col md={4}>
                   <FormGroup>
                     <Label>
                       Hjemmekommune
@@ -275,21 +277,6 @@ export class RegisterUser extends Component<Props, State> {
                   </FormGroup>
                 </Col>
                 <Col md={4}>
-                  <FormGroup>
-                    <Label>Velg kommuner du vil følge</Label>
-                  </FormGroup>
-                  <FormGroup>
-                    <Checkbox inline>Oslo</Checkbox><Checkbox>Trondheim</Checkbox><Checkbox>Bergen</Checkbox>
-                  </FormGroup>
-                </Col>
-                <Col md={4}>
-                  <FormGroup>
-                    <Label>Velg arbeidsområder</Label>
-                  </FormGroup>
-                  <FormGroup>
-                    <Checkbox inline>Vann og
-                      avløp</Checkbox><Checkbox>Veiarbeid</Checkbox><Checkbox>Strømbrudd</Checkbox>
-                  </FormGroup>
                 </Col>
               </FormGroup>
               <FormGroup>
