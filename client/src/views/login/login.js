@@ -132,7 +132,7 @@ export class Login extends Component<Props, State> {
             let token = r.jwt;
             window.localStorage.setItem('userToken', token);
             console.log('login in success');
-            history.push('/#forside');
+            history.push('/#forside/2');
           }).catch((error: Error) => Alert.danger(error.message));
         } else { //check if the email is a company email
             userService.getCompanyLogin(this.state.email).then(r => {
@@ -142,7 +142,7 @@ export class Login extends Component<Props, State> {
                     let token = r.jwt;
                     window.localStorage.setItem('userToken', token);
                     console.log('login in success');
-                    history.push('/#forside');
+                    history.push('/#forside/2');
                   }).catch((error: Error) => Alert.danger(error.message));
                 }else{
                   this.setState({
@@ -166,7 +166,7 @@ export class Login extends Component<Props, State> {
               let token = r.jwt;
               window.localStorage.setItem('userToken', token);
               console.log('login in success');
-              history.push('/#forside');
+              history.push('/#forside/2');
             }).catch((error: Error) => Alert.danger(error.message));
           }else{
             this.setState({
