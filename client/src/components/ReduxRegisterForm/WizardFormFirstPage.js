@@ -1,7 +1,7 @@
 // @flow
 import { Field, reduxForm } from "redux-form";
 import validate from "./validate";
-import renderField from "./renderField";
+import renderCategoryField from "./renderCategoryField";
 import React, { Component, createRef } from "react";
 import { Map, TileLayer, Marker, Popup, withLeaflet } from "react-leaflet";
 import * as ELG from "esri-leaflet-geocoder";
@@ -130,6 +130,11 @@ export class WizardFormFirstPage extends Component<{}, State> {
       right: "0"
     };
 
+    let centerStyle = {
+      alignItems: "center",
+      justifyContent: "center",
+    }
+
     let marker = this.state.hasLocation ? (
       <Marker position={this.state.latlng}>
         <Popup>{this.state.address}</Popup>
@@ -163,31 +168,33 @@ export class WizardFormFirstPage extends Component<{}, State> {
               value={this.state.address}
             />
             <Button bsStyle="primary" onClick={this.handleClick}>
-              Meld feil
+              Finn addresse
             </Button>
           </div>
-          <form onSubmit={handleSubmit}>
-            <Field
-              name="lat"
-              type="text"
-              label="latitude"
-              component={renderField}
-            />
-            <Field
-              name="lng"
-              type="text"
-              label="longitude"
-              component={renderField}
-            />
-            <Button
-              bsStyle="primary"
-              type="submit"
-              className="next + ' ' + submitButton"
-              onClick={this.handleSubmit}
-            >
-              Next
-            </Button>
-          </form>
+          <div className="choice-map">
+            <form onSubmit={handleSubmit} style={centerStyle}>
+              <Field
+                name="lat"
+                type="hidden"
+                label="latitude"
+                component={renderCategoryField}
+              />
+              <Field
+                name="lng"
+                type="hidden"
+                label="longitude"
+                component={renderCategoryField}
+              />
+              <Button
+                bsStyle="primary"
+                type="submit"
+                className="next + ' ' + submitButton"
+                onClick={this.handleSubmit}
+              >
+                Meld feil
+              </Button>
+            </form>
+          </div>
         </div>
       </div>
     );

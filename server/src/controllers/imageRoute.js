@@ -22,7 +22,7 @@ module.exports = function (app: Object) {
       "/upload",
       upload.single("avatar"),
       (req, res) => {
-        console.log(req)
+        console.log(req.file)
         const tempPath = req.file.path;
         const targetPath = path.join(__dirname, "../../images/" + (req.file.filename)+".png");
 

@@ -18,7 +18,8 @@ export default (async function showResults(values) {
       statusName: "Registered",
       categoryId: values.categoryid,
       categoryLevel: values.categorylevel,
-      countyId: values.countyId
+      countyId: values.countyId,
+      imagePath: values.imagePath,
     })
   });
 });
