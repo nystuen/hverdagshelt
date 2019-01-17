@@ -3,8 +3,9 @@ import { Field, reduxForm } from "redux-form";
 import validate from "./validate";
 import renderField from "./renderField";
 import renderCategoryField from "./renderCategoryField";
-import { Button } from "react-bootstrap";
+import { Button, ProgressBar } from "react-bootstrap";
 import { ChooseCategory } from "../ChooseCategory/ChooseCategory";
+import issueReg from "./issueReg.css";
 
 const renderError = ({ meta: { touched, error } }) =>
   touched && error ? <span>{error}</span> : false;
@@ -47,7 +48,10 @@ export class WizardFormSecondPage extends React.Component {
   render() {
     const { handleSubmit, previousPage, onChangeCategoryHeader } = this.props;
     return (
-      <div>
+      <div className="formDiv">
+        <div className="progressBar">
+          <ProgressBar active now={66} />
+        </div>
         <h2>Velg passende kategori</h2>
         <ChooseCategory
           changeCategoryHeader={this.onChangeCategoryHeader.bind(this)}

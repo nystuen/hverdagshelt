@@ -1,0 +1,21 @@
+.progressBar {
+  padding-top: 1em;
+}
+
+.formDiv {
+  padding-left: 10em;
+  padding-right: 10em;
+}
+
+.submitButton {
+  float: left;
+}
+
+.btnGroup {
+  padding-top: 1em;
+  width: 200px;
+}
+
+.leftBtn {
+  padding-right: 1em;
+}
