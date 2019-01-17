@@ -9,7 +9,8 @@ export class WizardFormComplete extends React.Component {
   render() {
     let styles = {
       height: "100%",
-      padding: "0px"
+      padding: "0px",
+      margin: "0px"
     };
     return (
       <Provider store={store}>
