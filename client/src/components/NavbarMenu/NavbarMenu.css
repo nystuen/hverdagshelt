@@ -3,8 +3,9 @@
 
 }
 
-.navbar-default .navbar-nav > li > a {
-
+.navbar-default .navbar-nav > li > > a a.ctive {
+    color: blueviolet;
+    background-color: blue;
 }
 
 
@@ -17,3 +18,7 @@
 .navbar-default {
 
 }
+
+.active {
+}
+

@@ -50,20 +50,22 @@ export class NavbarMenu extends React.Component {
         <Navbar collapseOnSelect fluid>
           <Navbar.Header>
             <Navbar.Brand>
-              <a href={'/#/wizardForm'}>Hverdagshelt</a>
+              <img src={"./resources/logo.png"}/>
             </Navbar.Brand>
             <Navbar.Toggle/>
           </Navbar.Header>
 
-      <Nav>
-          <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-th-list"/> Velg kommune</NavItem>
-          <NavItem href={'/#/wizardForm'}><Glyphicon glyph="glyphicon glyphicon-plus"/> Legg til sak</NavItem>
-          <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-road"/> Eventer</NavItem>
-          <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
-          <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-question-sign"/> Hjelp</NavItem>
-      </Nav>
 
           <Navbar.Collapse>
+
+            <Nav>
+              <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-th-list"/> Velg kommune</NavItem>
+              <NavItem href={'/#/wizardForm'}><Glyphicon glyph="glyphicon glyphicon-plus"/> Legg til sak</NavItem>
+              <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-road"/> Eventer</NavItem>
+              <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
+              <NavItem href={'/#/map'}><Glyphicon glyph="glyphicon glyphicon-map-marker" /> Map</NavItem>
+            </Nav>
+
             <Nav pullRight>
               <NavDropdown title={'Min side'} id='1'>
                 <MenuItem eventKey={2} href="/#min_side/mine_saker">Mine saker</MenuItem>
