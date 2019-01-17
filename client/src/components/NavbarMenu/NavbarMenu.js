@@ -47,39 +47,39 @@ export class NavbarMenu extends React.Component {
     }//end condition
 
     return (
-        <Navbar collapseOnSelect fluid>
-          <Navbar.Header>
-            <Navbar.Brand>
-              <img src={"./resources/logo.png"}/>
-            </Navbar.Brand>
-            <Navbar.Toggle/>
-          </Navbar.Header>
+      <Navbar collapseOnSelect fluid>
+        <Navbar.Header>
+          <Navbar.Brand>
+            <img src={'./resources/logo.png'}/>
+          </Navbar.Brand>
+          <Navbar.Toggle/>
+        </Navbar.Header>
 
 
-          <Navbar.Collapse>
+        <Navbar.Collapse>
 
-            <Nav>
-              <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-th-list"/> Velg kommune</NavItem>
-              <NavItem href={'/#/wizardForm'}><Glyphicon glyph="glyphicon glyphicon-plus"/> Legg til sak</NavItem>
-              <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-road"/> Eventer</NavItem>
-              <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
-              <NavItem href={'/#/map'}><Glyphicon glyph="glyphicon glyphicon-map-marker" /> Map</NavItem>
-            </Nav>
+          <Nav>
+            <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-th-list"/> Velg kommune</NavItem>
+            <NavItem href={'/#/wizardForm'}><Glyphicon glyph="glyphicon glyphicon-plus"/> Legg til sak</NavItem>
+            <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-road"/> Eventer</NavItem>
+            <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
+            <NavItem href={'/#/map'}><Glyphicon glyph="glyphicon glyphicon-map-marker"/> Map</NavItem>
+          </Nav>
 
-            <Nav pullRight>
-              <NavDropdown title={'Min side'} id='1'>
-                <MenuItem eventKey={2} href="/#min_side/mine_saker">Mine saker</MenuItem>
-                <MenuItem eventKey={1} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
-                <MenuItem eventKey={1} href="/#min_side/kommuner">Kommuner</MenuItem>
-                <MenuItem eventKey={1} href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
-              </NavDropdown>
-              {loginButton}
-            </Nav>
-          </Navbar.Collapse>
+          <Nav pullRight>
+            <NavDropdown title={'Min side'} id='1'>
+              <MenuItem eventKey={2} href="/#min_side/mine_saker">Mine saker</MenuItem>
+              <MenuItem eventKey={1} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
+              <MenuItem eventKey={1} href="/#min_side/kommuner">Kommuner</MenuItem>
+              <MenuItem eventKey={1} href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
+            </NavDropdown>
+            {loginButton}
+          </Nav>
+        </Navbar.Collapse>
 
-  </Navbar>
-  )
-    ;
+      </Navbar>
+    )
+      ;
   }//end method
 
   logout = () => {
