@@ -77,7 +77,6 @@ test("Add a issue to database", done => {
 
 });
 
-
 test("check if ola added an issue", done => {
   function callback(status, data) {
     console.log(
