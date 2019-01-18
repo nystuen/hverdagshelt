@@ -32,7 +32,7 @@ class AccountInfoEditCard extends React.Component<{
   lastName: string,
   county: string,
   email: string,
-  phone: string
+  phone: string,
 }> {
 
   render() {
@@ -85,7 +85,6 @@ class AccountInfoEditCard extends React.Component<{
 export class editAccountInformation extends React.Component <State> {
 
   state = {
-    decoded: jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret'),
     user: User,
     countyId: 0,
     firstName: '',
@@ -95,7 +94,7 @@ export class editAccountInformation extends React.Component <State> {
   };
 
   componentDidMount() {
-    userService.getUser(this.state.decoded.email).then(newUser => {
+    userService.getCurrentUser().then(newUser => {
       this.setState({
         user: newUser[0]
       });
@@ -120,7 +119,6 @@ export class editAccountInformation extends React.Component <State> {
     if (this.state.phone != '') {
       this.state.user.phone = this.state.phone;
     }
-
 
     userService.updateUser(this.state.user).then(response => {
       console.log('res', response);

@@ -38,8 +38,10 @@ export class UserDao extends Dao {
 
   }//end method
 
-  updateUser(json: Object, callback: Function) {
-    let val = [json.firstName, json.lastName, json.phone, json.countyId, json.mail];
+  updateUser(email: string, json: Object, callback: Function) {
+    let val = [json.firstName, json.lastName, json.phone, json.countyId, email];
+    console.log('hei');
+    console.log(val);
     super.query(
       'UPDATE user SET firstName =?, lastName=?, phone=?, countyId=? WHERE user.mail =?',
       val,
