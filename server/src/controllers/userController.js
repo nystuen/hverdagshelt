@@ -30,7 +30,6 @@ module.exports = function (app: Object, userDao: Object) {
 */
     app.post('/add_user', urlencodedParser, (req, res) => {
         console.log('got post request from add_user');
-        console.log(req.body);
 
         let hashed = '';
         bcrypt.hash(req.body.password, null, null, function (error, hash) {
@@ -44,7 +43,6 @@ module.exports = function (app: Object, userDao: Object) {
 
     app.post('/registrateCompany', urlencodedParser, (req, res) => {
         console.log('got post request from registrateCompany');
-        console.log(req.body);
 
         let hashed = '';
         bcrypt.hash(req.body.password, null, null, function (error, hash) {
