@@ -76,6 +76,11 @@ export class OversiktOverSak extends React.Component {
           <h3>Status</h3>
           <ProgressBar bsStyle={this.state.status.progressBar} now={this.state.status.progress}
                        label={this.state.issue.statusName}/>
+                    <h3>Status</h3>
+                    <ProgressBar>
+                    <ProgressBar bsStyle={this.state.status.progressBar} active now={this.state.status.progress}
+                                 label={this.state.status.name} style={{color: 'black'}}/>
+                    </ProgressBar>
 
           <h3>Dato sendt inn</h3>
           <p>{this.state.issue.date}</p>
@@ -140,11 +145,6 @@ export class OversiktOverSak extends React.Component {
         }).catch((error: Error) => Alert.danger(error.message));
       }//end condition
     }).catch((error: Error) => Alert.danger(error.message));
-
-
-    console.log(this.state.category1);
-
-
   }//end method
 
   Categories() {
@@ -156,14 +156,10 @@ export class OversiktOverSak extends React.Component {
   }//end method
 
 
+
   showPic() {
     if (this.state.issue.pic !== null) {
-      return (
-        <div>
-          {this.state.image}
-        </div>
-      );
-      return <div>{this.state.image}</div>;
+      return <Image className="picture" src={this.state.issue.pic} rounded/>;
     }
   }//end method
 
