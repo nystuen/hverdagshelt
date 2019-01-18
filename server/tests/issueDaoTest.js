@@ -5,11 +5,11 @@ import runsqlfile from './runSqlFile';
 import {IssueDao} from "../src/daos/issueDao";
 import {UserDao} from "../src/daos/userDao";
 import {CountyDao} from "../src/daos/countyDao";
-
+import {CategoryDao} from "../src/daos/catergoryDao";
 
 // GitLab CI Pool
 let pool = mysql.createPool({
-  connectionLimit: 2,
+  connectionLimit: 3,
   host: "mysql.stud.iie.ntnu.no",
   user: "aadneny",
   password: "W9d7XVXV",
@@ -21,6 +21,7 @@ let pool = mysql.createPool({
 let issueDao = new IssueDao(pool);
 let userDao = new UserDao(pool);
 let countyDao = new CountyDao(pool);
+let categoryDao = new CategoryDao(pool);
 
 beforeAll(done => {
   runsqlfile("tests/sqlFiles/createTables.sql", pool, () => {
@@ -408,8 +409,127 @@ test("check add countysubscription for companies", done => {
 //CATEGORY-TESTING
 //-----------------------------------------------------------------
 
+test("check get all from category1", done => {
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.length).toBe(2);
+    expect(data[0].name).toBe('Strøm');
+    expect(data[1].name).toBe('Vann og avløp');
 
+    expect(data[0].priority).toBe(1);
+    expect(data[1].priority).toBe(2);
+    done();
+  }
+
+  categoryDao.getCategory1(callback);
+});
+
+
+test("check get all from category2", done => {
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.length).toBe(2);
+    expect(data[0].name).toBe('Strømbrudd');
+    expect(data[1].name).toBe('Vannstopp');
+
+    expect(data[0].categoryId).toBe(1);
+    expect(data[1].categoryId).toBe(2);
+    done();
+  }
+
+  categoryDao.getCategory2(callback);
+});
+
+
+test("check add one to category1 and get one from category1", done => {
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.affectedRows).toBeGreaterThanOrEqual(1);
+
+  }
+
+  function callback2(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data[0].name).toBe('Brann');
+    expect(data[0].priority).toBe(1);
+    done();
+  }
+
+  let post = {
+    name: 'Brann',
+    priority: 1,
+  };
+
+  categoryDao.addCategory1(post,callback);
+  categoryDao.getOneCategory1(3, callback2);
+
+});
+
+
+test("check add one to category2 and get one from category2", done => {
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.affectedRows).toBeGreaterThanOrEqual(1);
+  }
+
+  function callback2(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data[0].name).toBe('Brann i skogen');
+    expect(data[0].categoryId).toBe(3);
+    done();
+  }
+
+  let post = {
+    categoryId:3,
+    name: 'Brann i skogen',
+  };
+
+  categoryDao.addCategory2(post,callback);
+  categoryDao.getOneCategory2(3, callback2);
+
+});
+
+
+
+
+
+
+test("check add categories to a company", done => {
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.affectedRows).toBeGreaterThanOrEqual(1);
+    done();
+  }
+
+  let post = {
+    companyMail:'company1@company.com',
+    categoryId: 2,
+  };
+
+  categoryDao.addCompanyCategories(post, callback);
+});
 
 
 //EVENT-TESTING
+//-----------------------------------------------------------------
+
+
+//NOTIFICATION SETTINGS-TESTING
+//-----------------------------------------------------------------
+
+//MAIL-TESTING
 //-----------------------------------------------------------------
