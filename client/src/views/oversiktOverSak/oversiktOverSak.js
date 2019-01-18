@@ -55,7 +55,7 @@ export class OversiktOverSak extends React.Component{
     render(){
        let editStatus;
        let decoded = jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret');
-        if(decoded.typeId === 'Company'){
+        if(decoded.typeId === 'Company' || decoded.typeId === 'Admin' || decoded.typeId === 'Employee'){
             editStatus = this.state.editStatus;
         }
         return(
@@ -156,8 +156,8 @@ export class OversiktOverSak extends React.Component{
                 <div>
                    <select>
                         <option value="" onChange={this.setStatus('')}>Oppdater status </option>
-                       <option value="In progress" onChange={this.setStatus('In progress')}>In progress </option>
-                       <option value="Completed" onChange={this.setStatus('Completed')}> Completed</option>
+                       <option value="Behandles" onChange={this.setStatus('In progress')}>Behandles </option>
+                       <option value="Fullført" onChange={this.setStatus('Completed')}> Fullført</option>
                    </select>
                     <Button onClick={this.saveThisStatus}> Lagre status</Button>
                 </div>
