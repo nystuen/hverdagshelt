@@ -62,7 +62,7 @@ export class events extends React.Component<Props, State> {
             {
               this.state.importantEvents.map((r, i) => {
                 return (
-                  <Panel eventKey={r.eventId} bsStyle="info" key={r.eventId}>
+                  <Panel eventKey={r.eventId}  key={r.eventId}>
                     <Panel.Heading>
                       <Panel.Title toggle>{r.title}</Panel.Title>
                     </Panel.Heading>
