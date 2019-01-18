@@ -23,7 +23,11 @@ import { Frontpage } from './views/frontpage/frontpage';
 import { editAccountInformation } from './views/MinSide/KontoOversikt/editAccountInformation';
 import {NotificationSettings} from "./components/NotificationSettings/NotificationSettings";
 import {RegisterAdmin} from "./components/registeradmin/registeradmin";
-
+import { NotificationSettings } from './components/NotificationSettings/NotificationSettings';
+import { Component } from 'react-simplified';
+import { MinSide } from './views/MinSide/MinSide';
+import { EventWizardFormComplete } from './components/RegisterEventForm/EventWizardFormComplete';
+import { OversiktOverSak } from './views/oversiktOverSak/oversiktOverSak';
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== 'production') {
@@ -34,7 +38,6 @@ if (process.env.NODE_ENV !== 'production') {
 
 export const history = createHashHistory(); // Use history.push(...) to programmatically change path, for instance after successfully saving a student
 
-
 const root = document.getElementById('root');
 if (root)
   ReactDOM.render(
@@ -42,7 +45,7 @@ if (root)
       <div className="route-container">
         <NavbarMenu/>
         <Route exact path="/" component={Frontpage}/>
-        <Route path="/forside" component={forside}/>
+        <Route path="/forside/:countyId" component={forside}/>
         <Route path="/wizardForm" component={WizardFormComplete}/>
         <Route path="/min_side/kommuner" component={countySubscription}/>
         <Route path="/min_side/kontooversikt" component={KontoOversikt}/>
@@ -55,9 +58,10 @@ if (root)
         <Route path="/registrer/admin" component={RegisterAdmin}/>
         <Route exact path="/register" component={RegisterUser}/>
         <Route exact path="/register/company" component={RegisterCompany}/>
-          <Route path="/min_side/varselinstillinger" component ={NotificationSettings}/>
+        <Route path="/min_side/varselinstillinger" component={NotificationSettings}/>
+        <Route path="/min_side/sakoversikt/:email/:issueId" component={OversiktOverSak}/>
+        <Route exact path="/registerEvent" component={EventWizardFormComplete}/>
       </div>
     </HashRouter>,
     root
   );
-

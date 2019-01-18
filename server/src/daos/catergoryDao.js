@@ -11,9 +11,9 @@ export class CategoryDao extends Dao {
     );
   }
 
-  getCategory1(callback: Function) {
-    super.query("select * from category", [], callback);
-  }
+    getCategory1(callback: Function){
+        super.query("select * from category where active=1",[], callback);
+    }
 
   getCategory2(callback: Function) {
     super.query("select * from category2", [], callback);
@@ -31,6 +31,24 @@ export class CategoryDao extends Dao {
       callback
     );
   }
+    getOneCategory1(categoryId: number, callback: Function){
+        super.query("select * from category where categoryId=?",[categoryId], callback);
+    }
+
+    getOneCategory2(categoryId: number, callback: Function){
+        super.query("select * from category2 where category2Id=?",[categoryId], callback);
+    }
+
+    getOneCategory3(categoryId: number, callback: Function){
+        super.query("select * from category3 where category3Id=?",[categoryId], callback);
+    }
+
+
+
+    addCategory1(json:Object, callback:Function){
+        var body=[json.name, json.priority];
+        super.query('insert into category(categoryId, name, priority, active) values (default,?,?,1)',body,callback);
+    }
 
   addCategory2(json: Object, callback: Function) {
     var body = [json.categoryId, json.name];
@@ -49,4 +67,10 @@ export class CategoryDao extends Dao {
       callback
     );
   }
+
+  addCompanyCategories(json: Object, callback:Function){
+    var body = [ json.companyMail,json.categoryId];
+    super.query("insert into companyCategories(companyMail,categoryId)values (?,?)", body,callback);
+  }
+
 }

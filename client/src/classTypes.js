@@ -34,16 +34,25 @@ export class User {
   countyId: number;
   active: number;
 
-    constructor(mail: string, firstName: string, lastName: string, typeName: string, phone: string, points: number, countyId: number, active: number) {
-        this.mail = mail;
-        this.firstName = firstName;
-        this.lastName = lastName;
-        this.typeName = typeName;
-        this.phone = phone;
-        this.points = points;
-        this.countyId = countyId;
-        this.active = active;
-    }
+  constructor(
+    mail: string,
+    firstName: string,
+    lastName: string,
+    typeName: string,
+    phone: string,
+    points: number,
+    countyId: number,
+    active: number
+  ) {
+    this.mail = mail;
+    this.firstName = firstName;
+    this.lastName = lastName;
+    this.typeName = typeName;
+    this.phone = phone;
+    this.points = points;
+    this.countyId = countyId;
+    this.active = active;
+  }
 }
 
 export class Issue {
@@ -87,13 +96,25 @@ export class Issue {
 }
 
 export class Type {
-    typeName: string;
-    active: number;
+  typeName: string;
+  active: number;
 
-    constructor(typeName: string, active: number) {
-        this.typeName = typeName;
-        this.active = active;
-    }
+  constructor(typeName: string, active: number) {
+    this.typeName = typeName;
+    this.active = active;
+  }
+}
+
+export class EventCategory {
+  eventCategoryId: number;
+  name: string;
+  active: number;
+
+  constructor(eventCategoryId: number, name: string, active: number) {
+    this.eventCategoryId = eventCategoryId;
+    this.name = name;
+    this.active = active;
+  }
 }
 
 export class Company extends Type {
@@ -116,22 +137,22 @@ export class Company extends Type {
 }
 
 export class Category {
-    categoryId: number;
-    name: string;
-    priority: number;
-    active: number;
+  categoryId: number;
+  name: string;
+  priority: number;
+  active: number;
 
-    constructor(
-        categoryId: number,
-        name: string,
-        priority: number,
-        active: number
-    ) {
-        this.categoryId = categoryId;
-        this.name = name;
-        this.priority = priority;
-        this.active = active;
-    }
+  constructor(
+    categoryId: number,
+    name: string,
+    priority: number,
+    active: number
+  ) {
+    this.categoryId = categoryId;
+    this.name = name;
+    this.priority = priority;
+    this.active = active;
+  }
 }
 
 export class Category2 extends Category {
@@ -169,16 +190,15 @@ export class Category3 extends Category {
 }
 
 export class Event {
-
-    eventId: number;
-    title: string;
-    text: string;
-    latitude: double;
-    longitude: double;
-    date: string;
-    userMail: string;
-    countyId: number;
-    active: number;
+  eventId: number;
+  title: string;
+  text: string;
+  latitude: double;
+  longitude: double;
+  date: string;
+  userMail: string;
+  countyId: number;
+  active: number;
 
   constructor(
     eventId: number,
@@ -188,7 +208,7 @@ export class Event {
     longitude: double,
     date: string,
     userMail: string,
-    countyId:number,
+    countyId: number,
     active: number
   ) {
     this.eventId = eventId;
@@ -225,30 +245,33 @@ export class Status {
   } //end constructor
 } //end class
 
-
-
 export class NotificationSetting {
-    countyId: number;
-    categoryId: number;
-    userMail: string;
+  countyId: number;
+  categoryId: number;
+  userMail: string;
 
-    constructor(countyId: number, categoryId: number, userMail: string) {
-        this.countyId = countyId;
-        this.categoryId = categoryId;
-        this.userMail = userMail;
-    }
+  constructor(countyId: number, categoryId: number, userMail: string) {
+    this.countyId = countyId;
+    this.categoryId = categoryId;
+    this.userMail = userMail;
+  }
 }
 
 export class IssueNotificationSetting {
-    userMail: string;
-    registered: number;
-    inProgress: number;
-    completed: number;
+  userMail: string;
+  registered: number;
+  inProgress: number;
+  completed: number;
 
-    constructor(userMail: string, registered: number, inProgress: number, completed: number) {
-        this.userMail = userMail;
-        this.registered = registered;
-        this.inProgress = inProgress;
-        this.completed = completed;
-    }
+  constructor(
+    userMail: string,
+    registered: number,
+    inProgress: number,
+    completed: number
+  ) {
+    this.userMail = userMail;
+    this.registered = registered;
+    this.inProgress = inProgress;
+    this.completed = completed;
+  }
 }

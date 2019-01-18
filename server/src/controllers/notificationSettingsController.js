@@ -51,6 +51,15 @@ module.exports = function (app: Object, notificationSettingsDao: Object) {
         });
     });
 
+    app.get('/get_notification_settings_with_names/:email', urlencodedParser, (req, res) => {
+        console.log('got request from get_notification_settings_with_names');
+
+        notificationSettingsDao.getNotificationSettingsWithNames(req.params.email, (status, data) => {
+            res.status(status);
+            res.json(data);
+        });
+    });
+
     app.put('/update_issue_notification_settings', urlencodedParser, (req, res) => {
         console.log('got request from update_issue_notification_settings');
 

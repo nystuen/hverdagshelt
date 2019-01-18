@@ -15,22 +15,19 @@ class FindDate {
 export default (async function showResults(values) {
   var day = new FindDate();
   await sleep(500); // simulate server latency
-  fetch("http://localhost:3000/add_issue", {
+  fetch("http://localhost:3000/add_event", {
     method: "POST",
     headers: {
       "Content-type": "application/json; charset=utf-8"
     },
     body: JSON.stringify({
-      userMail: values.userMail,
+      title: values.title,
+      text: values.text,
       latitude: values.latitude,
       longitude: values.longitude,
-      address: values.address,
-      text: values.text,
-      pic: values.pic,
       date: day.day + "." + day.month + "." + day.year,
-      statusName: "Registered",
-      categoryId: values.categoryid,
-      categoryLevel: values.categorylevel,
+      userMail: values.userMail,
+      eventCategoryId: values.categoryid,
       countyId: values.countyId
     })
   });

@@ -5,15 +5,18 @@ import renderField from "./renderField";
 import renderCategoryField from "./renderCategoryField";
 import { Button } from "react-bootstrap";
 import { ChooseCategory } from "../ChooseCategory/ChooseCategory";
+import { ChooseEventCategory } from "../ChooseEventCategory/ChooseEventCategory";
+import store from "./store";
 
 const renderError = ({ meta: { touched, error } }) =>
   touched && error ? <span>{error}</span> : false;
 
-export class WizardFormSecondPage extends React.Component {
+export class EventFormSecondPage extends React.Component {
   setProps = () => {
     this.props.change("categoryid", this.state.selectedCategoryId);
     this.props.change("categorylevel", this.state.selectedCategoryType);
     console.log("setting props!");
+    console.log(this.state.selectedCategoryId);
   };
   onChangeCategoryHeader = (name1, name2) => {
     this.setState(
@@ -48,8 +51,7 @@ export class WizardFormSecondPage extends React.Component {
     const { handleSubmit, previousPage, onChangeCategoryHeader } = this.props;
     return (
       <div>
-        <h2>Velg passende kategori</h2>
-        <ChooseCategory
+        <ChooseEventCategory
           changeCategoryHeader={this.onChangeCategoryHeader.bind(this)}
           //  onClick={this.handleCategoryClick.bind(this)}
           registerCategory={false}
@@ -72,14 +74,14 @@ export class WizardFormSecondPage extends React.Component {
           />
           <div>
             <Button
-              bsStyle="success"
+              bsStyle="primary"
               type="button"
               className="previous"
               onClick={previousPage}
             >
               Previous
             </Button>
-            <Button bsStyle="success" type="submit" className="next">
+            <Button bsStyle="primary" type="submit" className="next">
               Next
             </Button>
           </div>
@@ -90,8 +92,8 @@ export class WizardFormSecondPage extends React.Component {
 }
 
 export default reduxForm({
-  form: "wizard", //Form name is same
+  form: "EventWizard", //Form name is same
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate
-})(WizardFormSecondPage);
+})(EventFormSecondPage);

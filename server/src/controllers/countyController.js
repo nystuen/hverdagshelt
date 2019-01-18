@@ -29,7 +29,7 @@ module.exports = function (app: Object, countyDao: Object) {
             res.status(status);
             res.json(data);
         })
-    })
+    });
 
     app.delete('/deleteAllSubscribedCounties/:UserMail', (req, res)=>{
         console.log("delete all subscribed counties request");
@@ -37,11 +37,19 @@ module.exports = function (app: Object, countyDao: Object) {
             res.status(status);
             res.json(data);
         })
-    })
+    });
 
     app.post('/addSubscription', (req, res)=>{
         console.log("post all subscribed counties request");
         countyDao.addSubscription(req.body,(status, data)=>{
+            res.status(status);
+            res.json(data);
+        })
+    })
+
+    app.post('/add_companyCounties', (req, res)=>{
+        console.log("post all subscribed counties from county request");
+        countyDao.addCompanySubscription(req.body,(status, data)=>{
             res.status(status);
             res.json(data);
         })

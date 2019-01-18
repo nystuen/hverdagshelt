@@ -90,10 +90,8 @@ export class MyIssuesNotificationSettingsForm extends React.Component <State> {
         let compl= false;
         notificationSettingsService.getIssueNotificationSettings(this.state.decoded.email)
             .then(resources => {
-                console.log(resources);
                 notificationObj = resources[0];
                 if (notificationObj === undefined) {
-                    console.log('true');
                     val = true;
                     notificationObj = new IssueNotificationSetting(this.state.decoded.email, 0, 0, 0)
                 } else {
@@ -145,7 +143,7 @@ export class MyIssuesNotificationSettingsForm extends React.Component <State> {
                                   }}>Fullført</Checkbox>
                     </FormGroup>
 
-                    <Button onClick={() => {
+                    <Button  onClick={() => {
                         this.save()
                     }}>Lagre</Button>
                 </Grid>
@@ -154,7 +152,6 @@ export class MyIssuesNotificationSettingsForm extends React.Component <State> {
     }
 
     save = () => {
-        console.log(this.state.notifications);
         if (this.state.createNew) {
             notificationSettingsService.addIssueNotificationSettings(this.state.notifications)
                 .catch(error => {
