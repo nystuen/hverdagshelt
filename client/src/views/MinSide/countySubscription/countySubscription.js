@@ -8,6 +8,8 @@ import Glyphicon from 'react-bootstrap/es/Glyphicon';
 import Button from 'react-bootstrap/es/Button';
 import css from './countySubscription.css';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
+import FormControl from "react-bootstrap/es/FormControl";
+import Select from "react-select";
 
 
 //Databasekall
@@ -108,6 +110,16 @@ export class countySubscription extends Component<Props, State> {
   }
 
   render() {
+    let options = this.state.allCounties.map(r => {
+        const data = {label: r.name, value: r.countyId, name: r.name, countyId: r.countyId}
+        return (data);
+    });
+
+    let options2 = this.state.userCounties.map(r => {
+        const data2 = {label: r.name, value: r.countyId, name: r.name, countyId: r.countyId}
+        return (data2)
+    });
+
     return (
       <div class="countySubscription">
         <Grid>
@@ -119,16 +131,13 @@ export class countySubscription extends Component<Props, State> {
           <Col md={8}>
           <Row>
             <Col xs={12} md={5}>
-              <ListGroup>
                 <h5 align="center">Kommuner</h5>
-                {
-                  this.state.allCounties.map((r, i) => {
-                    return <ListGroupItem onClick={() => {
-                      this.addCounty(r, i);
-                    }} key={i}>{r.name}</ListGroupItem>;
-                  })
-                }
-              </ListGroup>
+              <Select
+                  className={"allCounties"}
+                  menuIsOpen
+              options={options}
+              onChange={this.addCounty}>
+              </Select>
             </Col>
 
             <Col xs={12} md={2} align={"center"} className="arrows">
@@ -144,16 +153,18 @@ export class countySubscription extends Component<Props, State> {
             </Col>
 
             <Col xs={12} md={5}>
-              <ListGroup>
                 <h5 align="center">Mine Kommuner</h5>
-                {
-                  this.state.userCounties.map((r, i) => {
-                    return <ListGroupItem onClick={() => {
-                      this.deleteCounty(r, i);
-                    }} key={i}>{r.name}</ListGroupItem>;
-                  })
-                }
-              </ListGroup>
+              <div>
+                <Select
+                    menuIsOpen
+                    className={"myCounties"}
+                    options={options2}
+                    onChange={this.deleteCounty}
+                    maxOptions={3}
+
+                >
+                </Select>
+              </div>
             </Col>
           </Row>
 
