@@ -2,12 +2,16 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import validate from './validate';
 import renderField from './renderField';
+import renderCategoryField from './renderCategoryField';
 import renderEmail from './renderEmail';
 import { Button } from 'react-bootstrap';
 import jwt from 'jsonwebtoken';
 import { User } from '../../classTypes';
 import { UserService } from '../../services';
 import { history } from '../../index';
+import {ImageService} from '../../services';
+
+let imageService = new ImageService()
 
 let userService = new UserService();
 
@@ -33,6 +37,21 @@ const renderCountySelector = ({ input, meta: { touched, error } }) => (
 );
 
 export class WizardFormThirdPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      decoded: jwt.verify(
+        window.localStorage.getItem('userToken'),
+        'shhhhhverysecret'
+      ),
+      user: User,
+      value: String,
+      image: ""
+    };
+
+    this.handleImageUpload = this.handleImageUpload.bind(this)
+  }
+
   setProps = () => {
     this.props.change('userMail', this.state.decoded.email);
     this.props.change('countyId', this.state.user.countyId);
@@ -42,18 +61,6 @@ export class WizardFormThirdPage extends React.Component {
       history.push('/min_side/mine_saker').bind(this)
     }, 1000);
   };
-  state = {
-    decoded: jwt.verify(
-      window.localStorage.getItem('userToken'),
-      'shhhhhverysecret'
-    ),
-    user: User,
-    value: String
-  };
-
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
     userService.getUser(this.state.decoded.email).then(newUser => {
@@ -62,6 +69,21 @@ export class WizardFormThirdPage extends React.Component {
       });
     });
     this.setProps.bind(this);
+  }
+
+  handleImageUpload(e: Object){
+    this.setState({
+      image: e[0]
+    })
+  }
+
+  uploadImage = (e: Object) => {
+    imageService
+      .uploadImage(this.state.image)
+      .then((res) => {
+        console.log(res)
+        this.props.change("imagePath", res)
+      })
   }
 
   render() {
@@ -91,11 +113,15 @@ export class WizardFormThirdPage extends React.Component {
               label="Beskrivelse"
             />
             <Field
-              name="pic"
-              type="text"
-              component={renderField}
-              label="Bilde"
+              name="imagePath"
+              type="hidden"
+              label="imagePath"
+              component={renderCategoryField}
             />
+            <form encType="multipart/form-data">
+              <input type="file" name="avatar" placeholder="Bilde"  onChange={ (e) => this.handleImageUpload(e.target.files) }/>
+              <Button className="btn-primary" onClick={this.uploadImage}>Send inn bilde</Button>
+            </form>
           </div>
         </div>
         <div>
