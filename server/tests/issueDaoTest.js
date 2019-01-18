@@ -9,11 +9,11 @@ import {CategoryDao} from "../src/daos/catergoryDao";
 
 // GitLab CI Pool
 let pool = mysql.createPool({
-  connectionLimit: 3,
-  host: "mysql",
-  user: "root",
-  password: "secret",
-  database: "supertestdb",
+  connectionLimit: 5,
+  host: "mysql.stud.iie.ntnu.no",
+  user: "aadneny",
+  password: "W9d7XVXV",
+  database: "aadneny",
   debug: false,
   multipleStatements: true
 });
@@ -388,7 +388,6 @@ test("check delete all subscribed counties for one user", done => {
 });
 
 
-
 test("check add countysubscription for companies", done => {
   function callback(status, data) {
     console.log(
@@ -499,11 +498,6 @@ test("check add one to category2 and get one from category2", done => {
   categoryDao.getOneCategory2(3, callback2);
 
 });
-
-
-
-
-
 
 test("check add categories to a company", done => {
   function callback(status, data) {
