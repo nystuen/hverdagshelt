@@ -279,6 +279,8 @@ export class RegisterUser extends Component<Props, State> {
         }
     };
 
+
+
   getValidationStatePassword(){
       const length = this.state.password.length;
       let decimal = /(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!., /@<>"¤=#$%^&*()]*$/;
@@ -300,29 +302,25 @@ export class RegisterUser extends Component<Props, State> {
       const firstNameLength = this.state.firstName.length;
         let decimal=/^[A-Za-z _]*[A-Za-z][A-Za-z _]*$/;
 
-        if(firstNameLength==1){
+        if(firstNameLength===1){
             return 'warning';
-        }
-        else if(firstNameLength==0) return ;
+        } else if(firstNameLength===0) return ;
         else if(this.state.firstName.match(decimal)){
             return 'success';
-        }
-        else{
+        } else{
             return 'warning'
         }
     }
     getValidationStateLastName() {
         const lastNameLength = this.state.lastName.length;
-        let decimal=/^[A-Za-z _]*[A-Za-z][A-Za-z _]*$/;
+        let dec=/^[A-Za-z _]*[A-Za-z][A-Za-z _]*$/;
 
-        if(lastNameLength==1){
+        if(lastNameLength===1){
             return 'warning';
-        }
-        else if(lastNameLength==0) return ;
-        else if(this.state.firstName.match(decimal)){
+        } else if(lastNameLength===0){return
+        } else if(this.state.firstName.match(dec)){
             return 'success';
-        }
-        else{
+        } else{
             return 'warning'
         }
     }
@@ -471,7 +469,6 @@ export class RegisterUser extends Component<Props, State> {
                                    onChange={this.handleStringChange('password')}>
                       </FormControl>
                       <FormControl.Feedback/>
-
                   </FormGroup>
                 </Col>
                 <Col md={6}>
@@ -501,7 +498,7 @@ export class RegisterUser extends Component<Props, State> {
               <FormGroup>
                 <Col md={4}/>
                 <Col md={4}>
-                  <Button type="button" onClick={() => {this.register()}}>Registrer</Button>
+                  <Button type="button" onClick={this.checkInput}>Registrer</Button>
                 </Col>
                 <Col md={4}>
                 </Col>
@@ -514,42 +511,23 @@ export class RegisterUser extends Component<Props, State> {
     );
   }
 
+  checkInput = () =>{
+      //console.log(this.getValidationStateFirstName()||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()||this.getValidationStateEmail2()==='warning'||this.getValidationStatePassword()==='warning'||this.getValidationStatePassword2()==='warning');
+    if(this.getValidationStateFirstName()==='warning'||this.getValidationStateFirstName()==='warning'||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()==='warning'||this.getValidationStateEmail2()==='warning'||this.getValidationStatePassword()==='warning'||this.getValidationStatePassword2()==='warning'){
+        this.setState({
+            errorSomething:true
+        })
+    }else{
+        this.register();
+    }
+  };
+
+
 
 
 
   register = () => {
-      /*
-      console.log("Ole da");
-      if(this.getValidationStateEmail()==='warning'){
-          this.setState({
-              errorEmailRequirement:true
-          });
-          console.log("HEYHO")
-      }
-      if(!(this.checkEmailEquality())){
-          this.setState({
-              errorEmailEquality: true
-          });
-      }
-      if(!(this.checkPasswordRequirements())){
-          this.setState({
-              errorRequirementsPass: true
-          });
-      }
-      console.log("pass equals: "+this.checkPasswordEquality());
 
-      if(!(this.checkPasswordEquality())){
-          console.log("check Passwrod equality");
-          this.setState({
-              errorEqualsPass: true
-
-          });
-      }*/
-      if(this.state.choosen===0||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.checkValidEmail()||this.checkEmailEquality()||this.checkPasswordRequirements()||this.checkPasswordEquality()){
-          this.setState({
-              errorSomething: true
-          });
-      }else if(this.state.choosen!==0&&this.getValidationStateFirstName()==='success'&&this.getValidationStateLastName()==='success'&&this.getValidationPhone()==='success'&&this.checkValidEmail()&&this.checkEmailEquality()&&this.checkPasswordRequirements()&&this.checkPasswordEquality()){
         const newUser = {
           mail: this.state.mail,
           firstName: this.state.firstName,
@@ -565,7 +543,7 @@ export class RegisterUser extends Component<Props, State> {
 
         userService
           .addUser(newUser)
-          .then(user => (this.state = user)).then(Alert.success('Bruker registrert'))
+          .then(user => (this.state = user))
           .catch((error: Error) => Alert.danger(error.message));
 
         let theBody: Object = {
@@ -575,6 +553,38 @@ export class RegisterUser extends Component<Props, State> {
 
         addSubscription(theBody);
 
-      };
-    }
+  }
+
 }
+
+/*
+if(this.getValidationStateEmail()==='warning'){
+    this.setState({
+        errorEmailRequirement:true
+    });
+    console.log("HEYHO")
+}
+console.log("truls")
+if(!(this.checkEmailEquality())){
+    this.setState({
+        errorEmailEquality: true
+    });
+}
+console.log("reidar")
+if(!(this.checkPasswordRequirements())){
+    this.setState({
+        errorRequirementsPass: true
+    });
+}
+console.log("Sjekk godkjent")
+console.log("pass equals: "+this.checkPasswordEquality());
+
+if(!(this.checkPasswordEquality())){
+    console.log("check Password equality");
+    this.setState({
+        errorEqualsPass: true
+
+    });
+}
+this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()||this.getValidationStateEmail2()==='warning'||this.getValidationStatePassword()==='warning'||this.getValidationStatePassword2()==='warning'
+*/
