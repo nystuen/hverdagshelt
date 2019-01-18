@@ -13,13 +13,12 @@ export default (async function showResults(values) {
       latitude: values.latitude,
       longitude: values.longitude,
       text: values.text,
-      pic: values.pic,
+      pic: values.imagePath,
       date: values.date,
       statusName: "Registered",
       categoryId: values.categoryid,
       categoryLevel: values.categorylevel,
       countyId: values.countyId,
-      imagePath: values.imagePath,
     })
   });
 });
