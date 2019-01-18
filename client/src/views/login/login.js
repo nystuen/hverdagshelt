@@ -86,7 +86,7 @@ export class Login extends Component<Props, State> {
             <Col xs={2} md={4}>
               <div className="center">
                 <Image className="picture"
-                       src={'.client/public/login.png'}
+                       src={'./resources/logo_svart.png'}
                        rounded/>
               </div>
 
@@ -146,7 +146,7 @@ export class Login extends Component<Props, State> {
             window.localStorage.setItem('userToken', token);
             console.log('login in success');
 
-            history.push('/forside/' + this.state.countyId);
+            history.push('/wizardForm/' + this.state.countyId);
 
           }).catch((error: Error) => Alert.danger(error.message));
         } else { //check if the email is a company email
