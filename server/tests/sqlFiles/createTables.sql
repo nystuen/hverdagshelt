@@ -209,21 +209,3 @@ CREATE TABLE companyComment(
   CONSTRAINT companyComment_fk primary key(commentId)
 );
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
