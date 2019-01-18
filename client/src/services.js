@@ -68,6 +68,23 @@ export class EventCategoryService {
 
 } //end class
 
+export class ImageService {
+  uploadImage(image: Object): Promise<JSON>{
+    const url = "/upload"
+    const formData = new FormData()
+    formData.append('avatar', image)
+    const config = {
+      headers: {
+        'contentType': 'multipart/form-data'
+      }
+    }
+    return axios.post(url, formData, config)
+  }
+
+  getImage(imagePath: string): Promise<JSON>{
+    return axios.get("/image/" + imagePath);
+  }
+}
 
 export class CategoryService {
 
