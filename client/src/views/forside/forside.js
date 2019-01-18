@@ -1,8 +1,8 @@
-import { Category, Event } from '../../classTypes';
 import React, { Component } from 'react';
 import { Grid, Row, Col, ListGroup, ListGroupItem, Table, Image, Panel, Button, ButtonGroup } from 'react-bootstrap';
 import { getAllCounties, getImportantEvents } from '../../services';
 import css from './forside.css';
+import {Event} from '../../classTypes';
 
 // get viktige hendelser
 export class forside extends Component {
@@ -14,10 +14,8 @@ export class forside extends Component {
 
   getInformation = async () => {
     let id: number = this.props.match.params.countyId;
-    console.log('IDEN ER:', id);
     let eventer = [];
     getImportantEvents(id).then(resources => {
-      console.log('resources:', resources);
       resources.map(r => {
         let elem: Event = {
           eventId: r.eventId,
