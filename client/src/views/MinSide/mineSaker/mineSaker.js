@@ -38,7 +38,7 @@ export class MineSaker extends React.Component<Props, State> {
     category: [],
     category1: [],
     category2: [],
-    category3: []
+    category3: [],
   };
 
     componentWillMount(){
@@ -110,7 +110,7 @@ export class MineSaker extends React.Component<Props, State> {
                   <td>
                     {this.updateStatus(e.statusName)}
                     <ProgressBar>
-                    <ProgressBar bsStyle={this.status.progressBar} active now={this.status.progress}
+                    <ProgressBar bsStyle={this.status.progressBar} active={this.status.inProgress} now={this.status.progress}
                                  label={this.status.name} style={{color: 'black'}} key={1}/>
                     </ProgressBar>
                   </td>

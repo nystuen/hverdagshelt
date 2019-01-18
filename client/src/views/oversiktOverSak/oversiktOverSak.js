@@ -56,15 +56,13 @@ export class OversiktOverSak extends React.Component {
   }//end constructor
 
 
-
   render() {
     let editStatus;
     let decoded = jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret');
-    if (decoded.typeId === 'Company') {
+    if (decoded.typeId === 'Company' || decoded.typeId === 'Admin' || decoded.typeId === 'Employee') {
       editStatus = this.state.editStatus;
     }
 
-    console.log(this.state);
 
     return (
       <Grid className="sak">
@@ -73,14 +71,11 @@ export class OversiktOverSak extends React.Component {
           <h3>Beskrivelse</h3>
           <p>{this.state.issue.text}</p>
 
+
           <h3>Status</h3>
-          <ProgressBar bsStyle={this.state.status.progressBar} now={this.state.status.progress}
-                       label={this.state.issue.statusName}/>
-                    <h3>Status</h3>
-                    <ProgressBar>
-                    <ProgressBar bsStyle={this.state.status.progressBar} active now={this.state.status.progress}
-                                 label={this.state.status.name} style={{color: 'black'}}/>
-                    </ProgressBar>
+
+          <ProgressBar bsStyle={this.state.status.progressBar} active now={this.state.status.progress}
+                       label={this.state.status.name} style={{ color: 'black' }}/>
 
           <h3>Dato sendt inn</h3>
           <p>{this.state.issue.date}</p>
@@ -91,20 +86,16 @@ export class OversiktOverSak extends React.Component {
           <h3>Kategori</h3>
           <p>{this.Categories()}</p>
 
-          <img src={this.state.image} />
+          <img heigth="500px" width="500px" src={'image/' + this.state.image}/>
 
         </Col>
-
-        <Col xs={12} md={8}>
+        <Col xs={12}
+              md={8}>
         </Col>
-
-        <Row>
-          <Col>
-            {editStatus}
-          </Col>
-        </Row>
-        <br/>
+        < hr/>
       </Grid>
+
+
     );
   }//end method
 
@@ -156,7 +147,6 @@ export class OversiktOverSak extends React.Component {
   }//end method
 
 
-
   showPic() {
     if (this.state.issue.pic !== null) {
       return <Image className="picture" src={this.state.issue.pic} rounded/>;
@@ -168,8 +158,8 @@ export class OversiktOverSak extends React.Component {
       <div>
         <select>
           <option value="" onChange={this.setStatus('')}>Oppdater status</option>
-          <option value="In progress" onChange={this.setStatus('In progress')}>In progress</option>
-          <option value="Completed" onChange={this.setStatus('Completed')}> Completed</option>
+          <option value="Behandles" onChange={this.setStatus('In progress')}>Behandles</option>
+          <option value="Fullført" onChange={this.setStatus('Completed')}> Fullført</option>
         </select>
         <Button onClick={this.saveThisStatus}> Lagre status</Button>
       </div>
@@ -183,7 +173,7 @@ export class OversiktOverSak extends React.Component {
   saveThisStatus = () => {
     issueService.updateStatusOneIssue(this.state.issue.issueId, this.state.statusName).then(response => {
     }).catch((error: Error) => Alert.danger(error.message));
-    history.push('/min_side/mine_sakerBedrift');
+    this.props.history.goBack();
   };//end method
 }//end class
 

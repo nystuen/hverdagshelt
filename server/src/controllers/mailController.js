@@ -51,7 +51,7 @@ module.exports = function (app: Object, userDao: Object) {
       hashed = hash;
 
       userDao.resetPassword(req.body.to, hashed ,(status, data) => {
-        res.status(status);
+          res.status(status);
         res.json(data);
       });
     });
