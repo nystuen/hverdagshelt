@@ -14,6 +14,8 @@ import Button from 'react-bootstrap/es/Button';
 import { ImageService } from '../../services';
 import { history } from '../../index';
 import css from './oversiktOverSak.css';
+import{FormGroup} from "react-bootstrap";
+import {FormControl} from "react-bootstrap";
 
 let issueService = new IssueService();
 let categoryService = new CategoryService();
@@ -28,6 +30,7 @@ interface State {
   statusName: string;
   categoryLevel: number;
   editCase: boolean;
+  comment: string;
   image: Image;
 }//end method
 
@@ -44,13 +47,22 @@ export class OversiktOverSak extends React.Component {
       statusName: '',
       categoryLevel: 1, //1 means the issue is not registered under any subcategories
       editCase: false, //if the issue is in progress or completed, user cannot edit issue
+      comment: '',
       editStatus: <div>
-        <select onChange={this.setStatus}>
-          <option value="">Oppdater status</option>
-          <option value="In progress">In progress</option>
-          <option value="Completed"> Completed</option>
-        </select>
-        <Button onClick={this.saveThisStatus}> Lagre status</Button>
+          <Row>
+              <Col>
+            <select onChange={this.setStatus}>
+              <option value="">Oppdater status</option>
+              <option value="In progress">Behandles</option>
+              <option value="Completed"> Fullført</option>
+            </select>
+              </Col>
+          </Row>
+          <Row>
+              <Col md={3}>
+                <Button onClick={this.saveThisStatus}> Lagre status</Button>
+              </Col>
+          </Row>
       </div>
     };
   }//end constructor
@@ -58,9 +70,18 @@ export class OversiktOverSak extends React.Component {
 
     render(){
        let editStatus;
+       let renderComment;
        let decoded = jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret');
         if(decoded.typeId === 'Company' || decoded.typeId === 'Admin' || decoded.typeId === 'Employee'){
             editStatus = this.state.editStatus;
+            renderComment = <div>
+                <br/>
+
+                <FormGroup>
+                    <FormControl type="text" value={this.state.comment} placeholder="Legg til kommentar til sak"
+                    />
+                </FormGroup>
+            </div>
         }
         return(
             <Grid className="sak">
@@ -88,12 +109,10 @@ export class OversiktOverSak extends React.Component {
 
         </Col>
 
-        <Col xs={12} md={8}>
-        </Col>
-
         <Row>
-          <Col>
+          <Col xsOffset={23} md={8}>
             {editStatus}
+            {renderComment}
           </Col>
         </Row>
         <br/>
@@ -156,17 +175,8 @@ export class OversiktOverSak extends React.Component {
     }
   }//end method
 
-    editStatus(){
-            return(
-                <div>
-                   <select>
-                        <option value="" onChange={this.setStatus('')}>Oppdater status </option>
-                       <option value="Behandles" onChange={this.setStatus('In progress')}>Behandles </option>
-                       <option value="Fullført" onChange={this.setStatus('Completed')}> Fullført</option>
-                   </select>
-                    <Button onClick={this.saveThisStatus}> Lagre status</Button>
-                </div>
-            )
+    editComment(){
+            
     };//end method
 
   setStatus = (event: Event) => {
