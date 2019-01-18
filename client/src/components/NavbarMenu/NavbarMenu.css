@@ -8,12 +8,9 @@
     background-color: blue;
 }
 
-
-
-.navbar-default{
+.navbar-default {
     background-color: #fcfcfc;
 }
-
 
 .navbar-default {
 
@@ -22,3 +19,7 @@
 .active {
 }
 
+.logoBrand img {
+    padding-top: 7px !important;
+    padding-bottom: 7px !important;
+}

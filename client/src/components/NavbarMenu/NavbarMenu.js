@@ -8,7 +8,7 @@ import {
 } from 'react-bootstrap';
 import css from './NavbarMenu.css';
 import { PageHeader } from '../PageHeader/PageHeader';
-import * as jwt from "jsonwebtoken";
+import * as jwt from 'jsonwebtoken';
 import { User } from '../../classTypes';
 import { UserService } from '../../services';
 import Glyphicon from 'react-bootstrap/es/Glyphicon';
@@ -23,11 +23,11 @@ export class NavbarMenu extends React.Component {
   constructor(props) {
     super(props);
 
-        this.toggle = this.toggle.bind(this);
-        this.state = {
-            isOpen: false
-        };
-    }
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      isOpen: false
+    };
+  }
 
   toggle() {
     this.setState({
@@ -35,19 +35,20 @@ export class NavbarMenu extends React.Component {
     });
   }
 
-    render() {
-        if (window.localStorage.getItem('userToken') === '') {
-            loginButton = <NavItem eventKey={1} href="/#login">Login</NavItem>
-        } else {
-            loginButton = <NavItem eventKey={1} href="/#login" onClick={() => this.logout()}> Log out</NavItem>
-            this.viewCases();
-        }//end condition
+  render() {
+    if (window.localStorage.getItem('userToken') === '') {
+      loginButton = <NavItem eventKey={1} href="/#login">Login</NavItem>;
+    } else {
+      loginButton = <NavItem eventKey={1} href="/#login" onClick={() => this.logout()}> Log out</NavItem>;
+      this.viewCases();
+    }//end condition
 
     return (
+      <div className={"logoBrand"}>
       <Navbar collapseOnSelect fluid>
         <Navbar.Header>
-          <Navbar.Brand>
-            <img src={'./resources/logo.png'}/>
+          <Navbar.Brand >
+           <img src={'./resources/logo_svart.png'}/>
           </Navbar.Brand>
           <Navbar.Toggle/>
         </Navbar.Header>
@@ -58,9 +59,9 @@ export class NavbarMenu extends React.Component {
           <Nav>
             <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-th-list"/> Velg kommune</NavItem>
             <NavItem href={'/#/wizardForm'}><Glyphicon glyph="glyphicon glyphicon-plus"/> Legg til sak</NavItem>
-            <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-road"/> Eventer</NavItem>
+            <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-road"/> Hendelser</NavItem>
             <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
-            <NavItem href={'/#/map'}><Glyphicon glyph="glyphicon glyphicon-map-marker"/> Map</NavItem>
+            <NavItem href={'/#/map'}><Glyphicon glyph="glyphicon glyphicon-map-marker"/> Kart</NavItem>
           </Nav>
 
           <Nav pullRight>
@@ -74,27 +75,28 @@ export class NavbarMenu extends React.Component {
           </Nav>
         </Navbar.Collapse>
 
-  </Navbar>
-  )
-    ;
+      </Navbar>
+      </div>
+    )
+      ;
   }//end method
 
-    logout = () => {
-        window.localStorage.setItem('userToken', '');
-        this.viewCases();
-        loginButton = <NavItem eventKey={1} href="/#login">Login</NavItem>
-    };//end method
+  logout = () => {
+    window.localStorage.setItem('userToken', '');
+    this.viewCases();
+    loginButton = <NavItem eventKey={1} href="/#login">Login</NavItem>;
+  };//end method
 
-    viewCases = () => {
-        if (window.localStorage.getItem('userToken') !== '') {
-            let decoded = jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret');
-            if (decoded.typeId === 'Company') {
-                return <MenuItem eventKey={2} href="/#min_side/mine_sakerBedrift">Mine saker</MenuItem>
-            } else {
-                return <MenuItem eventKey={2} href="/#min_side/mine_saker">Mine saker</MenuItem>
-            }//end condition}
-        }else{
-            return <MenuItem eventKey={2} href="/#login">Mine saker</MenuItem>
-        }//end condition
-    };//end method
+  viewCases = () => {
+    if (window.localStorage.getItem('userToken') !== '') {
+      let decoded = jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret');
+      if (decoded.typeId === 'Company') {
+        return <MenuItem eventKey={2} href="/#min_side/mine_sakerBedrift">Mine saker</MenuItem>;
+      } else {
+        return <MenuItem eventKey={2} href="/#min_side/mine_saker">Mine saker</MenuItem>;
+      }//end condition}
+    } else {
+      return <MenuItem eventKey={2} href="/#login">Mine saker</MenuItem>;
+    }//end condition
+  };//end method
 }

@@ -165,7 +165,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
               onChange={this.onChange.bind(this)}
               value={this.state.address}
             />
-            <Button bsStyle="success" onClick={this.handleClick}>
+            <Button bsStyle="primary" onClick={this.handleClick}>
               Meld feil
             </Button>
           </div>
