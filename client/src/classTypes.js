@@ -216,7 +216,7 @@ export class Status {
     } else if (status === "In progress") {
       this.progressBar = "warning";
       this.progress = 50;
-      this.name = 'Under behandling'
+      this.name = 'Behandles'
 
       //if issue is resolved
     } else {

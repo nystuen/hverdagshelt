@@ -34,7 +34,8 @@ interface State {
 }//end interface
 
 interface Props {
-}
+  notLoggedIn: boolean;
+}//end interface
 
 export class Login extends Component<Props, State> {
   state = {
@@ -74,6 +75,12 @@ export class Login extends Component<Props, State> {
       );
     }
 
+    let alert_notLoggedIn;
+    if(this.props.notLoggedIn){
+      alert_notLoggedIn = confirm('Du må være logget inn for å gå videre');
+    }else{
+      <p></p>
+    }//end condition
 
     return (
 
@@ -110,6 +117,7 @@ export class Login extends Component<Props, State> {
                   <Button type="button" onClick={this.save} bsStyle="success">Login</Button>
                   <Button type="button" onClick={this.sjekk}>Sjekk</Button>
                   {alert_login}
+                  {alert_notLoggedIn}
                 </Row>
 
                 <div align="center">
@@ -146,7 +154,7 @@ export class Login extends Component<Props, State> {
             window.localStorage.setItem('userToken', token);
             console.log('login in success');
 
-            history.push('/wizardForm/' + this.state.countyId);
+            this.props.history.goBack();
 
           }).catch((error: Error) => Alert.danger(error.message));
         } else { //check if the email is a company email
@@ -157,7 +165,9 @@ export class Login extends Component<Props, State> {
                     let token = r.jwt;
                     window.localStorage.setItem('userToken', token);
                     console.log('login in success');
-                    history.push('/#forside/2');
+
+                    this.props.history.goBack();
+
                   }).catch((error: Error) => Alert.danger(error.message));
                 }else{
                   this.setState({
