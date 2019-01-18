@@ -148,7 +148,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
       <div style={styles}>
         <div className="formDiv">
           <div className="progressBar1">
-            <ProgressBar active now={33} />
+            <ProgressBar now={33} />
           </div>
         </div>
         <Map
