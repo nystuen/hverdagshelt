@@ -359,7 +359,7 @@ export class RegisterUser extends Component<Props, State> {
       if (this.state.errorRequirementsPass){
           alert_notpasswordreq = (
               <Alert bsStyle="danger">
-                  <h6>Passord må ha en lengde på 8 tegn og inneholde minst et tall, en stor og en liten bokstav </h6>
+                  <h6>Passord må ha en lengde på minst 8 tegn og inneholde minst et tall, en stor og en liten bokstav </h6>
               </Alert>);
       } else {
           alert_notpasswordreq = (
@@ -501,7 +501,7 @@ export class RegisterUser extends Component<Props, State> {
               <FormGroup>
                 <Col md={4}/>
                 <Col md={4}>
-                  <Button type="button" onClick={() => this.register()}>Registrer</Button>
+                  <Button type="button" onClick={() => {this.register()}}>Registrer</Button>
                 </Col>
                 <Col md={4}>
                 </Col>
@@ -517,12 +517,14 @@ export class RegisterUser extends Component<Props, State> {
 
 
 
-  register () {
-    console.log(this.checkPasswordEquality());
-      if(!(this.checkValidEmail())){
+  register = () => {
+      /*
+      console.log("Ole da");
+      if(this.getValidationStateEmail()==='warning'){
           this.setState({
               errorEmailRequirement:true
           });
+          console.log("HEYHO")
       }
       if(!(this.checkEmailEquality())){
           this.setState({
@@ -542,20 +544,12 @@ export class RegisterUser extends Component<Props, State> {
               errorEqualsPass: true
 
           });
-          console.log("errorEqualsPass");
-      }
-      console.log(this.getValidationPhone());
-      if(this.state.choosen===0||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'){
+      }*/
+      if(this.state.choosen===0||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.checkValidEmail()||this.checkEmailEquality()||this.checkPasswordRequirements()||this.checkPasswordEquality()){
           this.setState({
               errorSomething: true
           });
-      }
-
-
-
-
-
-    if(this.state.choosen!==0&&this.getValidationStateFirstName()==='success'&&this.getValidationStateLastName()==='success'&&this.getValidationPhone()==='success'&&this.checkValidEmail()&&this.checkEmailEquality()&&this.checkPasswordRequirements()&&this.checkPasswordEquality()){
+      }else if(this.state.choosen!==0&&this.getValidationStateFirstName()==='success'&&this.getValidationStateLastName()==='success'&&this.getValidationPhone()==='success'&&this.checkValidEmail()&&this.checkEmailEquality()&&this.checkPasswordRequirements()&&this.checkPasswordEquality()){
         const newUser = {
           mail: this.state.mail,
           firstName: this.state.firstName,
@@ -566,7 +560,7 @@ export class RegisterUser extends Component<Props, State> {
           countyId: this.state.choosen
         };
 
-        console.log('county', this.state.choosen);
+        console.log("JESSSSSSSS");
 
 
         userService
@@ -584,28 +578,3 @@ export class RegisterUser extends Component<Props, State> {
       };
     }
 }
-
-/*
-* <DropdownButton title="Hjemmekommune">
-                                     value={this.state.countyName}
-                                              onChange={(e)=>this.handleChangeCounty(e)}>
-                                        {this.state.countyName.map((r, i) => {
-                                            return <option key={i} value={r}>{r}
-                                            </option>
-                                        })
-                                        }
-
-                                </DropdownButton>
-
-    checkPass(){
-        console.log(state);
-        if(this.state.password==this.state.password2){
-            this.register();
-            Alert.success();
-        }else{
-            Alert.warning();
-        }
-    }
-
-
-*/
