@@ -31,62 +31,38 @@ import { events } from "./views/events/events";
 import { AdminResetUserPassword } from "./views/admin/resetPassword";
 
 // Reload application when not in production environment
-if (process.env.NODE_ENV !== "production") {
-  let script = document.createElement("script");
-  script.src = "/reload/reload.js";
+if (process.env.NODE_ENV !== 'production') {
+  let script = document.createElement('script');
+  script.src = '/reload/reload.js';
   if (document.body) document.body.appendChild(script);
 }
 
 export const history = createHashHistory(); // Use history.push(...) to programmatically change path, for instance after successfully saving a student
 
-const root = document.getElementById("root");
+const root = document.getElementById('root');
 if (root)
   ReactDOM.render(
     <HashRouter>
       <div className="route-container">
-        <NavbarMenu />
-        <Route exact path="/" component={Frontpage} />
-        <Route path="/forside/:countyId" component={forside} />
-        <Route path="/wizardForm" component={WizardFormComplete} />
-        <Route path="/min_side/kommuner" component={countySubscription} />
-        <Route path="/min_side/kontooversikt" component={KontoOversikt} />
-        <Route
-          path="/countySubscription/:userMail"
-          component={countySubscription}
-        />
-        <Route
-          path="/min_side/editAccountInformation"
-          component={editAccountInformation}
-        />
-        <Route path="/login" component={Login} />
-        <Route path="/map" component={MapComponent} />
-        <Route path="/min_side/mine_saker" component={MineSaker} />
-        <Route
-          path="/min_side/mine_sakerBedrift"
-          component={mineSakerBedrift}
-        />
-        <Route path="/addCategory" component={adminAddCategory} />
-        <Route exact path="/register" component={RegisterUser} />
-        <Route exact path="/register/company" component={RegisterCompany} />
-        <Route
-          path="/min_side/varselinstillinger"
-          component={NotificationSettings}
-        />
-        <Route
-          path="/min_side/sakoversikt/:email/:issueId"
-          component={OversiktOverSak}
-        />
-        <Route
-          exact
-          path="/registerEvent"
-          component={EventWizardFormComplete}
-        />
-        <Route exact path="/events/:countyId" component={events} />
-        <Route
-          exact
-          path="/admin/resetuserpassword"
-          component={AdminResetUserPassword}
-        />
+        <NavbarMenu/>
+        <Route exact path="/" component={Frontpage}/>
+        <Route path="/forside/:countyId" component={forside}/>
+        <Route path="/wizardForm" component={WizardFormComplete}/>
+        <Route path="/min_side/kommuner" component={countySubscription}/>
+        <Route path="/min_side/kontooversikt" component={KontoOversikt}/>
+        <Route path="/countySubscription/:userMail" component={countySubscription}/>
+        <Route path="/min_side/editAccountInformation" component={editAccountInformation}/>
+        <Route path="/login" component={Login}/>
+        <Route path="/map" component={MapComponent}/>
+        <Route path="/min_side/mine_saker" component={MineSaker}/>
+        <Route path="/min_side/mine_sakerBedrift" component={mineSakerBedrift}/>
+        <Route path="/addCategory" component={adminAddCategory}/>
+        <Route exact path="/register" component={RegisterUser}/>
+        <Route exact path="/register/company" component={RegisterCompany}/>
+        <Route path="/min_side/varselinstillinger" component={NotificationSettings}/>
+        <Route path="/min_side/sakoversikt/:email/:issueId" component={OversiktOverSak}/>
+        <Route exact path="/registerEvent" component={EventWizardFormComplete}/>
+        <Route exact path="/events/:countyId" component={events}/>
       </div>
     </HashRouter>,
     root
