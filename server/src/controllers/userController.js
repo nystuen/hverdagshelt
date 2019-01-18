@@ -47,6 +47,7 @@ module.exports = function (app: Object, userDao: Object) {
 
         let hashed = '';
         bcrypt.hash(req.body.password, null, null, function (error, hash) {
+            console.log(req.body.password);
             hashed = hash;
             userDao.addUser(req.body, hashed ,(status, data) => {
                 res.status(status);
@@ -54,7 +55,6 @@ module.exports = function (app: Object, userDao: Object) {
             });
         });
 
-        console.log("Før mailoptions");
 
         let mailOptions = {
             from: 'hverdagshelt.scrum@gmail.com',
@@ -62,7 +62,6 @@ module.exports = function (app: Object, userDao: Object) {
             subject: 'Hverdagshelt - Adminbruker',
             text: 'Ditt autogenererte passord er: ' + newPassword + ''
         };
-        console.log("Midten");
 
         transporter.sendMail(mailOptions, function(error, info) {
             if (error) {
@@ -72,7 +71,40 @@ module.exports = function (app: Object, userDao: Object) {
                 console.log('Email sent: ' + info.response);
             }
         });
-        console.log("Etter transporter");
+    });
+
+    app.post('/add_employee', urlencodedParser, (req, res) =>{
+        console.log('got post request from add_admin');
+        console.log(req.body);
+        console.log('got request from sendTextMail');
+        let newPassword = generator.generate({length: 10, numbers: true});
+        console.log('newPassword:',newPassword);
+
+        let hashed = '';
+        bcrypt.hash(req.body.password, null, null, function (error, hash) {
+            console.log(req.body.password);
+            hashed = hash;
+            userDao.addUser(req.body, hashed ,(status, data) => {
+                res.status(status);
+                res.json(data);
+            });
+        });
+
+
+        let mailOptions = {
+            from: 'hverdagshelt.scrum@gmail.com',
+            to: req.body.mail,
+            subject: 'Hverdagshelt - Adminbruker',
+            text: 'Ditt autogenererte passord er: ' + newPassword + ''
+        };
+
+        transporter.sendMail(mailOptions, function(error, info) {
+            if (error) {
+                console.log(error);
+            } else {
+                console.log('Email sent: ' + info.response);
+            }
+        });
     });
 
     app.post('/add_user', urlencodedParser, (req, res) => {

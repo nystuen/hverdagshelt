@@ -23,6 +23,29 @@ export class Admin{
     }
 }
 
+export class Employee{
+    mail: string;
+    firstName: string;
+    lastName: string;
+    password: string;
+    typeName: string;
+    phone: string;
+    points: number;
+    countyId: number;
+    active: number;
+
+    constructor(mail: string, firstName: string, lastName: string, typeName: string, phone: string, points: number, countyId: number, active: number) {
+        this.mail = mail;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.typeName = typeName;
+        this.phone = phone;
+        this.points = points;
+        this.countyId = countyId;
+        this.active = active;
+    }
+}
+
 export class User {
   mail: string;
   firstName: string;

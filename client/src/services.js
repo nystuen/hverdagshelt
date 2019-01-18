@@ -1,6 +1,8 @@
 // @flow
 import axios from 'axios';
 import {
+  Admin,
+  Employee,
   User,
   Issue,
   Category,
@@ -46,10 +48,13 @@ export class UserService {
   addAdmin(newAdmin: Admin): Promise<Response>{
       return axios.post('/add_admin', newAdmin);
   }
+  addEmployee(newEmployee: Employee): Promise<Promise>{
+    return axios.post('/add_employee', newEmployee);
+  }
 
-    addCompany(json: Object) {
-        return axios.post("/registrateCompany", json);
-    }
+  addCompany(json: Object) {
+      return axios.post("/registrateCompany", json);
+  }
 }//end class
 
 
