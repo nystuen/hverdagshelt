@@ -82,7 +82,7 @@ export class WizardFormThirdPage extends React.Component {
               label="countyId"
             />
           </div>
-          <div>
+          <div className="paddingBot">
             <div>
               <Field
                 name="userMail"
@@ -104,7 +104,7 @@ export class WizardFormThirdPage extends React.Component {
               />
             </div>
           </div>
-          <div className="btnGroup">
+          <div>
             <Button
               bsStyle="primary"
               type="button"

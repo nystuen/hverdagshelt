@@ -8,14 +8,14 @@
 }
 
 .submitButton {
-  float: left;
 }
 
 .btnGroup {
-  padding-top: 1em;
-  width: 200px;
 }
 
 .leftBtn {
-  padding-right: 1em;
+}
+
+.paddingBot {
+  padding-bottom: 1em;
 }

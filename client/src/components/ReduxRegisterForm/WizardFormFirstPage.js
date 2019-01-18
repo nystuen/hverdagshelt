@@ -170,7 +170,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
               onChange={this.onChange.bind(this)}
               value={this.state.address}
             />
-            <Button bsStyle="success" onClick={this.handleClick}>
+            <Button bsStyle="primary" onClick={this.handleClick}>
               Meld feil
             </Button>
           </div>
@@ -194,7 +194,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
               component={renderField}
             />
             <Button
-              bsStyle="success"
+              bsStyle="primary"
               type="submit"
               className="next + ' ' + submitButton"
               onClick={this.handleSubmit}

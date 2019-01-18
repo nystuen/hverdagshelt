@@ -76,14 +76,14 @@ export class WizardFormSecondPage extends React.Component {
           />
           <div>
             <Button
-              bsStyle="success"
+              bsStyle="primary"
               type="button"
               className="previous"
               onClick={previousPage}
             >
               Previous
             </Button>
-            <Button bsStyle="success" type="submit" className="next">
+            <Button bsStyle="primary" type="submit" className="next">
               Next
             </Button>
           </div>
