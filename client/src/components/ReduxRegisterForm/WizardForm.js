@@ -25,8 +25,8 @@ export class WizardForm extends Component {
 
   render() {
     let styles = {
-      height: '100%'
-    }
+      height: "100%"
+    };
     const { onSubmit } = this.props;
     const { page } = this.state;
     return (

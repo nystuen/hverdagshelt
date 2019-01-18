@@ -6,7 +6,7 @@ import React, { Component, createRef } from "react";
 import { Map, TileLayer, Marker, Popup, withLeaflet } from "react-leaflet";
 import * as ELG from "esri-leaflet-geocoder";
 import L from "leaflet";
-import { Button } from "react-bootstrap";
+import { Button, ProgressBar } from "react-bootstrap";
 import Geocode from "react-geocode";
 
 Geocode.setApiKey("AIzaSyDVZREoJuiobrxWVmBFhemEk1VdRB0MsSI");
@@ -135,8 +135,8 @@ export class WizardFormFirstPage extends Component<{}, State> {
 
     let centerStyle = {
       alignItems: "center",
-      justifyContent: "center",
-    }
+      justifyContent: "center"
+    };
 
     let marker = this.state.hasLocation ? (
       <Marker position={this.state.latlng}>
@@ -146,6 +146,11 @@ export class WizardFormFirstPage extends Component<{}, State> {
 
     return (
       <div style={styles}>
+        <div className="formDiv">
+          <div className="progressBar1">
+            <ProgressBar active now={33} />
+          </div>
+        </div>
         <Map
           center={this.state.latlng}
           length={12}
