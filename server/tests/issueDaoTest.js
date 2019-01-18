@@ -10,10 +10,10 @@ import {CategoryDao} from "../src/daos/catergoryDao";
 // GitLab CI Pool
 let pool = mysql.createPool({
   connectionLimit: 3,
-  host: "mysql.stud.iie.ntnu.no",
-  user: "aadneny",
-  password: "W9d7XVXV",
-  database: "aadneny",
+  host: "mysql",
+  user: "root",
+  password: "secret",
+  database: "supertestdb",
   debug: false,
   multipleStatements: true
 });
