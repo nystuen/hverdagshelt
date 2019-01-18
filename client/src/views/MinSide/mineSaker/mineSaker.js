@@ -111,7 +111,7 @@ export class MineSaker extends React.Component<Props, State> {
                     {this.updateStatus(e.statusName)}
                     <ProgressBar>
                     <ProgressBar bsStyle={this.status.progressBar} active now={this.status.progress}
-                                 label={e.statusName} style={{color: 'black'}} key={1}/>
+                                 label={this.status.name} style={{color: 'black'}} key={1}/>
                     </ProgressBar>
                   </td>
                 </tr>
