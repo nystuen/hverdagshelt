@@ -50,8 +50,8 @@ module.exports = function (app: Object, userDao: Object) {
     bcrypt.hash(newPassword, null, null, function (error, hash) {
       hashed = hash;
 
-      userDao.resetPassword(req.body.to, hashed ,(status, data) => {
-          res.status(status);
+      userDao.resetPassword(req.body.to, hashed, (status, data) => {
+        res.status(status);
         res.json(data);
       });
     });

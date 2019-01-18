@@ -71,11 +71,14 @@ export class OversiktOverSak extends React.Component {
           <h3>Beskrivelse</h3>
           <p>{this.state.issue.text}</p>
 
-
           <h3>Status</h3>
-
-          <ProgressBar bsStyle={this.state.status.progressBar} active now={this.state.status.progress}
-                       label={this.state.status.name} style={{ color: 'black' }}/>
+          <ProgressBar bsStyle={this.state.status.progressBar} now={this.state.status.progress}
+                       label={this.state.issue.statusName}/>
+                    <h3>Status</h3>
+                    <ProgressBar>
+                    <ProgressBar bsStyle={this.state.status.progressBar} active now={this.state.status.progress}
+                                 label={this.state.status.name} style={{color: 'black'}}/>
+                    </ProgressBar>
 
           <h3>Dato sendt inn</h3>
           <p>{this.state.issue.date}</p>
@@ -89,13 +92,17 @@ export class OversiktOverSak extends React.Component {
           <img heigth="500px" width="500px" src={'image/' + this.state.image}/>
 
         </Col>
-        <Col xs={12}
-              md={8}>
+
+        <Col xs={12} md={8}>
         </Col>
-        < hr/>
+
+        <Row>
+          <Col>
+            {editStatus}
+          </Col>
+        </Row>
+        <br/>
       </Grid>
-
-
     );
   }//end method
 
@@ -147,6 +154,7 @@ export class OversiktOverSak extends React.Component {
   }//end method
 
 
+
   showPic() {
     if (this.state.issue.pic !== null) {
       return <Image className="picture" src={this.state.issue.pic} rounded/>;
@@ -158,8 +166,8 @@ export class OversiktOverSak extends React.Component {
       <div>
         <select>
           <option value="" onChange={this.setStatus('')}>Oppdater status</option>
-          <option value="Behandles" onChange={this.setStatus('In progress')}>Behandles</option>
-          <option value="Fullført" onChange={this.setStatus('Completed')}> Fullført</option>
+          <option value="In progress" onChange={this.setStatus('In progress')}>In progress</option>
+          <option value="Completed" onChange={this.setStatus('Completed')}> Completed</option>
         </select>
         <Button onClick={this.saveThisStatus}> Lagre status</Button>
       </div>
