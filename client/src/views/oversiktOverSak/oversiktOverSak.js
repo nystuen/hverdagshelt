@@ -1,103 +1,112 @@
 // @flow
 
 import React from 'react';
-import {CategoryService, IssueService} from "../../services";
-import Grid from "react-bootstrap/es/Grid";
-import {Alert} from "../../widgets";
-import Row from "react-bootstrap/es/Row";
-import Col from "react-bootstrap/es/Col";
-import{Status} from "../../classTypes";
-import ProgressBar from "react-bootstrap/es/ProgressBar";
-import Image from "react-bootstrap/es/Image";
-import * as jwt from "jsonwebtoken";
-import Button from "react-bootstrap/es/Button";
-import {history} from "../../index";
+import { CategoryService, IssueService } from '../../services';
+import Grid from 'react-bootstrap/es/Grid';
+import { Alert } from '../../widgets';
+import Row from 'react-bootstrap/es/Row';
+import Col from 'react-bootstrap/es/Col';
+import { Status } from '../../classTypes';
+import ProgressBar from 'react-bootstrap/es/ProgressBar';
+import Image from 'react-bootstrap/es/Image';
+import * as jwt from 'jsonwebtoken';
+import Button from 'react-bootstrap/es/Button';
+import { ImageService } from '../../services';
+import { history } from '../../index';
 import css from './oversiktOverSak.css';
 
 let issueService = new IssueService();
 let categoryService = new CategoryService();
+let imageService = new ImageService();
 
-interface State{
-    issue: Object[];
-    category1: Object[];
-    category2: Object[];
-    category3: Object[];
-    status: Status;
-    statusName: string;
-    categoryLevel: number;
-    editCase: boolean;
+interface State {
+  issue: Object[];
+  category1: Object[];
+  category2: Object[];
+  category3: Object[];
+  status: Status;
+  statusName: string;
+  categoryLevel: number;
+  editCase: boolean;
+  image: Image;
 }//end method
 
-export class OversiktOverSak extends React.Component{
-    constructor(props){
-        super(props);
-        this.state = {
-            issue:{},
-            category1: {},
-            category2: {},
-            category3: {},
-            status: {},
-            statusName:'',
-            categoryLevel: 1, //1 means the issue is not registered under any subcategories
-            editCase: false, //if the issue is in progress or completed, user cannot edit issue
-            editStatus: <div>
-                <select onChange={this.setStatus}>
-                    <option value="">Oppdater status </option>
-                    <option value="In progress">In progress </option>
-                    <option value="Completed"> Completed</option>
-                </select>
-                <Button onClick={this.saveThisStatus}> Lagre status</Button>
-            </div>
-        };
-    }//end constructor
+export class OversiktOverSak extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      image: {},
+      issue: {},
+      category1: {},
+      category2: {},
+      category3: {},
+      status: {},
+      statusName: '',
+      categoryLevel: 1, //1 means the issue is not registered under any subcategories
+      editCase: false, //if the issue is in progress or completed, user cannot edit issue
+      editStatus: <div>
+        <select onChange={this.setStatus}>
+          <option value="">Oppdater status</option>
+          <option value="In progress">In progress</option>
+          <option value="Completed"> Completed</option>
+        </select>
+        <Button onClick={this.saveThisStatus}> Lagre status</Button>
+      </div>
+    };
+  }//end constructor
 
 
-    render(){
-       let editStatus;
-       let decoded = jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret');
-        if(decoded.typeId === 'Company'){
-            editStatus = this.state.editStatus;
-        }
-        return(
-            <Grid className="sak">
-                <Col xs={12} md={4}>
 
-                    <h3>Beskrivelse</h3>
-                    <p>{this.state.issue.text}</p>
+  render() {
+    let editStatus;
+    let decoded = jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret');
+    if (decoded.typeId === 'Company') {
+      editStatus = this.state.editStatus;
+    }
 
-                    <h3>Status</h3>
-                    <ProgressBar bsStyle={this.state.status.progressBar} now={this.state.status.progress}
-                                 label={this.state.issue.statusName}/>
+    console.log(this.state);
 
-                    <h3>Dato sendt inn</h3>
-                    <p>{this.state.issue.date}</p>
+    return (
+      <Grid className="sak">
+        <Col xs={12} md={4}>
 
-                    <h3>Adresse</h3>
-                    <p>{this.state.issue.address}</p>
+          <h3>Beskrivelse</h3>
+          <p>{this.state.issue.text}</p>
 
-                    <h3>Kategori</h3>
-                    <p>{this.Categories()}</p>
+          <h3>Status</h3>
+          <ProgressBar bsStyle={this.state.status.progressBar} now={this.state.status.progress}
+                       label={this.state.issue.statusName}/>
 
-                </Col>
+          <h3>Dato sendt inn</h3>
+          <p>{this.state.issue.date}</p>
 
-                <Col xs={12} md={8}>
-                    {this.showPic()}
-                </Col>
+          <h3>Adresse</h3>
+          <p>{this.state.issue.address}</p>
 
-                <Row>
-                    <Col>
-                        {editStatus}
-                    </Col>
-                </Row>
-                <br/>
-            </Grid>
-        )
-    }//end method
+          <h3>Kategori</h3>
+          <p>{this.Categories()}</p>
+
+          <img src={this.state.image} />
+
+        </Col>
+
+        <Col xs={12} md={8}>
+        </Col>
+
+        <Row>
+          <Col>
+            {editStatus}
+          </Col>
+        </Row>
+        <br/>
+      </Grid>
+    );
+  }//end method
 
 
   componentWillMount() {
     issueService.getIssueAndCounty(this.props.match.params.issueId).then(response => {
-      this.setState({ issue: response[0], categoryLevel: response[0].categoryLevel });
+      this.setState({ issue: response[0], categoryLevel: response[0].categoryLevel, image: response[0].pic });
       if (response.statusName === 'Registered') this.setState({ editCase: true });
       else this.setState({ editCase: false });
 
@@ -131,45 +140,54 @@ export class OversiktOverSak extends React.Component{
         }).catch((error: Error) => Alert.danger(error.message));
       }//end condition
     }).catch((error: Error) => Alert.danger(error.message));
+
+
+    console.log(this.state.category1);
+
+
   }//end method
 
-    Categories(){
-        if (this.state.categoryLevel === 1) {
-            return (<p>{this.state.category1.name}</p>);
-        } else if (this.state.categoryLevel === 2) {
-            return (<p>{this.state.category1.name} - {this.state.category2.name}</p>);
-        }//end condition
-    }//end method
-
+  Categories() {
+    if (this.state.categoryLevel === 1) {
+      return (<p>{this.state.category1.name}</p>);
+    } else if (this.state.categoryLevel === 2) {
+      return (<p>{this.state.category1.name} - {this.state.category2.name}</p>);
+    }//end condition
+  }//end method
 
 
   showPic() {
     if (this.state.issue.pic !== null) {
-      return <Image className="picture" src={this.state.issue.pic} rounded/>;
+      return (
+        <div>
+          {this.state.image}
+        </div>
+      );
+      return <div>{this.state.image}</div>;
     }
   }//end method
 
-    editStatus(){
-            return(
-                <div>
-                   <select>
-                        <option value="" onChange={this.setStatus('')}>Oppdater status </option>
-                       <option value="In progress" onChange={this.setStatus('In progress')}>In progress </option>
-                       <option value="Completed" onChange={this.setStatus('Completed')}> Completed</option>
-                   </select>
-                    <Button onClick={this.saveThisStatus}> Lagre status</Button>
-                </div>
-            )
-    };//end method
+  editStatus() {
+    return (
+      <div>
+        <select>
+          <option value="" onChange={this.setStatus('')}>Oppdater status</option>
+          <option value="In progress" onChange={this.setStatus('In progress')}>In progress</option>
+          <option value="Completed" onChange={this.setStatus('Completed')}> Completed</option>
+        </select>
+        <Button onClick={this.saveThisStatus}> Lagre status</Button>
+      </div>
+    );
+  };//end method
 
-    setStatus = (event: Event) =>{
-        this.setState({statusName: event.target.value})
-    };//end method
+  setStatus = (event: Event) => {
+    this.setState({ statusName: event.target.value });
+  };//end method
 
-    saveThisStatus = () =>{
-        issueService.updateStatusOneIssue(this.state.issue.issueId, this.state.statusName).then(response => {
-        }).catch((error: Error) => Alert.danger(error.message));
-        history.push('/min_side/mine_sakerBedrift');
-    };//end method
+  saveThisStatus = () => {
+    issueService.updateStatusOneIssue(this.state.issue.issueId, this.state.statusName).then(response => {
+    }).catch((error: Error) => Alert.danger(error.message));
+    history.push('/min_side/mine_sakerBedrift');
+  };//end method
 }//end class
 

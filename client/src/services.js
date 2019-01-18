@@ -80,7 +80,6 @@ export class ImageService {
     }
     return axios.post(url, formData, config)
   }
-
   getImage(imagePath: string): Promise<JSON>{
     return axios.get("/image/" + imagePath);
   }
