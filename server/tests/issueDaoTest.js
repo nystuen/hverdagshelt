@@ -522,8 +522,6 @@ test("check add categories to a company", done => {
 
   categoryDao.addCompanyCategories(post, callback);
 });
-
-
 //EVENT-TESTING
 //-----------------------------------------------------------------
 
