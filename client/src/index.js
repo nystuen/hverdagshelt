@@ -9,7 +9,6 @@ import { NavbarMenu } from './components/NavbarMenu/NavbarMenu';
 import { Login } from './views/login/login';
 import { Alert } from './widgets';
 import store from './components/ReduxRegisterForm/store';
-import { KontoOversikt } from './views/MinSide/KontoOversikt/kontoOversikt';
 import { countySubscription } from './views/MinSide/countySubscription/countySubscription';
 import createHashHistory from 'history/createHashHistory';
 import { MineSaker } from './views/MinSide/mineSaker/mineSaker';
@@ -28,6 +27,7 @@ import { EventWizardFormComplete } from './components/RegisterEventForm/EventWiz
 import { OversiktOverSak } from './views/oversiktOverSak/oversiktOverSak';
 import { mineSakerBedrift } from './views/MinSide/mineSaker/mineSakerBedrift';
 import { events } from './views/events/events';
+import {KontoOversikt} from './views/MinSide/KontoOversikt/kontoOversikt';
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== 'production') {
