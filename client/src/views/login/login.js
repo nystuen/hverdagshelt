@@ -86,7 +86,7 @@ export class Login extends Component<Props, State> {
             <Col xs={2} md={4}>
               <div className="center">
                 <Image className="picture"
-                       src={'https://lh6.googleusercontent.com/PfK5JYJcvPmaTCnKjlVkQYJ_qSvRiNHrMIYyX9DxRdYirDgoIIJaZPJXnPVbXvRDCxpv4FhrZPTDjpqFnavL=w2788-h1534-rw'}
+                       src={'./resources/logo_svart.png'}
                        rounded/>
               </div>
 
