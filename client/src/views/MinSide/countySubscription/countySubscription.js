@@ -133,7 +133,7 @@ export class countySubscription extends Component<Props, State> {
             <Col xs={12} md={5}>
                 <h5 align="center">Kommuner</h5>
               <Select
-                  className={"allCounties"}
+                  className={"Select-option"}
                   menuIsOpen
               options={options}
               onChange={this.addCounty}>
@@ -148,6 +148,9 @@ export class countySubscription extends Component<Props, State> {
               <Row>
                 <span> <Glyphicon glyph="arrow-right"/></span>
               </Row>
+                <Row align={'right'}>
+                    <Button bsStyle="success" onClick={() => this.change()}>Lagre endringer</Button>
+                </Row>
 
 
             </Col>
@@ -157,7 +160,6 @@ export class countySubscription extends Component<Props, State> {
               <div>
                 <Select
                     menuIsOpen
-                    className={"myCounties"}
                     options={options2}
                     onChange={this.deleteCounty}
                     maxOptions={3}
@@ -168,9 +170,7 @@ export class countySubscription extends Component<Props, State> {
             </Col>
           </Row>
 
-          <Row align={'right'}>
-            <Button bsStyle="success" onClick={() => this.change()}>Lagre endringer</Button>
-          </Row>
+
           </Col>
 
           <Col md={2}>
