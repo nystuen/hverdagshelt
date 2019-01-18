@@ -79,7 +79,7 @@ export class OversiktOverSak extends React.Component {
 
                 <FormGroup>
                     <FormControl type="text" value={this.state.comment} placeholder="Legg til kommentar til sak"
-                    />
+                    onChange={this.editComment}/>
                 </FormGroup>
             </div>
         }
@@ -175,8 +175,8 @@ export class OversiktOverSak extends React.Component {
     }
   }//end method
 
-    editComment(){
-            
+    editComment= (event:SyntheticEvent<HTMLInputElement>) => {
+            this.setState({comment: event.target.value});
     };//end method
 
   setStatus = (event: Event) => {
