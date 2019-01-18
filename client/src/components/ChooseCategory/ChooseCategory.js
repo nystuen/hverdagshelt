@@ -16,6 +16,7 @@ import ListGroup from 'react-bootstrap/es/ListGroup';
 import ListGroupItem from 'react-bootstrap/es/ListGroupItem';
 import cloneDeep from 'lodash/cloneDeep';
 import css from './chooseCategory.css';
+import Glyphicon from 'react-bootstrap/es/Glyphicon';
 
 let categoryService = new CategoryService();
 
@@ -96,8 +97,6 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
           category2: kat2
         });
       });
-
-
     }
   }
 
@@ -173,26 +172,27 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
   }
 
   render() {
+    let caret = <span/>;
+    if (this.state.category2.length > 0) {
+      caret = <span className="caret"></span>;
+    }
+
     return (
       <div>
         <ListGroup>
           {this.state.category1.map(cat1 => {
             return (
               <div key={cat1.id}>
-                <ListGroupItem onClick={() => this.handleClick(cat1)}>
-                  cat1: {cat1.name}
-                </ListGroupItem>
-
+                <ListGroupItem onClick={() => this.handleClick(cat1)}>{cat1.name} {caret}</ListGroupItem>
                 <Collapse in={cat1.open}>
                   <div>
                     {this.state.category2.map(cat2 => {
                       if (cat2.idUp == cat1.id) {
                         return (
                           <div key={cat2.id}>
-                            <ListGroupItem className="cat2"
-                                           onClick={() => this.handleClick2(cat2)}>
-                              ___cat2: {cat2.name}
-                            </ListGroupItem>
+                            <ListGroupItem className="cat2Text"
+                                           onClick={() => this.handleClick2(cat2)}><span className="cat2"
+                                                                                         bsStyle="success">{cat2.name}</span></ListGroupItem>
                           </div>
                         );
                       }

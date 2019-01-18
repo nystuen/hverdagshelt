@@ -16,6 +16,7 @@ export class WizardFormSecondPage extends React.Component {
     this.props.change("categorylevel", this.state.selectedCategoryType);
     console.log("setting props!");
   };
+
   onChangeCategoryHeader = (name1, name2) => {
     this.setState(
       { selectedCategoryId: name1, selectedCategoryType: name2 },

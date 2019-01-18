@@ -84,7 +84,7 @@ export class Frontpage extends Component<Props, State> {
               </FormGroup>
 
               <div align="center">
-                <Button bsStyle="success" className={'frontpage-button'} href={'/#forside/' + this.state.choosen}>Gå
+                <Button bsStyle="success" className={'frontpage-button'} href={'/#/wizardForm'}>Gå
                   videre!</Button>
               </div>
             </Col>

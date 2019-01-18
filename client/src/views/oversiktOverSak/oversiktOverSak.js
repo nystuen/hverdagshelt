@@ -56,7 +56,6 @@ export class OversiktOverSak extends React.Component {
   }//end constructor
 
 
-
   render() {
     let editStatus;
     let decoded = jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret');
@@ -64,7 +63,6 @@ export class OversiktOverSak extends React.Component {
       editStatus = this.state.editStatus;
     }
 
-    console.log(this.state);
 
     return (
       <Grid className="sak">
@@ -73,14 +71,12 @@ export class OversiktOverSak extends React.Component {
           <h3>Beskrivelse</h3>
           <p>{this.state.issue.text}</p>
 
+
           <h3>Status</h3>
-          <ProgressBar bsStyle={this.state.status.progressBar} now={this.state.status.progress}
-                       label={this.state.issue.statusName}/>
-                    <h3>Status</h3>
-                    <ProgressBar>
-                    <ProgressBar bsStyle={this.state.status.progressBar} active now={this.state.status.progress}
-                                 label={this.state.status.name} style={{color: 'black'}}/>
-                    </ProgressBar>
+          <ProgressBar>
+            <ProgressBar bsStyle={this.state.status.progressBar} active now={this.state.status.progress}
+                         label={this.state.status.name} style={{ color: 'black' }}/>
+          </ProgressBar>
 
           <h3>Dato sendt inn</h3>
           <p>{this.state.issue.date}</p>
@@ -91,7 +87,7 @@ export class OversiktOverSak extends React.Component {
           <h3>Kategori</h3>
           <p>{this.Categories()}</p>
 
-          <img src={this.state.image} />
+          <img heigth="500px" width="500px" src={'image/' + this.state.image}/>
 
         </Col>
 
@@ -154,7 +150,6 @@ export class OversiktOverSak extends React.Component {
       return (<p>{this.state.category1.name} - {this.state.category2.name}</p>);
     }//end condition
   }//end method
-
 
 
   showPic() {

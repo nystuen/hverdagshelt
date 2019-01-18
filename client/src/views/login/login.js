@@ -92,9 +92,7 @@ export class Login extends Component<Props, State> {
 
             <Col xs={2} md={4}>
               <div className="center">
-                <Image className="picture"
-                       src={'./resources/logo_svart.png'}
-                       rounded/>
+
               </div>
 
               <div className="loginBox">
@@ -154,7 +152,7 @@ export class Login extends Component<Props, State> {
             window.localStorage.setItem('userToken', token);
             console.log('login in success');
 
-            this.props.history.goBack();
+            history.push('/wizardForm');
 
           }).catch((error: Error) => Alert.danger(error.message));
         } else { //check if the email is a company email
@@ -165,8 +163,7 @@ export class Login extends Component<Props, State> {
                     let token = r.jwt;
                     window.localStorage.setItem('userToken', token);
                     console.log('login in success');
-
-                    this.props.history.goBack();
+                    history.push('/wizardForm');
 
                   }).catch((error: Error) => Alert.danger(error.message));
                 }else{
@@ -191,7 +188,7 @@ export class Login extends Component<Props, State> {
               let token = r.jwt;
               window.localStorage.setItem('userToken', token);
               console.log('login in success');
-              history.push('/#forside/2');
+              history.push('/wizardForm');
             }).catch((error: Error) => Alert.danger(error.message));
           }else{
             this.setState({
