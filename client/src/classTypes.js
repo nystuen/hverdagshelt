@@ -207,8 +207,8 @@ export class Status {
   constructor(status: string) {
     //if issue is registered
     if (status === "Registered") {
-      this.progressBar = "info";
-      this.progress = 100;
+      this.progressBar = "";
+      this.progress = 0;
 
       //if issue is under processing
     } else if (status === "In progress") {

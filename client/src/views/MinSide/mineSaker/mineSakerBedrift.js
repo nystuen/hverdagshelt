@@ -69,8 +69,10 @@ export class mineSakerBedrift extends React.Component<State>{
                                 </td>
                                 <td>
                                     {this.updateStatus(e.statusName)}
-                                    <ProgressBar bsStyle={this.status.progressBar} now={this.status.progress}
-                                             label={e.statusName}/>
+                                    <ProgressBar>
+                                    <ProgressBar bsStyle={this.status.progressBar} active now={this.status.progress}
+                                             label={e.statusName} style={{color: 'black'}} key={1}/>
+                                    </ProgressBar>
                                 </td>
                             </tr>
                         )
