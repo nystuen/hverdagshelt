@@ -203,21 +203,26 @@ export class Event {
 export class Status {
   progressBar: String;
   progress: number;
+  name: string;
 
   constructor(status: string) {
     //if issue is registered
     if (status === "Registered") {
-      this.progressBar = "info";
-      this.progress = 100;
+      this.progressBar = "";
+      this.progress = 0;
+      this.name = 'Registrert'
 
       //if issue is under processing
     } else if (status === "In progress") {
       this.progressBar = "warning";
       this.progress = 50;
+      this.name = 'Behandles'
+
       //if issue is resolved
     } else {
       this.progressBar = "success";
       this.progress = 100;
+      this.name = 'Fullført'
     } //end condition
   } //end constructor
 } //end class
