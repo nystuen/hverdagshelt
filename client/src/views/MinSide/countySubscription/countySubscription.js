@@ -41,7 +41,6 @@ export class countySubscription extends Component<Props, State> {
 
   //fra Alle kommuner til abonerte kommuner
   addCounty = (name, index) => {
-    console.log(this.state.decoded.email);
 
     const userArray = this.state.userCounties;
     const countyArray = this.state.allCounties;
@@ -88,15 +87,12 @@ export class countySubscription extends Component<Props, State> {
   getInformation = async () => {
     let id: string = this.state.decoded.email;
     await getAllCounties(id).then((r: Array<Object>) => {
-      console.log('all counties', r);
       this.setState({
         allCounties: r
       });
     });
 
     await getUsersCounties(id).then((r: Array<Object>) => {
-      console.log('karies email(id),', id);
-      console.log('karis counties', r);
       this.setState({
         userCounties: r
       });
@@ -121,7 +117,7 @@ export class countySubscription extends Component<Props, State> {
     });
 
     return (
-      <div class="countySubscription">
+      <div className="countySubscription">
         <Grid>
         <PageHeader title={"Kommuneinstillinger"}/>
 

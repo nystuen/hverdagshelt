@@ -29,4 +29,13 @@ export class EventDao extends Dao {
       callback
     );
   }
+
+  getEvent(eventId: number, callback: Function) {
+    console.log(eventId + " getRqeuest event");
+    super.query(
+      "select * from event where eventId = ?",
+      [eventId],
+      callback
+    );
+  }
 }
