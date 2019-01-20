@@ -8,10 +8,12 @@ import {CountyDao} from "../src/daos/countyDao";
 import {CategoryDao} from "../src/daos/catergoryDao";
 import {EventDao} from '../src/daos/eventDao';
 import {EventCategoryDao} from '../src/daos/eventCategoryDao';
+import {MailDao} from '../src/daos/mailDao';
+import {NotificationSettingsDao} from '../src/daos/notificationSettingsDao';
 
 // GitLab CI Pool
 let pool = mysql.createPool({
-  connectionLimit: 5,
+  connectionLimit: 6,
   host: "mysql.stud.iie.ntnu.no",
   user: "aadneny",
   password: "W9d7XVXV",
@@ -26,6 +28,8 @@ let countyDao = new CountyDao(pool);
 let categoryDao = new CategoryDao(pool);
 let eventDao = new EventDao(pool);
 let eventCategoryDao = new EventCategoryDao(pool);
+let mailDao = new MailDao(pool);
+let notificationSettingsDao = new NotificationSettingsDao(pool);
 
 
 beforeAll(done => {
@@ -595,3 +599,5 @@ test("check add event", done => {
 
 //MAIL-TESTING
 //-----------------------------------------------------------------
+
+
