@@ -6,6 +6,7 @@ import {IssueDao} from "../src/daos/issueDao";
 import {UserDao} from "../src/daos/userDao";
 import {CountyDao} from "../src/daos/countyDao";
 import {CategoryDao} from "../src/daos/catergoryDao";
+import {EventDao} from '../src/daos/eventDao';
 
 // GitLab CI Pool
 let pool = mysql.createPool({
@@ -22,6 +23,7 @@ let issueDao = new IssueDao(pool);
 let userDao = new UserDao(pool);
 let countyDao = new CountyDao(pool);
 let categoryDao = new CategoryDao(pool);
+let eventDao = new EventDao(pool);
 
 beforeAll(done => {
   runsqlfile("tests/sqlFiles/createTables.sql", pool, () => {
@@ -518,7 +520,22 @@ test("check add categories to a company", done => {
 //EVENT-TESTING
 //-----------------------------------------------------------------
 
+test("check get 10 newest events", done => {
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.affectedRows).toBeGreaterThanOrEqual(1);
+    done();
+  }
 
+  let post = {
+    companyMail:'company1@company.com',
+    categoryId: 2,
+  };
+
+  categoryDao.get10newestEvents(post, callback);
+});
 //EVENTCATEGORYY-TESTING
 //-----------------------------------------------------------------
 
