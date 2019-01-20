@@ -7,6 +7,7 @@ import {UserDao} from "../src/daos/userDao";
 import {CountyDao} from "../src/daos/countyDao";
 import {CategoryDao} from "../src/daos/catergoryDao";
 import {EventDao} from '../src/daos/eventDao';
+import {EventCategoryDao} from '../src/daos/eventCategoryDao';
 
 // GitLab CI Pool
 let pool = mysql.createPool({
@@ -24,6 +25,8 @@ let userDao = new UserDao(pool);
 let countyDao = new CountyDao(pool);
 let categoryDao = new CategoryDao(pool);
 let eventDao = new EventDao(pool);
+let eventCategoryDao = new EventCategoryDao(pool);
+
 
 beforeAll(done => {
   runsqlfile("tests/sqlFiles/createTables.sql", pool, () => {
@@ -336,9 +339,10 @@ test("check add subscription counties", done => {
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
     );
-    expect(data[0].countyId).toBe(2);
+    expect(data.length).toBe(2);
 
-    expect(data[0].name).toBe('Trondheim');
+    expect(data[0].name).toBe('Oslo');
+    expect(data[1].name).toBe('Trondheim');
     done();
   }
 
@@ -358,9 +362,8 @@ test("check get all counties where the user that the user dos not subscribe to",
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
     );
-    expect(data.length).toBe(2);
-    expect(data[0].name).toBe('Oslo');
-    expect(data[1].name).toBe('Kristiansand');
+    expect(data.length).toBe(1);
+    expect(data[0].name).toBe('Kristiansand');
     done();
   }
 
@@ -517,6 +520,24 @@ test("check add categories to a company", done => {
 
   categoryDao.addCompanyCategories(post, callback);
 });
+
+
+//EVENTCATEGORYY-TESTING
+//-----------------------------------------------------------------
+test("check get all eventCategories", done => {
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.length).toBe(1);
+    //expect(data.length).toBeGreaterThanOrEqual(1);
+    done();
+  }
+
+  eventCategoryDao.getEventCategory(callback);
+});
+
+
 //EVENT-TESTING
 //-----------------------------------------------------------------
 
@@ -525,19 +546,47 @@ test("check get 10 newest events", done => {
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
     );
-    expect(data.affectedRows).toBeGreaterThanOrEqual(1);
+    expect(data.length).toBeLessThanOrEqual(10);
+    expect(data.length).toBe(0);
     done();
   }
 
-  let post = {
-    companyMail:'company1@company.com',
-    categoryId: 2,
-  };
-
-  categoryDao.get10newestEvents(post, callback);
+  eventDao.get10newestEvents(1,callback);
 });
-//EVENTCATEGORYY-TESTING
-//-----------------------------------------------------------------
+
+
+test("check add event", done => {
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.affectedRows).toBeGreaterThanOrEqual(1);
+  }
+
+  function callback2(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.length).toBe(2);
+    expect(data[0].title).toBe('Konsert på Solsiden');
+    done();
+  }
+  let post = {
+      title:'Konsert på Solsiden',
+      text:'kl 18:00-23:00 den 21.01 vil det være trafikk inn og ut av Solsiden',
+      latitude:45.12,
+      longitude:27.23,
+      date:'21.01.2019',
+      userMail:'kari@usermail.com',
+      countyId:2,
+      eventCategoryId:1,
+
+  };
+  eventDao.addEvent(post,callback);
+  eventDao.get10newestEvents(2,callback2);
+});
+
+
 
 
 

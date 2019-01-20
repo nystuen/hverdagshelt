@@ -6,6 +6,9 @@ Insert into aadneny.category2(category2Id,categoryId, name, active) values (2,2,
 
 Insert into aadneny.category3(category3Id,category2Id, name, active) values (1,2,'Vannmangel',1);
 
+Insert into aadneny.eventCategory(eventCategoryId, name, active) values (1,'Konsert',1);
+
+
 Insert into aadneny.types(typeName, active) values('Company', 1);
 Insert into aadneny.types(typeName, active) values('Admin', 1);
 Insert into aadneny.types(typeName, active) values('Employee', 1);
@@ -36,8 +39,8 @@ Insert into aadneny.issues(issueId, userMail, latitude, longitude,address, text,
 Insert into aadneny.companyIssues(issueId, companyMail) values (1 ,'company1@company.com');
 Insert into aadneny.companyIssues(issueId, companyMail) values (2 ,'company2@company.com');
 
-Insert into aadneny.event(title, text, latitude, longitude, date, userMail, countyId, active) values ('Veiarbeid i midtbyen', 'Veiarbeid i midtbyen torsdag kveld', 0, 0, '10.01.2019', 'ola@usermail.com', 2, 1);
-Insert into aadneny.event(title, text, latitude, longitude, date, userMail, countyId, active) values ('Konsert', 'Konsert kan skape kø ut av byen mellom 20.00 og 23.00', 0, 0, '13.01.2019', 'kari@usermail.com', 3, 1);
+Insert into aadneny.event(eventId,title, text, latitude, longitude, date, userMail, countyId, active,eventCategoryId) values (1,'Veiarbeid i midtbyen', 'Veiarbeid i midtbyen torsdag kveld', 0, 0, '10.01.2019', 'ola@usermail.com', 2, 1,1);
+Insert into aadneny.event(eventId,title, text, latitude, longitude, date, userMail, countyId, active,eventCategoryId) values (2,'Konsert', 'Konsert kan skape kø ut av byen mellom 20.00 og 23.00', 0, 0, '13.01.2019', 'kari@usermail.com', 3, 1,1);
 
 Insert into aadneny.pushAlerts(countyId, categoryId, userMail) values(1, 1, 'kari@usermail.com');
 
