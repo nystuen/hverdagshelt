@@ -4,33 +4,33 @@ import {Dao} from "../dao";
 
 
 export class NotificationSettingsDao extends Dao {
-
+//OK
     getNotificationSettings(userMail: string, callback: Function) {
         super.query("select categoryId, name, countyId from pushAlerts natural join category where userMail=? ", [userMail], callback);
     }
-
+//OK
     getNotificationSettingsSimple(userMail: string, callback: Function) {
         super.query("select categoryId, countyId from pushAlerts where userMail=?", [userMail], callback);
     }
-
+//OK
     deleteNotificationSettings(userMail: string, callback: Function) {
         super.query("delete from pushAlerts where userMail=?", [userMail], callback);
     }
-
+//OK
     addNotificationSettings(json: Object, callback: Function) {
         let val = [json.countyId, json.categoryId, json.userMail];
         super.query("insert into pushAlerts (countyId, categoryId, userMail ) values (?, ?, ?)", val, callback)
     }
-
+//OK
     getIssueNotificationSettings(userMail: string, callback: Function) {
         super.query("select * from notifications where userMail=? ", [userMail], callback);
     }
-
+//OK
     updateIssueNotificationSettings(json: Object, callback: Function) {
         let val = [json.registered, json.inProgress, json.completed, json.userMail];
         super.query("update notifications set registered=?, inProgress=?, completed=? where userMail=?", val, callback);
     }
-
+//OK
     addIssueNotificationSettings(json: Object, callback: Function) {
         console.log(json);
         let val = [json.userMail, json.registered, json.inProgress, json.completed];

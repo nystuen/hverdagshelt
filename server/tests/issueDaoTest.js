@@ -597,7 +597,196 @@ test("check add event", done => {
 //NOTIFICATION SETTINGS-TESTING
 //-----------------------------------------------------------------
 
+
+test("check add notificationsettings(pushalert)", done => {
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    //expect(data.affectedRows).toBeGreaterThanOrEqual(1);
+
+  }
+
+  function callback2(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.length).toBe(1);
+    expect(data[0].categoryId).toBe(1);
+    expect(data[0].countyId).toBe(1);
+    expect(data[0].name).toBe('Strøm');
+  }
+
+
+  function callback3(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.affectedRows).toBeGreaterThanOrEqual(1);
+
+  }
+
+
+  function callback4(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.length).toBe(2);
+    expect(data[1].categoryId).toBe(2);
+    expect(data[1].countyId).toBe(2);
+
+    done();
+  }
+
+
+
+  let post = {
+      countyId:1,
+      categoryId: 1,
+      userMail:'kari@usermail.com',
+
+  };
+
+  let post2 = {
+    countyId:2,
+    categoryId: 2,
+    userMail:'kari@usermail.com',
+
+  };
+
+  notificationSettingsDao.addNotificationSettings(post,callback);
+  notificationSettingsDao.getNotificationSettings('kari@usermail.com', callback2);
+  notificationSettingsDao.addNotificationSettings(post2,callback3);
+  notificationSettingsDao.getNotificationSettingsSimple('kari@usermail.com', callback4);
+});
+
+
+
+test("check get pushalert with name on county and category", done => {
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data[0].categoryId).toBe(1);
+    expect(data[0].countyId).toBe(1);
+    expect(data[0].categoryName).toBe('Strøm');
+    expect(data[0].countyName).toBe('Oslo');
+    done();
+  }
+
+
+  notificationSettingsDao.getNotificationSettingsWithNames('kari@usermail.com',callback);
+});
+
+
+test("check delete pushalert", done => {
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.affectedRows).toBeGreaterThanOrEqual(1);
+  }
+
+  function callback2(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.length).toBe(0);
+    done();
+  }
+
+  notificationSettingsDao.deleteNotificationSettings('kari@usermail.com',callback);
+  notificationSettingsDao.getNotificationSettingsSimple(2,callback2);
+});
+
+
+
+
+test("check add notification", done => {
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.affectedRows).toBeGreaterThanOrEqual(1);
+  }
+
+  function callback2(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.length).toBe(1);
+    expect(data[0].registered).toBe(1);
+    expect(data[0].inProgress).toBe(1);
+    expect(data[0].completed).toBe(0);
+    done();
+  }
+
+
+  let post = {
+    userMail:'kari@usermail.com',
+    registered: true,
+    inProgress:true,
+    completed:false,
+  };
+
+  notificationSettingsDao.addIssueNotificationSettings(post,callback);
+  notificationSettingsDao.getIssueNotificationSettings('kari@usermail.com',callback2);
+});
+
+
+
+test("check update notification", done => {
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.affectedRows).toBeGreaterThanOrEqual(1);
+  }
+
+  function callback2(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.length).toBe(1);
+    expect(data[0].registered).toBe(1);
+    expect(data[0].inProgress).toBe(1);
+    expect(data[0].completed).toBe(1);
+    done();
+  }
+
+
+  let post = {
+    registered: true,
+    inProgress:true,
+    completed:true,
+    userMail:'kari@usermail.com',
+  };
+
+  notificationSettingsDao.updateIssueNotificationSettings(post,callback);
+  notificationSettingsDao.getIssueNotificationSettings('kari@usermail.com',callback2);
+});
+
+
+
+
+
 //MAIL-TESTING
 //-----------------------------------------------------------------
 
 
+
+
+test("check reset password", done => {
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.affectedRows).toBeGreaterThanOrEqual(1);
+    done();
+  }
+  let post = {
+  to:'ola@usermail.com',
+  };
+
+  mailDao.resetPassword('ola@usermail.com','detteErEtNyttPassord',callback);
+});
