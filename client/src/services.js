@@ -138,6 +138,14 @@ export class IssueService {
   updateStatusOneIssue(id: number, statusName: string) {
     return axios.post('/updateStatusOneIssue/' + id, { statusName: statusName });
   }//end method
+
+  addCommentToIssue(id: number, text: string){
+    return axios.post('/addIssueComments', {id: id, text: text});
+  }//end method
+
+  getCompanyComments(id: number){
+    return axios.get('/updateStatusOneIssue/' + id);
+  }//end method
 }//end class
 
 

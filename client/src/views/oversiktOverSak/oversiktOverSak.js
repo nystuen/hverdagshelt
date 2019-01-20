@@ -48,9 +48,10 @@ export class OversiktOverSak extends React.Component {
       categoryLevel: 1, //1 means the issue is not registered under any subcategories
       editCase: false, //if the issue is in progress or completed, user cannot edit issue
       comment: '',
+      issueComments: [],
       editStatus: <div>
           <Row>
-              <Col>
+              <Col xs={12} md={8}>
             <select onChange={this.setStatus}>
               <option value="">Oppdater status</option>
               <option value="In progress">Behandles</option>
@@ -59,7 +60,7 @@ export class OversiktOverSak extends React.Component {
               </Col>
           </Row>
           <Row>
-              <Col md={3}>
+              <Col xs={3} md={3}>
                 <Button onClick={this.saveThisStatus}> Lagre status</Button>
               </Col>
           </Row>
@@ -78,9 +79,10 @@ export class OversiktOverSak extends React.Component {
                 <br/>
 
                 <FormGroup>
-                    <FormControl type="text" value={this.state.comment} placeholder="Legg til kommentar til sak"
+                    <FormControl componentClass="textarea" value={this.state.comment} placeholder="Legg til kommentar til sak"
                     onChange={this.editComment}/>
                 </FormGroup>
+                <Button type="Button" onClick={this.addComment}> Legg til kommentar</Button>
             </div>
         }
         return(
@@ -175,9 +177,15 @@ export class OversiktOverSak extends React.Component {
     }
   }//end method
 
-    editComment= (event:SyntheticEvent<HTMLInputElement>) => {
-            this.setState({comment: event.target.value});
+    editComment = (event:SyntheticEvent<HTMLInputElement>) => {
+        this.setState({comment: event.target.value});
     };//end method
+
+    addComment = () => {
+      issueService.addCommentToIssue(this.state.issue.issueId, this.state.comment).then(response => {
+          console.log('Eeeey');
+      }).catch((error: Error) => Alert.danger(error.message));
+    };
 
   setStatus = (event: Event) => {
     this.setState({ statusName: event.target.value });
