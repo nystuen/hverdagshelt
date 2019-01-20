@@ -13,11 +13,13 @@ import Checkbox from 'react-bootstrap/es/Checkbox';
 import Select from 'react-select';
 import HelpBlock from "react-bootstrap/es/HelpBlock";
 import Row from 'react-bootstrap';
+import {history} from "../../index";
 
 let countyService = new CountyService();
 let userService = new UserService();
 
 interface State {
+    registerSuccess: boolean,
     errorSomething: boolean,
   errorEqualsPass: boolean,
   errorRequirementsPass: boolean,
@@ -40,71 +42,6 @@ interface Props {
   match: Object,
 }
 
-/*class BindDropDown extends Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            choosen: {name: "Bergen", countyId: 1},
-            values:[
-                {name: "Bergen", countyId: 1}
-                //{ name: this.county.name, countyId: this.county.countyId}
-            ]
-        }
-
-        this.handleChangeCounty = this.handleChangeCounty.bind(this)
-    }
-
-    handleChangeCounty(e: Object){
-        console.log(this.state.choosen.countyId)
-        this.setState({
-            choosen: JSON.parse(e.target.value)
-        })
-
-
-    };
-
-    componentWillMount() {
-        var arr = [];
-        countyService
-            .getCounties()
-            .then(county2 => {
-                county2.map(e => {
-                    var elem = {
-                        name: e.name,
-                        countyId: e.countyId
-                    };
-                    arr = arr.concat(elem)
-
-                });
-                this.setState({
-                    values: arr
-                })
-            })
-
-
-                //this.state.countyName.push(this.state.county.name)})
-            .catch((error: Error)=>Alert.danger(error.message))
-
-    }
-
-
-
-    render(){
-        let optionTemplate = this.state.values.map(v => {
-            var data = {name: v.name, countyId: v.countyId}
-            return(<option key={v.countyId} value={JSON.stringify(data)}> {v.name}</option>)
-        });
-        return (
-            <label>
-                Velg Kommune:
-                <select value={this.state.values.countyId} onChange={this.handleChangeCounty}>
-                    {optionTemplate}
-                </select>
-            </label>
-        )
-    }
-}*/
-
 export class RegisterUser extends Component<Props, State> {
 
   /*state = {
@@ -123,6 +60,7 @@ export class RegisterUser extends Component<Props, State> {
   constructor(props) {
     super(props);
     this.state = {
+        registerSuccess: false,
         errorSomething: false,
       errorEqualsPass: false,
       errorRequirementsPass: false,
@@ -183,24 +121,28 @@ export class RegisterUser extends Component<Props, State> {
         });
       })
 
-
-      //this.state.countyName.push(this.state.county.name)})
       .catch((error: Error) => Alert.danger(error.message));
 
   }
 
   handleStringChange = (name: string) => (event: SyntheticEvent<HTMLInputElement>) => {
-    this.setState({
+
+
+      this.setState({
+
       // $FlowFixMe
       [name]: event.target.value
     });
   };
 
   handleNumberChange = (value: number) => (event: SyntheticEvent<HTMLInputElement>) => {
+    const re = /^[0-9\b]+$/;
+    if(event.target.value === '' ||re.test(event.target.value)){
     this.setState({
       // $FlowFixMe
       [value]: event.target.value
     });
+    }
   };
 
   checkValidEmail() {
@@ -283,7 +225,7 @@ export class RegisterUser extends Component<Props, State> {
 
   getValidationStatePassword(){
       const length = this.state.password.length;
-      let decimal = /(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!., /@<>"¤=#$%^&*()]*$/;
+      let decimal = /(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!., æøå/@<>"¤=#$%^&*()]*$/;
       if (this.state.password.match(decimal)) return 'success';
       else if(length==0)return ;
       else return 'warning';
@@ -300,7 +242,7 @@ export class RegisterUser extends Component<Props, State> {
 
     getValidationStateFirstName() {
       const firstNameLength = this.state.firstName.length;
-        let decimal=/^[A-Za-z _]*[A-Za-z][A-Za-z _]*$/;
+        let decimal=/^[A-Za-z _æøå]*[A-Za-zæøå][A-Za-z _æøå]*$/;
 
         if(firstNameLength===1){
             return 'warning';
@@ -313,7 +255,7 @@ export class RegisterUser extends Component<Props, State> {
     }
     getValidationStateLastName() {
         const lastNameLength = this.state.lastName.length;
-        let dec=/^[A-Za-z _]*[A-Za-z][A-Za-z _]*$/;
+        let dec=/^[A-Za-z _æøå]*[A-Za-z][A-Za-z _æøå]*$/;
 
         if(lastNameLength===1){
             return 'warning';
@@ -353,6 +295,15 @@ export class RegisterUser extends Component<Props, State> {
               <p></p>
           );
       }
+      let register_success;
+      if(this.state.registerSuccess){
+          register_success = (
+              <Alert bsStyle="success">
+                  <p>Bruker ble registrert</p>
+              </Alert>
+          )
+      }
+
       let alert_notpasswordreq;
       if (this.state.errorRequirementsPass){
           alert_notpasswordreq = (
@@ -432,7 +383,7 @@ export class RegisterUser extends Component<Props, State> {
                 <Col md={6}>
                   <FormGroup validationState={this.getValidationPhone()}>
                     <FormControl type="text" value={this.state.phone} placeholder="Telefonnummer"
-                                 onChange={this.handleStringChange('phone')}
+                                 onChange={this.handleNumberChange('phone')}
                     />
                       <FormControl.Feedback />
                   </FormGroup>
@@ -492,6 +443,7 @@ export class RegisterUser extends Component<Props, State> {
                       {alert_notpasswordreq}
                       {alert_notequalpasswords}
                       {alert_something}
+                      {register_success}
                       </FormGroup>
                   </Col>
               </FormGroup>
@@ -528,32 +480,41 @@ export class RegisterUser extends Component<Props, State> {
 
   register = () => {
 
-        const newUser = {
-          mail: this.state.mail,
-          firstName: this.state.firstName,
-          lastName: this.state.lastName,
-          password: this.state.password,
-          typeName: 'Private',
-          phone: this.state.phone,
-          countyId: this.state.choosen
-        };
+    const newUser = {
+      mail: this.state.mail,
+      firstName: this.state.firstName,
+      lastName: this.state.lastName,
+      password: this.state.password,
+      typeName: 'Private',
+      phone: this.state.phone,
+      countyId: this.state.choosen
+    };
 
-        console.log("JESSSSSSSS");
+    console.log("JESSSSSSSS");
 
 
-        userService
-          .addUser(newUser)
-          .then(user => (this.state = user))
-          .catch((error: Error) => Alert.danger(error.message));
+    userService
+      .addUser(newUser)
+      .then(user => (this.state = user))
+      .catch((error: Error) => Alert.danger(error.message));
 
-        let theBody: Object = {
-          countyId: newUser.countyId,
-          userMail: newUser.mail
-        };
+    let theBody: Object = {
+      countyId: newUser.countyId,
+      userMail: newUser.mail
+    };
 
-        addSubscription(theBody);
-
+    addSubscription(theBody);
+    this.setState({registerSuccess:true})
+    this.goToLogin();
   }
+
+    goToLogin = () =>{
+        setTimeout(
+            function(){
+                history.push('/login');
+            }, 3000
+        )
+    }
 
 }
 
