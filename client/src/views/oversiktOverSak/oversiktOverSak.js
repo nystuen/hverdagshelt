@@ -14,6 +14,7 @@ import Button from 'react-bootstrap/es/Button';
 import { ImageService } from '../../services';
 import { history } from '../../index';
 import css from './oversiktOverSak.css';
+import FormControl from 'react-bootstrap/es/FormControl';
 
 let issueService = new IssueService();
 let categoryService = new CategoryService();
@@ -44,14 +45,15 @@ export class OversiktOverSak extends React.Component {
       statusName: '',
       categoryLevel: 1, //1 means the issue is not registered under any subcategories
       editCase: false, //if the issue is in progress or completed, user cannot edit issue
-      editStatus: <div>
-        <select onChange={this.setStatus}>
-          <option value="">Oppdater status</option>
-          <option value="In progress">In progress</option>
-          <option value="Completed"> Completed</option>
-        </select>
-        <Button onClick={this.saveThisStatus}> Lagre status</Button>
-      </div>
+      editStatus:
+        <div>
+          <FormControl onChange={this.setStatus} componentClass="select" placeholder="select">
+            <option value="">Oppdater status</option>
+            <option value="In progress">Behandling</option>
+            <option value="Completed">Fullført</option>
+          </FormControl>
+          <Button onClick={this.saveThisStatus} block> Lagre status</Button>
+        </div>
     };
   }//end constructor
 
@@ -66,42 +68,40 @@ export class OversiktOverSak extends React.Component {
 
     return (
       <Grid className="sak">
-        <Col xs={12} md={4}>
 
-          <h3>Beskrivelse</h3>
-          <p>{this.state.issue.text}</p>
 
-          <h3>Status</h3>
-          <ProgressBar bsStyle={this.state.status.progressBar} now={this.state.status.progress}
-                       label={this.state.issue.statusName}/>
-                    <h3>Status</h3>
-                    <ProgressBar>
-                    <ProgressBar bsStyle={this.state.status.progressBar} active now={this.state.status.progress}
-                                 label={this.state.status.name} style={{color: 'black'}}/>
-                    </ProgressBar>
+        <Col sm={10}  md={8} lg={8}>
+          <img width={'100%'} src={'image/' + this.state.image}/>
 
-          <h3>Dato sendt inn</h3>
-          <p>{this.state.issue.date}</p>
+          <Col sm={6} md={6}>
+            <h3>Kategori</h3>
+            <p>{this.Categories()}</p>
 
-          <h3>Adresse</h3>
-          <p>{this.state.issue.address}</p>
+            <h3>Adresse</h3>
+            <p>{this.state.issue.address}</p>
 
-          <h3>Kategori</h3>
-          <p>{this.Categories()}</p>
+            <h3>Beskrivelse</h3>
+            <p>{this.state.issue.text}</p>
 
-          <img heigth="500px" width="500px" src={'image/' + this.state.image}/>
 
-        </Col>
-
-        <Col xs={12} md={8}>
-        </Col>
-
-        <Row>
-          <Col>
-            {editStatus}
           </Col>
-        </Row>
-        <br/>
+          <Col sm={6} md={6}>
+
+            <h3>Status</h3>
+            <ProgressBar>
+              <ProgressBar bsStyle={this.state.status.progressBar} active now={this.state.status.progress}
+                           label={this.state.status.name} style={{ color: 'black' }}/>
+            </ProgressBar>
+
+            {editStatus}
+
+            <h3>Dato sendt inn</h3>
+            <p>{this.state.issue.date}</p>
+
+          </Col>
+        </Col>
+
+
       </Grid>
     );
   }//end method
@@ -152,7 +152,6 @@ export class OversiktOverSak extends React.Component {
       return (<p>{this.state.category1.name} - {this.state.category2.name}</p>);
     }//end condition
   }//end method
-
 
 
   showPic() {

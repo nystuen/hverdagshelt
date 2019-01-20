@@ -1,6 +1,6 @@
 
 .panels {
-    padding-top: 3em;
+
 }
 
 
@@ -37,4 +37,16 @@
 .nyPanel hr {
     padding: 0;
     margin: 0;
+}
+
+.buttons a{
+}
+
+
+#col {
+    padding-top: 4em;
+}
+
+.title {
+    background-color: blue;
 }
