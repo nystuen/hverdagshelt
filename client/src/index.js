@@ -29,6 +29,8 @@ import { OversiktOverSak } from "./views/oversiktOverSak/oversiktOverSak";
 import { mineSakerBedrift } from "./views/MinSide/mineSaker/mineSakerBedrift";
 import { events } from "./views/events/events";
 import { AdminResetUserPassword } from "./views/admin/resetPassword";
+import { adminPanel } from './views/admin/adminPanel';
+import { SendTextMailWindow } from './components/Mail/SendMail';
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== 'production') {
@@ -63,6 +65,9 @@ if (root)
         <Route path="/min_side/sakoversikt/:email/:issueId" component={OversiktOverSak}/>
         <Route exact path="/registerEvent" component={EventWizardFormComplete}/>
         <Route exact path="/events/:countyId" component={events}/>
+        <Route exact path="/admin" component={adminPanel}/>
+        <Route path="/admin/sendMailTilBruker" component={SendTextMailWindow}/>
+        <Route path="/admin/resetPassord" component={AdminResetUserPassword} />
       </div>
     </HashRouter>,
     root

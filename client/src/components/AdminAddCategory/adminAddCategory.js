@@ -90,7 +90,7 @@ export class adminAddCategory extends Component<Props, State> {
         priority: this.state.newPriority
       };
 
-      console.log('body', theBody1)
+      console.log('body', theBody1);
       categoryService.addCategory1(theBody1).then(res => {
         console.log('added cat1', res);
         this.setState({ error: false });
@@ -124,7 +124,7 @@ export class adminAddCategory extends Component<Props, State> {
 
   onChangeCategory = (label, name) => {
 
-    this.setState({ selectedCategoryId: name, selectedCategoryType: label});
+    this.setState({ selectedCategoryId: name, selectedCategoryType: label });
   };
 
 
@@ -165,15 +165,18 @@ export class adminAddCategory extends Component<Props, State> {
 
     return (
       <Grid>
-        <p>{this.state.selectedCategoryId}</p>
-        <p>{this.state.selectedCategoryType}</p>
-        <Col>
+
+        <Col xs={0} md={2}></Col>
+
+        <Col xs={12} md={8}>
           <FormGroup className="text-center">
             <PageHeader>Legg til en kategori</PageHeader>
             <ControlLabel>Kategori navn</ControlLabel>
             <FormControl type="text" placeholder="Skriv inn kategorinavn"
                          onChange={this.handleChange('newCategoryName')}></FormControl>
             <ListGroup>
+
+              <br/>
 
               <FormGroup>
                 <Checkbox inline onClick={() => this.onClickHovedkategori()}>Registrer som hovedkategori</Checkbox>
@@ -185,9 +188,14 @@ export class adminAddCategory extends Component<Props, State> {
             {mainCat}
 
           </FormGroup>
-          <Button onClick={() => this.saveCategory()}>Lagre kategori</Button>
+
+          <div align="center">
+            <Button bsStyle="success" onClick={() => this.saveCategory()}>Lagre kategori</Button>
+          </div>
           {alert}
         </Col>
+
+        <Col xs={0} md={2}></Col>
       </Grid>
     );
 
