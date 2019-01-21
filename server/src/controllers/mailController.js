@@ -132,34 +132,5 @@ module.exports = function (app: Object, userDao: Object) {
     });
   });
 
-  app.post('/sendEventMail', urlencodedParser, (req, res) => {
-    console.log('got request from sendTextMail');
-
-    let recipients = req.body.to;
-
-    recipients.map(e => {
-
-
-      let mailOptions = {
-        from: 'hverdagshelt.scrum@gmail.com',
-        to: e,
-        subject: 'Hverdagshelt - ' + req.body.subject,
-        text: 'Hei! ' + req.body.text,
-        html: "<p>Hei!</p><p>res.body.text</p><p>- Din kommune</p>"
-      };
-
-      transporter.sendMail(mailOptions, function(error, info) {
-        if (error) {
-          console.log(error);
-        } else {
-          console.log('Email sent: ' + info.response);
-        }
-      });
-
-    })
-
-
-
-  });
 
 };
