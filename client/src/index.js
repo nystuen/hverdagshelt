@@ -33,34 +33,7 @@ import { AdminResetUserPassword } from "./views/admin/resetPassword";
 import { adminPanel } from './views/admin/adminPanel';
 import { SendTextMailWindow } from './components/Mail/SendMail';
 import {Footer} from './components/Footer/Footer';
-
-import ReactDOM from 'react-dom';
-import * as React from 'react';
-import { HashRouter, Route, NavLink } from 'react-router-dom';
-import { WizardFormComplete } from './components/ReduxRegisterForm/WizardFormComplete';
-import { MapComponent } from './components/map/Map';
-import { NavbarMenu } from './components/NavbarMenu/NavbarMenu';
-import { Login } from './views/login/login';
-import { Alert } from './widgets';
-import store from './components/ReduxRegisterForm/store';
-import { KontoOversikt } from './views/MinSide/KontoOversikt/kontoOversikt';
-import { countySubscription } from './views/MinSide/countySubscription/countySubscription';
-import createHashHistory from 'history/createHashHistory';
-import { MineSaker } from './views/MinSide/mineSaker/mineSaker';
-import { Provider } from 'react-redux';
-import { adminAddCategory } from './components/AdminAddCategory/adminAddCategory';
-import { RegisterCompany } from './components/registercompany/registercompany.js';
-import { RegisterUser } from './components/registeruser/registeruser';
-import { ChooseCategory } from './components/ChooseCategory/ChooseCategory.js';
-import { forside } from './views/forside/forside';
-import { Frontpage } from './views/frontpage/frontpage';
-import { editAccountInformation } from './views/MinSide/KontoOversikt/editAccountInformation';
-import {NotificationSettings} from "./components/NotificationSettings/NotificationSettings";
 import {RegisterAdmin} from "./components/registeradmin/registeradmin";
-import { Component } from 'react-simplified';
-import { MinSide } from './views/MinSide/MinSide';
-import { EventWizardFormComplete } from './components/RegisterEventForm/EventWizardFormComplete';
-import { OversiktOverSak } from './views/oversiktOverSak/oversiktOverSak';
 import {RegisterEmployee} from "./components/registeremployee/RegisterEmployee";
 
 // Reload application when not in production environment

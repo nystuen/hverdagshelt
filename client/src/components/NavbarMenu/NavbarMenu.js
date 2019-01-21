@@ -37,13 +37,7 @@ export class NavbarMenu extends React.Component {
     }
 
     componentDidMount() {
-        userService.getCurrentUser()
-            .then(resources => {
-                let user = resources[0];
-                this.setState({
-                    user: user
-                })
-            })
+
     }
 
     render() {
@@ -51,6 +45,13 @@ export class NavbarMenu extends React.Component {
             loginButton = <NavItem eventKey={1} href="/#login">Login</NavItem>;
         } else {
             loginButton = <NavItem eventKey={1} href="/#login" onClick={() => this.logout()}> Log out</NavItem>;
+            userService.getCurrentUser()
+                .then(resources => {
+                    let user = resources[0];
+                    this.setState({
+                        user: user
+                    })
+                });
             this.viewCases();
         }//end condition
 

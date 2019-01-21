@@ -240,7 +240,7 @@ export class NotificationSettingsService {
   }
 
   addIssueNotificationSettings(newSetting: IssueNotificationSetting): Promise<Response> {
-    return axios.post('/add_issue_notification_settings', newSetting, { headers: authHeader() });
+    return axios.post('/add_issue_notification_settings', newSetting);
   }
 
   getIssueNotificationSettings(): Promise<Object[]> {
