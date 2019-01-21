@@ -139,12 +139,12 @@ export class IssueService {
     return axios.post('/updateStatusOneIssue/' + id, { statusName: statusName });
   }//end method
 
-  addCommentToIssue(id: number, text: string){
-    return axios.post('/addIssueComments', {id: id, text: text});
+  addCommentToIssue(id: number, text: string, companyMail: string){
+    return axios.post('/addIssueComments', {id: id, text: text, companyMail: companyMail});
   }//end method
 
   getCompanyComments(id: number){
-    return axios.get('/updateStatusOneIssue/' + id);
+    return axios.get('/companyComments/' + id);
   }//end method
 }//end class
 

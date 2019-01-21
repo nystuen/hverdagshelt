@@ -87,7 +87,7 @@ module.exports = function(app: Object, issueDao: Object) {
 
   app.post("/addIssueComments", (req, res) => {
     console.log('Received post request from addIssueComments');
-    issueDao.addCommentToIssue(req.body.id,req.body.text, (status,data) => {
+    issueDao.addCommentToIssue(req.body.id,req.body.text, req.body.companyMail, (status,data) => {
       res.status(status);
       res.json(data);
     });

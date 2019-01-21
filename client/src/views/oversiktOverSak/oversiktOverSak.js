@@ -16,6 +16,8 @@ import { history } from '../../index';
 import css from './oversiktOverSak.css';
 import{FormGroup} from "react-bootstrap";
 import {FormControl} from "react-bootstrap";
+import Card from "reactstrap/es/Card";
+import Table from "react-bootstrap/es/Table";
 
 let issueService = new IssueService();
 let categoryService = new CategoryService();
@@ -81,8 +83,8 @@ export class OversiktOverSak extends React.Component {
                 <FormGroup>
                     <FormControl componentClass="textarea" value={this.state.comment} placeholder="Legg til kommentar til sak"
                     onChange={this.editComment}/>
+                    <Button type="Button" onClick={this.addComment}> Legg til kommentar</Button>
                 </FormGroup>
-                <Button type="Button" onClick={this.addComment}> Legg til kommentar</Button>
             </div>
         }
         return(
@@ -114,9 +116,29 @@ export class OversiktOverSak extends React.Component {
         <Row>
           <Col xsOffset={23} md={8}>
             {editStatus}
-            {renderComment}
           </Col>
         </Row>
+            <br/>
+            <h3> <b>Kommentarer </b></h3>
+                {renderComment}
+                <br/>
+                <Table condensed hover bordered>
+                {this.state.issueComments.map(e => {
+                    return(
+
+                      <tbody key={e}>
+                      <tr>
+                          <td>
+                              <Col>
+                                  <h4> <b>{e.mail}</b></h4>
+                                  <h4> <i>{e.text}</i></h4>
+                              </Col>
+                          </td>
+                        </tr>
+                      </tbody>
+                  )
+            })}
+                </Table>
         <br/>
       </Grid>
     );
@@ -126,6 +148,10 @@ export class OversiktOverSak extends React.Component {
   componentWillMount() {
     issueService.getIssueAndCounty(this.props.match.params.issueId).then(response => {
       this.setState({ issue: response[0], categoryLevel: response[0].categoryLevel, image: response[0].pic });
+      issueService.getCompanyComments(response[0].issueId).then(r => {
+            this.setState({issueComments: r});
+      }).catch((error: Error) => Alert.danger(error.message));
+
       if (response.statusName === 'Registered') this.setState({ editCase: true });
       else this.setState({ editCase: false });
 
@@ -182,8 +208,8 @@ export class OversiktOverSak extends React.Component {
     };//end method
 
     addComment = () => {
-      issueService.addCommentToIssue(this.state.issue.issueId, this.state.comment).then(response => {
-          console.log('Eeeey');
+      issueService.addCommentToIssue(this.state.issue.issueId, this.state.comment,this.props.match.params.email).then(response => {
+          window.location.reload();
       }).catch((error: Error) => Alert.danger(error.message));
     };
 
@@ -194,7 +220,7 @@ export class OversiktOverSak extends React.Component {
   saveThisStatus = () => {
     issueService.updateStatusOneIssue(this.state.issue.issueId, this.state.statusName).then(response => {
     }).catch((error: Error) => Alert.danger(error.message));
-    this.props.history.goBack();
+    window.location.reload();
   };//end method
 }//end class
 

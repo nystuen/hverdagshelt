@@ -64,7 +64,7 @@ export class IssueDao extends Dao {
     super.query("update issues set statusName=? where issueId=?", [statusName,id], callback);
   }//end method
 
-  addCommentToIssue(issueId: number, text: string, callback: Function){
-    super.query("insert into companyComment(issueId,text) values(?,?)", [issueId,text], callback);
+  addCommentToIssue(issueId: number, text: string, mail: string, callback: Function){
+    super.query("insert into companyComment(issueId,text, mail) values(?,?,?)", [issueId,text,mail], callback);
   }//end method
 }//end class
