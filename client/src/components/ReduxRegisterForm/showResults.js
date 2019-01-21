@@ -34,4 +34,17 @@ export default (async function showResults(values) {
       countyId: values.countyId,
     })
   });
+
+  fetch("http://localhost:3000/sendIssueRegistratedMail", {
+    method: "POST",
+    headers: {
+      "Content-type": "application/json; charset=utf-8"
+    },
+    body: JSON.stringify({
+      to: values.userMail
+    })
+  });
+
+
+
 });

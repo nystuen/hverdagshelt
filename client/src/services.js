@@ -158,12 +158,15 @@ export class IssueService {
       to: to
     };
 
+    if (statusName == 'In progress') {
+      console.log('completed');
+      axios.post('/sendIssueInProgressMail', mailObject);
+    }
+
     if (statusName == 'Completed') {
       console.log('completed');
       axios.post('/sendIssueCompleteMail', mailObject);
     }
-
-    console.log('poster');
 
     return axios.post('/updateStatusOneIssue/' + id, {
       statusName: statusName

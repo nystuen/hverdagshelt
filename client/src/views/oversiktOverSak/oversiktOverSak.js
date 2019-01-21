@@ -14,13 +14,12 @@ import Button from 'react-bootstrap/es/Button';
 import { ImageService } from '../../services';
 import { history } from '../../index';
 import css from './oversiktOverSak.css';
-import FormControl from 'react-bootstrap/es/FormControl';
-import {MailService} from '../../services';
-import{FormGroup} from "react-bootstrap";
-import {FormControl} from "react-bootstrap";
-import Card from "reactstrap/es/Card";
-import Table from "react-bootstrap/es/Table";
-import {User} from "../../classTypes";
+import { MailService } from '../../services';
+import { FormGroup } from 'react-bootstrap';
+import { FormControl } from 'react-bootstrap';
+import Card from 'reactstrap/es/Card';
+import Table from 'react-bootstrap/es/Table';
+import { User } from '../../classTypes';
 
 let issueService = new IssueService();
 let categoryService = new CategoryService();
@@ -29,45 +28,45 @@ let imageService = new ImageService();
 let mailService = new MailService();
 
 interface State {
-    user: Object,
-    issue: Object[];
-    category1: Object[];
-    category2: Object[];
-    category3: Object[];
-    status: Status;
-    statusName: string;
-    categoryLevel: number;
-    editCase: boolean;
-    comment: string;
-    image: Image;
+  user: Object,
+  issue: Object[];
+  category1: Object[];
+  category2: Object[];
+  category3: Object[];
+  status: Status;
+  statusName: string;
+  categoryLevel: number;
+  editCase: boolean;
+  comment: string;
+  image: Image;
 }//end method
 
 export class OversiktOverSak extends React.Component {
-    constructor(props) {
-        super(props);
-        this.state = {
-            user: new User('', '', '', '', '', -1, -1, -1),
-            issue: {},
-            image: {},
-            category1: {},
-            category2: {},
-            category3: {},
-            status: {},
-            statusName: '',
-            comment: '',
-            issueComments: [],
-            categoryLevel: 1, //1 means the issue is not registered under any subcategories
-            editCase: false, //if the issue is in progress or completed, user cannot edit issue
-            editStatus: <div>
-                <FormControl onChange={this.setStatus} componentClass="select" placeholder="select">
-                    <option value="">Oppdater status</option>
-                    <option value="In progress">Behandles</option>
-                    <option value="Completed"> Fullført</option>
-                </FormControl>
-                <Button onClick={this.saveThisStatus}> Lagre status</Button>
-            </div>
-        };
-    }//end constructor
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: new User('', '', '', '', '', -1, -1, -1),
+      issue: {},
+      image: {},
+      category1: {},
+      category2: {},
+      category3: {},
+      status: {},
+      statusName: '',
+      comment: '',
+      issueComments: [],
+      categoryLevel: 1, //1 means the issue is not registered under any subcategories
+      editCase: false, //if the issue is in progress or completed, user cannot edit issue
+      editStatus: <div>
+        <FormControl onChange={this.setStatus} componentClass="select" placeholder="select">
+          <option value="">Oppdater status</option>
+          <option value="In progress">Behandles</option>
+          <option value="Completed"> Fullført</option>
+        </FormControl>
+        <Button onClick={this.saveThisStatus}> Lagre status</Button>
+      </div>
+    };
+  }//end constructor
 
 
   render() {
@@ -76,14 +75,13 @@ export class OversiktOverSak extends React.Component {
     if (this.state.user.typeName === 'Company' || this.state.user.typeName === 'Admin' || this.state.user.typeName === 'Employee') {
       editStatus = this.state.editStatus;
       renderComment = <div>
-            <br/>
-
-            <FormGroup>
-                <FormControl componentClass="textarea" value={this.state.comment} placeholder="Legg til kommentar til sak"
-                             onChange={this.editComment}/>
-                <Button type="Button" onClick={this.addComment}> Legg til kommentar</Button>
-            </FormGroup>
-        </div>
+        <br/>
+        <FormGroup>
+          <FormControl componentClass="textarea" value={this.state.comment} placeholder="Legg til kommentar til sak"
+                       onChange={this.editComment}/>
+          <Button onClick={this.addComment}> Legg til kommentar</Button>
+        </FormGroup>
+      </div>;
     }
 
 
@@ -111,47 +109,39 @@ export class OversiktOverSak extends React.Component {
 
             <h3>Status</h3>
             <ProgressBar>
-              <ProgressBar bsStyle={this.state.status.progressBar} active={this.state.status.inProgress} now={this.state.status.progress}
+              <ProgressBar bsStyle={this.state.status.progressBar} active={this.state.status.inProgress}
+                           now={this.state.status.progress}
                            label={this.state.status.name} style={{ color: 'black' }}/>
             </ProgressBar>
 
             {editStatus}
 
             <h3>Dato sendt inn</h3>
-            <p>{this.state.issue.date}</p>
+            {this.state.issue.date}
 
           </Col>
+
+          <h3><b>Kommentarer </b></h3>
+          {renderComment}
+
+          {this.state.issueComments.map(e => {
+            return (
+
+              <div className="comment">
+                <Col>
+                  <h4><b>{e.mail}</b></h4>
+                  <h4><i>{e.text}</i></h4>
+                </Col>
+              </div>
+            );
+          })}
+          <br/>
+
         </Col>
 
         <Col sm={1} md={2} lg={2}></Col>
 
-        <Row>
-          <Col xsOffset={23} md={8}>
-            {editStatus}
-          </Col>
-        </Row>
-            <br/>
-            <h3> <b>Kommentarer </b></h3>
-                {renderComment}
-                <br/>
-                <Table condensed hover bordered>
-                {this.state.issueComments.map(e => {
-                    return(
 
-                      <tbody key={e}>
-                      <tr>
-                          <td>
-                              <Col>
-                                  <h4> <b>{e.mail}</b></h4>
-                                  <h4> <i>{e.text}</i></h4>
-                              </Col>
-                          </td>
-                        </tr>
-                      </tbody>
-                  )
-            })}
-                </Table>
-        <br/>
       </Grid>
     );
   }//end method
@@ -159,18 +149,18 @@ export class OversiktOverSak extends React.Component {
 
   componentWillMount() {
 
-      userService.getCurrentUser()
-          .then(resource => {
-              let user = resource[0];
-              this.setState({
-                  user: user
-              })
-          });
+    userService.getCurrentUser()
+      .then(resource => {
+        let user = resource[0];
+        this.setState({
+          user: user
+        });
+      });
 
-      issueService.getIssueAndCounty(this.props.match.params.issueId).then(response => {
+    issueService.getIssueAndCounty(this.props.match.params.issueId).then(response => {
       this.setState({ issue: response[0], categoryLevel: response[0].categoryLevel, image: response[0].pic });
       issueService.getCompanyComments(response[0].issueId).then(r => {
-            this.setState({issueComments: r});
+        this.setState({ issueComments: r });
       }).catch((error: Error) => Alert.danger(error.message));
 
       if (response.statusName === 'Registered') this.setState({ editCase: true });
@@ -223,22 +213,22 @@ export class OversiktOverSak extends React.Component {
     }
   }//end method
 
-    editComment = (event:SyntheticEvent<HTMLInputElement>) => {
-        this.setState({comment: event.target.value});
-    };//end method
+  editComment = (event: SyntheticEvent<HTMLInputElement>) => {
+    this.setState({ comment: event.target.value });
+  };//end method
 
-    addComment = () => {
-      issueService.addCommentToIssue(this.state.issue.issueId, this.state.comment,this.state.user.mail).then(response => {
-          window.location.reload();
-      }).catch((error: Error) => Alert.danger(error.message));
-    };
+  addComment = () => {
+    issueService.addCommentToIssue(this.state.issue.issueId, this.state.comment, this.state.user.mail).then(response => {
+      window.location.reload();
+    }).catch((error: Error) => Alert.danger(error.message));
+  };
 
   setStatus = (event: Event) => {
     this.setState({ statusName: event.target.value });
   };//end method
 
   saveThisStatus = () => {
-    issueService.updateStatusOneIssue(this.state.issue.issueId, this.state.statusName).then(response => {
+    issueService.updateStatusOneIssue(this.state.issue.issueId, this.state.statusName, this.state.user.mail).then(response => {
     }).catch((error: Error) => Alert.danger(error.message));
     window.location.reload();
   };//end method
