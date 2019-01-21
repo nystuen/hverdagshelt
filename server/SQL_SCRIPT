@@ -126,11 +126,13 @@ CREATE TABLE issues(
   userMail varchar(30) not null,
   latitude double not null,
   longitude double not null,
+  address varchar(30),
   text text,
   pic varchar(30),
   date varchar(30),
   statusName varchar(30) not null,
   categoryId int not null,
+  categoryLevel int,
   countyId int not null,
   active boolean not null,
   CONSTRAINT issues_pk primary key(issueId)

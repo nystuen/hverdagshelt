@@ -1,0 +1,52 @@
+
+.panels {
+
+}
+
+
+.nyPanel{
+    padding-top: 1em;
+    height: 15em;
+    background-color: #ffffff;
+    border: solid 1px;
+    border-color: #eaeaea;
+    box-shadow: #eaefef 1px 1px 10px;
+}
+
+
+.nyPanel a {
+    padding: 6px 8px 6px 16px;
+    text-decoration: none;
+    font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
+    font-size: 15px;
+}
+
+
+.nyPanel .buttons {
+    padding-left: 1em;
+    padding-right: 1em;
+    padding-top: 1em;
+}
+
+
+.nyPanel p {
+    font-weight: bold;
+    color: #3e4051;
+}
+
+.nyPanel hr {
+    padding: 0;
+    margin: 0;
+}
+
+.buttons a{
+}
+
+
+#col {
+    padding-top: 4em;
+}
+
+.title {
+    background-color: blue;
+}

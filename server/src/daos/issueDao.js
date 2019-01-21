@@ -36,6 +36,9 @@ export class IssueDao extends Dao {
     super.query("select * from issues natural join county where issueId=?", [id], callback);
   }//end method
 
+  getCompanyComments(id: number, callback: Function){
+    super.query("select * from companyComment where issueId=?", [id], callback);
+  }//end method
 
   getAllCategories(callback: Function) {
     super.query("select * from category", [], callback);
@@ -56,4 +59,12 @@ export class IssueDao extends Dao {
   getCategoryIssue(id: number, callback: Function) {
     super.query("select * from issues where categoryId = ?", [id], callback);
   }
-}
+
+  updateStatusOneIssue(id: number,statusName: string, callback: Function){
+    super.query("update issues set statusName=? where issueId=?", [statusName,id], callback);
+  }//end method
+
+  addCommentToIssue(issueId: number, text: string, mail: string, callback: Function){
+    super.query("insert into companyComment(issueId,text, mail) values(?,?,?)", [issueId,text,mail], callback);
+  }//end method
+}//end class

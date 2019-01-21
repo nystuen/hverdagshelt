@@ -18,8 +18,8 @@ run_tests:
   stage: test
   image: node:latest
   script:
-  - npm test && flow check src
-  - cd ../server && npm test && flow check src
+  - npm test
+  - cd ../server && npm test
   artifacts:
     paths:
     - client/coverage

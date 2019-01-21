@@ -1,8 +1,26 @@
 .loginBox {
-
- }
-
+    padding-top: 2em;
+}
 
 .picture {
-    max-height: 25em;
+    padding-top: 5em;
+    max-height: 19em;
+}
+
+.login {
+    height: 100%;
+    background-image: url('https://i.imgur.com/AxF4TMa.png');
+    background-size: cover;
+}
+
+.login p {
+    color: white;
+}
+
+.loginBox a{
+     color: inherit;
+     text-decoration: underline;
+ }
+.loginBox p :hover{
+    color: #6e7bb3;
 }

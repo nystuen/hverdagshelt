@@ -5,7 +5,13 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
   <div>
     <label>{label}</label>
     <div>
-      <FormControl {...input} placeholder={label} type={type} />
+      <FormControl
+        {...input}
+        placeholder={label}
+        componentClass="textarea"
+        style={{ height: "100px" }}
+        type={type}
+      />
       {touched &&
         error && (
           <div>

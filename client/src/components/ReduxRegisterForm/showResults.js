@@ -26,12 +26,12 @@ export default (async function showResults(values) {
       longitude: values.longitude,
       address: values.address,
       text: values.text,
-      pic: values.pic,
+      pic: values.imagePath,
       date: day.day + "." + day.month + "." + day.year,
       statusName: "Registered",
       categoryId: values.categoryid,
       categoryLevel: values.categorylevel,
-      countyId: values.countyId
+      countyId: values.countyId,
     })
   });
 });

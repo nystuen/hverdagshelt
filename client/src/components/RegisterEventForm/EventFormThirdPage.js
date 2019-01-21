@@ -2,7 +2,8 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 import validate from "./validate";
 import renderField from "./renderField";
-import { Button } from "react-bootstrap";
+import { Button, ProgressBar } from "react-bootstrap";
+import issueReg from "../ReduxRegisterForm/issueReg.css";
 
 const countyID = ["1", "2", "3"];
 const counties = [
@@ -28,57 +29,62 @@ const renderCountySelector = ({ input, meta: { touched, error } }) => (
 const EventFormThirdPage = props => {
   const { handleSubmit, pristine, previousPage, submitting } = props;
   return (
-    <form onSubmit={handleSubmit}>
-      <div>
-        <label>Choose your county</label>
-        <Field name="countyId" component={renderCountySelector} />
+    <div className="formDiv">
+      <div className="progressBar">
+        <ProgressBar now={100} />
       </div>
-      <div>
+      <form onSubmit={handleSubmit}>
         <div>
-          <Field
-            name="title"
-            type="text"
-            component={renderField}
-            label="Tittel"
-          />
-          <Field
-            name="text"
-            type="text"
-            component={renderField}
-            label="Beskrivelse"
-          />
-          <Field
-            name="userMail"
-            type="text"
-            component={renderField}
-            label="[Midlertidig] Epost"
-          />
-          <Field
-            name="countyId"
-            type="text"
-            component={renderField}
-            label="[Midlertidig] County ID"
-          />
+          <label>Choose your county</label>
+          <Field name="countyId" component={renderCountySelector} />
         </div>
-      </div>
-      <div>
-        <Button
-          bsStyle="primary"
-          type="button"
-          className="previous"
-          onClick={previousPage}
-        >
-          Previous
-        </Button>
-        <Button
-          bsStyle="primary"
-          type="submit"
-          disabled={pristine || submitting}
-        >
-          Submit
-        </Button>
-      </div>
-    </form>
+        <div className="paddingBot">
+          <div>
+            <Field
+              name="title"
+              type="text"
+              component={renderField}
+              label="Tittel"
+            />
+            <Field
+              name="text"
+              type="text"
+              component={renderField}
+              label="Beskrivelse"
+            />
+            <Field
+              name="userMail"
+              type="text"
+              component={renderField}
+              label="[Midlertidig] Epost"
+            />
+            <Field
+              name="countyId"
+              type="text"
+              component={renderField}
+              label="[Midlertidig] County ID"
+            />
+          </div>
+        </div>
+        <div>
+          <Button
+            bsStyle="primary"
+            type="button"
+            className="previous"
+            onClick={previousPage}
+          >
+            Previous
+          </Button>
+          <Button
+            bsStyle="primary"
+            type="submit"
+            disabled={pristine || submitting}
+          >
+            Submit
+          </Button>
+        </div>
+      </form>
+    </div>
   );
 };
 export default reduxForm({
