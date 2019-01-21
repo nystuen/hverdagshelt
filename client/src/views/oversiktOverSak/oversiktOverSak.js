@@ -69,8 +69,9 @@ export class OversiktOverSak extends React.Component {
     return (
       <Grid className="sak">
 
+        <Col sm={1} md={2} lg={2}></Col>
 
-        <Col sm={10}  md={8} lg={8}>
+        <Col sm={10} md={8} lg={8}>
           <img width={'100%'} src={'image/' + this.state.image}/>
 
           <Col sm={6} md={6}>
@@ -101,6 +102,7 @@ export class OversiktOverSak extends React.Component {
           </Col>
         </Col>
 
+        <Col sm={1} md={2} lg={2}></Col>
 
       </Grid>
     );
