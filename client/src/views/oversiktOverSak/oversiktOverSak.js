@@ -105,7 +105,7 @@ export class OversiktOverSak extends React.Component {
 
             <h3>Status</h3>
             <ProgressBar>
-              <ProgressBar bsStyle={this.state.status.progressBar} active now={this.state.status.progress}
+              <ProgressBar bsStyle={this.state.status.progressBar} active={this.state.status.inProgress} now={this.state.status.progress}
                            label={this.state.status.name} style={{ color: 'black' }}/>
             </ProgressBar>
 
