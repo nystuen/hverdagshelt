@@ -34,7 +34,6 @@ interface Props {
 export class MineSaker extends React.Component<Props, State> {
   state = {
     issues: [],
-    decoded: jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret'),
     category: [],
     category1: [],
     category2: [],
@@ -42,8 +41,7 @@ export class MineSaker extends React.Component<Props, State> {
   };
 
     componentWillMount(){
-        let decoded = jwt.verify(window.localStorage.getItem('userToken'), "shhhhhverysecret");
-        userService.getMyIssues(decoded.email).then(response => {
+        userService.getMyIssues().then(response => {
             this.setState({issues: response});
             this.getSorted();
         }).catch((error: Error) => Alert.danger(error.message));
@@ -99,7 +97,7 @@ export class MineSaker extends React.Component<Props, State> {
                 <tr key={e.text}>
                   <td>
                     <Nav bsStyle="pills">
-                      <NavItem href={'/#min_side/sakoversikt/' + this.state.decoded.email + '/' + e.issueId}>
+                      <NavItem href={'/#min_side/sakoversikt/' + e.issueId}>
                         {e.text}
                       </NavItem>
                     </Nav>

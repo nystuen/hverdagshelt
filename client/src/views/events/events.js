@@ -2,12 +2,13 @@
 
 import React from 'react';
 import { Grid, Col, Row, Button, Table, ListGroup, ListGroupItem } from 'react-bootstrap';
-import { getImportantEvents } from '../../services';
+import { EventCategoryService } from '../../services';
 import { Event } from '../../classTypes';
 import css from './events.css';
 import Panel from 'react-bootstrap/es/Panel';
 import PanelGroup from 'react-bootstrap/es/PanelGroup';
 
+let eventCategoryService = new EventCategoryService();
 
 interface State {
   countyId: number;
@@ -26,8 +27,8 @@ export class events extends React.Component<Props, State> {
 
   getInformation = async () => {
     let id: number = this.props.match.params.countyId;
-    let eventer = [];
-    getImportantEvents(id).then(resources => {
+    let events = [];
+    eventCategoryService.getImportantEvents(id).then(resources => {
       resources.map(r => {
         let elem: Event = {
           eventId: r.eventId,
@@ -40,11 +41,11 @@ export class events extends React.Component<Props, State> {
           countyId: r.countyId,
           active: r.active
         };
-        eventer = eventer.concat(elem);
+        events = events.concat(elem);
       });
 
       this.setState({
-        importantEvents: eventer
+        importantEvents: events
       });
     });
   };

@@ -105,13 +105,12 @@ class AccountInfoCard extends React.Component<{
 export class KontoOversikt extends React.Component <State> {
 
   state = {
-    decoded: jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret'),
     user: User,
     value: String
   };
 
   componentDidMount() {
-    userService.getUser(this.state.decoded.email).then(newUser => {
+    userService.getCurrentUser().then(newUser => {
       this.setState({
         user: newUser[0]
       });
@@ -127,7 +126,7 @@ export class KontoOversikt extends React.Component <State> {
         <PageHeader title={'Kontooversikt'}/>
 
         {
-          this.state.decoded.typeId === 'Admin' || this.state.decoded.typeId === 'Employee' || this.state.decoded.typeId === 'Private' ? (
+          this.state.user.typeName === 'Admin' || this.state.user.typeName === 'Employee' || this.state.user.typeName === 'Private' ? (
             <div>
 
               <AccountInfoCard firstName={this.state.user.firstName} lastName={this.state.user.lastName}

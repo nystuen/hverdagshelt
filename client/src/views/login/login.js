@@ -153,7 +153,15 @@ export class Login extends Component<Props, State> {
             window.localStorage.setItem('userToken', token);
             console.log('login in success');
 
-            this.props.history.goBack();
+            console.log(this.props.history.location.pathname);
+            if(this.props.history.location.pathname == "/login" ||
+                this.props.history.location.pathname== "/register/company"){
+              console.log('hei');
+              history.push('/wizardForm');
+            }else{
+              console.log(this.props.history.location.pathname);
+              this.props.history.goBack();
+            }
 
           }).catch((error: Error) => Alert.danger(error.message));
         } else { //check if the email is a company email
@@ -165,21 +173,28 @@ export class Login extends Component<Props, State> {
                   window.localStorage.setItem('userToken', token);
                   console.log('login in success');
 
-                  this.props.history.goBack();
-
-                }).catch((error: Error) => Alert.danger(error.message));
-              } else {
-                this.setState({
-                  error: true
-                });
-              }//end condition
+                    console.log(this.props.history.location.pathname);
+                    if(this.props.history.location.pathname == "/register" ||
+                        this.props.history.location.pathname== "/register/company"){
+                      console.log('hei');
+                      history.push('/wizardForm');
+                    }else{
+                      console.log(this.props.history.location.pathname);
+                      this.props.history.goBack();
+                    }
+                  }).catch((error: Error) => Alert.danger(error.message));
+                }else{
+                  this.setState({
+                    error: true
+                  });
+                }//end condition
+              });
+            }).catch((error: Error) => {
+              console.log(error);
+              this.setState({
+                error: true
+              });
             });
-          }).catch((error: Error) => {
-            console.log(error);
-            this.setState({
-              error: true
-            });
-          });
         }//end condition
       });
     }).catch((error: Error) => {
@@ -190,9 +205,22 @@ export class Login extends Component<Props, State> {
               let token = r.jwt;
               window.localStorage.setItem('userToken', token);
               console.log('login in success');
-              history.push('/#forside/2');
-            }).catch((error: Error) => Alert.danger(error.message));
-          } else {
+              console.log(this.props.history.location.pathname);
+              if(this.props.history.location.pathname == "/register" ||
+              this.props.history.location.pathname== "/register/company"){
+                console.log('hei');
+                history.push('/wizardForm');
+              }else{
+                console.log(this.props.history.location.pathname);
+                this.props.history.goBack();
+              }
+            }).catch((error: Error) => {
+              console.log(error);
+              this.setState({
+                error: true
+              });
+            });
+          }else{
             this.setState({
               error: true
             });

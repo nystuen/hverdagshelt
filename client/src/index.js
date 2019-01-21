@@ -1,5 +1,6 @@
 // @flow
 
+
 import ReactDOM from "react-dom";
 import * as React from "react";
 import { HashRouter, Route, NavLink } from "react-router-dom";
@@ -21,7 +22,7 @@ import { ChooseCategory } from "./components/ChooseCategory/ChooseCategory.js";
 import { forside } from "./views/forside/forside";
 import { Frontpage } from "./views/frontpage/frontpage";
 import { editAccountInformation } from "./views/MinSide/KontoOversikt/editAccountInformation";
-import { NotificationSettings } from "./components/NotificationSettings/NotificationSettings";
+import { NotificationSettings } from "./views/NotificationSettings/NotificationSettings";
 import { Component } from "react-simplified";
 import { MinSide } from "./views/MinSide/MinSide";
 import { EventWizardFormComplete } from "./components/RegisterEventForm/EventWizardFormComplete";
@@ -31,6 +32,8 @@ import { events } from "./views/events/events";
 import { AdminResetUserPassword } from "./views/admin/resetPassword";
 import { adminPanel } from './views/admin/adminPanel';
 import { SendTextMailWindow } from './components/Mail/SendMail';
+import {Footer} from './components/Footer/Footer';
+
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== 'production') {
@@ -47,6 +50,7 @@ if (root)
     <HashRouter>
       <div className="route-container">
         <NavbarMenu/>
+        <Footer/>
         <Route exact path="/" component={Frontpage}/>
         <Route path="/forside/:countyId" component={forside}/>
         <Route path="/wizardForm" component={WizardFormComplete}/>
@@ -62,7 +66,7 @@ if (root)
         <Route exact path="/register" component={RegisterUser}/>
         <Route exact path="/register/company" component={RegisterCompany}/>
         <Route path="/min_side/varselinstillinger" component={NotificationSettings}/>
-        <Route path="/min_side/sakoversikt/:email/:issueId" component={OversiktOverSak}/>
+        <Route path="/min_side/sakoversikt/:issueId" component={OversiktOverSak}/>
         <Route exact path="/registerEvent" component={EventWizardFormComplete}/>
         <Route exact path="/events/:countyId" component={events}/>
         <Route exact path="/admin" component={adminPanel}/>
