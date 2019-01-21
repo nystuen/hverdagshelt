@@ -69,6 +69,10 @@ export class UserService {
     getHomeCounty(): Promise<Object> {
         return axios.get('/getHomeCounty', {headers: authHeader()})
     }
+
+    getCompanyCategories(categoryId: number): Promise<Object[]>{
+        return axios.get('/companyCategories/' + categoryId);
+    }
 }//end class
 
 export class EventCategoryService {
@@ -166,6 +170,10 @@ export class IssueService {
 
   getCompanyComments(id: number){
     return axios.get('/companyComments/' + id);
+  }//end method
+
+  getOneIssue(id: number){
+        return axios.get('/Issues/' + id);
   }//end method
 }//end class
 

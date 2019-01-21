@@ -71,7 +71,9 @@ export class adminIssues extends React.Component{
                                         </ProgressBar>
                                     </td>
                                     <td>
-                                        <Button onClick={this.editIssue}> <span class="glyphicon glyphicon-pencil"></span></Button>
+                                        <Nav>
+                                        <NavItem href={'/#behandleSak/' + e.issueId}> <span class="glyphicon glyphicon-pencil"></span></NavItem>
+                                        </Nav>
                                     </td>
                                 </tr>
                             )
@@ -108,9 +110,5 @@ export class adminIssues extends React.Component{
         });
         this.setState({issues: sorted});
     };//end method
-
-    editIssue= () =>{
-        history.push('/');
-    }//end method
 
 }//end class

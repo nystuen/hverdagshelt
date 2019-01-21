@@ -32,6 +32,7 @@ import { AdminResetUserPassword } from "./views/admin/resetPassword";
 import { adminPanel } from './views/admin/adminPanel';
 import { SendTextMailWindow } from './components/Mail/SendMail';
 import {adminIssues} from "./views/admin/adminIssues/adminIssues";
+import {interactWithIssue} from "./views/admin/adminIssues/interactWithIssue";
 
 
 // Reload application when not in production environment
@@ -71,6 +72,7 @@ if (root)
         <Route path="/admin/sendMailTilBruker" component={SendTextMailWindow}/>
         <Route path="/admin/resetPassord" component={AdminResetUserPassword} />
         <Route path="/admin/adminSaker" component={adminIssues} />
+        <Route path="/behandleSak/:issueId" component={interactWithIssue} />
       </div>
     </HashRouter>,
     root

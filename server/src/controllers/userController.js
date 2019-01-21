@@ -93,6 +93,7 @@ module.exports = function (app: Object, userDao: Object) {
     app.get('/user/get_current_user/', verifyToken, (req, res) => {
         console.log('got req from get_user');
         jwt.verify(req.token, privateKey, (err, decoded) => {
+            console.log('Type: ' + decoded.typeId);
             if(err) {
                 res.sendStatus(401)
             } else {
@@ -146,6 +147,14 @@ module.exports = function (app: Object, userDao: Object) {
             res.status(status);
             res.json(data);
         })
+    });
+
+    app.get('/companyCategories/:categoryId', (req,res) => {
+        console.log('Got get request from companyCategories');
+        userDao.getCompanyCategories(req.params.categoryId, (status,data) => {
+           res.status(status);
+           res.json(data);
+        });
     });
 
     app.put('/user/updateUser/', verifyToken, (req, res) => {
