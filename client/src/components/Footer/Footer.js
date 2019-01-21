@@ -14,40 +14,38 @@ export class Footer extends Component<Props,State> {
   constructor(){
     super();
     this.state = {
-    countyInformation:[]
+      countyInformation:[]
 
     };
   }
 
 
-  getInformation = async () => {
-    let id: string = 1;
-    await countyService.getCountyEmployee(id).then((r: Array<Object>) => {
-      this.setState({
-        countyInformation: r
-      });
 
-    });
-    console.log(this.state.countyInformation.firstName);
-  };
 
 
   componentDidMount() {
-    this.getInformation();
+    countyService.getCountyEmployee(1).then((r: Array<Object>) => {
+      this.setState({
+        countyInformation: r
+      });
+    });
+    console.log(this.state.countyInformation.firstName);
   }
 
 
   render(){
     return(
-      <footer className="footerClass">
-        <Col>
-          {
-            this.state.countyInformation.map((r,i)=>{
-              <Row key={i}> {r.mail}, {r.firstName + r.lastName}</Row>
-            })
-          }
-        </Col>
-        <Col>Hei</Col>
+      <footer className="footerClass2">
+        <div className="container">
+          <Col>
+            {
+              this.state.countyInformation.map((r,i)=>{
+                <Row key={i}> {r.mail}, {r.firstName + r.lastName}</Row>
+              })
+            }
+          </Col>
+          <Col>Hei</Col>
+        </div>
       </footer>
     )
   }

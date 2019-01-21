@@ -87,3 +87,13 @@ body {
   width: 100vw;
   z-index: 100;
 }
+
+.footerClass2{
+  margin-top: 200px;
+  width: 100%;
+  background-color: #40608d;
+  min-height: 50%;
+  bottom: auto;
+  color: white;
+  position:absolute;
+}

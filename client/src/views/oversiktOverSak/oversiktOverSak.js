@@ -14,7 +14,6 @@ import Button from 'react-bootstrap/es/Button';
 import { ImageService } from '../../services';
 import { history } from '../../index';
 import css from './oversiktOverSak.css';
-import FormControl from 'react-bootstrap/es/FormControl';
 import {MailService} from '../../services';
 import{FormGroup} from "react-bootstrap";
 import {FormControl} from "react-bootstrap";

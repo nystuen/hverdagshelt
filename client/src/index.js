@@ -50,7 +50,6 @@ if (root)
     <HashRouter>
       <div className="route-container">
         <NavbarMenu/>
-        <Footer/>
         <Route exact path="/" component={Frontpage}/>
         <Route path="/forside/:countyId" component={forside}/>
         <Route path="/wizardForm" component={WizardFormComplete}/>
@@ -72,6 +71,7 @@ if (root)
         <Route exact path="/admin" component={adminPanel}/>
         <Route path="/admin/sendMailTilBruker" component={SendTextMailWindow}/>
         <Route path="/admin/resetPassord" component={AdminResetUserPassword} />
+        <Footer/>
       </div>
     </HashRouter>,
     root
