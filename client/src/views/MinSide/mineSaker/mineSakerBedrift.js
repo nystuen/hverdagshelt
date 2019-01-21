@@ -70,7 +70,7 @@ export class mineSakerBedrift extends React.Component<State>{
                                 <td>
                                     {this.updateStatus(e.statusName)}
                                     <ProgressBar>
-                                    <ProgressBar bsStyle={this.status.progressBar} active now={this.status.progress}
+                                    <ProgressBar bsStyle={this.status.progressBar} active={this.status.inProgress} now={this.status.progress}
                                              label={this.status.name} style={{color: 'black'}} key={1}/>
                                     </ProgressBar>
                                 </td>
@@ -92,7 +92,7 @@ export class mineSakerBedrift extends React.Component<State>{
         //Sorting view so completed issues are listed at the bottom
         let sorted: Object = [];
         this.state.issues.map(e => {
-            if(e.statusName == 'Registered'){
+            if(e.statusName === 'Registered'){
                 sorted.push(e)
             }
         });

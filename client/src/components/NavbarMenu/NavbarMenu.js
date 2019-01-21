@@ -65,37 +65,33 @@ export class NavbarMenu extends React.Component {
                         <Navbar.Toggle/>
                     </Navbar.Header>
 
+          <Navbar.Collapse>
 
-                    <Navbar.Collapse>
+            <Nav>
+              <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-th-list"/> Velg kommune</NavItem>
+              <NavItem href={'/#/wizardForm'}><Glyphicon glyph="glyphicon glyphicon-plus"/> Meld inn sak</NavItem>
+              <NavItem href={'/#/events/2'}><Glyphicon glyph="glyphicon glyphicon-road"/> Hendelser</NavItem>
+              <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
+              <NavItem href={'/#/map'}><Glyphicon glyph="glyphicon glyphicon-map-marker"/> Kart</NavItem>
+              <NavItem href={'/#/admin'}><Glyphicon glyph="glyphicon glyphicon-user"/> Admin</NavItem>
+            </Nav>
 
-                        <Nav>
-                            <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-th-list"/> Velg
-                                kommune</NavItem>
-                            <NavItem href={'/#/wizardForm'}><Glyphicon glyph="glyphicon glyphicon-plus"/> Legg til
-                                sak</NavItem>
-                            <NavItem href={'/#/events/2'}><Glyphicon
-                                glyph="glyphicon glyphicon-road"/> Hendelser</NavItem>
-                            <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
-                            <NavItem href={'/#/map'}><Glyphicon glyph="glyphicon glyphicon-map-marker"/> Kart</NavItem>
-                        </Nav>
+          <Nav pullRight>
+            <NavDropdown title={'Min side'} id='1'>
+              {this.viewCases()}
+              <MenuItem eventKey={1} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
+              <MenuItem eventKey={1} href="/#min_side/kommuner">Kommuner</MenuItem>
+              <MenuItem eventKey={1} href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
+            </NavDropdown>
+            {loginButton}
+          </Nav>
+        </Navbar.Collapse>
 
-                        <Nav pullRight>
-                            <NavDropdown title={'Min side'} id='1'>
-                                {this.viewCases()}
-                                <MenuItem eventKey={1} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
-                                <MenuItem eventKey={1} href="/#min_side/kommuner">Kommuner</MenuItem>
-                                <MenuItem eventKey={1}
-                                          href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
-                            </NavDropdown>
-                            {loginButton}
-                        </Nav>
-                    </Navbar.Collapse>
-
-                </Navbar>
-            </div>
-        )
-            ;
-    }//end method
+        </Navbar>
+      </div>
+    )
+      ;
+  }//end method
 
     logout = () => {
         window.localStorage.setItem('userToken', '');

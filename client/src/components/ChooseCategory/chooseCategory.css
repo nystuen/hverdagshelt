@@ -1,0 +1,10 @@
+.cat2{
+    padding-left: 2em;
+}
+
+.caret-right {
+    border-left: 4px solid #000000;
+    border-right: 0;
+    border-top: 4px solid transparent;
+    border-bottom: 4px solid transparent;
+}

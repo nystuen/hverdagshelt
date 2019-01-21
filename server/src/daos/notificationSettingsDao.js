@@ -4,15 +4,15 @@ import {Dao} from "../dao";
 
 
 export class NotificationSettingsDao extends Dao {
-
+//OK
     getNotificationSettings(userMail: string, callback: Function) {
         super.query("select categoryId, name, countyId from pushAlerts natural join category where userMail=? ", [userMail], callback);
     }
-
+//OK
     getNotificationSettingsSimple(userMail: string, callback: Function) {
         super.query("select categoryId, countyId from pushAlerts where userMail=?", [userMail], callback);
     }
-
+//OK
     deleteNotificationSettings(userMail: string, callback: Function) {
         super.query("delete from pushAlerts where userMail=?", [userMail], callback);
     }
@@ -21,7 +21,7 @@ export class NotificationSettingsDao extends Dao {
         let val = [json.countyId, json.categoryId, userMail];
         super.query("insert into pushAlerts (countyId, categoryId, userMail ) values (?, ?, ?)", val, callback)
     }
-
+//OK
     getIssueNotificationSettings(userMail: string, callback: Function) {
         super.query("select * from notifications where userMail=? ", [userMail], callback);
     }

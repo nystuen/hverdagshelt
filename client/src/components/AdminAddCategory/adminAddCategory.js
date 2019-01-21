@@ -22,17 +22,17 @@ interface Props{}
 export class adminAddCategory extends Component<Props,State> {
 
 
-    constructor(){
-        super();
-        this.state = {
-            newCategoryName: '',
-            selectedCategoryId: -1,
-            selectedCategoryType:-1,
-            newPriority: -1
-
-
-        };
-    }
+  constructor() {
+    super();
+    this.state = {
+      newCategoryName: {},
+      selectedCategoryId: -1,
+      selectedCategoryType: 1,
+      newPriority: -1,
+      mainCategory: false,
+      error: false
+    };
+  }
 
 
     onChangeCategoryHeader=(name1,name2)=>{
@@ -87,31 +87,82 @@ export class adminAddCategory extends Component<Props,State> {
     };
 
 
+  onChangeCategory = (label, name) => {
 
-    render(){
-        return(
-            <Grid>
-                <Col>
-                    <FormGroup className="text-center">
-                        <PageHeader>Sideoverskrift</PageHeader>
-                        <ControlLabel >Kategori navn</ControlLabel>
-                        <FormControl  type="text" placeholder="Skriv inn kategorinavn" onChange={this.handleChange('newCategoryName')}></FormControl>
-                        <ControlLabel >Velg overkategori</ControlLabel>
-                        <ListGroup>
-                            <ListGroupItem onClick={()=> this.onClickHovedkategori()}>Registrer som hovedkategori</ListGroupItem>
-                        </ListGroup>
-                        <ControlLabel >Prioritet: </ControlLabel>
-                        <Button onClick={()=>this.handlePriority(1)}>1-Meget-Viktig</Button>
-                        <Button onClick={()=>this.handlePriority(2)}>2-Viktig</Button>
-                        <Button onClick={()=>this.handlePriority(3)}>3-Lite-Viktig</Button>
+    this.setState({ selectedCategoryId: name, selectedCategoryType: label });
+  };
 
 
-                        <ChooseCategory changeCategoryHeader={this.onChangeCategoryHeader.bind(this) } registerCategory={true}/>
-                    </FormGroup>
-                    <Button onClick={()=> this.saveCategory()}>Lagre kategori</Button>
-                </Col>
-            </Grid>
-        );
+  render() {
+
+    let mainCat;
+    if (this.state.mainCategory) {
+      mainCat = <div>
+        <FormGroup>
+
+          <div><ControlLabel>Prioritet</ControlLabel></div>
+          <Radio onClick={() => this.handlePriority(1)} name="radioGroup" inline>
+            Meget viktig
+          </Radio>{' '}
+          <Radio onClick={() => this.handlePriority(2)} name="radioGroup" inline>
+            Viktig
+          </Radio>{' '}
+          <Radio onClick={() => this.handlePriority(3)} name="radioGroup" inline>Lite viktig
+          </Radio>
+        </FormGroup>
+      </div>;
+
+    } else {
+      mainCat = <div><ControlLabel>Velg overkategori</ControlLabel>
+        <CategorySelectList handleOnChangeCategory={this.onChangeCategory.bind(this)}/></div>;
+    }
+
+    let alert;
+    if (this.state.error) {
+      alert = (
+        <Alert bsStyle="danger">
+          <h6>Noe gikk galt, er du sikkert på at du har valg alt du skal velge?</h6>
+        </Alert>);
+    } else {
+      <span></span>;
+    }
+
+
+    return (
+      <Grid>
+
+        <Col xs={0} md={2}></Col>
+
+        <Col xs={12} md={8}>
+          <FormGroup className="text-center">
+            <PageHeader>Legg til en kategori</PageHeader>
+            <ControlLabel>Kategori navn</ControlLabel>
+            <FormControl type="text" placeholder="Skriv inn kategorinavn"
+                         onChange={this.handleChange('newCategoryName')}></FormControl>
+            <ListGroup>
+
+              <br/>
+
+              <FormGroup>
+                <Checkbox inline onClick={() => this.onClickHovedkategori()}>Registrer som hovedkategori</Checkbox>
+              </FormGroup>
+
+            </ListGroup>
+
+
+            {mainCat}
+
+          </FormGroup>
+
+          <div align="center">
+            <Button bsStyle="success" onClick={() => this.saveCategory()}>Lagre kategori</Button>
+          </div>
+          {alert}
+        </Col>
+
+        <Col xs={0} md={2}></Col>
+      </Grid>
+    );
 
     }
 

@@ -71,7 +71,6 @@ export class UserService {
     }
 }//end class
 
-
 export class EventCategoryService {
     getEventCategory(): Promise<EventCategory[]> {
         return axios.get('get_eventcategory');
@@ -84,21 +83,20 @@ export class EventCategoryService {
 } //end class
 
 export class ImageService {
-    uploadImage(image: Object): Promise<JSON> {
-        const url = "/upload"
-        const formData = new FormData()
-        formData.append('avatar', image)
-        const config = {
-            headers: {
-                'contentType': 'multipart/form-data'
-            }
-        }
-        return axios.post(url, formData, config)
-    }
-
-    getImage(imagePath: string): Promise<JSON> {
-        return axios.get("/image/" + imagePath);
-    }
+  uploadImage(image: Object): Promise<JSON> {
+    const url = "/upload";
+    const formData = new FormData();
+    formData.append("avatar", image);
+    const config = {
+      headers: {
+        contentType: "multipart/form-data"
+      }
+    };
+    return axios.post(url, formData, config);
+  }
+  getImage(imagePath: string): Promise<JSON> {
+    return axios.get("/image/" + imagePath);
+  }
 }
 
 export class CategoryService {
@@ -151,11 +149,18 @@ export class IssueService {
         return axios.get('/oversiktOverSak/' + issue);
     }//end method
 
-    updateStatusOneIssue(id: number, statusName: string) {
-        return axios.post('/updateStatusOneIssue/' + id, {statusName: statusName});
-    }//end method
-}//end class
+  updateStatusOneIssue(id: number, statusName: string) {
+    return axios.post('/updateStatusOneIssue/' + id, { statusName: statusName });
+  }//end method
 
+  addCommentToIssue(id: number, text: string, companyMail: string){
+    return axios.post('/addIssueComments', {id: id, text: text, companyMail: companyMail});
+  }//end method
+
+  getCompanyComments(id: number){
+    return axios.get('/companyComments/' + id);
+  }//end method
+}//end class
 
 export class CountyService {
     getCounties(): Promise<County[]> {
@@ -183,7 +188,6 @@ export class CountyService {
         return axios.post('/addSubscription', json, {headers: authHeader()});
     }
 }
-
 
 export class NotificationSettingsService {
 
@@ -217,31 +221,30 @@ export class NotificationSettingsService {
 
 }
 
-
 export function getImportantEvents(countyId: number): Promise<Event[]> {
-    return axios.get('/importantEvents/' + countyId);
+  return axios.get('/importantEvents/' + countyId);
 }
-/*
+
 export function getAllCounties(usermail: string): Promise<County[]> {
-    return axios.get('/getAllCountiesMinusUsers/' + usermail);
+  return axios.get('/getAllCountiesMinusUsers/' + usermail);
 }
 
 export function getUsersCounties(usermail: string): Promise<Object[]> {
-    return axios.get('/getSubscribedCounties/' + usermail);
+  return axios.get('/getSubscribedCounties/' + usermail);
 }
 
 export function deleteSubscription(usermail: string) {
-    return axios.delete('/deleteAllSubscribedCounties/' + usermail);
+  return axios.delete('/deleteAllSubscribedCounties/' + usermail);
 }
 
 export function addSubscription(json: Object) {
-    return axios.post('/addSubscription', json);
+  return axios.post('/addSubscription', json);
 }
 
 export function getCounties() {
-    return axios.get('/getCounties');
+  return axios.get('/getCounties');
 }
-*/
+
 export class MailService {
 
     sendTextMail(mailObject: Object): Promise<Response> {

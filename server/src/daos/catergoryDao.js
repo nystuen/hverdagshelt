@@ -3,36 +3,42 @@
 import {Dao} from "../dao";
 
 export class CategoryDao extends Dao {
-    getUserLogin(userMail: string, callback: Function) {
-        super.query(
-            "select mail, password from user where mail=? ",
-            [userMail],
-            callback
-        );
-    }
+
+  //Skal vekk men vet ikke om den er i bruk
+  getUserLogin(userMail: string, callback: Function) {
+    super.query(
+      "select mail, password from user where mail=? ",
+      [userMail],
+      callback
+    );
+  }
 
     getCategory1(callback: Function) {
         super.query("select * from category where active=1", [], callback);
     }
 
-    getCategory2(callback: Function) {
-        super.query("select * from category2", [], callback);
-    }
+  getCategory2(callback: Function) {
+    super.query("select * from category2", [], callback);
+  }
 
-    getCategory3(callback: Function) {
-        super.query("select * from category3", [], callback);
-    }
+  //Skal ikke brukes så tas ikke med i testing
+  getCategory3(callback: Function) {
+    super.query("select * from category3", [], callback);
+  }
 
-    getOneCategory1(categoryId: number, callback: Function) {
-        super.query("select * from category where categoryId=?", [categoryId], callback);
+
+    getOneCategory1(categoryId: number, callback: Function){
+        super.query("select * from category where categoryId=?",[categoryId], callback);
     }
 
     getOneCategory2(categoryId: number, callback: Function) {
         super.query("select * from category2 where category2Id=?", [categoryId], callback);
     }
 
-    getOneCategory3(categoryId: number, callback: Function) {
-        super.query("select * from category3 where category3Id=?", [categoryId], callback);
+
+    //Skal ikke brukes så tas ikke med i testing
+    getOneCategory3(categoryId: number, callback: Function){
+        super.query("select * from category3 where category3Id=?",[categoryId], callback);
     }
 
 
@@ -50,14 +56,15 @@ export class CategoryDao extends Dao {
         );
     }
 
-    addCategory3(json: Object, callback: Function) {
-        let body = [json.category2Id, json.name];
-        super.query(
-            "insert into category3(category2Id,category3Id, name, active)values(?, default, ?, 1)",
-            body,
-            callback
-        );
-    }
+  //Skal ikke brukes så tas ikke med i testing
+  addCategory3(json: Object, callback: Function) {
+    let body = [json.category2Id, json.name];
+    super.query(
+      "insert into category3(category2Id,category3Id, name, active)values(?, default, ?, 1)",
+      body,
+      callback
+    );
+  }
 
     addCompanyCategories(json: Object, callback: Function) {
         let body = [json.companyMail, json.categoryId];
