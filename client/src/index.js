@@ -26,6 +26,7 @@ import { Component } from 'react-simplified';
 import { MinSide } from './views/MinSide/MinSide';
 import { EventWizardFormComplete } from './components/RegisterEventForm/EventWizardFormComplete';
 import { OversiktOverSak } from './views/oversiktOverSak/oversiktOverSak';
+import {Footer} from './components/Footer/Footer'
 
 
 // Reload application when not in production environment
@@ -43,6 +44,7 @@ if (root)
     <HashRouter>
       <div className="route-container">
         <NavbarMenu/>
+        <Footer/>
         <Route exact path="/" component={Frontpage}/>
         <Route path="/forside/:countyId" component={forside}/>
         <Route path="/wizardForm" component={WizardFormComplete}/>

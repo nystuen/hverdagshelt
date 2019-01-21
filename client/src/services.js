@@ -114,6 +114,9 @@ export class CountyService{
         return axios.post("/add_companyCounties",json);
     }
 
+    getCountyEmployee(id:number):Promise<Object[]>{
+      return axios.get('/getEmployeeData/'+ id);
+    }
 
 
 }
