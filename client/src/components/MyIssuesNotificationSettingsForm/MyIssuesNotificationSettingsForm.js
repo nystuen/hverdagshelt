@@ -1,18 +1,18 @@
 // @flow
 
 import React from 'react';
-import {NotificationSettingsService} from "../../services";
+import {NotificationSettingsService, UserService} from "../../services";
 import jwt from "jsonwebtoken";
 import FormGroup from "react-bootstrap/es/FormGroup";
 import Checkbox from "react-bootstrap/es/Checkbox";
 import Button from "react-bootstrap/es/Button";
 import Grid from "react-bootstrap/es/Grid";
-import {IssueNotificationSetting} from "../../classTypes";
+import {IssueNotificationSetting, User} from "../../classTypes";
 
 let notificationSettingsService = new NotificationSettingsService();
+let userService = new UserService();
 
 interface State {
-    decoded: Object,
     notifications: IssueNotificationSetting,
     createNew: boolean,
     registered: boolean,
@@ -22,8 +22,7 @@ interface State {
 
 export class MyIssuesNotificationSettingsForm extends React.Component <State> {
     state = {
-        decoded: jwt.verify(window.localStorage.getItem('userToken'), "shhhhhverysecret"),
-        notifications: new IssueNotificationSetting(jwt.verify(window.localStorage.getItem('userToken'), "shhhhhverysecret").email, 0, 0, 0),
+        notifications: new IssueNotificationSetting('', 0, 0, 0),
         createNew: false,
         registered: false,
         inProgress: false,
@@ -88,12 +87,21 @@ export class MyIssuesNotificationSettingsForm extends React.Component <State> {
         let reg = false;
         let inProg = false;
         let compl= false;
-        notificationSettingsService.getIssueNotificationSettings(this.state.decoded.email)
+
+        notificationSettingsService.getIssueNotificationSettings()
             .then(resources => {
                 notificationObj = resources[0];
                 if (notificationObj === undefined) {
                     val = true;
-                    notificationObj = new IssueNotificationSetting(this.state.decoded.email, 0, 0, 0)
+                    /*
+                    notificationObj = new IssueNotificationSetting(this.state.user.mail, 0, 0, 0)
+                    * alle brukere skal få default notification settings ved registrering
+                    */
+                    notificationObj = {
+                        registered: 0,
+                        inProgress: 0,
+                        completed: 0
+                    }
                 } else {
                     if (notificationObj.registered === 1) reg = true;
                     if (notificationObj.inProgress === 1) inProg = true;

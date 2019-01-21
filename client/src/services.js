@@ -1,68 +1,88 @@
 // @flow
-import axios from "axios";
+import axios from 'axios';
 import {
-  User,
-  Issue,
-  Category,
-  Category2,
-  Category3,
-  Company,
-  Event,
-  Type,
-  County,
-  NotificationSetting,
-  IssueNotificationSetting,
-  EventCategory
-} from "./classTypes";
+    User,
+    Issue,
+    Category,
+    Category2,
+    Category3,
+    Company,
+    Event,
+    Type,
+    County,
+    NotificationSetting,
+    IssueNotificationSetting,
+    EventCategory
+} from './classTypes';
+
+let authHeader = function authHeader() {
+    // return authorization header with jwt token
+    let token = window.localStorage.getItem('userToken');
+
+    if (token) {
+        return {'Authorization': 'Bearer ' + token};
+    } else {
+        return {};
+    }
+};
 
 axios.interceptors.response.use(response => response.data);
 
 export class UserService {
-  addUser(newUser: User): Promise<Response> {
-    return axios.post("/add_user", newUser);
-  } //end method
+    addUser(newUser: User): Promise<Response> {
+        return axios.post('/add_user', newUser);
+    } //end method
 
-  getUserLogin(email: string): Promise<string[]> {
-    return axios.get("/verify_user/" + email);
-  } //end method
+    getUserLogin(email: string): Promise<string[]> {
+        return axios.get('/verify_user/' + email);
+    } //end method
 
-  getCompanyLogin(email: string): Promise<Object> {
-    return axios.get("/verify_company/" + email);
-  } //end method
+    getCompanyLogin(email: string): Promise<Object> {
+        return axios.get('/verify_company/' + email);
+    }//end method
 
-  getUser(mail: string): Promise<User> {
-    return axios.get("/user/get_user/" + mail);
-  } //end method
+    // returns currently logged in user or company
+    getCurrentUser(): Promise<User> {
+        return axios.get('/user/get_current_user', {headers: authHeader()})
+    } //end method
 
-  login(userMail: Object<JSON>): Promise<void> {
-    return axios.post("/login/", userMail);
-  } //end method
+    login(userMail: Object<JSON>): Promise<void> {
+        return axios.post('/login/', userMail);
+    }//end method
 
-  getMyIssues(userMail: string): Promise<JSON> {
-    return axios.get("/user/getMyIssues/" + userMail);
-  } //end method
+    getMyIssues(): Promise<JSON> {
+        return axios.get('/user/getMyIssues', {headers: authHeader()});
+    }//end method
 
-  getCompanyIssues(companyMail: string): Promise<JSON> {
-    return axios.get("/getCompanyIssues/" + companyMail);
-  } //end method
+    getCompanyIssues(companyMail: string): Promise<JSON> {
+        return axios.get('/getCompanyIssues/' + companyMail);
+    }//end method
 
-  updateUser(user: User): Promise<Response> {
-    return axios.put("/user/updateUser", user);
-  }
+    updateUser(user: User): Promise<Response> {
+        return axios.put('/user/updateUser', user, {headers: authHeader()});
+    }
 
-  addCompany(json: Object) {
-    return axios.post("/registrateCompany", json);
-  }
-} //end class
+    addCompany(json: Object): Promise<Response> {
+        return axios.post('/registrateCompany', json);
+    }
+
+    getHomeCounty(): Promise<Object> {
+        return axios.get('/getHomeCounty', {headers: authHeader()})
+    }
+}//end class
 
 export class EventCategoryService {
-  getEventCategory(): Promise<EventCategory[]> {
-    return axios.get("get_eventcategory");
-  }
+    getEventCategory(): Promise<EventCategory[]> {
+        return axios.get('get_eventcategory');
+    }
 
-  getEvent(eventId: number): Promise<Event> {
-    return axios.get("/event/" + eventId);
-  }
+    getEvent(eventId: number): Promise<Event> {
+        return axios.get('/event/' + eventId);
+    }
+    getImportantEvents(countyId: number): Promise<Event[]> {
+        return axios.get('/importantEvents/' + countyId);
+    }
+
 } //end class
 
 export class ImageService {
@@ -83,51 +103,54 @@ export class ImageService {
 }
 
 export class CategoryService {
-  getCategory1(): Promise<Category[]> {
-    return axios.get("/get_category1");
-  }
 
-  getCategory2(): Promise<Category2[]> {
-    return axios.get("/get_category2");
-  }
+    getCategory1(): Promise<Category[]> {
+        return axios.get('/get_category1');
+    }
 
-  getCategory3(): Promise<Category3[]> {
-    return axios.get("/get_category3");
-  }
+    getCategory2(): Promise<Category2[]> {
+        return axios.get('/get_category2');
+    }
 
-  getOneCategory1(id: number) {
-    return axios.get("/getOneCategory1/" + id);
-  } //end method
 
-  getOneCategory2(id: number) {
-    return axios.get("/getOneCategory2/" + id);
-  } //end method
+    getCategory3(): Promise<Category3[]> {
+        return axios.get('/get_category3');
+    }
 
-  getOneCategory3(id: number) {
-    return axios.get("/getOneCategory3/" + id);
-  } //end method
+    getOneCategory1(id: number) {
+        return axios.get('/getOneCategory1/' + id);
+    }//end method
 
-  addCompanyCategories(json: Object) {
-    return axios.post("/add_CompanyCategories", json);
-  }
+    getOneCategory2(id: number) {
+        return axios.get('/getOneCategory2/' + id);
+    }//end method
 
-  addCategory1(json: Object) {
-    return axios.post("/add_category1", json);
-  }
+    getOneCategory3(id: number) {
+        return axios.get('/getOneCategory3/' + id);
+    }//end method
 
-  addCategory2(json: Object) {
-    return axios.post("/add_category2", json);
-  }
+    addCompanyCategories(json: Object) {
+        return axios.post('/add_CompanyCategories', json);
+    }
 
-  addCategory3(json: Object) {
-    return axios.post("/add_category3", json);
-  }
-} //end class
+    addCategory1(json: Object) {
+        return axios.post('/add_category1', json, {headers: authHeader()});
+    }
+
+    addCategory2(json: Object) {
+        return axios.post('/add_category2', json, {headers: authHeader()});
+    }
+
+    addCategory3(json: Object) {
+        return axios.post('/add_category3', json, {headers: authHeader()});
+    }
+
+}//end class
 
 export class IssueService {
-  getIssueAndCounty(issue: number): Promise<Object> {
-    return axios.get("/oversiktOverSak/" + issue);
-  } //end method
+    getIssueAndCounty(issue: number): Promise<Object> {
+        return axios.get('/oversiktOverSak/' + issue);
+    }//end method
 
   getAllIssuesInThisCounty(countyId: number): Promise<Object[]>{
     return axios.get('/getIssuesInThisCounty/' + countyId);
@@ -147,90 +170,74 @@ export class IssueService {
 }//end class
 
 export class CountyService {
-  getCounties(): Promise<County[]> {
-    return axios.get("/getCounties");
-  }
+    getCounties(): Promise<County[]> {
+        return axios.get('/getCounties');
+    }
 
-  getCategory3(): Promise<Category3[]> {
-    return axios.get("/get_category3");
-  }
+    addCompanyCounties(json: Object) {
+        return axios.post("/add_companyCounties", json);
+    }
 
-  addCompanyCounties(json: Object) {
-    return axios.post("/add_companyCounties", json);
-  }
+    getAllCounties(): Promise<County[]> {
+        return axios.get('/getAllCountiesMinusUsers', {headers: authHeader()});
+    }
+
+    getUsersCounties(): Promise<Object[]> {
+        return axios.get('/getSubscribedCounties', {headers: authHeader()});
+    }
+
+    deleteSubscription() {
+        return axios.delete('/deleteAllSubscribedCounties', {headers: authHeader()});
+    }
+
+    addSubscription(json: Object) {
+        console.log('addSubscription', json);
+        return axios.post('/addSubscription', json, {headers: authHeader()});
+    }
 }
 
 export class NotificationSettingsService {
-  getNotificationSettings(email: string): Promise<Object[]> {
-    return axios.get("/get_notification_settings/" + email);
-  }
 
-  deleteNotificationSettings(email: string): Promise<void> {
-    return axios.delete("/delete_notification_settings/" + email);
-  }
+    getNotificationSettings(): Promise<Object[]> {
+        return axios.get('/get_notification_settings', {headers: authHeader()});
+    }
 
-  addNotificationSettings(newSetting: NotificationSetting): Promise<Response> {
-    return axios.post("/add_notification_settings", newSetting);
-  }
+    deleteNotificationSettings(): Promise<void> {
+        return axios.delete('/delete_notification_settings', {headers: authHeader()});
+    }
 
-  addIssueNotificationSettings(
-    newSetting: IssueNotificationSetting
-  ): Promise<Response> {
-    return axios.post("/add_issue_notification_settings", newSetting);
-  }
+    addNotificationSettings(newSetting: NotificationSetting): Promise<Response> {
+        return axios.post('/add_notification_settings', newSetting, {headers: authHeader()});
+    }
 
-  getIssueNotificationSettings(email: string): Promise<Object[]> {
-    return axios.get("/get_issue_notification_settings/" + email);
-  }
+    addIssueNotificationSettings(newSetting: IssueNotificationSetting): Promise<Response> {
+        return axios.post('/add_issue_notification_settings', newSetting, {headers: authHeader()});
+    }
 
-  getNotificationSettingsWithNames(email: string): Promise<Object[]> {
-    return axios.get("/get_notification_settings_with_names/" + email);
-  }
+    getIssueNotificationSettings(): Promise<Object[]> {
+        return axios.get('/get_issue_notification_settings', {headers: authHeader()});
+    }
 
-  updateIssueNotificationSettings(
-    newSetting: IssueNotificationSetting
-  ): Promise<Response> {
-    return axios.put("/update_issue_notification_settings", newSetting);
-  }
+    getNotificationSettingsWithNames(): Promise<Object[]> {
+        return axios.get('/get_notification_settings_with_names', {headers: authHeader()})
+    }
 
-  updateIssueNotificationSettings(
-    newSetting: IssueNotificationSetting
-  ): Promise<Response> {
-    return axios.put("/update_issue_notification_settings", newSetting);
-  }
+    updateIssueNotificationSettings(newSetting: IssueNotificationSetting): Promise<Response> {
+        return axios.put('/update_issue_notification_settings', newSetting);
+    }
+
 }
 
-export function getImportantEvents(countyId: number): Promise<Event[]> {
-  return axios.get("/importantEvents/" + countyId);
-}
 
-export function getAllCounties(usermail: string): Promise<County[]> {
-  return axios.get("/getAllCountiesMinusUsers/" + usermail);
-}
-
-export function getUsersCounties(usermail: string): Promise<Object[]> {
-  return axios.get("/getSubscribedCounties/" + usermail);
-}
-
-export function deleteSubscription(usermail: string) {
-  return axios.delete("/deleteAllSubscribedCounties/" + usermail);
-}
-
-export function addSubscription(json: Object) {
-  return axios.post("/addSubscription", json);
-}
-
-export function getCounties() {
-  return axios.get("/getCounties");
-}
 
 export class MailService {
-  sendTextMail(mailObject: Object): Promise<Response> {
-    return axios.post("/sendTextMail", mailObject);
-  }
 
-  sendResetPasswordMail(to: string): Promise<Response> {
-    console.log(to);
-    return axios.post("/sendResetPasswordMail", to);
-  }
+    sendTextMail(mailObject: Object): Promise<Response> {
+        return axios.post('/sendTextMail', mailObject);
+    }
+
+    sendResetPasswordMail(to: string): Promise<Response> {
+        return axios.post('/sendResetPasswordMail', to);
+    }
+
 }

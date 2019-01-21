@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { CategoryService, IssueService } from '../../services';
+import { CategoryService, IssueService, UserService } from '../../services';
 import Grid from 'react-bootstrap/es/Grid';
 import { Alert } from '../../widgets';
 import Row from 'react-bootstrap/es/Row';
@@ -18,56 +18,59 @@ import{FormGroup} from "react-bootstrap";
 import {FormControl} from "react-bootstrap";
 import Card from "reactstrap/es/Card";
 import Table from "react-bootstrap/es/Table";
+import {User} from "../../classTypes";
 
 let issueService = new IssueService();
 let categoryService = new CategoryService();
+let userService = new UserService();
 let imageService = new ImageService();
 
 interface State {
-  issue: Object[];
-  category1: Object[];
-  category2: Object[];
-  category3: Object[];
-  status: Status;
-  statusName: string;
-  categoryLevel: number;
-  editCase: boolean;
-  comment: string;
-  image: Image;
+    user: Object,
+    issue: Object[];
+    category1: Object[];
+    category2: Object[];
+    category3: Object[];
+    status: Status;
+    statusName: string;
+    categoryLevel: number;
+    editCase: boolean;
+    comment: string;
+    image: Image;
 }//end method
 
 export class OversiktOverSak extends React.Component {
-  constructor(props) {
-    super(props);
-    this.state = {
-      image: {},
-      issue: {},
-      category1: {},
-      category2: {},
-      category3: {},
-      status: {},
-      statusName: '',
-      categoryLevel: 1, //1 means the issue is not registered under any subcategories
-      editCase: false, //if the issue is in progress or completed, user cannot edit issue
-      comment: '',
-      issueComments: [],
-      editStatus: <div>
-            <FormControl onChange={this.setStatus} componentClass="select" placeholder="select">
-              <option value="">Oppdater status</option>
-              <option value="In progress">Behandles</option>
-              <option value="Completed"> Fullført</option>
-            </FormControl>
-          <Button onClick={this.saveThisStatus}> Lagre status</Button>
-      </div>
-    };
-  }//end constructor
+    constructor(props) {
+        super(props);
+        this.state = {
+            user: new User('', '', '', '', '', -1, -1, -1),
+            issue: {},
+            image: {},
+            category1: {},
+            category2: {},
+            category3: {},
+            status: {},
+            statusName: '',
+            comment: '',
+            issueComments: [],
+            categoryLevel: 1, //1 means the issue is not registered under any subcategories
+            editCase: false, //if the issue is in progress or completed, user cannot edit issue
+            editStatus: <div>
+                <FormControl onChange={this.setStatus} componentClass="select" placeholder="select">
+                    <option value="">Oppdater status</option>
+                    <option value="In progress">Behandles</option>
+                    <option value="Completed"> Fullført</option>
+                </FormControl>
+                <Button onClick={this.saveThisStatus}> Lagre status</Button>
+            </div>
+        };
+    }//end constructor
 
 
   render() {
     let editStatus;
     let renderComment;
-    let decoded = jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret');
-    if (decoded.typeId === 'Company' || decoded.typeId === 'Admin' || decoded.typeId === 'Employee') {
+    if (this.state.user.typeName === 'Company' || this.state.user.typeName === 'Admin' || this.state.user.typeName === 'Employee') {
       editStatus = this.state.editStatus;
       renderComment = <div>
             <br/>
@@ -152,7 +155,16 @@ export class OversiktOverSak extends React.Component {
 
 
   componentWillMount() {
-    issueService.getIssueAndCounty(this.props.match.params.issueId).then(response => {
+
+      userService.getCurrentUser()
+          .then(resource => {
+              let user = resource[0];
+              this.setState({
+                  user: user
+              })
+          });
+
+      issueService.getIssueAndCounty(this.props.match.params.issueId).then(response => {
       this.setState({ issue: response[0], categoryLevel: response[0].categoryLevel, image: response[0].pic });
       issueService.getCompanyComments(response[0].issueId).then(r => {
             this.setState({issueComments: r});
@@ -213,7 +225,7 @@ export class OversiktOverSak extends React.Component {
     };//end method
 
     addComment = () => {
-      issueService.addCommentToIssue(this.state.issue.issueId, this.state.comment,this.props.match.params.email).then(response => {
+      issueService.addCommentToIssue(this.state.issue.issueId, this.state.comment,this.state.user.mail).then(response => {
           window.location.reload();
       }).catch((error: Error) => Alert.danger(error.message));
     };

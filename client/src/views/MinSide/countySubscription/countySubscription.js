@@ -2,14 +2,14 @@
 import React, { Component } from 'react';
 import { Layout } from '../../../widgets';
 import { Grid, Row, Col, ListGroup,ListGroupItem, Table, Image, Panel } from "react-bootstrap"
-import {getAllCounties, getUsersCounties, deleteSubscription,addSubscription} from "../../../services";
+import {CountyService} from "../../../services";
 import * as jwt from 'jsonwebtoken';
 import Glyphicon from 'react-bootstrap/es/Glyphicon';
 import Button from 'react-bootstrap/es/Button';
 import css from './countySubscription.css';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
 
-
+let countyService = new CountyService();
 //Databasekall
 //Få alle kommuner som finnes som er active og som bruker ikke abonerer på
 // Få alle kommuner som den personen abonerer på
@@ -53,7 +53,6 @@ export class countySubscription extends Component<Props, State> {
 
   //fra abonerte kommuner til alle kommuner
   deleteCounty = (name, index) => {
-    let id: string = this.state.decoded.email;
 
     const userArray = this.state.userCounties;
     const countyArray = this.state.allCounties;
@@ -67,30 +66,29 @@ export class countySubscription extends Component<Props, State> {
 
 
   change = () => {
-    let id: string = this.state.decoded.email;
 
-    deleteSubscription(id);
+    countyService.deleteSubscription();
 
     this.state.userCounties.map((e) => {
       let theBody: Object = {
-        countyId: e.countyId,
-        userMail: id
+        countyId: e.countyId
       };
-      addSubscription(theBody);
+      countyService.addSubscription(theBody);
     });
 
   };
 
 
   getInformation = async () => {
-    let id: string = this.state.decoded.email;
-    await getAllCounties(id).then((r: Array<Object>) => {
+    await countyService.getAllCounties().then((r: Array<Object>) => {
+      console.log('all counties', r);
       this.setState({
         allCounties: r
       });
     });
 
-    await getUsersCounties(id).then((r: Array<Object>) => {
+    await countyService.getUsersCounties().then((r: Array<Object>) => {
+      console.log('karis counties', r);
       this.setState({
         userCounties: r
       });
