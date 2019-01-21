@@ -62,6 +62,16 @@ export class Statistics extends Component {
     }
   }
 
+  componentDidMount() {
+    let dummyLine = this.state.lineData
+    dummyLine.datasets[0].data = [10, 10, 10, 10, 10, 10, 10]
+    console.log(dummyLine.datasets)
+    this.setState({
+      lineData: dummyLine
+    })
+    console.log(this.state.lineData)
+  }
+
 
   render() {
     return(
