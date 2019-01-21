@@ -52,66 +52,72 @@ export class OversiktOverSak extends React.Component {
       comment: '',
       issueComments: [],
       editStatus: <div>
-          <Row>
-              <Col xs={12} md={8}>
-            <select onChange={this.setStatus}>
+            <FormControl onChange={this.setStatus} componentClass="select" placeholder="select">
               <option value="">Oppdater status</option>
               <option value="In progress">Behandles</option>
               <option value="Completed"> Fullført</option>
-            </select>
-              </Col>
-          </Row>
-          <Row>
-              <Col xs={3} md={3}>
-                <Button onClick={this.saveThisStatus}> Lagre status</Button>
-              </Col>
-          </Row>
+            </FormControl>
+          <Button onClick={this.saveThisStatus}> Lagre status</Button>
       </div>
     };
   }//end constructor
 
 
-    render(){
-       let editStatus;
-       let renderComment;
-       let decoded = jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret');
-        if(decoded.typeId === 'Company' || decoded.typeId === 'Admin' || decoded.typeId === 'Employee'){
-            editStatus = this.state.editStatus;
-            renderComment = <div>
-                <br/>
+  render() {
+    let editStatus;
+    let renderComment;
+    let decoded = jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret');
+    if (decoded.typeId === 'Company' || decoded.typeId === 'Admin' || decoded.typeId === 'Employee') {
+      editStatus = this.state.editStatus;
+      renderComment = <div>
+            <br/>
 
-                <FormGroup>
-                    <FormControl componentClass="textarea" value={this.state.comment} placeholder="Legg til kommentar til sak"
-                    onChange={this.editComment}/>
-                    <Button type="Button" onClick={this.addComment}> Legg til kommentar</Button>
-                </FormGroup>
-            </div>
-        }
-        return(
-            <Grid className="sak">
-                <Col xs={12} md={4}>
+            <FormGroup>
+                <FormControl componentClass="textarea" value={this.state.comment} placeholder="Legg til kommentar til sak"
+                             onChange={this.editComment}/>
+                <Button type="Button" onClick={this.addComment}> Legg til kommentar</Button>
+            </FormGroup>
+        </div>
+    }
 
-          <h3>Beskrivelse</h3>
-          <p>{this.state.issue.text}</p>
 
-          <h3>Status</h3>
-                    <ProgressBar>
-                    <ProgressBar bsStyle={this.state.status.progressBar} active={this.state.status.inProgress} now={this.state.status.progress}
-                                 label={this.state.status.name} style={{color: 'black'}}/>
-                    </ProgressBar>
+    return (
+      <Grid className="sak">
 
-          <h3>Dato sendt inn</h3>
-          <p>{this.state.issue.date}</p>
+        <Col sm={1} md={2} lg={2}></Col>
 
-          <h3>Adresse</h3>
-          <p>{this.state.issue.address}</p>
+        <Col sm={10} md={8} lg={8}>
+          <img width={'100%'} src={'image/' + this.state.image}/>
 
-          <h3>Kategori</h3>
-          <p>{this.Categories()}</p>
+          <Col sm={6} md={6}>
+            <h3>Kategori</h3>
+            <p>{this.Categories()}</p>
 
-          <Image src={this.state.image} />
+            <h3>Adresse</h3>
+            <p>{this.state.issue.address}</p>
 
+            <h3>Beskrivelse</h3>
+            <p>{this.state.issue.text}</p>
+
+
+          </Col>
+          <Col sm={6} md={6}>
+
+            <h3>Status</h3>
+            <ProgressBar>
+              <ProgressBar bsStyle={this.state.status.progressBar} active now={this.state.status.progress}
+                           label={this.state.status.name} style={{ color: 'black' }}/>
+            </ProgressBar>
+
+            {editStatus}
+
+            <h3>Dato sendt inn</h3>
+            <p>{this.state.issue.date}</p>
+
+          </Col>
         </Col>
+
+        <Col sm={1} md={2} lg={2}></Col>
 
         <Row>
           <Col xsOffset={23} md={8}>
@@ -194,7 +200,6 @@ export class OversiktOverSak extends React.Component {
       return (<p>{this.state.category1.name} - {this.state.category2.name}</p>);
     }//end condition
   }//end method
-
 
 
   showPic() {

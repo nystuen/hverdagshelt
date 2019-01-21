@@ -18,8 +18,8 @@ import FormControl from 'react-bootstrap/es/FormControl';
 import Button from 'react-bootstrap/es/Button';
 import Grid from 'react-bootstrap/es/Grid';
 import login from './login.css';
-import {history} from "../../index";
-import Image from "react-bootstrap/es/Image";
+import { history } from '../../index';
+import Image from 'react-bootstrap/es/Image';
 
 let userService = new UserService();
 const bcrypt = require('bcrypt-nodejs');
@@ -76,29 +76,28 @@ export class Login extends Component<Props, State> {
     }
 
     let alert_notLoggedIn;
-    if(this.props.notLoggedIn){
+    if (this.props.notLoggedIn) {
       alert_notLoggedIn = confirm('Du må være logget inn for å gå videre');
-    }else{
-      <p></p>
+    } else {
+      <p></p>;
     }//end condition
 
     return (
-
-      <div>
+      <div className="login">
         <Grid>
           <Form>
-            <Col xs={5} md={4}>
+            <Col sm={2} md={3}>
             </Col>
 
-            <Col xs={2} md={4}>
-              <div className="center">
+            <Col sm={8} md={6}>
+
+              <div align="center">
                 <Image className="picture"
-                       src={'./resources/logo_svart.png'}
+                       src={'./resources/logo_white.png'}
                        rounded/>
               </div>
 
               <div className="loginBox">
-
                 <Row className="show-grid">
                   <FormGroup>
                     <FormControl type="text" placeholder="Email" value={this.state.email}
@@ -114,7 +113,7 @@ export class Login extends Component<Props, State> {
                 </Row>
 
                 <Row className="show-grid" align='center'>
-                  <Button type="button" onClick={this.save} bsStyle="success">Login</Button>
+                  <Button type="button" onClick={this.save} bsStyle="primary">Login</Button>
                   <Button type="button" onClick={this.sjekk}>Sjekk</Button>
                   {alert_login}
                   {alert_notLoggedIn}
@@ -123,15 +122,15 @@ export class Login extends Component<Props, State> {
                 <div align="center">
                   <p>Har du ikke bruker?</p>
 
-                  <p>Registrer deg <a href={'/#/register'}>her</a> hvis du er privatperson, og <a
-                      href="/#/register/company"> her</a> hvis du er
-                    bedrift.</p>
+                  <p>Registrer deg <a href={'/#/register'}>her hvis du er privatperson</a>, og <a
+                    href="/#/register/company"> her hvis du er
+                    bedrift.</a></p>
                 </div>
 
               </div>
             </Col>
 
-            <Col xs={5} md={4}>
+            <Col sm={2} md={3}>
             </Col>
           </Form>
         </Grid>
@@ -166,13 +165,13 @@ export class Login extends Component<Props, State> {
 
           }).catch((error: Error) => Alert.danger(error.message));
         } else { //check if the email is a company email
-            userService.getCompanyLogin(this.state.email).then(r => {
-              bcrypt.compare(this.state.password, r[0].password, (err,res) => {
-                if(res){
-                  userService.login({ userMail: r[0].mail, typeId: 'Company' }).then(r => {
-                    let token = r.jwt;
-                    window.localStorage.setItem('userToken', token);
-                    console.log('login in success');
+          userService.getCompanyLogin(this.state.email).then(r => {
+            bcrypt.compare(this.state.password, r[0].password, (err, res) => {
+              if (res) {
+                userService.login({ userMail: r[0].mail, typeId: 'Company' }).then(r => {
+                  let token = r.jwt;
+                  window.localStorage.setItem('userToken', token);
+                  console.log('login in success');
 
                     console.log(this.props.history.location.pathname);
                     if(this.props.history.location.pathname == "/register" ||
@@ -200,8 +199,8 @@ export class Login extends Component<Props, State> {
       });
     }).catch((error: Error) => {
       userService.getCompanyLogin(this.state.email).then(r => {
-        bcrypt.compare(this.state.password, r[0].password, (err,res) => {
-          if(res){
+        bcrypt.compare(this.state.password, r[0].password, (err, res) => {
+          if (res) {
             userService.login({ userMail: this.state.email, typeId: 'Company' }).then(r => {
               let token = r.jwt;
               window.localStorage.setItem('userToken', token);
