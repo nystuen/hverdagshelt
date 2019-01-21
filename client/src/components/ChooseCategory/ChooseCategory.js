@@ -176,9 +176,9 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
 
   caret(active : boolean){
     if(active) {
-      return <span className="caret caret-right"></span>
+      return <span className="caret"/>
     } else {
-      return <span className="caret"></span>
+      return <span className="caret caret-right"/>
     }
   }
 

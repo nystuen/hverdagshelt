@@ -15,10 +15,12 @@ import { ImageService } from '../../services';
 import { history } from '../../index';
 import css from './oversiktOverSak.css';
 import FormControl from 'react-bootstrap/es/FormControl';
+import {MailService} from '../../services';
 
 let issueService = new IssueService();
 let categoryService = new CategoryService();
 let imageService = new ImageService();
+let mailService = new MailService();
 
 interface State {
   issue: Object[];
@@ -180,8 +182,14 @@ export class OversiktOverSak extends React.Component {
   };//end method
 
   saveThisStatus = () => {
-    issueService.updateStatusOneIssue(this.state.issue.issueId, this.state.statusName).then(response => {
+
+
+    issueService.updateStatusOneIssue(this.state.issue.issueId, this.state.statusName,this.props.match.params.email ).then(response => {
+
+
     }).catch((error: Error) => Alert.danger(error.message));
+
+
     this.props.history.goBack();
   };//end method
 }//end class
