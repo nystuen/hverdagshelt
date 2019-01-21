@@ -32,6 +32,7 @@ import { AdminResetUserPassword } from "./views/admin/resetPassword";
 import { adminPanel } from './views/admin/adminPanel';
 import { SendTextMailWindow } from './components/Mail/SendMail';
 
+
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== 'production') {
   let script = document.createElement('script');
