@@ -36,6 +36,10 @@ export class IssueDao extends Dao {
     super.query("select * from issues natural join county where issueId=?", [id], callback);
   }//end method
 
+  getAllIssuesInCounty(id: number, callback: Function){
+    super.query("select * from issues where countyId =? and active=1", [id], callback);
+  }//end method
+
   getCompanyComments(id: number, callback: Function){
     super.query("select * from companyComment where issueId=?", [id], callback);
   }//end method

@@ -14,6 +14,15 @@ import { PageHeader } from '../../../components/PageHeader/PageHeader';
 export class adminIssues extends React.Component{
     state = {
         issues: [],
+        category: [],
+        category1: [],
+        category2: []
+    };
 
-    }
+    componentWillMount(){
+        
+    }//end method
+
+
+
 }//end class

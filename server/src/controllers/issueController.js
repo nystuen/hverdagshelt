@@ -19,6 +19,14 @@ module.exports = function(app: Object, issueDao: Object) {
     });
   });
 
+  app.get('/getIssuesInThisCounty/:countyId', (req,res) => {
+   console.log("received get request from getIssuesInThisCounty");
+   issueDao.getAllIssuesInCounty(req.params.countyId, (status,data) => {
+     res.status(status);
+     res.json(data);
+   });
+  });
+
   app.get("/UserIssues/:UserMail", (req, res) => {
     console.log("received get request from issue from one user");
     issueDao.getUserIssue(req.params.UserMail, (status, data) => {
