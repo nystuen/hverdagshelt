@@ -18,6 +18,7 @@ import{FormGroup} from "react-bootstrap";
 import {FormControl} from "react-bootstrap";
 import Card from "reactstrap/es/Card";
 import Table from "react-bootstrap/es/Table";
+import {User} from "../../classTypes";
 
 let issueService = new IssueService();
 let categoryService = new CategoryService();

@@ -21,7 +21,7 @@ import { ChooseCategory } from "./components/ChooseCategory/ChooseCategory.js";
 import { forside } from "./views/forside/forside";
 import { Frontpage } from "./views/frontpage/frontpage";
 import { editAccountInformation } from "./views/MinSide/KontoOversikt/editAccountInformation";
-import { NotificationSettings } from "./components/NotificationSettings/NotificationSettings";
+import { NotificationSettings } from "./views/NotificationSettings/NotificationSettings";
 import { Component } from "react-simplified";
 import { MinSide } from "./views/MinSide/MinSide";
 import { EventWizardFormComplete } from "./components/RegisterEventForm/EventWizardFormComplete";

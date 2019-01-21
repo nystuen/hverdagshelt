@@ -50,7 +50,7 @@ export class WizardFormThirdPage extends React.Component {
   }
 
   setProps = () => {
-    this.props.change("userMail", this.state.decoded.email);
+    this.props.change("userMail", this.state.user.mail);
     this.props.change("countyId", this.state.user.countyId);
     console.log("setting props! mail");
     console.log(this.state.user.countyId);
