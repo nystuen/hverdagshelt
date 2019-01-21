@@ -15,6 +15,17 @@ import {
   EventCategory
 } from "./classTypes";
 
+let authHeader = function authHeader() {
+  // return authorization header with jwt token
+  let token = window.localStorage.getItem("userToken");
+
+  if (token) {
+    return { Authorization: "Bearer " + token };
+  } else {
+    return {};
+  }
+};
+
 axios.interceptors.response.use(response => response.data);
 
 export class UserService {
@@ -52,6 +63,10 @@ export class UserService {
 
   addCompany(json: Object) {
     return axios.post("/registrateCompany", json);
+  }
+
+  resetPassword(json: Object): Promise<Response> {
+    return axios.put("/user/change_password", json, { headers: authHeader() });
   }
 } //end class
 
@@ -130,17 +145,23 @@ export class IssueService {
   } //end method
 
   updateStatusOneIssue(id: number, statusName: string) {
-    return axios.post('/updateStatusOneIssue/' + id, { statusName: statusName });
-  }//end method
+    return axios.post("/updateStatusOneIssue/" + id, {
+      statusName: statusName
+    });
+  } //end method
 
-  addCommentToIssue(id: number, text: string, companyMail: string){
-    return axios.post('/addIssueComments', {id: id, text: text, companyMail: companyMail});
-  }//end method
+  addCommentToIssue(id: number, text: string, companyMail: string) {
+    return axios.post("/addIssueComments", {
+      id: id,
+      text: text,
+      companyMail: companyMail
+    });
+  } //end method
 
-  getCompanyComments(id: number){
-    return axios.get('/companyComments/' + id);
-  }//end method
-}//end class
+  getCompanyComments(id: number) {
+    return axios.get("/companyComments/" + id);
+  } //end method
+} //end class
 
 export class CountyService {
   getCounties(): Promise<County[]> {

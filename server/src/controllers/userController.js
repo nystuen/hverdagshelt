@@ -1,16 +1,16 @@
 // @flow
 
 let jwt = require("jsonwebtoken");
-let bodyParser = require('body-parser');
-let urlencodedParser = bodyParser.urlencoded({extended: false});
-const bcrypt = require('bcrypt-nodejs'); //to hash password
+let bodyParser = require("body-parser");
+let urlencodedParser = bodyParser.urlencoded({ extended: false });
+const bcrypt = require("bcrypt-nodejs"); //to hash password
 
 let privateKey = "shhhhhverysecret";
 
+import { verifyToken } from "../helpers/verifyToken";
 
-module.exports = function (app: Object, userDao: Object) {
-
-    /*
+module.exports = function(app: Object, userDao: Object) {
+  /*
     app.use("/user", (req, res, next) => {
         let token = req.body;
         console.log(req.body);
@@ -28,100 +28,124 @@ module.exports = function (app: Object, userDao: Object) {
         });
     });
 */
-    app.post('/add_user', urlencodedParser, (req, res) => {
-        console.log('got post request from add_user');
+  app.post("/add_user", urlencodedParser, (req, res) => {
+    console.log("got post request from add_user");
 
-        let hashed = '';
-        bcrypt.hash(req.body.password, null, null, function (error, hash) {
-            hashed = hash;
-            userDao.addUser(req.body, hashed ,(status, data) => {
-                res.status(status);
-                res.json(data);
-            });
-        });
+    let hashed = "";
+    bcrypt.hash(req.body.password, null, null, function(error, hash) {
+      hashed = hash;
+      userDao.addUser(req.body, hashed, (status, data) => {
+        res.status(status);
+        res.json(data);
+      });
     });
+  });
 
-    app.post('/registrateCompany', urlencodedParser, (req, res) => {
-        console.log('got post request from registrateCompany');
+  app.post("/registrateCompany", urlencodedParser, (req, res) => {
+    console.log("got post request from registrateCompany");
 
-        let hashed = '';
-        bcrypt.hash(req.body.password, null, null, function (error, hash) {
-            hashed = hash;
-            userDao.addCompany(req.body, hashed ,(status, data) => {
-                res.status(status);
-                res.json(data);
-            });
-        });
+    let hashed = "";
+    bcrypt.hash(req.body.password, null, null, function(error, hash) {
+      hashed = hash;
+      userDao.addCompany(req.body, hashed, (status, data) => {
+        res.status(status);
+        res.json(data);
+      });
     });
+  });
 
-
-    app.get('/verify_user/:email', urlencodedParser, (req,res) => {
-        console.log('got get request from verify_user');
-        userDao.getUserLogin(req.params.email,(status,data) => {
-            res.status(status);
-            res.json(data);
-        });
+  app.get("/verify_user/:email", urlencodedParser, (req, res) => {
+    console.log("got get request from verify_user");
+    userDao.getUserLogin(req.params.email, (status, data) => {
+      res.status(status);
+      res.json(data);
     });
+  });
 
-    app.get('/verify_company/:email', urlencodedParser, (req,res) => {
-        console.log('got get request from verify_company')  ;
-        userDao.getCompanyLogin(req.params.email, (status,data) => {
-           res.status(status);
-           res.json(data);
-        });
+  app.get("/verify_company/:email", urlencodedParser, (req, res) => {
+    console.log("got get request from verify_company");
+    userDao.getCompanyLogin(req.params.email, (status, data) => {
+      res.status(status);
+      res.json(data);
     });
+  });
 
-
-    app.post('/login/', urlencodedParser, (req, res) => {
-        console.log('got login request');
-        if (req.body) {
-            console.log("Brukernavn & passord ok");
-            let token = jwt.sign({ email: req.body.userMail, typeId: req.body.typeId }, privateKey, {
-                expiresIn: 2419200
-            });
-            res.json({ jwt: token });
-        } else {
-            console.log("Brukernavn & passord IKKE ok");
-            res.status(401);
-            res.json({ error: "Not authorized" });
+  app.post("/login/", urlencodedParser, (req, res) => {
+    console.log("got login request");
+    if (req.body) {
+      console.log("Brukernavn & passord ok");
+      let token = jwt.sign(
+        { email: req.body.userMail, typeId: req.body.typeId },
+        privateKey,
+        {
+          expiresIn: 2419200
         }
-    });
+      );
+      res.json({ jwt: token });
+    } else {
+      console.log("Brukernavn & passord IKKE ok");
+      res.status(401);
+      res.json({ error: "Not authorized" });
+    }
+  });
 
-    app.get('/user/get_user/:email', urlencodedParser, (req, res) => {
-        console.log('got request from get_user');
-        userDao.getUser(req.params.email, (status, data) => {
-            res.status(status);
-            res.json(data);
+  app.get("/user/get_user/:email", urlencodedParser, (req, res) => {
+    console.log("got request from get_user");
+    userDao.getUser(req.params.email, (status, data) => {
+      res.status(status);
+      res.json(data);
+    });
+  });
+
+  app.get("/user/getMyIssues/:email", urlencodedParser, (req, res) => {
+    console.log("got request from getMyIssues", req.params.email);
+    userDao.getIssuesForOneUser(req.params.email, (status, data) => {
+      res.status(status);
+      res.json(data);
+    });
+  });
+
+  app.get("/getCompanyIssues/:email", urlencodedParser, (req, res) => {
+    console.log("got request from getCompanyIssues", req.params.email);
+    userDao.getCompanyIssues(req.params.email, (status, data) => {
+      res.status(status);
+      res.json(data);
+    });
+  });
+
+  app.put("/user/updateUser/", urlencodedParser, (req, res) => {
+    console.log("got req from updateUser");
+    userDao.updateUser(req.body, (status, data) => {
+      res.status(status);
+      res.json(data);
+    });
+  });
+
+  app.put("/user/change_password", verifyToken, (req, res) => {
+    jwt.verify(req.token, privateKey, (err, decoded) => {
+      console.log(decoded.email);
+      if (err) {
+        res.sendStatus(401);
+      } else {
+        console.log("got req from change_password");
+        let hashed = "";
+        bcrypt.hash(req.body.newPassword, null, null, function(error, hash) {
+          hashed = hash;
+          userDao.createNewPassword(
+            {
+              newPassword: hashed,
+              email: decoded.email
+            },
+            (status, data) => {
+              res.status(status);
+              res.json(data);
+            }
+          );
         });
+      }
     });
-
-    app.get('/user/getMyIssues/:email', urlencodedParser, (req,res) => {
-       console.log('got request from getMyIssues', req.params.email);
-       userDao.getIssuesForOneUser(req.params.email, (status, data) => {
-           res.status(status);
-           res.json(data);
-       })
-    });
-
-    app.get('/getCompanyIssues/:email', urlencodedParser, (req,res) => {
-        console.log('got request from getCompanyIssues', req.params.email);
-        userDao.getCompanyIssues(req.params.email, (status, data) => {
-            res.status(status);
-            res.json(data);
-        })
-    });
-
-    app.put('/user/updateUser/', urlencodedParser, (req, res) => {
-        console.log('got req from updateUser');
-        userDao.updateUser(req.body, (status, data) => {
-          res.status(status);
-          res.json(data);
-        })
-    });
-
-
+  });
 };
-
 
 /*
 const checkToken = (req, res, next) => {
