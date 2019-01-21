@@ -29,11 +29,11 @@ export class UserDao extends Dao {
     }//end method}
 
     getIssuesForOneUser(userMail: string, callback: Function){
-      super.query("select * from issues where userMail=? and active=1", [userMail], callback);
+      super.query("select * from issues where userMail=? and active=1 ORDER BY issueId DESC", [userMail], callback);
     }//end method
 
     getCompanyIssues(companyMail: string, callback: Function){
-        super.query("select * from issues where issueId in (select issueId from companyIssues where companyMail =?)",
+        super.query("select * from issues where issueId in (select issueId from companyIssues where companyMail =?) ORDER BY issueId DESC",
             companyMail, callback);
     }//end method
 
