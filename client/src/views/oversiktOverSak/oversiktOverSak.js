@@ -19,6 +19,7 @@ import {FormControl} from "react-bootstrap";
 import Card from "reactstrap/es/Card";
 import Table from "react-bootstrap/es/Table";
 import {User} from "../../classTypes";
+import Well from "react-bootstrap/es/Well";
 
 let issueService = new IssueService();
 let categoryService = new CategoryService();
@@ -124,30 +125,22 @@ export class OversiktOverSak extends React.Component {
 
         <Row>
           <Col xsOffset={23} md={8}>
-            {editStatus}
           </Col>
         </Row>
             <br/>
             <h3> <b>Kommentarer </b></h3>
                 {renderComment}
                 <br/>
-                <Table condensed hover bordered>
                 {this.state.issueComments.map(e => {
                     return(
-
-                      <tbody key={e}>
-                      <tr>
-                          <td>
                               <Col>
+                                  <Well bsSize="large">
                                   <h4> <b>{e.mail}</b></h4>
                                   <h4> <i>{e.text}</i></h4>
+                                  </Well>
                               </Col>
-                          </td>
-                        </tr>
-                      </tbody>
                   )
             })}
-                </Table>
         <br/>
       </Grid>
     );

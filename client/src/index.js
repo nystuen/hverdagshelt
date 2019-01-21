@@ -31,6 +31,7 @@ import { events } from "./views/events/events";
 import { AdminResetUserPassword } from "./views/admin/resetPassword";
 import { adminPanel } from './views/admin/adminPanel';
 import { SendTextMailWindow } from './components/Mail/SendMail';
+import {adminIssues} from "./views/admin/adminIssues/adminIssues";
 
 
 // Reload application when not in production environment
@@ -69,6 +70,7 @@ if (root)
         <Route exact path="/admin" component={adminPanel}/>
         <Route path="/admin/sendMailTilBruker" component={SendTextMailWindow}/>
         <Route path="/admin/resetPassord" component={AdminResetUserPassword} />
+        <Route path="/admin/adminSaker" component={adminIssues} />
       </div>
     </HashRouter>,
     root
