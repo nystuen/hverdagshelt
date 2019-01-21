@@ -20,12 +20,15 @@ import { FormControl } from 'react-bootstrap';
 import Card from 'reactstrap/es/Card';
 import Table from 'react-bootstrap/es/Table';
 import { User } from '../../classTypes';
+import axios from 'axios';
+import { NotificationSettingsService } from '../../services';
 
 let issueService = new IssueService();
 let categoryService = new CategoryService();
 let userService = new UserService();
 let imageService = new ImageService();
 let mailService = new MailService();
+let notificationSettingsService = new NotificationSettingsService();
 
 interface State {
   user: Object,
@@ -228,9 +231,13 @@ export class OversiktOverSak extends React.Component {
   };//end method
 
   saveThisStatus = () => {
-    issueService.updateStatusOneIssue(this.state.issue.issueId, this.state.statusName, this.state.user.mail).then(response => {
-    }).catch((error: Error) => Alert.danger(error.message));
-    window.location.reload();
+
+    notificationSettingsService.getIssueNotificationSettingsFromUser(this.state.user.mail).then(res => {
+      issueService.updateStatusOneIssue(this.state.issue.issueId, this.state.statusName, res[0]).then(response => {
+        window.location.reload();
+      }).catch((error: Error) => Alert.danger(error.message));
+    });
+
   };//end method
 }//end class
 

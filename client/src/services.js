@@ -152,25 +152,23 @@ export class IssueService {
     return axios.get('/oversiktOverSak/' + issue);
   } //end method
 
-  updateStatusOneIssue(id: number, statusName: string, to: string) {
+  updateStatusOneIssue(id: number, statusName: string, res: Object) {
 
     let mailObject = {
-      to: to
+      to: res.userMail
     };
 
-    if (statusName == 'In progress') {
-      console.log('completed');
+    if (statusName == 'In progress' && res.inProgress == 1) {
+      console.log();
       axios.post('/sendIssueInProgressMail', mailObject);
     }
 
-    if (statusName == 'Completed') {
+    if (statusName == 'Completed' && res.completed == 1) {
       console.log('completed');
       axios.post('/sendIssueCompleteMail', mailObject);
     }
 
-    return axios.post('/updateStatusOneIssue/' + id, {
-      statusName: statusName
-    });
+    return axios.post('/updateStatusOneIssue', { statusName: statusName, id: id }, { headers: authHeader() });
   } //end method
 
   addCommentToIssue(id: number, text: string, companyMail: string) {
@@ -245,6 +243,11 @@ export class NotificationSettingsService {
 
   updateIssueNotificationSettings(newSetting: IssueNotificationSetting): Promise<Response> {
     return axios.put('/update_issue_notification_settings', newSetting);
+  }
+
+  getIssueNotificationSettingsFromUser(userMail: string): Promise<Object[]> {
+    console.log('mail i services:', userMail);
+    return axios.get('/get_issue_notification_settings_from_user/' + userMail);
   }
 
 }

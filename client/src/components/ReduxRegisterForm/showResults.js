@@ -1,9 +1,13 @@
+import { NotificationSettingsService } from '../../services';
+
+let notifiationSettingsService = new NotificationSettingsService();
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 class FindDate {
   day;
   month;
   year;
+
   constructor() {
     var today = new Date();
     this.day = today.getDate();
@@ -15,10 +19,10 @@ class FindDate {
 export default (async function showResults(values) {
   var day = new FindDate();
   await sleep(500); // simulate server latency
-  fetch("http://localhost:3000/add_issue", {
-    method: "POST",
+  fetch('http://localhost:3000/add_issue', {
+    method: 'POST',
     headers: {
-      "Content-type": "application/json; charset=utf-8"
+      'Content-type': 'application/json; charset=utf-8'
     },
     body: JSON.stringify({
       userMail: values.userMail,
@@ -27,24 +31,29 @@ export default (async function showResults(values) {
       address: values.address,
       text: values.text,
       pic: values.imagePath,
-      date: day.day + "." + day.month + "." + day.year,
-      statusName: "Registered",
+      date: day.day + '.' + day.month + '.' + day.year,
+      statusName: 'Registered',
       categoryId: values.categoryid,
       categoryLevel: values.categorylevel,
-      countyId: values.countyId,
+      countyId: values.countyId
     })
   });
 
-  fetch("http://localhost:3000/sendIssueRegistratedMail", {
-    method: "POST",
-    headers: {
-      "Content-type": "application/json; charset=utf-8"
-    },
-    body: JSON.stringify({
-      to: values.userMail
-    })
-  });
+  notifiationSettingsService.getIssueNotificationSettingsFromUser(values.userMail).then(res => {
+    if (res[0].registered == 1) {
 
+      fetch('http://localhost:3000/sendIssueRegistratedMail', {
+        method: 'POST',
+        headers: {
+          'Content-type': 'application/json; charset=utf-8'
+        },
+        body: JSON.stringify({
+          to: values.userMail
+        })
+      });
+    }
+
+  });
 
 
 });
