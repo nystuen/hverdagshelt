@@ -21,6 +21,8 @@ import eventController from "./controllers/eventController.js";
 import { EventDao } from "./daos/eventDao";
 import { EventCategoryDao } from "./daos/eventCategoryDao";
 import eventCategoryController from "./controllers/eventCategoryController.js";
+import {EmployeeDao} from "./daos/employeeDao";
+import employeeController from "./controllers/employeeController"
 
 type Request = express$Request;
 type Response = express$Response;
@@ -48,6 +50,7 @@ let issueDao = new IssueDao(pool);
 let categoryDao = new CategoryDao(pool);
 let mailDao = new MailDao(pool);
 let notificationSettingsDao = new NotificationSettingsDao(pool);
+let employeeDao = new EmployeeDao(pool)
 
 //fire controllers
 issueController(app, issueDao);
@@ -63,6 +66,7 @@ countyController(app, countyDao);
 categoryController(app, categoryDao);
 mailController(app, userDao);
 notificationSettingsController(app, notificationSettingsDao);
+employeeController(app, employeeDao)
 
 eventCategoryController(app, eventCategoryDao);
 

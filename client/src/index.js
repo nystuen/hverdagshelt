@@ -26,6 +26,10 @@ import { Component } from 'react-simplified';
 import { MinSide } from './views/MinSide/MinSide';
 import { EventWizardFormComplete } from './components/RegisterEventForm/EventWizardFormComplete';
 import { OversiktOverSak } from './views/oversiktOverSak/oversiktOverSak';
+import {employeeHomepage} from "./views/employee/employeeHomepage/employeeHomepage";
+import {employeeManageUsers} from "./views/employee/employeeManageUsers/employeeManageUsers";
+
+
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== 'production') {
@@ -58,6 +62,8 @@ if (root)
         <Route path="/min_side/varselinstillinger" component={NotificationSettings}/>
         <Route path="/min_side/sakoversikt/:email/:issueId" component={OversiktOverSak}/>
         <Route exact path="/registerEvent" component={EventWizardFormComplete}/>
+        <Route path="/employee/home" component={employeeHomepage}/>
+        <Route path="/employee/manageusers" component={employeeManageUsers}/>
       </div>
     </HashRouter>,
     root

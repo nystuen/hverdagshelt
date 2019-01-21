@@ -203,3 +203,10 @@ export class MailService {
   }
 
 }
+
+export class EmployeeService {
+
+  getUsersInCounty(countyId: number): Promise<Response> {
+    return axios.get('/getUsersInCounty/' + countyId);
+  }
+}
