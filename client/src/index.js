@@ -27,6 +27,7 @@ import { MinSide } from './views/MinSide/MinSide';
 import { EventWizardFormComplete } from './components/RegisterEventForm/EventWizardFormComplete';
 import { OversiktOverSak } from './views/oversiktOverSak/oversiktOverSak';
 
+
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== 'production') {
   let script = document.createElement('script');
