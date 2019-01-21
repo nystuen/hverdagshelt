@@ -21,7 +21,7 @@ module.exports = function(app: Object, issueDao: Object) {
 
   app.get('/getIssuesInThisCounty/:countyId', (req,res) => {
    console.log("received get request from getIssuesInThisCounty");
-   issueDao.getAllIssuesInCounty(req.params.countyId, (status,data) => {
+   issueDao.getAllIssuesInCounty(req.params.countyId, req.body.categoryLevel, (status,data) => {
      res.status(status);
      res.json(data);
    });

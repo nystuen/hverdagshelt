@@ -152,8 +152,8 @@ export class IssueService {
         return axios.get('/oversiktOverSak/' + issue);
     }//end method
 
-  getAllIssuesInThisCounty(countyId: number): Promise<Object[]>{
-    return axios.get('/getIssuesInThisCounty/' + countyId);
+  getAllIssuesInThisCounty(countyId: number, categoryLevel: number): Promise<Object[]>{
+    return axios.get('/getIssuesInThisCounty/' + countyId, {categoryLevel: categoryLevel});
   }//end method
 
   updateStatusOneIssue(id: number, statusName: string) {
