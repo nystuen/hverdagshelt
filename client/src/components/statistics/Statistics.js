@@ -28,7 +28,7 @@ let lineData = {
   labels: ['January', 'February', 'March', 'April', 'May', 'June', 'July'],
   datasets: [
     {
-      label: 'Antall feilmeldinger pr. måned',
+      label: 'Antall feilmeldinger',
       fill: false,
       lineTension: 0.1,
       backgroundColor: 'rgba(75,192,192,0.4)',
