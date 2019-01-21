@@ -1,7 +1,6 @@
 import {CountyService, UserService, addSubscription, CategoryService} from "../../services";
 import {Component} from 'react';
 import * as React from 'react';
-import {Alert} from "../../widgets";
 import ReactDOM from 'react-dom';
 import {Category, County} from "../../classTypes";
 import DropdownButton from "react-bootstrap/es/DropdownButton";
@@ -15,6 +14,9 @@ import ControlLabel from "react-bootstrap/es/ControlLabel";
 import Grid from "react-bootstrap/es/Grid";
 import Checkbox from "react-bootstrap/es/Checkbox";
 import Select from "react-select";
+import {history} from "../../index";
+import HelpBlock from "react-bootstrap/es/HelpBlock";
+import { Alert } from 'react-bootstrap';
 
 
 let categoryService = new CategoryService();
@@ -28,6 +30,7 @@ export class RegisterCompany extends Component<Props, State>{
         super(props);
         this.state = {
             errorSomething: false,
+            countyIsChanged: false,
             companyName: "",
             category: [],
             mail: "",
@@ -65,7 +68,8 @@ export class RegisterCompany extends Component<Props, State>{
 
     handleChangeCounty(e: Object){
         this.setState({
-            choosen: JSON.parse(e.value)
+            choosen: JSON.parse(e.value),
+            countyIsChanged: true
         })
     };
 
@@ -121,18 +125,19 @@ export class RegisterCompany extends Component<Props, State>{
     getValidationStateOrgNumber(){
         const orgNumber = this.state.orgNumber.length;
         let decimal =/^(\d|,)*\d*$/;
-        if(orgNumber ==9 && this.state.phone.match(decimal)) {
+        if(orgNumber ===9 && this.state.phone.match(decimal)) {
             return 'success';
         }
-        else if(orgNumber==0)return ;
+        else if(orgNumber===0)return ;
         else{
             return 'warning';
         }
     }
     getValidationStateOrgNumber2(){
+        if(this.state.orgNumber2.length===0) return;
         if(this.state.orgNumber2===this.state.orgNumber){
             return 'success'
-        }else return;
+        }else return 'warning';
     }
 
     getValidationStateEmail(){
@@ -186,12 +191,12 @@ export class RegisterCompany extends Component<Props, State>{
     }
     getValidationStateLastName() {
         const lastNameLength = this.state.lastName.length;
-        let dec=/^[A-Za-z _æøå]*[A-Za-z][A-Za-z _æøå]*$/;
+        let dec=/^[A-Za-z _æøå]*[A-Za-zæøå][A-Za-z _æøå]*$/;
 
         if(lastNameLength===1){
             return 'warning';
-        } else if(lastNameLength===0){return
-        } else if(this.state.firstName.match(dec)){
+        } else if(lastNameLength===0) return ;
+        else if(this.state.lastName.match(dec)){
             return 'success';
         } else{
             return 'warning'
@@ -208,21 +213,57 @@ export class RegisterCompany extends Component<Props, State>{
             return 'warning';
         }
     }
-    getValidationAdresse(){
-        const adresseLength = this.state.adresse.length;
-        let decimal=/^[A-Za-z _æøå]*[A-Za-zæøå][A-Za-z _æøå]*$/;
+    getValidationAddress(){
+        const addressLength = this.state.address.length;
+        let decimal=/^[A-Za-z0-9 _æøå]*[A-Za-z0-9æøå][A-Za-z0-9 _æøå]*$/;
 
-        if(adresseLength<4){
+        if(addressLength<4 && addressLength>0){
             return 'warning';
-        } else if(adresseLength===0) return ;
-        else if(this.state.adresse.match(decimal)){
+        } else if(addressLength===0) return ;
+        else if(this.state.address.match(decimal)){
             return 'success';
         } else{
             return 'warning'
         }
     }
-    getValidationPostnumber(){
+    getValidationPostNumber(){
+        const postNumberLength= this.state.postNumber.length;
+        let decimal =/^(\d|,)*\d*$/;
+        if(postNumberLength ==4 && this.state.postNumber.match(decimal)) {
+            return 'success';
+        }
+        else if(postNumberLength==0)return ;
+        else{
+            return 'warning';
+        }
+    }
 
+    getValidationDescription(){
+        const descriptionLength = this.state.description.length;
+        let decimal=/^[A-Za-z _æøå]*[A-Za-zæøå][A-Za-z _æøå]*$/;
+
+        if(descriptionLength===1){
+            return 'warning';
+        } else if(descriptionLength===0) return ;
+        else if(this.state.description.match(decimal)){
+            return 'success';
+        } else{
+            return 'warning'
+        }
+    }
+
+    getValidationCompanyName(){
+        const companyNameLength= this.state.companyName.length;
+        let decimal=/^[A-Za-z0-9 _æøå]*[A-Za-z0-9æøå][A-Za-z0-9 _æøå]*$/;
+
+        if(companyNameLength===1){
+            return 'warning';
+        } else if(companyNameLength===0) return ;
+        else if(this.state.companyName.match(decimal)){
+            return 'success';
+        } else{
+            return 'warning'
+        }
     }
 
 
@@ -234,15 +275,6 @@ export class RegisterCompany extends Component<Props, State>{
         })
     };
 
-    handlePhoneChange = (value: number) => (event: SyntheticEvent<HTMLInputElement>) => {
-        const re = /^[0-9\b]+$/;
-        if(event.target.value === '' ||re.test(event.target.value)){
-            this.setState({
-                // $FlowFixMe
-                [value]: event.target.value
-            });
-        }
-    };
 
 
     onChangeCountySubscription(value){
@@ -266,6 +298,26 @@ export class RegisterCompany extends Component<Props, State>{
             const data2 = {label: s.name, value: s.categoryId};
             return(data2)
         });
+        let register_success;
+        if (this.state.registerSuccess) {
+            register_success = (
+                <Alert bsStyle="success">
+                    <p>Bruker ble registrert</p>
+                </Alert>
+            )
+        }
+        let alert_something;
+        if (this.state.errorSomething) {
+            alert_something = (
+                <Alert bsStyle="danger">
+                    <h6>Pass på at alle felt er fylt ut korrekt</h6>
+                </Alert>);
+        } else {
+            alert_something= (
+                <p></p>
+            );
+        }
+
 
         return(
             <Grid>
@@ -289,44 +341,49 @@ export class RegisterCompany extends Component<Props, State>{
                                         <FormControl type="text" value={this.state.firstName} placeholder="Fornavn"
                                                      onChange={this.handleStringChange("firstName")}
                                         />
+                                        <FormControl.Feedback/>
                                     </FormGroup>
                                 </Col>
-                                <Col md={6} validationState={this.getValidationStateLastName()}>
-                                    <FormGroup>
+                                <Col md={6} >
+                                    <FormGroup validationState={this.getValidationStateLastName()}>
                                         <FormControl type="text" value={this.state.lastName} placeholder="Etternavn"
                                                      onChange={this.handleStringChange("lastName")}/>
+                                        <FormControl.Feedback/>
                                     </FormGroup>
                                 </Col>
                             </FormGroup>
                             <FormGroup>
                                 <Col md={6}>
-                                    <FormGroup>
-                                        <FormControl type="text" value={this.state.address} placeholder="Addresse"
+                                    <FormGroup validationState={this.getValidationAddress()}>
+                                        <FormControl type="text" value={this.state.address} placeholder="Adresse"
                                                      onChange={this.handleStringChange("address")}
                                         />
+                                        <FormControl.Feedback/>
                                     </FormGroup>
                                 </Col>
                                 <Col md={6}>
-                                    <FormGroup>
+                                    <FormGroup validationState={this.getValidationPostNumber()}>
                                         <FormControl type="text" value={this.state.postNumber} placeholder="Postnummer"
                                                      onChange={this.handleNumberChange("postNumber")}/>
+                                        <FormControl.Feedback/>
                                     </FormGroup>
                                 </Col>
                             </FormGroup>
                             <FormGroup>
                                 <Col md={6}>
-                                    <FormGroup>
+                                    <FormGroup validationState={this.getValidationCompanyName()}>
                                         <FormControl type="text" value={this.state.companyName} placeholder="Bedriftens navn"
                                                      onChange={this.handleStringChange("companyName")}
                                         />
+                                        <FormControl.Feedback/>
                                     </FormGroup>
                                 </Col>
-                                {'  '}
                                 <Col md={6}>
                                     <FormGroup validationState={this.getValidationPhone()}>
                                         <FormControl type="text" value={this.state.phone} placeholder="Telefonnummer"
-                                                     onChange={this.handleStringChange("phone")}
+                                                     onChange={this.handleNumberChange("phone")}
                                         />
+                                        <FormControl.Feedback/>
                                     </FormGroup>
                                 </Col>
                             </FormGroup>
@@ -335,6 +392,7 @@ export class RegisterCompany extends Component<Props, State>{
                                     <FormGroup>
                                         <FormControl type="text" value={this.state.mail} placeholder="Epost"
                                                      onChange={this.handleStringChange("mail")}/>
+                                        <FormControl.Feedback/>
                                     </FormGroup>
                                 </Col>
                                 <Col md={6} validationState={this.getValidationStateEmail2()}>
@@ -346,13 +404,15 @@ export class RegisterCompany extends Component<Props, State>{
                                 <Col md={6}>
                                     <FormGroup validationState={this.getValidationStateOrgNumber()}>
                                         <FormControl type="text" value={this.state.orgNumber} placeholder="Organisasjonsnummer"
-                                                     onChange={this.handleStringChange("orgNumber")}/>
+                                                     onChange={this.handleNumberChange("orgNumber")}/>
+                                        <FormControl.Feedback/>
                                     </FormGroup>
                                 </Col>
                                 <Col md={6}>
                                     <FormGroup validationState={this.getValidationStateOrgNumber2()}>
                                         <FormControl type="text" value={this.state.orgNumber2} placeholder="Gjenta organisasjonsnummer"
-                                                     onChange={this.handleStringChange("orgNumber2")}/>
+                                                     onChange={this.handleNumberChange("orgNumber2")}/>
+                                        <FormControl.Feedback/>
                                     </FormGroup>
                                 </Col>
                                 <Col md={12}>
@@ -360,6 +420,7 @@ export class RegisterCompany extends Component<Props, State>{
                                         <FormControl type="text" value={this.state.description} placeholder="Beskrivelse av bedrift"
                                                      onChange={this.handleStringChange("description")}/>
 
+                                        <FormControl.Feedback/>
                                     </FormGroup>
                                 </Col>
                             </FormGroup>
@@ -369,13 +430,18 @@ export class RegisterCompany extends Component<Props, State>{
                                         <FormControl type="password" value={this.state.password} placeholder="Passord"
                                                      onChange={this.handleStringChange("password")}
                                         />
+                                        <FormControl.Feedback/>
                                     </FormGroup>
                                 </Col>
                                 <Col md={6}>
                                     <FormGroup validationState={this.getValidationStatePassword2()}>
                                         <FormControl type="password" value={this.state.password2} placeholder="Gjenta passord"
                                                      onChange={this.handleStringChange("password2")}/>
+                                        <FormControl.Feedback/>
                                     </FormGroup>
+                                </Col>
+                                <Col md={12}>
+                                    <HelpBlock>Passord må ha en lengde på 8 tegn og inneholde minst et tall, en stor og en liten bokstav</HelpBlock>
                                 </Col>
                             </FormGroup>
                             <FormGroup>
@@ -423,9 +489,19 @@ export class RegisterCompany extends Component<Props, State>{
                                 </Col>
                             </FormGroup>
                             <FormGroup>
+                                <Col md={4}>
+                                </Col>
+                                <Col md={4}>
+                                    {alert_something}
+                                    {register_success}
+                                </Col>
+                                <Col md={4}>
+                                </Col>
+                            </FormGroup>
+                            <FormGroup>
                                 <Col md={4}/>
                                 <Col md ={4}>
-                                    <Button type="button" onClick={this.checkMail}>Registrer</Button>
+                                    <Button type="button" onClick={this.checkInput}>Registrer</Button>
                                 </Col>
                                 <Col md={4}>
                                 </Col>
@@ -437,6 +513,7 @@ export class RegisterCompany extends Component<Props, State>{
             </Grid>
         );
     }
+
 
 
 
@@ -469,6 +546,17 @@ export class RegisterCompany extends Component<Props, State>{
         }
     };
 
+    checkInput = () =>{
+        //console.log(this.getValidationStateFirstName()||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()||this.getValidationStateEmail2()==='warning'||this.getValidationStatePassword()==='warning'||this.getValidationStatePassword2()==='warning');
+        if(this.state.countyIsChanged===false||this.getValidationStateFirstName()==='warning'||this.getValidationStateFirstName()==='warning'||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()==='warning'||this.getValidationStateEmail2()==='warning'||this.getValidationStatePassword()==='warning'||this.getValidationStatePassword2()==='warning'||this.getValidationCompanyName()==='warning'||this.getValidationPostNumber()==='warning'){
+            this.setState({
+                errorSomething:true
+            })
+        }else{
+            this.register();
+        }
+    };
+
 
 
 
@@ -478,8 +566,8 @@ export class RegisterCompany extends Component<Props, State>{
             companyName : this.state.companyName,
             firstName: this.state.firstName,
             lastName:this.state.lastName,
-            adresse: this.state.address,
-            postnr: this.state.postNumber,
+            address: this.state.address,
+            postNumber: this.state.postNumber,
             password:this.state.password,
             phone: this.state.phone,
             description:this.state.description,
@@ -504,6 +592,15 @@ export class RegisterCompany extends Component<Props, State>{
             };
             categoryService.addCompanyCategories(theBody2);
         });
+        this.setState({errorSomething: false, registerSuccess: true});
+        this.goToLogin();
     };
+    goToLogin = () => {
+        setTimeout(
+            function () {
+                history.push('/login');
+            }, 4000
+        )
+    }
 }
 
