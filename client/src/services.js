@@ -195,8 +195,8 @@ export class CountyService {
     return axios.get('/getAllCountiesMinusUsers', { headers: authHeader() });
   }
 
-  getCountyEmployee(id: number): Promise<Object[]> {
-    return axios.get('/getEmployeeData/' + id);
+  getCountyEmployee(countyId: number): Promise<Object[]> {
+    return axios.get('/getEmployeeData/' + countyId);
 
   }
 
