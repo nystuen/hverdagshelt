@@ -89,11 +89,15 @@ body {
 }
 
 .footerClass2{
-  margin-top: 200px;
+  position:absolute;
+  text-align: center;
   width: 100%;
   background-color: #40608d;
-  min-height: 50%;
+  min-height: 70%;
   bottom: auto;
   color: white;
-  position:absolute;
+}
+
+.footerInfo{
+  margin-top: 40px;
 }

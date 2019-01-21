@@ -279,10 +279,9 @@ test("check update user", done => {
     lastName: 'Larsen',
     phone: '90192384',
     countyId: 2,
-    mail: 'nina@usermail.com',
   };
 
-  userDao.updateUser(post, callback);
+  userDao.updateUser(post,'nina@usermail.com', callback);
   userDao.getUser('nina@usermail.com', callback2);
 });
 
@@ -351,11 +350,10 @@ test("check add subscription counties", done => {
   }
 
   let post = {
-  userMail: 'kari@usermail.com',
   countyId: 2,
   };
 
-  countyDao.addSubscription(post, callback);
+  countyDao.addSubscription('kari@usermail.com',post, callback);
   countyDao.getSubscribedCounties('kari@usermail.com',callback2);
 });
 
@@ -643,20 +641,18 @@ test("check add notificationsettings(pushalert)", done => {
   let post = {
       countyId:1,
       categoryId: 1,
-      userMail:'kari@usermail.com',
+
 
   };
 
   let post2 = {
     countyId:2,
     categoryId: 2,
-    userMail:'kari@usermail.com',
-
   };
 
-  notificationSettingsDao.addNotificationSettings(post,callback);
+  notificationSettingsDao.addNotificationSettings('kari@usermail.com',post,callback);
   notificationSettingsDao.getNotificationSettings('kari@usermail.com', callback2);
-  notificationSettingsDao.addNotificationSettings(post2,callback3);
+  notificationSettingsDao.addNotificationSettings('kari@usermail.com',post2,callback3);
   notificationSettingsDao.getNotificationSettingsSimple('kari@usermail.com', callback4);
 });
 
@@ -723,13 +719,12 @@ test("check add notification", done => {
 
 
   let post = {
-    userMail:'kari@usermail.com',
     registered: true,
     inProgress:true,
     completed:false,
   };
 
-  notificationSettingsDao.addIssueNotificationSettings(post,callback);
+  notificationSettingsDao.addIssueNotificationSettings('kari@usermail.com',post,callback);
   notificationSettingsDao.getIssueNotificationSettings('kari@usermail.com',callback2);
 });
 
@@ -788,7 +783,7 @@ test("check reset password", done => {
   to:'ola@usermail.com',
   };
 
-  mailDao.resetPassword('ola@usermail.com','detteErEtNyttPassord',callback);
+  mailDao.resetPassword(post,'detteErEtNyttPassord',callback);
 });
 
 

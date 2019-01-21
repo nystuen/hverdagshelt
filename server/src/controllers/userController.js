@@ -244,7 +244,6 @@ module.exports = function (app: Object, userDao: Object) {
 
 
   app.get('/getEmployeeData/:countyId', urlencodedParser, (req, res) => {
-    console.log('got req from updateUser');
     userDao.getCountyEmployee(req.params.countyId,(status, data) => {
       res.status(status);
       res.json(data);
