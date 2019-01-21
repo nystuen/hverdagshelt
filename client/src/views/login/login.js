@@ -18,8 +18,8 @@ import FormControl from 'react-bootstrap/es/FormControl';
 import Button from 'react-bootstrap/es/Button';
 import Grid from 'react-bootstrap/es/Grid';
 import login from './login.css';
-import { history } from '../../index';
-import Image from 'react-bootstrap/es/Image';
+import {history} from "../../index";
+import Image from "react-bootstrap/es/Image";
 
 let userService = new UserService();
 const bcrypt = require('bcrypt-nodejs');
@@ -29,12 +29,13 @@ interface State {
   email: string;
   password: string;
   storedPassword: string;
-  countyId: number;
-  pic: string;
+  countyId: 0,
+  string: './logo.png'
 }//end interface
 
 interface Props {
-}
+  notLoggedIn: boolean;
+}//end interface
 
 export class Login extends Component<Props, State> {
   state = {
@@ -74,6 +75,12 @@ export class Login extends Component<Props, State> {
       );
     }
 
+    let alert_notLoggedIn;
+    if(this.props.notLoggedIn){
+      alert_notLoggedIn = confirm('Du må være logget inn for å gå videre');
+    }else{
+      <p></p>
+    }//end condition
 
     return (
 
@@ -86,11 +93,12 @@ export class Login extends Component<Props, State> {
             <Col xs={2} md={4}>
               <div className="center">
                 <Image className="picture"
-                       src={'https://lh6.googleusercontent.com/PfK5JYJcvPmaTCnKjlVkQYJ_qSvRiNHrMIYyX9DxRdYirDgoIIJaZPJXnPVbXvRDCxpv4FhrZPTDjpqFnavL=w2788-h1534-rw'}
+                       src={'./resources/logo_svart.png'}
                        rounded/>
               </div>
+
               <div className="loginBox">
-                
+
                 <Row className="show-grid">
                   <FormGroup>
                     <FormControl type="text" placeholder="Email" value={this.state.email}
@@ -100,7 +108,7 @@ export class Login extends Component<Props, State> {
 
                 <Row className="show-grid" align='center'>
                   <FormGroup>
-                    <FormControl type="text" placeholder="Passord" value={this.state.password}
+                    <FormControl type="password" placeholder="Passord" value={this.state.password}
                                  onChange={this.handleChangePassword.bind(this)}/>
                   </FormGroup>
                 </Row>
@@ -109,15 +117,17 @@ export class Login extends Component<Props, State> {
                   <Button type="button" onClick={this.save} bsStyle="success">Login</Button>
                   <Button type="button" onClick={this.sjekk}>Sjekk</Button>
                   {alert_login}
+                  {alert_notLoggedIn}
                 </Row>
 
                 <div align="center">
                   <p>Har du ikke bruker?</p>
 
                   <p>Registrer deg <a href={'/#/register'}>her</a> hvis du er privatperson, og <a
-                    href="/#/register/company"> her</a> hvis du er
+                      href="/#/register/company"> her</a> hvis du er
                     bedrift.</p>
                 </div>
+
               </div>
             </Col>
 
@@ -136,6 +146,7 @@ export class Login extends Component<Props, State> {
         countyId: response[0].countyId,
         storedPassword: response[0].password
       });
+
       bcrypt.compare(this.state.password, response[0].password, (err, res) => {
         if (res) {
           userService.login({ userMail: response[0].mail, typeId: response[0].typeName }).then(r => {
@@ -143,19 +154,56 @@ export class Login extends Component<Props, State> {
             window.localStorage.setItem('userToken', token);
             console.log('login in success');
 
-            history.push('/forside/' + this.state.countyId);
+            this.props.history.goBack();
 
           }).catch((error: Error) => Alert.danger(error.message));
-        } else {
-          this.setState({
-            error: true
-          });
-        }
+        } else { //check if the email is a company email
+            userService.getCompanyLogin(this.state.email).then(r => {
+              bcrypt.compare(this.state.password, r[0].password, (err,res) => {
+                if(res){
+                  userService.login({ userMail: r[0].mail, typeId: 'Company' }).then(r => {
+                    let token = r.jwt;
+                    window.localStorage.setItem('userToken', token);
+                    console.log('login in success');
+
+                    this.props.history.goBack();
+
+                  }).catch((error: Error) => Alert.danger(error.message));
+                }else{
+                  this.setState({
+                    error: true
+                  });
+                }//end condition
+              });
+            }).catch((error: Error) => {
+              console.log(error);
+              this.setState({
+                error: true
+              });
+            });
+        }//end condition
       });
     }).catch((error: Error) => {
-      console.log(error);
-      this.setState({
-        error: true
+      userService.getCompanyLogin(this.state.email).then(r => {
+        bcrypt.compare(this.state.password, r[0].password, (err,res) => {
+          if(res){
+            userService.login({ userMail: this.state.email, typeId: 'Company' }).then(r => {
+              let token = r.jwt;
+              window.localStorage.setItem('userToken', token);
+              console.log('login in success');
+              history.push('/#forside/2');
+            }).catch((error: Error) => Alert.danger(error.message));
+          }else{
+            this.setState({
+              error: true
+            });
+          }//end condition
+        });
+      }).catch((error: Error) => {
+        console.log(error);
+        this.setState({
+          error: true
+        });
       });
     });
   };//end method

@@ -9,7 +9,7 @@ import Button from 'react-bootstrap/es/Button';
 import css from './countySubscription.css';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
 
-let countyService = new CountyService()
+let countyService = new CountyService();
 //Databasekall
 //Få alle kommuner som finnes som er active og som bruker ikke abonerer på
 // Få alle kommuner som den personen abonerer på
@@ -32,6 +32,7 @@ interface Props {
 export class countySubscription extends Component<Props, State> {
 
   state = {
+    decoded: jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret'),
     allCounties: [],
     userCounties: []
   };
@@ -102,7 +103,7 @@ export class countySubscription extends Component<Props, State> {
 
   render() {
     return (
-      <div class="countySubscription">
+      <div className="countySubscription">
         <Grid>
         <PageHeader title={"Kommuneinstillinger"}/>
 

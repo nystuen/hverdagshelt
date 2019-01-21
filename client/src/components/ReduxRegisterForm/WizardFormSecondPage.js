@@ -3,8 +3,9 @@ import { Field, reduxForm } from "redux-form";
 import validate from "./validate";
 import renderField from "./renderField";
 import renderCategoryField from "./renderCategoryField";
-import { Button } from "react-bootstrap";
+import { Button, ProgressBar } from "react-bootstrap";
 import { ChooseCategory } from "../ChooseCategory/ChooseCategory";
+import issueReg from "./issueReg.css";
 
 const renderError = ({ meta: { touched, error } }) =>
   touched && error ? <span>{error}</span> : false;
@@ -47,43 +48,48 @@ export class WizardFormSecondPage extends React.Component {
   render() {
     const { handleSubmit, previousPage, onChangeCategoryHeader } = this.props;
     return (
-      <div>
-        <h2>Velg passende kategori</h2>
-        <ChooseCategory
-          changeCategoryHeader={this.onChangeCategoryHeader.bind(this)}
-          //  onClick={this.handleCategoryClick.bind(this)}
-          registerCategory={false}
-        />
-        <form onSubmit={handleSubmit}>
-          <Field
-            name="categoryId"
-            type="hidden"
-            label="categoryid"
-            component={renderCategoryField}
-            defaultValue={this.state.selectedCategory}
-          />
-          <Field
-            name="categoryLevel"
-            type="hidden"
-            //onChange={this.handleCategoryClick.bind(this)}
-            component={renderCategoryField}
-            label="categorylevel"
-            //defaultValue={this.state.selectedCategoryType}
-          />
-          <div>
-            <Button
-              bsStyle="success"
-              type="button"
-              className="previous"
-              onClick={previousPage}
-            >
-              Previous
-            </Button>
-            <Button bsStyle="success" type="submit" className="next">
-              Next
-            </Button>
+      <div className="container">
+        <div className="formDiv">
+          <div className="progressBar">
+            <ProgressBar active now={66} />
           </div>
-        </form>
+          <h2>Velg passende kategori</h2>
+          <ChooseCategory
+            changeCategoryHeader={this.onChangeCategoryHeader.bind(this)}
+            //  onClick={this.handleCategoryClick.bind(this)}
+            registerCategory={false}
+          />
+          <form onSubmit={handleSubmit}>
+            <Field
+              name="categoryId"
+              type="hidden"
+              label="categoryid"
+              component={renderCategoryField}
+              defaultValue={this.state.selectedCategory}
+            />
+            <Field
+              name="categoryLevel"
+              type="hidden"
+              //onChange={this.handleCategoryClick.bind(this)}
+              component={renderCategoryField}
+              label="categorylevel"
+              //defaultValue={this.state.selectedCategoryType}
+            />
+            <div>
+              <Button
+                bsStyle="primary"
+                type="button"
+                className="previous"
+                onClick={previousPage}
+              >
+                Previous
+              </Button>
+              <Button bsStyle="primary" type="submit" className="next">
+                Next
+              </Button>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }

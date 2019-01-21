@@ -4,6 +4,9 @@ import express from "express";
 import path from "path";
 import reload from "reload";
 import fs from "fs";
+let bodyParser = require('body-parser');
+let urlencodedParser = bodyParser.urlencoded({extended: false});
+const multer = require("multer");
 import { UserDao } from "./daos/userDao";
 import categoryController from "./controllers/categoryController.js";
 import { CountyDao } from "./daos/countyDao";
@@ -13,6 +16,7 @@ import { NotificationSettingsDao } from "./daos/notificationSettingsDao";
 import issueController from "./controllers/issueController.js";
 import countyController from "./controllers/countyController.js";
 import notificationSettingsController from "./controllers/notificationSettingsController";
+import imageRoute from "./controllers/imageRoute.js";
 import * as mysql from "mysql2";
 import { CategoryDao } from "./daos/catergoryDao";
 import mailController from "./controllers/mailController.js";
@@ -48,9 +52,6 @@ let issueDao = new IssueDao(pool);
 let categoryDao = new CategoryDao(pool);
 let mailDao = new MailDao(pool);
 let notificationSettingsDao = new NotificationSettingsDao(pool);
-
-//fire controllers
-issueController(app, issueDao);
 let eventDao = new EventDao(pool);
 let eventCategoryDao = new EventCategoryDao(pool);
 
@@ -63,8 +64,8 @@ countyController(app, countyDao);
 categoryController(app, categoryDao);
 mailController(app, userDao);
 notificationSettingsController(app, notificationSettingsDao);
-
 eventCategoryController(app, eventCategoryDao);
+imageRoute(app);
 
 // Hot reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {

@@ -15,7 +15,7 @@ import {verifyToken} from "../helpers/verifyToken";
 module.exports = function (app: Object, userDao: Object) {
 
     /*
-    app.use("/api", (req, res, next) => {
+    app.use("/user", (req, res, next) => {
         let token = req.body;
         console.log(req.body);
         console.log(token);
@@ -34,7 +34,6 @@ module.exports = function (app: Object, userDao: Object) {
 */
     app.post('/add_user', urlencodedParser, (req, res) => {
         console.log('got post request from add_user');
-        console.log(req.body);
 
         let hashed = '';
         bcrypt.hash(req.body.password, null, null, function (error, hash) {
@@ -46,10 +45,8 @@ module.exports = function (app: Object, userDao: Object) {
         });
     });
 
-
     app.post('/registrateCompany', urlencodedParser, (req, res) => {
         console.log('got post request from registrateCompany');
-        console.log(req.body);
 
         let hashed = '';
         bcrypt.hash(req.body.password, null, null, function (error, hash) {
@@ -67,6 +64,14 @@ module.exports = function (app: Object, userDao: Object) {
         userDao.getUserLogin(req.params.email, (status, data) => {
             res.status(status);
             res.json(data);
+        });
+    });
+
+    app.get('/verify_company/:email', urlencodedParser, (req,res) => {
+        console.log('got get request from verify_company')  ;
+        userDao.getCompanyLogin(req.params.email, (status,data) => {
+           res.status(status);
+           res.json(data);
         });
     });
 
@@ -103,6 +108,14 @@ module.exports = function (app: Object, userDao: Object) {
     app.get('/user/getMyIssues/:email', urlencodedParser, (req, res) => {
         console.log('got request from getMyIssues', req.params.email);
         userDao.getIssuesForOneUser(req.params.email, (status, data) => {
+            res.status(status);
+            res.json(data);
+        })
+    });
+
+    app.get('/getCompanyIssues/:email', urlencodedParser, (req,res) => {
+        console.log('got request from getCompanyIssues', req.params.email);
+        userDao.getCompanyIssues(req.params.email, (status, data) => {
             res.status(status);
             res.json(data);
         })

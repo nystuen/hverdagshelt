@@ -19,24 +19,33 @@ export class UserDao extends Dao {
     super.query('select mail, password, countyId, typeName from user where mail=? ', [userMail], callback);
   }//end method
 
-  getUser(userMail: string, callback: Function) {
-    console.log('usermail, dao', userMail);
-    super.query('SELECT countyId, active, mail, firstName, lastName, password, typeName, phone, points, name AS \'county\' FROM user NATURAL JOIN county where mail=? ', [userMail], callback);
-  }//end method}
+    getCompanyLogin(userMail: string, callback: Function){
+        super.query("select companyMail, password from company where companyMail=?", [userMail], callback);
+    }
 
-  getIssuesForOneUser(userMail: string, callback: Function) {
-    super.query('select * from issues where userMail=? and active=1', [userMail], callback);
-  }//end method
+    getUser(userMail: string, callback: Function) {
+      console.log('usermail, dao', userMail);
+        super.query("SELECT countyId, active, mail, firstName, lastName, password, typeName, phone, points, name AS 'county' FROM user NATURAL JOIN county where mail=? ", [userMail], callback);
+    }//end method}
 
-  resetPassword(json: Object, hashed: string, callback: Function) {
-    let val = [hashed, json];
-    console.log('maildao', val);
-    super.query(
-      ' UPDATE user SET password=? WHERE user.mail=?',
-      val,
-      callback);
+    getIssuesForOneUser(userMail: string, callback: Function){
+      super.query("select * from issues where userMail=? and active=1", [userMail], callback);
+    }//end method
 
-  }//end method
+    getCompanyIssues(companyMail: string, callback: Function){
+        super.query("select * from issues where issueId in (select issueId from companyIssues where companyMail =?)",
+            companyMail, callback);
+    }//end method
+
+    resetPassword(json: Object, hashed: string, callback: Function) {
+        let val = [hashed, json];
+        console.log('maildao', val);
+        super.query(
+            ' UPDATE user SET password=? WHERE user.mail=?',
+            val,
+            callback);
+
+    }//end method
 
   updateUser(email: string, json: Object, callback: Function) {
     let val = [json.firstName, json.lastName, json.phone, json.countyId, email];
@@ -52,6 +61,4 @@ export class UserDao extends Dao {
         let val =[json.companyMail,json.companyName, json.firstName, json.lastName,json.adresse,json.postnr,hashed,json.phone,json.description,json.orgNumber];
         super.query('insert into company(companyMail, companyName, firstName, lastName, adresse, postnr, password,phone, description, orgNumber)values(?,?,?,?,?,?,?,?,?,?)',val,callback)
     }
-
-
 }//end class

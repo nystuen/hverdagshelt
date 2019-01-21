@@ -1,17 +1,16 @@
 import React from "react";
 import { FormControl } from "react-bootstrap";
 
-const renderField = ({ input, label, type, meta: { touched, error } }) => (
+const renderPictureField = ({
+  input,
+  label,
+  type,
+  meta: { touched, error }
+}) => (
   <div>
     <label>{label}</label>
     <div>
-      <FormControl
-        {...input}
-        placeholder={label}
-        componentClass="textarea"
-        style={{ height: "100px" }}
-        type={type}
-      />
+      <FormControl {...input} placeholder={label} type={type} />
       {touched &&
         error && (
           <div>
@@ -27,4 +26,4 @@ const renderField = ({ input, label, type, meta: { touched, error } }) => (
   </div>
 );
 
-export default renderField;
+export default renderPictureField;

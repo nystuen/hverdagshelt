@@ -1,12 +1,12 @@
 // @flow
 import { Field, reduxForm } from "redux-form";
 import validate from "./validate";
-import renderField from "./renderField";
+import renderCategoryField from "./renderCategoryField";
 import React, { Component, createRef } from "react";
 import { Map, TileLayer, Marker, Popup, withLeaflet } from "react-leaflet";
 import * as ELG from "esri-leaflet-geocoder";
 import L from "leaflet";
-import { Button } from "react-bootstrap";
+import { Button, ProgressBar } from "react-bootstrap";
 import Geocode from "react-geocode";
 
 Geocode.setApiKey("AIzaSyDVZREoJuiobrxWVmBFhemEk1VdRB0MsSI");
@@ -133,6 +133,11 @@ export class WizardFormFirstPage extends Component<{}, State> {
       right: "0"
     };
 
+    let centerStyle = {
+      alignItems: "center",
+      justifyContent: "center"
+    };
+
     let marker = this.state.hasLocation ? (
       <Marker position={this.state.latlng}>
         <Popup>{this.state.address}</Popup>
@@ -141,6 +146,11 @@ export class WizardFormFirstPage extends Component<{}, State> {
 
     return (
       <div style={styles}>
+        <div className="formDiv">
+          <div className="progressBar1">
+            <ProgressBar active now={33} />
+          </div>
+        </div>
         <Map
           center={this.state.latlng}
           length={12}
@@ -165,38 +175,34 @@ export class WizardFormFirstPage extends Component<{}, State> {
               onChange={this.onChange.bind(this)}
               value={this.state.address}
             />
-            <Button bsStyle="success" onClick={this.handleClick}>
-              Meld feil
+            <Button bsStyle="primary" onClick={this.handleClick}>
+              Finn addresse
             </Button>
           </div>
-          <form onSubmit={handleSubmit}>
-            <Field
-              name="lat"
-              type="text"
-              label="latitude"
-              component={renderField}
-            />
-            <Field
-              name="lng"
-              type="text"
-              label="longitude"
-              component={renderField}
-            />
-            <Field
-              name="adr"
-              type="text"
-              label="addresse"
-              component={renderField}
-            />
-            <Button
-              bsStyle="success"
-              type="submit"
-              className="next + ' ' + submitButton"
-              onClick={this.handleSubmit}
-            >
-              Next
-            </Button>
-          </form>
+          <div className="choice-map">
+            <form onSubmit={handleSubmit} style={centerStyle}>
+              <Field
+                name="lat"
+                type="hidden"
+                label="latitude"
+                component={renderCategoryField}
+              />
+              <Field
+                name="lng"
+                type="hidden"
+                label="longitude"
+                component={renderCategoryField}
+              />
+              <Button
+                bsStyle="primary"
+                type="submit"
+                className="next + ' ' + submitButton"
+                onClick={this.handleSubmit}
+              >
+                Meld feil
+              </Button>
+            </form>
+          </div>
         </div>
       </div>
     );
