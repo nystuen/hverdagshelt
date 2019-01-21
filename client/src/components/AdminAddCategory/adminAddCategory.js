@@ -23,7 +23,7 @@ export class adminAddCategory extends Component<Props,State> {
 
 
     constructor(){
-        super()
+        super();
         this.state = {
             newCategoryName: '',
             selectedCategoryId: -1,

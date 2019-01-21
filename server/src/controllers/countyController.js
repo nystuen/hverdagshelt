@@ -10,7 +10,7 @@ let privateKey = 'shhhhhverysecret';
 
 module.exports = function (app: Object, countyDao: Object) {
 
-    app.get('/getCounties', (req, res)=>{
+    app.get('/getCounties/', (req, res)=>{
         console.log("getCounties got request");
         countyDao.getAllCounties((status, data)=>{
             res.status(status);
@@ -18,7 +18,7 @@ module.exports = function (app: Object, countyDao: Object) {
         })
     });
 
-    app.get('/getAllCountiesMinusUsers/', verifyToken(), (req, res)=>{
+    app.get('/getAllCountiesMinusUsers/', verifyToken, (req, res)=>{
         jwt.verify(req.token, privateKey, (err, decoded) => {
             if(err) {
                 res.sendStatus(401)
@@ -32,7 +32,7 @@ module.exports = function (app: Object, countyDao: Object) {
         });
     });
 
-    app.get('/getSubscribedCounties/', verifyToken(), (req, res)=>{
+    app.get('/getSubscribedCounties/', verifyToken, (req, res)=>{
         jwt.verify(req.token, privateKey, (err, decoded) => {
             if(err) {
                 res.sendStatus(401)
@@ -46,7 +46,7 @@ module.exports = function (app: Object, countyDao: Object) {
         });
     });
 
-    app.delete('/deleteAllSubscribedCounties/', verifyToken(), (req, res)=>{
+    app.delete('/deleteAllSubscribedCounties/', verifyToken, (req, res)=>{
         jwt.verify(req.token, privateKey, (err, decoded) => {
             if(err) {
                 res.sendStatus(401)
@@ -60,7 +60,7 @@ module.exports = function (app: Object, countyDao: Object) {
         });
     });
 
-    app.post('/addSubscription', verifyToken(), (req, res)=>{
+    app.post('/addSubscription/', verifyToken, (req, res)=>{
         jwt.verify(req.token, privateKey, (err, decoded) => {
             if(err) {
                 res.sendStatus(401)

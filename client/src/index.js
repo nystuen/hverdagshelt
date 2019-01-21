@@ -21,7 +21,7 @@ import { ChooseCategory } from './components/ChooseCategory/ChooseCategory.js';
 import { forside } from './views/forside/forside';
 import { Frontpage } from './views/frontpage/frontpage';
 import { editAccountInformation } from './views/MinSide/KontoOversikt/editAccountInformation';
-import { NotificationSettings } from './components/NotificationSettings/NotificationSettings';
+import { NotificationSettings } from './views/NotificationSettings/NotificationSettings';
 import { Component } from 'react-simplified';
 import { MinSide } from './views/MinSide/MinSide';
 import { EventWizardFormComplete } from './components/RegisterEventForm/EventWizardFormComplete';
@@ -59,7 +59,7 @@ if (root)
         <Route exact path="/register" component={RegisterUser}/>
         <Route exact path="/register/company" component={RegisterCompany}/>
         <Route path="/min_side/varselinstillinger" component={NotificationSettings}/>
-        <Route path="/min_side/sakoversikt/:email/:issueId" component={OversiktOverSak}/>
+        <Route path="/min_side/sakoversikt/:issueId" component={OversiktOverSak}/>
         <Route exact path="/registerEvent" component={EventWizardFormComplete}/>
         <Route exact path="/events/:countyId" component={events}/>
       </div>

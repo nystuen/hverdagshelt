@@ -41,10 +41,6 @@ export class WizardFormThirdPage extends React.Component {
   constructor(props) {
     super(props);
     this.state = {
-      decoded: jwt.verify(
-        window.localStorage.getItem("userToken"),
-        "shhhhhverysecret"
-      ),
       user: User,
       value: String,
       image: ""
@@ -64,7 +60,7 @@ export class WizardFormThirdPage extends React.Component {
   };
 
   componentDidMount() {
-    userService.getUser(this.state.decoded.email).then(newUser => {
+    userService.getCurrentUser().then(newUser => {
       this.setState({
         user: newUser[0]
       });

@@ -4,7 +4,6 @@ let jwt = require("jsonwebtoken");
 let bodyParser = require('body-parser');
 let urlencodedParser = bodyParser.urlencoded({extended: false});
 const bcrypt = require('bcrypt-nodejs'); //to hash password
-import {authHeader} from "../helpers/authHeader";
 
 let privateKey = "shhhhhverysecret";
 
@@ -91,13 +90,35 @@ module.exports = function (app: Object, userDao: Object) {
         }
     });
 
-    app.get('/user/get_user/', verifyToken, (req, res) => {
+    app.get('/user/get_current_user/', verifyToken, (req, res) => {
+        console.log('got req from get_user');
         jwt.verify(req.token, privateKey, (err, decoded) => {
             if(err) {
                 res.sendStatus(401)
             } else {
-                console.log('got req from get_user');
-                userDao.getUser(decoded.email, (status, data) => {
+
+                if (decoded.typeId === 'Company') {
+                    userDao.getCompany(decoded.email, (status, data) => {
+                        res.status(status);
+                        res.json(data);
+                    })
+                } else {
+                    userDao.getUser(decoded.email, (status, data) => {
+                        res.status(status);
+                        res.json(data);
+                    })
+                }
+            }
+        });
+    });
+
+    app.get('/user/getMyIssues', verifyToken, (req, res) => {
+        jwt.verify(req.token, privateKey, (err, decoded) => {
+            if(err) {
+                res.sendStatus(401)
+            } else {
+                console.log('got req from getMyIssues');
+                userDao.getIssuesForOneUser(decoded.email, (status, data) => {
                     res.status(status);
                     res.json(data);
                 })
@@ -105,12 +126,18 @@ module.exports = function (app: Object, userDao: Object) {
         });
     });
 
-    app.get('/user/getMyIssues/:email', urlencodedParser, (req, res) => {
-        console.log('got request from getMyIssues', req.params.email);
-        userDao.getIssuesForOneUser(req.params.email, (status, data) => {
-            res.status(status);
-            res.json(data);
-        })
+    app.get('/getHomeCounty', verifyToken, (req, res) => {
+        jwt.verify(req.token, privateKey, (err, decoded) => {
+            if(err) {
+                res.sendStatus(401)
+            } else {
+                console.log('got req from getMyIssues');
+                userDao.getHomeCounty(decoded.email, (status, data) => {
+                    res.status(status);
+                    res.json(data);
+                })
+            }
+        });
     });
 
     app.get('/getCompanyIssues/:email', urlencodedParser, (req,res) => {

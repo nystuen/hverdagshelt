@@ -1,18 +1,18 @@
 // @flow
 import axios from 'axios';
 import {
-  User,
-  Issue,
-  Category,
-  Category2,
-  Category3,
-  Company,
-  Event,
-  Type,
-  County,
-  NotificationSetting,
-  IssueNotificationSetting,
-  EventCategory
+    User,
+    Issue,
+    Category,
+    Category2,
+    Category3,
+    Company,
+    Event,
+    Type,
+    County,
+    NotificationSetting,
+    IssueNotificationSetting,
+    EventCategory
 } from './classTypes';
 
 let authHeader = function authHeader() {
@@ -20,7 +20,7 @@ let authHeader = function authHeader() {
     let token = window.localStorage.getItem('userToken');
 
     if (token) {
-        return { 'Authorization': 'Bearer ' + token };
+        return {'Authorization': 'Bearer ' + token};
     } else {
         return {};
     }
@@ -33,43 +33,42 @@ export class UserService {
         return axios.post('/add_user', newUser);
     } //end method
 
-  getUserLogin(email: string): Promise<string[]> {
-    return axios.get('/verify_user/' + email);
-  } //end method
-
-  getCompanyLogin(email: string): Promise<Object> {
-    return axios.get('/verify_company/' + email);
-  }//end method
-
-    getCurrentUser(): Promise<User> {
-        return axios.get('/user/get_user', {headers: authHeader()})
+    getUserLogin(email: string): Promise<string[]> {
+        return axios.get('/verify_user/' + email);
     } //end method
 
-  getUser(mail: string): Promise<User> {
-    return axios.get('/user/get_user/' + mail);
-  } //end method
+    getCompanyLogin(email: string): Promise<Object> {
+        return axios.get('/verify_company/' + email);
+    }//end method
+
+    // returns currently logged in user or company
+    getCurrentUser(): Promise<User> {
+        return axios.get('/user/get_current_user', {headers: authHeader()})
+    } //end method
 
     login(userMail: Object<JSON>): Promise<void> {
         return axios.post('/login/', userMail);
     }//end method
 
-    getMyIssues(userMail: string): Promise<JSON> {
+    getMyIssues(): Promise<JSON> {
+        return axios.get('/user/getMyIssues', {headers: authHeader()});
+    }//end method
 
-    return axios.get('/user/getMyIssues/' + userMail);
-  }//end method
-
-  getCompanyIssues(companyMail: string): Promise<JSON> {
-    return axios.get('/getCompanyIssues/' + companyMail);
-  }//end method
+    getCompanyIssues(companyMail: string): Promise<JSON> {
+        return axios.get('/getCompanyIssues/' + companyMail);
+    }//end method
 
     updateUser(user: User): Promise<Response> {
         return axios.put('/user/updateUser', user, {headers: authHeader()});
     }
 
+    addCompany(json: Object): Promise<Response> {
+        return axios.post('/registrateCompany', json);
+    }
 
-  addCompany(json: Object) {
-    return axios.post('/registrateCompany', json);
-  }
+    getHomeCounty(): Promise<Object> {
+        return axios.get('/getHomeCounty', {headers: authHeader()})
+    }
 }//end class
 
 
@@ -78,28 +77,28 @@ export class EventCategoryService {
         return axios.get('get_eventcategory');
     }
 
-  getEvent(eventId: number): Promise<Event> {
-    return axios.get('/event/' + eventId);
-  }
+    getEvent(eventId: number): Promise<Event> {
+        return axios.get('/event/' + eventId);
+    }
 
 } //end class
 
 export class ImageService {
-  uploadImage(image: Object): Promise<JSON>{
-    const url = "/upload"
-    const formData = new FormData()
-    formData.append('avatar', image)
-    const config = {
-      headers: {
-        'contentType': 'multipart/form-data'
-      }
+    uploadImage(image: Object): Promise<JSON> {
+        const url = "/upload"
+        const formData = new FormData()
+        formData.append('avatar', image)
+        const config = {
+            headers: {
+                'contentType': 'multipart/form-data'
+            }
+        }
+        return axios.post(url, formData, config)
     }
-    return axios.post(url, formData, config)
-  }
 
-  getImage(imagePath: string): Promise<JSON>{
-    return axios.get("/image/" + imagePath);
-  }
+    getImage(imagePath: string): Promise<JSON> {
+        return axios.get("/image/" + imagePath);
+    }
 }
 
 export class CategoryService {
@@ -117,44 +116,44 @@ export class CategoryService {
         return axios.get('/get_category3');
     }
 
-  getOneCategory1(id: number) {
-    return axios.get('/getOneCategory1/' + id);
-  }//end method
+    getOneCategory1(id: number) {
+        return axios.get('/getOneCategory1/' + id);
+    }//end method
 
-  getOneCategory2(id: number) {
-    return axios.get('/getOneCategory2/' + id);
-  }//end method
+    getOneCategory2(id: number) {
+        return axios.get('/getOneCategory2/' + id);
+    }//end method
 
-  getOneCategory3(id: number) {
-    return axios.get('/getOneCategory3/' + id);
-  }//end method
+    getOneCategory3(id: number) {
+        return axios.get('/getOneCategory3/' + id);
+    }//end method
 
-  addCompanyCategories(json: Object) {
-    return axios.post('/add_CompanyCategories', json);
-  }
+    addCompanyCategories(json: Object) {
+        return axios.post('/add_CompanyCategories', json);
+    }
 
-  addCategory1(json: Object) {
-    return axios.post('/add_category1', json);
-  }
+    addCategory1(json: Object) {
+        return axios.post('/add_category1', json, {headers: authHeader()});
+    }
 
-  addCategory2(json: Object) {
-    return axios.post('/add_category2', json);
-  }
+    addCategory2(json: Object) {
+        return axios.post('/add_category2', json, {headers: authHeader()});
+    }
 
-  addCategory3(json: Object) {
-    return axios.post('/add_category3', json);
-  }
+    addCategory3(json: Object) {
+        return axios.post('/add_category3', json, {headers: authHeader()});
+    }
 
 }//end class
 
 export class IssueService {
-  getIssueAndCounty(issue: number): Promise<Object> {
-    return axios.get('/oversiktOverSak/' + issue);
-  }//end method
+    getIssueAndCounty(issue: number): Promise<Object> {
+        return axios.get('/oversiktOverSak/' + issue);
+    }//end method
 
-  updateStatusOneIssue(id: number, statusName: string) {
-    return axios.post('/updateStatusOneIssue/' + id, { statusName: statusName });
-  }//end method
+    updateStatusOneIssue(id: number, statusName: string) {
+        return axios.post('/updateStatusOneIssue/' + id, {statusName: statusName});
+    }//end method
 }//end class
 
 
@@ -188,28 +187,28 @@ export class CountyService {
 
 export class NotificationSettingsService {
 
-    getNotificationSettings(email: string): Promise<Object[]> {
-        return axios.get('/get_notification_settings/' + email);
+    getNotificationSettings(): Promise<Object[]> {
+        return axios.get('/get_notification_settings', {headers: authHeader()});
     }
 
-    deleteNotificationSettings(email: string): Promise<void> {
-        return axios.delete('/delete_notification_settings/' + email);
+    deleteNotificationSettings(): Promise<void> {
+        return axios.delete('/delete_notification_settings', {headers: authHeader()});
     }
 
     addNotificationSettings(newSetting: NotificationSetting): Promise<Response> {
-        return axios.post('/add_notification_settings', newSetting);
+        return axios.post('/add_notification_settings', newSetting, {headers: authHeader()});
     }
 
     addIssueNotificationSettings(newSetting: IssueNotificationSetting): Promise<Response> {
-        return axios.post('/add_issue_notification_settings', newSetting);
+        return axios.post('/add_issue_notification_settings', newSetting, {headers: authHeader()});
     }
 
-    getIssueNotificationSettings(email: string): Promise<Object[]> {
-        return axios.get('/get_issue_notification_settings/' + email);
+    getIssueNotificationSettings(): Promise<Object[]> {
+        return axios.get('/get_issue_notification_settings', {headers: authHeader()});
     }
 
-    getNotificationSettingsWithNames(email: string): Promise<Object[]> {
-        return axios.get('/get_notification_settings_with_names/' + email)
+    getNotificationSettingsWithNames(): Promise<Object[]> {
+        return axios.get('/get_notification_settings_with_names', {headers: authHeader()})
     }
 
     updateIssueNotificationSettings(newSetting: IssueNotificationSetting): Promise<Response> {
@@ -218,30 +217,31 @@ export class NotificationSettingsService {
 
 }
 
-export function getImportantEvents(countyId: number): Promise<Event[]> {
-  return axios.get('/importantEvents/' + countyId);
-}
 
+export function getImportantEvents(countyId: number): Promise<Event[]> {
+    return axios.get('/importantEvents/' + countyId);
+}
+/*
 export function getAllCounties(usermail: string): Promise<County[]> {
-  return axios.get('/getAllCountiesMinusUsers/' + usermail);
+    return axios.get('/getAllCountiesMinusUsers/' + usermail);
 }
 
 export function getUsersCounties(usermail: string): Promise<Object[]> {
-  return axios.get('/getSubscribedCounties/' + usermail);
+    return axios.get('/getSubscribedCounties/' + usermail);
 }
 
 export function deleteSubscription(usermail: string) {
-  return axios.delete('/deleteAllSubscribedCounties/' + usermail);
+    return axios.delete('/deleteAllSubscribedCounties/' + usermail);
 }
 
 export function addSubscription(json: Object) {
-  return axios.post('/addSubscription', json);
+    return axios.post('/addSubscription', json);
 }
 
 export function getCounties() {
-  return axios.get('/getCounties');
+    return axios.get('/getCounties');
 }
-
+*/
 export class MailService {
 
     sendTextMail(mailObject: Object): Promise<Response> {

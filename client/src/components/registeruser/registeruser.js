@@ -1,5 +1,5 @@
 import { Col, Button, Form, FormGroup, Label } from 'react-bootstrap';
-import { CountyService, UserService, getCounties, addSubscription } from '../../services';
+import { CountyService, UserService } from '../../services';
 import { Component } from 'react';
 import * as React from 'react';
 import { Alert } from '../../widgets';
@@ -352,7 +352,7 @@ export class RegisterUser extends Component<Props, State> {
       userMail: newUser.mail
     };
 
-    addSubscription(theBody);
+    countyService.addSubscription(theBody);
 
     history.push('/login');
 

@@ -146,7 +146,7 @@ export class editAccountInformation extends React.Component <State> {
           <PageHeader title={'Endre kontoinformasjon'}/>
 
           {
-            this.state.decoded.typeId === 'Admin' || this.state.decoded.typeId === 'Employee' || this.state.decoded.typeId === 'Private' ? (
+            this.state.user.typeName === 'Admin' || this.state.user.typeName === 'Employee' || this.state.user.typeName === 'Private' ? (
               <div>
                 <Form>
                   <Grid>
