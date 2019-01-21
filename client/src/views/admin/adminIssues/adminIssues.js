@@ -20,7 +20,7 @@ export class adminIssues extends React.Component{
     };
 
     componentWillMount(){
-        
+
     }//end method
 
 
