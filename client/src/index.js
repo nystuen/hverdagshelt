@@ -34,6 +34,7 @@ import { SendTextMailWindow } from "./components/Mail/SendMail";
 import { Footer } from "./components/Footer/Footer";
 import { RegisterEmployee } from "./components/registeremployee/RegisterEmployee";
 import { RegisterAdmin } from "./components/registeradmin/registeradmin";
+import { Statistics } from "./components/statistics/Statistics";
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
@@ -74,6 +75,7 @@ if (root)
         <Route exact path="/admin" component={adminPanel} />
         <Route path="/admin/sendMailTilBruker" component={SendTextMailWindow} />
         <Route path="/admin/resetPassord" component={AdminResetUserPassword} />
+        <Route path="/statistics" component={Statistics} />
         <Footer />
       </div>
     </HashRouter>,
