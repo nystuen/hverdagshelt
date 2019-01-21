@@ -1,4 +1,5 @@
-//@flow
+// @flow
+
 import ReactDOM from "react-dom";
 import * as React from "react";
 import { HashRouter, Route, NavLink } from "react-router-dom";
@@ -54,43 +55,21 @@ if (root)
         <Route path="/wizardForm" component={WizardFormComplete} />
         <Route path="/min_side/kommuner" component={countySubscription} />
         <Route path="/min_side/kontooversikt" component={KontoOversikt} />
-        <Route
-          path="/countySubscription/:userMail"
-          component={countySubscription}
-        />
-        <Route
-          path="/min_side/editAccountInformation"
-          component={editAccountInformation}
-        />
+        <Route path="/countySubscription/:userMail" component={countySubscription}/>
+        <Route path="/min_side/editAccountInformation" component={editAccountInformation}/>
         <Route path="/login" component={Login} />
         <Route path="/map" component={MapComponent} />
         <Route path="/min_side/mine_saker" component={MineSaker} />
-        <Route
-          path="/min_side/mine_sakerBedrift"
-          component={mineSakerBedrift}
-        />
+        <Route path="/min_side/mine_sakerBedrift" component={mineSakerBedrift}/>
         <Route path="/addCategory" component={adminAddCategory} />
         <Route path="/registrer/admin" component={RegisterAdmin} />
         <Route exact path="/registrer/privat" component={RegisterUser} />
         <Route exact path="/registrer/bedrift" component={RegisterCompany} />
-        <Route
-          path="/min_side/varselinstillinger"
-          component={NotificationSettings}
-        />
-        <Route
-          path="/min_side/sakoversikt/:issueId"
-          component={OversiktOverSak}
-        />
-        <Route
-          path="/min_side/sakoversikt/:email/:issueId"
-          component={OversiktOverSak}
-        />
+        <Route path="/min_side/varselinstillinger" component={NotificationSettings}/>
+        <Route path="/min_side/sakoversikt/:issueId" component={OversiktOverSak}/>
+        <Route path="/min_side/sakoversikt/:email/:issueId" component={OversiktOverSak}/>
         <Route path="/registrer/kommuneansatt" component={RegisterEmployee} />
-        <Route
-          exact
-          path="/registerEvent"
-          component={EventWizardFormComplete}
-        />
+        <Route exact path="/registerEvent" component={EventWizardFormComplete}/>
         <Route exact path="/events/:countyId" component={events} />
         <Route exact path="/admin" component={adminPanel} />
         <Route path="/admin/sendMailTilBruker" component={SendTextMailWindow} />
