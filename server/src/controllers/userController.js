@@ -148,6 +148,7 @@ module.exports = function (app: Object, userDao: Object) {
         })
     });
 
+
     app.put('/user/updateUser/', verifyToken, (req, res) => {
         jwt.verify(req.token, privateKey, (err, decoded) => {
             if(err) {
@@ -161,4 +162,16 @@ module.exports = function (app: Object, userDao: Object) {
             }
         });
     });
+
+
+  app.get('/getEmployeeData/:countyId', urlencodedParser, (req, res) => {
+    console.log('got req from updateUser');
+    userDao.getCountyEmployee(req.params.countyId,(status, data) => {
+      res.status(status);
+      res.json(data);
+    })
+  });
+
 };
+
+

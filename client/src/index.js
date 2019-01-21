@@ -1,5 +1,6 @@
 // @flow
 
+
 import ReactDOM from "react-dom";
 import * as React from "react";
 import { HashRouter, Route, NavLink } from "react-router-dom";
@@ -31,6 +32,7 @@ import { events } from "./views/events/events";
 import { AdminResetUserPassword } from "./views/admin/resetPassword";
 import { adminPanel } from './views/admin/adminPanel';
 import { SendTextMailWindow } from './components/Mail/SendMail';
+import {Footer} from './components/Footer/Footer';
 
 
 // Reload application when not in production environment
@@ -48,6 +50,7 @@ if (root)
     <HashRouter>
       <div className="route-container">
         <NavbarMenu/>
+        <Footer/>
         <Route exact path="/" component={Frontpage}/>
         <Route path="/forside/:countyId" component={forside}/>
         <Route path="/wizardForm" component={WizardFormComplete}/>

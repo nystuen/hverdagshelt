@@ -19,9 +19,22 @@ export class UserDao extends Dao {
     super.query('select mail, password, countyId, typeName from user where mail=? ', [userMail], callback);
   }//end method
 
+
     getCompanyLogin(userMail: string, callback: Function){
         super.query("select companyMail, password from company where companyMail=?", [userMail], callback);
     }
+
+
+  getCountyEmployee(id:number,callback: Function) {
+    let val =['Employee',id,1];
+    super.query('SELECT * from user WHERE (typeName LIKE ? && countyId LIKE ? && active Like ?)', val, callback);
+  }//end method
+
+  getUser(userMail: string, callback: Function) {
+    console.log('usermail, dao', userMail);
+    super.query('SELECT countyId, active, mail, firstName, lastName, password, typeName, phone, points, name AS \'county\' FROM user NATURAL JOIN county where mail=? ', [userMail], callback);
+  }//end method}
+
 
     getCompany(userMail: string, callback: Function) {
       super.query('select * from company where companyMail = ? and active = 1', [userMail], callback);

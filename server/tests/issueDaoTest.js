@@ -790,3 +790,5 @@ test("check reset password", done => {
 
   mailDao.resetPassword('ola@usermail.com','detteErEtNyttPassord',callback);
 });
+
+

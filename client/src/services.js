@@ -174,8 +174,14 @@ export class CountyService {
         return axios.post("/add_companyCounties", json);
     }
 
+
     getAllCounties(): Promise<County[]> {
-        return axios.get('/getAllCountiesMinusUsers', {headers: authHeader()});
+      return axios.get('/getAllCountiesMinusUsers', { headers: authHeader() });
+    }
+
+    getCountyEmployee(id:number):Promise<Object[]>{
+      return axios.get('/getEmployeeData/'+ id);
+
     }
 
     getUsersCounties(): Promise<Object[]> {
