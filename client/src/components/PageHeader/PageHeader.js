@@ -12,5 +12,4 @@ export class PageHeader extends Component<{ title: string }> {
       </div>
     );
   }
-
 }

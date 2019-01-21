@@ -3,17 +3,48 @@
 
 }
 
-.navbar-default .navbar-nav > li > a {
-
-}
-
-
-
-.navbar-default{
-    background-color: #fcfcfc;
+.navbar-default .navbar-nav > li > a.active {
+    color: blueviolet;
+    background-color: blue;
 }
 
 
 .navbar-default {
+    background-color: #fcfcfc;
+}
 
+.navbar-default {
+
+}
+
+.navbar-nav{
+
+ }
+
+
+
+.navbar-default .navbar-nav :hover{
+    background-color: #eeeeee;
+    transition: 0.3s;
+
+}
+
+.active {
+}
+
+.logoBrand img {
+    padding-top: 10px !important;
+    padding-bottom: 10px !important;
+}
+
+/* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
+@media screen and (max-width: 915px) and (min-width: 765px) {
+    .navbar-default .navbar-nav > li > a {
+        padding-right: 0.4em;
+        padding-left: 0.4em;
+    }
+
+    #hiddenWhenSmall{
+       display: none;
+    }
 }

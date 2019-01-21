@@ -1,8 +1,12 @@
-import { Category, Event } from '../../classTypes';
 import React, { Component } from 'react';
 import { Grid, Row, Col, ListGroup, ListGroupItem, Table, Image, Panel, Button, ButtonGroup } from 'react-bootstrap';
-import { getAllCounties, getImportantEvents } from '../../services';
+import { CountyService, EventCategoryService } from '../../services';
 import css from './forside.css';
+import {Event} from '../../classTypes';
+import {CategorySelectList} from "../../components/CategorySelectList/CategorySelectList";
+
+let countyService = new CountyService();
+let eventCategoryService = new EventCategoryService();
 
 // get viktige hendelser
 export class forside extends Component {
@@ -14,10 +18,8 @@ export class forside extends Component {
 
   getInformation = async () => {
     let id: number = this.props.match.params.countyId;
-    console.log('IDEN ER:', id);
-    let eventer = [];
-    getImportantEvents(id).then(resources => {
-      console.log('resources:', resources);
+    let events = [];
+    eventCategoryService.getImportantEvents(id).then(resources => {
       resources.map(r => {
         let elem: Event = {
           eventId: r.eventId,
@@ -30,11 +32,11 @@ export class forside extends Component {
           countyId: r.countyId,
           active: r.active
         };
-        eventer = eventer.concat(elem);
+        events = events.concat(elem);
       });
 
       this.setState({
-        importantEvents: eventer
+        importantEvents: events
       });
       console.log(this.state.importantEvents[0].title);
     });

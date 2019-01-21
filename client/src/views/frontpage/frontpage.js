@@ -13,6 +13,7 @@ import Row from 'react-bootstrap/es/Row';
 let countyService = new CountyService();
 import logo from './osloBackground.png';
 import FormControl from 'react-bootstrap/es/FormControl';
+import Image from 'react-bootstrap/es/Image';
 
 
 export class Frontpage extends Component<Props, State> {
@@ -70,10 +71,10 @@ export class Frontpage extends Component<Props, State> {
       <div className="frontpage">
         <Grid className="chooseCounty">
           <Form>
-            <Col xs={5} md={4}>
+            <Col xs={1} md={4}>
             </Col>
 
-            <Col xs={2} md={4}>
+            <Col xs={10} md={4}>
               <FormGroup>
                 <Select
                   placeholder={'Klikk her for å velge kommune'}
@@ -84,12 +85,12 @@ export class Frontpage extends Component<Props, State> {
               </FormGroup>
 
               <div align="center">
-                <Button bsStyle="success" className={'frontpage-button'} href={'/#forside/' + this.state.choosen}>Gå
+                <Button bsStyle="primary" className={'frontpage-button'} href={'/#/wizardForm/'}>Gå
                   videre!</Button>
               </div>
             </Col>
 
-            <Col xs={5} md={4}>
+            <Col xs={1} md={4}>
             </Col>
           </Form>
         </Grid>

@@ -379,7 +379,7 @@ export class RegisterCompany extends Component<Props, State>{
                                     </FormGroup>
                                 </Col>
                                 <Col md={6}>
-                                    <FormGroup validationState={this.getValidationPhone()}>
+                                    <FormGroup>
                                         <FormControl type="text" value={this.state.phone} placeholder="Telefonnummer"
                                                      onChange={this.handleNumberChange("phone")}
                                         />
@@ -426,7 +426,7 @@ export class RegisterCompany extends Component<Props, State>{
                             </FormGroup>
                             <FormGroup>
                                 <Col md={6}>
-                                    <FormGroup validationState={this.getValidationStatePassword()}>
+                                    <FormGroup>
                                         <FormControl type="password" value={this.state.password} placeholder="Passord"
                                                      onChange={this.handleStringChange("password")}
                                         />

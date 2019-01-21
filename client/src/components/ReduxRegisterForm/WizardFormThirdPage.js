@@ -2,11 +2,17 @@ import React from "react";
 import { Field, reduxForm } from "redux-form";
 import validate from "./validate";
 import renderField from "./renderField";
+import renderCategoryField from "./renderCategoryField";
 import renderEmail from "./renderEmail";
-import { Button } from "react-bootstrap";
+import { Button, ProgressBar } from "react-bootstrap";
 import jwt from "jsonwebtoken";
 import { User } from "../../classTypes";
 import { UserService } from "../../services";
+import { history } from "../../index";
+import { ImageService } from "../../services";
+import issueReg from "./issueReg.css";
+
+let imageService = new ImageService();
 
 let userService = new UserService();
 
@@ -32,27 +38,29 @@ const renderCountySelector = ({ input, meta: { touched, error } }) => (
 );
 
 export class WizardFormThirdPage extends React.Component {
+  constructor(props) {
+    super(props);
+    this.state = {
+      user: User,
+      value: String,
+      image: ""
+    };
+
+    this.handleImageUpload = this.handleImageUpload.bind(this);
+  }
+
   setProps = () => {
-    this.props.change("userMail", this.state.decoded.email);
+    this.props.change("userMail", this.state.user.mail);
     this.props.change("countyId", this.state.user.countyId);
     console.log("setting props! mail");
     console.log(this.state.user.countyId);
+    setTimeout(function() {
+      history.push("/min_side/mine_saker").bind(this);
+    }, 1000);
   };
-  state = {
-    decoded: jwt.verify(
-      window.localStorage.getItem("userToken"),
-      "shhhhhverysecret"
-    ),
-    user: User,
-    value: String
-  };
-
-  constructor(props) {
-    super(props);
-  }
 
   componentDidMount() {
-    userService.getUser(this.state.decoded.email).then(newUser => {
+    userService.getCurrentUser().then(newUser => {
       this.setState({
         user: newUser[0]
       });
@@ -60,62 +68,90 @@ export class WizardFormThirdPage extends React.Component {
     this.setProps.bind(this);
   }
 
+  handleImageUpload(e: Object) {
+    this.setState({
+      image: e[0]
+    });
+  }
+
+  uploadImage = (e: Object) => {
+    imageService.uploadImage(this.state.image).then(res => {
+      console.log(res);
+      this.props.change("imagePath", res);
+    });
+  };
+
   render() {
     const { handleSubmit, pristine, previousPage, submitting } = this.props;
     return (
       <form onSubmit={handleSubmit}>
-        <div>
-          <Field
-            name="countyId"
-            type="hidden"
-            component={renderEmail}
-            label="countyId"
-          />
-        </div>
-        <div>
-          <div>
-            <Field
-              name="userMail"
-              type="hidden"
-              component={renderEmail}
-              label="Epost"
-            />
-            <Field
-              name="text"
-              type="text"
-              component={renderField}
-              label="Beskrivelse"
-            />
-            <Field
-              name="pic"
-              type="text"
-              component={renderField}
-              label="Bilde"
-            />
+        <div className="container">
+          <div className="formDiv">
+            <div className="progressBar">
+              <ProgressBar now={100} />
+            </div>
+            <div className="paddingBot">
+              <Field
+                name="countyId"
+                type="hidden"
+                component={renderEmail}
+                label="countyId"
+              />
+              <Field
+                name="userMail"
+                type="hidden"
+                component={renderEmail}
+                label="Epost"
+              />
+              <Field
+                name="text"
+                type="text"
+                component={renderField}
+                label="Beskrivelse"
+              />
+              <Field
+                name="imagePath"
+                type="hidden"
+                label="imagePath"
+                component={renderCategoryField}
+              />
+              <form encType="multipart/form-data">
+                <input
+                  type="file"
+                  name="avatar"
+                  placeholder="Bilde"
+                  onChange={e => this.handleImageUpload(e.target.files)}
+                />
+                <Button className="btn-primary" onClick={this.uploadImage}>
+                  Send inn bilde
+                </Button>
+              </form>
+            </div>
+            <div>
+              <Button
+                bsStyle="primary"
+                type="button"
+                className="previous"
+                onClick={previousPage}
+              >
+                Previous
+              </Button>
+              <Button
+                bsStyle="primary"
+                type="submit"
+                onClick={this.setProps.bind(this)}
+                disabled={pristine || submitting}
+              >
+                Submit
+              </Button>
+            </div>
           </div>
-        </div>
-        <div>
-          <Button
-            bsStyle="primary"
-            type="button"
-            className="previous"
-            onClick={previousPage}
-          >
-            Previous
-          </Button>
-          <Button
-            bsStyle="primary"
-            type="submit"
-            onClick={this.setProps.bind(this)}
-            disabled={pristine || submitting}
-          >
-            Submit
-          </Button>
         </div>
       </form>
     );
   }
 }
+
 export default reduxForm({
   form: "wizard", //Form name is same
   destroyOnUnmount: false,

@@ -16,4 +16,11 @@ module.exports = function(app: Object, eventDao: Object) {
       res.status(status);
     });
   });
+
+  app.get("/event/:eventId", (req, res) => {
+    eventDao.getEvent(req.params.eventId, (status, data) => {
+      res.status(status);
+      res.json(data);
+    });
+  });
 };
