@@ -43,6 +43,7 @@
     "react-router-dom": "^4.3.1",
     "react-select": "^2.2.0",
     "react-simplified": "^1.5.2",
+    "reactstrap": "^7.1.0",
     "redux": "^4.0.1",
     "redux-form": "^8.1.0"
   },

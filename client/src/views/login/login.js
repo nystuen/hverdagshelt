@@ -133,6 +133,7 @@ export class Login extends Component<Props, State> {
 
                   <p>Registrer deg <a href={'/#/registrer/privat'}>her hvis du er privatperson</a>, og <a
                     href="/#/registrer/bedrift"> her hvis du er
+
                     bedrift.</a></p>
                     <p>
                         <a href={"/#/forgotPassword"}>Glemt passord</a>
