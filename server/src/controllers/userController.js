@@ -41,6 +41,7 @@ module.exports = function (app: Object, userDao: Object) {
         });
     });
 */
+    //brukes for å registrere kommuneansatte også
     app.post('/add_admin', urlencodedParser, (req, res) =>{
         console.log('got post request from add_admin');
         console.log(req.body);
@@ -49,8 +50,8 @@ module.exports = function (app: Object, userDao: Object) {
         console.log('newPassword:',newPassword);
 
         let hashed = '';
-        bcrypt.hash(req.body.password, null, null, function (error, hash) {
-            console.log(req.body.password);
+        bcrypt.hash(newPassword, null, null, function (error, hash) {
+            console.log("HASH: "+ newPassword);
             hashed = hash;
             userDao.addUser(req.body, hashed ,(status, data) => {
                 res.status(status);

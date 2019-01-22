@@ -522,35 +522,3 @@ export class RegisterUser extends Component<Props, State> {
         )
     }
 }
-
-/*
-if(this.getValidationStateEmail()==='warning'){
-    this.setState({
-        errorEmailRequirement:true
-    });
-    console.log("HEYHO")
-}
-console.log("truls")
-if(!(this.checkEmailEquality())){
-    this.setState({
-        errorEmailEquality: true
-    });
-}
-console.log("reidar")
-if(!(this.checkPasswordRequirements())){
-    this.setState({
-        errorRequirementsPass: true
-    });
-}
-console.log("Sjekk godkjent")
-console.log("pass equals: "+this.checkPasswordEquality());
-
-if(!(this.checkPasswordEquality())){
-    console.log("check Password equality");
-    this.setState({
-        errorEqualsPass: true
-
-    });
-}
-this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()||this.getValidationStateEmail2()==='warning'||this.getValidationStatePassword()==='warning'||this.getValidationStatePassword2()==='warning'
-*/

@@ -344,56 +344,21 @@ export class RegisterAdmin extends Component<Props, State>{
             .catch((error: Error) => Alert.danger(error.message));
 
         let theBody: Object = {
-            countyId: newAdmin.countyId,
-            userMail: newAdmin.mail
+            mail: newAdmin.mail,
+            registered: 1,
+            inProgress: 0,
+            completed: 1
         };
         notificationSettingService.addIssueNotificationSettings(theBody);
         this.setState({errorSomething: false, registerSuccess: true});
-        this.goToRegisterAdmin();
+        this.goToRegNew();
 
     };
-    goToRegisterAdmin = () => {
+    goToRegNew= () => {
         setTimeout(
             function () {
-                history.push('/registrer/admin');
-            }, 4000
+                history.push('/registrertSuksess');
+            }, 1000
         )
     }
 }
-/*
-* <DropdownButton title="Hjemmekommune">
-                                     value={this.state.countyName}
-                                              onChange={(e)=>this.handleChangeCounty(e)}>
-                                        {this.state.countyName.map((r, i) => {
-                                            return <option key={i} value={r}>{r}
-                                            </option>
-                                        })
-                                        }
-
-                                </DropdownButton>
-
-    checkPass(){
-        console.log(state);
-        if(this.state.password==this.state.password2){
-            this.register();
-            Alert.success();
-        }else{
-            Alert.warning();
-        }
-    }
-
-                                    <FormGroup>
-                                        <Label>Velg arbeidsområder</Label>
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Checkbox inline>Vann og avløp</Checkbox><Checkbox>Veiarbeid</Checkbox><Checkbox>Strømbrudd</Checkbox>
-                                    </FormGroup>
-
-                                                                        <FormGroup>
-                                        <Label>Velg kommuner du vil følge</Label>
-                                    </FormGroup>
-                                    <FormGroup>
-                                        <Checkbox inline>Oslo</Checkbox><Checkbox>Trondheim</Checkbox><Checkbox>Bergen</Checkbox>
-                                    </FormGroup>
-
-*/
