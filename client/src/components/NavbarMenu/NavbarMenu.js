@@ -25,7 +25,7 @@ export class NavbarMenu extends React.Component {
 
         this.toggle = this.toggle.bind(this);
         this.state = {
-            user: new User('', '', '', '', -1, -1, -1, -1),
+            user: {},
             isOpen: false
         };
     }
@@ -36,8 +36,14 @@ export class NavbarMenu extends React.Component {
         });
     }
 
-    componentDidMount() {
-
+    componentWillMount() {
+        userService.getCurrentUser()
+            .then(resources => {
+                let user = resources[0];
+                this.setState({
+                    user: user
+                })
+            })
     }
 
     render() {
@@ -45,13 +51,6 @@ export class NavbarMenu extends React.Component {
             loginButton = <NavItem eventKey={1} href="/#login">Login</NavItem>;
         } else {
             loginButton = <NavItem eventKey={1} href="/#login" onClick={() => this.logout()}> Log out</NavItem>;
-            userService.getCurrentUser()
-                .then(resources => {
-                    let user = resources[0];
-                    this.setState({
-                        user: user
-                    })
-                });
             this.viewCases();
         }//end condition
 
@@ -102,11 +101,11 @@ export class NavbarMenu extends React.Component {
 
     viewCases = () => {
         if (window.localStorage.getItem('userToken') !== '') {
-            if (this.state.user.typeName === 'Company') {
+            if (this.state.user.typeName === undefined) {
                 return <MenuItem eventKey={2} href="/#min_side/mine_sakerBedrift">Mine saker</MenuItem>;
             } else {
                 return <MenuItem eventKey={2} href="/#min_side/mine_saker">Mine saker</MenuItem>;
-            }//end condition}
+            }//end condition
         } else {
             return <MenuItem eventKey={2} href="/#login">Mine saker</MenuItem>;
         }//end condition

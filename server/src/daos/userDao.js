@@ -37,7 +37,7 @@ export class UserDao extends Dao {
 
 
     getCompany(userMail: string, callback: Function) {
-      super.query('select * from company where companyMail = ? and active = 1', [userMail], callback);
+      super.query('select * from company where companyMail = ?', [userMail], callback);
     }
 
     getHomeCounty(userMail: string, callback: Function) {
@@ -56,6 +56,10 @@ export class UserDao extends Dao {
     getCompanyIssues(companyMail: string, callback: Function){
         super.query("select * from issues where issueId in (select issueId from companyIssues where companyMail =?) ORDER BY issueId DESC",
             companyMail, callback);
+    }//end method
+
+    getCompanyCategories(categoryId: number, callback: Function){
+      super.query("Select * from companyCategories natural join company where categoryId=?", [categoryId], callback);
     }//end method
 
     resetPassword(json: Object, hashed: string, callback: Function) {
