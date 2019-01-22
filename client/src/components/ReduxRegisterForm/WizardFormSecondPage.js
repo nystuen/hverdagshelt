@@ -51,7 +51,7 @@ export class WizardFormSecondPage extends React.Component {
       <div className="container">
         <div className="formDiv">
           <div className="progressBar">
-            <ProgressBar now={66} />
+            <ProgressBar now={66} label={"2/3"} />
           </div>
           <h2>Velg passende kategori</h2>
           <ChooseCategory
