@@ -50,7 +50,7 @@ test("check if  issue is exist", done => {
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
     );
-    expect(data[0].userMail).toBe("ola@usermail.com");
+    expect(data[0].userMail).toBe('ola@usermail.com');
     done();
   }
   issueDao.getOneIssue(1, callback);
