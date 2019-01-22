@@ -122,7 +122,7 @@ export class Login extends Component<Props, State> {
                 <div align="center">
                   <p>Har du ikke bruker?</p>
 
-                  <p>Registrer deg <a href={'/#/register'}>her hvis du er privatperson</a>, og <a
+                  <p>Registrer deg <a href={'/#/register/privat'}>her hvis du er privatperson</a>, og <a
                     href="/#/register/company"> her hvis du er
                     bedrift.</a></p>
                 </div>

@@ -23,35 +23,33 @@ export class Footer extends Component<{}> {
 
 
 
-
-
   componentDidMount() {
+    if(!(window.localStorage.getItem('userToken') == '')) {
+      userService.getCurrentUser().then(r => {
+        console.log('bruker:', r);
+        this.setState({user: r[0]});
+      });
 
-    userService.getCurrentUser().then(res => {
-      console.log('bruker:', res)
-      this.setState({user: res[0]})
-    });
+    }
 
-   //let id :number = this.props.match.params.countyId;
     countyService.getCountyEmployee(this.state.user.countyId).then((r: Array<Object>) => {
       this.setState({
         countyInformation: r
       });
     });
+
   }
-
-
 
 
 
 
   render(){
     let check;
-    if(this.state.user != []){
+    if(this.state.user.countyId != null){
       return (
         <footer className="footerClass2">
         <Col xs={12} md={12}>
-        <h4 className="footerInfo">Kontaktinformasjon til din hjemkommunen:</h4>
+        <h4 className="footerInfo">Kontaktinformasjon til {this.state.user.county}-kommunen:</h4>
         {
           this.state.countyInformation.map((r, i) => {
             return (
@@ -77,23 +75,24 @@ export class Footer extends Component<{}> {
 
         </footer>
           );
-    }
-    return(
+    }else{
+      return(
       <footer className="footerClass2">
-
         <div className="container">
-
-          {check}
           <div align="center">
-
             <Image className="picture"
                    src={'./resources/logo_white.png'}
                    rounded/>
             <h2>HVERDAGSHELT</h2>
-
           </div>
-          </div>
+        </div>
       </footer>
+      )
+    }
+    return(
+
+      {check}
+
     )
 
 
