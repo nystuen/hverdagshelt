@@ -16,6 +16,7 @@ import { NotificationSettingsDao } from "./daos/notificationSettingsDao";
 import issueController from "./controllers/issueController.js";
 import countyController from "./controllers/countyController.js";
 import notificationSettingsController from "./controllers/notificationSettingsController";
+import statisticsController from "./controllers/statisticsController.js";
 import imageRoute from "./controllers/imageRoute.js";
 import * as mysql from "mysql2";
 import { CategoryDao } from "./daos/catergoryDao";
@@ -24,6 +25,7 @@ import { MailDao } from "./daos/mailDao";
 import eventController from "./controllers/eventController.js";
 import { EventDao } from "./daos/eventDao";
 import { EventCategoryDao } from "./daos/eventCategoryDao";
+import { StatisticsDao } from "./daos/statisticsDao";
 import eventCategoryController from "./controllers/eventCategoryController.js";
 
 type Request = express$Request;
@@ -54,6 +56,7 @@ let mailDao = new MailDao(pool);
 let notificationSettingsDao = new NotificationSettingsDao(pool);
 let eventDao = new EventDao(pool);
 let eventCategoryDao = new EventCategoryDao(pool);
+let statisticsDao = new StatisticsDao(pool);
 
 //fire controllers
 issueController(app, issueDao);
@@ -65,6 +68,7 @@ categoryController(app, categoryDao);
 mailController(app, userDao);
 notificationSettingsController(app, notificationSettingsDao);
 eventCategoryController(app, eventCategoryDao);
+statisticsController(app, statisticsDao);
 imageRoute(app);
 
 // Hot reload application when not in production environment

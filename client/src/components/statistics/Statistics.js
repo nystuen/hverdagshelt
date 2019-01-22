@@ -1,6 +1,9 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col } from 'react-bootstrap';
 import {Line, Doughnut} from 'react-chartjs-2';
+import { StatisticsService } from "../../services";
+
+let statisticsService = new StatisticsService();
 
 const pieData = {
 	labels: [
@@ -62,14 +65,41 @@ export class Statistics extends Component {
     }
   }
 
-  componentDidMount() {
+  componentWillMount() {
+    statisticsService
+      .getStatus()
+      .then((res) => {
+        let pieDummy = this.state.pieData
+        pieDummy.datasets[0].data[0] = res[2].ant
+        pieDummy.datasets[0].data[1] = res[1].ant
+        pieDummy.datasets[0].data[2] = res[0].ant
+        this.setState({
+          pieData: pieDummy
+        })
+      })
+
+    statisticsService
+      .getDaily()
+      .then((res) => {
+        let lineDummy = this.state.lineData
+        lineDummy.labels = []
+        lineDummy.datasets[0].data = []
+        res.map(e => {
+          console.log(e)
+          lineDummy.labels.push(e.date)
+          lineDummy.datasets[0].data.push(e.ant)
+        })
+        this.setState({
+          lineData: lineDummy
+        })
+      })
+
     let dummyLine = this.state.lineData
-    dummyLine.datasets[0].data = [10, 10, 10, 10, 10, 10, 10]
-    console.log(dummyLine.datasets)
+    dummyLine.datasets[0].data = [10, 113, 9, 120, 8, 0, 210]
     this.setState({
       lineData: dummyLine
     })
-    console.log(this.state.lineData)
+    console.log(this.state.pieData)
   }
 
 

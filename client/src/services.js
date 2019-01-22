@@ -257,6 +257,17 @@ export class NotificationSettingsService {
 
 }
 
+export class StatisticsService {
+
+  getStatus(): Promise<Response>{
+    return axios.get('/issueCategories')
+  }
+
+  getDaily(): Promise<Response>{
+    return axios.get('/issuesDaily')
+  }
+}
+
 
 export class MailService {
   sendTextMail(mailObject: Object): Promise<Response> {
