@@ -58,12 +58,8 @@ if (root)
         <Route exact path="/" component={Frontpage} />
         <Route path="/forside/:countyId" component={forside} />
         <Route path="/wizardForm" component={WizardFormComplete} />
-        <Route path="/min_side/kommuner" component={countySubscription} />
         <Route path="/min_side/kontooversikt" component={KontoOversikt} />
-        <Route
-          path="/countySubscription/:userMail"
-          component={countySubscription}
-        />
+
         <Route
           path="/min_side/editAccountInformation"
           component={editAccountInformation}
