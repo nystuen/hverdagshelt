@@ -73,12 +73,12 @@ export class NavbarMenu extends React.Component {
               <NavItem href={'/#/events/2'}><Glyphicon glyph="glyphicon glyphicon-road"/> Hendelser</NavItem>
               <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
               <NavItem href={'/#/map'}><Glyphicon glyph="glyphicon glyphicon-map-marker"/> Kart</NavItem>
+              {this.viewCases()}
               <NavItem href={'/#/admin'}><Glyphicon glyph="glyphicon glyphicon-user"/> Admin</NavItem>
             </Nav>
 
           <Nav pullRight>
             <NavDropdown title={'Min side'} id='1'>
-              {this.viewCases()}
               <MenuItem eventKey={1} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
               <MenuItem eventKey={1} href="/#min_side/kommuner">Kommuner</MenuItem>
               <MenuItem eventKey={1} href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
@@ -102,12 +102,12 @@ export class NavbarMenu extends React.Component {
     viewCases = () => {
         if (window.localStorage.getItem('userToken') !== '') {
             if (this.state.user.typeName === 'Company') {
-                return <MenuItem eventKey={2} href="/#min_side/mine_sakerBedrift">Mine saker</MenuItem>;
+                return <NavItem eventKey={2} href="/#min_side/mine_sakerBedrift"><Glyphicon glyph="glyphicon glyphicon-user"/>Mine saker</NavItem>;
             } else {
-                return <MenuItem eventKey={2} href="/#min_side/mine_saker">Mine saker</MenuItem>;
+                return <NavItem  eventKey={2} href="/#min_side/mine_saker"> <Glyphicon glyph="glyphicon glyphicon-user"/>Mine saker</NavItem>;
             }//end condition}
         } else {
-            return <MenuItem eventKey={2} href="/#login">Mine saker</MenuItem>;
+            return <NavItem eventKey={2} href="/#login"><Glyphicon glyph="glyphicon glyphicon-user"/>Mine saker</NavItem>;
         }//end condition
     };//end method
 }
