@@ -14,7 +14,7 @@ export class adminPanel extends Component {
 
 
   render() {
-    let buttonStyle = 'primary';
+    let buttonStyle = 'default';
     let panelStyle = 'primary';
     return (
       <div className="panels">
