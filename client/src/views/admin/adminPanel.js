@@ -41,7 +41,7 @@ export class adminPanel extends Component {
               <hr/>
               <div className="buttons">
               <Button bsStyle={buttonStyle} href="/#/" block><span className="glyphicon glyphicon-edit"/> Administrere Hendelser</Button>
-              <Button bsStyle={buttonStyle} href="/#/" block><span className="glyphicon glyphicon-edit"/> Administrere Saker</Button>
+              <Button bsStyle={buttonStyle} href="/#admin/adminSaker" block><span className="glyphicon glyphicon-edit"/> Administrere Saker</Button>
               </div>
             </div>
           </Col>

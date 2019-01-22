@@ -2,7 +2,7 @@
 import React, {Component} from "react";
 import {CategorySelectList} from "../CategorySelectList/CategorySelectList";
 import {
-    Grid, Row, Col, ListGroup,ListGroupItem, ToggleButtonGroup,ToggleButton,ButtonToolbar, MenuItem, FormGroup, FormControl,PageHeader,Button, ControlLabel
+  Grid, Row, Col, ListGroup,ListGroupItem, ToggleButtonGroup,ToggleButton,ButtonToolbar, MenuItem, FormGroup, FormControl,PageHeader,Button, ControlLabel
 } from "react-bootstrap"
 
 import {ChooseCategory} from "../ChooseCategory/ChooseCategory";

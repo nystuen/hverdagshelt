@@ -14,16 +14,19 @@ import Button from 'react-bootstrap/es/Button';
 import { ImageService } from '../../services';
 import { history } from '../../index';
 import css from './oversiktOverSak.css';
+import {MailService} from '../../services';
 import{FormGroup} from "react-bootstrap";
 import {FormControl} from "react-bootstrap";
 import Card from "reactstrap/es/Card";
 import Table from "react-bootstrap/es/Table";
 import {User} from "../../classTypes";
+import Well from "react-bootstrap/es/Well";
 
 let issueService = new IssueService();
 let categoryService = new CategoryService();
 let userService = new UserService();
 let imageService = new ImageService();
+let mailService = new MailService();
 
 interface State {
     user: Object,
@@ -124,30 +127,22 @@ export class OversiktOverSak extends React.Component {
 
         <Row>
           <Col xsOffset={23} md={8}>
-            {editStatus}
           </Col>
         </Row>
             <br/>
             <h3> <b>Kommentarer </b></h3>
                 {renderComment}
                 <br/>
-                <Table condensed hover bordered>
                 {this.state.issueComments.map(e => {
                     return(
-
-                      <tbody key={e}>
-                      <tr>
-                          <td>
                               <Col>
+                                  <Well bsSize="large">
                                   <h4> <b>{e.mail}</b></h4>
                                   <h4> <i>{e.text}</i></h4>
+                                  </Well>
                               </Col>
-                          </td>
-                        </tr>
-                      </tbody>
                   )
             })}
-                </Table>
         <br/>
       </Grid>
     );

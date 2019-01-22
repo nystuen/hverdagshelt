@@ -1,6 +1,6 @@
 //import mysql from "mysql2";
 
-let mysql = require("mysql");
+let mysql = require("mysql2");
 import runsqlfile from './runSqlFile';
 import {IssueDao} from "../src/daos/issueDao";
 import {UserDao} from "../src/daos/userDao";
@@ -13,7 +13,7 @@ import {NotificationSettingsDao} from '../src/daos/notificationSettingsDao';
 
 // GitLab CI Pool
 let pool = mysql.createPool({
-  connectionLimit: 6,
+  connectionLimit: 2,
   host: "mysql.stud.iie.ntnu.no",
   user: "aadneny",
   password: "W9d7XVXV",
@@ -34,7 +34,7 @@ let notificationSettingsDao = new NotificationSettingsDao(pool);
 
 beforeAll(done => {
   runsqlfile("tests/sqlFiles/createTables.sql", pool, () => {
-    runsqlfile("tests/sqlFiles/createTestData.sql", pool, done);
+    runsqlfile("tests/sqlFiles/createTestData.sql", pool, done());
   });
 });
 
@@ -50,7 +50,7 @@ test("check if  issue is exist", done => {
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
     );
-    expect(data[0].userMail).toBe("ola@usermail.com");
+    expect(data[0].userMail).toBe('ola@usermail.com');
     done();
   }
   issueDao.getOneIssue(1, callback);
@@ -79,7 +79,6 @@ test("Add a issue to database", done => {
     categoryId: 1,
     categoryLevel: 1,
     countyId: 2,
-    active: 1
   };
 
   issueDao.addIssue(post, callback);
@@ -175,6 +174,33 @@ test("check all issues with one category", done => {
     done();
   }
   issueDao.getCategoryIssue(1, callback);
+});
+
+test("check adding a comment to issue", done => {
+  function callback(status,data){
+    console.log("Test adding comment to issue. Status: " + status + ". Data: " + JSON.stringify(data));
+    expect(data.affectedRows).toBeGreaterThanOrEqual(1);
+    done();
+  }
+  issueDao.addCommentToIssue(1, 'TEST', '7heaven@companymail.com', callback);
+});
+
+test("check getting comments for an issue", done => {
+  function callback(status,data) {
+    console.log("Test getting comments for issue. Status: " + status + ". Data: " + JSON.stringify(data));
+    expect(data.length).toBeGreaterThanOrEqual(1);
+    done();
+  }
+  issueDao.getCompanyComments(1,callback);
+});
+
+test("check getting all issues in one county", done => {
+  function callback(status,data) {
+    console.log("Testing getting issues in one county. Status: " + status + ". Data: " + JSON.stringify(data));
+    expect(data.length).toBeGreaterThanOrEqual(1);
+    done();
+  }
+  issueDao.getAllIssuesInCounty(2,1,callback);
 });
 
 
@@ -279,10 +305,9 @@ test("check update user", done => {
     lastName: 'Larsen',
     phone: '90192384',
     countyId: 2,
-    mail: 'nina@usermail.com',
   };
 
-  userDao.updateUser(post, callback);
+  userDao.updateUser('nina@usermail.com', post,callback);
   userDao.getUser('nina@usermail.com', callback2);
 });
 
@@ -351,11 +376,10 @@ test("check add subscription counties", done => {
   }
 
   let post = {
-  userMail: 'kari@usermail.com',
   countyId: 2,
   };
 
-  countyDao.addSubscription(post, callback);
+  countyDao.addSubscription('kari@usermail.com',post, callback);
   countyDao.getSubscribedCounties('kari@usermail.com',callback2);
 });
 
@@ -643,20 +667,18 @@ test("check add notificationsettings(pushalert)", done => {
   let post = {
       countyId:1,
       categoryId: 1,
-      userMail:'kari@usermail.com',
+
 
   };
 
   let post2 = {
     countyId:2,
     categoryId: 2,
-    userMail:'kari@usermail.com',
-
   };
 
-  notificationSettingsDao.addNotificationSettings(post,callback);
+  notificationSettingsDao.addNotificationSettings('kari@usermail.com',post,callback);
   notificationSettingsDao.getNotificationSettings('kari@usermail.com', callback2);
-  notificationSettingsDao.addNotificationSettings(post2,callback3);
+  notificationSettingsDao.addNotificationSettings('kari@usermail.com',post2,callback3);
   notificationSettingsDao.getNotificationSettingsSimple('kari@usermail.com', callback4);
 });
 
@@ -667,6 +689,7 @@ test("check get pushalert with name on county and category", done => {
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
     );
+
     expect(data[0].categoryId).toBe(1);
     expect(data[0].countyId).toBe(1);
     expect(data[0].categoryName).toBe('Strøm');
@@ -723,13 +746,12 @@ test("check add notification", done => {
 
 
   let post = {
-    userMail:'kari@usermail.com',
     registered: true,
     inProgress:true,
     completed:false,
   };
 
-  notificationSettingsDao.addIssueNotificationSettings(post,callback);
+  notificationSettingsDao.addIssueNotificationSettings('kari@usermail.com',post,callback);
   notificationSettingsDao.getIssueNotificationSettings('kari@usermail.com',callback2);
 });
 
@@ -759,10 +781,9 @@ test("check update notification", done => {
     registered: true,
     inProgress:true,
     completed:true,
-    userMail:'kari@usermail.com',
   };
 
-  notificationSettingsDao.updateIssueNotificationSettings(post,callback);
+  notificationSettingsDao.updateIssueNotificationSettings('kari@usermail.com',post,callback);
   notificationSettingsDao.getIssueNotificationSettings('kari@usermail.com',callback2);
 });
 
@@ -775,7 +796,7 @@ test("check update notification", done => {
 
 
 
-
+/*
 test("check reset password", done => {
   function callback(status, data) {
     console.log(
@@ -788,5 +809,8 @@ test("check reset password", done => {
   to:'ola@usermail.com',
   };
 
-  mailDao.resetPassword('ola@usermail.com','detteErEtNyttPassord',callback);
+  mailDao.resetPassword(post,'detteErEtNyttPassord',callback);
 });
+
+
+*/
