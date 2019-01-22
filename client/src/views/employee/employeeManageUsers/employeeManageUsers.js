@@ -1,8 +1,6 @@
 // @flow
 
 import React from 'react';
-
-import {Alert} from "../../../widgets";
 import {Grid, Table} from "react-bootstrap";
 import {User} from "../../../classTypes";
 import {EmployeeService} from "../../../services"
@@ -123,16 +121,3 @@ export class employeeManageUsers extends React.Component<Props,State>{
         )}
 
 }//end class
-/*
-let id = this.state.countyId;
-console.log(id);
-console.log(this.state.countyId)
-employeeService.getUsersInCounty(id).then(response => {
-    this.setState({user: response, countyId: response});
-}).catch((error: Error) => Alert.danger(error.message));
-
-
-
-
-
-*/
