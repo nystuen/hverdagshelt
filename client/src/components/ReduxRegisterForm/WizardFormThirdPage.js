@@ -88,7 +88,7 @@ export class WizardFormThirdPage extends React.Component {
         <div className="container">
           <div className="formDiv">
             <div className="progressBar">
-              <ProgressBar now={100} />
+              <ProgressBar now={100} label={"3/3"} />
             </div>
             <div className="paddingBot">
               <Field

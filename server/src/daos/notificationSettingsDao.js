@@ -6,7 +6,7 @@ import {Dao} from "../dao";
 export class NotificationSettingsDao extends Dao {
 
     getNotificationSettings(userMail: string, callback: Function) {
-        super.query("select categoryId, name, countyId from pushAlerts natural join category where userMail=? ", [userMail], callback);
+        super.query("select categoryId, name, countyId from pushAlerts join eventCategory on categoryId=eventCategoryId where userMail=? ", [userMail], callback);
     }
 
     getNotificationSettingsSimple(userMail: string, callback: Function) {

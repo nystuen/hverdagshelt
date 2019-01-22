@@ -10,7 +10,7 @@ import { Login } from "./views/login/login";
 import { Alert } from "./widgets";
 import store from "./components/ReduxRegisterForm/store";
 import { KontoOversikt } from "./views/MinSide/KontoOversikt/kontoOversikt";
-import { countySubscription } from "./views/MinSide/countySubscription/countySubscription";
+import { CountySubscription } from "./views/MinSide/countySubscription/countySubscription";
 import createHashHistory from "history/createHashHistory";
 import { MineSaker } from "./views/MinSide/mineSaker/mineSaker";
 import { Provider } from "react-redux";
@@ -35,10 +35,9 @@ import { Footer } from "./components/Footer/Footer";
 import { RegisterEmployee } from "./components/registeremployee/RegisterEmployee";
 import { RegisterAdmin } from "./components/registeradmin/registeradmin";
 import { ForgottenPassword } from "./views/login/ForgottenPassword";
-import {RegNew} from "./components/regNew/RegNew"
-import {employeeHomepage} from "./views/employee/employeeHomepage/employeeHomepage";
-import {employeeManageUsers} from "./views/employee/employeeManageUsers/employeeManageUsers";
-
+import { RegNew } from "./components/regNew/RegNew";
+import { employeeHomepage } from "./views/employee/employeeHomepage/employeeHomepage";
+import { employeeManageUsers } from "./views/employee/employeeManageUsers/employeeManageUsers";
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
@@ -58,12 +57,8 @@ if (root)
         <Route exact path="/" component={Frontpage} />
         <Route path="/forside/:countyId" component={forside} />
         <Route path="/wizardForm" component={WizardFormComplete} />
-        <Route path="/min_side/kommuner" component={countySubscription} />
         <Route path="/min_side/kontooversikt" component={KontoOversikt} />
-        <Route
-          path="/countySubscription/:userMail"
-          component={countySubscription}
-        />
+
         <Route
           path="/min_side/editAccountInformation"
           component={editAccountInformation}
@@ -101,11 +96,11 @@ if (root)
         <Route exact path="/admin" component={adminPanel} />
         <Route path="/admin/sendMailTilBruker" component={SendTextMailWindow} />
         <Route path="/admin/resetPassord" component={AdminResetUserPassword} />
-        <Route path="/admin/registrertSuksess" component={RegNew}/>
-          <Route path="/employee/home" component={employeeHomepage}/>
-          <Route path="/employee/manageusers" component={employeeManageUsers}/>
-          <Route path="/forgotPassword" component={ForgottenPassword} />
-          <Footer />
+        <Route path="/admin/registrertSuksess" component={RegNew} />
+        <Route path="/employee/home" component={employeeHomepage} />
+        <Route path="/employee/manageusers" component={employeeManageUsers} />
+        <Route path="/forgotPassword" component={ForgottenPassword} />
+        <Footer />
       </div>
     </HashRouter>,
     root

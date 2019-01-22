@@ -1,25 +1,26 @@
 // @flow
 
 import React from 'react';
-import {CategoryService, CountyService, NotificationSettingsService} from "../../services";
+import {EventCategoryService, CountyService, NotificationSettingsService, UserService} from "../../services";
 import jwt from "jsonwebtoken";
 import FormGroup from "react-bootstrap/es/FormGroup";
 import Checkbox from "react-bootstrap/es/Checkbox";
 import Button from "react-bootstrap/es/Button";
 import Grid from "react-bootstrap/es/Grid";
 import {Category, NotificationSetting, User} from "../../classTypes";
-import {UserService} from "../../services";
-import {getUsersCounties} from "../../services";
 import ListGroupItem from "react-bootstrap/es/ListGroupItem";
 import {Collapse} from "react-bootstrap";
 import ListGroup from "react-bootstrap/es/ListGroup";
 import cloneDeep from "lodash/cloneDeep";
 import Glyphicon from "react-bootstrap/es/Glyphicon";
 import css from './NotificationSettingsForm.css';
+import {CountySubscription} from "../../views/MinSide/countySubscription/countySubscription";
+import Row from "react-bootstrap/es/Row";
+import Col from "react-bootstrap/es/Col";
 
 
 let notificationSettingsService = new NotificationSettingsService();
-let categoryService = new CategoryService();
+let eventCategoryService = new EventCategoryService();
 let countyService = new CountyService();
 let userService = new UserService();
 
@@ -27,7 +28,8 @@ interface State {
     notificationSettings: Object[],
     userCounties: Object[],
     categories: Object[],
-    selectedCounty: number
+    selectedCounty: number,
+    countySubscriptionOpen: boolean,
 
 }
 
@@ -36,7 +38,8 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
         notificationSettings: [],
         userCounties: [],
         categories: [],
-        selectedCounty: -1
+        selectedCounty: -1,
+        countySubscriptionOpen: false
     };
 
     onChangeHandler = (e) => {
@@ -50,10 +53,15 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
 
         notificationSettingsService.getNotificationSettings()
             .then(resources => {
-                console.log(resources);
+
                 resources.map(e => {
-                    notificationSettings.push(e)
+                    let settingObj = {
+                        countyId: e.countyId,
+                        categoryId: e.categoryId
+                    };
+                    notificationSettings.push(settingObj)
                 });
+                console.log(notificationSettings);
                 this.setState({
                     notificationSettings: notificationSettings
                 })
@@ -70,8 +78,8 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
                     };
                     userCounties.push(userCountyObj);
                 });
-
             })
+
             .then(userService.getHomeCounty().then(resources => {
                     let userCountyObj = {
                         countyId: resources[0].countyId,
@@ -86,11 +94,11 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
                 }
             ));
 
-        categoryService.getCategory1()
+        eventCategoryService.getEventCategory()
             .then(resources => {
                 resources.map(e => {
                     let categoryObj = {
-                        categoryId: e.categoryId,
+                        categoryId: e.eventCategoryId,
                         categoryName: e.name,
                         checked: false
                     };
@@ -141,41 +149,57 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
     }
 
     onClickHandler(category: Object) {
+        console.log('funksjon kjørt');
         let catArr = cloneDeep(this.state.categories);
         let settingsArr = cloneDeep(this.state.notificationSettings);
 
         // invert the selected category's checked status
         let catIndex = this.state.categories.indexOf(category);
-        catArr[catIndex].checked = !this.state.categories[catIndex].checked;
-        this.state.categories[catIndex].checked = !this.state.categories[catIndex].checked;
+        catArr[catIndex].checked = !catArr[catIndex].checked;
 
-        // remove all settings for the selected county
-        this.state.notificationSettings.map(e => {
-            let settingIndex = this.state.notificationSettings.indexOf(e);
-            if (e.countyId === this.state.selectedCounty) {
-                settingsArr.splice(settingIndex, 1);
-            }
-        });
+        let settingObj = {
+            countyId: this.state.selectedCounty,
+            categoryId: category.categoryId
+        };
 
-        // add all checked categories for the selected county
-        catArr.map(e => {
-            if (e.checked) {
-                let settingObj = {
-                    countyId: this.state.selectedCounty,
-                    categoryId: e.categoryId,
-                };
-                settingsArr.push(settingObj)
+        if (catArr[catIndex].checked) {
+            if (settingsArr.length < 1) {
+                settingsArr.push(settingObj);
+            } else {
+
+                let exists = false;
+                this.state.notificationSettings.map(e => {
+                    let settingIndex = this.state.notificationSettings.indexOf(e);
+                    if (e.countyId === settingObj.countyId && e.categoryId === settingObj.categoryId) {
+                        settingsArr[settingIndex] = settingObj;
+                        exists = true
+                    }
+                });
+
+                if (!exists) {
+                    settingsArr.push(settingObj);
+                }
             }
-        });
+        } else {
+            this.state.notificationSettings.map(e => {
+                let settingIndex = this.state.notificationSettings.indexOf(e);
+                if (e.countyId === settingObj.countyId && e.categoryId === settingObj.categoryId) {
+                    settingsArr.splice(settingIndex, 1)
+                }
+            });
+
+        }
 
         this.setState({
             notificationSettings: settingsArr,
             categories: catArr
         });
-    }
 
-    caret(active : boolean){
-        if(active) {
+    };
+
+
+    caret(active: boolean) {
+        if (active) {
             return <span className="caret"/>
         } else {
             return <span className="caret caret-right"/>
@@ -195,7 +219,8 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
                                         <ListGroupItem onClick={() => this.handleClick(e)}>
                                             {
                                                 e.home ? (
-                                                    <div>{e.countyName}<Glyphicon glyph="glyphicon glyphicon-home"/>{this.caret(e.open)}</div>
+                                                    <div>{e.countyName}{this.caret(e.open)} <Glyphicon
+                                                        glyph="glyphicon glyphicon-home"/></div>
                                                 ) : (
                                                     <div>{e.countyName}{this.caret(e.open)}</div>
                                                 )
@@ -228,17 +253,41 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
                             })
                         }
                     </ListGroup>
-
-                    <Button onClick={() => {
-                        this.save()
-                    }}>Lagre</Button>
+                            <Col md={6} lg={6} sm={6}>
+                                <Button
+                                    bsStyle="primary"
+                                    onClick={() => this.setState({countySubscriptionOpen: !this.state.countySubscriptionOpen})}
+                                >Legg til kommuner</Button>
+                            </Col>
+                            <Col md={6} lg={6} sm={6}>
+                                <div align="right">
+                                <Button
+                                    align="right"
+                                    bsStyle="primary"
+                                    onClick={() => {
+                                        this.save()}}
+                                >Lagre endringer</Button>
+                                </div>
+                            </Col>
                 </Grid>
+                <Collapse in={this.state.countySubscriptionOpen}>
+                    <div>
+                        <CountySubscription/>
+                    </div>
+                </Collapse>
             </form>
         );
     }
 
+    showCountySubscription = () => {
+        let bool = !this.state.countySubscriptionOpen;
+        console.log(bool);
+        this.setState({
+            countySubscriptionOpen: bool
+        })
+    };
+
     save = () => {
-        console.log(this.state.notificationSettings);
 
         notificationSettingsService.deleteNotificationSettings()
             .catch(error => {
@@ -254,6 +303,6 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
                 .catch(error => {
                     console.log('Error when adding: ' + e + 'n\ ' + 'error: ' + error.message)
                 })
-        })
+        });
     }
 }

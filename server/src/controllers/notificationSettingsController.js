@@ -16,7 +16,7 @@ module.exports = function (app: Object, notificationSettingsDao: Object) {
             console.log(decoded.typeId);
             if(err) {
                 res.sendStatus(401)
-            } else if (decoded.typeId === 'Private'){
+            } else {
                 notificationSettingsDao.getNotificationSettings(decoded.email, (status, data) => {
                     res.status(status);
                     res.json(data);
@@ -31,7 +31,7 @@ module.exports = function (app: Object, notificationSettingsDao: Object) {
         jwt.verify(req.token, privateKey, (err, decoded) => {
             if(err) {
                 res.sendStatus(401)
-            } else if (decoded.typeId === 'Private'){
+            } else {
                 notificationSettingsDao.deleteNotificationSettings(decoded.email, (status, data) => {
                     res.status(status);
                     res.json(data);
@@ -45,7 +45,7 @@ module.exports = function (app: Object, notificationSettingsDao: Object) {
         jwt.verify(req.token, privateKey, (err, decoded) => {
             if(err) {
                 res.sendStatus(401)
-            } else if (decoded.typeId === 'Private'){
+            } else {
                 notificationSettingsDao.addNotificationSettings(decoded.email,req.body, (status, data) => {
                     res.status(status);
                     res.json(data);
@@ -70,7 +70,7 @@ module.exports = function (app: Object, notificationSettingsDao: Object) {
         jwt.verify(req.token, privateKey, (err, decoded) => {
             if(err) {
                 res.sendStatus(401)
-            } else if (decoded.typeId === 'Private'){
+            } else {
                 notificationSettingsDao.getIssueNotificationSettings(decoded.email, (status, data) => {
                     res.status(status);
                     res.json(data);
@@ -84,7 +84,7 @@ module.exports = function (app: Object, notificationSettingsDao: Object) {
         jwt.verify(req.token, privateKey, (err, decoded) => {
             if(err) {
                 res.sendStatus(401)
-            } else if (decoded.typeId === 'Private'){
+            } else {
                 notificationSettingsDao.getNotificationSettingsWithNames(decoded.email, (status, data) => {
                     res.status(status);
                     res.json(data);
@@ -98,7 +98,7 @@ module.exports = function (app: Object, notificationSettingsDao: Object) {
         jwt.verify(req.token, privateKey, (err, decoded) => {
             if(err) {
                 res.sendStatus(401)
-            } else if (decoded.typeId === 'Private'){
+            } else {
                 notificationSettingsDao.updateIssueNotificationSettings(decoded.email,req.body, (status, data) => {
                     res.status(status);
                     res.json(data);
