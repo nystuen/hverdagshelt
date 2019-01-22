@@ -139,7 +139,7 @@ export class Login extends Component<Props, State> {
   }//end method
 
   save = () => {
-    //console.log(this.state.email);
+    console.log(this.state.email);
     userService.getUserLogin(this.state.email).then(response => {
       this.setState({
         countyId: response[0].countyId,
@@ -155,8 +155,6 @@ export class Login extends Component<Props, State> {
             userService.getCurrentUser().then(r3 => {
               window.sessionStorage.setItem('countyId', r3[0].countyId);
               window.sessionStorage.setItem('countyName', r3[0].county);
-              console.log(window.sessionStorage.getItem('countyId'));
-              console.log(window.sessionStorage.getItem('countyName'));
             });
             console.log(this.props.history.location.pathname);
             if(this.props.history.location.pathname == "/login" ||

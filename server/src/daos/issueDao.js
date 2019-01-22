@@ -37,11 +37,8 @@ export class IssueDao extends Dao {
   }//end method
 
   getAllIssuesInCounty(id: number, categoryLevel: number, callback: Function){ //Get the oldest first
-    if(categoryLevel === 1){
-      super.query("select * from issues natural join category where issues.countyId =? and issues.active=1 order by issues.issueId ASC", [id], callback);
-    }else{
-      super.query("select * from issues natural join category2 where issues.countyId=? and issues.active=1 order by issues.issueId ASC", [id], callback);
-    }//end condition
+      super.query("select * from issues,allCats where issues.countyId =? and issues.active=1 " +
+          "and (issues.categoryId = allCats.categoryId OR issues.categoryId = allCats.category2Id) order by issues.issueId ASC", [id], callback);
   }//end method
 
   getCompanyComments(id: number, callback: Function){

@@ -204,6 +204,15 @@ test("check getting all issues in one county", done => {
   issueDao.getAllIssuesInCounty(2,1,callback);
 });
 
+test("check deleting one issue", done => {
+  function callback(status,data) {
+    console.log("Testing deleting one issue. Status: " + status + ", Data: " + data);
+    expect(data.affectedRows).toBe(1);
+    done();
+  }
+  issueDao.deleteIssue(1,callback);
+});
+
 
 
 

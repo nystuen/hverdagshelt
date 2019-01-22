@@ -219,8 +219,8 @@ export class OversiktOverSak extends React.Component {
 
     addComment = () => {
       issueService.addCommentToIssue(this.state.issue.issueId, this.state.comment,this.state.user.mail).then(response => {
-          window.location.reload();
       }).catch((error: Error) => Alert.danger(error.message));
+      window.location.reload();
     };
 
   setStatus = (event: Event) => {

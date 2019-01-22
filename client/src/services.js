@@ -70,8 +70,8 @@ export class UserService {
         return axios.get('/getHomeCounty', {headers: authHeader()})
     }
 
-    getCompanyCategories(categoryId: number): Promise<Object[]>{
-        return axios.get('/companyCategories/' + categoryId);
+    getCompanyCategories(categoryId: number, countyId: number): Promise<Object[]>{
+        return axios.get('/companyCategories/' + categoryId, {countyId: countyId});
     }
 }//end class
 
@@ -107,6 +107,7 @@ export class ImageService {
 }
 
 export class CategoryService {
+
 
     getCategory1(): Promise<Category[]> {
         return axios.get('/get_category1');

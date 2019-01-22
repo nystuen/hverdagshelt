@@ -151,7 +151,7 @@ module.exports = function (app: Object, userDao: Object) {
 
     app.get('/companyCategories/:categoryId', (req,res) => {
         console.log('Got get request from companyCategories');
-        userDao.getCompanyCategories(req.params.categoryId, (status,data) => {
+        userDao.getCompanyCategories(req.params.categoryId, req.body.countyId, (status,data) => {
            res.status(status);
            res.json(data);
         });

@@ -17,6 +17,7 @@ let userService = new UserService();
 
 let loginButton;
 let myCases;
+let user;
 
 export class NavbarMenu extends React.Component {
 
@@ -39,10 +40,10 @@ export class NavbarMenu extends React.Component {
     componentWillMount() {
         userService.getCurrentUser()
             .then(resources => {
-                let user = resources[0];
+                user = resources[0];
                 this.setState({
                     user: user
-                })
+                });
             })
     }
 
@@ -95,13 +96,20 @@ export class NavbarMenu extends React.Component {
 
     logout = () => {
         window.localStorage.setItem('userToken', '');
-        window.sessionStorage.setItem('county', '');
+        window.sessionStorage.setItem('countyId', '');
+        window.sessionStorage.setItem('countyName', '');
         this.viewCases();
         loginButton = <NavItem eventKey={1} href="/#login">Login</NavItem>;
+        this.setState({user: {}})
     };//end method
 
     viewCases = () => {
         if (window.localStorage.getItem('userToken') !== '') {
+            if(this.state.user === {}){
+                userService.getCurrentUser().then(r => {
+                    this.setState({user: r});
+                }).catch((error: Error) => confirm(error.message));
+            }
             if (this.state.user.typeName === undefined) {
                 return <MenuItem eventKey={2} href="/#min_side/mine_sakerBedrift">Mine saker</MenuItem>;
             } else {

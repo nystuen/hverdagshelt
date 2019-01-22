@@ -16,6 +16,7 @@ import FormControl from "./interactWithIssue";
 let userService = new UserService();
 let issueService = new IssueService();
 
+
 const toolTipAssign = (
     <Tooltip id="tooltip">
         Tildel sak til bedrift
@@ -35,6 +36,7 @@ export class adminIssues extends React.Component{
             issues: [],
             user: {},
             companies: [],
+            categories: [],
             selectedCompany: {},
             selectedIssue: {},
             showAssign: false
@@ -48,7 +50,7 @@ export class adminIssues extends React.Component{
     componentWillMount(){
         userService.getCurrentUser().then(response => {
             this.setState({user: response[0]});
-            issueService.getAllIssuesInThisCounty(response[0].countyId).then(r => {
+            issueService.getAllIssuesInThisCounty(response[0].countyId,1).then(r => {
                 this.setState({issues: r});
                 this.getSorted();
             }).catch((error: Error) => confirm(error.message));
@@ -56,86 +58,93 @@ export class adminIssues extends React.Component{
     }//end method
 
     render(){
-        return(
-           <div>
-               <Grid>
-                  <PageHeader title={'Alle saker i ' + this.state.user.county}/>
-                  <Table>
-                      <thead>
-                      <tr>
-                          <th>
-                              Beskrivelse
-                          </th>
-                          <th>
-                              Kategori
-                          </th>
-                          <th>
-                              Status
-                          </th>
-                          <th>
-                              Behandle sak
-                          </th>
-                      </tr>
-                      </thead>
-                      <tbody>
-                        {this.state.issues.map(e => {
-                            return(
-                                <tr key={e.issueId}>
-                                    <td>
-                                        <Nav bsStyle="pills">
-                                            <NavItem href={'/#min_side/sakoversikt/' + e.issueId}>
-                                                {e.text}
-                                            </NavItem>
-                                        </Nav>
-                                    </td>
-                                    <td>
-                                        {e.name}
-                                    </td>
-                                    <td>
-                                        {this.updateStatus(e.statusName)}
-                                        <ProgressBar>
-                                            <ProgressBar bsStyle={this.status.progressBar} active={this.status.inProgress} now={this.status.progress}
-                                                         label={this.status.name} style={{color: 'black'}} key={1}/>
-                                        </ProgressBar>
-                                    </td>
-                                    <td>
-                                        <Col xs={2}>
-                                            <OverlayTrigger placement="top" overlay={toolTipAssign}>
-                                            <Button bsStyle="link" onClick={() => this.handleShow(e.categoryId,e)}>
-                                                <span className="glyphicon glyphicon-briefcase"></span>
-                                            </Button>
-                                            </OverlayTrigger>
+        if(this.state.issues !== undefined) {
+            return (
+                <div>
+                    <Grid>
+                        <PageHeader title={'Alle saker i ' + this.state.user.county}/>
+                        <Table>
+                            <thead>
+                            <tr>
+                                <th>
+                                    Beskrivelse
+                                </th>
+                                <th>
+                                    Kategori
+                                </th>
+                                <th>
+                                    Status
+                                </th>
+                                <th>
+                                    Behandle sak
+                                </th>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            {this.state.issues.map((e, i) => {
+                                return (
+                                    <tr key={e.issueId}>
+                                        <td>
+                                            <Nav bsStyle="pills">
+                                                <NavItem href={'/#min_side/sakoversikt/' + e.issueId}>
+                                                    {e.text}
+                                                </NavItem>
+                                            </Nav>
+                                        </td>
+                                        <td>
+                                            {e.name}
+                                        </td>
+                                        <td>
+                                            {this.updateStatus(e.statusName)}
+                                            <ProgressBar>
+                                                <ProgressBar bsStyle={this.status.progressBar}
+                                                             active={this.status.inProgress} now={this.status.progress}
+                                                             label={this.status.name} style={{color: 'black'}} key={1}/>
+                                            </ProgressBar>
+                                        </td>
+                                        <td>
+                                            <Col xs={2}>
+                                                <OverlayTrigger placement="top" overlay={toolTipAssign}>
+                                                    <Button bsStyle="link"
+                                                            onClick={() => this.handleShow(e.categoryId, e)}>
+                                                        <span className="glyphicon glyphicon-briefcase"></span>
+                                                    </Button>
+                                                </OverlayTrigger>
+                                            </Col>
+                                            <Col xs={4}>
+                                                <OverlayTrigger placement="top" overlay={toolTipDelete}>
+                                                    <Button bsStyle="link" style={{color: 'darkred'}}
+                                                            onClick={() => this.confirm(e.issueId)}>
+                                                        <span className="glyphicon glyphicon-trash"></span>
+                                                    </Button>
+                                                </OverlayTrigger>
+                                            </Col>
+                                        </td>
+                                    </tr>
+                                )
+                            })}
+                            </tbody>
+                        </Table>
+                        <Modal show={this.state.showAssign} onHide={this.handleClose}>
+                            <Modal.Header closeButton>
+                                <Modal.Title>Tildel oppgave til bedrift</Modal.Title>
+                            </Modal.Header>
+                            <Modal.Body>
+                                <Grid>
+                                    <Row>
+                                        <Col>
+                                            {this.dropDownCompanies()}
                                         </Col>
-                                        <Col xs={4}>
-                                            <OverlayTrigger placement="top" overlay={toolTipDelete}>
-                                                <Button bsStyle="link" style={{color: 'darkred'}} onClick={() => this.confirm(e.issueId)}>
-                                                    <span className="glyphicon glyphicon-trash"></span>
-                                                </Button>
-                                            </OverlayTrigger>
-                                        </Col>
-                                    </td>
-                                </tr>
-                            )
-                        })}
-                      </tbody>
-                  </Table>
-                   <Modal show={this.state.showAssign} onHide={this.handleClose}>
-                        <Modal.Header closeButton>
-                            <Modal.Title>Tildel oppgave til bedrift</Modal.Title>
-                        </Modal.Header>
-                       <Modal.Body>
-                            <Grid>
-                                <Row>
-                                    <Col>
-                                        {this.dropDownCompanies()}
-                                    </Col>
-                                </Row>
-                            </Grid>
-                       </Modal.Body>
-                   </Modal>
-               </Grid>
-           </div>
-        )
+                                    </Row>
+                                </Grid>
+                            </Modal.Body>
+                        </Modal>
+                    </Grid>
+                </div>
+            )
+        }else{
+            return <div></div>
+        }
     }//end method
 
     //To set progressbar
@@ -165,7 +174,7 @@ export class adminIssues extends React.Component{
     };//end method
 
     handleShow(categoryId: number, issue: Object){
-        userService.getCompanyCategories(categoryId).then(response => {
+        userService.getCompanyCategories(categoryId, this.state.user.countyId).then(response => {
             this.setState({companies: response, showAssign: true, selectedIssue: issue});
         }).catch((error: Error) => confirm(error.message));
     }//end method
@@ -194,7 +203,7 @@ export class adminIssues extends React.Component{
 
     dropDownCompanies(){
         return(
-            <select onChange={this.setCompany} componentClass="select" placeholder="select">
+            <select onChange={this.setCompany} placeholder="select">
                 <option value="">Tildel oppgaven til en bedrift </option>
                 {this.state.companies.map(e => {
                     return(
@@ -204,5 +213,6 @@ export class adminIssues extends React.Component{
             </select>
         )
     }//end method
+
 
 }//end class
