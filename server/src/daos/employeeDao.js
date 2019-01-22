@@ -16,4 +16,8 @@ export class EmployeeDao extends Dao {
         super.query("UPDATE user SET active = 1 WHERE mail=?", mail, callback)
     }
 
+    getUsersInCountyAdmin(countyId: number, callback: Function){
+        super.query("SELECT * FROM user WHERE countyId = ? AND typeName='Private' OR typeName='Employee' ORDER BY active DESC", countyId, callback)
+    }
+
 }

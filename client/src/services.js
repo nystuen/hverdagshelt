@@ -247,7 +247,7 @@ export class MailService {
 export class EmployeeService {
 
   getUsersInCounty(countyId: number): Promise<Response> {
-    return axios.get('/getUsersInCounty/' + countyId);
+    return axios.get('/getUsersInCounty/' + countyId, {headers: authHeader()});
   }
 
   blockUser(mail: string) {
