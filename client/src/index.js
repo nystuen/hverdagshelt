@@ -10,7 +10,7 @@ import { Login } from "./views/login/login";
 import { Alert } from "./widgets";
 import store from "./components/ReduxRegisterForm/store";
 import { KontoOversikt } from "./views/MinSide/KontoOversikt/kontoOversikt";
-import { countySubscription } from "./views/MinSide/countySubscription/countySubscription";
+import { CountySubscription } from "./views/MinSide/countySubscription/countySubscription";
 import createHashHistory from "history/createHashHistory";
 import { MineSaker } from "./views/MinSide/mineSaker/mineSaker";
 import { Provider } from "react-redux";
@@ -51,9 +51,9 @@ if (root)
         <Route exact path="/" component={Frontpage}/>
         <Route path="/forside/:countyId" component={forside}/>
         <Route path="/wizardForm" component={WizardFormComplete}/>
-        <Route path="/min_side/kommuner" component={countySubscription}/>
+        <Route path="/min_side/kommuner" component={CountySubscription}/>
         <Route path="/min_side/kontooversikt" component={KontoOversikt}/>
-        <Route path="/countySubscription/:userMail" component={countySubscription}/>
+        <Route path="/countySubscription/:userMail" component={CountySubscription}/>
         <Route path="/min_side/editAccountInformation" component={editAccountInformation}/>
         <Route path="/login" component={Login}/>
         <Route path="/map" component={MapComponent}/>

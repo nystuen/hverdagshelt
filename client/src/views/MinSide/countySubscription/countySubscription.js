@@ -2,14 +2,17 @@
 import React, { Component } from 'react';
 import { Layout } from '../../../widgets';
 import { Grid, Row, Col, ListGroup,ListGroupItem, Table, Image, Panel } from "react-bootstrap"
-import {CountyService} from "../../../services";
+import {CountyService, UserService, NotificationSettingsService} from "../../../services";
 import * as jwt from 'jsonwebtoken';
 import Glyphicon from 'react-bootstrap/es/Glyphicon';
 import Button from 'react-bootstrap/es/Button';
 import css from './countySubscription.css';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
+import {User} from "../../../classTypes";
 
 let countyService = new CountyService();
+let userService = new UserService();
+let notificationSettingsService = new NotificationSettingsService();
 //Databasekall
 //Få alle kommuner som finnes som er active og som bruker ikke abonerer på
 // Få alle kommuner som den personen abonerer på
@@ -24,17 +27,18 @@ let countyService = new CountyService();
 interface State {
   allCounties: Array<Object>,
   userCounties: Array<Object>,
+    user: User
 }
 
 interface Props {
 }
 
-export class countySubscription extends Component<Props, State> {
+export class CountySubscription extends Component<Props, State> {
 
   state = {
-    decoded: jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret'),
     allCounties: [],
-    userCounties: []
+    userCounties: [],
+      user: new User('', '', '', '', '', -1, -1, -1)
   };
 
   //fra Alle kommuner til abonerte kommuner
@@ -44,10 +48,10 @@ export class countySubscription extends Component<Props, State> {
     const countyArray = this.state.allCounties;
 
     countyArray.splice(index, 1);
-    this.setState({ allCounties: countyArray });
 
     userArray.push(name);
-    this.setState({ userCounties: userArray });
+    this.setState({ userCounties: userArray,
+        allCounties: countyArray});
 
   };
 
@@ -60,8 +64,8 @@ export class countySubscription extends Component<Props, State> {
     userArray.splice(index, 1);
     countyArray.push(name);
 
-    this.setState({ userCounties: userArray });
-    this.setState({ allCounties: countyArray });
+    this.setState({ allCounties: countyArray,
+        userCounties: userArray});
   };
 
 
@@ -75,27 +79,40 @@ export class countySubscription extends Component<Props, State> {
       };
       countyService.addSubscription(theBody);
     });
+    window.location.reload();
 
   };
 
 
   getInformation = async () => {
+    let counties = [];
+
+    await userService.getCurrentUser()
+        .then(resources => {
+          let user = resources[0];
+          this.setState({
+              user : user
+          })
+        });
+
     await countyService.getAllCounties().then((r: Array<Object>) => {
-      console.log('all counties', r);
+      r.map(e => {
+        if (!(e.countyId === this.state.user.countyId)) {
+          counties.push(e)
+        }
+      });
       this.setState({
-        allCounties: r
+        allCounties: counties
       });
     });
 
     await countyService.getUsersCounties().then((r: Array<Object>) => {
-      console.log('karis counties', r);
       this.setState({
         userCounties: r
       });
     });
 
   };
-
 
   componentDidMount() {
     this.getInformation();
@@ -134,7 +151,6 @@ export class countySubscription extends Component<Props, State> {
                 <span> <Glyphicon glyph="arrow-right"/></span>
               </Row>
 
-
             </Col>
 
             <Col xs={12} md={5}>
@@ -151,14 +167,15 @@ export class countySubscription extends Component<Props, State> {
             </Col>
           </Row>
 
-          <Row align={'right'}>
-            <Button bsStyle="success" onClick={() => this.change()}>Lagre endringer</Button>
-          </Row>
+
           </Col>
 
           <Col md={2}>
-          </Col>
 
+          </Col>
+            <Row align={'right'}>
+                <Button bsStyle="primary" onClick={() => this.change()}>Lagre endringer</Button>
+            </Row>
         </Grid>
 
       </div>
