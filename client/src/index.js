@@ -36,6 +36,7 @@ import { RegisterEmployee } from "./components/registeremployee/RegisterEmployee
 import { RegisterAdmin } from "./components/registeradmin/registeradmin";
 import { ForgottenPassword } from "./views/login/ForgottenPassword";
 import {RegNew} from "./components/regNew/RegNew"
+import {SetCategoryInactive} from "./components/setCategoryInactive/SetCategoryInactive";
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
@@ -99,6 +100,7 @@ if (root)
         <Route path="/admin/sendMailTilBruker" component={SendTextMailWindow} />
         <Route path="/admin/resetPassord" component={AdminResetUserPassword} />
         <Route path="/admin/registrertSuksess" component={RegNew}/>
+        <Route path="/admin/settKategori" component={SetCategoryInactive}/>
           <Route path="/forgotPassword" component={ForgottenPassword} />
           <Footer />
       </div>

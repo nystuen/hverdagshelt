@@ -252,7 +252,7 @@ export class Login extends Component<Props, State> {
                     if (
                       this.props.history.location.pathname == "/register" ||
                       this.props.history.location.pathname ==
-                        "/registrer/bedrift"
+                        "/min_side/mine_saker"
                     ) {
                       console.log("hei");
                       history.push("/wizardForm");

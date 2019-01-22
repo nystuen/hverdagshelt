@@ -20,12 +20,14 @@ import Glyphicon from 'react-bootstrap/es/Glyphicon';
 
 let categoryService = new CategoryService();
 
-export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
+export class ChooseCategory extends Component<{ registerCategory?: boolean, statusButton?:boolean}> {
   constructor(props) {
     super(props);
     this.state = {
+      showInactiveButton: false,
       category1: [],
       category2: [],
+      categoryActive: "",
       selectedCategory: { name: 'ingen' },
       selectedCategoryType: 0,
       selectedCategoryId: -1,
@@ -59,6 +61,7 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
   componentDidMount() {
     let kat1 = [];
     let kat2 = [];
+    let active1 = "";
 
     categoryService.getCategory1().then(resources => {
       resources.map(r => {
@@ -69,11 +72,13 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
           active: r.active,
           open: false
         };
+        active1 = elem.active;
         kat1 = kat1.concat(elem);
       });
 
       this.setState({
-        category1: kat1
+        category1: kat1,
+        categoryActive: active1
       });
     });
 
@@ -94,11 +99,10 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
 
         console.log('kat2', kat2);
         this.setState({
-          category2: kat2
+          category2: kat2,
+
         });
       });
-
-
     }
   }
 
@@ -145,7 +149,8 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
         category2: arr,
         selectedCategory: cat2,
         selectedCategoryType: this.getCategoryType(cat2),
-        selectedCategoryId: cat2.id
+        selectedCategoryId: cat2.id,
+        showInactiveButton: true
       },
       this.onChangeCategoryHeader.bind(this)
     );
@@ -183,15 +188,20 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
   }
 
   render() {
-
-
+    console.log("KATEGORIAKTIV: "+ this.state.categoryActive)
+    let inactive_button;
+    if(this.props.statusButton&&this.state.showInactiveButton===true){
+      inactive_button = (
+          <Button onClick={this.changeToInactive}>Deaktiver</Button>
+      );
+    }
     return (
       <div>
         <ListGroup>
           {this.state.category1.map(cat1 => {
             return (
               <div key={cat1.id}>
-                <ListGroupItem onClick={() => this.handleClick(cat1)}>
+                <ListGroupItem onClick={() => this.handleClick(cat1)} >
 
                   {cat1.name} {this.caret(cat1.open)}
 
@@ -205,6 +215,7 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
                           <div key={cat2.id}>
                             <ListGroupItem className="cat2"
                                            onClick={() => this.handleClick2(cat2)}>{cat2.name}</ListGroupItem>
+                              {inactive_button}
                           </div>
                         );
                       }
@@ -217,5 +228,8 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
         </ListGroup>
       </div>
     );
+  }
+  changeToInactive = () =>{
+
   }
 }
