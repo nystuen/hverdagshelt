@@ -8,8 +8,6 @@ import Glyphicon from 'react-bootstrap/es/Glyphicon';
 import Button from 'react-bootstrap/es/Button';
 import css from './countySubscription.css';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
-import FormControl from "react-bootstrap/es/FormControl";
-import Select from "react-select";
 
 let countyService = new CountyService();
 //Databasekall
@@ -24,8 +22,8 @@ let countyService = new CountyService();
 // county(countId, name)
 
 interface State {
-  allCounties: Array<Object>,
-  userCounties: Array<Object>,
+    allCounties: Array<Object>,
+    userCounties: Array<Object>,
 }
 
 interface Props {
@@ -33,149 +31,140 @@ interface Props {
 
 export class countySubscription extends Component<Props, State> {
 
-  state = {
-    decoded: jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret'),
-    allCounties: [],
-    userCounties: []
-  };
+    state = {
+        decoded: jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret'),
+        allCounties: [],
+        userCounties: []
+    };
 
-  //fra Alle kommuner til abonerte kommuner
-  addCounty = (name, index) => {
+    //fra Alle kommuner til abonerte kommuner
+    addCounty = (name, index) => {
 
-    const userArray = this.state.userCounties;
-    const countyArray = this.state.allCounties;
+        const userArray = this.state.userCounties;
+        const countyArray = this.state.allCounties;
 
-    countyArray.splice(index, 1);
-    this.setState({ allCounties: countyArray });
+        countyArray.splice(index, 1);
+        this.setState({ allCounties: countyArray });
 
-    userArray.push(name);
-    this.setState({ userCounties: userArray });
+        userArray.push(name);
+        this.setState({ userCounties: userArray });
 
-  };
+    };
 
-  //fra abonerte kommuner til alle kommuner
-  deleteCounty = (name, index) => {
+    //fra abonerte kommuner til alle kommuner
+    deleteCounty = (name, index) => {
 
-    const userArray = this.state.userCounties;
-    const countyArray = this.state.allCounties;
+        const userArray = this.state.userCounties;
+        const countyArray = this.state.allCounties;
 
-    userArray.splice(index, 1);
-    countyArray.push(name);
+        userArray.splice(index, 1);
+        countyArray.push(name);
 
-    this.setState({ userCounties: userArray });
-    this.setState({ allCounties: countyArray });
-  };
-
-
-  change = () => {
-
-    countyService.deleteSubscription();
-
-    this.state.userCounties.map((e) => {
-      let theBody: Object = {
-        countyId: e.countyId
-      };
-      countyService.addSubscription(theBody);
-    });
-
-  };
+        this.setState({ userCounties: userArray });
+        this.setState({ allCounties: countyArray });
+    };
 
 
-  getInformation = async () => {
-    await countyService.getAllCounties().then((r: Array<Object>) => {
-      console.log('all counties', r);
-      this.setState({
-        allCounties: r
-      });
-    });
+    change = () => {
 
-    await countyService.getUsersCounties().then((r: Array<Object>) => {
-      console.log('karis counties', r);
-      this.setState({
-        userCounties: r
-      });
-    });
+        countyService.deleteSubscription();
 
-  };
+        this.state.userCounties.map((e) => {
+            let theBody: Object = {
+                countyId: e.countyId
+            };
+            countyService.addSubscription(theBody);
+        });
+
+    };
 
 
-  componentDidMount() {
-    this.getInformation();
-  }
+    getInformation = async () => {
+        await countyService.getAllCounties().then((r: Array<Object>) => {
+            console.log('all counties', r);
+            this.setState({
+                allCounties: r
+            });
+        });
 
-  render() {
-    let options = this.state.allCounties.map(r => {
-        const data = {label: r.name, value: r.countyId, name: r.name, countyId: r.countyId}
-        return (data);
-    });
+        await countyService.getUsersCounties().then((r: Array<Object>) => {
+            console.log('karis counties', r);
+            this.setState({
+                userCounties: r
+            });
+        });
 
-    let options2 = this.state.userCounties.map(r => {
-        const data2 = {label: r.name, value: r.countyId, name: r.name, countyId: r.countyId}
-        return (data2)
-    });
-
-    return (
-      <div className="countySubscription">
-        <Grid>
-        <PageHeader title={"Kommuneinstillinger"}/>
-
-          <Col md={2} >
-          </Col>
-
-          <Col md={8}>
-          <Row>
-            <Col xs={12} md={5}>
-                <h5 align="center">Kommuner</h5>
-              <Select
-                  className={"Select-option"}
-                  menuIsOpen
-              options={options}
-              onChange={this.addCounty}>
-              </Select>
-            </Col>
-
-            <Col xs={12} md={2} align={"center"} className="arrows">
-
-              <Row>
-                <span> <Glyphicon glyph="arrow-left"/></span>
-              </Row>
-              <Row>
-                <span> <Glyphicon glyph="arrow-right"/></span>
-              </Row>
-                <Row align={'right'}>
-                    <Button bsStyle="success" onClick={() => this.change()}>Lagre endringer</Button>
-                </Row>
+    };
 
 
-            </Col>
+    componentDidMount() {
+        this.getInformation();
+    }
 
-            <Col xs={12} md={5}>
-                <h5 align="center">Mine Kommuner</h5>
-              <div>
-                <Select
-                    menuIsOpen
-                    options={options2}
-                    onChange={this.deleteCounty}
-                    maxOptions={3}
+    render() {
+        return (
+            <div className="countySubscription">
+                <Grid>
+                    <PageHeader title={"Kommuneinstillinger"}/>
 
-                >
-                </Select>
-              </div>
-            </Col>
-          </Row>
+                    <Col md={2} >
+                    </Col>
+
+                    <Col md={8}>
+                        <Row>
+                            <Col xs={12} md={5}>
+                                <ListGroup>
+                                    <h5 align="center">Kommuner</h5>
+                                    {
+                                        this.state.allCounties.map((r, i) => {
+                                            return <ListGroupItem onClick={() => {
+                                                this.addCounty(r, i);
+                                            }} key={i}>{r.name}</ListGroupItem>;
+                                        })
+                                    }
+                                </ListGroup>
+                            </Col>
+
+                            <Col xs={12} md={2} align={"center"} className="arrows">
+
+                                <Row>
+                                    <span> <Glyphicon glyph="arrow-left"/></span>
+                                </Row>
+                                <Row>
+                                    <span> <Glyphicon glyph="arrow-right"/></span>
+                                </Row>
 
 
-          </Col>
+                            </Col>
 
-          <Col md={2}>
-          </Col>
+                            <Col xs={12} md={5}>
+                                <ListGroup>
+                                    <h5 align="center">Mine Kommuner</h5>
+                                    {
+                                        this.state.userCounties.map((r, i) => {
+                                            return <ListGroupItem onClick={() => {
+                                                this.deleteCounty(r, i);
+                                            }} key={i}>{r.name}</ListGroupItem>;
+                                        })
+                                    }
+                                </ListGroup>
+                            </Col>
+                        </Row>
 
-        </Grid>
+                        <Row align={'right'}>
+                            <Button bsStyle="success" onClick={() => this.change()}>Lagre endringer</Button>
+                        </Row>
+                    </Col>
 
-      </div>
+                    <Col md={2}>
+                    </Col>
 
-    );
-  }
+                </Grid>
+
+            </div>
+
+        );
+    }
 
 }
 
