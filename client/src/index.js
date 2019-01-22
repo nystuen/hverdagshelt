@@ -97,7 +97,6 @@ if (root)
         <Route exact path="/admin" component={adminPanel} />
         <Route path="/admin/sendMailTilBruker" component={SendTextMailWindow} />
         <Route path="/admin/resetPassord" component={AdminResetUserPassword} />
-        <Footer />
         <Route path="/forgotPassword" component={ForgottenPassword} />
       </div>
     </HashRouter>,

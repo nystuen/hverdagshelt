@@ -29,62 +29,64 @@ const renderCountySelector = ({ input, meta: { touched, error } }) => (
 const EventFormThirdPage = props => {
   const { handleSubmit, pristine, previousPage, submitting } = props;
   return (
-    <div className="formDiv">
-      <div className="progressBar">
-        <ProgressBar now={100} />
-      </div>
-      <form onSubmit={handleSubmit}>
-        <div>
-          <label>Choose your county</label>
-          <Field name="countyId" component={renderCountySelector} />
-        </div>
-        <div className="paddingBot">
+    <form onSubmit={handleSubmit}>
+      <div className="container">
+        <div className="formDiv">
+          <div className="progressBar">
+            <ProgressBar now={100} />
+          </div>
+          <div className="paddingBot">
+            <label>Choose your county</label>
+            <Field name="countyId" component={renderCountySelector} />
+          </div>
+          <div className="paddingBot">
+            <div>
+              <Field
+                name="title"
+                type="text"
+                component={renderField}
+                label="Tittel"
+              />
+              <Field
+                name="text"
+                type="text"
+                component={renderField}
+                label="Beskrivelse"
+              />
+              <Field
+                name="userMail"
+                type="text"
+                component={renderField}
+                label="[Midlertidig] Epost"
+              />
+              <Field
+                name="countyId"
+                type="text"
+                component={renderField}
+                label="[Midlertidig] County ID"
+              />
+            </div>
+          </div>
           <div>
-            <Field
-              name="title"
-              type="text"
-              component={renderField}
-              label="Tittel"
-            />
-            <Field
-              name="text"
-              type="text"
-              component={renderField}
-              label="Beskrivelse"
-            />
-            <Field
-              name="userMail"
-              type="text"
-              component={renderField}
-              label="[Midlertidig] Epost"
-            />
-            <Field
-              name="countyId"
-              type="text"
-              component={renderField}
-              label="[Midlertidig] County ID"
-            />
+            <Button
+              bsStyle="primary"
+              type="button"
+              className="previous"
+              onClick={previousPage}
+            >
+              Previous
+            </Button>
+            <Button
+              bsStyle="primary"
+              type="submit"
+              disabled={pristine || submitting}
+            >
+              Submit
+            </Button>
           </div>
         </div>
-        <div>
-          <Button
-            bsStyle="primary"
-            type="button"
-            className="previous"
-            onClick={previousPage}
-          >
-            Previous
-          </Button>
-          <Button
-            bsStyle="primary"
-            type="submit"
-            disabled={pristine || submitting}
-          >
-            Submit
-          </Button>
-        </div>
-      </form>
-    </div>
+      </div>
+    </form>
   );
 };
 export default reduxForm({

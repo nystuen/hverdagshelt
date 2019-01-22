@@ -51,45 +51,47 @@ export class EventFormSecondPage extends React.Component {
   render() {
     const { handleSubmit, previousPage, onChangeCategoryHeader } = this.props;
     return (
-      <div className="formDiv">
-        <div className="progressBar">
-          <ProgressBar now={66} />
-        </div>
-        <ChooseEventCategory
-          changeCategoryHeader={this.onChangeCategoryHeader.bind(this)}
-          //  onClick={this.handleCategoryClick.bind(this)}
-          registerCategory={false}
-        />
-        <form onSubmit={handleSubmit}>
-          <Field
-            name="categoryId"
-            type="hidden"
-            label="categoryid"
-            component={renderCategoryField}
-            defaultValue={this.state.selectedCategory}
-          />
-          <Field
-            name="categoryLevel"
-            type="hidden"
-            //onChange={this.handleCategoryClick.bind(this)}
-            component={renderCategoryField}
-            label="categorylevel"
-            //defaultValue={this.state.selectedCategoryType}
-          />
-          <div>
-            <Button
-              bsStyle="primary"
-              type="button"
-              className="previous"
-              onClick={previousPage}
-            >
-              Previous
-            </Button>
-            <Button bsStyle="primary" type="submit" className="next">
-              Next
-            </Button>
+      <div className="container">
+        <div className="formDiv">
+          <div className="progressBar">
+            <ProgressBar now={66} />
           </div>
-        </form>
+          <ChooseEventCategory
+            changeCategoryHeader={this.onChangeCategoryHeader.bind(this)}
+            //  onClick={this.handleCategoryClick.bind(this)}
+            registerCategory={false}
+          />
+          <form onSubmit={handleSubmit}>
+            <Field
+              name="categoryId"
+              type="hidden"
+              label="categoryid"
+              component={renderCategoryField}
+              defaultValue={this.state.selectedCategory}
+            />
+            <Field
+              name="categoryLevel"
+              type="hidden"
+              //onChange={this.handleCategoryClick.bind(this)}
+              component={renderCategoryField}
+              label="categorylevel"
+              //defaultValue={this.state.selectedCategoryType}
+            />
+            <div>
+              <Button
+                bsStyle="primary"
+                type="button"
+                className="previous"
+                onClick={previousPage}
+              >
+                Previous
+              </Button>
+              <Button bsStyle="primary" type="submit" className="next">
+                Next
+              </Button>
+            </div>
+          </form>
+        </div>
       </div>
     );
   }
