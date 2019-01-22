@@ -249,4 +249,12 @@ export class EmployeeService {
   getUsersInCounty(countyId: number): Promise<Response> {
     return axios.get('/getUsersInCounty/' + countyId);
   }
+
+  blockUser(mail: string) {
+      return axios.put('blockUser/' + mail)
+  }
+
+  unblockUser(mail: string) {
+      return axios.put('unblockUser/' + mail)
+  }
 }

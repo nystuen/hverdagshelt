@@ -3,12 +3,17 @@
 import React from 'react';
 
 import {Alert} from "../../../widgets";
-import {Grid, Table} from "react-bootstrap";
+import {Grid, Table, ListGroupItem} from "react-bootstrap";
 import {User} from "../../../classTypes";
 import {EmployeeService} from "../../../services"
+import Switch from 'react-bootstrap-switch';
+import Toggle from 'react-bootstrap-toggle';
+import Button from "react-bootstrap/es/Button";
+import {BlockUser} from "../../../components/BlockUser/BlockUser";
 
 
-let jwt = require("jsonwebtoken");
+
+let blockUser = new BlockUser;
 let employeeService = new EmployeeService;
 
 
@@ -16,7 +21,7 @@ let employeeService = new EmployeeService;
 
 interface State{
     user: Object[];
-    decoded: Object;
+
 }//end interface
 
 interface Props{}
@@ -25,15 +30,26 @@ interface Props{}
 export class employeeManageUsers extends React.Component<Props,State>{
     state = {
         user: [],
-        decoded: jwt.verify(window.localStorage.getItem('userToken'), "shhhhhverysecret"),
+        countyId: 3
 };
+
+    blockUser(){
+        employeeService.blockUser();
+    }
+
+    unblockUser(){
+        employeeService.unblockUser();
+
+    }
 
 
     componentWillMount() {
-        let id: number = 3; //this.props.match.params.countyId;
+
+        let id = this.state.user;
         console.log(id);
-        employeeService.getUsersInCounty(id).then(response => {
-            this.setState({user: response});
+        console.log(this.state.user)
+        employeeService.getUsersInCounty(3).then(response => {
+            this.setState({user: response, countyId: response});
         }).catch((error: Error) => Alert.danger(error.message));
     }
 
@@ -58,12 +74,19 @@ export class employeeManageUsers extends React.Component<Props,State>{
                         <th>
                             Poeng
                         </th>
+                        <th>
+                            Aktiver
+                        </th>
+                        <th>
+                            Blokker
+                        </th>
                     </tr>
                     </thead>
                     <tbody>
                     {this.state.user.map(e => {
                         return(
-                            <tr>
+
+                            <tr key={e.mail}>
                                 <td>
                                     {e.mail}
                                 </td>
@@ -77,8 +100,11 @@ export class employeeManageUsers extends React.Component<Props,State>{
                                     {e.points}
                                 </td>
                                 <td>
-                                    <button key={this.state.mail}>Block</button>
-                                    <button>Unblock</button>
+                                    <Button bsSize={"sm"} bsStyle={"primary"} onClick={this.unblockUser(e.mail)}>Unblock</Button>
+                                </td>
+                                <td>
+                                    <Button bsSize={"sm"} bsStyle={"danger"} onClick={this.blockUser(e.mail)}>Block</Button>
+
                                 </td>
                             </tr>
                         )
