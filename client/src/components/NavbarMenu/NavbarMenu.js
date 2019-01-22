@@ -95,6 +95,7 @@ export class NavbarMenu extends React.Component {
 
     logout = () => {
         window.localStorage.setItem('userToken', '');
+        window.sessionStorage.setItem('county', '');
         this.viewCases();
         loginButton = <NavItem eventKey={1} href="/#login">Login</NavItem>;
     };//end method

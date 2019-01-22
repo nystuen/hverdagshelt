@@ -100,4 +100,12 @@ module.exports = function(app: Object, issueDao: Object) {
       res.json(data);
     });
   });
+
+  app.post("/deleteThisIssue/:id", (req,res) => {
+    console.log('Received update request from deleteIssue');
+    issueDao.deleteIssue(req.params.id, (status,data) => {
+      res.status(status);
+      res.json(data);
+    });
+  });
 };

@@ -175,6 +175,10 @@ export class IssueService {
   getOneIssue(id: number){
         return axios.get('/Issues/' + id);
   }//end method
+
+  deleteThisIssue(id: number): Promise<void>{
+        return axios.post('/deleteThisIssue/' + id);
+  }//end method
 }//end class
 
 export class CountyService {

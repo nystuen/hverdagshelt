@@ -152,7 +152,12 @@ export class Login extends Component<Props, State> {
             let token = r.jwt;
             window.localStorage.setItem('userToken', token);
             console.log('login in success');
-
+            userService.getCurrentUser().then(r3 => {
+              window.sessionStorage.setItem('countyId', r3[0].countyId);
+              window.sessionStorage.setItem('countyName', r3[0].county);
+              console.log(window.sessionStorage.getItem('countyId'));
+              console.log(window.sessionStorage.getItem('countyName'));
+            });
             console.log(this.props.history.location.pathname);
             if(this.props.history.location.pathname == "/login" ||
                 this.props.history.location.pathname== "/register/company"){
@@ -163,7 +168,7 @@ export class Login extends Component<Props, State> {
               this.props.history.goBack();
             }
 
-          }).catch((error: Error) => Alert.danger(error.message));
+          }).catch((error: Error) => confirm(error.message));
         } else { //check if the email is a company email
           userService.getCompanyLogin(this.state.email).then(r => {
             bcrypt.compare(this.state.password, r[0].password, (err, res) => {
@@ -182,7 +187,7 @@ export class Login extends Component<Props, State> {
                       console.log(this.props.history.location.pathname);
                       this.props.history.goBack();
                     }
-                  }).catch((error: Error) => Alert.danger(error.message));
+                  }).catch((error: Error) => confirm(error.message));
                 }else{
                   this.setState({
                     error: true
