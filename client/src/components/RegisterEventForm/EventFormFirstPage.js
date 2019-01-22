@@ -196,7 +196,7 @@ export class EventFormFirstPage extends Component<{}, State> {
                 className="next + ' ' + submitButton"
                 onClick={this.handleSubmit}
               >
-                Meld feil
+                Meld hendelse her
               </Button>
             </form>
           </div>
