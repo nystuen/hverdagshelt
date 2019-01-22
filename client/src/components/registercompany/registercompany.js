@@ -1,4 +1,4 @@
-import {CountyService, UserService, addSubscription, CategoryService} from "../../services";
+import {CountyService, UserService, CategoryService} from "../../services";
 import {Component} from 'react';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
@@ -205,7 +205,7 @@ export class RegisterCompany extends Component<Props, State>{
     getValidationPhone(){
         const phoneLength = this.state.phone.length;
         let decimal =/^(\d|,)*\d*$/;
-        if(phoneLength ==8 && this.state.phone.match(decimal) && ((this.state.phone.charAt(0) == (4))||this.state.phone.charAt(0)==9)) {
+        if(phoneLength ==8 && this.state.phone.match(decimal)) {
             return 'success';
         }
         else if(phoneLength==0)return ;
@@ -379,7 +379,7 @@ export class RegisterCompany extends Component<Props, State>{
                                     </FormGroup>
                                 </Col>
                                 <Col md={6}>
-                                    <FormGroup>
+                                    <FormGroup validationState={this.getValidationPhone()}>
                                         <FormControl type="text" value={this.state.phone} placeholder="Telefonnummer"
                                                      onChange={this.handleNumberChange("phone")}
                                         />
@@ -388,15 +388,15 @@ export class RegisterCompany extends Component<Props, State>{
                                 </Col>
                             </FormGroup>
                             <FormGroup>
-                                <Col md={6} validationState={this.getValidationStateEmail()}>
-                                    <FormGroup>
+                                <Col md={6} >
+                                    <FormGroup validationState={this.getValidationStateEmail()}>
                                         <FormControl type="text" value={this.state.mail} placeholder="Epost"
                                                      onChange={this.handleStringChange("mail")}/>
                                         <FormControl.Feedback/>
                                     </FormGroup>
                                 </Col>
-                                <Col md={6} validationState={this.getValidationStateEmail2()}>
-                                    <FormGroup>
+                                <Col md={6} >
+                                    <FormGroup validationState={this.getValidationStateEmail2()}>
                                         <FormControl type="text" value={this.state.mail2} placeholder="Gjenta epost"
                                                      onChange={this.handleStringChange("mail2")}/>
                                     </FormGroup>
@@ -516,35 +516,6 @@ export class RegisterCompany extends Component<Props, State>{
 
 
 
-
-    checkMail = () =>{
-        var validator = require("email-validator");
-        if(!(validator.validate(this.state.mail))){
-            Alert.warning("Eposten eksisterer ikke")
-        }else{
-            this.checkPass();
-        }
-    };
-
-    checkPass = () => {
-
-        if (this.state.password !== this.state.password2) {
-            console.log("To ulike passord");
-            Alert.warning("Du skrev to ulike passord");
-
-        }
-        else {
-            let decimal = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?=.*[^a-zA-Z0-9])(?!.*\s).{8,15}$/;
-            if(this.state.password.match(decimal))
-            {
-                this.register();
-            }
-            else
-            {
-                Alert.warning('Password has to be between 8 to 15 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character')
-            }
-        }
-    };
 
     checkInput = () =>{
         //console.log(this.getValidationStateFirstName()||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()||this.getValidationStateEmail2()==='warning'||this.getValidationStatePassword()==='warning'||this.getValidationStatePassword2()==='warning');

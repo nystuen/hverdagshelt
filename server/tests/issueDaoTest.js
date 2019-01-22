@@ -176,6 +176,33 @@ test("check all issues with one category", done => {
   issueDao.getCategoryIssue(1, callback);
 });
 
+test("check adding a comment to issue", done => {
+  function callback(status,data){
+    console.log("Test adding comment to issue. Status: " + status + ". Data: " + JSON.stringify(data));
+    expect(data.affectedRows).toBeGreaterThanOrEqual(1);
+    done();
+  }
+  issueDao.addCommentToIssue(1, 'TEST', '7heaven@companymail.com', callback);
+});
+
+test("check getting comments for an issue", done => {
+  function callback(status,data) {
+    console.log("Test getting comments for issue. Status: " + status + ". Data: " + JSON.stringify(data));
+    expect(data.length).toBeGreaterThanOrEqual(1);
+    done();
+  }
+  issueDao.getCompanyComments(1,callback);
+});
+
+test("check getting all issues in one county", done => {
+  function callback(status,data) {
+    console.log("Testing getting issues in one county. Status: " + status + ". Data: " + JSON.stringify(data));
+    expect(data.length).toBeGreaterThanOrEqual(1);
+    done();
+  }
+  issueDao.getAllIssuesInCounty(2,1,callback);
+});
+
 
 
 

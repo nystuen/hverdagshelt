@@ -97,6 +97,10 @@ export class UserDao extends Dao {
     );
   } //end method
 
+    getCompanyCategories(categoryId: number, callback: Function){
+      super.query("Select * from companyCategories natural join company where categoryId=?", [categoryId], callback);
+    }//end method
+
   resetPassword(json: Object, hashed: string, callback: Function) {
     let val = [hashed, json];
     console.log("maildao", val);

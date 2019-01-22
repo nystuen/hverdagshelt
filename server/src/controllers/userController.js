@@ -37,22 +37,23 @@ module.exports = function(app: Object, userDao: Object) {
         });
     });
 */
-  app.post("/add_admin", urlencodedParser, (req, res) => {
-    console.log("got post request from add_admin");
-    console.log(req.body);
-    console.log("got request from sendTextMail");
-    let newPassword = generator.generate({ length: 10, numbers: true });
-    console.log("newPassword:", newPassword);
+    //brukes for å registrere kommuneansatte også
+    app.post('/add_admin', urlencodedParser, (req, res) =>{
+        console.log('got post request from add_admin');
+        console.log(req.body);
+        console.log('got request from sendTextMail');
+        let newPassword = generator.generate({length: 10, numbers: true});
+        console.log('newPassword:',newPassword);
 
-    let hashed = "";
-    bcrypt.hash(req.body.password, null, null, function(error, hash) {
-      console.log(req.body.password);
-      hashed = hash;
-      userDao.addUser(req.body, hashed, (status, data) => {
-        res.status(status);
-        res.json(data);
-      });
-    });
+        let hashed = '';
+        bcrypt.hash(newPassword, null, null, function (error, hash) {
+            console.log("HASH: "+ newPassword);
+            hashed = hash;
+            userDao.addUser(req.body, hashed ,(status, data) => {
+                res.status(status);
+                res.json(data);
+            });
+        });
 
     let mailOptions = {
       from: "hverdagshelt.scrum@gmail.com",

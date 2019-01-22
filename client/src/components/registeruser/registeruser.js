@@ -14,9 +14,12 @@ import Select from 'react-select';
 import HelpBlock from "react-bootstrap/es/HelpBlock";
 import Row from 'react-bootstrap';
 import {history} from "../../index";
+import {NotificationSettingsService} from "../../services";
+import css from "./registerUser.css";
 
 let countyService = new CountyService();
 let userService = new UserService();
+let notificationSettingService = new NotificationSettingsService();
 
 interface State {
     registerSuccess: boolean,
@@ -304,7 +307,7 @@ export class RegisterUser extends Component<Props, State> {
         if (this.state.registerSuccess) {
             register_success = (
                 <Alert bsStyle="success">
-                    <p>Bruker ble registrert</p>
+                    <p id="SuccessLogin">Bruker ble registrert</p>
                 </Alert>
             )
         }
@@ -501,12 +504,12 @@ export class RegisterUser extends Component<Props, State> {
             .catch((error: Error) => Alert.danger(error.message));
 
         let theBody: Object = {
-            countyId: newUser.countyId,
-            userMail: newUser.mail
+            mail: newUser.mail,
+            registered: 1,
+            inProgress: 0,
+            completed: 1
         };
-
-
-        countyService.addSubscription(theBody)
+        notificationSettingService.addIssueNotificationSettings(theBody);
         this.setState({errorSomething: false, registerSuccess: true});
         this.goToLogin();
     };
@@ -519,35 +522,3 @@ export class RegisterUser extends Component<Props, State> {
         )
     }
 }
-
-/*
-if(this.getValidationStateEmail()==='warning'){
-    this.setState({
-        errorEmailRequirement:true
-    });
-    console.log("HEYHO")
-}
-console.log("truls")
-if(!(this.checkEmailEquality())){
-    this.setState({
-        errorEmailEquality: true
-    });
-}
-console.log("reidar")
-if(!(this.checkPasswordRequirements())){
-    this.setState({
-        errorRequirementsPass: true
-    });
-}
-console.log("Sjekk godkjent")
-console.log("pass equals: "+this.checkPasswordEquality());
-
-if(!(this.checkPasswordEquality())){
-    console.log("check Password equality");
-    this.setState({
-        errorEqualsPass: true
-
-    });
-}
-this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()||this.getValidationStateEmail2()==='warning'||this.getValidationStatePassword()==='warning'||this.getValidationStatePassword2()==='warning'
-*/

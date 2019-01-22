@@ -35,6 +35,7 @@ import { Footer } from "./components/Footer/Footer";
 import { RegisterEmployee } from "./components/registeremployee/RegisterEmployee";
 import { RegisterAdmin } from "./components/registeradmin/registeradmin";
 import { ForgottenPassword } from "./views/login/ForgottenPassword";
+import {RegNew} from "./components/regNew/RegNew"
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
@@ -97,8 +98,9 @@ if (root)
         <Route exact path="/admin" component={adminPanel} />
         <Route path="/admin/sendMailTilBruker" component={SendTextMailWindow} />
         <Route path="/admin/resetPassord" component={AdminResetUserPassword} />
-        <Footer />
-        <Route path="/forgotPassword" component={ForgottenPassword} />
+        <Route path="/admin/registrertSuksess" component={RegNew}/>
+          <Route path="/forgotPassword" component={ForgottenPassword} />
+          <Footer />
       </div>
     </HashRouter>,
     root
