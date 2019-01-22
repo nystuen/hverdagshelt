@@ -30,12 +30,12 @@ export class adminPanel extends Component {
               <Panel.Collapse>
                 <Panel.Body>
                   <div className="buttons">
-                    <Button bsStyle={buttonStyle} href="/#/addCategory" block><span
+                    <Button id="butt" bsStyle="default" href="/#/addCategory" block><span
                       className="glyphicon glyphicon-plus"/> Lag en kategori</Button>
-                    <Button bsStyle={buttonStyle} href="/#/" block><span
+                    <Button id="butt" bsStyle={buttonStyle} href="/#/" block><span
                       className="glyphicon glyphicon-edit"/> Administrere
                       Kategorier</Button>
-                    <Button bsStyle={buttonStyle} href="/#/" block><span
+                    <Button id="butt" bsStyle={buttonStyle} href="/#/" block><span
                       className="glyphicon glyphicon-edit"/> Administrere
                       Kommuner</Button>
                   </div>
@@ -55,12 +55,12 @@ export class adminPanel extends Component {
               <Panel.Collapse>
                 <Panel.Body>
                   <div className="buttons">
-                    <Button bsStyle={buttonStyle} href="/#/registerEvent" block><span
+                    <Button id="butt" bsStyle={buttonStyle} href="/#/registerEvent" block><span
                       className="glyphicon glyphicon-plus"/> Lag en hendelse</Button>
-                    <Button bsStyle={buttonStyle} href="/#/" block><span
+                    <Button id="butt" bsStyle={buttonStyle} href="/#/" block><span
                       className="glyphicon glyphicon-edit"/> Administrere
                       Hendelser</Button>
-                    <Button bsStyle={buttonStyle} href="/#/" block><span
+                    <Button id="butt" bsStyle={buttonStyle} href="/#/" block><span
                       className="glyphicon glyphicon-edit"/> Administrere
                       Saker</Button>
                   </div>
@@ -79,11 +79,12 @@ export class adminPanel extends Component {
               <Panel.Collapse>
                 <Panel.Body>
                   <div className="buttons">
-                    <Button bsStyle={buttonStyle} href="/#/" block><span className="glyphicon glyphicon-plus"/> Lag en
+                    <Button id="butt" bsStyle={buttonStyle} href="/#/" block><span
+                      className="glyphicon glyphicon-plus"/> Lag en
                       ansatt</Button>
-                    <Button bsStyle={buttonStyle} href="/#/admin/sendMailTilBruker" block><span
+                    <Button id="butt" bsStyle={buttonStyle} href="/#/admin/sendMailTilBruker" block><span
                       className="glyphicon glyphicon-envelope"/> Kontakt bruker</Button>
-                    <Button bsStyle={buttonStyle} href="/#/" block><span
+                    <Button id="butt" bsStyle={buttonStyle} href="/#/" block><span
                       className="glyphicon glyphicon-edit"/> Administrere
                       Brukere</Button>
                   </div>
