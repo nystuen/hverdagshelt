@@ -1,7 +1,10 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col } from 'react-bootstrap';
+import { Grid, Row, Col, Button } from 'react-bootstrap';
 import {Line, Doughnut} from 'react-chartjs-2';
 import { StatisticsService } from "../../services";
+import ReactDOMServer from "react-dom/server";
+import * as jsPDF  from 'jspdf'
+import html2canvas from 'html2canvas';
 
 let statisticsService = new StatisticsService();
 
@@ -54,6 +57,8 @@ let lineData = {
   ]
 };
 
+var date = new Date();
+let today = ("0"+ date.getDay()).slice(-2) + '.' + ("0"+ (date.getMonth()+1)).slice(-2) + '.' + date.getFullYear()
 
 export class Statistics extends Component {
 
@@ -94,11 +99,26 @@ export class Statistics extends Component {
       })
   }
 
+	pdf2HTML(){
+		let fileName = "statistikk-" +today + '.pdf'
+		const input = document.getElementById('wrap-wrap');
+		const pdf = new jsPDF("p", "mm", "a4");
+		var width = pdf.internal.pageSize.getWidth();
+		var height = pdf.internal.pageSize.getHeight();
+		html2canvas(input)
+			.then((canvas) => {
+					const imgData = canvas.toDataURL('image/png');
+					// Page 1
+					pdf.addImage(imgData, 'PNG', 0, 0, width, height);
+					pdf.save(fileName);
+			});
+	}
+
 
   render() {
     return(
       <Grid>
-        <Row>
+        <Row id="wrap-wrap">
           <Col sm={12} md={6} lg={6}>
             <Line
               data={this.state.lineData}
@@ -128,8 +148,8 @@ export class Statistics extends Component {
             />
           </Col>
         </Row>
+				<Button onClick={() => {this.pdf2HTML()}}>Help me</Button>
       </Grid>
     )
   }
-
 }
