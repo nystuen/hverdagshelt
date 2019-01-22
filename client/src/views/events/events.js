@@ -91,9 +91,11 @@ export class events extends React.Component<Props, State> {
                       <Panel.Body collapsible>
                         <h4>{r.text}</h4>
 
-                        <Col>
-                            <MapComponent className={'event-map-container'}/>
-                        </Col>
+                        <div>
+                          Her kan det kanskje komme map?
+                          long {r.longitude}
+                          lat {r.latitude}
+                        </div>
 
                         <p>Publisert {r.date} av {r.userMail}</p>
                       </Panel.Body>
