@@ -42,4 +42,8 @@ export class NotificationSettingsDao extends Dao {
             "from county, category where category.categoryId in(select pushAlerts.categoryId from pushAlerts where pushAlerts.userMail = ?) and " +
             "county.countyId in(select pushAlerts.countyId from pushAlerts where pushAlerts.userMail= ?)", [userMail, userMail], callback);
     }
+
+  getIssueNotificationSettingsFromUser(userMail: string, callback: Function) {
+    super.query("select * from notifications where userMail=? ", [userMail], callback);
+  }
 }

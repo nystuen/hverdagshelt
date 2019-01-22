@@ -5,3 +5,7 @@
 .picture {
 
 }
+
+.comment:nth-child(odd) {
+    background-color: #fafafa;
+}
