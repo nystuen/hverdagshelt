@@ -84,7 +84,7 @@ export class adminPanel extends Component {
                       ansatt</Button>
                     <Button id="butt" bsStyle={buttonStyle} href="/#/admin/sendMailTilBruker" block><span
                       className="glyphicon glyphicon-envelope"/> Kontakt bruker</Button>
-                    <Button id="butt" bsStyle={buttonStyle} href="/#/" block><span
+                    <Button id="butt" bsStyle={buttonStyle} href="/#/employee/manageusers" block><span
                       className="glyphicon glyphicon-edit"/> Administrere
                       Brukere</Button>
                   </div>

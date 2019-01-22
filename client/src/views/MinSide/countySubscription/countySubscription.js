@@ -1,14 +1,14 @@
 //@flow
 import React, { Component } from 'react';
 import { Layout } from '../../../widgets';
-import { Grid, Row, Col, ListGroup,ListGroupItem, Table, Image, Panel } from "react-bootstrap"
-import {CountyService, UserService, NotificationSettingsService} from "../../../services";
+import { Grid, Row, Col, ListGroup, ListGroupItem, Table, Image, Panel } from 'react-bootstrap';
+import { CountyService, UserService, NotificationSettingsService } from '../../../services';
 import * as jwt from 'jsonwebtoken';
 import Glyphicon from 'react-bootstrap/es/Glyphicon';
 import Button from 'react-bootstrap/es/Button';
 import css from './countySubscription.css';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
-import {User} from "../../../classTypes";
+import { User } from '../../../classTypes';
 
 let countyService = new CountyService();
 let userService = new UserService();
@@ -27,7 +27,7 @@ let notificationSettingsService = new NotificationSettingsService();
 interface State {
   allCounties: Array<Object>,
   userCounties: Array<Object>,
-    user: User
+  user: User
 }
 
 interface Props {
@@ -38,7 +38,7 @@ export class CountySubscription extends Component<Props, State> {
   state = {
     allCounties: [],
     userCounties: [],
-      user: new User('', '', '', '', '', -1, -1, -1)
+    user: new User('', '', '', '', '', -1, -1, -1)
   };
 
   //fra Alle kommuner til abonerte kommuner
@@ -50,8 +50,10 @@ export class CountySubscription extends Component<Props, State> {
     countyArray.splice(index, 1);
 
     userArray.push(name);
-    this.setState({ userCounties: userArray,
-        allCounties: countyArray});
+    this.setState({
+      userCounties: userArray,
+      allCounties: countyArray
+    });
 
   };
 
@@ -64,8 +66,10 @@ export class CountySubscription extends Component<Props, State> {
     userArray.splice(index, 1);
     countyArray.push(name);
 
-    this.setState({ allCounties: countyArray,
-        userCounties: userArray});
+    this.setState({
+      allCounties: countyArray,
+      userCounties: userArray
+    });
   };
 
 
@@ -88,17 +92,17 @@ export class CountySubscription extends Component<Props, State> {
     let counties = [];
 
     await userService.getCurrentUser()
-        .then(resources => {
-          let user = resources[0];
-          this.setState({
-              user : user
-          })
+      .then(resources => {
+        let user = resources[0];
+        this.setState({
+          user: user
         });
+      });
 
     await countyService.getAllCounties().then((r: Array<Object>) => {
       r.map(e => {
         if (!(e.countyId === this.state.user.countyId)) {
-          counties.push(e)
+          counties.push(e);
         }
       });
       this.setState({
@@ -122,60 +126,52 @@ export class CountySubscription extends Component<Props, State> {
     return (
       <div className="countySubscription">
         <Grid>
-        <PageHeader title={"Kommuneinstillinger"}/>
+          <Col md={12}>
+            <Row>
+              <Col xs={12} md={5}>
+                <ListGroup>
+                  <h5 align="center">Kommuner</h5>
+                  {
+                    this.state.allCounties.map((r, i) => {
+                      return <ListGroupItem onClick={() => {
+                        this.addCounty(r, i);
+                      }} key={i}>{r.name}</ListGroupItem>;
+                    })
+                  }
+                </ListGroup>
+              </Col>
 
-          <Col md={2} >
-          </Col>
+              <Col xs={12} md={2} align={'center'} className="arrows">
 
-          <Col md={8}>
-          <Row>
-            <Col xs={12} md={5}>
-              <ListGroup>
-                <h5 align="center">Kommuner</h5>
-                {
-                  this.state.allCounties.map((r, i) => {
-                    return <ListGroupItem onClick={() => {
-                      this.addCounty(r, i);
-                    }} key={i}>{r.name}</ListGroupItem>;
-                  })
-                }
-              </ListGroup>
-            </Col>
+                <Row>
+                  <span> <Glyphicon glyph="arrow-left"/></span>
+                </Row>
+                <Row>
+                  <span> <Glyphicon glyph="arrow-right"/></span>
+                </Row>
 
-            <Col xs={12} md={2} align={"center"} className="arrows">
+              </Col>
 
-              <Row>
-                <span> <Glyphicon glyph="arrow-left"/></span>
-              </Row>
-              <Row>
-                <span> <Glyphicon glyph="arrow-right"/></span>
-              </Row>
-
-            </Col>
-
-            <Col xs={12} md={5}>
-              <ListGroup>
-                <h5 align="center">Mine Kommuner</h5>
-                {
-                  this.state.userCounties.map((r, i) => {
-                    return <ListGroupItem onClick={() => {
-                      this.deleteCounty(r, i);
-                    }} key={i}>{r.name}</ListGroupItem>;
-                  })
-                }
-              </ListGroup>
-            </Col>
-          </Row>
-
-
-          </Col>
-
-          <Col md={2}>
-
-          </Col>
-            <Row align={'right'}>
-                <Button bsStyle="primary" onClick={() => this.change()}>Lagre endringer</Button>
+              <Col xs={12} md={5}>
+                <ListGroup>
+                  <h5 align="center">Mine Kommuner</h5>
+                  {
+                    this.state.userCounties.map((r, i) => {
+                      return <ListGroupItem onClick={() => {
+                        this.deleteCounty(r, i);
+                      }} key={i}>{r.name}</ListGroupItem>;
+                    })
+                  }
+                </ListGroup>
+              </Col>
             </Row>
+
+
+            <div align="right">
+          <Button bsStyle="primary" onClick={() => this.change()}>Lagre endringer</Button>
+            </div>
+          </Col>
+
         </Grid>
 
       </div>

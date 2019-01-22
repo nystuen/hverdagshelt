@@ -129,7 +129,7 @@ export class NotificationSettingsForm extends React.Component <State> {
                             </div>
                         )
                     }
-                    <Button onClick={() => {
+                    <Button bsStyle="primary" onClick={() => {
                         this.save()
                     }}>Lagre</Button>
                 </Grid>
