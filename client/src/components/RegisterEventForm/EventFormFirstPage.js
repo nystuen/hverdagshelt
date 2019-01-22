@@ -147,11 +147,7 @@ export class EventFormFirstPage extends Component<{}, State> {
 
     return (
       <div style={styles}>
-        <div className="formDiv">
-          <div className="progressBar1">
-            <ProgressBar now={33} />
-          </div>
-        </div>
+        <div className="formDiv" />
         <Map
           center={this.state.latlng}
           length={12}

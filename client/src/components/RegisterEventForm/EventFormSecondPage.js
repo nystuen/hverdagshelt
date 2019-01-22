@@ -54,7 +54,7 @@ export class EventFormSecondPage extends React.Component {
       <div className="container">
         <div className="formDiv">
           <div className="progressBar">
-            <ProgressBar now={66} />
+            <ProgressBar now={66} label={"2/3"} />
           </div>
           <ChooseEventCategory
             changeCategoryHeader={this.onChangeCategoryHeader.bind(this)}
