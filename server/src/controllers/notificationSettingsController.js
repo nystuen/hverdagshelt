@@ -119,4 +119,13 @@ module.exports = function(app: Object, notificationSettingsDao: Object) {
       res.json(data);
     });
   });
+
+  app.get('/get_users_with_notifications_like_this/:countyId/:categoryId', (req, res) => {
+    console.log('got request from getuserslikethis');
+    notificationSettingsDao.getUsersWithNotificationsLikeThis(req.params.countyId,req.params.categoryId, (status, data) => {
+      res.status(status);
+      res.json(data);
+    });
+  });
+
 };

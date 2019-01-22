@@ -68,7 +68,7 @@ export class NavbarMenu extends React.Component {
           <Navbar.Collapse>
 
             <Nav>
-              <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-th-list"/> Velg kommune</NavItem>
+              <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-home"/> {this.state.user.county}</NavItem>
               <NavItem href={'/#/wizardForm'}><Glyphicon glyph="glyphicon glyphicon-plus"/> Meld inn sak</NavItem>
               <NavItem href={'/#/events/2'}><Glyphicon glyph="glyphicon glyphicon-road"/> Hendelser</NavItem>
               <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>

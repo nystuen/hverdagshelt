@@ -250,6 +250,11 @@ export class NotificationSettingsService {
     return axios.get('/get_issue_notification_settings_from_user/' + userMail);
   }
 
+  getUsersWithNotificationsLikeThis(countyId: number, categoryId: number): Promise<Object[]> {
+    return axios.get('/get_users_with_notifications_like_this/' + countyId + '/' + categoryId);
+  }
+
+
 }
 
 
@@ -265,4 +270,10 @@ export class MailService {
   sendIssueCompleteMail(to: string): Promise<Response> {
     return axios.post('/sendIssueCompeleteMail', to);
   }
+
+ sendEventMail(to: [String], event: Event): Promise<Response> {
+    return axios.post('/sendEventMail', {to: to, event: event});
+ }
+
+
 }
