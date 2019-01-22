@@ -100,11 +100,16 @@ export class Statistics extends Component {
   }
 
 	pdf2HTML(){
+
 		let fileName = "statistikk-" +today + '.pdf'
 		const input = document.getElementById('wrap-wrap');
+		console.log(input)
+		var divHeight =  document.getElementById('wrap-wrap').clientHeight;
+		var divWidth =  document.getElementById('wrap-wrap').clientWidth;
+		var ratio = divHeight / divWidth;
 		const pdf = new jsPDF("p", "mm", "a4");
 		var width = pdf.internal.pageSize.getWidth();
-		var height = pdf.internal.pageSize.getHeight();
+		var height = ratio*width
 		html2canvas(input)
 			.then((canvas) => {
 					const imgData = canvas.toDataURL('image/png');
