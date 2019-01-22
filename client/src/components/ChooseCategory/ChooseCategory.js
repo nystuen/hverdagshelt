@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom';
+
 import * as React from 'react';
 import { Component } from 'react-simplified';
 import {
@@ -176,9 +176,9 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
 
   caret(active : boolean){
     if(active) {
-      return <span className="caret caret-right"></span>
+      return <span className="caret"/>
     } else {
-      return <span className="caret"></span>
+      return <span className="caret caret-right"/>
     }
   }
 

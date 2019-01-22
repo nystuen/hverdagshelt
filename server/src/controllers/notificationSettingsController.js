@@ -54,18 +54,13 @@ module.exports = function (app: Object, notificationSettingsDao: Object) {
         });
     });
 
-    app.post('/add_issue_notification_settings', verifyToken, (req, res) => {
+    app.post('/add_issue_notification_settings', (req, res) => {
         console.log('got request from add_issue_notification_settings');
-        jwt.verify(req.token, privateKey, (err, decoded) => {
-            if(err) {
-                res.sendStatus(401)
-            } else if (decoded.typeId === 'Private'){
-                notificationSettingsDao.addIssueNotificationSettings(decoded.email,req.body, (status, data) => {
+                notificationSettingsDao.addIssueNotificationSettings(req.body.mail,req.body, (status, data) => {
                     res.status(status);
                     res.json(data);
                 })
-            }
-        });
+
 
     });
 
