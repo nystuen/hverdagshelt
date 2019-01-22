@@ -1,6 +1,6 @@
 //import mysql from "mysql2";
 
-let mysql = require("mysql");
+let mysql = require("mysql2");
 import runsqlfile from './runSqlFile';
 import {IssueDao} from "../src/daos/issueDao";
 import {UserDao} from "../src/daos/userDao";
@@ -13,7 +13,7 @@ import {NotificationSettingsDao} from '../src/daos/notificationSettingsDao';
 
 // GitLab CI Pool
 let pool = mysql.createPool({
-  connectionLimit: 6,
+  connectionLimit: 2,
   host: "mysql.stud.iie.ntnu.no",
   user: "aadneny",
   password: "W9d7XVXV",
@@ -34,7 +34,7 @@ let notificationSettingsDao = new NotificationSettingsDao(pool);
 
 beforeAll(done => {
   runsqlfile("tests/sqlFiles/createTables.sql", pool, () => {
-    runsqlfile("tests/sqlFiles/createTestData.sql", pool, done);
+    runsqlfile("tests/sqlFiles/createTestData.sql", pool, done());
   });
 });
 
@@ -79,7 +79,6 @@ test("Add a issue to database", done => {
     categoryId: 1,
     categoryLevel: 1,
     countyId: 2,
-    active: 1
   };
 
   issueDao.addIssue(post, callback);
@@ -281,7 +280,7 @@ test("check update user", done => {
     countyId: 2,
   };
 
-  userDao.updateUser(post,'nina@usermail.com', callback);
+  userDao.updateUser('nina@usermail.com', post,callback);
   userDao.getUser('nina@usermail.com', callback2);
 });
 
@@ -663,6 +662,7 @@ test("check get pushalert with name on county and category", done => {
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
     );
+
     expect(data[0].categoryId).toBe(1);
     expect(data[0].countyId).toBe(1);
     expect(data[0].categoryName).toBe('Strøm');
@@ -754,10 +754,9 @@ test("check update notification", done => {
     registered: true,
     inProgress:true,
     completed:true,
-    userMail:'kari@usermail.com',
   };
 
-  notificationSettingsDao.updateIssueNotificationSettings(post,callback);
+  notificationSettingsDao.updateIssueNotificationSettings('kari@usermail.com',post,callback);
   notificationSettingsDao.getIssueNotificationSettings('kari@usermail.com',callback2);
 });
 
@@ -770,7 +769,7 @@ test("check update notification", done => {
 
 
 
-
+/*
 test("check reset password", done => {
   function callback(status, data) {
     console.log(
@@ -787,3 +786,4 @@ test("check reset password", done => {
 });
 
 
+*/

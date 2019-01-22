@@ -1,5 +1,5 @@
 import { Col, Button, Form, FormGroup, Label, Overlay, Tooltip} from 'react-bootstrap';
-import { CountyService, UserService, getCounties, addSubscription } from '../../services';
+import { CountyService, UserService} from '../../services';
 import { Component } from 'react';
 import * as React from 'react';
 import { Alert } from 'react-bootstrap';
@@ -506,7 +506,7 @@ export class RegisterUser extends Component<Props, State> {
         };
 
 
-        addSubscription(theBody)
+        countyService.addSubscription(theBody)
         this.setState({errorSomething: false, registerSuccess: true});
         this.goToLogin();
     };

@@ -4,7 +4,7 @@
   "scripts": {
     "start": "nodemon --exec babel-node src/server.js",
     "start-prod": "cross-env NODE_ENV=production babel-node src/server.js",
-    "test": "jest --runInBand"
+    "test": "jest --runInBand --detectOpenHandles"
   },
   "jest": {
     "testRegex": "./tests/.+Test\\.js$",
@@ -32,6 +32,7 @@
     "babel-core": "^7.0.0-bridge.0",
     "babel-jest": "^23.6.0",
     "cross-env": "^5.2.0",
+    "flow-bin": "^0.83.0",
     "generate-password": "^1.4.1",
     "jest": "^23.6.0",
     "nodemailer": "^5.1.1",
