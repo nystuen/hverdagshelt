@@ -121,6 +121,11 @@ export class Statistics extends Component {
 
 
   render() {
+		let styling = {
+			marginTop: "25px",
+			marginBottom: "25px"
+		}
+
     return(
       <Grid>
         <Row id="wrap-wrap">
@@ -153,7 +158,11 @@ export class Statistics extends Component {
             />
           </Col>
         </Row>
-				<Button onClick={() => {this.pdf2HTML()}}>Help me</Button>
+				<Row>
+					<Col>
+						<Button style={styling} className="center-block" bsStyle="primary" onClick={() => {this.pdf2HTML()}}>Last ned som PDF</Button>
+					</Col>
+				</Row>
       </Grid>
     )
   }
