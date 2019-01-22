@@ -24,7 +24,7 @@ export class events extends React.Component<Props, State> {
 
   state = {
     countyId: -1,
-    importantEvents: [{}]
+    importantEvents: []
   };
 
   getInformation = async () => {
