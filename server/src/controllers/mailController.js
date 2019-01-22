@@ -164,5 +164,37 @@ module.exports = function (app: Object, userDao: Object) {
     });
   });
 
+  app.post('/sendEventMail', urlencodedParser, (req, res) => {
+    console.log('got request from sendTextMail');
+
+    let recipients = req.body.to;
+
+    console.log('event cotroller: ' + req.body.event);
+
+    // get recipients
+
+    recipients.map(e => {
+
+      let mailOptions = {
+        from: 'hverdagshelt.scrum@gmail.com',
+        to: e.userMail,
+        subject: req.body.event.title,
+        text: 'Hei!' + req.body.event.text,
+        html: "<p>Hei!</p><p>"+req.body.event.text+"</p><p>Mvh din kommune med kommuneId: " + req.body.event.countyId +"</p>"
+      };
+
+      transporter.sendMail(mailOptions, function(error, info) {
+        if (error) {
+          console.log(error);
+        } else {
+          console.log('Email sent: ' + info.response);
+        }
+      });
+
+    })
+
+  });
+
+
 
 };

@@ -15,14 +15,14 @@ import {
   NotificationSetting,
   IssueNotificationSetting,
   EventCategory
-} from "./classTypes";
+} from './classTypes';
 
 let authHeader = function authHeader() {
   // return authorization header with jwt token
-  let token = window.localStorage.getItem("userToken");
+  let token = window.localStorage.getItem('userToken');
 
   if (token) {
-    return { Authorization: "Bearer " + token };
+    return { Authorization: 'Bearer ' + token };
   } else {
     return {};
   }
@@ -69,11 +69,13 @@ export class UserService {
   }
 
   addCompany(json: Object) {
-    return axios.post("/registrateCompany", json);
+    return axios.post('/registrateCompany', json);
   }
+
   resetPassword(json: Object): Promise<Response> {
-    return axios.put("/user/change_password", json, { headers: authHeader() });
+    return axios.put('/user/change_password', json, { headers: authHeader() });
   }
+
   getHomeCounty(): Promise<Object> {
     return axios.get('/getHomeCounty', { headers: authHeader() });
   }
@@ -180,7 +182,7 @@ export class IssueService {
   } //end method
 
   addCommentToIssue(id: number, text: string, companyMail: string) {
-    return axios.post("/addIssueComments", {
+    return axios.post('/addIssueComments', {
       id: id,
       text: text,
       companyMail: companyMail
@@ -234,32 +236,52 @@ export class NotificationSettingsService {
   }
 
   deleteNotificationSettings(): Promise<void> {
-    return axios.delete('/delete_notification_settings', { headers: authHeader() });
+    return axios.delete('/delete_notification_settings', {
+      headers: authHeader()
+    });
   }
 
   addNotificationSettings(newSetting: NotificationSetting): Promise<Response> {
-    return axios.post('/add_notification_settings', newSetting, { headers: authHeader() });
+    return axios.post('/add_notification_settings', newSetting, {
+      headers: authHeader()
+    });
   }
 
-  addIssueNotificationSettings(newSetting: IssueNotificationSetting): Promise<Response> {
-    return axios.post('/add_issue_notification_settings', newSetting, { headers: authHeader() });
+  addIssueNotificationSettings(
+    newSetting: IssueNotificationSetting
+  ): Promise<Response> {
+    return axios.post('/add_issue_notification_settings', newSetting, {
+      headers: authHeader()
+    });
   }
 
   getIssueNotificationSettings(): Promise<Object[]> {
-    return axios.get('/get_issue_notification_settings', { headers: authHeader() });
+    return axios.get('/get_issue_notification_settings', {
+      headers: authHeader()
+    });
   }
 
   getNotificationSettingsWithNames(): Promise<Object[]> {
-    return axios.get('/get_notification_settings_with_names', { headers: authHeader() });
+    return axios.get('/get_notification_settings_with_names', {
+      headers: authHeader()
+    });
   }
 
-  updateIssueNotificationSettings(newSetting: IssueNotificationSetting): Promise<Response> {
-    return axios.put('/update_issue_notification_settings', newSetting);
+  updateIssueNotificationSettings(
+    newSetting: IssueNotificationSetting
+  ): Promise<Response> {
+    return axios.put('/update_issue_notification_settings', newSetting, {
+      headers: authHeader()
+    });
   }
 
   getIssueNotificationSettingsFromUser(userMail: string): Promise<Object[]> {
     console.log('mail i services:', userMail);
     return axios.get('/get_issue_notification_settings_from_user/' + userMail);
+  }
+
+  getUsersWithNotificationsLikeThis(countyId: number, categoryId: number): Promise<Object[]> {
+    return axios.get('/get_users_with_notifications_like_this/' + countyId + '/' + categoryId);
   }
 
 }
@@ -277,19 +299,25 @@ export class MailService {
   sendIssueCompleteMail(to: string): Promise<Response> {
     return axios.post('/sendIssueCompeleteMail', to);
   }
+
+  sendEventMail(to: [String], event: Event): Promise<Response> {
+    return axios.post('/sendEventMail', { to: to, event: event });
+  }
+
+
 }
 
 export class EmployeeService {
 
   getUsersInCounty(countyId: number): Promise<Response> {
-    return axios.get('/getUsersInCounty/' + countyId, {headers: authHeader()});
+    return axios.get('/getUsersInCounty/' + countyId, { headers: authHeader() });
   }
 
   blockUser(mail: string) {
-      return axios.put('blockUser/' + mail)
+    return axios.put('blockUser/' + mail);
   }
 
   unblockUser(mail: string) {
-      return axios.put('unblockUser/' + mail)
+    return axios.put('unblockUser/' + mail);
   }
 }
