@@ -85,7 +85,6 @@ export class Statistics extends Component {
         lineDummy.labels = []
         lineDummy.datasets[0].data = []
         res.map(e => {
-          console.log(e)
           lineDummy.labels.push(e.date)
           lineDummy.datasets[0].data.push(e.ant)
         })
@@ -93,13 +92,6 @@ export class Statistics extends Component {
           lineData: lineDummy
         })
       })
-
-    let dummyLine = this.state.lineData
-    dummyLine.datasets[0].data = [10, 113, 9, 120, 8, 0, 210]
-    this.setState({
-      lineData: dummyLine
-    })
-    console.log(this.state.pieData)
   }
 
 
