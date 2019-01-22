@@ -9,7 +9,7 @@ import Row from "react-bootstrap/es/Row";
 import Col from "react-bootstrap/es/Col";
 import Button from "react-bootstrap/es/Button";
 import FormGroup from "react-bootstrap/es/FormGroup";
-import {Form, FormControl, Label, PageHeader} from 'react-bootstrap';
+import {Form, FormControl, Label, PageHeader,InputGroup} from 'react-bootstrap';
 import ControlLabel from "react-bootstrap/es/ControlLabel";
 import Grid from "react-bootstrap/es/Grid";
 import Checkbox from "react-bootstrap/es/Checkbox";
@@ -45,6 +45,8 @@ export class RegisterCompany extends Component<Props, State>{
             phone: "",
             points: 0,
             active: 0,
+            openPassword:'password',
+            openPassword2:'password',
             isLoaded: false,
             choosen: {name: "Bergen", countyId: 1},
             values:[
@@ -289,7 +291,42 @@ export class RegisterCompany extends Component<Props, State>{
         });
     };
 
+
+  handleClickPassword1=()=>{
+    if(this.state.openPassword == "text"){
+      this.setState({openPassword: "password"})
+    }else{
+      this.setState({openPassword: "text"})
+    }
+  };
+
+  handleClickPassword2=()=>{
+    if(this.state.openPassword2 == "text"){
+      this.setState({openPassword2: "password"})
+    }else{
+      this.setState({openPassword2: "text"})
+    }
+  };
+
     render(){
+
+      let changeIcon1;
+
+      if (this.state.openPassword == "text") {
+        changeIcon1 = (<i className="fas fa-eye"></i>);
+      } else {
+        changeIcon1 = (<i className="fas fa-eye-slash"></i>);
+      }
+
+
+      let changeIcon2;
+
+      if (this.state.openPassword2 == "text") {
+        changeIcon2 = (<i className="fas fa-eye"></i>);
+      } else {
+        changeIcon2 = (<i className="fas fa-eye-slash"></i>);
+      }
+
         let optionTemplate = this.state.values.map(v => {
             const data = {label: v.name, value: v.countyId};
             return(data)
@@ -427,17 +464,28 @@ export class RegisterCompany extends Component<Props, State>{
                             <FormGroup>
                                 <Col md={6}>
                                     <FormGroup>
-                                        <FormControl type="password" value={this.state.password} placeholder="Passord"
+                                      <InputGroup>
+                                        <InputGroup.Button>
+                                          <Button type="button" onClick={()=> this.handleClickPassword1()}>{changeIcon1}</Button>
+                                        </InputGroup.Button>
+                                        <FormControl type={this.state.openPassword} value={this.state.password} placeholder="Passord"
                                                      onChange={this.handleStringChange("password")}
                                         />
                                         <FormControl.Feedback/>
+                                      </InputGroup>
                                     </FormGroup>
                                 </Col>
                                 <Col md={6}>
+
                                     <FormGroup validationState={this.getValidationStatePassword2()}>
-                                        <FormControl type="password" value={this.state.password2} placeholder="Gjenta passord"
+                                      <InputGroup>
+                                        <InputGroup.Button>
+                                          <Button type="button" onClick={()=> this.handleClickPassword2()}>{changeIcon2}</Button>
+                                        </InputGroup.Button>
+                                        <FormControl type={this.state.openPassword2} value={this.state.password2} placeholder="Gjenta passord"
                                                      onChange={this.handleStringChange("password2")}/>
                                         <FormControl.Feedback/>
+                                      </InputGroup>
                                     </FormGroup>
                                 </Col>
                                 <Col md={12}>
