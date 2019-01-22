@@ -60,7 +60,7 @@ export class SendTextMailWindow extends React.Component {
 
             <FormGroup controlId="formInlinePhone">
               <ControlLabel>Innhold</ControlLabel>{' '}
-              <FormControl name="text" onChange={this.handleChange} componentClass="textarea" placeholder="E-postens innhold"/>
+              <FormControl rows={5} name="text" onChange={this.handleChange} componentClass="textarea" placeholder="E-postens innhold"/>
             </FormGroup>{' '}
 
           </Form>

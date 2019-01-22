@@ -19,6 +19,14 @@ module.exports = function(app: Object, issueDao: Object) {
     });
   });
 
+  app.get('/getIssuesInThisCounty/:countyId', (req,res) => {
+   console.log("received get request from getIssuesInThisCounty");
+   issueDao.getAllIssuesInCounty(req.params.countyId, req.body.categoryLevel, (status,data) => {
+     res.status(status);
+     res.json(data);
+   });
+  });
+
   app.get("/UserIssues/:UserMail", (req, res) => {
     console.log("received get request from issue from one user");
     issueDao.getUserIssue(req.params.UserMail, (status, data) => {
@@ -37,8 +45,15 @@ module.exports = function(app: Object, issueDao: Object) {
 
   app.get("/oversiktOverSak/:id", (req,res) => {
     console.log('received get request from /oversiktOverSak');
-    console.log(req);
     issueDao.getIssueAndCounty(req.params.id, (status,data) => {
+      res.status(status);
+      res.json(data);
+    });
+  });
+
+  app.get("/companyComments/:id", (req,res) => {
+    console.log('Received get request from /companyComments');
+    issueDao.getCompanyComments(req.params.id, (status,data) => {
       res.status(status);
       res.json(data);
     });
@@ -73,6 +88,14 @@ module.exports = function(app: Object, issueDao: Object) {
   app.get("/Categories", (req, res) => {
     console.log("received get request from category");
     issueDao.getAllCategories((status, data) => {
+      res.status(status);
+      res.json(data);
+    });
+  });
+
+  app.post("/addIssueComments", (req, res) => {
+    console.log('Received post request from addIssueComments');
+    issueDao.addCommentToIssue(req.body.id,req.body.text, req.body.companyMail, (status,data) => {
       res.status(status);
       res.json(data);
     });

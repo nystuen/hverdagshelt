@@ -31,7 +31,7 @@ const EventFormThirdPage = props => {
   return (
     <div className="formDiv">
       <div className="progressBar">
-        <ProgressBar active now={100} />
+        <ProgressBar now={100} />
       </div>
       <form onSubmit={handleSubmit}>
         <div>

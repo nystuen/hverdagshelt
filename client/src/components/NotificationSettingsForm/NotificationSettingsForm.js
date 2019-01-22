@@ -26,12 +26,11 @@ interface State {
 
 export class NotificationSettingsForm extends React.Component <State> {
     state = {
-        decoded: jwt.verify(window.localStorage.getItem('userToken'), "shhhhhverysecret"),
         notificationCategories: [],
         chosenNotifications: [],
         chosenCatString: [],
         catString: [],
-        user: null
+        user: new User('', '', '', '', '', -1, -1, -1)
     };
 
     onChangeHandler = (e) => {
@@ -61,6 +60,15 @@ export class NotificationSettingsForm extends React.Component <State> {
         let catString = [];
         let chosenCat = [];
         let categories = [];
+        let user = null;
+
+        userService.getCurrentUser()
+            .then(resource => {
+                user = resource[0];
+                this.setState({
+                    user: user
+                })
+            });
 
         categoryService.getCategory1()
             .then(resources => {
@@ -79,11 +87,14 @@ export class NotificationSettingsForm extends React.Component <State> {
                 })
             });
 
-        notificationSettingsService.getNotificationSettings(this.state.decoded.email)
+        notificationSettingsService.getNotificationSettings()
             .then(resources => {
-                resources.map(e => (
-                    chosenCat.push(e)
-                ));
+                console.log(resources);
+                resources.map(e => {
+                    if (e.countyId === this.state.user.countyId) {
+                        chosenCat.push(e)
+                    }
+                });
                 this.setState({
                     chosenNotifications: chosenCat
                 });
@@ -96,14 +107,6 @@ export class NotificationSettingsForm extends React.Component <State> {
                 })
             });
 
-
-
-        userService.getUser(this.state.decoded.email)
-            .then(resource => {
-                this.setState({
-                    user: resource[0]
-                })
-            })
     }
 
     render() {
@@ -136,7 +139,7 @@ export class NotificationSettingsForm extends React.Component <State> {
 
     save = () => {
         // delete existing settings
-        notificationSettingsService.deleteNotificationSettings(this.state.decoded.email)
+        notificationSettingsService.deleteNotificationSettings()
             .catch(error => {
                 console.log('Noe gikk galt ved sletting av notificationsettings: ' + 'n\ ' + error.message)
             });
@@ -151,8 +154,7 @@ export class NotificationSettingsForm extends React.Component <State> {
                 if (name === elem) {
                     let newChoice = {
                         countyId: this.state.user.countyId,
-                        categoryId: e.categoryId,
-                        userMail: this.state.decoded.email
+                        categoryId: e.categoryId
                     };
                     array.push(newChoice);
                 }
@@ -161,7 +163,10 @@ export class NotificationSettingsForm extends React.Component <State> {
 
         // add new settings
         array.map(e => {
-            let elem = new NotificationSetting(e.countyId, e.categoryId, e.userMail);
+            let elem = {
+                countyId: e.countyId,
+                categoryId: e.categoryId
+            };
             notificationSettingsService.addNotificationSettings(elem)
                 .catch(error => {
                     console.log('Error when adding: ' + e + 'n\ ' + 'error: ' + error.message)

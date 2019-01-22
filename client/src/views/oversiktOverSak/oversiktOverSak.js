@@ -1,23 +1,35 @@
 // @flow
 
 import React from 'react';
-import {CategoryService, IssueService} from "../../services";
-import Grid from "react-bootstrap/es/Grid";
-import {Alert} from "../../widgets";
-import Row from "react-bootstrap/es/Row";
-import Col from "react-bootstrap/es/Col";
-import{Status} from "../../classTypes";
-import ProgressBar from "react-bootstrap/es/ProgressBar";
-import Image from "react-bootstrap/es/Image";
-import * as jwt from "jsonwebtoken";
-import Button from "react-bootstrap/es/Button";
-import {history} from "../../index";
+import { CategoryService, IssueService, UserService } from '../../services';
+import Grid from 'react-bootstrap/es/Grid';
+import { Alert } from '../../widgets';
+import Row from 'react-bootstrap/es/Row';
+import Col from 'react-bootstrap/es/Col';
+import { Status } from '../../classTypes';
+import ProgressBar from 'react-bootstrap/es/ProgressBar';
+import Image from 'react-bootstrap/es/Image';
+import * as jwt from 'jsonwebtoken';
+import Button from 'react-bootstrap/es/Button';
+import { ImageService } from '../../services';
+import { history } from '../../index';
 import css from './oversiktOverSak.css';
+import {MailService} from '../../services';
+import{FormGroup} from "react-bootstrap";
+import {FormControl} from "react-bootstrap";
+import Card from "reactstrap/es/Card";
+import Table from "react-bootstrap/es/Table";
+import {User} from "../../classTypes";
+import Well from "react-bootstrap/es/Well";
 
 let issueService = new IssueService();
 let categoryService = new CategoryService();
+let userService = new UserService();
+let imageService = new ImageService();
+let mailService = new MailService();
 
-interface State{
+interface State {
+    user: Object,
     issue: Object[];
     category1: Object[];
     category2: Object[];
@@ -26,78 +38,133 @@ interface State{
     statusName: string;
     categoryLevel: number;
     editCase: boolean;
+    comment: string;
+    image: Image;
 }//end method
 
-export class OversiktOverSak extends React.Component{
-    constructor(props){
+export class OversiktOverSak extends React.Component {
+    constructor(props) {
         super(props);
         this.state = {
-            issue:{},
+            user: new User('', '', '', '', '', -1, -1, -1),
+            issue: {},
+            image: {},
             category1: {},
             category2: {},
             category3: {},
             status: {},
-            statusName:'',
+            statusName: '',
+            comment: '',
+            issueComments: [],
             categoryLevel: 1, //1 means the issue is not registered under any subcategories
             editCase: false, //if the issue is in progress or completed, user cannot edit issue
             editStatus: <div>
-                <select onChange={this.setStatus}>
-                    <option value="">Oppdater status </option>
-                    <option value="In progress">In progress </option>
-                    <option value="Completed"> Completed</option>
-                </select>
+                <FormControl onChange={this.setStatus} componentClass="select" placeholder="select">
+                    <option value="">Oppdater status</option>
+                    <option value="In progress">Behandles</option>
+                    <option value="Completed"> Fullført</option>
+                </FormControl>
                 <Button onClick={this.saveThisStatus}> Lagre status</Button>
             </div>
         };
     }//end constructor
 
 
-    render(){
-       let editStatus;
-       let decoded = jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret');
-        if(decoded.typeId === 'Company'){
-            editStatus = this.state.editStatus;
-        }
-        return(
-            <Grid className="sak">
-                <Col xs={12} md={4}>
+  render() {
+    let editStatus;
+    let renderComment;
+    if (this.state.user.typeName === 'Company' || this.state.user.typeName === 'Admin' || this.state.user.typeName === 'Employee') {
+      editStatus = this.state.editStatus;
+      renderComment = <div>
+            <br/>
 
-                    <h3>Beskrivelse</h3>
-                    <p>{this.state.issue.text}</p>
+            <FormGroup>
+                <FormControl componentClass="textarea" value={this.state.comment} placeholder="Legg til kommentar til sak"
+                             onChange={this.editComment}/>
+                <Button type="Button" onClick={this.addComment}> Legg til kommentar</Button>
+            </FormGroup>
+        </div>
+    }
 
-                    <h3>Status</h3>
-                    <ProgressBar bsStyle={this.state.status.progressBar} now={this.state.status.progress}
-                                 label={this.state.issue.statusName}/>
 
-                    <h3>Dato sendt inn</h3>
-                    <p>{this.state.issue.date}</p>
+    return (
+      <Grid className="sak">
 
-                    <h3>Adresse</h3>
-                    <p>{this.state.issue.address}</p>
+        <Col sm={1} md={2} lg={2}></Col>
 
-                    <h3>Kategori</h3>
-                    <p>{this.Categories()}</p>
+        <Col sm={10} md={8} lg={8}>
+          <img width={'100%'} src={'image/' + this.state.image}/>
 
-                </Col>
+          <Col sm={6} md={6}>
+            <h3>Kategori</h3>
+            <p>{this.Categories()}</p>
 
-                <Col xs={12} md={8}>
-                    {this.showPic()}
-                </Col>
+            <h3>Adresse</h3>
+            <p>{this.state.issue.address}</p>
 
-                <Row>
-                    <Col>
-                        {editStatus}
-                    </Col>
-                </Row>
+            <h3>Beskrivelse</h3>
+            <p>{this.state.issue.text}</p>
+
+
+          </Col>
+          <Col sm={6} md={6}>
+
+            <h3>Status</h3>
+            <ProgressBar>
+              <ProgressBar bsStyle={this.state.status.progressBar} active={this.state.status.inProgress} now={this.state.status.progress}
+                           label={this.state.status.name} style={{ color: 'black' }}/>
+            </ProgressBar>
+
+            {editStatus}
+
+            <h3>Dato sendt inn</h3>
+            <p>{this.state.issue.date}</p>
+
+          </Col>
+        </Col>
+
+        <Col sm={1} md={2} lg={2}></Col>
+
+        <Row>
+          <Col xsOffset={23} md={8}>
+          </Col>
+        </Row>
+            <br/>
+            <h3> <b>Kommentarer </b></h3>
+                {renderComment}
                 <br/>
-            </Grid>
-        )
-    }//end method
+                {this.state.issueComments.map(e => {
+                    return(
+                              <Col>
+                                  <Well bsSize="large">
+                                  <h4> <b>{e.mail}</b></h4>
+                                  <h4> <i>{e.text}</i></h4>
+                                  </Well>
+                              </Col>
+                  )
+            })}
+        <br/>
+      </Grid>
+    );
+  }//end method
 
 
   componentWillMount() {
-    issueService.getIssueAndCounty(this.props.match.params.issueId).then(response => {
-      this.setState({ issue: response[0], categoryLevel: response[0].categoryLevel });
+
+      userService.getCurrentUser()
+          .then(resource => {
+              let user = resource[0];
+              this.setState({
+                  user: user
+              })
+          });
+
+      issueService.getIssueAndCounty(this.props.match.params.issueId).then(response => {
+      this.setState({ issue: response[0], categoryLevel: response[0].categoryLevel, image: response[0].pic });
+      issueService.getCompanyComments(response[0].issueId).then(r => {
+            this.setState({issueComments: r});
+      }).catch((error: Error) => Alert.danger(error.message));
+
       if (response.statusName === 'Registered') this.setState({ editCase: true });
       else this.setState({ editCase: false });
 
@@ -133,14 +200,13 @@ export class OversiktOverSak extends React.Component{
     }).catch((error: Error) => Alert.danger(error.message));
   }//end method
 
-    Categories(){
-        if (this.state.categoryLevel === 1) {
-            return (<p>{this.state.category1.name}</p>);
-        } else if (this.state.categoryLevel === 2) {
-            return (<p>{this.state.category1.name} - {this.state.category2.name}</p>);
-        }//end condition
-    }//end method
-
+  Categories() {
+    if (this.state.categoryLevel === 1) {
+      return (<p>{this.state.category1.name}</p>);
+    } else if (this.state.categoryLevel === 2) {
+      return (<p>{this.state.category1.name} - {this.state.category2.name}</p>);
+    }//end condition
+  }//end method
 
 
   showPic() {
@@ -149,27 +215,24 @@ export class OversiktOverSak extends React.Component{
     }
   }//end method
 
-    editStatus(){
-            return(
-                <div>
-                   <select>
-                        <option value="" onChange={this.setStatus('')}>Oppdater status </option>
-                       <option value="In progress" onChange={this.setStatus('In progress')}>In progress </option>
-                       <option value="Completed" onChange={this.setStatus('Completed')}> Completed</option>
-                   </select>
-                    <Button onClick={this.saveThisStatus}> Lagre status</Button>
-                </div>
-            )
+    editComment = (event:SyntheticEvent<HTMLInputElement>) => {
+        this.setState({comment: event.target.value});
     };//end method
 
-    setStatus = (event: Event) =>{
-        this.setState({statusName: event.target.value})
-    };//end method
+    addComment = () => {
+      issueService.addCommentToIssue(this.state.issue.issueId, this.state.comment,this.state.user.mail).then(response => {
+          window.location.reload();
+      }).catch((error: Error) => Alert.danger(error.message));
+    };
 
-    saveThisStatus = () =>{
-        issueService.updateStatusOneIssue(this.state.issue.issueId, this.state.statusName).then(response => {
-        }).catch((error: Error) => Alert.danger(error.message));
-        history.push('/min_side/mine_sakerBedrift');
-    };//end method
+  setStatus = (event: Event) => {
+    this.setState({ statusName: event.target.value });
+  };//end method
+
+  saveThisStatus = () => {
+    issueService.updateStatusOneIssue(this.state.issue.issueId, this.state.statusName).then(response => {
+    }).catch((error: Error) => Alert.danger(error.message));
+    window.location.reload();
+  };//end method
 }//end class
 

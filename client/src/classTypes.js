@@ -1,5 +1,51 @@
 // @flow
 
+export class Admin{
+    mail: string;
+    firstName: string;
+    lastName: string;
+    password: string;
+    typeName: string;
+    phone: string;
+    points: number;
+    countyId: number;
+    active: number;
+
+    constructor(mail: string, firstName: string, lastName: string, typeName: string, phone: string, points: number, countyId: number, active: number) {
+        this.mail = mail;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.typeName = typeName;
+        this.phone = phone;
+        this.points = points;
+        this.countyId = countyId;
+        this.active = active;
+    }
+}
+
+export class Employee{
+    mail: string;
+    firstName: string;
+    lastName: string;
+    password: string;
+    typeName: string;
+    phone: string;
+    points: number;
+    countyId: number;
+    active: number;
+
+    constructor(mail: string, firstName: string, lastName: string, typeName: string, phone: string, points: number, countyId: number, active: number) {
+        this.mail = mail;
+        this.firstName = firstName;
+        this.lastName = lastName;
+        this.typeName = typeName;
+        this.phone = phone;
+        this.points = points;
+        this.countyId = countyId;
+        this.active = active;
+    }
+}
+
 export class User {
   mail: string;
   firstName: string;
@@ -203,21 +249,30 @@ export class Event {
 export class Status {
   progressBar: String;
   progress: number;
+  name: string;
+  inProgress: boolean = false;
 
   constructor(status: string) {
     //if issue is registered
     if (status === "Registered") {
-      this.progressBar = "info";
-      this.progress = 100;
+      this.progressBar = "";
+      this.progress = 0;
+      this.name = 'Registrert';
+      this.inProgress = false;
 
       //if issue is under processing
     } else if (status === "In progress") {
-      this.progressBar = "warning";
+      this.progressBar = "info";
       this.progress = 50;
+      this.name = 'Behandles';
+      this.inProgress = true;
+
       //if issue is resolved
     } else {
       this.progressBar = "success";
       this.progress = 100;
+      this.name = 'Fullført';
+      this.inProgress = false;
     } //end condition
   } //end constructor
 } //end class

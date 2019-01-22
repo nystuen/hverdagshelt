@@ -34,16 +34,14 @@ interface Props {
 export class MineSaker extends React.Component<Props, State> {
   state = {
     issues: [],
-    decoded: jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret'),
     category: [],
     category1: [],
     category2: [],
-    category3: []
+    category3: [],
   };
 
     componentWillMount(){
-        let decoded = jwt.verify(window.localStorage.getItem('userToken'), "shhhhhverysecret");
-        userService.getMyIssues(decoded.email).then(response => {
+        userService.getMyIssues().then(response => {
             this.setState({issues: response});
             this.getSorted();
         }).catch((error: Error) => Alert.danger(error.message));
@@ -99,7 +97,7 @@ export class MineSaker extends React.Component<Props, State> {
                 <tr key={e.text}>
                   <td>
                     <Nav bsStyle="pills">
-                      <NavItem href={'/#min_side/sakoversikt/' + this.state.decoded.email + '/' + e.issueId}>
+                      <NavItem href={'/#min_side/sakoversikt/' + e.issueId}>
                         {e.text}
                       </NavItem>
                     </Nav>
@@ -109,8 +107,10 @@ export class MineSaker extends React.Component<Props, State> {
                   </td>
                   <td>
                     {this.updateStatus(e.statusName)}
-                    <ProgressBar bsStyle={this.status.progressBar} now={this.status.progress}
-                                 label={e.statusName}/>
+                    <ProgressBar>
+                    <ProgressBar bsStyle={this.status.progressBar} active={this.status.inProgress} now={this.status.progress}
+                                 label={this.status.name} style={{color: 'black'}} key={1}/>
+                    </ProgressBar>
                   </td>
                 </tr>
               );

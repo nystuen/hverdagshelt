@@ -2,7 +2,7 @@
 
 import React from 'react';
 import {Grid, Col, Row, Button, Table} from "react-bootstrap";
-import {Issue} from "../../../classTypes";
+import {Company, Issue} from "../../../classTypes";
 import {CategoryService, UserService} from "../../../services";
 import {Alert} from "../../../widgets";
 import ProgressBar from "react-bootstrap/es/ProgressBar";
@@ -21,17 +21,22 @@ interface State{
     decoded: Object;
 }
 
-export class mineSakerBedrift extends React.Component<State>{
+export class mineSakerBedrift extends React.Component{
     state = {
       issues: [],
-      decoded: jwt.verify(window.localStorage.getItem('userToken'), "shhhhhverysecret")
+      user: new Company('1',1,'121232','','')
     };
 
     componentWillMount() {
-        userService.getCompanyIssues(this.state.decoded.email).then(response => {
-            this.setState({issues: response});
-            this.getSorted();
-        }).catch((error: Error) => Alert.danger(error.message));
+        let user ={};
+        console.log('hei');
+        userService.getCurrentUser().then(r => {
+            user = r[0];
+            userService.getCompanyIssues(user.companyMail).then(response => {
+                this.setState({issues: response, user: user});
+                this.getSorted();
+            }).catch((error: Error) => Alert.danger(error.message));
+        }).catch((error: Error) => confirm(error.message));
     }//end method
 
     render(){
@@ -59,7 +64,7 @@ export class mineSakerBedrift extends React.Component<State>{
                             <tr key={e.issueId}>
                                 <td>
                                     <Nav bsStyle="pills">
-                                        <NavItem href={"/#min_side/sakoversikt/" + this.state.decoded.email + "/" + e.issueId}>
+                                        <NavItem href={"/#min_side/sakoversikt/" + this.state.user.mail + "/" + e.issueId}>
                                             {e.text}
                                         </NavItem>
                                     </Nav>
@@ -69,8 +74,10 @@ export class mineSakerBedrift extends React.Component<State>{
                                 </td>
                                 <td>
                                     {this.updateStatus(e.statusName)}
-                                    <ProgressBar bsStyle={this.status.progressBar} now={this.status.progress}
-                                             label={e.statusName}/>
+                                    <ProgressBar>
+                                    <ProgressBar bsStyle={this.status.progressBar} active={this.status.inProgress} now={this.status.progress}
+                                             label={this.status.name} style={{color: 'black'}} key={1}/>
+                                    </ProgressBar>
                                 </td>
                             </tr>
                         )
@@ -90,7 +97,7 @@ export class mineSakerBedrift extends React.Component<State>{
         //Sorting view so completed issues are listed at the bottom
         let sorted: Object = [];
         this.state.issues.map(e => {
-            if(e.statusName == 'Registered'){
+            if(e.statusName === 'Registered'){
                 sorted.push(e)
             }
         });

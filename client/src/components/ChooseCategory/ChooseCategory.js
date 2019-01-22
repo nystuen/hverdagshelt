@@ -1,4 +1,4 @@
-import ReactDOM from 'react-dom';
+
 import * as React from 'react';
 import { Component } from 'react-simplified';
 import {
@@ -16,6 +16,7 @@ import ListGroup from 'react-bootstrap/es/ListGroup';
 import ListGroupItem from 'react-bootstrap/es/ListGroupItem';
 import cloneDeep from 'lodash/cloneDeep';
 import css from './chooseCategory.css';
+import Glyphicon from 'react-bootstrap/es/Glyphicon';
 
 let categoryService = new CategoryService();
 
@@ -168,11 +169,22 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
     });
 
 
+
     console.log('returnvalue:', returnValue);
     return returnValue;
   }
 
+  caret(active : boolean){
+    if(active) {
+      return <span className="caret"/>
+    } else {
+      return <span className="caret caret-right"/>
+    }
+  }
+
   render() {
+
+
     return (
       <div>
         <ListGroup>
@@ -180,7 +192,9 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
             return (
               <div key={cat1.id}>
                 <ListGroupItem onClick={() => this.handleClick(cat1)}>
-                  cat1: {cat1.name}
+
+                  {cat1.name} {this.caret(cat1.open)}
+
                 </ListGroupItem>
 
                 <Collapse in={cat1.open}>
@@ -190,9 +204,7 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
                         return (
                           <div key={cat2.id}>
                             <ListGroupItem className="cat2"
-                                           onClick={() => this.handleClick2(cat2)}>
-                              ___cat2: {cat2.name}
-                            </ListGroupItem>
+                                           onClick={() => this.handleClick2(cat2)}>{cat2.name}</ListGroupItem>
                           </div>
                         );
                       }
