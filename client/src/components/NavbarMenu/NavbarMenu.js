@@ -4,112 +4,260 @@ import {
     Nav,
     NavItem,
     NavDropdown,
-    MenuItem
+    MenuItem,
+    Glyphicon
 } from 'react-bootstrap';
 import css from './NavbarMenu.css';
-import {PageHeader} from '../PageHeader/PageHeader';
-import * as jwt from 'jsonwebtoken';
-import {User} from '../../classTypes';
+import { PageHeader } from '../PageHeader/PageHeader';
 import {UserService} from '../../services';
-import Glyphicon from 'react-bootstrap/es/Glyphicon';
+import {User} from "../../classTypes";
 
 let userService = new UserService();
 
 let loginButton;
-let myCases;
 
 export class NavbarMenu extends React.Component {
 
-    constructor(props) {
-        super(props);
+  constructor(props) {
+    super(props);
 
-        this.toggle = this.toggle.bind(this);
-        this.state = {
-            user: {},
-            isOpen: false
-        };
-    }
+    this.toggle = this.toggle.bind(this);
+    this.state = {
+      user: {},
+      isOpen: false,
+      activeKey: 0
+    };
+  }
 
-    toggle() {
+  toggle() {
+    this.setState({
+      isOpen: !this.state.isOpen
+    });
+  }
+
+  componentWillMount() {
+    userService.getCurrentUser()
+      .then(resources => {
+        let user = resources[0];
         this.setState({
-            isOpen: !this.state.isOpen
+          user: user
         });
-    }
+      });
+  }
 
-    componentWillMount() {
-        userService.getCurrentUser()
-            .then(resources => {
-                let user = resources[0];
-                this.setState({
-                    user: user
-                })
-            })
-    }
 
-    render() {
-        if (window.localStorage.getItem('userToken') === '') {
-            loginButton = <NavItem eventKey={1} href="/#login">Login</NavItem>;
-        } else {
-            loginButton = <NavItem eventKey={1} href="/#login" onClick={() => this.logout()}> Log out</NavItem>;
-            this.viewCases();
+  handleSelect(selectedKey) {
+    console.log('selectec:', selectedKey);
+    this.setState({ activeKey: selectedKey });
+  }
+
+  render() {
+    if (window.localStorage.getItem('userToken') === '') {
+      loginButton = <NavItem eventKey={13} href="/#login">Login</NavItem>;
+    } else {
+      loginButton = <NavItem eventKey={13} href="/#login" onClick={() => this.logout()}> Log out</NavItem>;
+      this.viewCases();
+    }//end condition
+
+    if(window.localStorage.getItem('userToken') !== '') {
+        if(this.state.user.typeName === "Admin") {
+            return (
+                <div className={'logoBrand'}>
+                    <Navbar collapseOnSelect fluid>
+                        <Navbar.Header>
+                            <Navbar.Brand>
+                                <img src={'./resources/logo_white.png'}></img>
+                            </Navbar.Brand>
+                            <Navbar.Toggle/>
+                        </Navbar.Header>
+
+                        <Navbar.Collapse>
+
+                            <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+                                <NavItem eventKey={2} href={'/#/wizardForm'}><Glyphicon
+                                    glyph="glyphicon glyphicon-plus"/> Meld inn sak</NavItem>
+                                <NavItem eventKey={3} href={'/#/events/' + window.sessionStorage.getItem('countyId')}>
+                                    <i className="fas fa-exclamation-triangle"></i> Hendelser</NavItem>
+                                <NavItem eventKey={4} href={'/#/statistics'}><Glyphicon
+                                    glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
+                                <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Kart</NavItem>
+                                {this.viewCases()}
+                                <NavItem eventKey={7} href={'/#/admin'}><Glyphicon
+                                    glyph="glyphicon glyphicon-user"/> Admin</NavItem>
+                            </Nav>
+
+                            <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+                                <NavDropdown eventKey={9} title={'Min side'} id='1'>
+                                    <MenuItem eventKey={9} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
+                                    <MenuItem eventKey={9}
+                                              href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
+                                </NavDropdown>
+                                {loginButton}
+                            </Nav>
+                        </Navbar.Collapse>
+
+                    </Navbar>
+                </div>
+            )
+        }else if(this.state.user.typeName==="Employee"){
+            return(
+                <div className={'logoBrand'}>
+                    <Navbar collapseOnSelect fluid>
+                        <Navbar.Header>
+                            <Navbar.Brand>
+                                <img src={'./resources/logo_white.png'}></img>
+                            </Navbar.Brand>
+                            <Navbar.Toggle/>
+                        </Navbar.Header>
+
+                        <Navbar.Collapse>
+
+                            <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+                                <NavItem eventKey={2} href={'/#/wizardForm'}><Glyphicon
+                                    glyph="glyphicon glyphicon-plus"/> Meld inn sak</NavItem>
+                                <NavItem eventKey={3} href={'/#/events/' + window.sessionStorage.getItem('countyId')}>
+                                    <i className="fas fa-exclamation-triangle"></i> Hendelser</NavItem>
+                                <NavItem eventKey={4} href={'/#/statistics'}><Glyphicon
+                                    glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
+                                <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Kart</NavItem>
+                                {this.viewCases()}
+                                <NavItem eventKey={7} href={'/#/admin'}><Glyphicon
+                                    glyph="glyphicon glyphicon-user"/> Ansatt</NavItem>
+                            </Nav>
+
+                            <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+                                <NavDropdown eventKey={9} title={'Min side'} id='1'>
+                                    <MenuItem eventKey={9} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
+                                    <MenuItem eventKey={9}
+                                              href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
+                                </NavDropdown>
+                                {loginButton}
+                            </Nav>
+                        </Navbar.Collapse>
+
+                    </Navbar>
+                </div>
+            )
+        }else if(this.state.user.typeName==="Private"){
+            return(
+                <div className={'logoBrand'}>
+                    <Navbar collapseOnSelect fluid>
+                        <Navbar.Header>
+                            <Navbar.Brand>
+                                <img src={'./resources/logo_white.png'}></img>
+                            </Navbar.Brand>
+                            <Navbar.Toggle/>
+                        </Navbar.Header>
+
+                        <Navbar.Collapse>
+
+                            <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+                                <NavItem eventKey={1} href={'/#/'}><Glyphicon
+                                    glyph="glyphicon glyphicon-home"/> {window.sessionStorage.getItem('countyName')}
+                                </NavItem>
+                                <NavItem eventKey={2} href={'/#/wizardForm'}><Glyphicon
+                                    glyph="glyphicon glyphicon-plus"/> Meld inn sak</NavItem>
+                                <NavItem eventKey={3} href={'/#/events/' + window.sessionStorage.getItem('countyId')}>
+                                    <i className="fas fa-exclamation-triangle"></i> Hendelser</NavItem>
+                                <NavItem eventKey={4} href={'/#/statistics'}><Glyphicon
+                                    glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
+                                <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Kart</NavItem>
+                                {this.viewCases()}
+                            </Nav>
+
+                            <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+                                <NavDropdown eventKey={9} title={'Min side'} id='1'>
+                                    <MenuItem eventKey={9} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
+                                    <MenuItem eventKey={9}
+                                              href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
+                                </NavDropdown>
+                                {loginButton}
+                            </Nav>
+                        </Navbar.Collapse>
+
+                    </Navbar>
+                </div>
+            )
+        }else{
+           return(
+               <div className={'logoBrand'}>
+                   <Navbar collapseOnSelect fluid>
+                       <Navbar.Header>
+                           <Navbar.Brand>
+                               <img src={'./resources/logo_white.png'}></img>
+                           </Navbar.Brand>
+                           <Navbar.Toggle/>
+                       </Navbar.Header>
+
+                       <Navbar.Collapse>
+
+                           <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+                               <NavItem eventKey={4} href={'/#/statistics'}><Glyphicon
+                                   glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
+                               <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Kart</NavItem>
+                               {this.viewCases()}
+                           </Nav>
+
+                           <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+                               <NavDropdown eventKey={9} title={'Min side'} id='1'>
+                                   <MenuItem eventKey={9} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
+                                   <MenuItem eventKey={9}
+                                             href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
+                               </NavDropdown>
+                               {loginButton}
+                           </Nav>
+                       </Navbar.Collapse>
+
+                   </Navbar>
+               </div>
+           )
         }//end condition
+    }else{
+       return(
+           <div className={'logoBrand'}>
+               <Navbar collapseOnSelect fluid>
+                   <Navbar.Header>
+                       <Navbar.Brand>
+                           <img src={'./resources/logo_white.png'}></img>
+                       </Navbar.Brand>
+                       <Navbar.Toggle/>
+                   </Navbar.Header>
 
+                   <Navbar.Collapse>
 
-        return (
-            <div className={"logoBrand"}>
-                <Navbar collapseOnSelect fluid>
-                    <Navbar.Header>
-                        <Navbar.Brand>
-                            <img src={'./resources/logo_svart.png'}/>
-                        </Navbar.Brand>
-                        <Navbar.Toggle/>
-                    </Navbar.Header>
+                   </Navbar.Collapse>
 
-          <Navbar.Collapse>
-
-            <Nav>
-              <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-th-list"/> Velg kommune</NavItem>
-              <NavItem href={'/#/wizardForm'}><Glyphicon glyph="glyphicon glyphicon-plus"/> Meld inn sak</NavItem>
-              <NavItem href={'/#/events/2'}><Glyphicon glyph="glyphicon glyphicon-road"/> Hendelser</NavItem>
-              <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
-              <NavItem href={'/#/map'}><Glyphicon glyph="glyphicon glyphicon-map-marker"/> Kart</NavItem>
-              {this.viewCases()}
-              <NavItem href={'/#/admin'}><Glyphicon glyph="glyphicon glyphicon-user"/> Admin</NavItem>
-            </Nav>
-
-          <Nav pullRight>
-            <NavDropdown title={'Min side'} id='1'>
-              <MenuItem eventKey={1} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
-              <MenuItem eventKey={1} href="/#min_side/kommuner">Kommuner</MenuItem>
-              <MenuItem eventKey={1} href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
-            </NavDropdown>
-            {loginButton}
-          </Nav>
-        </Navbar.Collapse>
-
-        </Navbar>
-      </div>
-    )
-      ;
+               </Navbar>
+           </div>
+       )
+    }//end condition
   }//end method
 
     logout = () => {
         window.localStorage.setItem('userToken', '');
+        window.sessionStorage.setItem('countyId', '');
+        window.sessionStorage.setItem('countyName', '');
         this.viewCases();
         loginButton = <NavItem eventKey={1} href="/#login">Login</NavItem>;
+        this.setState({user: {}});
+
+        window.location.reload();
     };//end method
 
     viewCases = () => {
         if (window.localStorage.getItem('userToken') !== '') {
-
+            if(this.state.user === {}){
+                userService.getCurrentUser().then(r => {
+                    this.setState({user: r});
+                }).catch((error: Error) => confirm(error.message));
+            }
             if (this.state.user.typeName === undefined) {
-                return <NavItem eventKey={2} href="/#min_side/mine_sakerBedrift"><Glyphicon glyph="glyphicon glyphicon-user"/>Mine saker</NavItem>;
+                return <MenuItem eventKey={19} href="/#min_side/mine_sakerBedrift">Mine saker</MenuItem>;
             } else {
-                return <NavItem  eventKey={2} href="/#min_side/mine_saker"> <Glyphicon glyph="glyphicon glyphicon-user"/>Mine saker</NavItem>;
-            }//end condition}
-
+                return <MenuItem eventKey={19} href="/#min_side/mine_saker">Mine saker</MenuItem>;
+            }//end condition
         } else {
-            return <NavItem eventKey={2} href="/#login"><Glyphicon glyph="glyphicon glyphicon-user"/>Mine saker</NavItem>;
+            return <MenuItem eventKey={19} href="/#login">Mine saker</MenuItem>;
         }//end condition
     };//end method
 }

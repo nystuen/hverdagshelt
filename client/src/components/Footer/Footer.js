@@ -1,11 +1,23 @@
 //@flow
-import React, {Component} from "react";
+import React, { Component } from 'react';
 import {
-  Grid, Row, Col, ListGroup,ListGroupItem,ToggleButton,ButtonToolbar, MenuItem, FormGroup, FormControl,PageHeader,Button, ControlLabel
-} from "react-bootstrap"
+  Grid,
+  Row,
+  Col,
+  ListGroup,
+  ListGroupItem,
+  ToggleButton,
+  ButtonToolbar,
+  MenuItem,
+  FormGroup,
+  FormControl,
+  PageHeader,
+  Button,
+  ControlLabel,
+    Image
+} from 'react-bootstrap';
 import { CountyService, getUsersCounties } from '../../services';
-import Image from 'react-bootstrap/es/Image';
-import {UserService} from '../../services';
+import { UserService } from '../../services';
 
 
 let countyService = new CountyService();
@@ -17,52 +29,52 @@ export class Footer extends Component<{}> {
 
   state = {
       countyInformation:[],
-     user: []
+     user: {}
 
   };
 
 
 
-  componentDidMount() {
-    if(!(window.localStorage.getItem('userToken') == '')) {
-      userService.getCurrentUser().then(r => {
-        console.log('bruker:', r);
-        this.setState({user: r[0]});
+
+  componentDidMount = async ()=>{
+    let user = {};
+      await userService.getCurrentUser().then(r => {
+        if (r[0] === undefined) {
+          user = {};
+        } else {
+          user = r[0];
+        }
+        this.setState({user: user});
       });
 
-    }
 
-    countyService.getCountyEmployee(this.state.user.countyId).then((r: Array<Object>) => {
+    await countyService.getCountyEmployee(this.state.user.countyId).then((re: Array<Object>) => {
       this.setState({
-        countyInformation: r
+        countyInformation: re
       });
     });
+  };
 
-  }
-
-
-
-
-  render(){
+  render() {
     let check;
-    if(this.state.user.countyId != null){
+    if (this.state.user.countyId !== {}) {
       return (
         <footer className="footerClass2">
-        <Col xs={12} md={12}>
-        <h4 className="footerInfo">Kontaktinformasjon til {this.state.user.county}-kommunen:</h4>
-        {
-          this.state.countyInformation.map((r, i) => {
-            return (
+          <Col xs={12} md={12}>
+            <h4 className="footerInfo">Kontaktinformasjon til {this.state.user.county}-kommune:</h4>
+            {
+              this.state.countyInformation.map((r, i) => {
+                return (
 
-              <div key={i} className="footerInfo">
-                <Row>kommuneansatt: {r.firstName + ' ' + r.lastName}</Row>
-                <Row> e-post: {r.mail}</Row>
-                <Row> telefonnr: {r.phone}</Row>
-              </div>
-            )
-          })
-        }
-      </Col>
+                  <div key={i} className="footerInfo">
+                    <Row>kommuneansatt: {r.firstName + ' ' + r.lastName}</Row>
+                    <Row> e-post: {r.mail}</Row>
+                    <Row> telefonnr: {r.phone}</Row>
+                  </div>
+                );
+              })
+            }
+          </Col>
 
           <div align="center">
 
@@ -74,26 +86,26 @@ export class Footer extends Component<{}> {
           </div>
 
         </footer>
-          );
-    }else{
-      return(
-      <footer className="footerClass2">
-        <div className="container">
-          <div align="center">
-            <Image className="picture"
-                   src={'./resources/logo_white.png'}
-                   rounded/>
-            <h2>HVERDAGSHELT</h2>
+      );
+    } else {
+      return (
+        <footer className="footerClass2">
+          <div className="container">
+            <div align="center">
+              <Image className="picture"
+                     src={'./resources/logo_white.png'}
+                     rounded/>
+              <h2>HVERDAGSHELT</h2>
+            </div>
           </div>
-        </div>
-      </footer>
-      )
+        </footer>
+      );
     }
-    return(
+    return (
 
-      {check}
+      { check }
 
-    )
+    );
 
 
   }

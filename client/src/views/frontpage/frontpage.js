@@ -6,14 +6,12 @@ import { Alert } from '../../widgets';
 import ReactDOM from 'react-dom';
 //import {County} from "../../classTypes";
 import css from './frontpage.css';
+import {history} from "../../index";
 
 import Select from 'react-select';
-import Row from 'react-bootstrap/es/Row';
 
 let countyService = new CountyService();
 import logo from './osloBackground.png';
-import FormControl from 'react-bootstrap/es/FormControl';
-import Image from 'react-bootstrap/es/Image';
 
 
 export class Frontpage extends Component<Props, State> {
@@ -30,15 +28,22 @@ export class Frontpage extends Component<Props, State> {
     };
 
     this.handleChangeCounty = this.handleChangeCounty.bind(this);
+    this.handleClick = this.handleClick.bind(this);
   }
 
   handleChangeCounty(e: Object) {
-    console.log(e.value);
+    console.log(e);
     this.setState({
-      choosen: JSON.parse(e.value)
+      choosen: e
     });
+  };
 
-
+  handleClick() {
+    window.sessionStorage.setItem('countyId', this.state.choosen.value);
+    console.log(window.sessionStorage.getItem('countyId'));
+    window.sessionStorage.setItem('countyName', this.state.choosen.label);
+    console.log(window.sessionStorage.getItem('countyName'));
+    history.push('/wizardForm/');
   };
 
   componentWillMount() {
@@ -85,7 +90,7 @@ export class Frontpage extends Component<Props, State> {
               </FormGroup>
 
               <div align="center">
-                <Button bsStyle="primary" className={'frontpage-button'} href={'/#/wizardForm/'}>Gå
+                <Button bsStyle="primary" className={'frontpage-button'} onClick={() => this.handleClick()}>Gå
                   videre!</Button>
               </div>
             </Col>

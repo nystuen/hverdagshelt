@@ -1,12 +1,12 @@
 // @flow
 
 import React from 'react';
-import { Grid, Col, Row, Button, Table, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Grid, Panel, PanelGroup, Col } from 'react-bootstrap';
 import { EventCategoryService } from '../../services';
 import { Event } from '../../classTypes';
 import css from './events.css';
-import Panel from 'react-bootstrap/es/Panel';
-import PanelGroup from 'react-bootstrap/es/PanelGroup';
+import { PageHeader } from '../../components/PageHeader/PageHeader';
+import { MapComponent } from '../../components/map/Map';
 
 let eventCategoryService = new EventCategoryService();
 
@@ -59,23 +59,55 @@ export class events extends React.Component<Props, State> {
     return (
       <div className="events">
         <Grid>
-          <PanelGroup accordion id="accordion-uncontrolled-example" defaultActiveKey="2">
-            {
-              this.state.importantEvents.map((r, i) => {
-                return (
-                  <Panel eventKey={r.eventId}  key={r.eventId}>
-                    <Panel.Heading>
-                      <Panel.Title toggle>{r.title}</Panel.Title>
-                    </Panel.Heading>
-                    <Panel.Body collapsible>
-                      <b>{r.text}</b>
-                      <p>Publisert {r.date}</p>
-                    </Panel.Body>
-                  </Panel>
-                );
-              })
-            }
-          </PanelGroup>
+
+          <PageHeader title={'Hendelser i din kommune'}/>
+          <Col md={2}></Col>
+
+          <Col md={8}>
+            <PanelGroup accordion id="accordion-controlled-example" defaultActiveKey={0}>
+
+              {
+                this.state.importantEvents.map((r, i) => {
+
+                  let panel;
+                  let backgroundColor;
+
+                  if (i % 2 != 0) {
+                    backgroundColor = { 'background-color': 'white' };
+                  } else {
+                    backgroundColor = {};
+                  }
+
+                  panel = <div align="center">
+                    <Panel eventKey={i} key={i}>
+                      <Panel.Heading style={backgroundColor}>
+                        <Panel.Title toggle>{r.title}</Panel.Title>
+                      </Panel.Heading>
+                      <Panel.Body collapsible>
+                        <h4>{r.text}</h4>
+
+                        <div>
+                          Her kan det kanskje komme map?
+                          long {r.longitude}
+                          lat {r.latitude}
+                        </div>
+
+                        <p>Publisert {r.date} av {r.userMail}</p>
+                      </Panel.Body>
+                    </Panel></div>;
+
+                  return (
+                    <row>
+                      {panel}
+                    </row>
+                  );
+
+                })
+              }
+            </PanelGroup>
+          </Col>
+
+          <Col md={2}></Col>
         </Grid>
       </div>
     )

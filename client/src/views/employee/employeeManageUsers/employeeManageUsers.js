@@ -6,6 +6,7 @@ import {User} from "../../../classTypes";
 import {EmployeeService} from "../../../services"
 import {UserService} from "../../../services";
 import Button from "react-bootstrap/es/Button";
+import FormControl from "react-bootstrap/es/FormControl";
 
 let employeeService = new EmployeeService;
 let userService = new UserService;
@@ -39,6 +40,10 @@ export class employeeManageUsers extends React.Component<Props,State>{
         employeeService.unblockUser(mail)
     }
 
+    buttonBack(){
+      this.props.history.goBack();
+    }
+
 
     componentWillMount() {
         let employee = null;
@@ -59,13 +64,29 @@ export class employeeManageUsers extends React.Component<Props,State>{
             });
     }
 
+    blockSwitch(e: User){
+      if(e.active == 1){
+        return <Button style={{"width": "6em"}} bsSize={"sm"} bsStyle={"danger"} onClick={this.blockUser.bind(null, e.mail)}>Block</Button>;
+      } else {
+        return <Button style={{"width": "6em"}}  bsSize={"sm"} bsStyle={"primary"} onClick={this.unblockUser.bind(null, e.mail)}>Unblock</Button>;
+      }
+    }
 
     render(){
         return(
+          <div>
+          <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
             <Grid>
+
+
                 <br/>
                 <br/>
-                <Table>
+                <FormControl
+                    type="text"
+                    id="myInput"
+                    onKeyUp={this.myFunction}
+                    placeholder="Search for names.."/>
+                <Table id={"myTable"}>
                     <thead>
                     <tr>
                         <th>
@@ -81,15 +102,14 @@ export class employeeManageUsers extends React.Component<Props,State>{
                             Poeng
                         </th>
                         <th>
-                            Aktiver
+                            Blokker/Aktiver
                         </th>
-                        <th>
-                            Blokker
-                        </th>
+
                     </tr>
                     </thead>
                     <tbody>
                     {this.state.user.map(e => {
+
                         return(
 
                             <tr key={e.mail}>
@@ -106,18 +126,38 @@ export class employeeManageUsers extends React.Component<Props,State>{
                                     {e.points}
                                 </td>
                                 <td>
-                                    <Button bsSize={"sm"} bsStyle={"primary"} onClick={this.unblockUser.bind(null, e.mail)}>Unblock</Button>
+                                  {this.blockSwitch(e)}
                                 </td>
-                                <td>
-                                    <Button bsSize={"sm"} bsStyle={"danger"} onClick={this.blockUser.bind(null, e.mail)}>Block</Button>
 
-                                </td>
                             </tr>
                         )
                     })}
                     </tbody>
                 </Table>
             </Grid>
+          </div>
         )}
+
+    myFunction(){
+        // Declare variables
+        var input, filter, Table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        Table = document.getElementById("myTable");
+        tr = Table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
 
 }//end class

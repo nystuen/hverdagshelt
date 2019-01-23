@@ -39,6 +39,7 @@ export class MapComponent extends Component<{}, State> {
 
   }
 
+  mapRef = createRef<Map>();
 
   componentDidMount() {
     const map = this.mapRef.current.leafletElement;
@@ -48,14 +49,14 @@ export class MapComponent extends Component<{}, State> {
     }
   }
 
-  mapRef = createRef<Map>()
+
 
   handleMapClick = (e: Object) => {
     this.setState({
       hasLocation: true,
       latlng: e.latlng,
       zoom: 17
-    })
+    });
 
     Geocode.fromLatLng(e.latlng.lat, e.latlng.lng).then(
       response => {

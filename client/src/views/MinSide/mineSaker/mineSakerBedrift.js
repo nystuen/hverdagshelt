@@ -1,16 +1,11 @@
 // @flow
 
 import React from 'react';
-import {Grid, Col, Row, Button, Table} from "react-bootstrap";
+import {Grid, Col, Row, Button, Table, ProgressBar, Nav, NavItem} from "react-bootstrap";
 import {Company, Issue} from "../../../classTypes";
 import {CategoryService, UserService} from "../../../services";
 import {Alert} from "../../../widgets";
-import ProgressBar from "react-bootstrap/es/ProgressBar";
 import {Status} from "../../../classTypes";
-import NavLink from "react-router-dom/es/NavLink";
-import Nav from "react-bootstrap/es/Nav";
-import NavItem from "react-bootstrap/es/NavItem";
-import Progress from "reactstrap/es/Progress";
 
 let jwt = require("jsonwebtoken");
 let userService = new UserService();
@@ -64,7 +59,7 @@ export class mineSakerBedrift extends React.Component{
                             <tr key={e.issueId}>
                                 <td>
                                     <Nav bsStyle="pills">
-                                        <NavItem href={"/#min_side/sakoversikt/" + this.state.user.mail + "/" + e.issueId}>
+                                        <NavItem href={"/#min_side/sakoversikt/" + e.issueId}>
                                             {e.text}
                                         </NavItem>
                                     </Nav>

@@ -6,8 +6,11 @@ import showResults from "./showResults";
 import WizardForm from "./WizardForm";
 
 export class WizardFormComplete extends React.Component {
+
+
   render() {
     return (
+      <div>
       <Provider store={store}>
         <div>
           <div>
@@ -15,6 +18,7 @@ export class WizardFormComplete extends React.Component {
           </div>
         </div>
       </Provider>
+      </div>
     );
   }
 }
