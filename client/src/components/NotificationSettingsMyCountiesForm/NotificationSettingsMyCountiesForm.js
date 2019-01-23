@@ -275,6 +275,15 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
       </Col>;
     }
 
+    let leftButtonText;
+
+    if(!this.state.countySubscriptionOpen) {
+      leftButtonText = <span>Legg til kommuner</span>;
+    } else {
+      leftButtonText = <span>Varslingsinstillinger</span>;
+    }
+
+
     return (
       <Grid>
         <form>
@@ -285,7 +294,7 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
             <Button
               bsStyle="primary"
               onClick={() => this.setState({ countySubscriptionOpen: !this.state.countySubscriptionOpen })}
-              align="left">Legg til kommuner</Button>
+              align="left">{leftButtonText}</Button>
           </Col>
 
           {savebuttonNotificationSettings}

@@ -14,6 +14,9 @@ import ControlLabel from 'react-bootstrap/es/ControlLabel';
 import FormControl from 'react-bootstrap/es/FormControl';
 import Form from 'react-bootstrap/es/Form';
 import { ChangePassword } from '../../../components/ChangePassword/ChangePassword';
+import css from './accountInformation.css';
+
+import { Panel } from 'react-bootstrap';
 
 let userService = new UserService();
 
@@ -74,25 +77,34 @@ class AccountInfoCard extends React.Component<{
             </Col>
             <Col xs={8} md={8}>
 
-              <Col md={6}>
-                <InformationCard header={'Navn'} content={this.props.firstName + ' ' + this.props.lastName}/>
-                <InformationCard header={'Hjemmekommune'} content={this.props.county}/>
-              </Col>
+              <Panel>
+                <Panel.Body>
+                  <Col md={6}>
+                    <InformationCard header={'Navn'} content={this.props.firstName + ' ' + this.props.lastName}/>
+                    <InformationCard header={'Hjemmekommune'} content={this.props.county}/>
+                  </Col>
 
-              <Col md={6}>
-                <InformationCard header={'E-post'} content={this.props.email}/>
-                <InformationCard header={'Mobilnummer'} content={this.props.phone}/>
-              </Col>
+                  <Col md={6}>
+                    <InformationCard header={'E-post'} content={this.props.email}/>
+                    <InformationCard header={'Mobilnummer'} content={this.props.phone}/>
+                  </Col>
+                </Panel.Body>
+              </Panel>
+
+              <div align="center">
+                <Col xs={12} md={6} sm={6} lg={6}>
+                  <Button id="accountInformationButton" bsStyle="primary" href={'/#/min_side/editAccountInformation'}>Endre kontoinformasjon</Button>
+                </Col>
+                <Col xs={12} md={6} sm={6} lg={6}>
+                  <Button id="accountInformationButton" bsStyle="primary" onClick={() => this.changePassword()}>Endre passord</Button>
+                </Col>
+              </div>
 
             </Col>
             <Col xs={2} md={2}>
             </Col>
           </Grid>
 
-          <div align="center">
-            <Button href={'/#/min_side/editAccountInformation'}>Endre kontoinformasjon</Button>
-            <Button onClick={() => this.changePassword()}>Endre passord</Button>
-          </div>
 
         </div>
         {change_password}

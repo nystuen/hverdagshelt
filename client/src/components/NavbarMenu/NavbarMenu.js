@@ -72,16 +72,14 @@ export class NavbarMenu extends React.Component {
               <NavItem href={'/#/wizardForm'}><Glyphicon glyph="glyphicon glyphicon-plus"/> Meld inn sak</NavItem>
               <NavItem href={'/#/events/2'}><i className="fas fa-exclamation-triangle"></i> Hendelser</NavItem>
               <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
-              <NavItem href={'/#/map'}><Glyphicon glyph="glyphicon glyphicon-map-marker"/> Kart</NavItem>
-              {this.viewCases()}
               <NavItem href={'/#/map'}><i className="fas fa-map"></i> Kart</NavItem>
+              {this.viewCases()}
               <NavItem href={'/#/admin'}><Glyphicon glyph="glyphicon glyphicon-user"/> Admin</NavItem>
             </Nav>
 
             <Nav pullRight>
               <NavDropdown title={'Min side'} id='1'>
                 <MenuItem eventKey={1} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
-                <MenuItem eventKey={1} href="/#min_side/kommuner">Kommuner</MenuItem>
                 <MenuItem eventKey={1} href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
               </NavDropdown>
               {loginButton}

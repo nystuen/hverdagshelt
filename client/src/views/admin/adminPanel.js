@@ -82,11 +82,20 @@ export class adminPanel extends Component {
                     <Button
                       id="butt"
                       bsStyle={buttonStyle}
-                      href="/#/admin/createAdminsOrEmployees"
+                      href="/#/registrer/kommuneansatt"
                       block
                     >
                       <span className="glyphicon glyphicon-plus" /> Lag en
                       ansatt
+                    </Button>
+                    <Button
+                      id="butt"
+                      bsStyle={buttonStyle}
+                      href="/#/registrer/admin"
+                      block
+                    >
+                      <span className="glyphicon glyphicon-plus" /> Lag en
+                      admin
                     </Button>
                     <Button
                       id="butt"
