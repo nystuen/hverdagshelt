@@ -48,7 +48,6 @@ export class adminAddCategory extends Component<Props,State> {
     onClickHovedkategori=()=>{
         this.setState({
             selectedCategoryType: 0,
-
         });
     };
 

@@ -162,7 +162,7 @@ export class RegisterCompany extends Component<Props, State>{
 
     getValidationStatePassword(){
         const length = this.state.password.length;
-        let decimal = /(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!., æøå/@<>"¤=#$%^&*()]*$/;
+        let decimal = /(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!., ÆØÅæøå/@<>"¤=#$%^&*()]*$/;
         if (this.state.password.match(decimal)) return 'success';
         else if(length==0)return ;
         else return 'warning';
@@ -178,7 +178,7 @@ export class RegisterCompany extends Component<Props, State>{
     }
     getValidationStateFirstName() {
         const firstNameLength = this.state.firstName.length;
-        let decimal=/^[A-Za-z _æøå]*[A-Za-zæøå][A-Za-z _æøå]*$/;
+        let decimal=/^[A-Za-z _ÆØÅæøå]*[A-Za-zÆØÅæøå][A-Za-z ÆØÅ_æøå]*$/;
 
         if(firstNameLength===1){
             return 'warning';
@@ -191,7 +191,7 @@ export class RegisterCompany extends Component<Props, State>{
     }
     getValidationStateLastName() {
         const lastNameLength = this.state.lastName.length;
-        let dec=/^[A-Za-z _æøå]*[A-Za-zæøå][A-Za-z _æøå]*$/;
+        let dec=/^[A-Za-z _ÆØÅæøå]*[A-Za-zÆØÅæøå][A-Za-z ÆØÅ_æøå]*$/;
 
         if(lastNameLength===1){
             return 'warning';
@@ -426,7 +426,7 @@ export class RegisterCompany extends Component<Props, State>{
                             </FormGroup>
                             <FormGroup>
                                 <Col md={6}>
-                                    <FormGroup>
+                                    <FormGroup validationState={this.getValidationStatePassword()}>
                                         <FormControl type="password" value={this.state.password} placeholder="Passord"
                                                      onChange={this.handleStringChange("password")}
                                         />

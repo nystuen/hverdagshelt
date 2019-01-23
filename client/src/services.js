@@ -118,9 +118,12 @@ export class ImageService {
 }
 
 export class CategoryService {
-  updateCategory2(category2: Category2): Promise<Response> {
-      return axios.put("/category2/updateCategory2", category2);
+  updateCategory2(category2: number): Promise<void> {
+      return axios.put("/category2/updateCategory2", {cat2Id: category2}, {headers: authHeader()});
   }
+  updateCategory1(category1: number): Promise<void> {
+        return axios.put("/category1/updateCategory1", {cat1Id: category1}, {headers: authHeader()});
+    }
 
   getCategory1(): Promise<Category[]> {
     return axios.get("/get_category1");

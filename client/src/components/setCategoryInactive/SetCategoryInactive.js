@@ -1,14 +1,14 @@
 import { ChooseCategory } from "../ChooseCategory/ChooseCategory";
 import React from "react";
-import {Col, Grid, PageHeader} from 'react-bootstrap';
+import {Col, Grid, PageHeader, Alert} from 'react-bootstrap';
 
 
 export class SetCategoryInactive extends React.Component {
-    constructor(props) {
-        super(props);
+    constructor(props, context) {
+        super(props, context);
         this.state = {
             selectedCategoryId: -1,
-            selectedCategoryType: -1
+            selectedCategoryType: -1,
         }
     }
 

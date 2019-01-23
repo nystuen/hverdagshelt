@@ -117,7 +117,7 @@ export class RegisterAdmin extends Component<Props, State>{
 
     getValidationStateFirstName() {
         const firstNameLength = this.state.firstName.length;
-        let decimal=/^[A-Za-z _æøå]*[A-Za-zæøå][A-Za-z _æøå]*$/;
+        let decimal=/^[A-Za-zÆØÅæøå]*[A-Za-zÆØÅæøå][A-Za-zÆØÅæøå]*$/;
 
         if(firstNameLength===1){
             return 'warning';
@@ -130,7 +130,7 @@ export class RegisterAdmin extends Component<Props, State>{
     }
     getValidationStateLastName() {
         const lastNameLength = this.state.lastName.length;
-        let dec=/^[A-Za-z _æøå]*[A-Za-zæøå][A-Za-z _æøå]*$/;
+        let dec=/^[A-Za-zÆØÅæøå]*[A-Za-zÆØÅæøå][A-Za-z ÆØÅæøå]*$/;
 
         if(lastNameLength===1){
             return 'warning';
