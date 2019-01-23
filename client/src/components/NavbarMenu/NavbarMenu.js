@@ -65,7 +65,7 @@ export class NavbarMenu extends React.Component {
 
     return (
       <div className={'logoBrand'}>
-        <Navbar collapseOnSelect fluid>
+        <Navbar collapseOnSelect fluid className="shadow p-3 mb-5 bg-white rounded">
           <Navbar.Header>
             <Navbar.Brand>
                <img src={'./resources/logo_white.png'}></img>
