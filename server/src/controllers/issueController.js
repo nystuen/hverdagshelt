@@ -1,7 +1,11 @@
 //@flow
 
+import { verifyToken } from '../helpers/verifyToken';
+import * as jwt from 'jsonwebtoken';
+
 let bodyParser = require("body-parser");
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
+let privateKey = "shhhhhverysecret";
 
 module.exports = function(app: Object, issueDao: Object) {
   app.post("/add_issue", urlencodedParser, (req, res) => {
@@ -68,13 +72,26 @@ module.exports = function(app: Object, issueDao: Object) {
     });
   });
 
-  app.post("/updateStatusOneIssue/:id", (req,res) => {
-    console.log("received update request for status on issue " + req.params.id);
-    console.log(req.body.statusName);
-    issueDao.updateStatusOneIssue(req.params.id, req.body.statusName, (status,data) => {
-      res.status(status);
-      res.json(data);
+  app.post("/updateStatusOneIssue", verifyToken, (req,res) => {
+    console.log("received update request for status on issue " + req.body.id);
+
+    jwt.verify(req.token, privateKey, (err, decoded) => {
+      if(err) {
+        res.sendStatus(401)
+      } else {
+
+        if (!(decoded.typeId === 'Private')) {
+          console.log(req.body.statusName);
+          issueDao.updateStatusOneIssue(req.body.id, req.body.statusName, (status, data) => {
+            res.status(status);
+            res.json(data);
+          });
+        } else {
+          res.sendStatus(403)
+        }
+      }
     });
+
   });
 
   app.get("/CategoryIssues/:CategoryId", (req, res) => {

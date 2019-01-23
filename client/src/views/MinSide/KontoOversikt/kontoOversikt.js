@@ -3,7 +3,7 @@
 
 import React from 'react';
 import jwt from 'jsonwebtoken';
-import { Grid, Row, Col, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Grid, Row, Col, ListGroup, ListGroupItem,Modal } from 'react-bootstrap';
 import Button from 'react-bootstrap/es/Button';
 import { Category, Category2, Category3, User } from '../../../classTypes';
 import { MailService, UserService } from '../../../services';
@@ -14,6 +14,9 @@ import ControlLabel from 'react-bootstrap/es/ControlLabel';
 import FormControl from 'react-bootstrap/es/FormControl';
 import Form from 'react-bootstrap/es/Form';
 import { ChangePassword } from '../../../components/ChangePassword/ChangePassword';
+import css from './accountInformation.css';
+
+import { Panel } from 'react-bootstrap';
 
 let userService = new UserService();
 
@@ -22,6 +25,55 @@ type State = {
   user: Object,
   changePassword: boolean
 }
+
+export class InfoModule extends React.Component{
+  constructor(props) {
+    super(props);
+    this.state = {
+      show: false
+    };
+    this.handleHide = this.handleHide.bind(this);
+  }
+  handleHide() {
+    this.setState({ show: false });
+  }
+
+  render(){
+    return(
+      <Col>
+        <Button
+          bsStyle="primary"
+          onClick={() => this.setState({ show: true })}
+        >
+          <i className="fas fa-info"></i>
+        </Button>
+
+        <Modal
+          show={this.state.show}
+          onHide={this.handleHide}
+          container={this}
+          aria-labelledby="contained-modal-title"
+        >
+          <Modal.Header closeButton>
+            <Modal.Title id="contained-modal-title">
+              Informasjon om poengssystemet
+            </Modal.Title>
+          </Modal.Header>
+          <Modal.Body>
+          Du får 10 poeng for hvert problem du varsler om som blir fullført.
+          Disse poengene kan du bruke på gratis parkering i din kommune.
+          </Modal.Body>
+          <Modal.Footer>
+            <Button onClick={this.handleHide}>Close</Button>
+          </Modal.Footer>
+        </Modal>
+      </Col>
+    );
+  }
+
+}
+
+
 
 class InformationCard extends React.Component<{ header: string, content: string }> {
 
@@ -42,6 +94,7 @@ class AccountInfoCard extends React.Component<{
   county: string,
   email: string,
   phone: string
+
 }> {
 
   constructor(props) {
@@ -49,7 +102,6 @@ class AccountInfoCard extends React.Component<{
 
     this.state = {
       changePassword: false
-
     };
 
   }
@@ -59,6 +111,8 @@ class AccountInfoCard extends React.Component<{
       changePassword: !this.state.changePassword
     });
   };
+
+
 
   render() {
 
@@ -74,28 +128,42 @@ class AccountInfoCard extends React.Component<{
             </Col>
             <Col xs={8} md={8}>
 
-              <Col md={6}>
-                <InformationCard header={'Navn'} content={this.props.firstName + ' ' + this.props.lastName}/>
-                <InformationCard header={'Hjemmekommune'} content={this.props.county}/>
-              </Col>
 
-              <Col md={6}>
-                <InformationCard header={'E-post'} content={this.props.email}/>
-                <InformationCard header={'Mobilnummer'} content={this.props.phone}/>
-              </Col>
+              <Panel>
+                <Panel.Body>
+                  <Col md={6}>
+                    <InformationCard header={'Navn'} content={this.props.firstName + ' ' + this.props.lastName}/>
+                    <InformationCard header={'Hjemmekommune'} content={this.props.county}/>
+                  </Col>
 
+                  <Col md={6}>
+                    <InformationCard header={'E-post'} content={this.props.email}/>
+                    <InformationCard header={'Mobilnummer'} content={this.props.phone}/>
+                    <InformationCard header={'Mine poeng'} content={this.props.points}/>
+                  </Col>
+                </Panel.Body>
+              </Panel>
+
+              <div align="center">
+                <Col xs={12} md={6} sm={6} lg={6}>
+                  <Button id="accountInformationButton" bsStyle="primary" href={'/#/min_side/editAccountInformation'}>Endre kontoinformasjon</Button>
+                </Col>
+                <Col xs={12} md={6} sm={6} lg={6}>
+                  <Button id="accountInformationButton" bsStyle="primary" onClick={() => this.changePassword()}>Endre passord</Button>
+                </Col>
+              </div>
+
+
+        {change_password}
             </Col>
             <Col xs={2} md={2}>
+              <InfoModule/>
             </Col>
           </Grid>
 
-          <div align="center">
-            <Button href={'/#/min_side/editAccountInformation'}>Endre kontoinformasjon</Button>
-            <Button onClick={() => this.changePassword()}>Endre passord</Button>
-          </div>
+
 
         </div>
-        {change_password}
       </div>
     );
   }
@@ -127,12 +195,14 @@ export class KontoOversikt extends React.Component <State> {
 
         {
           this.state.user.typeName === 'Admin' || this.state.user.typeName === 'Employee' || this.state.user.typeName === 'Private' ? (
-            <div>
+
 
               <AccountInfoCard firstName={this.state.user.firstName} lastName={this.state.user.lastName}
                                county={this.state.user.county} email={this.state.user.mail}
-                               phone={this.state.user.phone}/>
-            </div>
+                               phone={this.state.user.phone}
+                               points={this.state.user.points}
+              />
+
           ) : (
             <div>
               bedriftinfo

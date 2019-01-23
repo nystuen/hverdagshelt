@@ -1,9 +1,7 @@
-import { Col, Button, Form, FormGroup, Label, Grid } from 'react-bootstrap';
 import { Component } from 'react';
 import { CategoryService } from '../../services';
 import * as React from 'react';
 import { Alert } from '../../widgets';
-import ReactDOM from 'react-dom';
 import Select from 'react-select';
 
 let categoryService = new CategoryService();

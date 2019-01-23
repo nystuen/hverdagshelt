@@ -1,9 +1,15 @@
 // @flow
 
-
 import React from 'react';
 import jwt from 'jsonwebtoken';
-import { Grid, Row, Col, ListGroup, ListGroupItem, Alert } from 'react-bootstrap';
+import {
+  Grid,
+  Row,
+  Col,
+  ListGroup,
+  ListGroupItem,
+  Alert
+} from 'react-bootstrap';
 import { ChooseCategory } from '../../../components/ChooseCategory/ChooseCategory';
 import Button from 'react-bootstrap/es/Button';
 import { Category, Category2, Category3, User } from '../../../classTypes';
@@ -15,51 +21,50 @@ import FormControl from 'react-bootstrap/es/FormControl';
 import ControlLabel from 'react-bootstrap/es/ControlLabel';
 import { CountyList } from '../../../components/CountyList/CountyList';
 import { history } from '../../../index';
-
+import css from './accountInformation.css';
 
 let userService = new UserService();
 
-
 interface State {
-  decoded: Object,
-  user: Object,
-  chosenCounty: number
+  decoded: Object;
+  user: Object;
+  chosenCounty: number;
 }
-
 
 class AccountInfoEditCard extends React.Component<{
   firstName: string,
   lastName: string,
   county: string,
   email: string,
-  phone: string,
+  phone: string
 }> {
-
   render() {
-
     return (
       <div>
-
         <div>
-
           <Grid>
-            <Col xs={2} md={2}>
-            </Col>
+            <Col xs={2} md={2}/>
             <Col xs={8} md={8}>
-
               <Col md={6}>
-                <InformationCard header={'Navn'} content={this.props.firstName + ' ' + this.props.lastName}/>
-                <InformationCard header={'Hjemmekommune'} content={this.props.county}/>
+                <InformationCard
+                  header={'Navn'}
+                  content={this.props.firstName + ' ' + this.props.lastName}
+                />
+                <InformationCard
+                  header={'Hjemmekommune'}
+                  content={this.props.county}
+                />
               </Col>
 
               <Col md={6}>
                 <InformationCard header={'E-post'} content={this.props.email}/>
-                <InformationCard header={'Mobilnummer'} content={this.props.phone}/>
+                <InformationCard
+                  header={'Mobilnummer'}
+                  content={this.props.phone}
+                />
               </Col>
-
             </Col>
-            <Col xs={2} md={2}>
-            </Col>
+            <Col xs={2} md={2}/>
 
             <Row>
               <div align="center">
@@ -69,21 +74,16 @@ class AccountInfoEditCard extends React.Component<{
             </Row>
 
             <Row>
-              <div align="center">
-
-              </div>
+              <div align="center"/>
             </Row>
-
           </Grid>
         </div>
-
       </div>
     );
   }
 }
 
-export class editAccountInformation extends React.Component <State> {
-
+export class editAccountInformation extends React.Component<State> {
   state = {
     user: User,
     countyId: 0,
@@ -102,8 +102,6 @@ export class editAccountInformation extends React.Component <State> {
   }
 
   handleChangeUser() {
-
-
     if (this.state.countyId != 0) {
       this.state.user.countyId = this.state.countyId;
     }
@@ -125,7 +123,6 @@ export class editAccountInformation extends React.Component <State> {
     });
 
     history.push('/min_side/kontooversikt');
-
   }
 
   handleOnChangeCounty = (name: number) => {
@@ -145,57 +142,78 @@ export class editAccountInformation extends React.Component <State> {
         <Grid>
           <PageHeader title={'Endre kontoinformasjon'}/>
 
-          {
-            this.state.user.typeName === 'Admin' || this.state.user.typeName === 'Employee' || this.state.user.typeName === 'Private' ? (
-              <div>
-                <Form>
-                  <Grid>
+          {this.state.user.typeName === 'Admin' ||
+          this.state.user.typeName === 'Employee' ||
+          this.state.user.typeName === 'Private' ? (
+            <div>
+              <Form>
+                <Grid>
+                  <Col xs={0} md={2}>
+                  </Col>
 
+                  <Col md={8}>
 
                     <Col xs={12} md={6}>
                       <FormGroup controlId="formInlineFirstName">
                         <ControlLabel>Fornavn</ControlLabel>{' '}
-                        <FormControl onChange={this.handleChange} name="firstName" type="text" placeholder="Fornavn"
-                                     defaultValue={this.state.user.firstName}/>
+                        <FormControl
+                          onChange={this.handleChange}
+                          name="firstName"
+                          type="text"
+                          placeholder="Fornavn"
+                          defaultValue={this.state.user.firstName}
+                        />
                       </FormGroup>{' '}
-
-
                       <FormGroup controlId="formInlinePhone">
                         <ControlLabel>Mobilnummer</ControlLabel>{' '}
-                        <FormControl onChange={this.handleChange} name="phone" type="phone" placeholder="phone"
-                                     defaultValue={this.state.user.phone}/>
+                        <FormControl
+                          onChange={this.handleChange}
+                          name="phone"
+                          type="phone"
+                          placeholder="phone"
+                          defaultValue={this.state.user.phone}
+                        />
                       </FormGroup>{' '}
                     </Col>
-
 
                     <Col xs={12} md={6}>
-
                       <FormGroup controlId="formInlineLastName">
                         <ControlLabel>Etternavn</ControlLabel>{' '}
-                        <FormControl onChange={this.handleChange} name="lastName" type="text" placeholder="Etternavn"
-                                     defaultValue={this.state.user.lastName}/>
+                        <FormControl
+                          onChange={this.handleChange}
+                          name="lastName"
+                          type="text"
+                          placeholder="Etternavn"
+                          defaultValue={this.state.user.lastName}
+                        />
                       </FormGroup>{' '}
-
                       <FormGroup controlId="formInlineHjemmekommune">
                         <ControlLabel>Hjemmekommune</ControlLabel>{' '}
-                        <CountyList handleOnChangeCounty={this.handleOnChangeCounty.bind(this)}/>
+                        <CountyList
+                          handleOnChangeCounty={this.handleOnChangeCounty.bind(
+                            this
+                          )}
+                        />
                       </FormGroup>{' '}
-
-
                     </Col>
+                  </Col>
 
-                  </Grid>
-                  <div align="center">
-                    <Button onClick={() => this.handleChangeUser()} align="right">Lagre Endringer</Button>
-                  </div>
-                </Form>
-              </div>
-            ) : (
-              <div>
-                bedriftinfo
-              </div>
-            )
-          }</Grid></div>
+                  <Col xs={0} md={8}>
+                  </Col>
+                </Grid>
+                <div align="center">
+                  <Button id="accountInformationButton" bsStyle="primary" onClick={() => this.handleChangeUser()}
+                          align="right">
+                    Lagre Endringer
+                  </Button>
+                </div>
+              </Form>
+            </div>
+          ) : (
+            <div>bedriftinfo</div>
+          )}
+        </Grid>
+      </div>
     );
   }
 }

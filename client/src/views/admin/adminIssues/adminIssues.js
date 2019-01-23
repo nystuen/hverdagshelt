@@ -225,7 +225,6 @@ export class adminIssues extends React.Component{
     submit(){
         if(confirm('Vil du tildele denne saken til bedrift med mail ' + this.state.selectedCompany + '?')) {
             userService.assignIssueToCompany(this.state.selectedIssue.issueId, this.state.selectedCompany).then(response => {
-                confirm('Saken ble tildelt til bedrift med mail ' + this.state.selectedCompany + '!');
             }).catch((error: Error) => confirm(error.message));
             window.location.reload();
         }
