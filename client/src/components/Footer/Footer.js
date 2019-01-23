@@ -52,7 +52,7 @@ export class Footer extends Component<{}> {
 
   render() {
     let check;
-    if (this.state.user.countyId != []) {
+    if (this.state.user.countyId !== undefined) {
       return (
         <footer className="footerClass2">
           <Col xs={12} md={12}>
