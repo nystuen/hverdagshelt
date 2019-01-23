@@ -15,7 +15,7 @@ const validate = values => {
     errors.phone = "Required";
   }
   if (!values.text) {
-    errors.text = "Required";
+    errors.text = "Required nice";
   }
   if (!values.date) {
     errors.date = "Required";

@@ -106,4 +106,13 @@ module.exports = function (app: Object, notificationSettingsDao: Object) {
       }
     });
   });
+
+  app.get('/get_issue_notification_settings_from_user/:userMail', (req, res) => {
+    console.log('got request from get_issue_notification_settings');
+    notificationSettingsDao.getIssueNotificationSettingsFromUser(req.params.userMail, (status, data) => {
+      res.status(status);
+      res.json(data);
+    });
+  });
+
 };
