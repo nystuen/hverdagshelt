@@ -48,7 +48,8 @@ export class CountySubscription extends Component<Props, State> {
     const countyArray = this.state.allCounties;
 
     countyArray.splice(index, 1);
-
+    this.inputText1.value="";
+    this.filterAll("");
     userArray.push(name);
     this.setState({
       userCounties: userArray,
@@ -65,7 +66,8 @@ export class CountySubscription extends Component<Props, State> {
 
     userArray.splice(index, 1);
     countyArray.push(name);
-
+    this.inputText.value="";
+    this.filterMine("");
     this.setState({
       allCounties: countyArray,
       userCounties: userArray
@@ -140,6 +142,7 @@ export class CountySubscription extends Component<Props, State> {
                                     id='allCounties'
                                     onKeyUp={this.filterAll}
                                     placeholder="Søk i alle kommuner"
+                                    inputRef={input => this.inputText1 = input}
                                 />
                                 <ListGroup id={"allCountiesList"}>
                                     {
@@ -170,6 +173,7 @@ export class CountySubscription extends Component<Props, State> {
                                     id='myCounties'
                                     onKeyUp={this.filterMine}
                                     placeholder="Søk i dine kommuner"
+                                    inputRef={input => this.inputText = input}
                                 />
                                 <ListGroup id="myCountiesList">
                                     {

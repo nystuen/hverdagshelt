@@ -38,9 +38,12 @@ class AccountInfoEditCard extends React.Component<{
   email: string,
   phone: string
 }> {
+
+
   render() {
     return (
       <div>
+
         <div>
           <Grid>
             <Col xs={2} md={2}/>
@@ -137,9 +140,15 @@ export class editAccountInformation extends React.Component<State> {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+
+  buttonBack(){
+    this.props.history.goBack();
+  }
+
   render() {
     return (
       <div>
+        <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
         <Grid>
           <PageHeader title={'Endre kontoinformasjon'}/>
 

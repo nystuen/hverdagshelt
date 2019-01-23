@@ -43,9 +43,9 @@ export class adminAddCategory extends Component<Props, State> {
     super();
     this.state = {
       newCategoryName: {},
-      selectedCategoryId: -1,
+      selectedCategoryId: {},
       selectedCategoryType: 1,
-      newPriority: -1,
+      newPriority: {},
       mainCategory: false,
       error: false
     };
@@ -74,6 +74,10 @@ export class adminAddCategory extends Component<Props, State> {
   handlePriority = (pri: number) => {
     this.setState({ newPriority: pri });
   };
+
+  buttonBack(){
+    this.props.history.goBack();
+  }
 
   saveCategory = () => {
 
@@ -164,6 +168,8 @@ export class adminAddCategory extends Component<Props, State> {
 
 
     return (
+      <div>
+        <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
       <Grid>
 
         <Col xs={0} md={2}></Col>
@@ -197,6 +203,7 @@ export class adminAddCategory extends Component<Props, State> {
 
         <Col xs={0} md={2}></Col>
       </Grid>
+      </div>
     );
 
   }

@@ -116,3 +116,10 @@ body {
 .modal-container .modal, .modal-container .modal-backdrop {
   position: absolute;
 }
+
+
+#backButton {
+  font-size: 35px;
+  color: #5079b3;
+  margin: 5px;
+}

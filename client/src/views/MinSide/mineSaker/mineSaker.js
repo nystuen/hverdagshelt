@@ -74,6 +74,7 @@ export class MineSaker extends React.Component<Props, State> {
       }//end condition
     });
     return (
+
       <div>
         <Grid>
           <PageHeader title={'Mine saker'}/>

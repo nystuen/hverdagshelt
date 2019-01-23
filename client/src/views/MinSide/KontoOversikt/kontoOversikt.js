@@ -113,7 +113,6 @@ class AccountInfoCard extends React.Component<{
   };
 
 
-
   render() {
 
 
@@ -122,6 +121,7 @@ class AccountInfoCard extends React.Component<{
 
     return (
       <div>
+
         <div>
           <Grid>
             <Col xs={2} md={2}>

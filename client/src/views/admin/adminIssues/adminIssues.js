@@ -59,10 +59,15 @@ export class adminIssues extends React.Component{
         }).catch((error: Error) => confirm(error.message));
     }//end method
 
+    buttonBack(){
+      this.props.history.goBack();
+    }
+
    render(){
         if(this.state.user.county !== undefined) {
             return (
                 <div>
+                  <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
                     <Grid>
                         <PageHeader title={'Alle saker i ' + this.state.user.county}/>
                         <Table>

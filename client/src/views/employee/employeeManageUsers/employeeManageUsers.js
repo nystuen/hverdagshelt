@@ -40,6 +40,10 @@ export class employeeManageUsers extends React.Component<Props,State>{
         employeeService.unblockUser(mail)
     }
 
+    buttonBack(){
+      this.props.history.goBack();
+    }
+
 
     componentWillMount() {
         let employee = null;
@@ -70,6 +74,8 @@ export class employeeManageUsers extends React.Component<Props,State>{
 
     render(){
         return(
+          <div>
+          <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
             <Grid>
 
 
@@ -129,6 +135,7 @@ export class employeeManageUsers extends React.Component<Props,State>{
                     </tbody>
                 </Table>
             </Grid>
+          </div>
         )}
 
     myFunction(){
