@@ -247,7 +247,7 @@ export class OversiktOverSak extends React.Component {
   saveThisStatus = () => {
 
 
-    notificationSettingsService.getIssueNotificationSettingsFromUser(this.state.user.mail).then(res => {
+    notificationSettingsService.getIssueNotificationSettingsFromUser(this.state.issue.userMail).then(res => {
       issueService.updateStatusOneIssue(this.state.issue.issueId, this.state.statusName, res[0]).then(response => {
         window.location.reload();
       }).catch((error: Error) => Alert.danger(error.message));
