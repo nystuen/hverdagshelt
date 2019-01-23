@@ -177,6 +177,10 @@ export class RegisterAdmin extends Component<Props, State>{
             return 'warning';
         }
     }
+
+    buttonBack(){
+        this.props.history.goBack();
+    }
     render(){
         let optionTemplate = this.state.values.map(v => {
             const data = {label: v.name, value: v.countyId, countyId: v.countyId};
@@ -202,6 +206,8 @@ export class RegisterAdmin extends Component<Props, State>{
             )
         }
         return(
+          <div>
+            <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
             <Grid>
                 <Col md={3}></Col>
                 <Col md={6}>
@@ -310,6 +316,7 @@ export class RegisterAdmin extends Component<Props, State>{
                 </Col>
                 <Col md={3}></Col>
             </Grid>
+          </div>
         );
     }
     checkInput = () =>{
