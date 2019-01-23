@@ -40,13 +40,19 @@ export class EditIssue extends React.Component<{
   render() {
     console.log(this.state.text);
     return (
-      <div>
+      <div className="container">
         <Form>
           <FormControl
+            style={{ margin: "5px" }}
             value={this.state.text}
+            componentClass="textarea"
             onChange={this.handleChangeText()}
           />
-          <Button bsStyle="primary" onClick={this.save}>
+          <Button
+            bsStyle="primary"
+            onClick={this.save}
+            style={{ margin: "5px" }}
+          >
             Lagre
           </Button>
         </Form>
@@ -58,5 +64,7 @@ export class EditIssue extends React.Component<{
     console.log(this.props.match.params.issueId);
     console.log(this.state.text);
     issueService.editIssue(this.props.match.params.issueId, this.state.text);
+    history.push("/min_side/mine_saker");
+    window.location.reload();
   };
 }

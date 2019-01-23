@@ -13,6 +13,7 @@ import NavItem from "react-bootstrap/es/NavItem";
 import Progress from "reactstrap/es/Progress";
 import { PageHeader } from "../../../components/PageHeader/PageHeader";
 import { history } from "../../../index";
+import mineSaker from "./mineSaker.css";
 
 let jwt = require("jsonwebtoken");
 let userService = new UserService();
@@ -44,6 +45,7 @@ export class MineSaker extends React.Component<Props, State> {
     if (statusName == "Registered") {
       if (confirm("Er du sikker på at du vil slette denne saken?")) {
         issueService.deleteIssue(issueId);
+        window.location.reload();
       }
     } else if (statusName == "In progress") {
       alert("denne saken er under arbeid, og kan ikke slettes");
@@ -146,12 +148,14 @@ export class MineSaker extends React.Component<Props, State> {
                     </td>
                     <td>
                       <Button
+                        className="knapp"
                         bsStyle="primary"
                         href={"/#/min_side/mine_saker/rediger/" + e.issueId}
                       >
                         Rediger beskrivelse
                       </Button>
                       <Button
+                        className="knapp"
                         bsStyle="danger"
                         onClick={this.delete.bind(
                           this,
