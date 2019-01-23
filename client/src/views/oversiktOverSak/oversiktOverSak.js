@@ -44,6 +44,20 @@ interface State {
     image: Image;
 }//end method
 
+class FindDate {
+  day;
+  month;
+  year;
+
+  constructor() {
+    var today = new Date();
+    this.day = today.getDate();
+    this.month = today.getMonth() + 1;
+    this.year = today.getFullYear();
+  }
+}
+
+
 export class OversiktOverSak extends React.Component {
     constructor(props) {
         super(props);
@@ -66,7 +80,7 @@ export class OversiktOverSak extends React.Component {
                     <option value="In progress">Behandles</option>
                     <option value="Completed"> Fullført</option>
                 </FormControl>
-                <Button onClick={this.saveThisStatus}> Lagre status</Button>
+                <Button onClick={this.saveThisStatus} bsStyle={"primary"}> Lagre status</Button>
             </div>
         };
     }//end constructor
@@ -86,7 +100,7 @@ export class OversiktOverSak extends React.Component {
         <FormGroup>
           <FormControl componentClass="textarea" value={this.state.comment} placeholder="Legg til kommentar til sak"
                        onChange={this.editComment}/>
-          <Button onClick={this.addComment}> Legg til kommentar</Button>
+          <Button onClick={this.addComment} bsStyle={"primary"}> Legg til kommentar</Button>
         </FormGroup>
       </div>;
     }
@@ -249,6 +263,9 @@ export class OversiktOverSak extends React.Component {
     this.setState({ statusName: event.target.value });
   };//end method
 
+
+
+
   saveThisStatus = () => {
 
 
@@ -263,4 +280,6 @@ export class OversiktOverSak extends React.Component {
 
   };//end method
 }//end class
+
+
 

@@ -1,4 +1,5 @@
 import { NotificationSettingsService } from '../../services';
+import { history } from '../../index';
 
 let notifiationSettingsService = new NotificationSettingsService();
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
@@ -37,23 +38,26 @@ export default (async function showResults(values) {
       categoryLevel: values.categorylevel,
       countyId: values.countyId
     })
-  });
+  }).then(res => {
+    notifiationSettingsService.getIssueNotificationSettingsFromUser(values.userMail).then(res => {
+      if (res[0].registered == 1) {
 
-  notifiationSettingsService.getIssueNotificationSettingsFromUser(values.userMail).then(res => {
-    if (res[0].registered == 1) {
+        fetch('http://localhost:3000/sendIssueRegistratedMail', {
+          method: 'POST',
+          headers: {
+            'Content-type': 'application/json; charset=utf-8'
+          },
+          body: JSON.stringify({
+            to: values.userMail
+          })
+        });
+      }
+    }).then(res => {
 
-      fetch('http://localhost:3000/sendIssueRegistratedMail', {
-        method: 'POST',
-        headers: {
-          'Content-type': 'application/json; charset=utf-8'
-        },
-        body: JSON.stringify({
-          to: values.userMail
-        })
-      });
-    }
+    });
+  })
 
-  });
 
+  history.push("/min_side/mine_saker")
 
 });

@@ -56,3 +56,7 @@
         display: none;
     }
 }
+
+.navbar-default .navbar-nav{
+    transition: 0.3s;
+}
