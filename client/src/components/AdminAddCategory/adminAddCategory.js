@@ -43,9 +43,9 @@ export class adminAddCategory extends Component<Props, State> {
     super();
     this.state = {
       newCategoryName: {},
-      selectedCategoryId: -1,
+      selectedCategoryId: {},
       selectedCategoryType: 1,
-      newPriority: -1,
+      newPriority: {},
       mainCategory: false,
       error: false
     };
