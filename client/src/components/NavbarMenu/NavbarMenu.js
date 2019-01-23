@@ -15,8 +15,6 @@ import {User} from "../../classTypes";
 let userService = new UserService();
 
 let loginButton;
-let myCases;
-let user;
 
 export class NavbarMenu extends React.Component {
 
