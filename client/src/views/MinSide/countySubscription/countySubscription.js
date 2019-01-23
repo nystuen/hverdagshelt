@@ -8,6 +8,7 @@ import Glyphicon from 'react-bootstrap/es/Glyphicon';
 import Button from 'react-bootstrap/es/Button';
 import css from './countySubscription.css';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
+import FormControl from "react-bootstrap/es/FormControl";
 
 let countyService = new CountyService();
 //Databasekall
@@ -113,13 +114,19 @@ export class countySubscription extends Component<Props, State> {
                     <Col md={8}>
                         <Row>
                             <Col xs={12} md={5}>
-                                <ListGroup>
-                                    <h5 align="center">Kommuner</h5>
+                                <h5 align="center">Kommuner</h5>
+                                <FormControl
+                                    type="text"
+                                    id='allCounties'
+                                    onKeyUp={this.filterAll}
+                                    placeholder="Søk i alle kommuner"
+                                />
+                                <ListGroup id={"allCountiesList"}>
                                     {
                                         this.state.allCounties.map((r, i) => {
-                                            return <ListGroupItem onClick={() => {
+                                            return <li class="list-group-item" onClick={() => {
                                                 this.addCounty(r, i);
-                                            }} key={i}>{r.name}</ListGroupItem>;
+                                            }} key={i}><a>{r.name}</a></li>;
                                         })
                                     }
                                 </ListGroup>
@@ -138,13 +145,19 @@ export class countySubscription extends Component<Props, State> {
                             </Col>
 
                             <Col xs={12} md={5}>
-                                <ListGroup>
-                                    <h5 align="center">Mine Kommuner</h5>
+                                <h5 align="center">Mine Kommuner</h5>
+                                <FormControl
+                                    type="text"
+                                    id='myCounties'
+                                    onKeyUp={this.filterMine}
+                                    placeholder="Søk i dine kommuner"
+                                />
+                                <ListGroup id="myCountiesList">
                                     {
                                         this.state.userCounties.map((r, i) => {
-                                            return <ListGroupItem onClick={() => {
+                                            return <li class="list-group-item" onClick={() => {
                                                 this.deleteCounty(r, i);
-                                            }} key={i}>{r.name}</ListGroupItem>;
+                                            }} key={i}><a>{r.name}</a></li>;
                                         })
                                     }
                                 </ListGroup>
@@ -164,6 +177,47 @@ export class countySubscription extends Component<Props, State> {
             </div>
 
         );
+    }
+
+    filterAll() {
+        // Declare variables
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById('allCounties');
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("allCountiesList");
+        li = ul.getElementsByTagName("li");
+
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
+
+    }
+
+    filterMine() {
+        // Declare variables
+        var input, filter, ul, li, a, i, txtValue;
+        input = document.getElementById('myCounties');
+        filter = input.value.toUpperCase();
+        ul = document.getElementById("myCountiesList");
+        li = ul.getElementsByTagName("li");
+
+        // Loop through all list items, and hide those who don't match the search query
+        for (i = 0; i < li.length; i++) {
+            a = li[i].getElementsByTagName("a")[0];
+            txtValue = a.textContent || a.innerText;
+            if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                li[i].style.display = "";
+            } else {
+                li[i].style.display = "none";
+            }
+        }
     }
 
 }
