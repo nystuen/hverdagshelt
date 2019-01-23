@@ -1,4 +1,4 @@
-import { Col, Button, Form, FormGroup, Label, Overlay, Tooltip} from 'react-bootstrap';
+import { Col, Button, Form, FormGroup, Label, Overlay, Tooltip, InputGroup} from 'react-bootstrap';
 import { CountyService, UserService} from '../../services';
 import { Component } from 'react';
 import * as React from 'react';
@@ -74,6 +74,8 @@ export class RegisterUser extends Component<Props, State> {
             show: true,
             points: 0,
             active: 0,
+            openPassword:'password',
+            openPassword2:'password',
             isLoaded: false,
             choosen: {label: "", countyId: ""},
             countyIsChanged: false,
@@ -279,9 +281,44 @@ export class RegisterUser extends Component<Props, State> {
         }
     }
 
+  handleClickPassword1=()=>{
+    if(this.state.openPassword == "text"){
+      this.setState({openPassword: "password"})
+    }else{
+      this.setState({openPassword: "text"})
+    }
+  };
+
+  handleClickPassword2=()=>{
+    if(this.state.openPassword2 == "text"){
+      this.setState({openPassword2: "password"})
+    }else{
+      this.setState({openPassword2: "text"})
+    }
+  };
+
 
     render() {
-        let optionTemplate = this.state.values.map(v => {
+
+      let changeIcon1;
+
+      if (this.state.openPassword == "text") {
+        changeIcon1 = (<i className="fas fa-eye"></i>);
+      } else {
+        changeIcon1 = (<i className="fas fa-eye-slash"></i>);
+      }
+
+
+      let changeIcon2;
+
+      if (this.state.openPassword2 == "text") {
+        changeIcon2 = (<i className="fas fa-eye"></i>);
+      } else {
+        changeIcon2 = (<i className="fas fa-eye-slash"></i>);
+      }
+
+
+      let optionTemplate = this.state.values.map(v => {
             const data = {label: v.name, value: v.countyId, countyId: v.countyId};
             return (data);
         });
@@ -399,20 +436,34 @@ export class RegisterUser extends Component<Props, State> {
                                 </Col>
                                 <Col md={6}>
                                     <FormGroup validationState={this.getValidationStatePassword()}>
-                                        <FormControl type="password" value={this.state.password} placeholder="Passord"
+                                      <InputGroup>
+                                        <InputGroup.Button>
+                                          <Button type="button" onClick={()=> this.handleClickPassword1()}>{changeIcon1}</Button>
+                                        </InputGroup.Button>
+                                        <FormControl type={this.state.openPassword} value={this.state.password} placeholder="Passord"
                                                      onChange={this.handleStringChange('password')}>
                                         </FormControl>
                                         <FormControl.Feedback/>
+
+                                      </InputGroup>
                                     </FormGroup>
                                 </Col>
                                 <Col md={6}>
                                     <FormGroup validationState={this.getValidationStatePassword2()}>
-                                        <FormControl type="password" value={this.state.password2}
+                                      <InputGroup>
+                                        <InputGroup.Button>
+                                          <Button type="button" onClick={()=> this.handleClickPassword2()}>{changeIcon2}</Button>
+                                        </InputGroup.Button>
+                                        <FormControl type={this.state.openPassword2} value={this.state.password2}
                                                      placeholder="Gjenta passord"
                                                      onChange={this.handleStringChange('password2')}/>
                                         <FormControl.Feedback/>
+
+                                      </InputGroup>
                                     </FormGroup>
                                 </Col>
+
+
                                 <Col md={12}>
                                     <HelpBlock>Passord må ha en lengde på 8 tegn og inneholde minst et tall, en stor og
                                         en liten bokstav</HelpBlock>

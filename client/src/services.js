@@ -78,7 +78,20 @@ export class UserService {
   getHomeCounty(): Promise<Object> {
     return axios.get('/getHomeCounty', { headers: authHeader() });
   }
+
+    getCompanyCategories(categoryId: number, countyId: number): Promise<Object[]>{
+        return axios.get('/companyCategories/' + categoryId + '/' + countyId);
+    }//end method
+
+    assignIssueToCompany(issueId: number, companyMail: string): Promise<void>{
+        return axios.post('/assignIssue/' + issueId + '/' + companyMail);
+    }//end method
+
+    updatePoints(json:Object){
+        return axios.put('/updatePoints', json);
+    }
 }//end class
+
 
 export class EventCategoryService {
   getEventCategory(): Promise<EventCategory[]> {
@@ -157,6 +170,10 @@ export class CategoryService {
 }//end class
 
 export class IssueService {
+  getAllIssuesInThisCounty(countyId: number, categoryLevel: number): Promise<Object[]>{
+    return axios.get('/getIssuesInThisCounty/' + countyId, {categoryLevel: categoryLevel});
+  }//end method
+
   getIssueAndCounty(issue: number): Promise<Object> {
     return axios.get('/oversiktOverSak/' + issue);
   } //end method
@@ -180,20 +197,25 @@ export class IssueService {
     return axios.post('/updateStatusOneIssue', { statusName: statusName, id: id }, { headers: authHeader() });
   } //end method
 
-  addCommentToIssue(id: number, text: string, companyMail: string) {
-    return axios.post('/addIssueComments', {
-      id: id,
-      text: text,
-      companyMail: companyMail
-    });
-  } //end method
+
+  addCommentToIssue(id: number, text: string, companyMail: string){
+    return axios.post('/addIssueComments', {id: id, text: text, companyMail: companyMail});
+  }//end method
 
   getCompanyComments(id: number) {
     return axios.get('/companyComments/' + id);
   }//end method
 
+  getOneIssue(id: number){
+        return axios.get('/Issues/' + id);
+  }//end method
 
-} //end class
+  deleteThisIssue(id: number): Promise<void>{
+        return axios.post('/deleteThisIssue/' + id);
+  }//end method
+
+
+}//end class
 
 export class CountyService {
   getCounties(): Promise<County[]> {

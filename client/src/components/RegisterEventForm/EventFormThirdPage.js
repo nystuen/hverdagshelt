@@ -1,22 +1,22 @@
-import React from "react";
-import { Field, reduxForm } from "redux-form";
-import validate from "./validate";
-import renderField1 from "./renderField";
-import renderField from "../ReduxRegisterForm/renderField";
-import renderEmail from "../ReduxRegisterForm/renderEmail";
-import { Button, ProgressBar } from "react-bootstrap";
-import issueReg from "../ReduxRegisterForm/issueReg.css";
-import { User } from "../../classTypes";
-import { UserService } from "../../services";
-import { history } from "../../index";
+import React from 'react';
+import { Field, reduxForm } from 'redux-form';
+import validate from './validate';
+import renderField1 from './renderField';
+import renderField from '../ReduxRegisterForm/renderField';
+import renderEmail from '../ReduxRegisterForm/renderEmail';
+import { Button, ProgressBar, Grid, Col } from 'react-bootstrap';
+import issueReg from '../ReduxRegisterForm/issueReg.css';
+import { User } from '../../classTypes';
+import { UserService } from '../../services';
+import { history } from '../../index';
 
 let userService = new UserService();
 
-const countyID = ["1", "2", "3"];
+const countyID = ['1', '2', '3'];
 const counties = [
-  { county: "Oslo", id: "1" },
-  { county: "Trondheim", id: "2" },
-  { county: "jhbdsahbds", id: "3" }
+  { county: 'Oslo', id: '1' },
+  { county: 'Trondheim', id: '2' },
+  { county: 'jhbdsahbds', id: '3' }
 ];
 
 const renderCountySelector = ({ input, meta: { touched, error } }) => (
@@ -42,10 +42,10 @@ export class EventFormThirdPage extends React.Component {
   }
 
   setProps = () => {
-    this.props.change("userMail", this.state.user.mail);
-    this.props.change("countyId", this.state.user.countyId);
+    this.props.change('userMail', this.state.user.mail);
+    this.props.change('countyId', this.state.user.countyId);
     setTimeout(function() {
-      history.push("/events/2").bind(this);
+      history.push('/events/2').bind(this);
     }, 1000);
   };
 
@@ -61,16 +61,18 @@ export class EventFormThirdPage extends React.Component {
   render() {
     const { handleSubmit, pristine, previousPage, submitting } = this.props;
     if (
-      this.state.user.typeName == "Admin" ||
-      this.state.user.typeName == "Employee"
+      this.state.user.typeName == 'Admin' ||
+      this.state.user.typeName == 'Employee'
     ) {
       return (
+        <Grid>
         <form onSubmit={handleSubmit}>
           <div className="container">
             <div className="formDiv">
               <div className="progressBar">
-                <ProgressBar now={100} label={"3/3"} />
+                <ProgressBar now={100} label={'3/3'}/>
               </div>
+              <h3>Vennligst spesifiser hendelsen</h3>
               <div className="paddingBot">
                 <div>
                   <Field
@@ -100,26 +102,31 @@ export class EventFormThirdPage extends React.Component {
                 </div>
               </div>
               <div>
-                <Button
-                  bsStyle="primary"
-                  type="button"
-                  className="previous"
-                  onClick={previousPage}
-                >
-                  Previous
-                </Button>
-                <Button
-                  bsStyle="primary"
-                  type="submit"
-                  onClick={this.setProps.bind(this)}
-                  disabled={pristine || submitting}
-                >
-                  Submit
-                </Button>
+                <Col lg={6} md={6} sm={6} xs={6}>
+                  <Button
+                    bsStyle="primary"
+                    type="button"
+                    className="previous"
+                    onClick={previousPage}
+                  >
+                    Previous
+                  </Button>
+                </Col>
+                <Col lg={6} md={6} sm={6} xs={6} align="right">
+                  <Button
+                    bsStyle="primary"
+                    type="submit"
+                    onClick={this.setProps.bind(this)}
+                    disabled={pristine || submitting}
+                  >
+                    Submit
+                  </Button>
+                </Col>
               </div>
             </div>
           </div>
         </form>
+        </Grid>
       );
     } else {
       return (
@@ -130,8 +137,9 @@ export class EventFormThirdPage extends React.Component {
     }
   }
 }
+
 export default reduxForm({
-  form: "EventWizard", //Form name is same
+  form: 'EventWizard', //Form name is same
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate

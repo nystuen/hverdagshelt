@@ -59,7 +59,7 @@ export class mineSakerBedrift extends React.Component{
                             <tr key={e.issueId}>
                                 <td>
                                     <Nav bsStyle="pills">
-                                        <NavItem href={"/#min_side/sakoversikt/" + this.state.user.mail + "/" + e.issueId}>
+                                        <NavItem href={"/#min_side/sakoversikt/" + e.issueId}>
                                             {e.text}
                                         </NavItem>
                                     </Nav>

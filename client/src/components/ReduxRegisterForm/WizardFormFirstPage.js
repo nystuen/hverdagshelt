@@ -105,14 +105,30 @@ export class WizardFormFirstPage extends Component<{}, State> {
     Geocode.fromAddress(this.state.address).then(
       response => {
         const { lat, lng } = response.results[0].geometry.location;
-        this.props.change("latitude", lat);
-        this.props.change("longitude", lng);
-        this.props.change("address", this.state.address);
-        this.setState({
-          latlng: { lat, lng },
-          zoom: 17,
-          hasLocation: true
-        });
+        console.log(lat, lng)
+        Geocode.fromLatLng(lat, lng).then(
+          response => {
+            console.log("hei")
+            console.log(response.results[0])
+            const address_found = response.results[0].formatted_address;
+            const county_found = response.results[0].address_components[3].long_name;
+            console.log(county_found)
+
+            // Sjekk mot registrerte kommune
+            if(!console.log([""].includes(county_found))){
+              this.props.change("address", address_found);
+              this.setState({
+                hasLocation: true,
+                latlng: {
+                  lat: lat,
+                  lng: lng
+                },
+                address: address_found,
+                zoom: 17
+              });
+            }
+          },
+        )
       },
       error => {
         console.error(error);

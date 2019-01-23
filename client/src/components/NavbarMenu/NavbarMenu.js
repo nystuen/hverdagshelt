@@ -10,11 +10,13 @@ import {
 import css from './NavbarMenu.css';
 import { PageHeader } from '../PageHeader/PageHeader';
 import {UserService} from '../../services';
+import {User} from "../../classTypes";
 
 let userService = new UserService();
 
 let loginButton;
 let myCases;
+let user;
 
 export class NavbarMenu extends React.Component {
 
@@ -23,8 +25,9 @@ export class NavbarMenu extends React.Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      user: {typeName: ''},
-      isOpen: false
+      user: {},
+      isOpen: false,
+      activeKey: 0
     };
   }
 
@@ -50,43 +53,47 @@ export class NavbarMenu extends React.Component {
       });
   }
 
+
+  handleSelect(selectedKey) {
+    console.log('selectec:', selectedKey);
+    this.setState({ activeKey: selectedKey });
+  }
+
   render() {
     if (window.localStorage.getItem('userToken') === '') {
-      loginButton = <NavItem eventKey={1} href="/#login">Login</NavItem>;
+      loginButton = <NavItem eventKey={13} href="/#login">Login</NavItem>;
     } else {
-      loginButton = <NavItem eventKey={1} href="/#login" onClick={() => this.logout()}> Log out</NavItem>;
+      loginButton = <NavItem eventKey={13} href="/#login" onClick={() => this.logout()}> Log out</NavItem>;
       this.viewCases();
     }//end condition
 
 
     return (
       <div className={'logoBrand'}>
-        <Navbar collapseOnSelect fluid>
+        <Navbar collapseOnSelect fluid className="shadow p-3 mb-5 bg-white rounded">
           <Navbar.Header>
             <Navbar.Brand>
-              <img src={'./resources/logo_svart.png'}/>
+               <img src={'./resources/logo_white.png'}></img>
             </Navbar.Brand>
             <Navbar.Toggle/>
           </Navbar.Header>
 
           <Navbar.Collapse>
 
-            <Nav>
-              <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-home"/> {this.state.user.county}</NavItem>
-              <NavItem href={'/#/wizardForm'}><Glyphicon glyph="glyphicon glyphicon-plus"/> Meld inn sak</NavItem>
-              <NavItem href={'/#/events/2'}><Glyphicon glyph="glyphicon glyphicon-road"/> Hendelser</NavItem>
-              <NavItem href={'/#/statistics'}><Glyphicon glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
-              <NavItem href={'/#/map'}><Glyphicon glyph="glyphicon glyphicon-map-marker"/> Kart</NavItem>
+            <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+              <NavItem eventKey={1} href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-home"/> {this.state.user.county}</NavItem>
+              <NavItem eventKey={2} href={'/#/wizardForm'}><Glyphicon glyph="glyphicon glyphicon-plus"/> Meld inn sak</NavItem>
+              <NavItem eventKey={3} href={'/#/events/2'}><i className="fas fa-exclamation-triangle"></i> Hendelser</NavItem>
+              <NavItem eventKey={4} href={'/#/statistics'}><Glyphicon glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
+              <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Kart</NavItem>
               {this.viewCases()}
-              <NavItem href={'/#/map'}><i className="fas fa-map"></i> Kart</NavItem>
-              <NavItem href={'/#/admin'}><Glyphicon glyph="glyphicon glyphicon-user"/> Admin</NavItem>
+              <NavItem eventKey={7} href={'/#/admin'}><Glyphicon glyph="glyphicon glyphicon-user"/> Admin</NavItem>
             </Nav>
 
-            <Nav pullRight>
-              <NavDropdown title={'Min side'} id='1'>
-                <MenuItem eventKey={1} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
-                <MenuItem eventKey={1} href="/#min_side/kommuner">Kommuner</MenuItem>
-                <MenuItem eventKey={1} href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
+            <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+              <NavDropdown eventKey={9} title={'Min side'} id='1'>
+                <MenuItem eventKey={9} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
+                <MenuItem eventKey={9} href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
               </NavDropdown>
               {loginButton}
             </Nav>
@@ -98,25 +105,29 @@ export class NavbarMenu extends React.Component {
       ;
   }//end method
 
-  logout = () => {
-    window.localStorage.setItem('userToken', '');
-    this.viewCases();
-    loginButton = <NavItem eventKey={1} href="/#login">Login</NavItem>;
-  };//end method
+    logout = () => {
+        window.localStorage.setItem('userToken', '');
+        window.sessionStorage.setItem('countyId', '');
+        window.sessionStorage.setItem('countyName', '');
+        this.viewCases();
+        loginButton = <NavItem eventKey={1} href="/#login">Login</NavItem>;
+        this.setState({user: {}})
+    };//end method
 
-  viewCases = () => {
-    if (window.localStorage.getItem('userToken') !== '') {
-
-      if (this.state.user.typeName === undefined && this.state.user.companyMail !== undefined) {
-        return <NavItem eventKey={2} href="/#min_side/mine_sakerBedrift"><Glyphicon glyph="glyphicon glyphicon-user"/>Mine
-          saker</NavItem>;
-      } else {
-        return <NavItem eventKey={2} href="/#min_side/mine_saker"> <Glyphicon glyph="glyphicon glyphicon-user"/>Mine
-          saker</NavItem>;
-      }//end condition}
-
-    } else {
-      return <NavItem eventKey={2} href="/#login"><Glyphicon glyph="glyphicon glyphicon-user"/>Mine saker</NavItem>;
-    }//end condition
-  };//end method
+    viewCases = () => {
+        if (window.localStorage.getItem('userToken') !== '') {
+            if(this.state.user === {}){
+                userService.getCurrentUser().then(r => {
+                    this.setState({user: r});
+                }).catch((error: Error) => confirm(error.message));
+            }
+            if (this.state.user.typeName === undefined) {
+                return <MenuItem eventKey={19} href="/#min_side/mine_sakerBedrift">Mine saker</MenuItem>;
+            } else {
+                return <MenuItem eventKey={19} href="/#min_side/mine_saker">Mine saker</MenuItem>;
+            }//end condition
+        } else {
+            return <MenuItem eventKey={19} href="/#login">Mine saker</MenuItem>;
+        }//end condition
+    };//end method
 }

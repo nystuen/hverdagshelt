@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import { Component } from 'react-simplified';
 import {
@@ -167,16 +166,15 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
     });
 
 
-
     console.log('returnvalue:', returnValue);
     return returnValue;
   }
 
-  caret(active : boolean){
-    if(active) {
-      return <span className="caret"/>
+  caret(active: boolean) {
+    if (active) {
+      return <span className="caret"/>;
     } else {
-      return <span className="caret caret-right"/>
+      return <span className="caret caret-right"/>;
     }
   }
 

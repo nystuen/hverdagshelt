@@ -3,7 +3,7 @@ import {Component} from 'react';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import {Category, County} from "../../classTypes";
-import {Form, FormControl, Label, PageHeader, Col, Grid, HelpBlock, Alert, Button, FormGroup} from 'react-bootstrap';
+import {Form, FormControl, Label, PageHeader, Col, HelpBlock, Alert, Button, FormGroup, Checkbox, DropdownButton, MenuItem, Row, ControlLabel, Grid } from 'react-bootstrap';
 import Select from "react-select";
 import {history} from "../../index";
 
@@ -34,6 +34,8 @@ export class RegisterCompany extends Component<Props, State>{
             phone: "",
             points: 0,
             active: 0,
+            openPassword:'password',
+            openPassword2:'password',
             isLoaded: false,
             choosen: {name: "Bergen", countyId: 1},
             values:[
@@ -278,7 +280,42 @@ export class RegisterCompany extends Component<Props, State>{
         });
     };
 
+
+  handleClickPassword1=()=>{
+    if(this.state.openPassword == "text"){
+      this.setState({openPassword: "password"})
+    }else{
+      this.setState({openPassword: "text"})
+    }
+  };
+
+  handleClickPassword2=()=>{
+    if(this.state.openPassword2 == "text"){
+      this.setState({openPassword2: "password"})
+    }else{
+      this.setState({openPassword2: "text"})
+    }
+  };
+
     render(){
+
+      let changeIcon1;
+
+      if (this.state.openPassword == "text") {
+        changeIcon1 = (<i className="fas fa-eye"></i>);
+      } else {
+        changeIcon1 = (<i className="fas fa-eye-slash"></i>);
+      }
+
+
+      let changeIcon2;
+
+      if (this.state.openPassword2 == "text") {
+        changeIcon2 = (<i className="fas fa-eye"></i>);
+      } else {
+        changeIcon2 = (<i className="fas fa-eye-slash"></i>);
+      }
+
         let optionTemplate = this.state.values.map(v => {
             const data = {label: v.name, value: v.countyId};
             return(data)
@@ -416,17 +453,28 @@ export class RegisterCompany extends Component<Props, State>{
                             <FormGroup>
                                 <Col md={6}>
                                     <FormGroup>
-                                        <FormControl type="password" value={this.state.password} placeholder="Passord"
+                                      <InputGroup>
+                                        <InputGroup.Button>
+                                          <Button type="button" onClick={()=> this.handleClickPassword1()}>{changeIcon1}</Button>
+                                        </InputGroup.Button>
+                                        <FormControl type={this.state.openPassword} value={this.state.password} placeholder="Passord"
                                                      onChange={this.handleStringChange("password")}
                                         />
                                         <FormControl.Feedback/>
+                                      </InputGroup>
                                     </FormGroup>
                                 </Col>
                                 <Col md={6}>
+
                                     <FormGroup validationState={this.getValidationStatePassword2()}>
-                                        <FormControl type="password" value={this.state.password2} placeholder="Gjenta passord"
+                                      <InputGroup>
+                                        <InputGroup.Button>
+                                          <Button type="button" onClick={()=> this.handleClickPassword2()}>{changeIcon2}</Button>
+                                        </InputGroup.Button>
+                                        <FormControl type={this.state.openPassword2} value={this.state.password2} placeholder="Gjenta passord"
                                                      onChange={this.handleStringChange("password2")}/>
                                         <FormControl.Feedback/>
+                                      </InputGroup>
                                     </FormGroup>
                                 </Col>
                                 <Col md={12}>

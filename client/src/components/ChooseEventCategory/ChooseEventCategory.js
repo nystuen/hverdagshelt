@@ -93,7 +93,7 @@ export class ChooseEventCategory extends Component<{
   render() {
     return (
       <div>
-        <h2>Velg kategori for eventet</h2>
+        <h3>Velg kategori for hendelsen</h3>
         <ListGroup>
           {this.state.category.map(cat1 => {
             return (

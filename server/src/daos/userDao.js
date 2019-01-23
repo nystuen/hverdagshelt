@@ -72,14 +72,7 @@ export class UserDao extends Dao {
     );
   }
 
-  getUser(userMail: string, callback: Function) {
-    console.log("usermail, dao", userMail);
-    super.query(
-      "SELECT countyId, active, mail, firstName, lastName, password, typeName, phone, points, name AS 'county' FROM user NATURAL JOIN county where mail=? ",
-      [userMail],
-      callback
-    );
-  } //end method}
+
 
   getIssuesForOneUser(userMail: string, callback: Function) {
     super.query(
@@ -97,8 +90,16 @@ export class UserDao extends Dao {
     );
   } //end method
 
-    getCompanyCategories(categoryId: number, callback: Function){
-      super.query("Select * from companyCategories natural join company where categoryId=?", [categoryId], callback);
+    getCompanyCategories(categoryId: number, countyId: number,  callback: Function){
+      console.log('category ' + categoryId + ' countyId ' + countyId);
+      super.query("Select * from companyCategories natural join company where categoryId=? " +
+          "and companyCategories.companyMail IN(SELECT companyCounties.companyMail FROM companyCounties WHERE companyCounties.countyId=?)",
+          [categoryId, countyId], callback);
+    }//end method
+
+    assignIssueToCompany(issueId: number, companyMail: string, callback: Function){
+      console.log('Assigning issue to company with mail ' + companyMail + ' and issueId ' + issueId);
+      super.query("insert into companyIssues(issueId,companyMail) values(?,?)", [issueId,companyMail], callback);
     }//end method
 
   resetPassword(json: Object, hashed: string, callback: Function) {
@@ -126,6 +127,13 @@ export class UserDao extends Dao {
       callback
     );
   }
+
+
+  updatePoints(json:Object, callback){
+    let val = [json.points,json.userMail];
+    super.query('Update user set points =? where user.mail =?',val,callback);
+  }
+
 
   addCompany(json: Object, hashed: string, callback: Function) {
     let val = [

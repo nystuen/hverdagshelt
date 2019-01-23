@@ -12,79 +12,98 @@ let categoryService = new CategoryService();
 
 interface State {
 
-    newCategoryName: string,
+  newCategoryName: string,
 }
 
-interface Props{}
+interface Props {
+}
 
 //Prioritet 1,2,3
 
-export class adminAddCategory extends Component<Props,State> {
+export class adminAddCategory extends Component<Props, State> {
 
 
   constructor() {
     super();
     this.state = {
       newCategoryName: {},
-      selectedCategoryId: -1,
+      selectedCategoryId: {},
       selectedCategoryType: 1,
-      newPriority: -1,
+      newPriority: {},
       mainCategory: false,
       error: false
     };
   }
 
 
-    onChangeCategoryHeader=(name1,name2)=>{
-        this.setState({selectedCategoryId: name1 ,selectedCategoryType:name2 });
-        console.log(this.state.selectedCategoryId +' hei' + this.state.selectedCategoryType)
+  onChangeCategoryHeader = (name1, name2) => {
+    this.setState({ selectedCategoryId: name1, selectedCategoryType: name2 });
+    console.log(this.state.selectedCategoryId + ' hei' + this.state.selectedCategoryType);
 
-    };
+  };
 
-    onClickHovedkategori=()=>{
-        this.setState({
-            selectedCategoryType: 0,
+  onClickHovedkategori = () => {
+    this.setState({
+      mainCategory: !this.state.mainCategory
+    });
+  };
 
-        });
-    };
+  handleChange = (statename: string) => (event: SyntheticEvent<HTMLInputElement>): void => {
+    this.setState({
+      // $FlowFixMe
+      [statename]: event.target.value
+    });
+  };
 
-    handleChange = (statename: string) => (event: SyntheticEvent<HTMLInputElement>) : void=> {
-        this.setState({
-            // $FlowFixMe
-            [statename] : event.target.value,
-        })
-    };
+  handlePriority = (pri: number) => {
+    this.setState({ newPriority: pri });
+  };
 
-    handlePriority=(pri: number)=> {
-        this.setState({ newPriority : pri})
-    };
+  saveCategory = () => {
 
-    saveCategory=()=>{
 
-        if(this.state.newCategoryName != '' && this.state.selectedCategoryType == 0 && this.state.newPriority !=-1) {
-            let theBody1: Object = {
-                name: this.state.newCategoryName,
-                priority: this.state.newPriority,
-            };
-            categoryService.addCategory1(theBody1);
-        }
+    if (this.state.mainCategory) {
 
-        if(this.state.newCategoryName != '' && this.state.selectedCategoryType == 1) {
-            let theBody2: Object = {
-                categoryId: this.state.selectedCategoryId,
-                name: this.state.newCategoryName,
-            };
-            categoryService.addCategory2(theBody2);
-        }
+      if (this.state.newCategoryName == '') {
+        this.setState({ error: true });
+        return;
+      }
 
-        if(this.state.newCategoryName != '' && this.state.selectedCategoryType == 2) {
-            let theBody3: Object = {
-                category2Id: this.state.selectedCategoryId,
-                name: this.state.newCategoryName,
-            };
-            categoryService.addCategory3(theBody3);
-        }
-    };
+      let theBody1: Object = {
+        name: this.state.newCategoryName,
+        priority: this.state.newPriority
+      };
+
+      console.log('body', theBody1);
+      categoryService.addCategory1(theBody1).then(res => {
+        console.log('added cat1', res);
+        this.setState({ error: false });
+      }).catch(error => {
+        console.log(error);
+        this.setState({ error: true });
+      });
+
+    } else {
+
+      if (this.state.newCategoryName == '') {
+        this.setState({ error: true });
+        return;
+      }
+
+      let theBody2: Object = {
+        categoryId: this.state.selectedCategoryType,
+        name: this.state.newCategoryName
+      };
+      categoryService.addCategory2(theBody2).then(res => {
+        console.log('added cat2', res);
+        this.setState({ error: false });
+      }).catch(error => {
+        console.log(error);
+        this.setState({ error: true });
+      });
+
+    }
+  };
 
 
   onChangeCategory = (label, name) => {
@@ -155,7 +174,7 @@ export class adminAddCategory extends Component<Props,State> {
           </FormGroup>
 
           <div align="center">
-            <Button bsStyle="success" onClick={() => this.saveCategory()}>Lagre kategori</Button>
+            <Button bsStyle="primary" onClick={() => this.saveCategory()}>Lagre kategori</Button>
           </div>
           {alert}
         </Col>
@@ -163,5 +182,8 @@ export class adminAddCategory extends Component<Props,State> {
         <Col xs={0} md={2}></Col>
       </Grid>
     );
-    }
+
+  }
+
+
 }

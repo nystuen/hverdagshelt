@@ -175,129 +175,97 @@ export class Login extends Component<Props, State> {
           storedPassword: response[0].password
         });
 
-        bcrypt.compare(
-          this.state.password,
-          response[0].password,
-          (err, res) => {
-            if (res) {
-              userService
-                .login({
-                  userMail: response[0].mail,
-                  typeId: response[0].typeName
-                })
-                .then(r => {
-                  let token = r.jwt;
-                  window.localStorage.setItem("userToken", token);
-                  console.log("login in success");
+      bcrypt.compare(this.state.password, response[0].password, (err, res) => {
+        if (res) {
+          userService.login({ userMail: response[0].mail, typeId: response[0].typeName }).then(r => {
+            let token = r.jwt;
+            window.localStorage.setItem('userToken', token);
+            console.log('login in success');
+            userService.getCurrentUser().then(r3 => {
+              window.sessionStorage.setItem('countyId', r3[0].countyId);
+              window.sessionStorage.setItem('countyName', r3[0].county);
+            });
+            console.log(this.props.history.location.pathname);
+            if(this.props.history.location.pathname == "/login" ||
+                this.props.history.location.pathname== "/register/company"){
+              console.log('hei');
+              history.push('/wizardForm');
+            }else{
+              console.log(this.props.history.location.pathname);
+              this.props.history.goBack();
+            }
 
-                  console.log(this.props.history.location.pathname);
-                  if (
-                    this.props.history.location.pathname == "/login" ||
-                    this.props.history.location.pathname == "/register/company"
-                  ) {
-                    console.log("hei");
-                    history.push("/wizardForm");
-                  } else {
-                    console.log(this.props.history.location.pathname);
-                    this.props.history.goBack();
-                  }
-                })
-                .catch((error: Error) => Alert.danger(error.message));
-            } else {
-              //check if the email is a company email
-              userService
-                .getCompanyLogin(this.state.email)
-                .then(r => {
-                  bcrypt.compare(
-                    this.state.password,
-                    r[0].password,
-                    (err, res) => {
-                      if (res) {
-                        userService
-                          .login({ userMail: r[0].mail, typeId: "Company" })
-                          .then(r => {
-                            let token = r.jwt;
-                            window.localStorage.setItem("userToken", token);
-                            console.log("login in success");
-
-                            console.log(this.props.history.location.pathname);
-                            if (
-                              this.props.history.location.pathname ==
-                                "/register" ||
-                              this.props.history.location.pathname ==
-                                "/register/company"
-                            ) {
-                              console.log("hei");
-                              history.push("/wizardForm");
-                            } else {
-                              console.log(this.props.history.location.pathname);
-                              this.props.history.goBack();
-                            }
-                          })
-                          .catch((error: Error) => Alert.danger(error.message));
-                      } else {
-                        this.setState({
-                          error: true
-                        });
-                      } //end condition
-                    }
-                  );
-                })
-                .catch((error: Error) => {
-                  console.log(error);
-                  this.setState({
-                    error: true
-                  });
-                });
-            } //end condition
-          }
-        );
-      })
-      .catch((error: Error) => {
-        userService
-          .getCompanyLogin(this.state.email)
-          .then(r => {
+          }).catch((error: Error) => confirm(error.message));
+        } else { //check if the email is a company email
+          userService.getCompanyLogin(this.state.email).then(r => {
             bcrypt.compare(this.state.password, r[0].password, (err, res) => {
               if (res) {
-                userService
-                  .login({ userMail: this.state.email, typeId: "Company" })
-                  .then(r => {
-                    let token = r.jwt;
-                    window.localStorage.setItem("userToken", token);
-                    console.log("login in success");
+                userService.login({ userMail: r[0].mail, typeId: 'Company' }).then(r => {
+                  let token = r.jwt;
+                  window.localStorage.setItem('userToken', token);
+                  console.log('login in success');
+
                     console.log(this.props.history.location.pathname);
-                    if (
-                      this.props.history.location.pathname == "/register" ||
-                      this.props.history.location.pathname == "/registrer/bedrift"
-                    ) {
-                      console.log("hei");
-                      history.push("/wizardForm");
-                    } else {
+                    if(this.props.history.location.pathname == "/register" ||
+                        this.props.history.location.pathname== "/register/company"){
+                      console.log('hei');
+                      history.push('/wizardForm');
+                    }else{
                       console.log(this.props.history.location.pathname);
                       this.props.history.goBack();
                     }
-                  })
-                  .catch((error: Error) => {
-                    console.log(error);
-                    this.setState({
-                      error: true
-                    });
+                  }).catch((error: Error) => confirm(error.message));
+                }else{
+                  this.setState({
+                    error: true
                   });
-              } else {
-                this.setState({
-                  error: true
-                });
-              } //end condition
+                }//end condition
+              });
+            }).catch((error: Error) => {
+              console.log(error);
+              this.setState({
+                error: true
+              });
             });
-          })
-          .catch((error: Error) => {
-            console.log(error);
+        }//end condition
+      });
+    }).catch((error: Error) => {
+      userService.getCompanyLogin(this.state.email).then(r => {
+        bcrypt.compare(this.state.password, r[0].password, (err, res) => {
+          if (res) {
+            userService.login({ userMail: this.state.email, typeId: 'Company' }).then(r => {
+              let token = r.jwt;
+              window.localStorage.setItem('userToken', token);
+              console.log('login in success');
+              console.log(this.props.history.location.pathname);
+              if(this.props.history.location.pathname == "/register" ||
+              this.props.history.location.pathname== "/register/company"){
+                console.log('hei');
+                history.push('/wizardForm');
+              }else{
+                console.log(this.props.history.location.pathname);
+                this.props.history.goBack();
+              }
+            }).catch((error: Error) => {
+              console.log(error);
+              this.setState({
+                error: true
+              });
+            });
+          }else{
             this.setState({
               error: true
             });
-          });
+          }//end condition
+        });
+      }).catch((error: Error) => {
+        console.log(error);
+        this.setState({
+          error: true
+        });
       });
-  }; //end method
+    });
+  };//end method
 
   sjekk = () => {
     let decoded = jwt.verify(
