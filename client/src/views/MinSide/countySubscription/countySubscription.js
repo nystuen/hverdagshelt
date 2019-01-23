@@ -1,16 +1,18 @@
 //@flow
 import React, { Component } from 'react';
 import { Layout } from '../../../widgets';
-import { Grid, Row, Col, ListGroup,ListGroupItem, Table, Image, Panel } from "react-bootstrap"
-import {CountyService} from "../../../services";
+import { FormControl, Grid, Row, Col, ListGroup, ListGroupItem, Table, Image, Panel } from 'react-bootstrap';
+import { CountyService, UserService, NotificationSettingsService } from '../../../services';
 import * as jwt from 'jsonwebtoken';
 import Glyphicon from 'react-bootstrap/es/Glyphicon';
 import Button from 'react-bootstrap/es/Button';
 import css from './countySubscription.css';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
-import FormControl from "react-bootstrap/es/FormControl";
+import { User } from '../../../classTypes';
 
 let countyService = new CountyService();
+let userService = new UserService();
+let notificationSettingsService = new NotificationSettingsService();
 //Databasekall
 //Få alle kommuner som finnes som er active og som bruker ikke abonerer på
 // Få alle kommuner som den personen abonerer på
@@ -23,84 +25,102 @@ let countyService = new CountyService();
 // county(countId, name)
 
 interface State {
-    allCounties: Array<Object>,
-    userCounties: Array<Object>,
+  allCounties: Array<Object>,
+  userCounties: Array<Object>,
+  user: User
 }
 
 interface Props {
 }
 
-export class countySubscription extends Component<Props, State> {
+export class CountySubscription extends Component<Props, State> {
 
-    state = {
-        decoded: jwt.verify(window.localStorage.getItem('userToken'), 'shhhhhverysecret'),
-        allCounties: [],
-        userCounties: []
-    };
+  state = {
+    allCounties: [],
+    userCounties: [],
+    user: new User('', '', '', '', '', -1, -1, -1)
+  };
 
-    //fra Alle kommuner til abonerte kommuner
-    addCounty = (name, index) => {
+  //fra Alle kommuner til abonerte kommuner
+  addCounty = (name, index) => {
 
-        const userArray = this.state.userCounties;
-        const countyArray = this.state.allCounties;
+    const userArray = this.state.userCounties;
+    const countyArray = this.state.allCounties;
 
-        countyArray.splice(index, 1);
-        this.setState({ allCounties: countyArray });
+    countyArray.splice(index, 1);
 
-        userArray.push(name);
-        this.setState({ userCounties: userArray });
+    userArray.push(name);
+    this.setState({
+      userCounties: userArray,
+      allCounties: countyArray
+    });
 
-    };
+  };
 
-    //fra abonerte kommuner til alle kommuner
-    deleteCounty = (name, index) => {
+  //fra abonerte kommuner til alle kommuner
+  deleteCounty = (name, index) => {
 
-        const userArray = this.state.userCounties;
-        const countyArray = this.state.allCounties;
+    const userArray = this.state.userCounties;
+    const countyArray = this.state.allCounties;
 
-        userArray.splice(index, 1);
-        countyArray.push(name);
+    userArray.splice(index, 1);
+    countyArray.push(name);
 
-        this.setState({ userCounties: userArray });
-        this.setState({ allCounties: countyArray });
-    };
+    this.setState({
+      allCounties: countyArray,
+      userCounties: userArray
+    });
+  };
 
 
-    change = () => {
+  change = () => {
 
-        countyService.deleteSubscription();
+    countyService.deleteSubscription();
 
-        this.state.userCounties.map((e) => {
-            let theBody: Object = {
-                countyId: e.countyId
-            };
-            countyService.addSubscription(theBody);
+    this.state.userCounties.map((e) => {
+      let theBody: Object = {
+        countyId: e.countyId
+      };
+      countyService.addSubscription(theBody);
+    });
+    window.location.reload();
+
+  };
+
+
+  getInformation = async () => {
+    let counties = [];
+
+    await userService.getCurrentUser()
+      .then(resources => {
+        let user = resources[0];
+        this.setState({
+          user: user
         });
+      });
 
-    };
+    await countyService.getAllCounties().then((r: Array<Object>) => {
+      r.map(e => {
+        if (!(e.countyId === this.state.user.countyId)) {
+          counties.push(e);
+        }
+      });
+      this.setState({
+        allCounties: counties
+      });
+    });
 
+    await countyService.getUsersCounties().then((r: Array<Object>) => {
+      this.setState({
+        userCounties: r
+      });
+    });
 
-    getInformation = async () => {
-        await countyService.getAllCounties().then((r: Array<Object>) => {
-            console.log('all counties', r);
-            this.setState({
-                allCounties: r
-            });
-        });
+  };
 
-        await countyService.getUsersCounties().then((r: Array<Object>) => {
-            console.log('karis counties', r);
-            this.setState({
-                userCounties: r
-            });
-        });
-
-    };
-
-
-    componentDidMount() {
-        this.getInformation();
-    }
+  componentDidMount() {
+    this.getInformation();
+  }
 
     render() {
         return (
@@ -134,15 +154,14 @@ export class countySubscription extends Component<Props, State> {
 
                             <Col xs={12} md={2} align={"center"} className="arrows">
 
-                                <Row>
-                                    <span> <Glyphicon glyph="arrow-left"/></span>
-                                </Row>
-                                <Row>
-                                    <span> <Glyphicon glyph="arrow-right"/></span>
-                                </Row>
+              <Row>
+                <span> <Glyphicon glyph="arrow-left"/></span>
+              </Row>
+              <Row>
+                <span> <Glyphicon glyph="arrow-right"/></span>
+              </Row>
 
-
-                            </Col>
+              </Col>
 
                             <Col xs={12} md={5}>
                                 <h5 align="center">Mine Kommuner</h5>
@@ -164,20 +183,17 @@ export class countySubscription extends Component<Props, State> {
                             </Col>
                         </Row>
 
-                        <Row align={'right'}>
-                            <Button bsStyle="success" onClick={() => this.change()}>Lagre endringer</Button>
-                        </Row>
-                    </Col>
-
-                    <Col md={2}>
-                    </Col>
-
-                </Grid>
-
+            <div align="right">
+          <Button bsStyle="primary" onClick={() => this.change()}>Lagre endringer</Button>
             </div>
+          </Col>
 
-        );
-    }
+        </Grid>
+
+      </div>
+
+    );
+  }
 
     filterAll() {
         // Declare variables

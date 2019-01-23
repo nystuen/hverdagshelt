@@ -12,7 +12,7 @@ export class CountyDao extends Dao {
   }
 
   getAllCountiesMinusUsers(id: string, callback: Function) {
-    var val = [id, id];
+    let val = [id, id];
     super.query('SELECT * from county where (county.countyId IN (SELECT userCounties.countyId FROM userCounties WHERE userCounties.userMail != ?) AND county.countyId NOT IN (SELECT userCounties.countyId FROM userCounties WHERE userCounties.userMail = ?)) OR county.countyId NOT IN (SELECT userCounties.countyId FROM userCounties)',
       val,
       callback

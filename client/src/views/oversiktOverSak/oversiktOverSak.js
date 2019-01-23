@@ -14,19 +14,21 @@ import Button from 'react-bootstrap/es/Button';
 import { ImageService } from '../../services';
 import { history } from '../../index';
 import css from './oversiktOverSak.css';
-import {MailService} from '../../services';
-import{FormGroup} from "react-bootstrap";
-import {FormControl} from "react-bootstrap";
-import Card from "reactstrap/es/Card";
-import Table from "react-bootstrap/es/Table";
-import {User} from "../../classTypes";
-import Well from "react-bootstrap/es/Well";
+import { MailService } from '../../services';
+import { FormGroup } from 'react-bootstrap';
+import { FormControl } from 'react-bootstrap';
+import Card from 'reactstrap/es/Card';
+import Table from 'react-bootstrap/es/Table';
+import { User } from '../../classTypes';
+import axios from 'axios';
+import { NotificationSettingsService } from '../../services';
 
 let issueService = new IssueService();
 let categoryService = new CategoryService();
 let userService = new UserService();
 let imageService = new ImageService();
 let mailService = new MailService();
+let notificationSettingsService = new NotificationSettingsService();
 
 interface State {
     user: Object,
@@ -76,14 +78,13 @@ export class OversiktOverSak extends React.Component {
     if (this.state.user.typeName === 'Company' || this.state.user.typeName === 'Admin' || this.state.user.typeName === 'Employee') {
       editStatus = this.state.editStatus;
       renderComment = <div>
-            <br/>
-
-            <FormGroup>
-                <FormControl componentClass="textarea" value={this.state.comment} placeholder="Legg til kommentar til sak"
-                             onChange={this.editComment}/>
-                <Button type="Button" onClick={this.addComment}> Legg til kommentar</Button>
-            </FormGroup>
-        </div>
+        <br/>
+        <FormGroup>
+          <FormControl componentClass="textarea" value={this.state.comment} placeholder="Legg til kommentar til sak"
+                       onChange={this.editComment}/>
+          <Button onClick={this.addComment}> Legg til kommentar</Button>
+        </FormGroup>
+      </div>;
     }
 
 
@@ -111,39 +112,39 @@ export class OversiktOverSak extends React.Component {
 
             <h3>Status</h3>
             <ProgressBar>
-              <ProgressBar bsStyle={this.state.status.progressBar} active={this.state.status.inProgress} now={this.state.status.progress}
+              <ProgressBar bsStyle={this.state.status.progressBar} active={this.state.status.inProgress}
+                           now={this.state.status.progress}
                            label={this.state.status.name} style={{ color: 'black' }}/>
             </ProgressBar>
 
             {editStatus}
 
             <h3>Dato sendt inn</h3>
-            <p>{this.state.issue.date}</p>
+            {this.state.issue.date}
 
           </Col>
+
+          <h3><b>Kommentarer </b></h3>
+          {renderComment}
+
+          {this.state.issueComments.map(e => {
+            return (
+
+              <div className="comment">
+                <Col>
+                  <h4><b>{e.mail}</b></h4>
+                  <h4><i>{e.text}</i></h4>
+                </Col>
+              </div>
+            );
+          })}
+          <br/>
+
         </Col>
 
         <Col sm={1} md={2} lg={2}></Col>
 
-        <Row>
-          <Col xsOffset={23} md={8}>
-          </Col>
-        </Row>
-            <br/>
-            <h3> <b>Kommentarer </b></h3>
-                {renderComment}
-                <br/>
-                {this.state.issueComments.map(e => {
-                    return(
-                              <Col>
-                                  <Well bsSize="large">
-                                  <h4> <b>{e.mail}</b></h4>
-                                  <h4> <i>{e.text}</i></h4>
-                                  </Well>
-                              </Col>
-                  )
-            })}
-        <br/>
+
       </Grid>
     );
   }//end method
@@ -230,9 +231,13 @@ export class OversiktOverSak extends React.Component {
   };//end method
 
   saveThisStatus = () => {
-    issueService.updateStatusOneIssue(this.state.issue.issueId, this.state.statusName).then(response => {
-    }).catch((error: Error) => Alert.danger(error.message));
-    window.location.reload();
+
+    notificationSettingsService.getIssueNotificationSettingsFromUser(this.state.user.mail).then(res => {
+      issueService.updateStatusOneIssue(this.state.issue.issueId, this.state.statusName, res[0]).then(response => {
+        window.location.reload();
+      }).catch((error: Error) => Alert.danger(error.message));
+    });
+
   };//end method
 }//end class
 
