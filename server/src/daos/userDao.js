@@ -72,14 +72,7 @@ export class UserDao extends Dao {
     );
   }
 
-  getUser(userMail: string, callback: Function) {
-    console.log("usermail, dao", userMail);
-    super.query(
-      "SELECT countyId, active, mail, firstName, lastName, password, typeName, phone, points, name AS 'county' FROM user NATURAL JOIN county where mail=? ",
-      [userMail],
-      callback
-    );
-  } //end method}
+
 
   getIssuesForOneUser(userMail: string, callback: Function) {
     super.query(

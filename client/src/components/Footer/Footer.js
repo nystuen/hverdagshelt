@@ -16,29 +16,26 @@ export class Footer extends Component<{}> {
 
 
   state = {
-      countyInformation:[],
-     user: []
+    countyInformation:[],
+    user: []
 
   };
 
 
 
-  componentDidMount() {
+  componentDidMount = async ()=>{
     if(!(window.localStorage.getItem('userToken') == '')) {
-      userService.getCurrentUser().then(r => {
-        console.log('bruker:', r);
+      await userService.getCurrentUser().then(r => {
         this.setState({user: r[0]});
       });
-
     }
 
-    countyService.getCountyEmployee(this.state.user.countyId).then((r: Array<Object>) => {
+    await countyService.getCountyEmployee(this.state.user.countyId).then((re: Array<Object>) => {
       this.setState({
-        countyInformation: r
+        countyInformation: re
       });
     });
-
-  }
+  };
 
 
 

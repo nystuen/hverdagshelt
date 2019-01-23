@@ -30,6 +30,7 @@ import eventCategoryController from "./controllers/eventCategoryController.js";
 import {EmployeeDao} from "./daos/employeeDao";
 import employeeController from "./controllers/employeeController"
 
+
 type Request = express$Request;
 type Response = express$Response;
 
@@ -56,7 +57,7 @@ let issueDao = new IssueDao(pool);
 let categoryDao = new CategoryDao(pool);
 let mailDao = new MailDao(pool);
 let notificationSettingsDao = new NotificationSettingsDao(pool);
-let employeeDao = new EmployeeDao(pool)
+let employeeDao = new EmployeeDao(pool);
 let eventDao = new EventDao(pool);
 let eventCategoryDao = new EventCategoryDao(pool);
 let statisticsDao = new StatisticsDao(pool);
