@@ -23,7 +23,7 @@ export class NavbarMenu extends React.Component {
 
     this.toggle = this.toggle.bind(this);
     this.state = {
-      user: {},
+      user: {typeName: ''},
       isOpen: false
     };
   }
@@ -35,9 +35,15 @@ export class NavbarMenu extends React.Component {
   }
 
   componentWillMount() {
+    let user = {};
     userService.getCurrentUser()
       .then(resources => {
-        let user = resources[0];
+        if (resources[0] === undefined) {
+          user = {}
+        } else {
+            let user = resources[0];
+        }
+        console.log(user);
         this.setState({
           user: user
         });
@@ -101,7 +107,7 @@ export class NavbarMenu extends React.Component {
   viewCases = () => {
     if (window.localStorage.getItem('userToken') !== '') {
 
-      if (this.state.user.typeName === undefined) {
+      if (this.state.user.typeName === undefined && this.state.user.companyMail !== undefined) {
         return <NavItem eventKey={2} href="/#min_side/mine_sakerBedrift"><Glyphicon glyph="glyphicon glyphicon-user"/>Mine
           saker</NavItem>;
       } else {

@@ -16,20 +16,25 @@ export class Footer extends Component<{}> {
 
   state = {
       countyInformation:[],
-     user: []
+     user: {}
 
   };
 
 
 
   componentDidMount() {
-    if(!(window.localStorage.getItem('userToken') == '')) {
+    let user = {};
       userService.getCurrentUser().then(r => {
+        if (r[0] === undefined) {
+          user = {}
+        } else {
+          user = r[0]
+        }
         console.log('bruker:', r);
-        this.setState({user: r[0]});
+        this.setState({user: user});
       });
 
-    }
+
 
     countyService.getCountyEmployee(this.state.user.countyId).then((r: Array<Object>) => {
       this.setState({
