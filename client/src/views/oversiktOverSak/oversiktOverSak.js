@@ -44,6 +44,20 @@ interface State {
     image: Image;
 }//end method
 
+class FindDate {
+  day;
+  month;
+  year;
+
+  constructor() {
+    var today = new Date();
+    this.day = today.getDate();
+    this.month = today.getMonth() + 1;
+    this.year = today.getFullYear();
+  }
+}
+
+
 export class OversiktOverSak extends React.Component {
     constructor(props) {
         super(props);
@@ -244,6 +258,9 @@ export class OversiktOverSak extends React.Component {
     this.setState({ statusName: event.target.value });
   };//end method
 
+
+
+
   saveThisStatus = () => {
 
 
@@ -258,4 +275,6 @@ export class OversiktOverSak extends React.Component {
 
   };//end method
 }//end class
+
+
 

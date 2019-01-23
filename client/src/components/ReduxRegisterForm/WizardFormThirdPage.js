@@ -55,9 +55,6 @@ export class WizardFormThirdPage extends React.Component {
     this.props.change('countyId', this.state.user.countyId);
     console.log('setting props! mail');
     console.log(this.state.user.countyId);
-    setTimeout(function() {
-      history.push('/min_side/mine_saker').bind(this);
-    }, 1000);
   };
 
   componentDidMount() {
