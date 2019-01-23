@@ -124,7 +124,7 @@ export class countySubscription extends Component<Props, State> {
                                 <ListGroup id={"allCountiesList"}>
                                     {
                                         this.state.allCounties.map((r, i) => {
-                                            return <li class="list-group-item" onClick={() => {
+                                            return <li className="list-group-item" onClick={() => {
                                                 this.addCounty(r, i);
                                             }} key={i}><a>{r.name}</a></li>;
                                         })
@@ -155,7 +155,7 @@ export class countySubscription extends Component<Props, State> {
                                 <ListGroup id="myCountiesList">
                                     {
                                         this.state.userCounties.map((r, i) => {
-                                            return <li class="list-group-item" onClick={() => {
+                                            return <li className="list-group-item" onClick={() => {
                                                 this.deleteCounty(r, i);
                                             }} key={i}><a>{r.name}</a></li>;
                                         })
