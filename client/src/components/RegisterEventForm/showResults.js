@@ -1,5 +1,6 @@
 import { NotificationSettingsService } from '../../services';
 import { MailService } from '../../services';
+import { history } from '../../index';
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 let notificationSettingsService = new NotificationSettingsService();
@@ -38,29 +39,35 @@ export default (async function showResults(values) {
       eventCategoryId: values.categoryid,
       countyId: values.countyId
     })
-  });
+  }).then(res => {
+    notificationSettingsService.getUsersWithNotificationsLikeThis(values.countyId, values.categoryid).then(res => {
+      to = res;
 
-  notificationSettingsService.getUsersWithNotificationsLikeThis(values.countyId, values.categoryid).then(res => {
-    to = res;
+      let event = {
+        title: values.title,
+        text: values.text,
+        latitude: values.latitude,
+        longitude: values.longitude,
+        date: day.day + '.' + day.month + '.' + day.year,
+        userMail: values.userMail,
+        eventCategoryId: values.categoryid,
+        countyId: values.countyId
+      };
 
-    let event = {
-      title: values.title,
-      text: values.text,
-      latitude: values.latitude,
-      longitude: values.longitude,
-      date: day.day + '.' + day.month + '.' + day.year,
-      userMail: values.userMail,
-      eventCategoryId: values.categoryid,
-      countyId: values.countyId};
+      console.log('event: ', event);
+      console.log('recipients: ', to);
 
-    console.log('event: ', event);
-    console.log('recipients: ', to);
+      mailService.sendEventMail(to, event).then(res => {
 
-    mailService.sendEventMail(to, event).then(res => {
+        console.log('eventMail:', res);
 
-      console.log('eventMail:', res);
+        history.push('/events/' + values.countyId)
+      });
+
     });
-
   });
+
+
+
 
 });

@@ -44,9 +44,6 @@ export class EventFormThirdPage extends React.Component {
   setProps = () => {
     this.props.change('userMail', this.state.user.mail);
     this.props.change('countyId', this.state.user.countyId);
-    setTimeout(function() {
-      history.push('/events/2').bind(this);
-    }, 1000);
   };
 
   componentDidMount() {
