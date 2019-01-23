@@ -62,42 +62,50 @@ export class NavbarMenu extends React.Component {
       this.viewCases();
     }//end condition
 
+    if(window.localStorage.getItem('userToken') !== '') {
+        return (
+            <div className={'logoBrand'}>
+                <Navbar collapseOnSelect fluid>
+                    <Navbar.Header>
+                        <Navbar.Brand>
+                            <img src={'./resources/logo_white.png'}></img>
+                        </Navbar.Brand>
+                        <Navbar.Toggle/>
+                    </Navbar.Header>
 
-    return (
-      <div className={'logoBrand'}>
-        <Navbar collapseOnSelect fluid>
-          <Navbar.Header>
-            <Navbar.Brand>
-               <img src={'./resources/logo_white.png'}></img>
-            </Navbar.Brand>
-            <Navbar.Toggle/>
-          </Navbar.Header>
+                    <Navbar.Collapse>
 
-          <Navbar.Collapse>
+                        <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+                            <NavItem eventKey={1} href={'/#/'}><Glyphicon
+                                glyph="glyphicon glyphicon-home"/> {window.sessionStorage.getItem('countyName')}
+                            </NavItem>
+                            <NavItem eventKey={2} href={'/#/wizardForm'}><Glyphicon
+                                glyph="glyphicon glyphicon-plus"/> Meld inn sak</NavItem>
+                            <NavItem eventKey={3} href={'/#/events/' + window.sessionStorage.getItem('countyId')}>
+                                <i className="fas fa-exclamation-triangle"></i> Hendelser</NavItem>
+                            <NavItem eventKey={4} href={'/#/statistics'}><Glyphicon
+                                glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
+                            <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Kart</NavItem>
+                            {this.viewCases()}
+                            <NavItem eventKey={7} href={'/#/admin'}><Glyphicon glyph="glyphicon glyphicon-user"/> Admin</NavItem>
+                        </Nav>
 
-            <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
-              <NavItem eventKey={1} href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-home"/> {this.state.user.county}</NavItem>
-              <NavItem eventKey={2} href={'/#/wizardForm'}><Glyphicon glyph="glyphicon glyphicon-plus"/> Meld inn sak</NavItem>
-              <NavItem eventKey={3} href={'/#/events/2'}><i className="fas fa-exclamation-triangle"></i> Hendelser</NavItem>
-              <NavItem eventKey={4} href={'/#/statistics'}><Glyphicon glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
-              <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Kart</NavItem>
-              {this.viewCases()}
-              <NavItem eventKey={7} href={'/#/admin'}><Glyphicon glyph="glyphicon glyphicon-user"/> Admin</NavItem>
-            </Nav>
+                        <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+                            <NavDropdown eventKey={9} title={'Min side'} id='1'>
+                                <MenuItem eventKey={9} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
+                                <MenuItem eventKey={9}
+                                          href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
+                            </NavDropdown>
+                            {loginButton}
+                        </Nav>
+                    </Navbar.Collapse>
 
-            <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
-              <NavDropdown eventKey={9} title={'Min side'} id='1'>
-                <MenuItem eventKey={9} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
-                <MenuItem eventKey={9} href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
-              </NavDropdown>
-              {loginButton}
-            </Nav>
-          </Navbar.Collapse>
-
-        </Navbar>
-      </div>
-    )
-      ;
+                </Navbar>
+            </div>
+        )
+    }else{
+        
+    }
   }//end method
 
     logout = () => {
@@ -106,7 +114,9 @@ export class NavbarMenu extends React.Component {
         window.sessionStorage.setItem('countyName', '');
         this.viewCases();
         loginButton = <NavItem eventKey={1} href="/#login">Login</NavItem>;
-        this.setState({user: {}})
+        this.setState({user: {}});
+
+        window.location.reload();
     };//end method
 
     viewCases = () => {

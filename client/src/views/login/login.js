@@ -47,7 +47,6 @@ export class Login extends Component<Props, State> {
     countyId: 0,
     string: "./logo.png",
     openPassword: "password"
-
   };
 
   handleChangeEmail = (event: SyntheticEvent<HTMLButtonElement>) => {
@@ -73,9 +72,12 @@ export class Login extends Component<Props, State> {
 
 
   render() {
-
-
-
+      window.onload = function(){
+      if(!window.location.hash){
+        window.location = window.location + '#loaded';
+        window.location.reload();
+      }//end condition
+    };
 
     let alert_login;
 
@@ -195,16 +197,9 @@ export class Login extends Component<Props, State> {
               window.sessionStorage.setItem('countyId', r3[0].countyId);
               window.sessionStorage.setItem('countyName', r3[0].county);
             });
-            console.log(this.props.history.location.pathname);
-            if(this.props.history.location.pathname == "/login" ||
-                this.props.history.location.pathname== "/register/company"){
-              console.log('hei');
-              history.push('/wizardForm');
-            }else{
-              console.log(this.props.history.location.pathname);
-              this.props.history.goBack();
-            }
 
+            window.location.reload();
+            history.push('/wizardForm');
           }).catch((error: Error) => confirm(error.message));
         } else { //check if the email is a company email
           userService.getCompanyLogin(this.state.email).then(r => {
@@ -214,16 +209,10 @@ export class Login extends Component<Props, State> {
                   let token = r.jwt;
                   window.localStorage.setItem('userToken', token);
                   console.log('login in success');
-
-                    console.log(this.props.history.location.pathname);
-                    if(this.props.history.location.pathname == "/register" ||
-                        this.props.history.location.pathname== "/register/company"){
                       console.log('hei');
+
+                      window.location.reload();
                       history.push('/wizardForm');
-                    }else{
-                      console.log(this.props.history.location.pathname);
-                      this.props.history.goBack();
-                    }
                   }).catch((error: Error) => confirm(error.message));
                 }else{
                   this.setState({
@@ -247,15 +236,10 @@ export class Login extends Component<Props, State> {
               let token = r.jwt;
               window.localStorage.setItem('userToken', token);
               console.log('login in success');
-              console.log(this.props.history.location.pathname);
-              if(this.props.history.location.pathname == "/register" ||
-              this.props.history.location.pathname== "/register/company"){
-                console.log('hei');
+
+
+                window.location.reload();
                 history.push('/wizardForm');
-              }else{
-                console.log(this.props.history.location.pathname);
-                this.props.history.goBack();
-              }
             }).catch((error: Error) => {
               console.log(error);
               this.setState({
