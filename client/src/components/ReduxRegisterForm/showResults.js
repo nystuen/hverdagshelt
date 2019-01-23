@@ -57,6 +57,7 @@ export default (async function showResults(values) {
     });
   })
 
-  history.push('/min_side/mine_saker')
+
+  history.push("/min_side/mine_saker")
 
 });

@@ -23,6 +23,7 @@ export default (async function showResults(values) {
   var day = new FindDate();
   await sleep(500); // simulate server latency
   let to = [];
+  let error = '';
 
   fetch('http://localhost:3000/add_event', {
     method: 'POST',
@@ -40,6 +41,7 @@ export default (async function showResults(values) {
       countyId: values.countyId
     })
   }).then(res => {
+
     notificationSettingsService.getUsersWithNotificationsLikeThis(values.countyId, values.categoryid).then(res => {
       to = res;
 
@@ -61,13 +63,21 @@ export default (async function showResults(values) {
 
         console.log('eventMail:', res);
 
-        history.push('/events/' + values.countyId)
       });
 
     });
+  }).catch(e => {
+    console.log('SHIT');
+    error = 'error';
+  }).finally(e => {
+    console.log('finally');
+    if (!(error == 'error')) {
+      console.log('erorrInFinally');
+      history.push = function(s) {
+
+      };
+    }
   });
 
-
-
-
+  history.push('/events/' + values.countyId);
 });
