@@ -144,10 +144,14 @@ export class OversiktOverSak extends React.Component {
 
 
   componentWillMount() {
-
+        let user = {};
       userService.getCurrentUser()
           .then(resource => {
-              let user = resource[0];
+              if (resource[0] === undefined) {
+                  user = {}
+              } else {
+                  user = resource[0]
+              }
               this.setState({
                   user: user
               })

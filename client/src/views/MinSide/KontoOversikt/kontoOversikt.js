@@ -166,7 +166,7 @@ class AccountInfoCard extends React.Component<{
 export class KontoOversikt extends React.Component <State> {
 
   state = {
-    user: User,
+    user: {},
     value: String
   };
 
@@ -188,7 +188,6 @@ export class KontoOversikt extends React.Component <State> {
 
         {
           this.state.user.typeName === 'Admin' || this.state.user.typeName === 'Employee' || this.state.user.typeName === 'Private' ? (
-
 
               <AccountInfoCard firstName={this.state.user.firstName} lastName={this.state.user.lastName}
                                county={this.state.user.county} email={this.state.user.mail}
