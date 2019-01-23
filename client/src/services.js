@@ -72,7 +72,11 @@ export class UserService {
 
     getCompanyCategories(categoryId: number, countyId: number): Promise<Object[]>{
         return axios.get('/companyCategories/' + categoryId + '/' + countyId);
-    }
+    }//end method
+
+    assignIssueToCompany(issueId: number, companyMail: string): Promise<void>{
+        return axios.post('/assignIssue/' + issueId + '/' + companyMail);
+    }//end method
 }//end class
 
 export class EventCategoryService {
