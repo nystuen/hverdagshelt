@@ -135,4 +135,13 @@ module.exports = function(app: Object, issueDao: Object) {
       res.json(data);
     });
   });
+
+  app.put("/editIssue/:issueId", (req, res) => {
+    console.log("received put request from editIssue");
+    //console.log(req);
+    issueDao.updateIssue(req.params.issueId, req.body, (status, data) => {
+      res.status(status);
+      res.json(data);
+    });
+  });
 };

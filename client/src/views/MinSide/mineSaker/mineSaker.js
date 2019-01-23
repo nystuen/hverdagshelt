@@ -149,7 +149,7 @@ export class MineSaker extends React.Component<Props, State> {
                         bsStyle="primary"
                         href={"/#/min_side/mine_saker/rediger/" + e.issueId}
                       >
-                        Rediger
+                        Rediger beskrivelse
                       </Button>
                       <Button
                         bsStyle="danger"

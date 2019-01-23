@@ -157,6 +157,7 @@ export class CategoryService {
 
 export class IssueService {
   getIssueAndCounty(issue: number): Promise<Object> {
+    console.log("Hei");
     return axios.get("/oversiktOverSak/" + issue);
   } //end method
 
@@ -196,6 +197,10 @@ export class IssueService {
 
   deleteIssue(issueId: number) {
     return axios.put("/deleteIssue/" + issueId);
+  }
+
+  editIssue(issueId: number, text: string) {
+    return axios.put("/editIssue/" + issueId, { text: text });
   }
 } //end class
 

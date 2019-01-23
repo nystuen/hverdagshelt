@@ -39,6 +39,7 @@ import { RegNew } from "./components/regNew/RegNew";
 import { employeeHomepage } from "./views/employee/employeeHomepage/employeeHomepage";
 import { employeeManageUsers } from "./views/employee/employeeManageUsers/employeeManageUsers";
 import { CreateAdminsOrEmployees } from "./views/admin/createAdminsOrEmployees";
+import { EditIssue } from "./views/MinSide/mineSaker/editIssue";
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
@@ -104,6 +105,10 @@ if (root)
         <Route
           path="/admin/createAdminsOrEmployees"
           component={CreateAdminsOrEmployees}
+        />
+        <Route
+          path="/min_side/mine_saker/rediger/:issueId"
+          component={EditIssue}
         />
         <Footer />
       </div>

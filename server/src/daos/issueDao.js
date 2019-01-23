@@ -112,4 +112,14 @@ export class IssueDao extends Dao {
       callback
     );
   }
+
+  updateIssue(issueId: number, text: string, callback: Function) {
+    console.log("text: " + text.text);
+    console.log("hei");
+    super.query(
+      "update issues set text=? where issueId=?",
+      [text.text, issueId],
+      callback
+    );
+  }
 } //end class
