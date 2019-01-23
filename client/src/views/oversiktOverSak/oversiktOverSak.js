@@ -8,7 +8,7 @@ import { ImageService } from '../../services';
 import { history } from '../../index';
 import css from './oversiktOverSak.css';
 import {MailService} from '../../services';
-import{FormGroup, Grid, Row, Col, ProgressBar, Image, Button, FormGroup, Table, FormControl, Well} from "react-bootstrap";
+import{FormGroup, Grid, Row, Col, ProgressBar, Image, Button, FormControl, Well} from "react-bootstrap";
 import {User} from "../../classTypes";
 import axios from 'axios';
 import { NotificationSettingsService } from '../../services';
