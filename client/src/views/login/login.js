@@ -130,7 +130,7 @@ export class Login extends Component<Props, State> {
                       placeholder="Passord"
                       value={this.state.password}
                       onChange={this.handleChangePassword.bind(this)}
-                    ></FormControl>
+                    />
                   </FormGroup>
 
                 </Row>

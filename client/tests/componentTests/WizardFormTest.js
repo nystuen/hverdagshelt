@@ -13,6 +13,7 @@ describe('Test for WizardFormFirstPage view', () => {
     it('renders correctly', () => {
         expect(wrapper).toMatchSnapshot();
     });
+
 });
 
 describe('Test for WizardFormSecondPage view', () => {

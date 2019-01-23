@@ -49,6 +49,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
   mapRef = createRef<Map>();
 
   handleMapClick = (e: Object) => {
+    if (e === undefined) e = {latlng: {} };
     this.setState({
       hasLocation: true,
       latlng: e.latlng,
