@@ -6,6 +6,7 @@ import {User} from "../../../classTypes";
 import {EmployeeService} from "../../../services"
 import {UserService} from "../../../services";
 import Button from "react-bootstrap/es/Button";
+import FormControl from "react-bootstrap/es/FormControl";
 
 let employeeService = new EmployeeService;
 let userService = new UserService;
@@ -74,7 +75,12 @@ export class employeeManageUsers extends React.Component<Props,State>{
 
                 <br/>
                 <br/>
-                <Table>
+                <FormControl
+                    type="text"
+                    id="myInput"
+                    onKeyUp={this.myFunction}
+                    placeholder="Search for names.."/>
+                <Table id={"myTable"}>
                     <thead>
                     <tr>
                         <th>
@@ -124,5 +130,27 @@ export class employeeManageUsers extends React.Component<Props,State>{
                 </Table>
             </Grid>
         )}
+
+    myFunction(){
+        // Declare variables
+        var input, filter, Table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        Table = document.getElementById("myTable");
+        tr = Table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
 
 }//end class

@@ -39,6 +39,7 @@ import { RegNew } from "./components/regNew/RegNew";
 import { employeeHomepage } from "./views/employee/employeeHomepage/employeeHomepage";
 import { employeeManageUsers } from "./views/employee/employeeManageUsers/employeeManageUsers";
 import { CreateAdminsOrEmployees } from "./views/admin/createAdminsOrEmployees";
+import { Statistics } from "./components/statistics/Statistics";
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
@@ -105,6 +106,7 @@ if (root)
           path="/admin/createAdminsOrEmployees"
           component={CreateAdminsOrEmployees}
         />
+        <Route path="/statistics" component={Statistics} />
         <Footer />
       </div>
     </HashRouter>,
