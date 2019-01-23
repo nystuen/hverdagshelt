@@ -59,10 +59,19 @@ export class employeeManageUsers extends React.Component<Props,State>{
             });
     }
 
+    blockSwitch(e: User){
+      if(e.active == 1){
+        return <Button style={{"width": "6em"}} bsSize={"sm"} bsStyle={"danger"} onClick={this.blockUser.bind(null, e.mail)}>Block</Button>;
+      } else {
+        return <Button style={{"width": "6em"}}  bsSize={"sm"} bsStyle={"primary"} onClick={this.unblockUser.bind(null, e.mail)}>Unblock</Button>;
+      }
+    }
 
     render(){
         return(
             <Grid>
+
+
                 <br/>
                 <br/>
                 <Table>
@@ -81,15 +90,14 @@ export class employeeManageUsers extends React.Component<Props,State>{
                             Poeng
                         </th>
                         <th>
-                            Aktiver
+                            Blokker/Aktiver
                         </th>
-                        <th>
-                            Blokker
-                        </th>
+
                     </tr>
                     </thead>
                     <tbody>
                     {this.state.user.map(e => {
+
                         return(
 
                             <tr key={e.mail}>
@@ -106,12 +114,9 @@ export class employeeManageUsers extends React.Component<Props,State>{
                                     {e.points}
                                 </td>
                                 <td>
-                                    <Button bsSize={"sm"} bsStyle={"primary"} onClick={this.unblockUser.bind(null, e.mail)}>Unblock</Button>
+                                  {this.blockSwitch(e)}
                                 </td>
-                                <td>
-                                    <Button bsSize={"sm"} bsStyle={"danger"} onClick={this.blockUser.bind(null, e.mail)}>Block</Button>
 
-                                </td>
                             </tr>
                         )
                     })}
