@@ -15,10 +15,13 @@
 
 .navbar-default {
     background-color: #5079b3;
+    border-radius: 0;
+    border: #5079b3;
 }
 
-.navbar-default {
-
+.navbar {
+    margin: 0;
+    padding: 0;
 }
 
 .navbar-nav {

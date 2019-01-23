@@ -117,12 +117,12 @@ export class NavbarMenu extends React.Component {
                 }).catch((error: Error) => confirm(error.message));
             }
             if (this.state.user.typeName === undefined) {
-                return <MenuItem eventKey={2} href="/#min_side/mine_sakerBedrift">Mine saker</MenuItem>;
+                return <MenuItem eventKey={19} href="/#min_side/mine_sakerBedrift">Mine saker</MenuItem>;
             } else {
-                return <MenuItem eventKey={2} href="/#min_side/mine_saker">Mine saker</MenuItem>;
+                return <MenuItem eventKey={19} href="/#min_side/mine_saker">Mine saker</MenuItem>;
             }//end condition
         } else {
-            return <MenuItem eventKey={2} href="/#login">Mine saker</MenuItem>;
+            return <MenuItem eventKey={19} href="/#login">Mine saker</MenuItem>;
         }//end condition
     };//end method
 }

@@ -196,7 +196,7 @@ export class IssueService {
 
     return axios.post('/updateStatusOneIssue', { statusName: statusName, id: id }, { headers: authHeader() });
   } //end method
-  
+
 
   addCommentToIssue(id: number, text: string, companyMail: string){
     return axios.post('/addIssueComments', {id: id, text: text, companyMail: companyMail});
