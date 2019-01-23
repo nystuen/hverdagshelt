@@ -1,4 +1,3 @@
-
 import * as React from 'react';
 import { Component } from 'react-simplified';
 import {
@@ -190,16 +189,15 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean, stat
     });
 
 
-
     console.log('returnvalue:', returnValue);
     return returnValue;
   }
 
-  caret(active : boolean){
-    if(active) {
-      return <span className="caret"/>
+  caret(active: boolean) {
+    if (active) {
+      return <span className="caret"/>;
     } else {
-      return <span className="caret caret-right"/>
+      return <span className="caret caret-right"/>;
     }
   }
 
@@ -208,18 +206,31 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean, stat
     console.log("kategori1Id " +this.state.category1Id);
     console.log("Kategori2ID: "+this.state.category2Id);
     let inactive_button;
-    if(this.props.statusButton&&this.state.category2Id!==-1||this.state.category1Id!==-1) {
-        inactive_button = (
-            <Button bsStyle="danger" onClick={this.changeToInactive}>Deaktiver</Button>
-        );
+    if(this.props.statusButton===true){
+
+      if(this.props.statusButton===true&&this.state.category2Id!==-1||this.state.category1Id!==-1) {
+          inactive_button = (
+              <Button bsStyle="danger" onClick={this.changeToInactive}>Deaktiver</Button>
+          );
+      }
+    }else{
+      inactive_button = <p></p>;
     }
     let alert_delete;
-    if(this.props.statusButton&&this.state.show===true){
-      alert_delete = (
-          <Alert bsStyle="danger" onDismiss={this.handleDismiss}>
-              <h5>Du satt en kategori til inaktiv</h5>
-          </Alert>
-      );
+    if(this.props.statusButton===true){
+      let alert_delete;
+      if(this.props.statusButton===true&&this.state.show===true) {
+          alert_delete = (
+              <Alert bsStyle="danger" onDismiss={this.handleDismiss}>
+                  <h5>Du satt en kategori til inaktiv</h5>
+              </Alert>
+          );
+      }else{
+          let alert_delete;
+          alert_delete =
+              <p></p>
+          ;
+      }
     }
     return (
       <div>
@@ -254,15 +265,15 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean, stat
         </ListGroup>
           <Col md={4}/>
           <Col md={4}>
-          {alert_delete}
           {inactive_button}
+          {alert_delete}
           </Col>
           <Col md={4}/>
       </div>
     );
   }
     changeToInactive = () =>{
-      if(this.state.category1Id!==(-1)&&this.state.category2Id===(-1)){
+      if(this.state.category1Id!==-1&&this.state.category2Id===-1){
         const category1 = this.state.category1Id;
         console.log("Cat1: " + category1);
         categoryService.updateCategory1(category1);

@@ -31,6 +31,7 @@ interface State {
   storedPassword: string;
   countyId: 0;
   string: "./logo.png";
+  openPassword: string;
 } //end interface
 
 interface Props {
@@ -44,7 +45,9 @@ export class Login extends Component<Props, State> {
     password: "",
     storedPassword: "",
     countyId: 0,
-    string: "./logo.png"
+    string: "./logo.png",
+    openPassword: "password"
+
   };
 
   handleChangeEmail = (event: SyntheticEvent<HTMLButtonElement>) => {
@@ -59,7 +62,21 @@ export class Login extends Component<Props, State> {
     });
   };
 
+  handleClickPassword=()=>{
+    if(this.state.openPassword == "text"){
+      this.setState({openPassword: "password"})
+    }else{
+      this.setState({openPassword: "text"})
+    }
+  };
+
+
+
   render() {
+
+
+
+
     let alert_login;
 
     if (this.state.error) {
@@ -78,6 +95,16 @@ export class Login extends Component<Props, State> {
     } else {
       <p />;
     } //end condition
+
+
+    let changeIcon;
+
+    if (this.state.openPassword == "text") {
+      changeIcon = (<i className="fas fa-eye"></i>);
+    } else {
+      changeIcon = (<i className="fas fa-eye-slash"></i>);
+    }
+
 
     return (
       <div className="login">
@@ -109,21 +136,20 @@ export class Login extends Component<Props, State> {
                 <Row className="show-grid" align="center">
                   <FormGroup>
                     <FormControl
-                      type="password"
+                      type={this.state.openPassword}
                       placeholder="Passord"
                       value={this.state.password}
                       onChange={this.handleChangePassword.bind(this)}
-                    />
+                    ></FormControl>
                   </FormGroup>
+
                 </Row>
 
                 <Row className="show-grid" align="center">
                   <Button type="button" onClick={this.save} bsStyle="primary">
                     Login
                   </Button>
-                  <Button type="button" onClick={this.sjekk}>
-                    Sjekk
-                  </Button>
+                  <Button type="button" onClick={()=> this.handleClickPassword()}>{changeIcon}</Button>
                   {alert_login}
                   {alert_notLoggedIn}
                 </Row>
@@ -133,6 +159,7 @@ export class Login extends Component<Props, State> {
 
                   <p>Registrer deg <a href={'/#/registrer/privat'}>her hvis du er privatperson</a>, og <a
                     href="/#/registrer/bedrift"> her hvis du er
+
                     bedrift.</a></p>
                     <p>
                         <a href={"/#/forgotPassword"}>Glemt passord</a>
@@ -158,130 +185,97 @@ export class Login extends Component<Props, State> {
           storedPassword: response[0].password
         });
 
-        bcrypt.compare(
-          this.state.password,
-          response[0].password,
-          (err, res) => {
-            if (res) {
-              userService
-                .login({
-                  userMail: response[0].mail,
-                  typeId: response[0].typeName
-                })
-                .then(r => {
-                  let token = r.jwt;
-                  window.localStorage.setItem("userToken", token);
-                  console.log("login in success");
+      bcrypt.compare(this.state.password, response[0].password, (err, res) => {
+        if (res) {
+          userService.login({ userMail: response[0].mail, typeId: response[0].typeName }).then(r => {
+            let token = r.jwt;
+            window.localStorage.setItem('userToken', token);
+            console.log('login in success');
+            userService.getCurrentUser().then(r3 => {
+              window.sessionStorage.setItem('countyId', r3[0].countyId);
+              window.sessionStorage.setItem('countyName', r3[0].county);
+            });
+            console.log(this.props.history.location.pathname);
+            if(this.props.history.location.pathname == "/login" ||
+                this.props.history.location.pathname== "/register/company"){
+              console.log('hei');
+              history.push('/wizardForm');
+            }else{
+              console.log(this.props.history.location.pathname);
+              this.props.history.goBack();
+            }
 
-                  console.log(this.props.history.location.pathname);
-                  if (
-                    this.props.history.location.pathname == "/login" ||
-                    this.props.history.location.pathname == "/register/company"
-                  ) {
-                    console.log("hei");
-                    history.push("/wizardForm");
-                  } else {
-                    console.log(this.props.history.location.pathname);
-                    this.props.history.goBack();
-                  }
-                })
-                .catch((error: Error) => Alert.danger(error.message));
-            } else {
-              //check if the email is a company email
-              userService
-                .getCompanyLogin(this.state.email)
-                .then(r => {
-                  bcrypt.compare(
-                    this.state.password,
-                    r[0].password,
-                    (err, res) => {
-                      if (res) {
-                        userService
-                          .login({ userMail: r[0].mail, typeId: "Company" })
-                          .then(r => {
-                            let token = r.jwt;
-                            window.localStorage.setItem("userToken", token);
-                            console.log("login in success");
-
-                            console.log(this.props.history.location.pathname);
-                            if (
-                              this.props.history.location.pathname ==
-                                "/register" ||
-                              this.props.history.location.pathname ==
-                                "/register/company"
-                            ) {
-                              console.log("hei");
-                              history.push("/wizardForm");
-                            } else {
-                              console.log(this.props.history.location.pathname);
-                              this.props.history.goBack();
-                            }
-                          })
-                          .catch((error: Error) => Alert.danger(error.message));
-                      } else {
-                        this.setState({
-                          error: true
-                        });
-                      } //end condition
-                    }
-                  );
-                })
-                .catch((error: Error) => {
-                  console.log(error);
-                  this.setState({
-                    error: true
-                  });
-                });
-            } //end condition
-          }
-        );
-      })
-      .catch((error: Error) => {
-        userService
-          .getCompanyLogin(this.state.email)
-          .then(r => {
+          }).catch((error: Error) => confirm(error.message));
+        } else { //check if the email is a company email
+          userService.getCompanyLogin(this.state.email).then(r => {
             bcrypt.compare(this.state.password, r[0].password, (err, res) => {
               if (res) {
-                userService
-                  .login({ userMail: this.state.email, typeId: "Company" })
-                  .then(r => {
-                    let token = r.jwt;
-                    window.localStorage.setItem("userToken", token);
-                    console.log("login in success");
+                userService.login({ userMail: r[0].mail, typeId: 'Company' }).then(r => {
+                  let token = r.jwt;
+                  window.localStorage.setItem('userToken', token);
+                  console.log('login in success');
+
                     console.log(this.props.history.location.pathname);
-                    if (
-                      this.props.history.location.pathname == "/register" ||
-                      this.props.history.location.pathname ==
-                        "/min_side/mine_saker"
-                    ) {
-                      console.log("hei");
-                      history.push("/wizardForm");
-                    } else {
+                    if(this.props.history.location.pathname == "/register" ||
+                        this.props.history.location.pathname== "/register/company"){
+                      console.log('hei');
+                      history.push('/wizardForm');
+                    }else{
                       console.log(this.props.history.location.pathname);
                       this.props.history.goBack();
                     }
-                  })
-                  .catch((error: Error) => {
-                    console.log(error);
-                    this.setState({
-                      error: true
-                    });
+                  }).catch((error: Error) => confirm(error.message));
+                }else{
+                  this.setState({
+                    error: true
                   });
-              } else {
-                this.setState({
-                  error: true
-                });
-              } //end condition
+                }//end condition
+              });
+            }).catch((error: Error) => {
+              console.log(error);
+              this.setState({
+                error: true
+              });
             });
-          })
-          .catch((error: Error) => {
-            console.log(error);
+        }//end condition
+      });
+    }).catch((error: Error) => {
+      userService.getCompanyLogin(this.state.email).then(r => {
+        bcrypt.compare(this.state.password, r[0].password, (err, res) => {
+          if (res) {
+            userService.login({ userMail: this.state.email, typeId: 'Company' }).then(r => {
+              let token = r.jwt;
+              window.localStorage.setItem('userToken', token);
+              console.log('login in success');
+              console.log(this.props.history.location.pathname);
+              if(this.props.history.location.pathname == "/register" ||
+              this.props.history.location.pathname== "/register/company"){
+                console.log('hei');
+                history.push('/wizardForm');
+              }else{
+                console.log(this.props.history.location.pathname);
+                this.props.history.goBack();
+              }
+            }).catch((error: Error) => {
+              console.log(error);
+              this.setState({
+                error: true
+              });
+            });
+          }else{
             this.setState({
               error: true
             });
-          });
+          }//end condition
+        });
+      }).catch((error: Error) => {
+        console.log(error);
+        this.setState({
+          error: true
+        });
       });
-  }; //end method
+    });
+  };//end method
 
   sjekk = () => {
     let decoded = jwt.verify(

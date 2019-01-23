@@ -237,6 +237,29 @@ module.exports = function(app: Object, userDao: Object) {
     });
   });
 
+  app.put('/updatePoints', urlencodedParser, (req, res) => {
+    userDao.updatePoints(req.body, (status,data)=>{
+      res.status(status);
+      res.json(data);
+    });
+  });
+
+    app.get('/companyCategories/:categoryId/:countyId', (req,res) => {
+        console.log('Got get request from companyCategories in county ' + req.params.countyId);
+        userDao.getCompanyCategories(req.params.categoryId, req.params.countyId, (status,data) => {
+           res.status(status);
+           res.json(data);
+        });
+    });
+
+    app.post('/assignIssue/:issueId/:companyMail', (req,res) => {
+        console.log("Got post request from assignIssue with issueId " + req.params.issueId + ' and mail ' + req.params.companyMail);
+        userDao.assignIssueToCompany(req.params.issueId,req.params.companyMail,(status,data)=> {
+           res.status(status);
+           res.json(data);
+        });
+    });
+
   app.get("/getEmployeeData/:countyId", urlencodedParser, (req, res) => {
     userDao.getCountyEmployee(req.params.countyId, (status, data) => {
       res.status(status);
