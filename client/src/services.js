@@ -11,7 +11,6 @@ import {
   Company,
   Event,
   Type,
-  County,
   NotificationSetting,
   IssueNotificationSetting,
   EventCategory
@@ -284,6 +283,17 @@ export class NotificationSettingsService {
     return axios.get('/get_users_with_notifications_like_this/' + countyId + '/' + categoryId);
   }
 
+}
+
+export class StatisticsService {
+
+  getStatus(): Promise<Response>{
+    return axios.get('/issueCategories')
+  }
+
+  getDaily(): Promise<Response>{
+    return axios.get('/issuesDaily')
+  }
 }
 
 
