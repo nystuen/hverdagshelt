@@ -6,17 +6,15 @@ import {
   ToggleButtonGroup,
   ToggleButton,
   Collapse,
-  Button
+  Button,
+    ListGroup,
+    ListGroupItem,
+    Glyphicon
 } from 'react-bootstrap';
 import { CategoryService } from '../../services';
 import { Category, Category2, Category3 } from '../../classTypes';
-import PanelGroup from 'react-bootstrap/es/PanelGroup';
-import Panel from 'react-bootstrap/es/Panel';
-import ListGroup from 'react-bootstrap/es/ListGroup';
-import ListGroupItem from 'react-bootstrap/es/ListGroupItem';
 import cloneDeep from 'lodash/cloneDeep';
-import css from './chooseCategory.css';
-import Glyphicon from 'react-bootstrap/es/Glyphicon';
+import './chooseCategory.css';
 
 let categoryService = new CategoryService();
 

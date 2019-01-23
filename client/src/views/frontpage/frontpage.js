@@ -8,12 +8,9 @@ import ReactDOM from 'react-dom';
 import css from './frontpage.css';
 
 import Select from 'react-select';
-import Row from 'react-bootstrap/es/Row';
 
 let countyService = new CountyService();
 import logo from './osloBackground.png';
-import FormControl from 'react-bootstrap/es/FormControl';
-import Image from 'react-bootstrap/es/Image';
 
 
 export class Frontpage extends Component<Props, State> {

@@ -1,6 +1,5 @@
 import { Component } from 'react-simplified';
 import React from 'react';
-import { Card, Col, Row, Button, Form, FormGroup, Label, Input, FormText, Table, Media, CardText } from 'reactstrap';
 
 export class PageHeader extends Component<{ title: string }> {
 

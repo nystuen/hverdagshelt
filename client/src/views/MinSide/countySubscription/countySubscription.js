@@ -1,11 +1,9 @@
 //@flow
 import React, { Component } from 'react';
 import { Layout } from '../../../widgets';
-import { Grid, Row, Col, ListGroup,ListGroupItem, Table, Image, Panel } from "react-bootstrap"
+import { Grid, Row, Col, ListGroup,ListGroupItem, Table, Image, Panel, Glyphicon, Button } from "react-bootstrap"
 import {CountyService, UserService, NotificationSettingsService} from "../../../services";
 import * as jwt from 'jsonwebtoken';
-import Glyphicon from 'react-bootstrap/es/Glyphicon';
-import Button from 'react-bootstrap/es/Button';
 import css from './countySubscription.css';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
 import {User} from "../../../classTypes";

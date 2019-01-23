@@ -1,10 +1,9 @@
 //@flow
 import React, {Component} from "react";
 import {
-  Grid, Row, Col, ListGroup,ListGroupItem,ToggleButton,ButtonToolbar, MenuItem, FormGroup, FormControl,PageHeader,Button, ControlLabel
+  Grid, Row, Col, Image
 } from "react-bootstrap"
-import { CountyService, getUsersCounties } from '../../services';
-import Image from 'react-bootstrap/es/Image';
+import { CountyService } from '../../services';
 import {UserService} from '../../services';
 
 

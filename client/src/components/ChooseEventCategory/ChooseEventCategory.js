@@ -2,18 +2,10 @@ import ReactDOM from "react-dom";
 import * as React from "react";
 import { Component } from "react-simplified";
 import {
-  ButtonToolbar,
-  ToggleButtonGroup,
-  ToggleButton,
-  Collapse,
-  Button
+    ListGroup, ListGroupItem
 } from "react-bootstrap";
 import { EventCategoryService } from "../../services";
 import { EventCategory } from "../../classTypes";
-import PanelGroup from "react-bootstrap/es/PanelGroup";
-import Panel from "react-bootstrap/es/Panel";
-import ListGroup from "react-bootstrap/es/ListGroup";
-import ListGroupItem from "react-bootstrap/es/ListGroupItem";
 import cloneDeep from "lodash/cloneDeep";
 
 let eventCategoryService = new EventCategoryService();

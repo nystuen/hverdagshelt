@@ -2,14 +2,10 @@
 import React, {Component} from "react";
 import {CategorySelectList} from "../CategorySelectList/CategorySelectList";
 import {
-  Grid, Row, Col, ListGroup,ListGroupItem, ToggleButtonGroup,ToggleButton,ButtonToolbar, MenuItem, FormGroup, FormControl,PageHeader,Button, ControlLabel
+  Grid, Row, Col, ListGroup, Radio, Alert, Checkbox, FormGroup, FormControl,PageHeader,Button, ControlLabel
 } from "react-bootstrap"
 
-import {ChooseCategory} from "../ChooseCategory/ChooseCategory";
 import {CategoryService} from "../../services";
-import Radio from "react-bootstrap/es/Radio";
-import Alert from "react-bootstrap/es/Alert";
-import Checkbox from "react-bootstrap/es/Checkbox";
 
 
 let categoryService = new CategoryService();
@@ -167,9 +163,5 @@ export class adminAddCategory extends Component<Props,State> {
         <Col xs={0} md={2}></Col>
       </Grid>
     );
-
     }
-
-
-
 }

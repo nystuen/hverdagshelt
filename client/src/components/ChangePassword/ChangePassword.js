@@ -1,12 +1,7 @@
 import ReactDOM from "react-dom";
 import * as React from "react";
 import { Component } from "react-simplified";
-import Form from "react-bootstrap/es/Form";
-import { Col, Grid } from "react-bootstrap";
-import FormGroup from "react-bootstrap/es/FormGroup";
-import ControlLabel from "react-bootstrap/es/ControlLabel";
-import FormControl from "react-bootstrap/es/FormControl";
-import Button from "react-bootstrap/es/Button";
+import { Col, Grid, FormGroup, ControlLabel, FormControl, Button, Form } from "react-bootstrap";
 import { UserService, MailService } from "../../services";
 import jwt from "jsonwebtoken";
 import { User } from "../../classTypes";

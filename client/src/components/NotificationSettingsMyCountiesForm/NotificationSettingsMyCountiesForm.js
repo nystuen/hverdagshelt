@@ -3,20 +3,12 @@
 import React from 'react';
 import {EventCategoryService, CountyService, NotificationSettingsService, UserService} from "../../services";
 import jwt from "jsonwebtoken";
-import FormGroup from "react-bootstrap/es/FormGroup";
-import Checkbox from "react-bootstrap/es/Checkbox";
-import Button from "react-bootstrap/es/Button";
-import Grid from "react-bootstrap/es/Grid";
+import {FormGroup, Checkbox, Button, Grid, ListGroupItem, ListGroup, Glyphicon, Col} from "react-bootstrap";
 import {Category, NotificationSetting, User} from "../../classTypes";
-import ListGroupItem from "react-bootstrap/es/ListGroupItem";
 import {Collapse} from "react-bootstrap";
-import ListGroup from "react-bootstrap/es/ListGroup";
 import cloneDeep from "lodash/cloneDeep";
-import Glyphicon from "react-bootstrap/es/Glyphicon";
 import css from './NotificationSettingsForm.css';
 import {CountySubscription} from "../../views/MinSide/countySubscription/countySubscription";
-import Row from "react-bootstrap/es/Row";
-import Col from "react-bootstrap/es/Col";
 
 
 let notificationSettingsService = new NotificationSettingsService();

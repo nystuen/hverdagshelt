@@ -4,22 +4,12 @@ import ReactDOM from "react-dom";
 import * as React from "react";
 import { Component } from "react";
 import { User } from "../../classTypes";
-import Container from "reactstrap/es/Container";
-import Row from "reactstrap/es/Row";
-import Col from "reactstrap/es/Col";
-import Input from "reactstrap/es/Input";
 import { UserService } from "../../services";
-import { Alert } from "react-bootstrap";
+import { Alert, FormGroup, Form, FormControl, Button, Grid, Image, Row, Col } from "react-bootstrap";
 
 let jwt = require("jsonwebtoken");
-import FormGroup from "react-bootstrap/es/FormGroup";
-import Form from "react-bootstrap/es/Form";
-import FormControl from "react-bootstrap/es/FormControl";
-import Button from "react-bootstrap/es/Button";
-import Grid from "react-bootstrap/es/Grid";
 import login from "./login.css";
 import { history } from "../../index";
-import Image from "react-bootstrap/es/Image";
 
 let userService = new UserService();
 const bcrypt = require("bcrypt-nodejs");

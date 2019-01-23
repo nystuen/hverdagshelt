@@ -4,14 +4,11 @@ import {
     Nav,
     NavItem,
     NavDropdown,
-    MenuItem
+    MenuItem,
+    Glyphicon
 } from 'react-bootstrap';
 import css from './NavbarMenu.css';
-import {PageHeader} from '../PageHeader/PageHeader';
-import * as jwt from 'jsonwebtoken';
-import {User} from '../../classTypes';
 import {UserService} from '../../services';
-import Glyphicon from 'react-bootstrap/es/Glyphicon';
 
 let userService = new UserService();
 

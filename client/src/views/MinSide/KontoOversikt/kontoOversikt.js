@@ -3,22 +3,15 @@
 
 import React from 'react';
 import jwt from 'jsonwebtoken';
-import { Grid, Row, Col, ListGroup, ListGroupItem } from 'react-bootstrap';
-import Button from 'react-bootstrap/es/Button';
+import { Grid, Row, Col, ListGroup, ListGroupItem, Button } from 'react-bootstrap';
 import { Category, Category2, Category3, User } from '../../../classTypes';
 import { MailService, UserService } from '../../../services';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
-import { ChooseCategory } from '../../../components/ChooseCategory/ChooseCategory';
-import FormGroup from 'react-bootstrap/es/FormGroup';
-import ControlLabel from 'react-bootstrap/es/ControlLabel';
-import FormControl from 'react-bootstrap/es/FormControl';
-import Form from 'react-bootstrap/es/Form';
 import { ChangePassword } from '../../../components/ChangePassword/ChangePassword';
 
 let userService = new UserService();
 
 type State = {
-  decoded: Object,
   user: Object,
   changePassword: boolean
 }

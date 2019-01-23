@@ -6,7 +6,6 @@ import Select from 'react-select';
 
 let categoryService = new CategoryService();
 
-
 export class CategorySelectList extends Component<Props, State> {
 
   constructor(props) {
@@ -18,10 +17,8 @@ export class CategorySelectList extends Component<Props, State> {
         {}
       ]
     };
-
     this.handleOnChangeCategory = this.handleOnChangeCategory.bind(this);
   }
-
 
   handleOnChangeCategory(e: Object) {
     this.props.handleOnChangeCategory(e.value, e.label);
