@@ -25,23 +25,22 @@ export class IssueDao extends Dao {
   }
 
   getAllIssues(callback: Function) {
-    super.query("select * from issues", [], callback);
+    super.query("select * from issues where active=1", [], callback);
   }
 
   getOneIssue(id: number, callback: Function) {
-    super.query("select * from issues where issueId = ?", [id], callback);
+    super.query("select * from issues where issueId = ? and active=1", [id], callback);
   }
 
   getIssueAndCounty(id: number, callback: Function){
-    super.query("select * from issues natural join county where issueId=?", [id], callback);
+    super.query("select * from issues natural join county where issueId=? and issues.active=1", [id], callback);
   }//end method
 
-  getAllIssuesInCounty(id: number, categoryLevel: number, callback: Function){
-    if(categoryLevel === 1){
-      super.query("select * from issues natural join category where issues.countyId =? and issues.active=1", [id], callback);
-    }else{
-      super.query("select * from issues natural join category2 where issues.countyId=? and issues.active=1", [id], callback);
-    }//end condition
+  getAllIssuesInCounty(id: number, categoryLevel: number, callback: Function){ //Get the oldest first, have created view allCats(All categories)
+      super.query("select issues.issueId,issues.text,allCats.name, issues.statusName,allCats.categoryId " +
+          "from issues,allCats where issues.countyId =? and issues.active=1 and issues.issueId NOT IN(SELECT issueId from companyIssues)" +
+          "and ((issues.categoryLevel=1 AND issues.categoryId=allCats.categoryId) OR " +
+          "(issues.categoryLevel=2 AND issues.categoryId=allCats.category2Id)) order by issues.issueId ASC", [id], callback);
   }//end method
 
   getCompanyComments(id: number, callback: Function){
@@ -58,14 +57,14 @@ export class IssueDao extends Dao {
 
   getCompanyIssue(id: String, callback: Function) {
     super.query(
-      "select * from issues NATURAL JOIN companyIssues where companyMail = ?",
+      "select * from issues NATURAL JOIN companyIssues where companyMail = ? and issues.active=1",
       [id],
       callback
     );
   }
 
   getCategoryIssue(id: number, callback: Function) {
-    super.query("select * from issues where categoryId = ?", [id], callback);
+    super.query("select * from issues where categoryId = ? and active=1", [id], callback);
   }
 
   updateStatusOneIssue(id: number,statusName: string, callback: Function){
@@ -74,5 +73,9 @@ export class IssueDao extends Dao {
 
   addCommentToIssue(issueId: number, text: string, mail: string, callback: Function){
     super.query("insert into companyComment(issueId,text, mail) values(?,?,?)", [issueId,text,mail], callback);
+  }//end method
+
+  deleteIssue(issueId: number, callback: Function){
+    super.query("update issues set active=0 where issueId=?", [issueId], callback);
   }//end method
 }//end class

@@ -9,6 +9,7 @@ import {verifyToken} from "../helpers/verifyToken";
 let privateKey = 'shhhhhverysecret';
 
 module.exports = function(app: Object, categoriesDao: Object) {
+
   app.get("/get_category1", urlencodedParser, (req, res) => {
     console.log("got request from get_user");
 

@@ -203,6 +203,15 @@ test("check getting all issues in one county", done => {
   issueDao.getAllIssuesInCounty(2,1,callback);
 });
 
+test("check deleting one issue", done => {
+  function callback(status,data) {
+    console.log("Testing deleting one issue. Status: " + status + ", Data: " + data);
+    expect(data.affectedRows).toBe(1);
+    done();
+  }
+  issueDao.deleteIssue(1,callback);
+});
+
 
 
 
@@ -336,6 +345,40 @@ test("check add company", done => {
   userDao.addCompany(post,'detteErEtPassord', callback);
 });
 
+
+
+test("check add points to user" , done =>{
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.affectedRows).toBe(1);
+    done();
+  }
+
+  let post={
+    userMail: 'ola@usermail.com',
+    points: 10,
+  };
+
+  userDao.updatePoints(post, callback);
+});
+
+
+test("check get county employee" , done =>{
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data[0].firstName).toBe("Thea");
+    expect(data[0].lastName).toBe("Larsen");
+    expect(data[0].mail).toBe("thea@usermail.com");
+    done();
+  }
+
+
+  userDao.getCountyEmployee(1, callback);
+});
 
 
 

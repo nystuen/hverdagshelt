@@ -17,6 +17,7 @@ let userService = new UserService();
 
 let loginButton;
 let myCases;
+let user;
 
 export class NavbarMenu extends React.Component {
 
@@ -99,25 +100,29 @@ export class NavbarMenu extends React.Component {
       ;
   }//end method
 
-  logout = () => {
-    window.localStorage.setItem('userToken', '');
-    this.viewCases();
-    loginButton = <NavItem eventKey={10} href="/#login">Login</NavItem>;
-  };//end method
+    logout = () => {
+        window.localStorage.setItem('userToken', '');
+        window.sessionStorage.setItem('countyId', '');
+        window.sessionStorage.setItem('countyName', '');
+        this.viewCases();
+        loginButton = <NavItem eventKey={1} href="/#login">Login</NavItem>;
+        this.setState({user: {}})
+    };//end method
 
-  viewCases = () => {
-    if (window.localStorage.getItem('userToken') !== '') {
-
-      if (this.state.user.typeName === undefined) {
-        return <NavItem eventKey={6} href="/#min_side/mine_sakerBedrift"><Glyphicon glyph="glyphicon glyphicon-user"/>Mine
-          saker</NavItem>;
-      } else {
-        return <NavItem eventKey={6} href="/#min_side/mine_saker"> <Glyphicon glyph="glyphicon glyphicon-user"/>Mine
-          saker</NavItem>;
-      }//end condition}
-
-    } else {
-      return <NavItem eventKey={6} href="/#login"><Glyphicon glyph="glyphicon glyphicon-user"/>Mine saker</NavItem>;
-    }//end condition
-  };//end method
+    viewCases = () => {
+        if (window.localStorage.getItem('userToken') !== '') {
+            if(this.state.user === {}){
+                userService.getCurrentUser().then(r => {
+                    this.setState({user: r});
+                }).catch((error: Error) => confirm(error.message));
+            }
+            if (this.state.user.typeName === undefined) {
+                return <MenuItem eventKey={2} href="/#min_side/mine_sakerBedrift">Mine saker</MenuItem>;
+            } else {
+                return <MenuItem eventKey={2} href="/#min_side/mine_saker">Mine saker</MenuItem>;
+            }//end condition
+        } else {
+            return <MenuItem eventKey={2} href="/#login">Mine saker</MenuItem>;
+        }//end condition
+    };//end method
 }
