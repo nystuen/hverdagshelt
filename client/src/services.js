@@ -83,6 +83,10 @@ export class UserService {
   getHomeCounty(): Promise<Object> {
     return axios.get("/getHomeCounty", { headers: authHeader() });
   }
+
+  updatePoints(json:Object){
+    return axios.put('/updatePoints', json);
+  }
 } //end class
 
 export class EventCategoryService {

@@ -31,13 +31,13 @@ import { events } from "./views/events/events";
 import { AdminResetUserPassword } from "./views/admin/resetPassword";
 import { adminPanel } from "./views/admin/adminPanel";
 import { SendTextMailWindow } from "./components/Mail/SendMail";
-import { Footer } from "./components/Footer/Footer";
 import { RegisterEmployee } from "./components/registeremployee/RegisterEmployee";
 import { RegisterAdmin } from "./components/registeradmin/registeradmin";
 import { ForgottenPassword } from "./views/login/ForgottenPassword";
 import { RegNew } from "./components/regNew/RegNew";
 import { employeeHomepage } from "./views/employee/employeeHomepage/employeeHomepage";
 import { employeeManageUsers } from "./views/employee/employeeManageUsers/employeeManageUsers";
+import { Footer } from "./components/Footer/Footer";
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
@@ -54,44 +54,31 @@ if (root)
     <HashRouter>
       <div className="route-container">
         <NavbarMenu />
+
         <Route exact path="/" component={Frontpage} />
         <Route path="/forside/:countyId" component={forside} />
         <Route path="/wizardForm" component={WizardFormComplete} />
+        <Route path="/map" component={MapComponent} />
+
+
         <Route path="/min_side/kontooversikt" component={KontoOversikt} />
 
-        <Route
-          path="/min_side/editAccountInformation"
-          component={editAccountInformation}
-        />
+
+        <Route path="/min_side/editAccountInformation" component={editAccountInformation}/>
         <Route path="/login" component={Login} />
-        <Route path="/map" component={MapComponent} />
+
         <Route path="/min_side/mine_saker" component={MineSaker} />
-        <Route
-          path="/min_side/mine_sakerBedrift"
-          component={mineSakerBedrift}
-        />
+        <Route path="/min_side/mine_sakerBedrift" component={mineSakerBedrift}/>
         <Route path="/addCategory" component={adminAddCategory} />
         <Route path="/registrer/admin" component={RegisterAdmin} />
         <Route exact path="/registrer/privat" component={RegisterUser} />
         <Route exact path="/registrer/bedrift" component={RegisterCompany} />
-        <Route
-          path="/min_side/varselinstillinger"
-          component={NotificationSettings}
-        />
-        <Route
-          path="/min_side/sakoversikt/:issueId"
-          component={OversiktOverSak}
-        />
-        <Route
-          path="/min_side/sakoversikt/:email/:issueId"
-          component={OversiktOverSak}
-        />
+        <Route path="/min_side/varselinstillinger" component={NotificationSettings}/>
+        <Route path="/min_side/sakoversikt/:issueId" component={OversiktOverSak}/>
+        <Route path="/min_side/sakoversikt/:email/:issueId" component={OversiktOverSak}/>
+
         <Route path="/registrer/kommuneansatt" component={RegisterEmployee} />
-        <Route
-          exact
-          path="/registerEvent"
-          component={EventWizardFormComplete}
-        />
+        <Route exact path="/registerEvent" component={EventWizardFormComplete}/>
         <Route exact path="/events/:countyId" component={events} />
         <Route exact path="/admin" component={adminPanel} />
         <Route path="/admin/sendMailTilBruker" component={SendTextMailWindow} />
@@ -100,6 +87,8 @@ if (root)
         <Route path="/employee/home" component={employeeHomepage} />
         <Route path="/employee/manageusers" component={employeeManageUsers} />
         <Route path="/forgotPassword" component={ForgottenPassword} />
+
+
         <Footer />
       </div>
     </HashRouter>,

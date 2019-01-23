@@ -70,6 +70,8 @@ export class OversiktOverSak extends React.Component {
     }//end constructor
 
 
+
+
   render() {
     let editStatus;
     let renderComment;
@@ -215,6 +217,18 @@ export class OversiktOverSak extends React.Component {
     }
   }//end method
 
+
+  sendPoints(){
+      if(this.state.statusName === 'Completed') {
+        let newPoints: number = (this.state.user.points + 10);
+        let theBody={
+          userMail:this.state.issue.userMail,
+          points : newPoints
+        };
+        userService.updatePoints(theBody);
+      }
+    }
+
     editComment = (event:SyntheticEvent<HTMLInputElement>) => {
         this.setState({comment: event.target.value});
     };//end method
@@ -230,6 +244,7 @@ export class OversiktOverSak extends React.Component {
   };//end method
 
   saveThisStatus = () => {
+    this.sendPoints();
     issueService.updateStatusOneIssue(this.state.issue.issueId, this.state.statusName).then(response => {
     }).catch((error: Error) => Alert.danger(error.message));
     window.location.reload();

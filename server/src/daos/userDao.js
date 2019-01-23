@@ -127,6 +127,13 @@ export class UserDao extends Dao {
     );
   }
 
+
+  updatePoints(json:Object, callback){
+    let val = [json.points,json.userMail];
+    super.query('Update user set points =? where user.mail =?',val,callback);
+  }
+
+
   addCompany(json: Object, hashed: string, callback: Function) {
     let val = [
       json.companyMail,

@@ -237,6 +237,14 @@ module.exports = function(app: Object, userDao: Object) {
     });
   });
 
+  app.put('/updatePoints', urlencodedParser, (req, res) => {
+    userDao.updatePoints(req.body, (status,data)=>{
+      res.status(status);
+      res.json(data);
+    });
+  });
+
+
   app.get("/getEmployeeData/:countyId", urlencodedParser, (req, res) => {
     userDao.getCountyEmployee(req.params.countyId, (status, data) => {
       res.status(status);
