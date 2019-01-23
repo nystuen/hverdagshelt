@@ -8,14 +8,12 @@ import { Alert } from '../../../widgets';
 import { Status } from '../../../classTypes';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
 
-let jwt = require('jsonwebtoken');
 let userService = new UserService();
 let categoryService = new CategoryService();
 
 
 interface State {
   issues: Object[];
-  decoded: Object;
   category: Object;
   category1: Object[];
   category2: Object[];

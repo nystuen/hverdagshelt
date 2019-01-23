@@ -275,6 +275,7 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
 
           <Col lg={6} md={6} sm={6} xs={6}>
             <Button
+                id="countySubButton"
               bsStyle="primary"
               onClick={() => this.setState({ countySubscriptionOpen: !this.state.countySubscriptionOpen })}
               align="left">Legg til kommuner</Button>

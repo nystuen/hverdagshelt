@@ -3,10 +3,9 @@ import { Field, reduxForm } from 'redux-form';
 import validate from './validate';
 import renderField from './renderField';
 import renderCategoryField from './renderCategoryField';
-import { Button, ProgressBar } from 'react-bootstrap';
+import { Button, ProgressBar, Col } from 'react-bootstrap';
 import { ChooseCategory } from '../ChooseCategory/ChooseCategory';
 import issueReg from './issueReg.css';
-import Col from 'react-bootstrap/es/Col';
 
 const renderError = ({ meta: { touched, error } }) =>
   touched && error ? <span>{error}</span> : false;

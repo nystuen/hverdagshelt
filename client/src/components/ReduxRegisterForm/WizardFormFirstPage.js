@@ -40,9 +40,9 @@ export class WizardFormFirstPage extends Component<{}, State> {
   }
 
   componentDidMount() {
-    const map = this.mapRef.current.leafletElement;
+    const map = this.mapRef.current;
     if (map != null) {
-      map.locate();
+      map.leafletElement.locate();
     }
   }
 
@@ -190,6 +190,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
                 component={renderCategoryField}
               />
               <Button
+                  id="submitButton"
                 bsStyle="primary"
                 type="submit"
                 className="next + ' ' + submitButton"
