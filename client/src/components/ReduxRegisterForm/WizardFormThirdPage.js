@@ -71,13 +71,15 @@ export class WizardFormThirdPage extends React.Component {
 
   handleImageUpload(e: Object) {
     this.setState({
-      image: e[0]
-    });
+        image: e[0]
+      },
+      this.uploadImage
+    );
   }
 
-  uploadImage = (e: Object) => {
+  uploadImage = () => {
     imageService.uploadImage(this.state.image).then(res => {
-      console.log(res);
+      console.log('bilde:', res);
       this.props.change('imagePath', res);
     });
   };
@@ -92,55 +94,51 @@ export class WizardFormThirdPage extends React.Component {
               <div className="progressBar">
                 <ProgressBar now={100} label={'3/3'}/>
               </div>
-              <Row>
-                <div className="paddingBot">
-                  <Field
-                    name="countyId"
-                    type="hidden"
-                    component={renderEmail}
-                    label="countyId"
-                  />
-                  <Field
-                    name="userMail"
-                    type="hidden"
-                    component={renderEmail}
-                    label="Epost"
-                  />
-                  <Field
-                    name="text"
-                    type="text"
-                    component={renderField}
-                    label="Beskrivelse"
-                  />
-                  <Field
-                    name="imagePath"
-                    type="hidden"
-                    label="imagePath"
-                    component={renderCategoryField}
-                  />
-                  <form encType="multipart/form-data">
+              <h3>Vennligst spesifiser din feilmelding</h3>
+
+              <div className="paddingBot">
+                <Field
+                  name="countyId"
+                  type="hidden"
+                  component={renderEmail}
+                  label="countyId"
+                />
+                <Field
+                  name="userMail"
+                  type="hidden"
+                  component={renderEmail}
+                  label="Epost"
+                />
+                <Field
+                  name="text"
+                  type="text"
+                  component={renderField}
+                  label="Beskrivelse"
+                />
+                <Field
+                  name="imagePath"
+                  type="hidden"
+                  label="imagePath"
+                  component={renderCategoryField}
+                />
+                <form encType="multipart/form-data">
 
 
-                    <Col lg={12} md={12} sm={12} xs={12} align="center">
+                  <Col lg={12} md={12} sm={12} xs={12} align="center">
 
 
-                      <input type="file"
-                             id="file"
-                             name="avatar"
-                             placeholder="Bilde"
-                             label="Beskrivelse"
-                             className="inputfile"
-                             onChange={e => this.handleImageUpload(e.target.files)}/>
+                    <input type="file"
+                           id="file"
+                           name="avatar"
+                           placeholder="Bilde"
+                           label="Beskrivelse"
+                           className="inputfile"
+                           onChange={e => this.handleImageUpload(e.target.files)}/>
 
+                  </Col>
+                </form>
+              </div>
 
-
-                      <Button className="btn-primary" onClick={this.uploadImage}>
-                        Send inn bilde
-                      </Button>
-                    </Col>
-                  </form>
-                </div>
-              </Row>
               <div>
 
                 <Col lg={6} md={6} sm={6} xs={6}>
