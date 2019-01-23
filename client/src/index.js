@@ -82,10 +82,7 @@ if (root)
           path="/min_side/sakoversikt/:issueId"
           component={OversiktOverSak}
         />
-        <Route
-          path="/min_side/sakoversikt/:email/:issueId"
-          component={OversiktOverSak}
-        />
+
         <Route path="/registrer/kommuneansatt" component={RegisterEmployee} />
         <Route
           exact
