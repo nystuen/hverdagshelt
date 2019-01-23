@@ -46,6 +46,10 @@ export class WizardFormSecondPage extends React.Component {
     this.props.change("categorylevel", e.selectededCategoryType);
   };
 */
+
+
+
+
   render() {
     const { handleSubmit, previousPage, onChangeCategoryHeader } = this.props;
     return (
@@ -80,10 +84,10 @@ export class WizardFormSecondPage extends React.Component {
               <div>
 
                 <Col lg={6} md={6} sm={6} xs={6}>
-                  <Button bsStyle="primary" type="button" className="previous" onClick={previousPage}>Previous</Button>
+                  <Button bsStyle="primary" type="button" className="previous" onClick={previousPage}>Forrige</Button>
                 </Col>
                 <Col lg={6} md={6} sm={6} xs={6} align="right">
-                  <Button bsStyle="primary" type="submit" className="next">Next</Button>
+                  <Button bsStyle="primary" type="submit" className="next">Neste</Button>
                 </Col>
 
               </div>

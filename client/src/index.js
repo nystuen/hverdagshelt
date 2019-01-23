@@ -44,6 +44,7 @@ import { Statistics } from './components/statistics/Statistics';
 import {adminIssues} from "./views/admin/adminIssues/adminIssues";
 
 
+
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== 'production') {
   let script = document.createElement('script');

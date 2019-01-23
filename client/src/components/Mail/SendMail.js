@@ -37,10 +37,14 @@ export class SendTextMailWindow extends React.Component {
   handleChange = e => {
     this.setState({[e.target.name]: e.target.value })
   };
+  buttonBack(){
+    this.props.history.goBack();
+  }
 
   render() {
     return (
       <div>
+        <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
         <Grid>
           <Form>
             <FormGroup controlId="formInlineToMail">

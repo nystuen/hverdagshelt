@@ -55,9 +55,6 @@ export class WizardFormThirdPage extends React.Component {
     this.props.change('countyId', this.state.user.countyId);
     console.log('setting props! mail');
     console.log(this.state.user.countyId);
-    setTimeout(function() {
-      history.push('/min_side/mine_saker').bind(this);
-    }, 1000);
   };
 
   componentDidMount() {
@@ -148,7 +145,7 @@ export class WizardFormThirdPage extends React.Component {
                     className="previous"
                     onClick={previousPage}
                   >
-                    Previous
+                    Forrige
                   </Button>
                 </Col>
                 <Col lg={6} md={6} sm={6} xs={6} align="right">
@@ -158,7 +155,7 @@ export class WizardFormThirdPage extends React.Component {
                     onClick={this.setProps.bind(this)}
                     disabled={pristine || submitting}
                   >
-                    Submit
+                    Send
                   </Button>
                 </Col>
 

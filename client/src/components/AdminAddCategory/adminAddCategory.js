@@ -59,6 +59,10 @@ export class adminAddCategory extends Component<Props, State> {
     this.setState({ newPriority: pri });
   };
 
+  buttonBack(){
+    this.props.history.goBack();
+  }
+
   saveCategory = () => {
 
 
@@ -148,6 +152,8 @@ export class adminAddCategory extends Component<Props, State> {
 
 
     return (
+      <div>
+        <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
       <Grid>
 
         <Col xs={0} md={2}></Col>
@@ -181,6 +187,7 @@ export class adminAddCategory extends Component<Props, State> {
 
         <Col xs={0} md={2}></Col>
       </Grid>
+      </div>
     );
 
   }
