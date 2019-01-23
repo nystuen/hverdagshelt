@@ -70,8 +70,8 @@ export class NavbarMenu extends React.Component {
             <Nav>
               <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-home"/> {this.state.user.county}</NavItem>
               <NavItem href={'/#/wizardForm'}><Glyphicon glyph="glyphicon glyphicon-plus"/> Meld inn sak</NavItem>
-              <NavItem href={'/#/events/2'}><i className="fas fa-exclamation-triangle"></i> Hendelser</NavItem>
-              <NavItem href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
+              <NavItem href={'/#/events/2'}><Glyphicon glyph="glyphicon glyphicon-road"/> Hendelser</NavItem>
+              <NavItem href={'/#/statistics'}><Glyphicon glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
               <NavItem href={'/#/map'}><Glyphicon glyph="glyphicon glyphicon-map-marker"/> Kart</NavItem>
               {this.viewCases()}
               <NavItem href={'/#/map'}><i className="fas fa-map"></i> Kart</NavItem>
