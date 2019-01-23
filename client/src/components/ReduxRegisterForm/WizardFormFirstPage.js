@@ -9,7 +9,7 @@ import L from 'leaflet';
 import { Button, ProgressBar } from 'react-bootstrap';
 import Geocode from 'react-geocode';
 
-Geocode.setApiKey('AIzaSyDVZREoJuiobrxWVmBFhemEk1VdRB0MsSI');
+Geocode.setApiKey("AIzaSyDVZREoJuiobrxWVmBFhemEk1VdRB0MsSI");
 
 type State = {
   hasLocation: boolean,
@@ -27,7 +27,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
 
     this.state = {
       hasLocation: false,
-      address: '',
+      address: "",
       latlng: {
         lat: 65.107877,
         lng: 12.074429
@@ -55,13 +55,13 @@ export class WizardFormFirstPage extends Component<{}, State> {
       zoom: 17
     });
 
-    this.props.change('latitude', e.latlng.lat);
-    this.props.change('longitude', e.latlng.lng);
+    this.props.change("latitude", e.latlng.lat);
+    this.props.change("longitude", e.latlng.lng);
 
     Geocode.fromLatLng(e.latlng.lat, e.latlng.lng).then(
       response => {
         const address_found = response.results[0].formatted_address;
-        this.props.change('address', address_found);
+        this.props.change("address", address_found);
         this.setState({
           hasLocation: true,
           latlng: e.latlng,
@@ -75,12 +75,12 @@ export class WizardFormFirstPage extends Component<{}, State> {
   };
 
   handleLocationFound = (e: Object) => {
-    this.props.change('latitude', e.latlng.lat);
-    this.props.change('longitude', e.latlng.lng);
+    this.props.change("latitude", e.latlng.lat);
+    this.props.change("longitude", e.latlng.lng);
     Geocode.fromLatLng(e.latlng.lat, e.latlng.lng).then(
       response => {
         const address_found = response.results[0].formatted_address;
-        this.props.change('address', address_found);
+        this.props.change("address", address_found);
         this.setState({
           hasLocation: true,
           latlng: e.latlng,
@@ -104,9 +104,9 @@ export class WizardFormFirstPage extends Component<{}, State> {
     Geocode.fromAddress(this.state.address).then(
       response => {
         const { lat, lng } = response.results[0].geometry.location;
-        this.props.change('latitude', lat);
-        this.props.change('longitude', lng);
-        this.props.change('address', this.state.address);
+        this.props.change("latitude", lat);
+        this.props.change("longitude", lng);
+        this.props.change("address", this.state.address);
         this.setState({
           latlng: { lat, lng },
           zoom: 17,
@@ -123,19 +123,19 @@ export class WizardFormFirstPage extends Component<{}, State> {
     const { handleSubmit, previousPage } = this.props;
 
     let styles = {
-      height: '100%'
+      height: "100%"
     };
 
     let mapStyle = {
-      top: '0',
-      bottom: '0',
-      left: '0',
-      right: '0'
+      top: "0",
+      bottom: "0",
+      left: "0",
+      right: "0"
     };
 
     let centerStyle = {
-      alignItems: 'center',
-      justifyContent: 'center'
+      alignItems: "center",
+      justifyContent: "center"
     };
 
     let marker = this.state.hasLocation ? (
@@ -146,11 +146,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
 
     return (
       <div style={styles}>
-        <div className="formDiv">
-          <div className="progressBar1">
-            <ProgressBar now={33}/>
-          </div>
-        </div>
+        <div className="formDiv" />
         <Map
           center={this.state.latlng}
           length={12}
@@ -210,7 +206,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
 }
 
 export default reduxForm({
-  form: 'wizard', // <------ same form name
+  form: "wizard", // <------ same form name
   destroyOnUnmount: false, // <------ preserve form data
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate

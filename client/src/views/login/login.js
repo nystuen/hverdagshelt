@@ -21,6 +21,7 @@ interface State {
   storedPassword: string;
   countyId: 0;
   string: "./logo.png";
+  openPassword: string;
 } //end interface
 
 interface Props {
@@ -34,7 +35,9 @@ export class Login extends Component<Props, State> {
     password: "",
     storedPassword: "",
     countyId: 0,
-    string: "./logo.png"
+    string: "./logo.png",
+    openPassword: "password"
+
   };
 
   handleChangeEmail = (event: SyntheticEvent<HTMLButtonElement>) => {
@@ -49,7 +52,21 @@ export class Login extends Component<Props, State> {
     });
   };
 
+  handleClickPassword=()=>{
+    if(this.state.openPassword == "text"){
+      this.setState({openPassword: "password"})
+    }else{
+      this.setState({openPassword: "text"})
+    }
+  };
+
+
+
   render() {
+
+
+
+
     let alert_login;
 
     if (this.state.error) {
@@ -68,6 +85,16 @@ export class Login extends Component<Props, State> {
     } else {
       <p />;
     } //end condition
+
+
+    let changeIcon;
+
+    if (this.state.openPassword == "text") {
+      changeIcon = (<i className="fas fa-eye"></i>);
+    } else {
+      changeIcon = (<i className="fas fa-eye-slash"></i>);
+    }
+
 
     return (
       <div className="login">
@@ -99,21 +126,20 @@ export class Login extends Component<Props, State> {
                 <Row className="show-grid" align="center">
                   <FormGroup>
                     <FormControl
-                      type="password"
+                      type={this.state.openPassword}
                       placeholder="Passord"
                       value={this.state.password}
                       onChange={this.handleChangePassword.bind(this)}
-                    />
+                    ></FormControl>
                   </FormGroup>
+
                 </Row>
 
                 <Row className="show-grid" align="center">
                   <Button type="button" onClick={this.save} bsStyle="primary">
                     Login
                   </Button>
-                  <Button type="button" onClick={this.sjekk}>
-                    Sjekk
-                  </Button>
+                  <Button type="button" onClick={()=> this.handleClickPassword()}>{changeIcon}</Button>
                   {alert_login}
                   {alert_notLoggedIn}
                 </Row>
@@ -242,8 +268,7 @@ export class Login extends Component<Props, State> {
                     console.log(this.props.history.location.pathname);
                     if (
                       this.props.history.location.pathname == "/register" ||
-                      this.props.history.location.pathname ==
-                        "/registrer/bedrift"
+                      this.props.history.location.pathname == "/registrer/bedrift"
                     ) {
                       console.log("hei");
                       history.push("/wizardForm");

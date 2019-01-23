@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import {Grid, Table, Button} from "react-bootstrap";
+import {Grid, Table, Button, FormControl} from "react-bootstrap";
 import {User} from "../../../classTypes";
 import {EmployeeService} from "../../../services"
 import {UserService} from "../../../services";
@@ -58,13 +58,25 @@ export class employeeManageUsers extends React.Component<Props,State>{
             });
     }
 
+    blockSwitch(e: User){
+      if(e.active == 1){
+        return <Button style={{"width": "6em"}} bsSize={"sm"} bsStyle={"danger"} onClick={this.blockUser.bind(null, e.mail)}>Block</Button>;
+      } else {
+        return <Button style={{"width": "6em"}}  bsSize={"sm"} bsStyle={"primary"} onClick={this.unblockUser.bind(null, e.mail)}>Unblock</Button>;
+      }
+    }
 
     render(){
         return(
             <Grid>
                 <br/>
                 <br/>
-                <Table>
+                <FormControl
+                    type="text"
+                    id="myInput"
+                    onKeyUp={this.myFunction}
+                    placeholder="Search for names.."/>
+                <Table id={"myTable"}>
                     <thead>
                     <tr>
                         <th>
@@ -80,10 +92,7 @@ export class employeeManageUsers extends React.Component<Props,State>{
                             Poeng
                         </th>
                         <th>
-                            Aktiver
-                        </th>
-                        <th>
-                            Blokker
+                            Blokker/Aktiver
                         </th>
                     </tr>
                     </thead>
@@ -105,11 +114,7 @@ export class employeeManageUsers extends React.Component<Props,State>{
                                     {e.points}
                                 </td>
                                 <td>
-                                    <Button bsSize={"sm"} bsStyle={"primary"} onClick={this.unblockUser.bind(null, e.mail)}>Unblock</Button>
-                                </td>
-                                <td>
-                                    <Button bsSize={"sm"} bsStyle={"danger"} onClick={this.blockUser.bind(null, e.mail)}>Block</Button>
-
+                                  {this.blockSwitch(e)}
                                 </td>
                             </tr>
                         )
@@ -118,5 +123,27 @@ export class employeeManageUsers extends React.Component<Props,State>{
                 </Table>
             </Grid>
         )}
+
+    myFunction(){
+        // Declare variables
+        var input, filter, Table, tr, td, i, txtValue;
+        input = document.getElementById("myInput");
+        filter = input.value.toUpperCase();
+        Table = document.getElementById("myTable");
+        tr = Table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
 
 }//end class

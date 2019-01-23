@@ -35,10 +35,10 @@ import { Footer } from "./components/Footer/Footer";
 import { RegisterEmployee } from "./components/registeremployee/RegisterEmployee";
 import { RegisterAdmin } from "./components/registeradmin/registeradmin";
 import { ForgottenPassword } from "./views/login/ForgottenPassword";
-import {RegNew} from "./components/regNew/RegNew"
-import {employeeHomepage} from "./views/employee/employeeHomepage/employeeHomepage";
-import {employeeManageUsers} from "./views/employee/employeeManageUsers/employeeManageUsers";
-
+import { RegNew } from "./components/regNew/RegNew";
+import { employeeHomepage } from "./views/employee/employeeHomepage/employeeHomepage";
+import { employeeManageUsers } from "./views/employee/employeeManageUsers/employeeManageUsers";
+import { CreateAdminsOrEmployees } from "./views/admin/createAdminsOrEmployees";
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
@@ -97,11 +97,15 @@ if (root)
         <Route exact path="/admin" component={adminPanel} />
         <Route path="/admin/sendMailTilBruker" component={SendTextMailWindow} />
         <Route path="/admin/resetPassord" component={AdminResetUserPassword} />
-        <Route path="/admin/registrertSuksess" component={RegNew}/>
-          <Route path="/employee/home" component={employeeHomepage}/>
-          <Route path="/employee/manageusers" component={employeeManageUsers}/>
-          <Route path="/forgotPassword" component={ForgottenPassword} />
-          <Footer />
+        <Route path="/admin/registrertSuksess" component={RegNew} />
+        <Route path="/employee/home" component={employeeHomepage} />
+        <Route path="/employee/manageusers" component={employeeManageUsers} />
+        <Route path="/forgotPassword" component={ForgottenPassword} />
+        <Route
+          path="/admin/createAdminsOrEmployees"
+          component={CreateAdminsOrEmployees}
+        />
+        <Footer />
       </div>
     </HashRouter>,
     root
