@@ -143,7 +143,7 @@ export class adminIssues extends React.Component{
                                     <Row>
                                         <br/>
                                         <Col>
-                                            <Button bsStyle={"primary"} bsSize={"small"}>Gi oppgave</Button>
+                                            <Button bsStyle={"primary"} bsSize={"small"} onClick={() => this.submit()}>Gi oppgave</Button>
                                         </Col>
                                     </Row>
                                 </Grid>
@@ -223,7 +223,12 @@ export class adminIssues extends React.Component{
     }//end method
 
     submit(){
-
+        if(confirm('Vil du tildele denne saken til bedrift med mail ' + this.state.selectedCompany + '?')) {
+            userService.assignIssueToCompany(this.state.selectedIssue.issueId, this.state.selectedCompany).then(response => {
+                confirm('Saken ble tildelt til bedrift med mail ' + this.state.selectedCompany + '!');
+            }).catch((error: Error) => confirm(error.message));
+            window.location.reload();
+        }
     }//end method
 
 

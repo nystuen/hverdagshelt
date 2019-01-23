@@ -38,7 +38,7 @@ export class IssueDao extends Dao {
 
   getAllIssuesInCounty(id: number, categoryLevel: number, callback: Function){ //Get the oldest first, have created view allCats(All categories)
       super.query("select issues.issueId,issues.text,allCats.name, issues.statusName,allCats.categoryId " +
-          "from issues,allCats where issues.countyId =? and issues.active=1 " +
+          "from issues,allCats where issues.countyId =? and issues.active=1 and issues.issueId NOT IN(SELECT issueId from companyIssues)" +
           "and ((issues.categoryLevel=1 AND issues.categoryId=allCats.categoryId) OR " +
           "(issues.categoryLevel=2 AND issues.categoryId=allCats.category2Id)) order by issues.issueId ASC", [id], callback);
   }//end method

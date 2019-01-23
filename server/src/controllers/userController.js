@@ -159,7 +159,7 @@ module.exports = function (app: Object, userDao: Object) {
 
     app.post('/assignIssue/:issueId/:companyMail', (req,res) => {
         console.log("Got post request from assignIssue with issueId " + req.params.issueId + ' and mail ' + req.params.companyMail);
-        user.assignIssueToCompany(req.params.issueId,req.params.companyMail,(status,data)=> {
+        userDao.assignIssueToCompany(req.params.issueId,req.params.companyMail,(status,data)=> {
            res.status(status);
            res.json(data);
         });
