@@ -149,9 +149,17 @@ module.exports = function (app: Object, userDao: Object) {
         })
     });
 
-    app.get('/companyCategories/:categoryId', (req,res) => {
-        console.log('Got get request from companyCategories');
-        userDao.getCompanyCategories(req.params.categoryId, req.body.countyId, (status,data) => {
+    app.get('/companyCategories/:categoryId/:countyId', (req,res) => {
+        console.log('Got get request from companyCategories in county ' + req.params.countyId);
+        userDao.getCompanyCategories(req.params.categoryId, req.params.countyId, (status,data) => {
+           res.status(status);
+           res.json(data);
+        });
+    });
+
+    app.post('/assignIssue/:issueId/:companyMail', (req,res) => {
+        console.log("Got post request from assignIssue with issueId " + req.params.issueId + ' and mail ' + req.params.companyMail);
+        user.assignIssueToCompany(req.params.issueId,req.params.companyMail,(status,data)=> {
            res.status(status);
            res.json(data);
         });

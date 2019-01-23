@@ -44,21 +44,23 @@ export class adminIssues extends React.Component{
         this.handleDelete = this.handleDelete.bind(this);
         this.handleShow = this.handleShow.bind(this);
         this.handleClose = this.handleClose.bind(this);
+        this.setCompany = this.setCompany.bind(this);
+        this.submit = this.submit.bind(this);
     }//end constructor
 
 
     componentWillMount(){
         userService.getCurrentUser().then(response => {
             this.setState({user: response[0]});
-            issueService.getAllIssuesInThisCounty(window.sessionStorage.getItem('countyId'),1).then(r => {
+            issueService.getAllIssuesInThisCounty(response[0].countyId,1).then(r => {
                 this.setState({issues: r});
                 this.getSorted();
             }).catch((error: Error) => confirm(error.message));
         }).catch((error: Error) => confirm(error.message));
     }//end method
 
-    render(){
-        if(this.state.issues !== undefined) {
+   render(){
+        if(this.state.user.county !== undefined) {
             return (
                 <div>
                     <Grid>
@@ -76,7 +78,9 @@ export class adminIssues extends React.Component{
                                     Status
                                 </th>
                                 <th>
+                                    <Col align={"middle"}>
                                     Behandle sak
+                                    </Col>
                                 </th>
                             </tr>
                             </thead>
@@ -103,15 +107,15 @@ export class adminIssues extends React.Component{
                                             </ProgressBar>
                                         </td>
                                         <td>
-                                            <Col xs={2}>
+                                            <Col xs={6} align={"right"}>
                                                 <OverlayTrigger placement="top" overlay={toolTipAssign}>
                                                     <Button bsStyle="link"
-                                                            onClick={() => this.handleShow(e.categoryId, e)}>
-                                                        <span className="glyphicon glyphicon-briefcase"></span>
+                                                            onClick={() => this.handleShow(e.categoryId, e)} type="button">
+                                                        <i className="glyphicon glyphicon-briefcase"></i>
                                                     </Button>
                                                 </OverlayTrigger>
                                             </Col>
-                                            <Col xs={4}>
+                                            <Col md={6} align={"left"}>
                                                 <OverlayTrigger placement="top" overlay={toolTipDelete}>
                                                     <Button bsStyle="link" style={{color: 'darkred'}}
                                                             onClick={() => this.confirm(e.issueId)}>
@@ -132,8 +136,14 @@ export class adminIssues extends React.Component{
                             <Modal.Body>
                                 <Grid>
                                     <Row>
-                                        <Col>
+                                        <Col md={1} align={"left"}>
                                             {this.dropDownCompanies()}
+                                        </Col>
+                                    </Row>
+                                    <Row>
+                                        <br/>
+                                        <Col>
+                                            <Button bsStyle={"primary"} bsSize={"small"}>Gi oppgave</Button>
                                         </Col>
                                     </Row>
                                 </Grid>
@@ -173,8 +183,8 @@ export class adminIssues extends React.Component{
         this.setState({issues: sorted});
     };//end method
 
-    handleShow(categoryId: number, issue: Object){
-        userService.getCompanyCategories(categoryId, this.state.user.countyId).then(response => {
+    async handleShow(categoryId: number, issue: Object){
+      await userService.getCompanyCategories(categoryId, this.state.user.countyId).then(response => {
             this.setState({companies: response, showAssign: true, selectedIssue: issue});
         }).catch((error: Error) => confirm(error.message));
     }//end method
@@ -195,10 +205,8 @@ export class adminIssues extends React.Component{
            window.location.reload();
     }//end method
 
-    setCompany(event){
-        console.log(event.target.value);
+    setCompany(event: Event){
         this.setState({selectedCompany: event.target.value});
-        console.log(this.state.selectedCompany);
     }//end method
 
     dropDownCompanies(){
@@ -212,6 +220,10 @@ export class adminIssues extends React.Component{
                 })}
             </select>
         )
+    }//end method
+
+    submit(){
+
     }//end method
 
 

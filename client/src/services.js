@@ -71,7 +71,7 @@ export class UserService {
     }
 
     getCompanyCategories(categoryId: number, countyId: number): Promise<Object[]>{
-        return axios.get('/companyCategories/' + categoryId, {countyId: countyId});
+        return axios.get('/companyCategories/' + categoryId + '/' + countyId);
     }
 }//end class
 

@@ -46,10 +46,17 @@ export class UserDao extends Dao {
     }//end method
 
     getCompanyCategories(categoryId: number, countyId: number,  callback: Function){
+      console.log('category ' + categoryId + ' countyId ' + countyId);
       super.query("Select * from companyCategories natural join company where categoryId=? " +
           "and companyCategories.companyMail IN(SELECT companyCounties.companyMail FROM companyCounties WHERE companyCounties.countyId=?)",
           [categoryId, countyId], callback);
     }//end method
+
+    assignIssueToCompany(issueId: number, companyMail: string, callback: Function){
+      console.log('Assigning issue to company with mail ' + companyMail + ' and issueId ' + issueId);
+      super.query("insert into companyIssues(issueId,companyMail) values(?,?)", [issueId,companyMail], callback);
+    }//end method
+
 
     resetPassword(json: Object, hashed: string, callback: Function) {
         let val = [hashed, json];
