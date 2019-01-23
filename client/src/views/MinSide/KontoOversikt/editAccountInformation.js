@@ -120,6 +120,7 @@ export class editAccountInformation extends React.Component<State> {
 
     userService.updateUser(this.state.user).then(response => {
       console.log('res', response);
+      window.location.reload();
     });
 
     history.push('/min_side/kontooversikt');

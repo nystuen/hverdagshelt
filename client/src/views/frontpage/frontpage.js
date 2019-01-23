@@ -40,7 +40,7 @@ export class Frontpage extends Component<Props, State> {
 
   handleClick() {
     window.sessionStorage.setItem('countyId', this.state.choosen.value);
-    console.log(window.sessionStorage.getItem('county'));
+    console.log(window.sessionStorage.getItem('countyId'));
     window.sessionStorage.setItem('countyName', this.state.choosen.label);
     console.log(window.sessionStorage.getItem('countyName'));
     history.push('/wizardForm/');

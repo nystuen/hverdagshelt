@@ -172,6 +172,8 @@ export class KontoOversikt extends React.Component <State> {
 
   componentDidMount() {
     userService.getCurrentUser().then(newUser => {
+      window.sessionStorage.setItem('countyId', newUser[0].countyId);
+      window.sessionStorage.setItem('countyName', newUser[0].county);
       this.setState({
         user: newUser[0]
       });
