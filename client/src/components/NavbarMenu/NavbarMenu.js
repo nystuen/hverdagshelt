@@ -78,7 +78,7 @@ export class NavbarMenu extends React.Component {
               <NavItem eventKey={1} href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-home"/> {this.state.user.county}</NavItem>
               <NavItem eventKey={2} href={'/#/wizardForm'}><Glyphicon glyph="glyphicon glyphicon-plus"/> Meld inn sak</NavItem>
               <NavItem eventKey={3} href={'/#/events/2'}><i className="fas fa-exclamation-triangle"></i> Hendelser</NavItem>
-              <NavItem eventKey={4} href={'/#/'}><Glyphicon glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
+              <NavItem eventKey={4} href={'/#/statistics'}><Glyphicon glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
               <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Kart</NavItem>
               {this.viewCases()}
               <NavItem eventKey={7} href={'/#/admin'}><Glyphicon glyph="glyphicon glyphicon-user"/> Admin</NavItem>
