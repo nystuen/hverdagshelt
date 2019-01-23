@@ -32,28 +32,44 @@ export class IssueDao extends Dao {
     super.query("select * from issues where issueId = ?", [id], callback);
   }
 
-  getIssueAndCounty(id: number, callback: Function){
-    super.query("select * from issues natural join county where issueId=?", [id], callback);
-  }//end method
+  getIssueAndCounty(id: number, callback: Function) {
+    super.query(
+      "select * from issues natural join county where issueId=?",
+      [id],
+      callback
+    );
+  } //end method
 
-  getAllIssuesInCounty(id: number, categoryLevel: number, callback: Function){
-    if(categoryLevel === 1){
-      super.query("select * from issues natural join category where issues.countyId =? and issues.active=1", [id], callback);
-    }else{
-      super.query("select * from issues natural join category2 where issues.countyId=? and issues.active=1", [id], callback);
-    }//end condition
-  }//end method
+  getAllIssuesInCounty(id: number, categoryLevel: number, callback: Function) {
+    if (categoryLevel === 1) {
+      super.query(
+        "select * from issues natural join category where issues.countyId =? and issues.active=1",
+        [id],
+        callback
+      );
+    } else {
+      super.query(
+        "select * from issues natural join category2 where issues.countyId=? and issues.active=1",
+        [id],
+        callback
+      );
+    } //end condition
+  } //end method
 
-  getCompanyComments(id: number, callback: Function){
+  getCompanyComments(id: number, callback: Function) {
     super.query("select * from companyComment where issueId=?", [id], callback);
-  }//end method
+  } //end method
 
   getAllCategories(callback: Function) {
     super.query("select * from category", [], callback);
   }
 
   getUserIssue(id: String, callback: Function) {
-    super.query("select * from issues where userMail = ? and active=1", [id], callback);
+    super.query(
+      "select * from issues where userMail = ? and active=1",
+      [id],
+      callback
+    );
   }
 
   getCompanyIssue(id: String, callback: Function) {
@@ -68,11 +84,32 @@ export class IssueDao extends Dao {
     super.query("select * from issues where categoryId = ?", [id], callback);
   }
 
-  updateStatusOneIssue(id: number,statusName: string, callback: Function){
-    super.query("update issues set statusName=? where issueId=?", [statusName,id], callback);
-  }//end method
+  updateStatusOneIssue(id: number, statusName: string, callback: Function) {
+    super.query(
+      "update issues set statusName=? where issueId=?",
+      [statusName, id],
+      callback
+    );
+  } //end method
 
-  addCommentToIssue(issueId: number, text: string, mail: string, callback: Function){
-    super.query("insert into companyComment(issueId,text, mail) values(?,?,?)", [issueId,text,mail], callback);
-  }//end method
-}//end class
+  addCommentToIssue(
+    issueId: number,
+    text: string,
+    mail: string,
+    callback: Function
+  ) {
+    super.query(
+      "insert into companyComment(issueId,text, mail) values(?,?,?)",
+      [issueId, text, mail],
+      callback
+    );
+  } //end method
+
+  deleteIssue(issueId: number, callback: Function) {
+    super.query(
+      "update issues set active=0 where issueId=?",
+      [issueId],
+      callback
+    );
+  }
+} //end class
