@@ -73,6 +73,7 @@ export class UserDao extends Dao {
   }
 
 
+
   getIssuesForOneUser(userMail: string, callback: Function) {
     super.query(
       "select * from issues where userMail=? and active=1 ORDER BY issueId DESC",

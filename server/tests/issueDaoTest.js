@@ -50,6 +50,7 @@ test("check if  issue is exist", done => {
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
     );
+    expect(data[0].statusName).toBe('In progress');
     expect(data[0].userMail).toBe('ola@usermail.com');
     done();
   }
@@ -218,167 +219,167 @@ test("check deleting one issue", done => {
 //USER-TESTING
 //-----------------------------------------------------------------
 
-test("Add a user nina@usermail.com to database", done => {
-  function callback(status, data) {
-    console.log(
-      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
-    );
-    expect(data.affectedRows).toBeGreaterThanOrEqual(1);
-    done();
-  }
+ test("Add a user nina@usermail.com to database", done => {
+    function callback(status, data) {
+      console.log(
+        "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+      );
+      expect(data.affectedRows).toBeGreaterThanOrEqual(1);
+      done();
+    }
 
-  let post = {
-    mail: 'nina@usermail.com',
-    firstName: 'TEST ',
-    lastName: 'TEST ',
-    typeName: 'Private-user',
-    phone: 'TEST ',
-    points: 0,
-    countyId: 1,
-    active: 1
-  };
+    let post = {
+      mail: 'nina@usermail.com',
+      firstName: 'TEST ',
+      lastName: 'TEST ',
+      typeName: 'Private-user',
+      phone: 'TEST ',
+      points: 0,
+      countyId: 1,
+      active: 1
+    };
 
-  userDao.addUser(post,'hashedpassword..', callback);
-});
+    userDao.addUser(post,'hashedpassword..', callback);
+  });
 
 //Kan legge inn getUserLogin men er veldig lik som getUser
 
-test("check if nina@usermail.com is added as user", done => {
-  function callback(status, data) {
-    console.log(
-      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
-    );
-    expect(data[0].mail).toBe('nina@usermail.com');
-    expect(data[0].county).toBe('Oslo');
-    done();
-  }
-  userDao.getUser('nina@usermail.com', callback);
-});
+  test("check if nina@usermail.com is added as user", done => {
+    function callback(status, data) {
+      console.log(
+        "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+      );
+      expect(data[0].mail).toBe('nina@usermail.com');
+      expect(data[0].county).toBe('Oslo');
+      done();
+    }
+    userDao.getUser('nina@usermail.com', callback);
+  });
 
 
 
-test("check get all issues from one user", done => {
-  function callback(status, data) {
-    console.log(
-      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
-    );
-    expect(data.length).toBe(0);
-    done();
-  }
-  userDao.getIssuesForOneUser('nina@usermail.com', callback);
-});
+  test("check get all issues from one user", done => {
+    function callback(status, data) {
+      console.log(
+        "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+      );
+      expect(data.length).toBe(0);
+      done();
+    }
+    userDao.getIssuesForOneUser('nina@usermail.com', callback);
+  });
 
 
 
-test("check resetPassword", done => {
-  function callback(status, data) {
-    console.log(
-      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
-    );
-    expect(data.affectedRows).toBeGreaterThanOrEqual(1);
-  }
-  function callback2(status, data) {
-    console.log(
-      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
-    );
-    expect(data[0].password).toBe('passord123');
+  test("check resetPassword", done => {
+    function callback(status, data) {
+      console.log(
+        "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+      );
+      expect(data.affectedRows).toBeGreaterThanOrEqual(1);
+    }
+    function callback2(status, data) {
+      console.log(
+        "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+      );
+      expect(data[0].password).toBe('passord123');
 
-    done();
-  }
-  userDao.resetPassword('nina@usermail.com','passord123', callback);
-  userDao.getUser('nina@usermail.com', callback2);
-});
+      done();
+    }
+    userDao.resetPassword('nina@usermail.com','passord123', callback);
+    userDao.getUser('nina@usermail.com', callback2);
+  });
 
-test("check update user", done => {
-  function callback(status, data) {
-    console.log(
-      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
-    );
-    expect(data.affectedRows).toBeGreaterThanOrEqual(1);
+  test("check update user", done => {
+    function callback(status, data) {
+      console.log(
+        "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+      );
+      expect(data.affectedRows).toBeGreaterThanOrEqual(1);
 
-  }
+    }
 
-  function callback2(status, data) {
-    console.log(
-      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
-    );
-    expect(data[0].firstName).toBe('Nina');
-    expect(data[0].lastName).toBe('Larsen');
-    expect(data[0].phone).toBe('90192384');
+    function callback2(status, data) {
+      console.log(
+        "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+      );
+      expect(data[0].firstName).toBe('Nina');
+      expect(data[0].lastName).toBe('Larsen');
+      expect(data[0].phone).toBe('90192384');
 
-    done();
-  }
+      done();
+    }
 
-  let post = {
-    firstName: 'Nina',
-    lastName: 'Larsen',
-    phone: '90192384',
-    countyId: 2,
-  };
+    let post = {
+      firstName: 'Nina',
+      lastName: 'Larsen',
+      phone: '90192384',
+      countyId: 2,
+    };
 
-  userDao.updateUser('nina@usermail.com', post,callback);
-  userDao.getUser('nina@usermail.com', callback2);
-});
+    userDao.updateUser('nina@usermail.com', post,callback);
+    userDao.getUser('nina@usermail.com', callback2);
+  });
 
 //Finner ikke getCompany hvor er den eller skal den legges til?
-test("check add company", done => {
-  function callback(status, data) {
-    console.log(
-      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
-    );
-    expect(data.affectedRows).toBeGreaterThanOrEqual(1);
-    done();
-  }
+  test("check add company", done => {
+    function callback(status, data) {
+      console.log(
+        "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+      );
+      expect(data.affectedRows).toBeGreaterThanOrEqual(1);
+      done();
+    }
 
-  let post = {
-    companyMail: 'hverdagshelt@company.com',
-    companyName: 'Hverdagshelt',
-    firstName: 'Thea',
-    lastName: 'Pettersen',
-    adresse: 'adresseveien 65',
-    postnr: 1234,
-    phone:'19283028',
-    description:'dette er en beskrivelse',
-    orgNumber:2345678,
-  };
+    let post = {
+      companyMail: 'hverdagshelt@company.com',
+      companyName: 'Hverdagshelt',
+      firstName: 'Thea',
+      lastName: 'Pettersen',
+      adresse: 'adresseveien 65',
+      postnr: 1234,
+      phone:'19283028',
+      description:'dette er en beskrivelse',
+      orgNumber:2345678,
+    };
 
-  userDao.addCompany(post,'detteErEtPassord', callback);
-});
-
-
-
-test("check add points to user" , done =>{
-  function callback(status, data) {
-    console.log(
-      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
-    );
-    expect(data.affectedRows).toBe(1);
-    done();
-  }
-
-  let post={
-    userMail: 'ola@usermail.com',
-    points: 10,
-  };
-
-  userDao.updatePoints(post, callback);
-});
+    userDao.addCompany(post,'detteErEtPassord', callback);
+  });
 
 
-test("check get county employee" , done =>{
-  function callback(status, data) {
-    console.log(
-      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
-    );
-    expect(data[0].firstName).toBe("Thea");
-    expect(data[0].lastName).toBe("Larsen");
-    expect(data[0].mail).toBe("thea@usermail.com");
-    done();
-  }
+
+  test("check add points to user" , done =>{
+    function callback(status, data) {
+      console.log(
+        "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+      );
+      expect(data.affectedRows).toBe(1);
+      done();
+    }
+
+    let post={
+      userMail: 'ola@usermail.com',
+      points: 10,
+    };
+
+    userDao.updatePoints(post, callback);
+  });
 
 
-  userDao.getCountyEmployee(1, callback);
-});
+  test("check get county employee" , done =>{
+    function callback(status, data) {
+      console.log(
+        "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+      );
+      expect(data[0].firstName).toBe("Thea");
+      expect(data[0].lastName).toBe("Larsen");
+      expect(data[0].mail).toBe("thea@usermail.com");
+      done();
+    }
+
+
+    userDao.getCountyEmployee(1, callback);
+  });
 
 
 
@@ -836,7 +837,6 @@ test("check update notification", done => {
 
 //MAIL-TESTING
 //-----------------------------------------------------------------
-
 
 
 /*
