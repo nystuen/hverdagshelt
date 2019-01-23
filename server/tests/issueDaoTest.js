@@ -338,6 +338,40 @@ test("check add company", done => {
 
 
 
+test("check add points to user" , done =>{
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.affectedRows).toBe(1);
+    done();
+  }
+
+  let post={
+    userMail: 'ola@usermail.com',
+    points: 10,
+  };
+
+  userDao.updatePoints(post, callback);
+});
+
+
+test("check get county employee" , done =>{
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data[0].firstName).toBe("Thea");
+    expect(data[0].lastName).toBe("Larsen");
+    expect(data[0].mail).toBe("thea@usermail.com");
+    done();
+  }
+
+
+  userDao.getCountyEmployee(1, callback);
+});
+
+
 
 
 //COUNTY-TESTING

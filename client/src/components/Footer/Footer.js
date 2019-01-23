@@ -45,11 +45,11 @@ export class Footer extends Component<{}> {
 
   render(){
     let check;
-    if(this.state.user.countyId != null){
+    if(this.state.user.countyId != []){
       return (
         <footer className="footerClass2">
         <Col xs={12} md={12}>
-        <h4 className="footerInfo">Kontaktinformasjon til {this.state.user.county}-kommunen:</h4>
+        <h4 className="footerInfo">Kontaktinformasjon til {this.state.user.county}-kommune:</h4>
         {
           this.state.countyInformation.map((r, i) => {
             return (
@@ -59,7 +59,7 @@ export class Footer extends Component<{}> {
                 <Row> e-post: {r.mail}</Row>
                 <Row> telefonnr: {r.phone}</Row>
               </div>
-            )
+            );
           })
         }
       </Col>

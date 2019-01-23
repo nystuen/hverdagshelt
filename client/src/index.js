@@ -1,5 +1,6 @@
 // @flow
 
+
 import ReactDOM from 'react-dom';
 import * as React from 'react';
 import { HashRouter, Route, NavLink } from 'react-router-dom';
@@ -41,6 +42,7 @@ import { employeeManageUsers } from './views/employee/employeeManageUsers/employ
 import { CreateAdminsOrEmployees } from './views/admin/createAdminsOrEmployees';
 import { Statistics } from './components/statistics/Statistics';
 
+
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== 'production') {
   let script = document.createElement('script');
@@ -55,6 +57,7 @@ if (root)
   ReactDOM.render(
     <HashRouter>
       <div className="route-container">
+
         <NavbarMenu/>
         <Route exact path="/" component={Frontpage}/>
         <Route path="/forside/:countyId" component={forside}/>
@@ -108,6 +111,7 @@ if (root)
         />
         <Route path="/statistics" component={Statistics}/>
         <Footer/>
+
       </div>
     </HashRouter>,
     root
