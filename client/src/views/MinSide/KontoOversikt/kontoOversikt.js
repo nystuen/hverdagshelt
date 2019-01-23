@@ -100,6 +100,7 @@ class AccountInfoCard extends React.Component<{
                 </Col>
               </div>
 
+        {change_password}
             </Col>
             <Col xs={2} md={2}>
             </Col>
@@ -107,7 +108,6 @@ class AccountInfoCard extends React.Component<{
 
 
         </div>
-        {change_password}
       </div>
     );
   }
