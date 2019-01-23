@@ -50,7 +50,7 @@ export class adminIssues extends React.Component{
     componentWillMount(){
         userService.getCurrentUser().then(response => {
             this.setState({user: response[0]});
-            issueService.getAllIssuesInThisCounty(response[0].countyId,1).then(r => {
+            issueService.getAllIssuesInThisCounty(window.sessionStorage.getItem('countyId'),1).then(r => {
                 this.setState({issues: r});
                 this.getSorted();
             }).catch((error: Error) => confirm(error.message));
