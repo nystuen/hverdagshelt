@@ -86,7 +86,9 @@ export class OversiktOverSak extends React.Component {
     }//end constructor
 
 
-
+  buttonBack(){
+    this.props.history.goBack();
+  }
 
   render() {
     let editStatus;
@@ -105,6 +107,8 @@ export class OversiktOverSak extends React.Component {
 
 
     return (
+      <div>
+        <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
       <Grid className="sak">
 
         <Col sm={1} md={2} lg={2}></Col>
@@ -162,6 +166,7 @@ export class OversiktOverSak extends React.Component {
 
 
       </Grid>
+      </div>
     );
   }//end method
 
