@@ -68,7 +68,6 @@ export class InfoModule extends React.Component{
 }
 
 
-
 class InformationCard extends React.Component<{ header: string, content: string }> {
 
   render() {

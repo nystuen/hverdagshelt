@@ -57,11 +57,10 @@ export class events extends React.Component<Props, State> {
 
   render() {
     return (
-      <div className="events bottomFooter">
-        <Grid>
+      <div className="bottomFooter">
+        <Grid className="sak">
 
-          <PageHeader title={'Hendelser i din kommune'}/>
-          <Col md={1}></Col>
+          <Col sm={1} md={2} lg={2}></Col>
 
           <Col md={10}>
             <ListGroup>
