@@ -19,6 +19,7 @@ export class RegisterAdmin extends Component<Props, State>{
     constructor(props) {
         super(props);
         this.state = {
+            userExists: false,
             errorSomething: false,
             countyIsChanged: false,
             mail: "",
@@ -39,7 +40,7 @@ export class RegisterAdmin extends Component<Props, State>{
                 {label: "Bergen", countyId: 1}
                 //{ name: this.county.name, countyId: this.county.countyId}
             ]
-        }
+        };
 
         this.handleChangeCounty = this.handleChangeCounty.bind(this)
     }
@@ -201,6 +202,17 @@ export class RegisterAdmin extends Component<Props, State>{
                     <p id="SuccessLogin">Bruker ble registrert</p>
                 </Alert>
             )
+        } else {
+            <p></p>
+        }
+        let alert_user_exists;
+        if (this.state.userExists) {
+            alert_user_exists = (
+                <Alert bsStyle="danger">
+                    <h6>Emailen er allerede registrert</h6>
+                </Alert>);
+        } else {
+            <p></p>
         }
         return(
           <div>
@@ -297,6 +309,7 @@ export class RegisterAdmin extends Component<Props, State>{
                                 <Col md={4}>
                                 {alert_something}
                                 {register_success}
+                                {alert_user_exists}
                                 </Col>
                                 <Col md={4}/>
                             </FormGroup>
@@ -317,7 +330,6 @@ export class RegisterAdmin extends Component<Props, State>{
         );
     }
     checkInput = () =>{
-        //console.log(this.getValidationStateFirstName()||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()||this.getValidationStateEmail2()==='warning'||this.getValidationStatePassword()==='warning'||this.getValidationStatePassword2()==='warning');
         if(this.state.countyIsChanged===false||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()==='warning'||this.getValidationStateEmail2()==='warning'||this.getValidationPostNumber()==='warning'||this.getValidationAddress()==='warning'){
             this.setState({
                 errorSomething:true
@@ -327,35 +339,46 @@ export class RegisterAdmin extends Component<Props, State>{
         }
     };
 
-    register = () => {
-        console.log("test", this.state);
+    register = async () => {
 
-        const newAdmin = {
-            mail: this.state.mail,
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            typeName: 'Admin',
-            address: this.state.address,
-            postNumber: this.state.postNumber,
-            phone: this.state.phone,
-            countyId: this.state.choosen,
-        };
 
-        console.log("county", this.state.choosen);
-        userService
-            .addAdmin(newAdmin)
-            .then(user => (this.state = user)).then(Alert.success('Bruker registrert'))
-            .catch((error: Error) => Alert.danger(error.message));
 
-        let theBody: Object = {
-            mail: newAdmin.mail,
-            registered: 1,
-            inProgress: 0,
-            completed: 1
-        };
-        notificationSettingService.addIssueNotificationSettings(theBody);
-        this.setState({errorSomething: false, registerSuccess: true});
-        this.goToRegNew();
+        let userExists;
+        await userService.getUserLogin(this.state.mail)
+            .then(r => {
+                userExists = (r[0] !== undefined);
+                console.log(r[0])
+            });
+
+        if (!userExists) {
+            const newAdmin = {
+                mail: this.state.mail,
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                typeName: 'Admin',
+                address: this.state.address,
+                postNumber: this.state.postNumber,
+                phone: this.state.phone,
+                countyId: this.state.choosen,
+            };
+            console.log(userExists);
+            await userService
+                .addAdmin(newAdmin)
+                .catch((error: Error) => Alert.danger(error.message));
+
+            let theBody: Object = {
+                mail: newAdmin.mail,
+                registered: 1,
+                inProgress: 0,
+                completed: 1
+            };
+            await notificationSettingService.addIssueNotificationSettings(theBody);
+            await this.setState({errorSomething: false, registerSuccess: true, userExists: false});
+            await this.goToRegNew();
+        } else {
+            this.setState({errorSomething: false, registerSuccess: false, userExists: true});
+
+        }
 
     };
     goToRegNew = () => {

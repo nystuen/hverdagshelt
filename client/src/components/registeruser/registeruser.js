@@ -35,9 +35,6 @@ interface State {
   isLoaded: boolean;
 }
 
-interface Props {
-  match: Object,
-}
 
 export class RegisterUser extends Component<Props, State> {
 
@@ -516,7 +513,7 @@ export class RegisterUser extends Component<Props, State> {
                             <FormGroup>
                                 <Col md={4}/>
                                 <Col md={4}>
-                                    <Button type="button" onClick={this.checkInput}>Registrer</Button>
+                                    <Button id="theButton" type="button" onClick={this.checkInput}>Registrer</Button>
                                 </Col>
                                 <Col md={4}>
                                 </Col>
