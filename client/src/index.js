@@ -43,6 +43,7 @@ import { CreateAdminsOrEmployees } from './views/admin/createAdminsOrEmployees';
 import { Statistics } from './components/statistics/Statistics';
 import { adminIssues } from './views/admin/adminIssues/adminIssues';
 import { Footer2 } from './components/Footer/Footer2';
+import { eventView } from './views/events/eventView';
 
 
 // Reload application when not in production environment
@@ -110,7 +111,7 @@ if (root)
         />
         <Route path="/statistics" component={Statistics}/>
         <Route path="/admin/adminSaker" component={adminIssues}/>
-
+        <Route exact path="/hendelse/:eventId" component={eventView}/>
         <Footer2/>
       </div>
     </HashRouter>,

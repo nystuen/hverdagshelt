@@ -1,17 +1,18 @@
 
 
-@keyframes slideInFromLeft {
-    0% {
-        transform: translateX(-10000%);
+@keyframes fadeIn {
+    from {
+        opacity: 0;
     }
-    100% {
-        transform: translateX(0);
+
+    to {
+        opacity: 1;
     }
 }
 
 .navbar-default .navbar-nav > li > a {
     color: white;
-    animation: 1s ease-out 0s 1 slideInFromLeft;
+    animation: 0.5s ease-out 0s fadeIn;
 }
 
 
@@ -19,6 +20,17 @@
     color: blueviolet;
     background-color: blue;
 
+}
+
+#dropdownMenuItem{
+    color: black;
+    background-color: white;
+}
+
+
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: white;
 }
 
 

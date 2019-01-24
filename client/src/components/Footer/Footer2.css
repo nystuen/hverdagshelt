@@ -49,8 +49,8 @@
     text-decoration: none;
 }
 
-#myFooter a:hover, #myFooter span:hover,
-#myFooter a:focus, #myFooter span:focus {
+#myFooter a:hover,
+#myFooter a:focus{
     text-decoration: none;
     color: white;
 }
