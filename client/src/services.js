@@ -107,6 +107,14 @@ export class EventCategoryService {
   getImportantEvents(countyId: number): Promise<Event[]> {
     return axios.get("/importantEvents/" + countyId);
   }
+
+  getAllEventsInOneCounty(countyId: number): Promise<Object[]>{
+    return axios.get("/allEventsInCounty/" + countyId);
+  }//end method
+
+  updateEvent(event: Object): Promise<void>{
+    return axios.post("/updateEvent", event);
+  }//end method
 } //end class
 
 export class ImageService {

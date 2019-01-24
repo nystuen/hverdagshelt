@@ -42,6 +42,7 @@ import { CreateAdminsOrEmployees } from "./views/admin/createAdminsOrEmployees";
 import { Statistics } from "./components/statistics/Statistics";
 import { adminIssues } from "./views/admin/adminIssues/adminIssues";
 import { EditIssue } from "./views/MinSide/mineSaker/editIssue";
+import {adminEvents} from "./views/admin/adminEvents/adminEvents";
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
@@ -107,6 +108,7 @@ if (root)
         />
         <Route path="/statistics" component={Statistics} />
         <Route path="/admin/adminSaker" component={adminIssues} />
+        <Route path="/admin/adminHendelser" component={adminEvents} />
         <Route
           path="/min_side/mine_saker/rediger/:issueId"
           component={EditIssue}

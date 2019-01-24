@@ -38,4 +38,15 @@ export class EventDao extends Dao {
       callback
     );
   }
+
+  getAllEventsInOneCounty(countyId: number, callback: Function){
+    console.log('Events in county ' + countyId);
+    super.query("Select * from event natural join eventCategory where event.countyId=? and event.active=1", [countyId], callback);
+  }//end method
+
+  updateEvent(event: Object, callback: Function){
+    console.log('Updating event with id ' + event.eventId);
+    let val = [event.title, event.text, event.eventCategoryId, event.eventId];
+    super.query("Update event set title=?, text=?, eventCategoryId=? where eventId=?", val, callback)
+  }//end method
 }
