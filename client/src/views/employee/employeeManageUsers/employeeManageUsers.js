@@ -32,12 +32,14 @@ export class employeeManageUsers extends React.Component<Props,State>{
 
     blockUser(mail: string){
         console.log(mail);
-        employeeService.blockUser(mail)
+        employeeService.blockUser(mail);
+        window.location.reload()
     }
 
     unblockUser(mail: string){
         console.log(mail);
-        employeeService.unblockUser(mail)
+        employeeService.unblockUser(mail);
+        window.location.reload()
     }
 
     buttonBack(){
@@ -66,9 +68,9 @@ export class employeeManageUsers extends React.Component<Props,State>{
 
     blockSwitch(e: User){
       if(e.active == 1){
-        return <Button style={{"width": "6em"}} bsSize={"sm"} bsStyle={"danger"} onClick={this.blockUser.bind(null, e.mail)}>Block</Button>;
+        return <Button style={{"width": "6em"}} bsSize={"sm"} bsStyle={"danger"} onClick={this.blockUser.bind(null, e.mail)}>Blokker</Button>;
       } else {
-        return <Button style={{"width": "6em"}}  bsSize={"sm"} bsStyle={"primary"} onClick={this.unblockUser.bind(null, e.mail)}>Unblock</Button>;
+        return <Button style={{"width": "6em"}}  bsSize={"sm"} bsStyle={"primary"} onClick={this.unblockUser.bind(null, e.mail)}>Aktiver</Button>;
       }
     }
 
@@ -96,9 +98,6 @@ export class employeeManageUsers extends React.Component<Props,State>{
                             Telefon
                         </th>
                         <th>
-                            Status
-                        </th>
-                        <th>
                             Poeng
                         </th>
                         <th>
@@ -118,9 +117,6 @@ export class employeeManageUsers extends React.Component<Props,State>{
                                 </td>
                                 <td>
                                     {e.phone}
-                                </td>
-                                <td>
-                                    {e.active}
                                 </td>
                                 <td>
                                     {e.points}
