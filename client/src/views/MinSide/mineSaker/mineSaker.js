@@ -3,7 +3,8 @@
 import React from 'react';
 import { Grid, Col, Row, Button, Table, ProgressBar, Nav, NavItem } from 'react-bootstrap';
 import { Issue } from '../../../classTypes';
-import {CategoryService, IssueService, UserService} from '../../../services';
+import { CategoryService, IssueService, UserService} from '../../../services';
+import { Filter } from '../../../components/Filter/Filter'
 import { Alert } from '../../../widgets';
 import { Status } from '../../../classTypes';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
@@ -13,6 +14,7 @@ import mineSaker from "./mineSaker.css";
 let userService = new UserService();
 let categoryService = new CategoryService();
 let issueService = new IssueService();
+let filter = new Filter();
 
 interface State {
   issues: Object[];
@@ -108,10 +110,10 @@ export class MineSaker extends React.Component<Props, State> {
         <Grid>
           <PageHeader title={"Mine saker"} />
             <label>Velg hvilke saker du vil se: </label>
-            <Button onClick={this.showAll} bsStyle={"primary"}>Alle</Button>
-            <Button onClick={this.filterRegistered} bsStyle={"primary"}>Registrerte</Button>
-            <Button onClick={this.filterInProgress} bsStyle={"primary"}>Behandles</Button>
-            <Button onClick={this.filterCompleted} bsStyle={"primary"}>Fullført</Button>
+            <Button onClick={filter.showAll} bsStyle={"primary"}>Alle</Button>
+            <Button onClick={filter.filterRegistered} bsStyle={"primary"}>Registrerte</Button>
+            <Button onClick={filter.filterInProgress} bsStyle={"primary"}>Behandles</Button>
+            <Button onClick={filter.filterCompleted} bsStyle={"primary"}>Fullført</Button>
           <Table id={"myTable"}>
             <thead>
               <tr>
@@ -206,91 +208,4 @@ export class MineSaker extends React.Component<Props, State> {
     if (cat[i] !== undefined) return <div> {cat[i].name}</div>;
   }; //end method
 
-    showAll(){
-        // Declare variables
-        var input, filter, Table, tr, td, i, txtValue;
-        input = "";
-        filter = input.toUpperCase();
-        Table = document.getElementById("myTable");
-        tr = Table.getElementsByTagName("tr");
-
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[2];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
-
-    filterRegistered(){
-        // Declare variables
-        var input, filter, Table, tr, td, i, txtValue;
-        input = "Registrert";
-        filter = input.toUpperCase();
-        Table = document.getElementById("myTable");
-        tr = Table.getElementsByTagName("tr");
-
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[2];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
-
-    filterInProgress(){
-        // Declare variables
-        var input, filter, Table, tr, td, i, txtValue;
-        input = "Behandles";
-        filter = input.toUpperCase();
-        Table = document.getElementById("myTable");
-        tr = Table.getElementsByTagName("tr");
-
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[2];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
-
-    filterCompleted(){
-        // Declare variables
-        var input, filter, Table, tr, td, i, txtValue;
-        input = "Fullført";
-        filter = input.toUpperCase();
-        Table = document.getElementById("myTable");
-        tr = Table.getElementsByTagName("tr");
-
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[2];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
 } //end class

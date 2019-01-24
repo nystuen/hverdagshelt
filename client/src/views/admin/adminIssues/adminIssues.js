@@ -3,12 +3,13 @@
 import React from 'react';
 import { Grid, Col, Row, Button, Table, ProgressBar, Nav, NavItem, OverlayTrigger, Modal, Tooltip } from 'react-bootstrap';
 import {IssueService, UserService} from '../../../services';
+import { Filter } from '../../../components/Filter/Filter'
 import { Status } from '../../../classTypes';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
 
 let userService = new UserService();
 let issueService = new IssueService();
-
+let filter = new Filter();
 
 const toolTipAssign = (
     <Tooltip id="tooltip">
@@ -63,7 +64,12 @@ export class adminIssues extends React.Component{
                   <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
                     <Grid>
                         <PageHeader title={'Alle saker i ' + this.state.user.county}/>
-                        <Table>
+                        <label>Velg hvilke saker du vil se: </label>
+                        <Button onClick={filter.showAll} bsStyle={"primary"}>Alle</Button>
+                        <Button onClick={filter.filterRegistered} bsStyle={"primary"}>Registrerte</Button>
+                        <Button onClick={filter.filterInProgress} bsStyle={"primary"}>Behandles</Button>
+                        <Button onClick={filter.filterCompleted} bsStyle={"primary"}>Fullført</Button>
+                        <Table id={"myTable"}>
                             <thead>
                             <tr>
                                 <th>

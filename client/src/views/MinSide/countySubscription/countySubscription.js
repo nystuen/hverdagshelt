@@ -3,6 +3,7 @@ import React, { Component } from 'react';
 import { Layout } from '../../../widgets';
 import { Grid, Row, Col, ListGroup,ListGroupItem, Table, Image, Panel, Glyphicon, Button, FormControl } from "react-bootstrap"
 import {CountyService, UserService, NotificationSettingsService} from "../../../services";
+import {Filter} from "../../../components/Filter/Filter";
 import * as jwt from 'jsonwebtoken';
 import css from './countySubscription.css';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
@@ -11,6 +12,7 @@ import { User } from '../../../classTypes';
 let countyService = new CountyService();
 let userService = new UserService();
 let notificationSettingsService = new NotificationSettingsService();
+let filter = new Filter();
 //Databasekall
 //Få alle kommuner som finnes som er active og som bruker ikke abonerer på
 // Få alle kommuner som den personen abonerer på
@@ -47,7 +49,7 @@ export class CountySubscription extends Component<Props, State> {
 
     countyArray.splice(index, 1);
     this.inputText1.value="";
-    this.filterAll("");
+    filter.filterAll("");
     userArray.push(name);
     this.setState({
       userCounties: userArray,
@@ -65,7 +67,7 @@ export class CountySubscription extends Component<Props, State> {
     userArray.splice(index, 1);
     countyArray.push(name);
     this.inputText.value="";
-    this.filterMine("");
+    filter.filterMine("");
     this.setState({
       allCounties: countyArray,
       userCounties: userArray
@@ -138,7 +140,7 @@ export class CountySubscription extends Component<Props, State> {
                                 <FormControl
                                     type="text"
                                     id='allCounties'
-                                    onKeyUp={this.filterAll}
+                                    onKeyUp={filter.filterAll}
                                     placeholder="Søk i alle kommuner"
                                     inputRef={input => this.inputText1 = input}
                                 />
@@ -169,7 +171,7 @@ export class CountySubscription extends Component<Props, State> {
                                 <FormControl
                                     type="text"
                                     id='myCounties'
-                                    onKeyUp={this.filterMine}
+                                    onKeyUp={filter.filterMine}
                                     placeholder="Søk i dine kommuner"
                                     inputRef={input => this.inputText = input}
                                 />
