@@ -361,8 +361,8 @@ export class RegisterEmployee extends Component<Props, State>{
     goToRegisterEmployee = () => {
         setTimeout(
             function () {
-                history.push('/registrer/kommuneansatt');
-            }, 4000
+                history.push('admin/registrertSuksess');
+            }, 2000
         )
     }
 }
