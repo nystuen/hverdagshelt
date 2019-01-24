@@ -3,7 +3,7 @@ import { Grid, Row, Col, Button } from 'react-bootstrap';
 import {Line, Doughnut} from 'react-chartjs-2';
 import { StatisticsService } from "../../services";
 import ReactDOMServer from "react-dom/server";
-import * as jsPDF  from 'jspdf'
+//import * as jsPDF  from 'jspdf'
 import html2canvas from 'html2canvas';
 import { PageHeader } from '../PageHeader/PageHeader';
 
