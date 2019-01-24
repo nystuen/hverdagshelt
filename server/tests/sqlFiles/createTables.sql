@@ -193,10 +193,11 @@ CREATE TABLE event(
 );
 
 CREATE TABLE pushAlerts(
-  countyId int not null,
-  categoryId int not null,
-  userMail varchar(30) not null,
+  countyId int,
+  categoryId int,
+  userMail varchar(30),
   CONSTRAINT PA_pk primary key(countyId,categoryId,userMail),
+
   CONSTRAINT county3_fk foreign key(countyId) REFERENCES county(countyId),
   CONSTRAINT category2_fk foreign key(categoryId) REFERENCES category(categoryId),
   CONSTRAINT user3_fk foreign key(userMail) REFERENCES user(mail)

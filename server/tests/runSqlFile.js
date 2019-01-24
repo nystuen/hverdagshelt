@@ -18,7 +18,11 @@ module.exports = function run(filename: string, pool: Object, done: Function) {
                     done();
                 } else {
                     console.log("runsqlfile: run ok");
-                    done();
+                    if(done instanceof Function){
+                        done();
+                    }else{
+                        return;
+                    }
                 }
             });
         }
