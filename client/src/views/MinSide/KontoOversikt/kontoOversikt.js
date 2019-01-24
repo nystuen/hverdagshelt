@@ -33,7 +33,8 @@ export class InfoModule extends React.Component{
 
   render(){
     return(
-      <Col>
+
+      <Col className="bottomFooter">
         <Button
           bsStyle="primary"
           onClick={() => this.setState({ show: true })}
@@ -65,7 +66,6 @@ export class InfoModule extends React.Component{
   }
 
 }
-
 
 
 class InformationCard extends React.Component<{ header: string, content: string }> {

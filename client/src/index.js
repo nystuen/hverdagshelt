@@ -42,42 +42,46 @@ import { CreateAdminsOrEmployees } from "./views/admin/createAdminsOrEmployees";
 import { Statistics } from "./components/statistics/Statistics";
 import { adminIssues } from "./views/admin/adminIssues/adminIssues";
 import { EditIssue } from "./views/MinSide/mineSaker/editIssue";
+import { Footer2 } from './components/Footer/Footer2';
+import { eventView } from './views/events/eventView';
+
 
 // Reload application when not in production environment
-if (process.env.NODE_ENV !== "production") {
-  let script = document.createElement("script");
-  script.src = "/reload/reload.js";
+if (process.env.NODE_ENV !== 'production') {
+  let script = document.createElement('script');
+  script.src = '/reload/reload.js';
   if (document.body) document.body.appendChild(script);
 }
 
 export const history = createHashHistory(); // Use history.push(...) to programmatically change path, for instance after successfully saving a student
 
-const root = document.getElementById("root");
+const root = document.getElementById('root');
 if (root)
   ReactDOM.render(
     <HashRouter>
       <div className="route-container">
-        <NavbarMenu />
-        <Route exact path="/" component={Frontpage} />
-        <Route path="/forside/:countyId" component={forside} />
-        <Route path="/wizardForm" component={WizardFormComplete} />
-        <Route path="/min_side/kontooversikt" component={KontoOversikt} />
+
+        <NavbarMenu/>
+        <Route exact path="/" component={Frontpage}/>
+        <Route path="/forside/:countyId" component={forside}/>
+        <Route path="/wizardForm" component={WizardFormComplete}/>
+        <Route path="/min_side/kontooversikt" component={KontoOversikt}/>
 
         <Route
           path="/min_side/editAccountInformation"
           component={editAccountInformation}
         />
-        <Route path="/login" component={Login} />
-        <Route path="/map" component={MapComponent} />
-        <Route path="/min_side/mine_saker" component={MineSaker} />
+        <Route path="/login" component={Login}/>
+        <Route path="/map" component={MapComponent}/>
+        <Route path="/min_side/mine_saker" component={MineSaker}/>
         <Route
           path="/min_side/mine_sakerBedrift"
           component={mineSakerBedrift}
         />
-        <Route path="/addCategory" component={adminAddCategory} />
-        <Route path="/registrer/admin" component={RegisterAdmin} />
-        <Route exact path="/registrer/privat" component={RegisterUser} />
-        <Route exact path="/registrer/bedrift" component={RegisterCompany} />
+        <Route path="/addCategory" component={adminAddCategory}/>
+        <Route path="/registrer/admin" component={RegisterAdmin}/>
+        <Route exact path="/registrer/privat" component={RegisterUser}/>
+        <Route exact path="/registrer/bedrift" component={RegisterCompany}/>
         <Route
           path="/min_side/varselinstillinger"
           component={NotificationSettings}
@@ -87,20 +91,20 @@ if (root)
           component={OversiktOverSak}
         />
 
-        <Route path="/registrer/kommuneansatt" component={RegisterEmployee} />
+        <Route path="/registrer/kommuneansatt" component={RegisterEmployee}/>
         <Route
           exact
           path="/registerEvent"
           component={EventWizardFormComplete}
         />
-        <Route exact path="/events/:countyId" component={events} />
-        <Route exact path="/admin" component={adminPanel} />
-        <Route path="/admin/sendMailTilBruker" component={SendTextMailWindow} />
-        <Route path="/admin/resetPassord" component={AdminResetUserPassword} />
-        <Route path="/admin/registrertSuksess" component={RegNew} />
-        <Route path="/employee/home" component={employeeHomepage} />
-        <Route path="/employee/manageusers" component={employeeManageUsers} />
-        <Route path="/forgotPassword" component={ForgottenPassword} />
+        <Route exact path="/hendelser/:countyId" component={events}/>
+        <Route exact path="/admin" component={adminPanel}/>
+        <Route path="/admin/sendMailTilBruker" component={SendTextMailWindow}/>
+        <Route path="/admin/resetPassord" component={AdminResetUserPassword}/>
+        <Route path="/admin/registrertSuksess" component={RegNew}/>
+        <Route path="/employee/home" component={employeeHomepage}/>
+        <Route path="/employee/manageusers" component={employeeManageUsers}/>
+        <Route path="/forgotPassword" component={ForgottenPassword}/>
         <Route
           path="/admin/createAdminsOrEmployees"
           component={CreateAdminsOrEmployees}
@@ -112,6 +116,8 @@ if (root)
           component={EditIssue}
         />
         <Footer />
+        <Route exact path="/hendelse/:eventId" component={eventView}/>
+        <Footer2/>
       </div>
     </HashRouter>,
     root
