@@ -35,15 +35,20 @@ export class NavbarMenu extends React.Component {
     });
   }
 
-  componentWillMount() {
-    userService.getCurrentUser()
+  componentWillMount = async ()=>  {
+      console.log(window.sessionStorage.getItem('countyId'));
+    await userService.getCurrentUser()
       .then(resources => {
         let user = resources[0];
         this.setState({
           user: user
         });
       });
-  }
+    if(window.sessionStorage.getItem('countyId') === '' || window.sessionStorage.getItem('countyId') === null){
+        await window.sessionStorage.setItem('countyId',this.state.user.countyId);
+        await window.sessionStorage.setItem('countyName', this.state.user.county);
+    }
+  };
 
 
   handleSelect(selectedKey) {
@@ -51,7 +56,7 @@ export class NavbarMenu extends React.Component {
     this.setState({ activeKey: selectedKey });
   }
 
-  render() {
+ render() {
     if (window.localStorage.getItem('userToken') === '') {
       loginButton = <NavItem eventKey={13} href="/#login">Login</NavItem>;
     } else {

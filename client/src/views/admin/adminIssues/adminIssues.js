@@ -1,17 +1,10 @@
 //@flow
 
 import React from 'react';
-import { Grid, Col, Row, Button, Table } from 'react-bootstrap';
+import { Grid, Col, Row, Button, Table, ProgressBar, Nav, NavItem, OverlayTrigger, Modal, Tooltip } from 'react-bootstrap';
 import {IssueService, UserService} from '../../../services';
-import ProgressBar from 'react-bootstrap/es/ProgressBar';
 import { Status } from '../../../classTypes';
-import Nav from 'react-bootstrap/es/Nav';
-import NavItem from 'react-bootstrap/es/NavItem';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
-import OverlayTrigger from "react-bootstrap/es/OverlayTrigger";
-import {Tooltip} from "react-bootstrap";
-import Modal from "react-bootstrap/es/Modal";
-import FormControl from "./interactWithIssue";
 
 let userService = new UserService();
 let issueService = new IssueService();
