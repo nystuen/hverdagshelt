@@ -120,13 +120,14 @@ export class MineSaker extends React.Component<Props, State> {
       <div>
         <Grid>
           <PageHeader title={"Mine saker"} />
-            <label>Velg hvilke saker du vil se: </label>
+            <div align="center">
             <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
                 <ToggleButton onClick={filter.showAll} bsStyle={"primary"} value={1}>Alle</ToggleButton>
                 <ToggleButton onClick={filter.filterRegistered} bsStyle={"primary"} value={2}>Registrerte</ToggleButton>
                 <ToggleButton onClick={filter.filterInProgress} bsStyle={"primary"} value={3}>Behandles</ToggleButton>
                 <ToggleButton onClick={filter.filterCompleted} bsStyle={"primary"} value={4}>Fullført</ToggleButton>
             </ToggleButtonGroup>
+            </div>
           <Table id={"myTable"}>
             <thead>
               <tr>
