@@ -3,7 +3,7 @@
 import React from 'react';
 import { Grid, Col, Row, Button, Table, ProgressBar, NavItem, Nav } from 'react-bootstrap';
 import { Issue } from '../../../classTypes';
-import { CategoryService, UserService } from '../../../services';
+import {CategoryService, IssueService, UserService} from '../../../services';
 import { Alert } from '../../../widgets';
 import { Status } from '../../../classTypes';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
