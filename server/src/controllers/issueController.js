@@ -1,7 +1,7 @@
 //@flow
 
-import { verifyToken } from '../helpers/verifyToken';
-import * as jwt from 'jsonwebtoken';
+import { verifyToken } from "../helpers/verifyToken";
+import * as jwt from "jsonwebtoken";
 
 let bodyParser = require("body-parser");
 let urlencodedParser = bodyParser.urlencoded({ extended: false });
@@ -23,12 +23,16 @@ module.exports = function(app: Object, issueDao: Object) {
     });
   });
 
-  app.get('/getIssuesInThisCounty/:countyId', (req,res) => {
-   console.log("received get request from getIssuesInThisCounty");
-   issueDao.getAllIssuesInCounty(req.params.countyId, req.body.categoryLevel, (status,data) => {
-     res.status(status);
-     res.json(data);
-   });
+  app.get("/getIssuesInThisCounty/:countyId", (req, res) => {
+    console.log("received get request from getIssuesInThisCounty");
+    issueDao.getAllIssuesInCounty(
+      req.params.countyId,
+      req.body.categoryLevel,
+      (status, data) => {
+        res.status(status);
+        res.json(data);
+      }
+    );
   });
 
   app.get("/UserIssues/:UserMail", (req, res) => {
@@ -47,22 +51,21 @@ module.exports = function(app: Object, issueDao: Object) {
     });
   });
 
-  app.get("/oversiktOverSak/:id", (req,res) => {
-    console.log('received get request from /oversiktOverSak');
-    issueDao.getIssueAndCounty(req.params.id, (status,data) => {
+  app.get("/oversiktOverSak/:id", (req, res) => {
+    console.log("received get request from /oversiktOverSak");
+    issueDao.getIssueAndCounty(req.params.id, (status, data) => {
       res.status(status);
       res.json(data);
     });
   });
 
-  app.get("/companyComments/:id", (req,res) => {
-    console.log('Received get request from /companyComments');
-    issueDao.getCompanyComments(req.params.id, (status,data) => {
+  app.get("/companyComments/:id", (req, res) => {
+    console.log("Received get request from /companyComments");
+    issueDao.getCompanyComments(req.params.id, (status, data) => {
       res.status(status);
       res.json(data);
     });
   });
-
 
   app.get("/CompanyIssues/:CompanyMail", (req, res) => {
     console.log("received get request from companyIssues");
@@ -72,26 +75,28 @@ module.exports = function(app: Object, issueDao: Object) {
     });
   });
 
-  app.post("/updateStatusOneIssue", verifyToken, (req,res) => {
+  app.post("/updateStatusOneIssue", verifyToken, (req, res) => {
     console.log("received update request for status on issue " + req.body.id);
 
     jwt.verify(req.token, privateKey, (err, decoded) => {
-      if(err) {
-        res.sendStatus(401)
+      if (err) {
+        res.sendStatus(401);
       } else {
-
-        if (!(decoded.typeId === 'Private')) {
+        if (!(decoded.typeId === "Private")) {
           console.log(req.body.statusName);
-          issueDao.updateStatusOneIssue(req.body.id, req.body.statusName, (status, data) => {
-            res.status(status);
-            res.json(data);
-          });
+          issueDao.updateStatusOneIssue(
+            req.body.id,
+            req.body.statusName,
+            (status, data) => {
+              res.status(status);
+              res.json(data);
+            }
+          );
         } else {
-          res.sendStatus(403)
+          res.sendStatus(403);
         }
       }
     });
-
   });
 
   app.get("/CategoryIssues/:CategoryId", (req, res) => {
@@ -111,8 +116,30 @@ module.exports = function(app: Object, issueDao: Object) {
   });
 
   app.post("/addIssueComments", (req, res) => {
-    console.log('Received post request from addIssueComments');
-    issueDao.addCommentToIssue(req.body.id,req.body.text, req.body.companyMail, (status,data) => {
+    console.log("Received post request from addIssueComments");
+    issueDao.addCommentToIssue(
+      req.body.id,
+      req.body.text,
+      req.body.companyMail,
+      (status, data) => {
+        res.status(status);
+        res.json(data);
+      }
+    );
+  });
+
+  app.put("/deleteIssue/:issueId", (req, res) => {
+    console.log("Received put request from deleteIssue");
+    issueDao.deleteIssue(req.params.issueId, (status, data) => {
+      res.status(status);
+      res.json(data);
+    });
+  });
+
+  app.put("/editIssue/:issueId", (req, res) => {
+    console.log("received put request from editIssue");
+    //console.log(req);
+    issueDao.updateIssue(req.params.issueId, req.body, (status, data) => {
       res.status(status);
       res.json(data);
     });

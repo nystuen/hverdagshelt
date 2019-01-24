@@ -28,8 +28,8 @@ export class Footer extends Component<{}> {
 
 
   state = {
-      countyInformation:[],
-     user: {}
+    countyInformation: [],
+    user: []
 
   };
 
