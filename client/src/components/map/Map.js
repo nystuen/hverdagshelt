@@ -36,6 +36,15 @@ export class EventMapComponent extends Component<{markers: string[]}> {
 
   mapRef = createRef<Map>()
 
+  componentWillReceiveProps(e: Object){
+    this.setState({
+      latlng: {
+        lat: e.markers[0],
+        lng: e.markers[1]
+      }
+    })
+  }
+
   render() {
     let markers = this.props.markers
     console.log("Hello", markers)
@@ -49,12 +58,12 @@ export class EventMapComponent extends Component<{markers: string[]}> {
 
     let mapStyle = {
       height: '50vh',
-      width: '80%'
+      width: '90%'
     }
 
 
     return (
-      <div id="containme">
+      <div>
         <Map
           center={this.state.latlng}
           length={12}

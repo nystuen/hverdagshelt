@@ -2,18 +2,18 @@ import {Dao} from "../dao";
 
 export class StatisticsDao extends Dao {
 
-  getNumberStatus(callback: Function){
+  getNumberStatus(countyId: number, callback: Function){
     super.query(
-      "SELECT statusName, COUNT(*) as ant from issues GROUP BY statusName",
-      [],
+      "SELECT statusName, COUNT(*) as ant from issues WHERE countyId=? GROUP BY statusName",
+      [countyId],
       callback
     )
   }
 
-  getIssuesDaily(callback: Function){
+  getIssuesDaily(countyId: number, callback: Function){
     super.query(
-      "SELECT date, COUNT(*) as ant from issues GROUP BY date",
-      [],
+      "SELECT date, COUNT(*) as ant from issues WHERE countyId=? GROUP BY date",
+      [countyId],
       callback
     )
   }

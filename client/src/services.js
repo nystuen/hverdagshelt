@@ -309,12 +309,12 @@ export class NotificationSettingsService {
 
 export class StatisticsService {
 
-  getStatus(): Promise<Response>{
-    return axios.get('/issueCategories')
+  getStatus(countyId: number): Promise<Response>{
+    return axios.get('/issueCategories/' + countyId)
   }
 
-  getDaily(): Promise<Response>{
-    return axios.get('/issuesDaily')
+  getDaily(countyId: number): Promise<Response>{
+    return axios.get('/issuesDaily/'+ countyId)
   }
 }
 
