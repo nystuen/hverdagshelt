@@ -12,7 +12,6 @@ module.exports = function(app: Object, categoriesDao: Object) {
 
   app.get("/get_category1", urlencodedParser, (req, res) => {
     console.log("got request from get_user");
-
     categoriesDao.getCategory1((status, data) => {
       res.status(status);
       res.json(data);
@@ -84,6 +83,35 @@ module.exports = function(app: Object, categoriesDao: Object) {
           }
       });
   });
+  app.put("/category1/updateCategory1", verifyToken, (req, res)=>{
+        jwt.verify(req.token, privateKey, (err, decoded) => {
+            if (err) {
+                res.sendStatus(401)
+            } else {
+                console.log("got req from updateCategory");
+                categoriesDao.updateCategory1(req.body.cat1Id, (status, data) => {
+                    console.log("KOMMER HIT");
+                    res.status(status);
+                    res.json(data);
+                })
+            }
+        });
+  });
+
+  app.put("/category2/updateCategory2", verifyToken, (req, res)=>{
+      jwt.verify(req.token, privateKey, (err, decoded) => {
+          if (err) {
+              res.sendStatus(401)
+          } else {
+                console.log("got req from updateCategory");
+                categoriesDao.updateCategory2(req.body.cat2Id, (status, data) => {
+                    res.status(status);
+                  res.json(data);
+              })
+          }
+      });
+  });
+
 
   app.post("/add_category2", verifyToken, (req, res) => {
       jwt.verify(req.token, privateKey, (err, decoded) => {

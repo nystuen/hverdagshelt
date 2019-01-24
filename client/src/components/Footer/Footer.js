@@ -79,7 +79,7 @@ export class Footer extends Component<{}> {
           <div align="center">
 
             <Image className="picture"
-                   src={'./resources/logo_white.png'}
+                   src={'./resources/logo_svart.png'}
                    rounded/>
             <h2>HVERDAGSHELT</h2>
 
