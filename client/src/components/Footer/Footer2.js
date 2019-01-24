@@ -16,7 +16,6 @@ import {
   ControlLabel
 } from 'react-bootstrap';
 import { CountyService, getUsersCounties } from '../../services';
-import Image from 'react-bootstrap/es/Image';
 import { UserService } from '../../services';
 import css from './Footer2.css';
 

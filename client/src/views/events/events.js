@@ -1,12 +1,12 @@
 // @flow
 
 import React from 'react';
-import { Grid, Panel, PanelGroup, Col } from 'react-bootstrap';
+import { Grid, Panel, PanelGroup, Col, ListGroupItem, ListGroup } from 'react-bootstrap';
 import { EventCategoryService } from '../../services';
 import { Event } from '../../classTypes';
 import css from './events.css';
 import { PageHeader } from '../../components/PageHeader/PageHeader';
-import { MapComponent } from '../../components/map/Map';
+import { EventMapComponent } from '../../components/map/Map';
 
 let eventCategoryService = new EventCategoryService();
 
