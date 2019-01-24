@@ -4,9 +4,10 @@ import {Component} from 'react';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import {County} from "../../classTypes";
-import {FormControl, PageHeader} from "react-bootstrap";
+import {FormControl} from "react-bootstrap";
 import Select from "react-select";
 import {history} from "../../index";
+import {PageHeader} from "../PageHeader/PageHeader";
 
 let countyService = new CountyService();
 let userService = new UserService();
@@ -220,18 +221,32 @@ export class RegisterAdmin extends Component<Props, State>{
             <Grid>
                 <Col md={3}></Col>
                 <Col md={6}>
+                    <PageHeader title={"Registrer bruker"} />
+
                     <Form horizontal>
                         <FormGroup controlId="formHorizontalEmail">
                             <FormGroup>
                                 <FormGroup>
                                     <Col md={3}></Col>
                                     <Col md={6}>
-                                        <PageHeader>
-                                            Registrer admin
-                                        </PageHeader>
+
                                     </Col>
                                     <Col md={3}></Col>
                                 </FormGroup>
+                                <Col md={3}/>
+                                <Col md={6}>
+                                    <div align="center">
+                                    <FormGroup>
+                                        <ButtonToolbar>
+                                            <ToggleButtonGroup type="radio" name="chooseType" onChange={this.handleButtonChange}>
+                                                <ToggleButton style={{"width":"10em"}} value={1}>Admin</ToggleButton>
+                                                <ToggleButton style={{"width":"10em"}} value={2}>Kommuneansatt</ToggleButton>
+                                            </ToggleButtonGroup>
+                                        </ButtonToolbar>
+                                    </FormGroup>
+                                    </div>
+                                </Col>
+                                <Col md={3}/>
                                 <Col md={6}>
                                     <FormGroup validationState={this.getValidationStateFirstName()}>
                                         <FormControl type="text" value={this.state.firstName} placeholder="Fornavn"
@@ -247,12 +262,24 @@ export class RegisterAdmin extends Component<Props, State>{
                                         <FormControl.Feedback/>
                                     </FormGroup>
                                 </Col>
-                                <Col md={12}>
+                                <Col md={6}>
                                     <FormGroup validationState={this.getValidationAddress()}>
                                         <FormControl type="text" value={this.state.address} placeholder="Addresse"
                                                      onChange={this.handleStringChange("address")}
                                         />
                                         <FormControl.Feedback/>
+                                    </FormGroup>
+                                </Col>
+                                <Col md={6}>
+                                    <FormGroup>
+                                        <Select
+                                            placeholder={"Søk hjemmekommune"}
+                                            name="colors"
+                                            options={optionTemplate}
+                                            className="basic-multi-select"
+                                            classNamePrefix="select"
+                                            onChange={this.handleChangeCounty}
+                                        />
                                     </FormGroup>
                                 </Col>
                                 <Col md={6}>
@@ -286,33 +313,6 @@ export class RegisterAdmin extends Component<Props, State>{
                                 </Col>
                         </FormGroup>
                             <FormGroup>
-                                <Col md={6}>
-                                    <FormGroup>
-                                        <Select
-                                            placeholder={"Søk hjemmekommune"}
-                                            name="colors"
-                                            options={optionTemplate}
-                                            className="basic-multi-select"
-                                            classNamePrefix="select"
-                                            onChange={this.handleChangeCounty}
-                                        />
-                                    </FormGroup>
-                                </Col>
-                                <Col md={1}>
-                                </Col>
-                                <Col md={4}>
-                                    <FormGroup>
-                                    <ButtonToolbar>
-                                        <ToggleButtonGroup type="radio" name="chooseType" onChange={this.handleButtonChange}>
-                                            <ToggleButton value={1}>Admin</ToggleButton>
-                                            <ToggleButton value={2}>Kommuneansatt</ToggleButton>
-                                        </ToggleButtonGroup>
-                                    </ButtonToolbar>
-                                    </FormGroup>
-
-                                </Col>
-                            </FormGroup>
-                            <FormGroup>
                                 <Col md={4}/>
                                 <Col md={4}>
                                     <FormGroup>
@@ -320,16 +320,15 @@ export class RegisterAdmin extends Component<Props, State>{
                                         {register_success}
                                         {error_button}
                                     </FormGroup>
+                                    <div align="center">
+                                        <Button type="button" onClick={this.checkInput}>Registrer</Button>
+                                    </div>
                                 </Col>
                                 <Col md={4}/>
                             </FormGroup>
                             <FormGroup>
-                                <Col md={4}/>
-                                <Col md ={4}>
-                                    <Button type="button" onClick={this.checkInput}>Registrer</Button>
-                                </Col>
-                                <Col md={4}>
-                                </Col>
+
+
                             </FormGroup>
                         </FormGroup>
                     </Form>
@@ -342,23 +341,19 @@ export class RegisterAdmin extends Component<Props, State>{
     checkInput = () =>{
         //console.log(this.getValidationStateFirstName()||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()||this.getValidationStateEmail2()==='warning'||this.getValidationStatePassword()==='warning'||this.getValidationStatePassword2()==='warning');
         if(this.state.buttonValue===0){
-            this.setState({errorButton:true})
+            this.setState({errorButton:true, errorSomething: false})
         };
 
         if(this.state.errorButton===0||this.state.countyIsChanged===false || this.getValidationStateFirstName()==='warning' || this.getValidationStateLastName()==='warning' || this.getValidationPhone()==='warning' || this.getValidationStateEmail()==='warning' || this.getValidationStateEmail2()==='warning' || this.getValidationPostNumber()==='warning' || this.getValidationAddress()==='warning'){
-            console.log("Kommer hit!!")
-            confirm('Du må fylle alle feltene');
             this.setState({
-                errorSomething:true
+                errorSomething:true,
+                errorButton:false
             });
-            console.log("ERROR SOMETHING2: "+this.state.errorSomething)
         }else{
             if(this.state.buttonValue===1) {
                 this.register();
             }else if(this.state.buttonValue===2){
                 this.register2();
-            }else{
-                console.log("DET ER FAIL");
             }
         }
     };
@@ -427,7 +422,7 @@ export class RegisterAdmin extends Component<Props, State>{
             completed: 1
         };
         notificationSettingService.addIssueNotificationSettings(theBody);
-        this.setState({errorSomething: false, registerSuccess: true});
+        this.setState({errorSomething: false, errorButton: false, registerSuccess: true});
         this.goToRegNew();
 
     };

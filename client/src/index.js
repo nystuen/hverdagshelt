@@ -62,8 +62,8 @@ if (root)
       <div className="route-container">
 
         <NavbarMenu/>
-        <Route exact path="/" component={Frontpage}/>
-        <Route path="/forside/:countyId" component={forside}/>
+        <Route exact path="/" component={forside}/>
+        <Route path="/endreKommune/" component={Frontpage}/>
         <Route path="/wizardForm" component={WizardFormComplete}/>
         <Route path="/min_side/kontooversikt" component={KontoOversikt}/>
 
