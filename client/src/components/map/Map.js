@@ -5,6 +5,9 @@ import { Map, TileLayer, Marker, Circle, Popup, withLeaflet } from 'react-leafle
 import * as ELG from 'esri-leaflet-geocoder'
 import L from 'leaflet'
 import { Button, Col, Row } from 'react-bootstrap';
+import NavLink from 'react-router-dom/es/NavLink';
+import Nav from 'react-bootstrap/es/Nav';
+import NavItem from 'react-bootstrap/es/NavItem';
 import { UserService } from '../../services';
 import Geocode from "react-geocode";
 
@@ -19,6 +22,36 @@ type State = {
   },
   zoom: number
 }
+
+var greenIcon = new L.Icon({
+	iconUrl: 'marker-icon-green.png',
+  shadowUrl: 'marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+});
+
+var yellowIcon = new L.Icon({
+	iconUrl: 'marker-icon-yellow.png',
+	shadowUrl: 'marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+});
+
+
+var blueIcon = new L.Icon({
+	iconUrl: 'marker-icon-blue.png',
+	shadowUrl: 'marker-shadow.png',
+	iconSize: [25, 41],
+	iconAnchor: [12, 41],
+	popupAnchor: [1, -34],
+	shadowSize: [41, 41]
+});
+
+
 
 let userService = new UserService();
 
@@ -87,27 +120,50 @@ export class IssueMapComponent extends Component {
       hasLocation: true,
       address: "",
       latlng: {
-          lat: 50,
-          lng: 10
+        lat: 65.107877,
+        lng: 12.074429
       },
-      zoom: 14,
+      zoom: 11,
       issues: []
     };
+
+    this.popupClick = this.popupClick.bind(this);
   }
 
   mapRef = createRef<Map>()
 
   componentDidMount(){
-      userService.getMyIssuesWithCat().then(response => {
-          this.setState({issues: response});
-      }).catch((error: Error) => console.log("Insert alert here Magnus"));
+
+    userService.getMyIssuesWithCat().then(response => {
+        this.setState({issues: response});
+    }).catch((error: Error) => console.log("Insert alert here Magnus"));
+    const map = this.mapRef.current.leafletElement;
+
+    if (map != null) {
+      map.locate();
     }
+  }
+
+  handleLocationFound = (e: Object) => {
+    this.setState({
+      latlng: e.latlng,
+      zoom: 13
+    });
+  };
+
+  popupClick = (e: Object) => {
+    console.log("hello")
+  }
 
   render() {
 
     let mapStyle = {
       height: '90vh',
       width: '100vw'
+    }
+
+    let btnStyle = {
+      margin: '5px',
     }
 
     return (
@@ -128,11 +184,27 @@ export class IssueMapComponent extends Component {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
           {this.state.issues.map((e, id) => {
-            console.log(e)
+            let color = e.statusName
+            let status
+            let icon_color
+            if(color == 'Registered'){
+              icon_color = yellowIcon
+              status = "Registrert"
+            } else if (color == 'In progress') {
+              icon_color = blueIcon
+              status = "Under behandling"
+            } else {
+              icon_color = greenIcon
+              status = "Fullført"
+            }
             return (
-              <Marker key={id} position={[e.latitude, e.longitude]}>
+              <Marker key={id} position={[e.latitude, e.longitude]} icon={icon_color}>
                 <Popup>
-                  <span>{e.name}</span>
+                  <Nav bsStyle="pills">
+                    <NavItem href={'/#min_side/sakoversikt/' + e.issueId}>
+                      {"Kategori: " +e.name + ", Innsendt: "+ e.date + ", Status: " + status}
+                    </NavItem>
+                  </Nav>
                 </Popup>
               </Marker>
             )}

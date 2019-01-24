@@ -56,7 +56,6 @@ export class UserService {
   }//end method
 
   getMyIssuesWithCat(): Promise<JSON> {
-    console.log('hei')
     return axios.get('/user/getMyIssuesWithCat', { headers: authHeader() });
   }
 

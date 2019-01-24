@@ -207,7 +207,7 @@ module.exports = function(app: Object, userDao: Object) {
         res.sendStatus(401);
       } else {
         console.log("got req from getMyIssuesWithCat");
-        userDao.getIssuesForOneUserWithCat(decoded.email, (status, data) => {
+        userDao.getIssuesForAllUserWithCat((status, data) => {
           res.status(status);
           res.json(data);
         });
