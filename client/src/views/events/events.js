@@ -8,7 +8,7 @@ import css from './events.css';
 import Panel from 'react-bootstrap/es/Panel';
 import PanelGroup from 'react-bootstrap/es/PanelGroup';
 import { PageHeader } from '../../components/PageHeader/PageHeader';
-import { MapComponent } from '../../components/map/Map';
+import { EventMapComponent } from '../../components/map/Map';
 
 let eventCategoryService = new EventCategoryService();
 
@@ -58,6 +58,7 @@ export class events extends React.Component<Props, State> {
   };
 
   render() {
+
     return (
       <div className="events">
         <Grid>
@@ -87,21 +88,15 @@ export class events extends React.Component<Props, State> {
                       </Panel.Heading>
                       <Panel.Body collapsible>
                         <h4>{r.text}</h4>
-
-                        <div>
-                          Her kan det kanskje komme map?
-                          long {r.longitude}
-                          lat {r.latitude}
-                        </div>
-
+                        <EventMapComponent markers={[r.latitude, r.longitude]}/>
                         <p>Publisert {r.date} av {r.userMail}</p>
                       </Panel.Body>
                     </Panel></div>;
 
                   return (
-                    <row>
+                    <Row>
                       {panel}
-                    </row>
+                    </Row>
                   );
 
                 })
