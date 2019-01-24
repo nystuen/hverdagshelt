@@ -18,7 +18,7 @@ run_tests:
   stage: test
   image: node:latest
   script:
-  - npm test -- -u
+  - npm test
   - cd ../server && npm test
   artifacts:
     paths:

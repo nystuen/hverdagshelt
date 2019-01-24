@@ -34,7 +34,7 @@ import { SendTextMailWindow } from "./components/Mail/SendMail";
 import { Footer } from "./components/Footer/Footer";
 import { RegisterEmployee } from "./components/registeremployee/RegisterEmployee";
 import { RegisterAdmin } from "./components/registeradmin/registeradmin";
-import { ForgottenPassword } from "./views/login/ForgottenPassword";
+import { ForgottenPassword } from "./views/login/forgottenPassword";
 import { RegNew } from "./components/regNew/RegNew";
 import { employeeHomepage } from "./views/employee/employeeHomepage/employeeHomepage";
 import { employeeManageUsers } from "./views/employee/employeeManageUsers/employeeManageUsers";
