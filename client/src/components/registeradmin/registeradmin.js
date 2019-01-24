@@ -358,10 +358,10 @@ export class RegisterAdmin extends Component<Props, State>{
         this.goToRegNew();
 
     };
-    goToRegNew= () => {
+    goToRegNew = () => {
         setTimeout(
             function () {
-                history.push('admin/registrertSuksess');
+                history.push('/admin/registrertSuksess');
             }, 2000
         )
     }

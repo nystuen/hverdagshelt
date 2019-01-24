@@ -1,8 +1,7 @@
 
 import * as React from 'react';
 import { Component } from 'react-simplified';
-import {Collapse,
-  Collapse,
+import {Collapse, Col,
   Button,
     ListGroup,
     ListGroupItem,
