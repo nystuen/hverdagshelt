@@ -17,6 +17,9 @@ const validate = values => {
   if (!values.text) {
     errors.text = "Required";
   }
+  if (!values.title) {
+    errors.text = "Required";
+  }
   if (!values.date) {
     errors.date = "Required";
   }

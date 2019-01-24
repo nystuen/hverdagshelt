@@ -1,7 +1,7 @@
 // @flow
 
-import React from "react";
-import jwt from "jsonwebtoken";
+import React from 'react';
+import jwt from 'jsonwebtoken';
 import {
   Grid,
   Row,
@@ -9,18 +9,19 @@ import {
   ListGroup,
   ListGroupItem,
   Alert
-} from "react-bootstrap";
-import { ChooseCategory } from "../../../components/ChooseCategory/ChooseCategory";
-import Button from "react-bootstrap/es/Button";
-import { Category, Category2, Category3, User } from "../../../classTypes";
-import { UserService } from "../../../services";
-import { PageHeader } from "../../../components/PageHeader/PageHeader";
-import Form from "react-bootstrap/es/Form";
-import FormGroup from "react-bootstrap/es/FormGroup";
-import FormControl from "react-bootstrap/es/FormControl";
-import ControlLabel from "react-bootstrap/es/ControlLabel";
-import { CountyList } from "../../../components/CountyList/CountyList";
-import { history } from "../../../index";
+} from 'react-bootstrap';
+import { ChooseCategory } from '../../../components/ChooseCategory/ChooseCategory';
+import Button from 'react-bootstrap/es/Button';
+import { Category, Category2, Category3, User } from '../../../classTypes';
+import { UserService } from '../../../services';
+import { PageHeader } from '../../../components/PageHeader/PageHeader';
+import Form from 'react-bootstrap/es/Form';
+import FormGroup from 'react-bootstrap/es/FormGroup';
+import FormControl from 'react-bootstrap/es/FormControl';
+import ControlLabel from 'react-bootstrap/es/ControlLabel';
+import { CountyList } from '../../../components/CountyList/CountyList';
+import { history } from '../../../index';
+import css from './accountInformation.css';
 
 let userService = new UserService();
 
@@ -42,28 +43,28 @@ class AccountInfoEditCard extends React.Component<{
       <div>
         <div>
           <Grid>
-            <Col xs={2} md={2} />
+            <Col xs={2} md={2}/>
             <Col xs={8} md={8}>
               <Col md={6}>
                 <InformationCard
-                  header={"Navn"}
-                  content={this.props.firstName + " " + this.props.lastName}
+                  header={'Navn'}
+                  content={this.props.firstName + ' ' + this.props.lastName}
                 />
                 <InformationCard
-                  header={"Hjemmekommune"}
+                  header={'Hjemmekommune'}
                   content={this.props.county}
                 />
               </Col>
 
               <Col md={6}>
-                <InformationCard header={"E-post"} content={this.props.email} />
+                <InformationCard header={'E-post'} content={this.props.email}/>
                 <InformationCard
-                  header={"Mobilnummer"}
+                  header={'Mobilnummer'}
                   content={this.props.phone}
                 />
               </Col>
             </Col>
-            <Col xs={2} md={2} />
+            <Col xs={2} md={2}/>
 
             <Row>
               <div align="center">
@@ -73,7 +74,7 @@ class AccountInfoEditCard extends React.Component<{
             </Row>
 
             <Row>
-              <div align="center" />
+              <div align="center"/>
             </Row>
           </Grid>
         </div>
@@ -86,10 +87,10 @@ export class editAccountInformation extends React.Component<State> {
   state = {
     user: User,
     countyId: 0,
-    firstName: "",
-    lastName: "",
-    mail: "",
-    phone: ""
+    firstName: '',
+    lastName: '',
+    mail: '',
+    phone: ''
   };
 
   componentDidMount() {
@@ -105,27 +106,28 @@ export class editAccountInformation extends React.Component<State> {
       this.state.user.countyId = this.state.countyId;
     }
 
-    if (this.state.firstName != "") {
+    if (this.state.firstName != '') {
       this.state.user.firstName = this.state.firstName;
     }
 
-    if (this.state.lastName != "") {
+    if (this.state.lastName != '') {
       this.state.user.lastName = this.state.lastName;
     }
 
-    if (this.state.phone != "") {
+    if (this.state.phone != '') {
       this.state.user.phone = this.state.phone;
     }
 
     userService.updateUser(this.state.user).then(response => {
-      console.log("res", response);
+      console.log('res', response);
+      window.location.reload();
     });
 
-    history.push("/min_side/kontooversikt");
+    history.push('/min_side/kontooversikt');
   }
 
   handleOnChangeCounty = (name: number) => {
-    console.log("nae", name);
+    console.log('nae', name);
     this.setState({
       countyId: name
     });
@@ -135,64 +137,80 @@ export class editAccountInformation extends React.Component<State> {
     this.setState({ [e.target.name]: e.target.value });
   };
 
+
+  buttonBack(){
+    this.props.history.goBack();
+  }
+
   render() {
     return (
       <div>
+        <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
         <Grid>
-          <PageHeader title={"Endre kontoinformasjon"} />
+          <PageHeader title={'Endre kontoinformasjon'}/>
 
-          {this.state.user.typeName === "Admin" ||
-          this.state.user.typeName === "Employee" ||
-          this.state.user.typeName === "Private" ? (
+          {this.state.user.typeName === 'Admin' ||
+          this.state.user.typeName === 'Employee' ||
+          this.state.user.typeName === 'Private' ? (
             <div>
               <Form>
                 <Grid>
-                  <Col xs={12} md={6}>
-                    <FormGroup controlId="formInlineFirstName">
-                      <ControlLabel>Fornavn</ControlLabel>{" "}
-                      <FormControl
-                        onChange={this.handleChange}
-                        name="firstName"
-                        type="text"
-                        placeholder="Fornavn"
-                        defaultValue={this.state.user.firstName}
-                      />
-                    </FormGroup>{" "}
-                    <FormGroup controlId="formInlinePhone">
-                      <ControlLabel>Mobilnummer</ControlLabel>{" "}
-                      <FormControl
-                        onChange={this.handleChange}
-                        name="phone"
-                        type="phone"
-                        placeholder="phone"
-                        defaultValue={this.state.user.phone}
-                      />
-                    </FormGroup>{" "}
+                  <Col xs={0} md={2}>
                   </Col>
 
-                  <Col xs={12} md={6}>
-                    <FormGroup controlId="formInlineLastName">
-                      <ControlLabel>Etternavn</ControlLabel>{" "}
-                      <FormControl
-                        onChange={this.handleChange}
-                        name="lastName"
-                        type="text"
-                        placeholder="Etternavn"
-                        defaultValue={this.state.user.lastName}
-                      />
-                    </FormGroup>{" "}
-                    <FormGroup controlId="formInlineHjemmekommune">
-                      <ControlLabel>Hjemmekommune</ControlLabel>{" "}
-                      <CountyList
-                        handleOnChangeCounty={this.handleOnChangeCounty.bind(
-                          this
-                        )}
-                      />
-                    </FormGroup>{" "}
+                  <Col md={8}>
+
+                    <Col xs={12} md={6}>
+                      <FormGroup controlId="formInlineFirstName">
+                        <ControlLabel>Fornavn</ControlLabel>{' '}
+                        <FormControl
+                          onChange={this.handleChange}
+                          name="firstName"
+                          type="text"
+                          placeholder="Fornavn"
+                          defaultValue={this.state.user.firstName}
+                        />
+                      </FormGroup>{' '}
+                      <FormGroup controlId="formInlinePhone">
+                        <ControlLabel>Mobilnummer</ControlLabel>{' '}
+                        <FormControl
+                          onChange={this.handleChange}
+                          name="phone"
+                          type="phone"
+                          placeholder="phone"
+                          defaultValue={this.state.user.phone}
+                        />
+                      </FormGroup>{' '}
+                    </Col>
+
+                    <Col xs={12} md={6}>
+                      <FormGroup controlId="formInlineLastName">
+                        <ControlLabel>Etternavn</ControlLabel>{' '}
+                        <FormControl
+                          onChange={this.handleChange}
+                          name="lastName"
+                          type="text"
+                          placeholder="Etternavn"
+                          defaultValue={this.state.user.lastName}
+                        />
+                      </FormGroup>{' '}
+                      <FormGroup controlId="formInlineHjemmekommune">
+                        <ControlLabel>Hjemmekommune</ControlLabel>{' '}
+                        <CountyList
+                          handleOnChangeCounty={this.handleOnChangeCounty.bind(
+                            this
+                          )}
+                        />
+                      </FormGroup>{' '}
+                    </Col>
+                  </Col>
+
+                  <Col xs={0} md={8}>
                   </Col>
                 </Grid>
                 <div align="center">
-                  <Button onClick={() => this.handleChangeUser()} align="right">
+                  <Button id="accountInformationButton" bsStyle="primary" onClick={() => this.handleChangeUser()}
+                          align="right">
                     Lagre Endringer
                   </Button>
                 </div>
