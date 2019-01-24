@@ -3,6 +3,7 @@ Drop table if exists pushAlerts;
 Drop table if exists companyCategories;
 drop table if exists companyCounties;
 Drop table if exists companyIssues;
+Drop view  if exists allCats;
 Drop table if exists event;
 Drop table if exists issues;
 Drop table if exists userCounties;
@@ -192,10 +193,11 @@ CREATE TABLE event(
 );
 
 CREATE TABLE pushAlerts(
-  countyId int not null,
-  categoryId int not null,
-  userMail varchar(30) not null,
+  countyId int,
+  categoryId int,
+  userMail varchar(30),
   CONSTRAINT PA_pk primary key(countyId,categoryId,userMail),
+
   CONSTRAINT county3_fk foreign key(countyId) REFERENCES county(countyId),
   CONSTRAINT category2_fk foreign key(categoryId) REFERENCES category(categoryId),
   CONSTRAINT user3_fk foreign key(userMail) REFERENCES user(mail)
@@ -206,6 +208,9 @@ CREATE TABLE companyComment(
   commentId int not null AUTO_INCREMENT,
   issueId int not null,
   text text,
+  mail varchar(30),
   CONSTRAINT companyComment_fk primary key(commentId)
 );
+
+CREATE view allCats AS SELECT category.categoryId, category2.category2Id, category.name from category natural join category2;
 
