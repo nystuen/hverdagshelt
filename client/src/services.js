@@ -66,8 +66,12 @@ export class UserService {
   addCompany(json: Object): Promise<Response> {
     return axios.post('/registrateCompany', json);
   }
+  addAdmin(newAdmin: Admin): Promise<Response>{
+      return axios.post('/add_admin', newAdmin);
+  }
 
-  addCompany(json: Object) {
+
+    addCompany(json: Object) {
     return axios.post('/registrateCompany', json);
   }
 
