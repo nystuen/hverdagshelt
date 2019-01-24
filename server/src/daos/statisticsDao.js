@@ -17,5 +17,4 @@ export class StatisticsDao extends Dao {
       callback
     )
   }
-
 }

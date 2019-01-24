@@ -1,9 +1,21 @@
 import React, { Component } from 'react';
-import { Grid, Row, Col, ListGroup, ListGroupItem, Table, Image, Panel, Button, ButtonGroup } from 'react-bootstrap';
+import {
+  Grid,
+  Row,
+  Col,
+  ListGroup,
+  ListGroupItem,
+  Table,
+  Image,
+  Panel,
+  Button,
+  ButtonGroup,
+  Jum
+} from 'react-bootstrap';
 import { CountyService, EventCategoryService } from '../../services';
 import css from './forside.css';
-import {Event} from '../../classTypes';
-import {CategorySelectList} from "../../components/CategorySelectList/CategorySelectList";
+import { Event } from '../../classTypes';
+import { CategorySelectList } from '../../components/CategorySelectList/CategorySelectList';
 
 let countyService = new CountyService();
 let eventCategoryService = new EventCategoryService();
@@ -45,35 +57,29 @@ export class forside extends Component {
 
   componentDidMount() {
     this.getInformation();
-  };
+  }
+
+  login() {
+    if (false) {
+      return <Button id="homepageButton" bsStyle="primary">Bli en hverdagshelt!</Button>;
+    }
+  }
 
   render() {
     return (
       <div className="forside">
-        <Grid>
-          <Col md={4}></Col>
+        <Grid align="center">
 
-          <Col xs={12} md={4} align={'center'} className="buttonsAtHomepage">
-            <Button bsStyle="success" href={'/#wizardForm'} bsSize="large" block>Meld om feil</Button>
-
-            <Button bsStyle="success" href={'#'} bsSize="large" block>Kart</Button>
-            <Button bsStyle="success" href={'#'} bsSize="large" block>Statistikk</Button>
-          </Col>
-
-          <Col md={4}>
-            <div className="importantEvents">
-              <h4 align="center">Viktige hendelser</h4>
-              <ListGroup>
-                {
-                  this.state.importantEvents.map((r, i) => {
-                    return <ListGroupItem href={'#'} className="text-center" key={i}>{r.title}</ListGroupItem>;
-                  })
-                }
-              </ListGroup>
-            </div>
-          </Col>
-
+          <h1>Velkommen til Hverdagshelt</h1>
+          <p>
+            Dette er en felles portal på tvers av alle kommuner i Norge for å melde inn,
+            se statistikk og ha oversikt over alle mangler og feil som er i din kommune.
+          </p>
+          <p>
+            {this.login()}
+          </p>
         </Grid>
+
 
       </div>
 

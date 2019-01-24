@@ -89,7 +89,7 @@ export class Footer2 extends Component<{}> {
           </Grid>
 
             <div className="footer-copyright">
-              <p>© 2018 Hverdagshelt </p>
+              <p>© 2019 Hverdagshelt </p>
             </div>
         </footer>
       );
