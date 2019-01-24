@@ -201,6 +201,20 @@ module.exports = function(app: Object, userDao: Object) {
     });
   });
 
+  app.get("/user/getMyIssuesWithCat", verifyToken, (req, res) => {
+    jwt.verify(req.token, privateKey, (err, decoded) => {
+      if (err) {
+        res.sendStatus(401);
+      } else {
+        console.log("got req from getMyIssuesWithCat");
+        userDao.getIssuesForOneUserWithCat(decoded.email, (status, data) => {
+          res.status(status);
+          res.json(data);
+        });
+      }
+    });
+  });
+
   app.get("/getHomeCounty", verifyToken, (req, res) => {
     jwt.verify(req.token, privateKey, (err, decoded) => {
       if (err) {

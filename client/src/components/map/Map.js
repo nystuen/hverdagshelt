@@ -5,6 +5,7 @@ import { Map, TileLayer, Marker, Circle, Popup, withLeaflet } from 'react-leafle
 import * as ELG from 'esri-leaflet-geocoder'
 import L from 'leaflet'
 import { Button, Col, Row } from 'react-bootstrap';
+import { UserService } from '../../services';
 import Geocode from "react-geocode";
 
 Geocode.setApiKey("AIzaSyDVZREoJuiobrxWVmBFhemEk1VdRB0MsSI");
@@ -18,6 +19,8 @@ type State = {
   },
   zoom: number
 }
+
+let userService = new UserService();
 
 export class EventMapComponent extends Component<{markers: string[]}> {
   constructor (props){
@@ -70,6 +73,70 @@ export class EventMapComponent extends Component<{markers: string[]}> {
               url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
             />
             {marker}
+        </Map>
+      </div>
+    )
+  }
+}
+
+export class IssueMapComponent extends Component {
+  constructor (props){
+    super(props);
+
+    this.state = {
+      hasLocation: true,
+      address: "",
+      latlng: {
+          lat: 50,
+          lng: 10
+      },
+      zoom: 14,
+      issues: []
+    };
+  }
+
+  mapRef = createRef<Map>()
+
+  componentDidMount(){
+      userService.getMyIssuesWithCat().then(response => {
+          this.setState({issues: response});
+      }).catch((error: Error) => console.log("Insert alert here Magnus"));
+    }
+
+  render() {
+
+    let mapStyle = {
+      height: '90vh',
+      width: '100vw'
+    }
+
+    return (
+      <div id="containme">
+        {console.log('trigg', this.state.issues)}
+        <Map
+          center={this.state.latlng}
+          length={12}
+          onClick={this.handleMapClick}
+          onLocationFound={this.handleLocationFound}
+          ref={this.mapRef}
+          zoom={this.state.zoom}
+          doubleClickZoom= {true}
+          style={mapStyle}
+        >
+            <TileLayer
+              attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+          {this.state.issues.map((e, id) => {
+            console.log(e)
+            return (
+              <Marker key={id} position={[e.latitude, e.longitude]}>
+                <Popup>
+                  <span>{e.name}</span>
+                </Popup>
+              </Marker>
+            )}
+          )};
         </Map>
       </div>
     )
