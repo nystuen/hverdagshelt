@@ -1,4 +1,5 @@
 // @flow
+
 // @flow
 
 import ReactDOM from "react-dom";
@@ -43,7 +44,7 @@ import { CreateAdminsOrEmployees } from "./views/admin/createAdminsOrEmployees";
 import { Statistics } from "./components/statistics/Statistics";
 import { adminIssues } from "./views/admin/adminIssues/adminIssues";
 import { EditIssue } from "./views/MinSide/mineSaker/editIssue";
-
+import {SetCategoryInactive} from "./components/setCategoryInactive/SetCategoryInactive";
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
     let script = document.createElement("script");
@@ -112,6 +113,7 @@ if (root)
                     path="/min_side/mine_saker/rediger/:issueId"
                     component={EditIssue}
                 />
+                <Route path="/admin/settKategori" component={SetCategoryInactive}/>
                 <Footer />
             </div>
         </HashRouter>,

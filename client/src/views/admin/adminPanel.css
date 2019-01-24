@@ -3,8 +3,7 @@
 
 }
 
-
-.nyPanel{
+.nyPanel {
     padding-top: 1em;
     height: 15em;
     background-color: #ffffff;
@@ -13,21 +12,12 @@
     box-shadow: #eaefef 1px 1px 10px;
 }
 
-
 .nyPanel a {
     padding: 6px 8px 6px 16px;
     text-decoration: none;
     font-family: "Raleway", "HelveticaNeue", "Helvetica Neue", Helvetica, Arial, sans-serif;
     font-size: 15px;
 }
-
-
-.nyPanel .buttons {
-    padding-left: 1em;
-    padding-right: 1em;
-    padding-top: 1em;
-}
-
 
 .nyPanel p {
     font-weight: bold;
@@ -39,9 +29,8 @@
     margin: 0;
 }
 
-.buttons a{
+.buttons a {
 }
-
 
 #col {
     padding-top: 4em;
@@ -50,3 +39,17 @@
 .title {
     background-color: blue;
 }
+
+.custom-btn {
+    background: #fff;
+    color: red;
+    border: 2px solid red;
+    border-radius: 3px;
+    padding: 5px 10px;
+    text-transform: uppercase;
+}
+
+#butt{
+    color: #5d5f6a;
+}
+

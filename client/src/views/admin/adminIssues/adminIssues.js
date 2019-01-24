@@ -1,15 +1,10 @@
+//@flow
+
 import React from 'react';
-import { Grid, Col, Row, Button, Table } from 'react-bootstrap';
+import { Grid, Col, Row, Button, Table, ProgressBar, Nav, NavItem, OverlayTrigger, Modal, Tooltip } from 'react-bootstrap';
 import {IssueService, UserService} from '../../../services';
-import ProgressBar from 'react-bootstrap/es/ProgressBar';
 import { Status } from '../../../classTypes';
-import Nav from 'react-bootstrap/es/Nav';
-import NavItem from 'react-bootstrap/es/NavItem';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
-import OverlayTrigger from "react-bootstrap/es/OverlayTrigger";
-import {Tooltip} from "react-bootstrap";
-import Modal from "react-bootstrap/es/Modal";
-import FormControl from "./interactWithIssue";
 
 let userService = new UserService();
 let issueService = new IssueService();
@@ -22,9 +17,9 @@ const toolTipAssign = (
 );
 
 const toolTipDelete = (
-  <Tooltip id="tooltip">
-      Slett sak
-  </Tooltip>
+    <Tooltip id="tooltip">
+        Slett sak
+    </Tooltip>
 );
 
 export class adminIssues extends React.Component{
@@ -58,13 +53,14 @@ export class adminIssues extends React.Component{
     }//end method
 
     buttonBack(){
-      this.props.history.goBack();
+        this.props.history.goBack();
     }
-   render(){
+
+    render(){
         if(this.state.user.county !== undefined) {
             return (
                 <div>
-                  <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
+                    <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
                     <Grid>
                         <PageHeader title={'Alle saker i ' + this.state.user.county}/>
                         <Table>
@@ -81,7 +77,7 @@ export class adminIssues extends React.Component{
                                 </th>
                                 <th>
                                     <Col align={"middle"}>
-                                    Behandle sak
+                                        Behandle sak
                                     </Col>
                                 </th>
                             </tr>
@@ -186,7 +182,7 @@ export class adminIssues extends React.Component{
     };//end method
 
     async handleShow(categoryId: number, issue: Object){
-      await userService.getCompanyCategories(categoryId, this.state.user.countyId).then(response => {
+        await userService.getCompanyCategories(categoryId, this.state.user.countyId).then(response => {
             this.setState({companies: response, showAssign: true, selectedIssue: issue});
         }).catch((error: Error) => confirm(error.message));
     }//end method
@@ -202,9 +198,9 @@ export class adminIssues extends React.Component{
     }//end method
 
     handleDelete(issueId: number){
-           issueService.deleteThisIssue(issueId).then(response => {
-           }).catch((error: Error) => confirm(error.message));
-           window.location.reload();
+        issueService.deleteThisIssue(issueId).then(response => {
+        }).catch((error: Error) => confirm(error.message));
+        window.location.reload();
     }//end method
 
     setCompany(event: Event){

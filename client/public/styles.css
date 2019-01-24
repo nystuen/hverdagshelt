@@ -9,6 +9,8 @@ html {
 
 body {
   height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 #app div {
@@ -100,4 +102,17 @@ body {
 
 .footerInfo{
   margin-top: 40px;
+}
+
+
+.marginBody{
+  min-height: 100px;
+}
+
+
+.modal-container {
+  position: relative;
+}
+.modal-container .modal, .modal-container .modal-backdrop {
+  position: absolute;
 }
