@@ -107,7 +107,12 @@ export class MineSaker extends React.Component<Props, State> {
       <div>
         <Grid>
           <PageHeader title={"Mine saker"} />
-          <Table>
+            <label>Velg hvilke saker du vil se: </label>
+            <Button onClick={this.showAll} bsStyle={"primary"}>Alle</Button>
+            <Button onClick={this.filterRegistered} bsStyle={"primary"}>Registrerte</Button>
+            <Button onClick={this.filterInProgress} bsStyle={"primary"}>Behandles</Button>
+            <Button onClick={this.filterCompleted} bsStyle={"primary"}>Fullført</Button>
+          <Table id={"myTable"}>
             <thead>
               <tr>
                 <th>Beskrivelse</th>
@@ -200,4 +205,92 @@ export class MineSaker extends React.Component<Props, State> {
   setCategory = (cat: Object[], i: number) => {
     if (cat[i] !== undefined) return <div> {cat[i].name}</div>;
   }; //end method
+
+    showAll(){
+        // Declare variables
+        var input, filter, Table, tr, td, i, txtValue;
+        input = "";
+        filter = input.toUpperCase();
+        Table = document.getElementById("myTable");
+        tr = Table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    filterRegistered(){
+        // Declare variables
+        var input, filter, Table, tr, td, i, txtValue;
+        input = "Registrert";
+        filter = input.toUpperCase();
+        Table = document.getElementById("myTable");
+        tr = Table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    filterInProgress(){
+        // Declare variables
+        var input, filter, Table, tr, td, i, txtValue;
+        input = "Behandles";
+        filter = input.toUpperCase();
+        Table = document.getElementById("myTable");
+        tr = Table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+
+    filterCompleted(){
+        // Declare variables
+        var input, filter, Table, tr, td, i, txtValue;
+        input = "Fullført";
+        filter = input.toUpperCase();
+        Table = document.getElementById("myTable");
+        tr = Table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[2];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
 } //end class
