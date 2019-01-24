@@ -3,7 +3,7 @@ import {Component} from 'react';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import {Category, County} from "../../classTypes";
-import {Form, FormControl, Label, PageHeader, Col, HelpBlock, Alert, Button, FormGroup, Checkbox, DropdownButton, MenuItem, Row, ControlLabel, Grid } from 'react-bootstrap';
+import {Form, FormControl, Label, InputGroup, PageHeader, Col, HelpBlock, Alert, Button, FormGroup, Checkbox, DropdownButton, MenuItem, Row, ControlLabel, Grid } from 'react-bootstrap';
 import Select from "react-select";
 import {history} from "../../index";
 

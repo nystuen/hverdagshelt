@@ -1,9 +1,8 @@
 import React from 'react';
-import { Grid, Col, Row, Button, Table } from 'react-bootstrap';
+import { Grid, Col, Row, Button, Table, FormControl } from 'react-bootstrap';
 import {IssueService, UserService} from '../../../services';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
 import {history} from "../../../index";
-import FormControl from "react-bootstrap/es/FormControl";
 
 let issueService = new IssueService();
 let userService = new UserService();
