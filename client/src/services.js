@@ -68,10 +68,10 @@ export class UserService {
     return axios.post("/registrateCompany", json);
   }
   addAdmin(newAdmin: Admin): Promise<Response> {
-    return axios.post("/add_admin", newAdmin);
+    return axios.post("/add_admin", newAdmin, {headers: authHeader()});
   }
   addEmployee(newEmployee: Employee): Promise<Promise> {
-    return axios.post("/add_employee", newEmployee);
+    return axios.post("/add_employee", newEmployee, {headers: authHeader()});
   }
 
   addCompany(json: Object) {

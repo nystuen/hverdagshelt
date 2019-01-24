@@ -355,48 +355,39 @@ export class RegisterAdmin extends Component<Props, State>{
     checkInput = () =>{
         //console.log(this.getValidationStateFirstName()||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()||this.getValidationStateEmail2()==='warning'||this.getValidationStatePassword()==='warning'||this.getValidationStatePassword2()==='warning');
         if(this.state.buttonValue===0){
-            this.setState({errorButton:true})
+            this.setState({errorButton:true});
         };
 
         if(this.state.errorButton===0||this.state.countyIsChanged===false || this.getValidationStateFirstName()==='warning' || this.getValidationStateLastName()==='warning' || this.getValidationPhone()==='warning' || this.getValidationStateEmail()==='warning' || this.getValidationStateEmail2()==='warning' || this.getValidationPostNumber()==='warning' || this.getValidationAddress()==='warning'){
-            console.log("Kommer hit!!")
+            console.log("Kommer hit!!");
             confirm('Du må fylle alle feltene');
             this.setState({
                 errorSomething:true
             });
-            console.log("ERROR SOMETHING2: "+this.state.errorSomething)
+            console.log("ERROR SOMETHING2: "+this.state.errorSomething);
+
         }else{
             if(this.state.buttonValue===1) {
-                this.register();
+                this.register().catch(error => {
+                    console.log(error.message)
+                });
+
             }else if(this.state.buttonValue===2){
-                this.register2();
+                this.register2().catch(error => {
+                    console.log(error.message)
+                });
+
             }else{
                 console.log("DET ER FAIL");
             }
         }
     };
 
-    register = () => {
+    register = async () => {
         console.log("test", this.state.buttonValue);
 
-        const newAdmin = {
-            mail: this.state.mail,
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            typeName: 'Admin',
-            address: this.state.address,
-            postNumber: this.state.postNumber,
-            phone: this.state.phone,
-            countyId: this.state.choosen,
-        };
-        console.log("county", this.state.choosen);
-        userService
-            .addAdmin(newAdmin)
-            .then(user => (this.state = user))
-            .catch((error: Error) => Alert.danger(error.message));
-
         let userExists;
-        userService.getUserLogin(this.state.mail)
+        await userService.getUserLogin(this.state.mail)
             .then(r => {
                 userExists = (r[0] !== undefined);
                 console.log(r[0])
@@ -414,8 +405,9 @@ export class RegisterAdmin extends Component<Props, State>{
                 countyId: this.state.choosen,
             };
             console.log(userExists);
-            userService
+            await userService
                 .addAdmin(newAdmin)
+                .then(user => this.state = user)
                 .catch((error: Error) => Alert.danger(error.message));
 
             let theBody: Object = {
@@ -424,9 +416,9 @@ export class RegisterAdmin extends Component<Props, State>{
                 inProgress: 0,
                 completed: 1
             };
-            notificationSettingService.addIssueNotificationSettings(theBody);
-            this.setState({errorSomething: false, registerSuccess: true, userExists: false});
-            this.goToRegNew();
+            await notificationSettingService.addIssueNotificationSettings(theBody);
+            await this.setState({errorSomething: false, registerSuccess: true, userExists: false});
+            await this.goToRegNew();
         } else {
             this.setState({errorSomething: false, registerSuccess: false, userExists: true});
 
@@ -440,42 +432,48 @@ export class RegisterAdmin extends Component<Props, State>{
             }, 2000
         )
     };
-    register2 = () => {
+    register2 = async () => {
 
         console.log("test", this.state.buttonValue);
 
-        const newAdmin = {
-            mail: this.state.mail,
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            typeName: 'Employee',
-            address: this.state.address,
-            postNumber: this.state.postNumber,
-            phone: this.state.phone,
-            countyId: this.state.choosen,
-        };
-        console.log("county", this.state.choosen);
-        userService
-            .addAdmin(newAdmin)
-            .then(user => (this.state = user))
-            .catch((error: Error) => Alert.danger(error.message));
+        let userExists;
+        await userService.getCurrentUser()
+            .then(r => {
+                userExists = (r[0] !== undefined);
+                console.log(r[0])
+            });
 
-        let theBody: Object = {
-            mail: newAdmin.mail,
-            registered: 1,
-            inProgress: 0,
-            completed: 1
-        };
-        notificationSettingService.addIssueNotificationSettings(theBody);
-        this.setState({errorSomething: false, registerSuccess: true});
-        this.goToRegNew();
+        if (!userExists) {
+            const newEmployee = {
+                mail: this.state.mail,
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                typeName: 'Employee',
+                address: this.state.address,
+                postNumber: this.state.postNumber,
+                phone: this.state.phone,
+                countyId: this.state.choosen,
+            };
+            console.log("county", this.state.choosen);
+            await userService
+                .addAdmin(newEmployee)
+                .then(user => (this.state = user))
+                .catch((error: Error) => Alert.danger(error.message));
+
+            let theBody: Object = {
+                mail: newEmployee.mail,
+                registered: 1,
+                inProgress: 0,
+                completed: 1
+            };
+            await notificationSettingService.addIssueNotificationSettings(theBody);
+            await this.setState({errorSomething: false, registerSuccess: true});
+            await this.goToRegNew();
+        } else {
+            this.setState({errorSomething: false, registerSuccess: false, userExists: true});
+        }
+
 
     };
-    goToRegNew = () => {
-        setTimeout(
-            function () {
-                history.push('/admin');
-            }, 2000
-        )
-    };
+
 }

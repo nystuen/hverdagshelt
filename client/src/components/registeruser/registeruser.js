@@ -536,7 +536,7 @@ export class RegisterUser extends Component<Props, State> {
     };
 
 
-    register = () => {
+    register = async () => {
 
         const newUser = {
             mail: this.state.mail,
@@ -550,8 +550,8 @@ export class RegisterUser extends Component<Props, State> {
 
         console.log("JESSSSSSSS");
 
-        let userExists = false;
-        userService.getUserLogin(this.state.mail)
+        let userExists;
+        await userService.getUserLogin(this.state.mail)
             .then(r => {
                 userExists = r[0] !== undefined;
                 console.log(r[0])
@@ -559,7 +559,7 @@ export class RegisterUser extends Component<Props, State> {
 
         if (!userExists) {
             (console.log('fdsfd'));
-            userService
+            await userService
                 .addUser(newUser)
                 .then(user => (this.state = user))
                 .catch((error: Error) => Alert.danger(error.message));
@@ -570,9 +570,9 @@ export class RegisterUser extends Component<Props, State> {
                 inProgress: 0,
                 completed: 1
             };
-            notificationSettingService.addIssueNotificationSettings(theBody)
-            this.setState({errorSomething: false, registerSuccess: true, userExists: false});
-            this.goToLogin();
+            await notificationSettingService.addIssueNotificationSettings(theBody);
+            await this.setState({errorSomething: false, registerSuccess: true, userExists: false});
+            await this.goToLogin();
         } else {
             this.setState({errorSomething: false, registerSuccess: false, userExists: true});
         }
