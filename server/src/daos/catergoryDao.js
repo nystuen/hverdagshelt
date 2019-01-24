@@ -1,6 +1,7 @@
 // @flow
 
 import {Dao} from "../dao";
+import {verifyToken} from "../helpers/verifyToken";
 
 export class CategoryDao extends Dao {
 
@@ -10,6 +11,26 @@ export class CategoryDao extends Dao {
       "select mail, password from user where mail=? ",
       [userMail],
       callback
+    );
+  }
+
+  updateCategory1(id:number, callback: Function){
+        console.log("Det her er kategoriID: "+id);
+        super.query('Update category SET active=0 WHERE categoryId=?',
+            [id],
+            callback
+        );
+        super.query('Update category2 SET active=0 WHERE categoryID=?',
+            [id],
+            callback
+        );
+  }
+
+  updateCategory2(id:number, callback: Function){
+      console.log("Det her er kategoriID: "+id);
+      super.query('Update category2 SET active=0 WHERE category2Id=?',
+          [id],
+          callback
     );
   }
 

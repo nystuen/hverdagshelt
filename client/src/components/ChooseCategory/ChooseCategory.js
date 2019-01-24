@@ -1,34 +1,36 @@
+
 import * as React from 'react';
 import { Component } from 'react-simplified';
-import {
-  ButtonToolbar,
-  ToggleButtonGroup,
-  ToggleButton,
-  Collapse,
-  Button
+import {Collapse, Col,
+  Button,
+    ListGroup,
+    ListGroupItem,
+    Glyphicon
 } from 'react-bootstrap';
 import { CategoryService } from '../../services';
 import { Category, Category2, Category3 } from '../../classTypes';
-import PanelGroup from 'react-bootstrap/es/PanelGroup';
-import Panel from 'react-bootstrap/es/Panel';
-import ListGroup from 'react-bootstrap/es/ListGroup';
-import ListGroupItem from 'react-bootstrap/es/ListGroupItem';
 import cloneDeep from 'lodash/cloneDeep';
-import css from './chooseCategory.css';
-import Glyphicon from 'react-bootstrap/es/Glyphicon';
+import './chooseCategory.css';
 
 let categoryService = new CategoryService();
 
-export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
+export class ChooseCategory extends Component<{ registerCategory?: boolean, statusButton?:boolean}> {
   constructor(props) {
     super(props);
+    this.handleDismiss = this.handleDismiss.bind(this);
+    this.handleShow = this.handleShow.bind(this);
     this.state = {
+      showInactiveButton: false,
       category1: [],
       category2: [],
+      categoryActive: "",
       selectedCategory: { name: 'ingen' },
       selectedCategoryType: 0,
       selectedCategoryId: -1,
-      newCategoryHeader: 'Den nye overkategorien'
+      category1Id: -1,
+      category2Id: -1,
+      newCategoryHeader: 'Den nye overkategorien',
+      show: false
     };
 
     this.handleClick = this.handleClick.bind(this);
@@ -42,6 +44,15 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
       this.state.selectedCategoryType
     );
   };
+
+    handleDismiss() {
+        this.setState({ show: false });
+    }
+
+    handleShow() {
+        this.setState({ show: true });
+    }
+
 
   getSelectedCategoryId() {
     return this.state.selectedCategoryId;
@@ -58,6 +69,7 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
   componentDidMount() {
     let kat1 = [];
     let kat2 = [];
+    let active1 = "";
 
     categoryService.getCategory1().then(resources => {
       resources.map(r => {
@@ -68,11 +80,13 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
           active: r.active,
           open: false
         };
+        active1 = elem.active;
         kat1 = kat1.concat(elem);
       });
 
       this.setState({
-        category1: kat1
+        category1: kat1,
+        categoryActive: active1
       });
     });
 
@@ -93,11 +107,10 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
 
         console.log('kat2', kat2);
         this.setState({
-          category2: kat2
+          category2: kat2,
+
         });
       });
-
-
     }
   }
 
@@ -120,7 +133,8 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
         category1: arr,
         selectedCategory: cat1,
         selectedCategoryType: this.getCategoryType(cat1),
-        selectedCategoryId: cat1.id
+        selectedCategoryId: cat1.id,
+        category1Id: cat1.id
       },
       this.onChangeCategoryHeader.bind(this)
     );
@@ -144,7 +158,9 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
         category2: arr,
         selectedCategory: cat2,
         selectedCategoryType: this.getCategoryType(cat2),
-        selectedCategoryId: cat2.id
+        selectedCategoryId: cat2.id,
+        showInactiveButton: true,
+        category2Id: cat2.id
       },
       this.onChangeCategoryHeader.bind(this)
     );
@@ -181,15 +197,40 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
   }
 
   render() {
+    let inactive_button;
+    if(this.props.statusButton===true){
 
-
+      if(this.props.statusButton===true&&this.state.category2Id!==-1||this.state.category1Id!==-1) {
+          inactive_button = (
+              <Button bsStyle="danger" onClick={this.changeToInactive}>Deaktiver</Button>
+          );
+      }
+    }else{
+      inactive_button = <p></p>;
+    }
+    let alert_delete;
+    if(this.props.statusButton===true){
+      let alert_delete;
+      if(this.props.statusButton===true&&this.state.show===true) {
+          alert_delete = (
+              <Alert bsStyle="danger" onDismiss={this.handleDismiss}>
+                  <h5>Du satt en kategori til inaktiv</h5>
+              </Alert>
+          );
+      }else{
+          let alert_delete;
+          alert_delete =
+              <p></p>
+          ;
+      }
+    }
     return (
       <div>
         <ListGroup>
           {this.state.category1.map(cat1 => {
             return (
               <div key={cat1.id}>
-                <ListGroupItem onClick={() => this.handleClick(cat1)}>
+                <ListGroupItem onClick={() => this.handleClick(cat1)} >
 
                   {cat1.name} {this.caret(cat1.open)}
 
@@ -213,7 +254,26 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean }> {
             );
           })}
         </ListGroup>
+          <Col md={4}/>
+          <Col md={4}>
+          {inactive_button}
+          {alert_delete}
+          </Col>
+          <Col md={4}/>
       </div>
     );
+  }
+    changeToInactive = () =>{
+      if(this.state.category1Id!==-1&&this.state.category2Id===-1){
+        const category1 = this.state.category1Id;
+        console.log("Cat1: " + category1);
+        categoryService.updateCategory1(category1);
+        this.setState({show:true});
+      }else if(this.state.category2Id!==(-1)){
+        const category2 = this.state.category2Id;
+        console.log("CAT2:"+category2);
+        categoryService.updateCategory2(category2);
+        this.setState({show:true});
+    }
   }
 }

@@ -1,14 +1,13 @@
 // @flow
-import { Field, reduxForm } from "redux-form";
-import validate from "./validate";
-import renderCategoryField from "./renderCategoryField";
-import React, { Component, createRef } from "react";
-import { Map, TileLayer, Marker, Popup, withLeaflet } from "react-leaflet";
-import * as ELG from "esri-leaflet-geocoder";
-import L from "leaflet";
-import { Button, ProgressBar } from "react-bootstrap";
-import Geocode from "react-geocode";
-import Grid from "react-bootstrap/es/Grid";
+import { Field, reduxForm } from 'redux-form';
+import validate from './validate';
+import renderCategoryField from './renderCategoryField';
+import React, { Component, createRef } from 'react';
+import { Map, TileLayer, Marker, Popup, withLeaflet } from 'react-leaflet';
+import * as ELG from 'esri-leaflet-geocoder';
+import L from 'leaflet';
+import { Button, ProgressBar } from 'react-bootstrap';
+import Geocode from 'react-geocode';
 
 Geocode.setApiKey("AIzaSyDVZREoJuiobrxWVmBFhemEk1VdRB0MsSI");
 
@@ -41,15 +40,16 @@ export class WizardFormFirstPage extends Component<{}, State> {
   }
 
   componentDidMount() {
-    const map = this.mapRef.current.leafletElement;
+    const map = this.mapRef.current;
     if (map != null) {
-      map.locate();
+      map.leafletElement.locate();
     }
   }
 
   mapRef = createRef<Map>();
 
   handleMapClick = (e: Object) => {
+    if (e === undefined) e = {latlng: {} };
     this.setState({
       hasLocation: true,
       latlng: e.latlng,
@@ -207,6 +207,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
                 component={renderCategoryField}
               />
               <Button
+                  id="submitButton"
                 bsStyle="primary"
                 type="submit"
                 className="next + ' ' + submitButton"

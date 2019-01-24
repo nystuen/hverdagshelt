@@ -2,17 +2,10 @@
 
 
 import React from 'react';
-import jwt from 'jsonwebtoken';
-import { Grid, Row, Col, ListGroup, ListGroupItem,Modal } from 'react-bootstrap';
-import Button from 'react-bootstrap/es/Button';
+import { Grid, Row, Col, ListGroup, ListGroupItem,Modal, Button } from 'react-bootstrap';
 import { Category, Category2, Category3, User } from '../../../classTypes';
 import { MailService, UserService } from '../../../services';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
-import { ChooseCategory } from '../../../components/ChooseCategory/ChooseCategory';
-import FormGroup from 'react-bootstrap/es/FormGroup';
-import ControlLabel from 'react-bootstrap/es/ControlLabel';
-import FormControl from 'react-bootstrap/es/FormControl';
-import Form from 'react-bootstrap/es/Form';
 import { ChangePassword } from '../../../components/ChangePassword/ChangePassword';
 import css from './accountInformation.css';
 
@@ -40,7 +33,8 @@ export class InfoModule extends React.Component{
 
   render(){
     return(
-      <Col>
+
+      <Col className="bottomFooter">
         <Button
           bsStyle="primary"
           onClick={() => this.setState({ show: true })}
@@ -72,7 +66,6 @@ export class InfoModule extends React.Component{
   }
 
 }
-
 
 
 class InformationCard extends React.Component<{ header: string, content: string }> {

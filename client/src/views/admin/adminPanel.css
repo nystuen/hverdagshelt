@@ -1,6 +1,5 @@
 
 .panels {
-
 }
 
 .nyPanel {
@@ -34,6 +33,13 @@
 
 #col {
     padding-top: 4em;
+}
+
+
+#col1{
+    padding-top: 4em;
+    height: 100px;
+    line-heigth: 100px;
 }
 
 .title {

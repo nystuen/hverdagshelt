@@ -1,17 +1,39 @@
 
-.navBar .logo {
 
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+
+    to {
+        opacity: 1;
+    }
 }
 
 .navbar-default .navbar-nav > li > a {
     color: white;
+    animation: 0.5s ease-out 0s fadeIn;
 }
+
 
 .navbar-default .navbar-nav > a.active {
     color: blueviolet;
     background-color: blue;
 
 }
+
+#dropdownMenuItem{
+    color: black;
+    background-color: white;
+}
+
+
+
+.navbar-default .navbar-toggle .icon-bar {
+    background-color: white;
+}
+
+
 
 .navbar-default {
     background-color: #5079b3;
@@ -36,9 +58,9 @@
 .active {
 }
 
-.logoBrand img {
-    padding-top: 8px !important;
-    padding-bottom: 8px !important;
+.logoBrand img{
+    padding-top: 8px;
+    padding-bottom: 8px;
 }
 
 .navbar-default .navbar-nav > li > a.active {

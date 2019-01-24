@@ -5,10 +5,7 @@ import * as React from 'react';
 import {Alert} from "../../widgets";
 import ReactDOM from 'react-dom';
 import {County} from "../../classTypes";
-import DropdownButton from "react-bootstrap/es/DropdownButton";
-import MenuItem from "react-bootstrap/es/MenuItem";
 import {FormControl, PageHeader} from "react-bootstrap";
-import Checkbox from "react-bootstrap/es/Checkbox";
 import Select from "react-select";
 import {history} from "../../index";
 
@@ -117,7 +114,7 @@ export class RegisterAdmin extends Component<Props, State>{
 
     getValidationStateFirstName() {
         const firstNameLength = this.state.firstName.length;
-        let decimal=/^[A-Za-z _æøå]*[A-Za-zæøå][A-Za-z _æøå]*$/;
+        let decimal=/^[A-Za-zÆØÅæøå]*[A-Za-zÆØÅæøå][A-Za-zÆØÅæøå]*$/;
 
         if(firstNameLength===1){
             return 'warning';
@@ -130,7 +127,7 @@ export class RegisterAdmin extends Component<Props, State>{
     }
     getValidationStateLastName() {
         const lastNameLength = this.state.lastName.length;
-        let dec=/^[A-Za-z _æøå]*[A-Za-zæøå][A-Za-z _æøå]*$/;
+        let dec=/^[A-Za-zÆØÅæøå]*[A-Za-zÆØÅæøå][A-Za-z ÆØÅæøå]*$/;
 
         if(lastNameLength===1){
             return 'warning';
@@ -361,11 +358,11 @@ export class RegisterAdmin extends Component<Props, State>{
         this.goToRegNew();
 
     };
-    goToRegNew= () => {
+    goToRegNew = () => {
         setTimeout(
             function () {
-                history.push('/registrertSuksess');
-            }, 1000
+                history.push('/admin/registrertSuksess');
+            }, 2000
         )
     }
 }

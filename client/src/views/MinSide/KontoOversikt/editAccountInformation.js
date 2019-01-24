@@ -8,17 +8,17 @@ import {
   Col,
   ListGroup,
   ListGroupItem,
-  Alert
+  Alert,
+    Button,
+    Form,
+    FormGroup,
+    FormControl,
+    ControlLabel
 } from 'react-bootstrap';
 import { ChooseCategory } from '../../../components/ChooseCategory/ChooseCategory';
-import Button from 'react-bootstrap/es/Button';
 import { Category, Category2, Category3, User } from '../../../classTypes';
 import { UserService } from '../../../services';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
-import Form from 'react-bootstrap/es/Form';
-import FormGroup from 'react-bootstrap/es/FormGroup';
-import FormControl from 'react-bootstrap/es/FormControl';
-import ControlLabel from 'react-bootstrap/es/ControlLabel';
 import { CountyList } from '../../../components/CountyList/CountyList';
 import { history } from '../../../index';
 import css from './accountInformation.css';
@@ -141,16 +141,15 @@ export class editAccountInformation extends React.Component<State> {
   };
 
 
-  buttonBack(){
+  buttonBack() {
     this.props.history.goBack();
   }
 
   render() {
     return (
-      <div>
-        <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
+      <div className="bottomFooter">
         <Grid>
-          <PageHeader title={'Endre kontoinformasjon'}/>
+        <PageHeader title={'Endre kontoinformasjon'}/>
 
           {this.state.user.typeName === 'Admin' ||
           this.state.user.typeName === 'Employee' ||
@@ -159,6 +158,7 @@ export class editAccountInformation extends React.Component<State> {
               <Form>
                 <Grid>
                   <Col xs={0} md={2}>
+                    <i id="backButton" onClick={() => this.buttonBack()} className="fas fa-arrow-circle-left"></i>
                   </Col>
 
                   <Col md={8}>

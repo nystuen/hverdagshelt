@@ -25,10 +25,10 @@ export class adminPanel extends Component {
     let panelStyle = 'primary';
     if(this.state.user.typeName==="Admin") {
       return (
-          <div className="panels">
+          <div className="panels bottomFooter">
             <Grid>
 
-              <Col xs={12} md={4} lg={4} id="col">
+              <Col xs={12} md={4} lg={4} id="col1">
                 <Panel bsStyle={panelStyle} id="collapsible-panel-example-2" defaultExpanded>
                   <Panel.Heading>
                     <Panel.Title toggle>

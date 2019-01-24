@@ -3,17 +3,9 @@
 
 import { MailService } from '../../services';
 import * as React from 'react';
-import Button from 'react-bootstrap/es/Button';
-import FormGroup from 'react-bootstrap/es/FormGroup';
-import Form from 'react-bootstrap/es/Form';
-import ControlLabel from 'react-bootstrap/es/ControlLabel';
-import FormControl from 'react-bootstrap/es/FormControl';
-import { Col, Grid } from 'react-bootstrap';
-import jwt from 'jsonwebtoken';
-import { User } from '../../classTypes';
+import { Col, Grid, Button, FormGroup, Form, ControlLabel, FormControl } from 'react-bootstrap';
 
 let mailService = new MailService();
-
 
 
 export class SendTextMailWindow extends React.Component {

@@ -1,12 +1,10 @@
 // @flow
 
 import React from 'react';
-import { Grid, Col, Row, Button, Table, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Grid, Panel, PanelGroup, Col, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { EventCategoryService } from '../../services';
 import { Event } from '../../classTypes';
 import css from './events.css';
-import Panel from 'react-bootstrap/es/Panel';
-import PanelGroup from 'react-bootstrap/es/PanelGroup';
 import { PageHeader } from '../../components/PageHeader/PageHeader';
 import { MapComponent } from '../../components/map/Map';
 
@@ -59,15 +57,13 @@ export class events extends React.Component<Props, State> {
 
   render() {
     return (
-      <div className="events">
-        <Grid>
+      <div className="bottomFooter">
+        <Grid className="sak">
 
-          <PageHeader title={'Hendelser i din kommune'}/>
-          <Col md={2}></Col>
+          <Col sm={1} md={2} lg={2}></Col>
 
-          <Col md={8}>
-            <PanelGroup accordion id="accordion-controlled-example" defaultActiveKey={0}>
-
+          <Col md={10}>
+            <ListGroup>
               {
                 this.state.importantEvents.map((r, i) => {
 
@@ -80,38 +76,26 @@ export class events extends React.Component<Props, State> {
                     backgroundColor = {};
                   }
 
-                  panel = <div align="center">
-                    <Panel eventKey={i} key={i}>
-                      <Panel.Heading style={backgroundColor}>
-                        <Panel.Title toggle>{r.title}</Panel.Title>
-                      </Panel.Heading>
-                      <Panel.Body collapsible>
-                        <h4>{r.text}</h4>
+                  panel =
+                    <ListGroupItem href={'/#/hendelse/' + r.eventId} header={r.title}>Klikk her for å se
+                      mer</ListGroupItem>
 
-                        <div>
-                          Her kan det kanskje komme map?
-                          long {r.longitude}
-                          lat {r.latitude}
-                        </div>
-
-                        <p>Publisert {r.date} av {r.userMail}</p>
-                      </Panel.Body>
-                    </Panel></div>;
 
                   return (
-                    <row>
+                    <Col md={6}>
                       {panel}
-                    </row>
-                  );
+                    </Col>
+                  )
 
                 })
               }
-            </PanelGroup>
+            </ListGroup>
           </Col>
 
-          <Col md={2}></Col>
+          <Col md={1}></Col>
         </Grid>
       </div>
+
     )
       ;
   }//end method
