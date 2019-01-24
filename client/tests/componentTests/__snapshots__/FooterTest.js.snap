@@ -1,0 +1,317 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for Footer component renders correctly 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <Footer />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <Col
+          bsClass="col"
+          componentClass="div"
+          md={12}
+          xs={12}
+        >
+          <h4
+            className="footerInfo"
+          >
+            Kontaktinformasjon til 
+            -kommune:
+          </h4>
+        </Col>,
+        <div
+          align="center"
+        >
+          <Image
+            bsClass="img"
+            circle={false}
+            className="picture"
+            responsive={false}
+            rounded={true}
+            src="./resources/logo_svart.png"
+            thumbnail={false}
+          />
+          <h2>
+            HVERDAGSHELT
+          </h2>
+        </div>,
+      ],
+      "className": "footerClass2",
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "bsClass": "col",
+          "children": Array [
+            <h4
+              className="footerInfo"
+            >
+              Kontaktinformasjon til 
+              -kommune:
+            </h4>,
+            Array [],
+          ],
+          "componentClass": "div",
+          "md": 12,
+          "xs": 12,
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": Array [
+                "Kontaktinformasjon til ",
+                undefined,
+                "-kommune:",
+              ],
+              "className": "footerInfo",
+            },
+            "ref": null,
+            "rendered": Array [
+              "Kontaktinformasjon til ",
+              undefined,
+              "-kommune:",
+            ],
+            "type": "h4",
+          },
+        ],
+        "type": [Function],
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "align": "center",
+          "children": Array [
+            <Image
+              bsClass="img"
+              circle={false}
+              className="picture"
+              responsive={false}
+              rounded={true}
+              src="./resources/logo_svart.png"
+              thumbnail={false}
+            />,
+            <h2>
+              HVERDAGSHELT
+            </h2>,
+          ],
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "bsClass": "img",
+              "circle": false,
+              "className": "picture",
+              "responsive": false,
+              "rounded": true,
+              "src": "./resources/logo_svart.png",
+              "thumbnail": false,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "HVERDAGSHELT",
+            },
+            "ref": null,
+            "rendered": "HVERDAGSHELT",
+            "type": "h2",
+          },
+        ],
+        "type": "div",
+      },
+    ],
+    "type": "footer",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <Col
+            bsClass="col"
+            componentClass="div"
+            md={12}
+            xs={12}
+          >
+            <h4
+              className="footerInfo"
+            >
+              Kontaktinformasjon til 
+              -kommune:
+            </h4>
+          </Col>,
+          <div
+            align="center"
+          >
+            <Image
+              bsClass="img"
+              circle={false}
+              className="picture"
+              responsive={false}
+              rounded={true}
+              src="./resources/logo_svart.png"
+              thumbnail={false}
+            />
+            <h2>
+              HVERDAGSHELT
+            </h2>
+          </div>,
+        ],
+        "className": "footerClass2",
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "bsClass": "col",
+            "children": Array [
+              <h4
+                className="footerInfo"
+              >
+                Kontaktinformasjon til 
+                -kommune:
+              </h4>,
+              Array [],
+            ],
+            "componentClass": "div",
+            "md": 12,
+            "xs": 12,
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": Array [
+                  "Kontaktinformasjon til ",
+                  undefined,
+                  "-kommune:",
+                ],
+                "className": "footerInfo",
+              },
+              "ref": null,
+              "rendered": Array [
+                "Kontaktinformasjon til ",
+                undefined,
+                "-kommune:",
+              ],
+              "type": "h4",
+            },
+          ],
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "align": "center",
+            "children": Array [
+              <Image
+                bsClass="img"
+                circle={false}
+                className="picture"
+                responsive={false}
+                rounded={true}
+                src="./resources/logo_svart.png"
+                thumbnail={false}
+              />,
+              <h2>
+                HVERDAGSHELT
+              </h2>,
+            ],
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "bsClass": "img",
+                "circle": false,
+                "className": "picture",
+                "responsive": false,
+                "rounded": true,
+                "src": "./resources/logo_svart.png",
+                "thumbnail": false,
+              },
+              "ref": null,
+              "rendered": null,
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "host",
+              "props": Object {
+                "children": "HVERDAGSHELT",
+              },
+              "ref": null,
+              "rendered": "HVERDAGSHELT",
+              "type": "h2",
+            },
+          ],
+          "type": "div",
+        },
+      ],
+      "type": "footer",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
+`;

@@ -1,20 +1,19 @@
-import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import validate from './validate';
-import renderField from './renderField';
-import renderCategoryField from './renderCategoryField';
-import { Button, ProgressBar, Grid, Col } from 'react-bootstrap';
-import { ChooseCategory } from '../ChooseCategory/ChooseCategory';
-import issueReg from './issueReg.css';
+import React from "react";
+import { Field, reduxForm } from "redux-form";
+import validate from "./validate";
+import renderField from "./renderField";
+import renderCategoryField from "./renderCategoryField";
+import { Button, ProgressBar, Grid, Col } from "react-bootstrap";
+import { ChooseCategory } from "../ChooseCategory/ChooseCategory";
+import issueReg from "./issueReg.css";
 
 const renderError = ({ meta: { touched, error } }) =>
   touched && error ? <span>{error}</span> : false;
 
 export class WizardFormSecondPage extends React.Component {
   setProps = () => {
-    this.props.change('categoryid', this.state.selectedCategoryId);
-    this.props.change('categorylevel', this.state.selectedCategoryType);
-    console.log('setting props!');
+    this.props.change("categoryid", this.state.selectedCategoryId);
+    this.props.change("categorylevel", this.state.selectedCategoryType);
   };
   onChangeCategoryHeader = (name1, name2) => {
     this.setState(
@@ -47,9 +46,6 @@ export class WizardFormSecondPage extends React.Component {
   };
 */
 
-
-
-
   render() {
     const { handleSubmit, previousPage, onChangeCategoryHeader } = this.props;
     return (
@@ -57,7 +53,7 @@ export class WizardFormSecondPage extends React.Component {
         <div className="container">
           <div className="formDiv">
             <div className="progressBar">
-              <ProgressBar now={66} label={'2/3'}/>
+              <ProgressBar now={66} label={"2/3"} />
             </div>
             <h3>Velg passende kategori</h3>
             <ChooseCategory
@@ -82,14 +78,21 @@ export class WizardFormSecondPage extends React.Component {
                 //defaultValue={this.state.selectedCategoryType}
               />
               <div>
-
                 <Col lg={6} md={6} sm={6} xs={6}>
-                  <Button bsStyle="primary" type="button" className="previous" onClick={previousPage}>Forrige</Button>
+                  <Button
+                    bsStyle="primary"
+                    type="button"
+                    className="previous"
+                    onClick={previousPage}
+                  >
+                    Forrige
+                  </Button>
                 </Col>
                 <Col lg={6} md={6} sm={6} xs={6} align="right">
-                  <Button bsStyle="primary" type="submit" className="next">Neste</Button>
+                  <Button bsStyle="primary" type="submit" className="next">
+                    Neste
+                  </Button>
                 </Col>
-
               </div>
             </form>
           </div>
@@ -100,7 +103,7 @@ export class WizardFormSecondPage extends React.Component {
 }
 
 export default reduxForm({
-  form: 'wizard', //Form name is same
+  form: "wizard", //Form name is same
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate

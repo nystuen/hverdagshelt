@@ -1,14 +1,15 @@
 //@flow
 
 import React from 'react';
-import { Grid, Col, Row, Button, Table, ProgressBar, Nav, NavItem, OverlayTrigger, Modal, Tooltip } from 'react-bootstrap';
+import { Grid, Col, Row, Button, Table, ProgressBar, Nav, NavItem, OverlayTrigger, Modal, Tooltip, ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
 import {IssueService, UserService} from '../../../services';
+import { Filter } from '../../../components/Filter/Filter'
 import { Status } from '../../../classTypes';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
 
 let userService = new UserService();
 let issueService = new IssueService();
-
+let filter = new Filter();
 
 const toolTipAssign = (
     <Tooltip id="tooltip">
@@ -63,7 +64,15 @@ export class adminIssues extends React.Component{
                   <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
                     <Grid>
                         <PageHeader title={'Alle saker i ' + this.state.user.county}/>
-                        <Table>
+                        <div align="center">
+                        <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+                        <ToggleButton onClick={filter.showAll} bsStyle={"primary"} value={1}>Alle</ToggleButton>
+                        <ToggleButton onClick={filter.filterRegistered} bsStyle={"primary"} value={2}>Registrerte</ToggleButton>
+                        <ToggleButton onClick={filter.filterInProgress} bsStyle={"primary"} value={3}>Behandles</ToggleButton>
+                        <ToggleButton onClick={filter.filterCompleted} bsStyle={"primary"} value={4}>Fullført</ToggleButton>
+                        </ToggleButtonGroup>
+                        </div>
+                        <Table id={"myTable"}>
                             <thead>
                             <tr>
                                 <th>

@@ -1,0 +1,85 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for CountyList component renders correctly 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <CountyList />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "class",
+    "props": Object {
+      "className": "basic",
+      "classNamePrefix": "select",
+      "defaultInputValue": "",
+      "defaultMenuIsOpen": false,
+      "defaultValue": null,
+      "name": "colors",
+      "onChange": [Function],
+      "options": Array [
+        Object {
+          "countyId": 1,
+          "label": undefined,
+          "value": 1,
+        },
+      ],
+      "placeholder": "Hjemmekommune",
+    },
+    "ref": null,
+    "rendered": null,
+    "type": [Function],
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "className": "basic",
+        "classNamePrefix": "select",
+        "defaultInputValue": "",
+        "defaultMenuIsOpen": false,
+        "defaultValue": null,
+        "name": "colors",
+        "onChange": [Function],
+        "options": Array [
+          Object {
+            "countyId": 1,
+            "label": undefined,
+            "value": 1,
+          },
+        ],
+        "placeholder": "Hjemmekommune",
+      },
+      "ref": null,
+      "rendered": null,
+      "type": [Function],
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
+`;

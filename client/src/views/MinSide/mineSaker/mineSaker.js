@@ -1,9 +1,19 @@
 // @flow
 
 import React from 'react';
-import { Grid, Col, Row, Button, Table, ProgressBar, Nav, NavItem } from 'react-bootstrap';
+import {
+    Grid,
+    Button,
+    Table,
+    ProgressBar,
+    Nav,
+    NavItem,
+    ToggleButton,
+    ToggleButtonGroup
+} from 'react-bootstrap';
 import { Issue } from '../../../classTypes';
-import {CategoryService, IssueService, UserService} from '../../../services';
+import { CategoryService, IssueService, UserService} from '../../../services';
+import { Filter } from '../../../components/Filter/Filter'
 import { Alert } from '../../../widgets';
 import { Status } from '../../../classTypes';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
@@ -13,6 +23,7 @@ import mineSaker from "./mineSaker.css";
 let userService = new UserService();
 let categoryService = new CategoryService();
 let issueService = new IssueService();
+let filter = new Filter();
 
 interface State {
   issues: Object[];
@@ -107,7 +118,15 @@ export class MineSaker extends React.Component<Props, State> {
       <div className="bottomFooter">
         <Grid>
           <PageHeader title={"Mine saker"} />
-          <Table>
+            <div align="center">
+            <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
+                <ToggleButton onClick={filter.showAll} bsStyle={"primary"} value={1}>Alle</ToggleButton>
+                <ToggleButton onClick={filter.filterRegistered} bsStyle={"primary"} value={2}>Registrerte</ToggleButton>
+                <ToggleButton onClick={filter.filterInProgress} bsStyle={"primary"} value={3}>Behandles</ToggleButton>
+                <ToggleButton onClick={filter.filterCompleted} bsStyle={"primary"} value={4}>Fullført</ToggleButton>
+            </ToggleButtonGroup>
+            </div>
+          <Table id={"myTable"}>
             <thead>
               <tr>
                 <th>Beskrivelse</th>
@@ -200,4 +219,5 @@ export class MineSaker extends React.Component<Props, State> {
   setCategory = (cat: Object[], i: number) => {
     if (cat[i] !== undefined) return <div> {cat[i].name}</div>;
   }; //end method
+
 } //end class

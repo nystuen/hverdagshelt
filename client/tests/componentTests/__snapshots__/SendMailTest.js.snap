@@ -1,0 +1,1031 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for SendTextMailWindow component renders correctly 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <SendTextMailWindow />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": Array [
+        <i
+          className="fas fa-arrow-circle-left"
+          id="backButton"
+          onClick={[Function]}
+        />,
+        <Grid
+          bsClass="container"
+          componentClass="div"
+          fluid={false}
+        >
+          <Form
+            bsClass="form"
+            componentClass="form"
+            horizontal={false}
+            inline={false}
+          >
+            <FormGroup
+              bsClass="form-group"
+              controlId="formInlineToMail"
+            >
+              <ControlLabel
+                bsClass="control-label"
+                srOnly={false}
+              >
+                Mottakers e-postadresse
+              </ControlLabel>
+               
+              <FormControl
+                bsClass="form-control"
+                componentClass="input"
+                name="to"
+                onChange={[Function]}
+                placeholder="mottaker@example.com"
+                type="email"
+              />
+            </FormGroup>
+             
+            <FormGroup
+              bsClass="form-group"
+              controlId="formInlineText"
+            >
+              <ControlLabel
+                bsClass="control-label"
+                srOnly={false}
+              >
+                Tittel
+              </ControlLabel>
+               
+              <FormControl
+                bsClass="form-control"
+                componentClass="input"
+                defaultValue="Hverdagshelt - "
+                name="subject"
+                onChange={[Function]}
+                placeholder="Hverdagshelt - "
+                type="text"
+              />
+            </FormGroup>
+             
+            <FormGroup
+              bsClass="form-group"
+              controlId="formInlinePhone"
+            >
+              <ControlLabel
+                bsClass="control-label"
+                srOnly={false}
+              >
+                Innhold
+              </ControlLabel>
+               
+              <FormControl
+                bsClass="form-control"
+                componentClass="textarea"
+                name="text"
+                onChange={[Function]}
+                placeholder="E-postens innhold"
+                rows={5}
+              />
+            </FormGroup>
+             
+          </Form>
+          <Button
+            active={false}
+            block={false}
+            bsClass="btn"
+            bsStyle="default"
+            disabled={false}
+            onClick={[Function]}
+          >
+            Send e-post
+          </Button>
+        </Grid>,
+      ],
+    },
+    "ref": null,
+    "rendered": Array [
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "host",
+        "props": Object {
+          "className": "fas fa-arrow-circle-left",
+          "id": "backButton",
+          "onClick": [Function],
+        },
+        "ref": null,
+        "rendered": null,
+        "type": "i",
+      },
+      Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "bsClass": "container",
+          "children": Array [
+            <Form
+              bsClass="form"
+              componentClass="form"
+              horizontal={false}
+              inline={false}
+            >
+              <FormGroup
+                bsClass="form-group"
+                controlId="formInlineToMail"
+              >
+                <ControlLabel
+                  bsClass="control-label"
+                  srOnly={false}
+                >
+                  Mottakers e-postadresse
+                </ControlLabel>
+                 
+                <FormControl
+                  bsClass="form-control"
+                  componentClass="input"
+                  name="to"
+                  onChange={[Function]}
+                  placeholder="mottaker@example.com"
+                  type="email"
+                />
+              </FormGroup>
+               
+              <FormGroup
+                bsClass="form-group"
+                controlId="formInlineText"
+              >
+                <ControlLabel
+                  bsClass="control-label"
+                  srOnly={false}
+                >
+                  Tittel
+                </ControlLabel>
+                 
+                <FormControl
+                  bsClass="form-control"
+                  componentClass="input"
+                  defaultValue="Hverdagshelt - "
+                  name="subject"
+                  onChange={[Function]}
+                  placeholder="Hverdagshelt - "
+                  type="text"
+                />
+              </FormGroup>
+               
+              <FormGroup
+                bsClass="form-group"
+                controlId="formInlinePhone"
+              >
+                <ControlLabel
+                  bsClass="control-label"
+                  srOnly={false}
+                >
+                  Innhold
+                </ControlLabel>
+                 
+                <FormControl
+                  bsClass="form-control"
+                  componentClass="textarea"
+                  name="text"
+                  onChange={[Function]}
+                  placeholder="E-postens innhold"
+                  rows={5}
+                />
+              </FormGroup>
+               
+            </Form>,
+            <Button
+              active={false}
+              block={false}
+              bsClass="btn"
+              bsStyle="default"
+              disabled={false}
+              onClick={[Function]}
+            >
+              Send e-post
+            </Button>,
+          ],
+          "componentClass": "div",
+          "fluid": false,
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "bsClass": "form",
+              "children": Array [
+                <FormGroup
+                  bsClass="form-group"
+                  controlId="formInlineToMail"
+                >
+                  <ControlLabel
+                    bsClass="control-label"
+                    srOnly={false}
+                  >
+                    Mottakers e-postadresse
+                  </ControlLabel>
+                   
+                  <FormControl
+                    bsClass="form-control"
+                    componentClass="input"
+                    name="to"
+                    onChange={[Function]}
+                    placeholder="mottaker@example.com"
+                    type="email"
+                  />
+                </FormGroup>,
+                " ",
+                <FormGroup
+                  bsClass="form-group"
+                  controlId="formInlineText"
+                >
+                  <ControlLabel
+                    bsClass="control-label"
+                    srOnly={false}
+                  >
+                    Tittel
+                  </ControlLabel>
+                   
+                  <FormControl
+                    bsClass="form-control"
+                    componentClass="input"
+                    defaultValue="Hverdagshelt - "
+                    name="subject"
+                    onChange={[Function]}
+                    placeholder="Hverdagshelt - "
+                    type="text"
+                  />
+                </FormGroup>,
+                " ",
+                <FormGroup
+                  bsClass="form-group"
+                  controlId="formInlinePhone"
+                >
+                  <ControlLabel
+                    bsClass="control-label"
+                    srOnly={false}
+                  >
+                    Innhold
+                  </ControlLabel>
+                   
+                  <FormControl
+                    bsClass="form-control"
+                    componentClass="textarea"
+                    name="text"
+                    onChange={[Function]}
+                    placeholder="E-postens innhold"
+                    rows={5}
+                  />
+                </FormGroup>,
+                " ",
+              ],
+              "componentClass": "form",
+              "horizontal": false,
+              "inline": false,
+            },
+            "ref": null,
+            "rendered": Array [
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "bsClass": "form-group",
+                  "children": Array [
+                    <ControlLabel
+                      bsClass="control-label"
+                      srOnly={false}
+                    >
+                      Mottakers e-postadresse
+                    </ControlLabel>,
+                    " ",
+                    <FormControl
+                      bsClass="form-control"
+                      componentClass="input"
+                      name="to"
+                      onChange={[Function]}
+                      placeholder="mottaker@example.com"
+                      type="email"
+                    />,
+                  ],
+                  "controlId": "formInlineToMail",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "bsClass": "control-label",
+                      "children": "Mottakers e-postadresse",
+                      "srOnly": false,
+                    },
+                    "ref": null,
+                    "rendered": "Mottakers e-postadresse",
+                    "type": [Function],
+                  },
+                  " ",
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "bsClass": "form-control",
+                      "componentClass": "input",
+                      "name": "to",
+                      "onChange": [Function],
+                      "placeholder": "mottaker@example.com",
+                      "type": "email",
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                ],
+                "type": [Function],
+              },
+              " ",
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "bsClass": "form-group",
+                  "children": Array [
+                    <ControlLabel
+                      bsClass="control-label"
+                      srOnly={false}
+                    >
+                      Tittel
+                    </ControlLabel>,
+                    " ",
+                    <FormControl
+                      bsClass="form-control"
+                      componentClass="input"
+                      defaultValue="Hverdagshelt - "
+                      name="subject"
+                      onChange={[Function]}
+                      placeholder="Hverdagshelt - "
+                      type="text"
+                    />,
+                  ],
+                  "controlId": "formInlineText",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "bsClass": "control-label",
+                      "children": "Tittel",
+                      "srOnly": false,
+                    },
+                    "ref": null,
+                    "rendered": "Tittel",
+                    "type": [Function],
+                  },
+                  " ",
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "bsClass": "form-control",
+                      "componentClass": "input",
+                      "defaultValue": "Hverdagshelt - ",
+                      "name": "subject",
+                      "onChange": [Function],
+                      "placeholder": "Hverdagshelt - ",
+                      "type": "text",
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                ],
+                "type": [Function],
+              },
+              " ",
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "bsClass": "form-group",
+                  "children": Array [
+                    <ControlLabel
+                      bsClass="control-label"
+                      srOnly={false}
+                    >
+                      Innhold
+                    </ControlLabel>,
+                    " ",
+                    <FormControl
+                      bsClass="form-control"
+                      componentClass="textarea"
+                      name="text"
+                      onChange={[Function]}
+                      placeholder="E-postens innhold"
+                      rows={5}
+                    />,
+                  ],
+                  "controlId": "formInlinePhone",
+                },
+                "ref": null,
+                "rendered": Array [
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "bsClass": "control-label",
+                      "children": "Innhold",
+                      "srOnly": false,
+                    },
+                    "ref": null,
+                    "rendered": "Innhold",
+                    "type": [Function],
+                  },
+                  " ",
+                  Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "bsClass": "form-control",
+                      "componentClass": "textarea",
+                      "name": "text",
+                      "onChange": [Function],
+                      "placeholder": "E-postens innhold",
+                      "rows": 5,
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                ],
+                "type": [Function],
+              },
+              " ",
+            ],
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "active": false,
+              "block": false,
+              "bsClass": "btn",
+              "bsStyle": "default",
+              "children": "Send e-post",
+              "disabled": false,
+              "onClick": [Function],
+            },
+            "ref": null,
+            "rendered": "Send e-post",
+            "type": [Function],
+          },
+        ],
+        "type": [Function],
+      },
+    ],
+    "type": "div",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": Array [
+          <i
+            className="fas fa-arrow-circle-left"
+            id="backButton"
+            onClick={[Function]}
+          />,
+          <Grid
+            bsClass="container"
+            componentClass="div"
+            fluid={false}
+          >
+            <Form
+              bsClass="form"
+              componentClass="form"
+              horizontal={false}
+              inline={false}
+            >
+              <FormGroup
+                bsClass="form-group"
+                controlId="formInlineToMail"
+              >
+                <ControlLabel
+                  bsClass="control-label"
+                  srOnly={false}
+                >
+                  Mottakers e-postadresse
+                </ControlLabel>
+                 
+                <FormControl
+                  bsClass="form-control"
+                  componentClass="input"
+                  name="to"
+                  onChange={[Function]}
+                  placeholder="mottaker@example.com"
+                  type="email"
+                />
+              </FormGroup>
+               
+              <FormGroup
+                bsClass="form-group"
+                controlId="formInlineText"
+              >
+                <ControlLabel
+                  bsClass="control-label"
+                  srOnly={false}
+                >
+                  Tittel
+                </ControlLabel>
+                 
+                <FormControl
+                  bsClass="form-control"
+                  componentClass="input"
+                  defaultValue="Hverdagshelt - "
+                  name="subject"
+                  onChange={[Function]}
+                  placeholder="Hverdagshelt - "
+                  type="text"
+                />
+              </FormGroup>
+               
+              <FormGroup
+                bsClass="form-group"
+                controlId="formInlinePhone"
+              >
+                <ControlLabel
+                  bsClass="control-label"
+                  srOnly={false}
+                >
+                  Innhold
+                </ControlLabel>
+                 
+                <FormControl
+                  bsClass="form-control"
+                  componentClass="textarea"
+                  name="text"
+                  onChange={[Function]}
+                  placeholder="E-postens innhold"
+                  rows={5}
+                />
+              </FormGroup>
+               
+            </Form>
+            <Button
+              active={false}
+              block={false}
+              bsClass="btn"
+              bsStyle="default"
+              disabled={false}
+              onClick={[Function]}
+            >
+              Send e-post
+            </Button>
+          </Grid>,
+        ],
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "className": "fas fa-arrow-circle-left",
+            "id": "backButton",
+            "onClick": [Function],
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "i",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "bsClass": "container",
+            "children": Array [
+              <Form
+                bsClass="form"
+                componentClass="form"
+                horizontal={false}
+                inline={false}
+              >
+                <FormGroup
+                  bsClass="form-group"
+                  controlId="formInlineToMail"
+                >
+                  <ControlLabel
+                    bsClass="control-label"
+                    srOnly={false}
+                  >
+                    Mottakers e-postadresse
+                  </ControlLabel>
+                   
+                  <FormControl
+                    bsClass="form-control"
+                    componentClass="input"
+                    name="to"
+                    onChange={[Function]}
+                    placeholder="mottaker@example.com"
+                    type="email"
+                  />
+                </FormGroup>
+                 
+                <FormGroup
+                  bsClass="form-group"
+                  controlId="formInlineText"
+                >
+                  <ControlLabel
+                    bsClass="control-label"
+                    srOnly={false}
+                  >
+                    Tittel
+                  </ControlLabel>
+                   
+                  <FormControl
+                    bsClass="form-control"
+                    componentClass="input"
+                    defaultValue="Hverdagshelt - "
+                    name="subject"
+                    onChange={[Function]}
+                    placeholder="Hverdagshelt - "
+                    type="text"
+                  />
+                </FormGroup>
+                 
+                <FormGroup
+                  bsClass="form-group"
+                  controlId="formInlinePhone"
+                >
+                  <ControlLabel
+                    bsClass="control-label"
+                    srOnly={false}
+                  >
+                    Innhold
+                  </ControlLabel>
+                   
+                  <FormControl
+                    bsClass="form-control"
+                    componentClass="textarea"
+                    name="text"
+                    onChange={[Function]}
+                    placeholder="E-postens innhold"
+                    rows={5}
+                  />
+                </FormGroup>
+                 
+              </Form>,
+              <Button
+                active={false}
+                block={false}
+                bsClass="btn"
+                bsStyle="default"
+                disabled={false}
+                onClick={[Function]}
+              >
+                Send e-post
+              </Button>,
+            ],
+            "componentClass": "div",
+            "fluid": false,
+          },
+          "ref": null,
+          "rendered": Array [
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "bsClass": "form",
+                "children": Array [
+                  <FormGroup
+                    bsClass="form-group"
+                    controlId="formInlineToMail"
+                  >
+                    <ControlLabel
+                      bsClass="control-label"
+                      srOnly={false}
+                    >
+                      Mottakers e-postadresse
+                    </ControlLabel>
+                     
+                    <FormControl
+                      bsClass="form-control"
+                      componentClass="input"
+                      name="to"
+                      onChange={[Function]}
+                      placeholder="mottaker@example.com"
+                      type="email"
+                    />
+                  </FormGroup>,
+                  " ",
+                  <FormGroup
+                    bsClass="form-group"
+                    controlId="formInlineText"
+                  >
+                    <ControlLabel
+                      bsClass="control-label"
+                      srOnly={false}
+                    >
+                      Tittel
+                    </ControlLabel>
+                     
+                    <FormControl
+                      bsClass="form-control"
+                      componentClass="input"
+                      defaultValue="Hverdagshelt - "
+                      name="subject"
+                      onChange={[Function]}
+                      placeholder="Hverdagshelt - "
+                      type="text"
+                    />
+                  </FormGroup>,
+                  " ",
+                  <FormGroup
+                    bsClass="form-group"
+                    controlId="formInlinePhone"
+                  >
+                    <ControlLabel
+                      bsClass="control-label"
+                      srOnly={false}
+                    >
+                      Innhold
+                    </ControlLabel>
+                     
+                    <FormControl
+                      bsClass="form-control"
+                      componentClass="textarea"
+                      name="text"
+                      onChange={[Function]}
+                      placeholder="E-postens innhold"
+                      rows={5}
+                    />
+                  </FormGroup>,
+                  " ",
+                ],
+                "componentClass": "form",
+                "horizontal": false,
+                "inline": false,
+              },
+              "ref": null,
+              "rendered": Array [
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "bsClass": "form-group",
+                    "children": Array [
+                      <ControlLabel
+                        bsClass="control-label"
+                        srOnly={false}
+                      >
+                        Mottakers e-postadresse
+                      </ControlLabel>,
+                      " ",
+                      <FormControl
+                        bsClass="form-control"
+                        componentClass="input"
+                        name="to"
+                        onChange={[Function]}
+                        placeholder="mottaker@example.com"
+                        type="email"
+                      />,
+                    ],
+                    "controlId": "formInlineToMail",
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "bsClass": "control-label",
+                        "children": "Mottakers e-postadresse",
+                        "srOnly": false,
+                      },
+                      "ref": null,
+                      "rendered": "Mottakers e-postadresse",
+                      "type": [Function],
+                    },
+                    " ",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "bsClass": "form-control",
+                        "componentClass": "input",
+                        "name": "to",
+                        "onChange": [Function],
+                        "placeholder": "mottaker@example.com",
+                        "type": "email",
+                      },
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                  ],
+                  "type": [Function],
+                },
+                " ",
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "bsClass": "form-group",
+                    "children": Array [
+                      <ControlLabel
+                        bsClass="control-label"
+                        srOnly={false}
+                      >
+                        Tittel
+                      </ControlLabel>,
+                      " ",
+                      <FormControl
+                        bsClass="form-control"
+                        componentClass="input"
+                        defaultValue="Hverdagshelt - "
+                        name="subject"
+                        onChange={[Function]}
+                        placeholder="Hverdagshelt - "
+                        type="text"
+                      />,
+                    ],
+                    "controlId": "formInlineText",
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "bsClass": "control-label",
+                        "children": "Tittel",
+                        "srOnly": false,
+                      },
+                      "ref": null,
+                      "rendered": "Tittel",
+                      "type": [Function],
+                    },
+                    " ",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "bsClass": "form-control",
+                        "componentClass": "input",
+                        "defaultValue": "Hverdagshelt - ",
+                        "name": "subject",
+                        "onChange": [Function],
+                        "placeholder": "Hverdagshelt - ",
+                        "type": "text",
+                      },
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                  ],
+                  "type": [Function],
+                },
+                " ",
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "bsClass": "form-group",
+                    "children": Array [
+                      <ControlLabel
+                        bsClass="control-label"
+                        srOnly={false}
+                      >
+                        Innhold
+                      </ControlLabel>,
+                      " ",
+                      <FormControl
+                        bsClass="form-control"
+                        componentClass="textarea"
+                        name="text"
+                        onChange={[Function]}
+                        placeholder="E-postens innhold"
+                        rows={5}
+                      />,
+                    ],
+                    "controlId": "formInlinePhone",
+                  },
+                  "ref": null,
+                  "rendered": Array [
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "bsClass": "control-label",
+                        "children": "Innhold",
+                        "srOnly": false,
+                      },
+                      "ref": null,
+                      "rendered": "Innhold",
+                      "type": [Function],
+                    },
+                    " ",
+                    Object {
+                      "instance": null,
+                      "key": undefined,
+                      "nodeType": "class",
+                      "props": Object {
+                        "bsClass": "form-control",
+                        "componentClass": "textarea",
+                        "name": "text",
+                        "onChange": [Function],
+                        "placeholder": "E-postens innhold",
+                        "rows": 5,
+                      },
+                      "ref": null,
+                      "rendered": null,
+                      "type": [Function],
+                    },
+                  ],
+                  "type": [Function],
+                },
+                " ",
+              ],
+              "type": [Function],
+            },
+            Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "active": false,
+                "block": false,
+                "bsClass": "btn",
+                "bsStyle": "default",
+                "children": "Send e-post",
+                "disabled": false,
+                "onClick": [Function],
+              },
+              "ref": null,
+              "rendered": "Send e-post",
+              "type": [Function],
+            },
+          ],
+          "type": [Function],
+        },
+      ],
+      "type": "div",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
+`;

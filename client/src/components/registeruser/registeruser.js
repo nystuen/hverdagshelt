@@ -528,7 +528,7 @@ export class RegisterUser extends Component<Props, State> {
 
     checkInput = () => {
         //console.log(this.getValidationStateFirstName()||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()||this.getValidationStateEmail2()==='warning'||this.getValidationStatePassword()==='warning'||this.getValidationStatePassword2()==='warning');
-        if ((this.state.countyIsChanged===false)|| this.getValidationStateFirstName() === 'warning' || this.getValidationStateFirstName() === 'warning' || this.getValidationStateFirstName() === 'warning' || this.getValidationStateLastName() === 'warning' || this.getValidationPhone() === 'warning' || this.getValidationStateEmail() === 'warning' || this.getValidationStateEmail2() === 'warning' || this.getValidationStatePassword() === 'warning' || this.getValidationStatePassword2() === 'warning') {
+        if ((this.state.countyIsChanged===false)|| this.getValidationStateFirstName() === 'warning' || this.getValidationStateFirstName() === 'warning'|| this.getValidationStateLastName() === 'warning' || this.getValidationPhone() === 'warning' || this.getValidationStateEmail() === 'warning' || this.getValidationStateEmail2() === 'warning' || this.getValidationStatePassword() === 'warning' || this.getValidationStatePassword2() === 'warning') {
             this.setState({errorSomething: true});
         }else{
                 this.register();
@@ -586,4 +586,6 @@ export class RegisterUser extends Component<Props, State> {
             }, 4000
         )
     }
+
+
 }

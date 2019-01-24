@@ -115,7 +115,6 @@ if (root)
           path="/min_side/mine_saker/rediger/:issueId"
           component={EditIssue}
         />
-        <Footer />
         <Route exact path="/hendelse/:eventId" component={eventView}/>
         <Footer2/>
       </div>
