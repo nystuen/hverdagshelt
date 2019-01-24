@@ -1,0 +1,637 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`Test for MyIssuesNotificationSettingsForm component renders correctly 1`] = `
+ShallowWrapper {
+  Symbol(enzyme.__root__): [Circular],
+  Symbol(enzyme.__unrendered__): <MyIssuesNotificationSettingsForm />,
+  Symbol(enzyme.__renderer__): Object {
+    "batchedUpdates": [Function],
+    "getNode": [Function],
+    "render": [Function],
+    "simulateError": [Function],
+    "simulateEvent": [Function],
+    "unmount": [Function],
+  },
+  Symbol(enzyme.__node__): Object {
+    "instance": null,
+    "key": undefined,
+    "nodeType": "host",
+    "props": Object {
+      "children": <Grid
+        bsClass="container"
+        componentClass="div"
+        fluid={false}
+      >
+        <h3>
+          Varsle meg når mine innsendte saker er:
+        </h3>
+        <FormGroup
+          bsClass="form-group"
+          id={1}
+        >
+          <Checkbox
+            bsClass="checkbox"
+            checked={false}
+            disabled={false}
+            inline={false}
+            onChange={[Function]}
+            onClick={[Function]}
+            title=""
+          >
+            Registrert
+          </Checkbox>
+        </FormGroup>
+        <FormGroup
+          bsClass="form-group"
+          id={2}
+        >
+          <Checkbox
+            bsClass="checkbox"
+            checked={false}
+            disabled={false}
+            inline={false}
+            onChange={[Function]}
+            onClick={[Function]}
+            title=""
+          >
+            Under arbeid
+          </Checkbox>
+        </FormGroup>
+        <FormGroup
+          bsClass="form-group"
+          id={3}
+        >
+          <Checkbox
+            bsClass="checkbox"
+            checked={false}
+            disabled={false}
+            inline={false}
+            onChange={[Function]}
+            onClick={[Function]}
+            title=""
+          >
+            Fullført
+          </Checkbox>
+        </FormGroup>
+        <Button
+          active={false}
+          block={false}
+          bsClass="btn"
+          bsStyle="default"
+          disabled={false}
+          onClick={[Function]}
+        >
+          Lagre
+        </Button>
+      </Grid>,
+    },
+    "ref": null,
+    "rendered": Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "class",
+      "props": Object {
+        "bsClass": "container",
+        "children": Array [
+          <h3>
+            Varsle meg når mine innsendte saker er:
+          </h3>,
+          <FormGroup
+            bsClass="form-group"
+            id={1}
+          >
+            <Checkbox
+              bsClass="checkbox"
+              checked={false}
+              disabled={false}
+              inline={false}
+              onChange={[Function]}
+              onClick={[Function]}
+              title=""
+            >
+              Registrert
+            </Checkbox>
+          </FormGroup>,
+          <FormGroup
+            bsClass="form-group"
+            id={2}
+          >
+            <Checkbox
+              bsClass="checkbox"
+              checked={false}
+              disabled={false}
+              inline={false}
+              onChange={[Function]}
+              onClick={[Function]}
+              title=""
+            >
+              Under arbeid
+            </Checkbox>
+          </FormGroup>,
+          <FormGroup
+            bsClass="form-group"
+            id={3}
+          >
+            <Checkbox
+              bsClass="checkbox"
+              checked={false}
+              disabled={false}
+              inline={false}
+              onChange={[Function]}
+              onClick={[Function]}
+              title=""
+            >
+              Fullført
+            </Checkbox>
+          </FormGroup>,
+          <Button
+            active={false}
+            block={false}
+            bsClass="btn"
+            bsStyle="default"
+            disabled={false}
+            onClick={[Function]}
+          >
+            Lagre
+          </Button>,
+        ],
+        "componentClass": "div",
+        "fluid": false,
+      },
+      "ref": null,
+      "rendered": Array [
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "children": "Varsle meg når mine innsendte saker er:",
+          },
+          "ref": null,
+          "rendered": "Varsle meg når mine innsendte saker er:",
+          "type": "h3",
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "bsClass": "form-group",
+            "children": <Checkbox
+              bsClass="checkbox"
+              checked={false}
+              disabled={false}
+              inline={false}
+              onChange={[Function]}
+              onClick={[Function]}
+              title=""
+            >
+              Registrert
+            </Checkbox>,
+            "id": 1,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "bsClass": "checkbox",
+              "checked": false,
+              "children": "Registrert",
+              "disabled": false,
+              "inline": false,
+              "onChange": [Function],
+              "onClick": [Function],
+              "title": "",
+            },
+            "ref": null,
+            "rendered": "Registrert",
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "bsClass": "form-group",
+            "children": <Checkbox
+              bsClass="checkbox"
+              checked={false}
+              disabled={false}
+              inline={false}
+              onChange={[Function]}
+              onClick={[Function]}
+              title=""
+            >
+              Under arbeid
+            </Checkbox>,
+            "id": 2,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "bsClass": "checkbox",
+              "checked": false,
+              "children": "Under arbeid",
+              "disabled": false,
+              "inline": false,
+              "onChange": [Function],
+              "onClick": [Function],
+              "title": "",
+            },
+            "ref": null,
+            "rendered": "Under arbeid",
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "bsClass": "form-group",
+            "children": <Checkbox
+              bsClass="checkbox"
+              checked={false}
+              disabled={false}
+              inline={false}
+              onChange={[Function]}
+              onClick={[Function]}
+              title=""
+            >
+              Fullført
+            </Checkbox>,
+            "id": 3,
+          },
+          "ref": null,
+          "rendered": Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "bsClass": "checkbox",
+              "checked": false,
+              "children": "Fullført",
+              "disabled": false,
+              "inline": false,
+              "onChange": [Function],
+              "onClick": [Function],
+              "title": "",
+            },
+            "ref": null,
+            "rendered": "Fullført",
+            "type": [Function],
+          },
+          "type": [Function],
+        },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "class",
+          "props": Object {
+            "active": false,
+            "block": false,
+            "bsClass": "btn",
+            "bsStyle": "default",
+            "children": "Lagre",
+            "disabled": false,
+            "onClick": [Function],
+          },
+          "ref": null,
+          "rendered": "Lagre",
+          "type": [Function],
+        },
+      ],
+      "type": [Function],
+    },
+    "type": "form",
+  },
+  Symbol(enzyme.__nodes__): Array [
+    Object {
+      "instance": null,
+      "key": undefined,
+      "nodeType": "host",
+      "props": Object {
+        "children": <Grid
+          bsClass="container"
+          componentClass="div"
+          fluid={false}
+        >
+          <h3>
+            Varsle meg når mine innsendte saker er:
+          </h3>
+          <FormGroup
+            bsClass="form-group"
+            id={1}
+          >
+            <Checkbox
+              bsClass="checkbox"
+              checked={false}
+              disabled={false}
+              inline={false}
+              onChange={[Function]}
+              onClick={[Function]}
+              title=""
+            >
+              Registrert
+            </Checkbox>
+          </FormGroup>
+          <FormGroup
+            bsClass="form-group"
+            id={2}
+          >
+            <Checkbox
+              bsClass="checkbox"
+              checked={false}
+              disabled={false}
+              inline={false}
+              onChange={[Function]}
+              onClick={[Function]}
+              title=""
+            >
+              Under arbeid
+            </Checkbox>
+          </FormGroup>
+          <FormGroup
+            bsClass="form-group"
+            id={3}
+          >
+            <Checkbox
+              bsClass="checkbox"
+              checked={false}
+              disabled={false}
+              inline={false}
+              onChange={[Function]}
+              onClick={[Function]}
+              title=""
+            >
+              Fullført
+            </Checkbox>
+          </FormGroup>
+          <Button
+            active={false}
+            block={false}
+            bsClass="btn"
+            bsStyle="default"
+            disabled={false}
+            onClick={[Function]}
+          >
+            Lagre
+          </Button>
+        </Grid>,
+      },
+      "ref": null,
+      "rendered": Object {
+        "instance": null,
+        "key": undefined,
+        "nodeType": "class",
+        "props": Object {
+          "bsClass": "container",
+          "children": Array [
+            <h3>
+              Varsle meg når mine innsendte saker er:
+            </h3>,
+            <FormGroup
+              bsClass="form-group"
+              id={1}
+            >
+              <Checkbox
+                bsClass="checkbox"
+                checked={false}
+                disabled={false}
+                inline={false}
+                onChange={[Function]}
+                onClick={[Function]}
+                title=""
+              >
+                Registrert
+              </Checkbox>
+            </FormGroup>,
+            <FormGroup
+              bsClass="form-group"
+              id={2}
+            >
+              <Checkbox
+                bsClass="checkbox"
+                checked={false}
+                disabled={false}
+                inline={false}
+                onChange={[Function]}
+                onClick={[Function]}
+                title=""
+              >
+                Under arbeid
+              </Checkbox>
+            </FormGroup>,
+            <FormGroup
+              bsClass="form-group"
+              id={3}
+            >
+              <Checkbox
+                bsClass="checkbox"
+                checked={false}
+                disabled={false}
+                inline={false}
+                onChange={[Function]}
+                onClick={[Function]}
+                title=""
+              >
+                Fullført
+              </Checkbox>
+            </FormGroup>,
+            <Button
+              active={false}
+              block={false}
+              bsClass="btn"
+              bsStyle="default"
+              disabled={false}
+              onClick={[Function]}
+            >
+              Lagre
+            </Button>,
+          ],
+          "componentClass": "div",
+          "fluid": false,
+        },
+        "ref": null,
+        "rendered": Array [
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "children": "Varsle meg når mine innsendte saker er:",
+            },
+            "ref": null,
+            "rendered": "Varsle meg når mine innsendte saker er:",
+            "type": "h3",
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "bsClass": "form-group",
+              "children": <Checkbox
+                bsClass="checkbox"
+                checked={false}
+                disabled={false}
+                inline={false}
+                onChange={[Function]}
+                onClick={[Function]}
+                title=""
+              >
+                Registrert
+              </Checkbox>,
+              "id": 1,
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "bsClass": "checkbox",
+                "checked": false,
+                "children": "Registrert",
+                "disabled": false,
+                "inline": false,
+                "onChange": [Function],
+                "onClick": [Function],
+                "title": "",
+              },
+              "ref": null,
+              "rendered": "Registrert",
+              "type": [Function],
+            },
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "bsClass": "form-group",
+              "children": <Checkbox
+                bsClass="checkbox"
+                checked={false}
+                disabled={false}
+                inline={false}
+                onChange={[Function]}
+                onClick={[Function]}
+                title=""
+              >
+                Under arbeid
+              </Checkbox>,
+              "id": 2,
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "bsClass": "checkbox",
+                "checked": false,
+                "children": "Under arbeid",
+                "disabled": false,
+                "inline": false,
+                "onChange": [Function],
+                "onClick": [Function],
+                "title": "",
+              },
+              "ref": null,
+              "rendered": "Under arbeid",
+              "type": [Function],
+            },
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "bsClass": "form-group",
+              "children": <Checkbox
+                bsClass="checkbox"
+                checked={false}
+                disabled={false}
+                inline={false}
+                onChange={[Function]}
+                onClick={[Function]}
+                title=""
+              >
+                Fullført
+              </Checkbox>,
+              "id": 3,
+            },
+            "ref": null,
+            "rendered": Object {
+              "instance": null,
+              "key": undefined,
+              "nodeType": "class",
+              "props": Object {
+                "bsClass": "checkbox",
+                "checked": false,
+                "children": "Fullført",
+                "disabled": false,
+                "inline": false,
+                "onChange": [Function],
+                "onClick": [Function],
+                "title": "",
+              },
+              "ref": null,
+              "rendered": "Fullført",
+              "type": [Function],
+            },
+            "type": [Function],
+          },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "class",
+            "props": Object {
+              "active": false,
+              "block": false,
+              "bsClass": "btn",
+              "bsStyle": "default",
+              "children": "Lagre",
+              "disabled": false,
+              "onClick": [Function],
+            },
+            "ref": null,
+            "rendered": "Lagre",
+            "type": [Function],
+          },
+        ],
+        "type": [Function],
+      },
+      "type": "form",
+    },
+  ],
+  Symbol(enzyme.__options__): Object {
+    "adapter": ReactSixteenAdapter {
+      "options": Object {
+        "enableComponentDidUpdateOnSetState": true,
+        "lifecycles": Object {
+          "componentDidUpdate": Object {
+            "onSetState": true,
+          },
+          "getDerivedStateFromProps": true,
+          "getSnapshotBeforeUpdate": true,
+          "setState": Object {
+            "skipsComponentDidUpdateOnNullish": true,
+          },
+        },
+      },
+    },
+  },
+}
+`;
