@@ -4,7 +4,7 @@ export class StatisticsDao extends Dao {
 
   getNumberStatus(countyId: number, callback: Function){
     super.query(
-      "SELECT statusName, COUNT(*) as ant from issues WHERE countyId=? AND active=1 GROUP BY statusName",
+      "licen",
       [countyId],
       callback
     )

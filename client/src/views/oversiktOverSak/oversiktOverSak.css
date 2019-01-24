@@ -9,3 +9,7 @@
 .comment:nth-child(odd) {
     background-color: #fafafa;
 }
+
+.editStatus{
+    display: flex;
+}

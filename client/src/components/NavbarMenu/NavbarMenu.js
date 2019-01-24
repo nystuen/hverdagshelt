@@ -149,8 +149,8 @@ export class NavbarMenu extends React.Component {
           <div className={'logoBrand'}>
             <Navbar collapseOnSelect fluid>
               <Navbar.Header>
-                <Navbar.Brand>
-                  <img src={'./resources/logo_white.png'}></img>
+                <Navbar.Brand><a href={"/#/"}>
+                  <img src={'./resources/logo_white.png'}></img></a>
                 </Navbar.Brand>
                 <Navbar.Toggle/>
               </Navbar.Header>
