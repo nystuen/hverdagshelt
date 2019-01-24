@@ -141,7 +141,7 @@ export class CountySubscription extends Component<Props, State> {
                   placeholder="Søk i alle kommuner"
                   inputRef={input => this.inputText1 = input}
                 />
-                <ListGroup id={'allCountiesList'}>
+                <ListGroup id={'allCountiesList'} style={{'max-height': 'calc(300px)', 'overflow-y': 'auto'}}>
                   {
                     this.state.allCounties.map((r, i) => {
                       return <li className="list-group-item" onClick={() => {
@@ -172,7 +172,7 @@ export class CountySubscription extends Component<Props, State> {
                   placeholder="Søk i dine kommuner"
                   inputRef={input => this.inputText = input}
                 />
-                <ListGroup id="myCountiesList">
+                <ListGroup id="myCountiesList" style={{'max-height': 'calc(300px)', 'overflow-y': 'auto'}}>
                   {
                     this.state.userCounties.map((r, i) => {
                       return <li className="list-group-item" onClick={() => {
