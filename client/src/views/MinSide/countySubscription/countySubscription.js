@@ -1,11 +1,9 @@
 //@flow
 import React, { Component } from 'react';
 import { Layout } from '../../../widgets';
-import { Grid, Row, Col, ListGroup,ListGroupItem, Table, Image, Panel, Glyphicon, Button, FormControl } from "react-bootstrap"
+import { Grid, Row, Col, ListGroup, Glyphicon, Button, FormControl } from "react-bootstrap"
 import {CountyService, UserService, NotificationSettingsService} from "../../../services";
 import {Filter} from "../../../components/Filter/Filter";
-import * as jwt from 'jsonwebtoken';
-import css from './countySubscription.css';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
 import { User } from '../../../classTypes';
 
@@ -241,14 +239,3 @@ export class CountySubscription extends Component<Props, State> {
     }
 
 }
-
-
-/* {
-                                this.state.userCounties.map((r,i)=>{
-                                   return <ListGroupItem key={i} >{r.name}</ListGroupItem>
-                                })
-
-                                  this.state.allCounties.map((r,i) =>{
-                                    return <tr><td key={i}>{r.name}</td></tr>
-                                })
-                            }*/
