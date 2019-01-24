@@ -9,13 +9,13 @@ import {
   Image,
   Panel,
   Button,
-  ButtonGroup,
-  Jum
+  ButtonGroup
 } from 'react-bootstrap';
 import { CountyService, EventCategoryService } from '../../services';
 import css from './forside.css';
 import { Event } from '../../classTypes';
 import { CategorySelectList } from '../../components/CategorySelectList/CategorySelectList';
+import { InfoModule } from '../../components/InfoModule/InfoModule';
 
 let countyService = new CountyService();
 let eventCategoryService = new EventCategoryService();
@@ -59,9 +59,15 @@ export class forside extends Component {
     this.getInformation();
   }
 
+  register(){
+    return <InfoModule/>
+  }
+
   login() {
-    if (false) {
-      return <Button id="homepageButton" bsStyle="primary">Bli en hverdagshelt!</Button>;
+    if (window.localStorage.getItem('userToken') === '') {
+      return <div>
+        <Button id="homepageButton" bsStyle="primary" onClick={this.register} >Bli en hverdagshelt!</Button>
+      </div>
     }
   }
 
