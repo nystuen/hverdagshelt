@@ -1,8 +1,7 @@
-import {Col, Button, Form, FormGroup, Label, Grid} from 'react-bootstrap';
+import {Alert, Col, ButtonToolbar, ToggleButtonGroup, ToggleButton, ButtonGroup, Button, Form, FormGroup, Label, Grid} from 'react-bootstrap';
 import {CountyService, NotificationSettingsService, UserService} from "../../services";
 import {Component} from 'react';
 import * as React from 'react';
-import {Alert} from "../../widgets";
 import ReactDOM from 'react-dom';
 import {County} from "../../classTypes";
 import {FormControl, PageHeader} from "react-bootstrap";
@@ -19,6 +18,8 @@ export class RegisterAdmin extends Component<Props, State>{
     constructor(props) {
         super(props);
         this.state = {
+            errorButton: false,
+            buttonValue: 0,
             errorSomething: false,
             countyIsChanged: false,
             mail: "",
@@ -40,8 +41,11 @@ export class RegisterAdmin extends Component<Props, State>{
                 //{ name: this.county.name, countyId: this.county.countyId}
             ]
         }
-
+        this.handleButtonChange = this.handleButtonChange.bind(this);
         this.handleChangeCounty = this.handleChangeCounty.bind(this)
+    }
+    handleButtonChange(e){
+        this.setState({buttonValue: e});
     }
 
 
@@ -114,7 +118,7 @@ export class RegisterAdmin extends Component<Props, State>{
 
     getValidationStateFirstName() {
         const firstNameLength = this.state.firstName.length;
-        let decimal=/^[A-Za-zÆØÅæøå]*[A-Za-zÆØÅæøå][A-Za-zÆØÅæøå]*$/;
+        let decimal=/^[A-Za-z ÆØÅæøå]*[A-Za-z ÆØÅæøå][A-Za-z ÆØÅæøå]*$/;
 
         if(firstNameLength===1){
             return 'warning';
@@ -127,7 +131,7 @@ export class RegisterAdmin extends Component<Props, State>{
     }
     getValidationStateLastName() {
         const lastNameLength = this.state.lastName.length;
-        let dec=/^[A-Za-zÆØÅæøå]*[A-Za-zÆØÅæøå][A-Za-z ÆØÅæøå]*$/;
+        let dec=/^[A-Za-z ÆØÅæøå]*[A-Za-z ÆØÅæøå][A-Za-z ÆØÅæøå]*$/;
 
         if(lastNameLength===1){
             return 'warning';
@@ -187,7 +191,7 @@ export class RegisterAdmin extends Component<Props, State>{
         if (this.state.errorSomething) {
             alert_something = (
                 <Alert bsStyle="danger">
-                    <h6>Pass på at alle felt er fylt ut korrekt</h6>
+                    <p id="errorSome">Pass på at alle felt er fylt ut korrekt</p>
                 </Alert>);
         } else {
             alert_something = (
@@ -199,6 +203,14 @@ export class RegisterAdmin extends Component<Props, State>{
             register_success = (
                 <Alert bsStyle="success">
                     <p id="SuccessLogin">Bruker ble registrert</p>
+                </Alert>
+            )
+        }
+        let error_button;
+        if (this.state.errorButton) {
+            error_button = (
+                <Alert bsStyle="danger">
+                    <p id="errorBtn">Velg admin eller kommuneansatt</p>
                 </Alert>
             )
         }
@@ -274,9 +286,7 @@ export class RegisterAdmin extends Component<Props, State>{
                                 </Col>
                         </FormGroup>
                             <FormGroup>
-                                <Col md={4}>
-                                </Col>
-                                <Col md={4}>
+                                <Col md={6}>
                                     <FormGroup>
                                         <Select
                                             placeholder={"Søk hjemmekommune"}
@@ -288,15 +298,28 @@ export class RegisterAdmin extends Component<Props, State>{
                                         />
                                     </FormGroup>
                                 </Col>
+                                <Col md={1}>
+                                </Col>
                                 <Col md={4}>
+                                    <FormGroup>
+                                    <ButtonToolbar>
+                                        <ToggleButtonGroup type="radio" name="chooseType" onChange={this.handleButtonChange}>
+                                            <ToggleButton value={1}>Admin</ToggleButton>
+                                            <ToggleButton value={2}>Kommuneansatt</ToggleButton>
+                                        </ToggleButtonGroup>
+                                    </ButtonToolbar>
+                                    </FormGroup>
 
                                 </Col>
                             </FormGroup>
                             <FormGroup>
                                 <Col md={4}/>
                                 <Col md={4}>
-                                {alert_something}
-                                {register_success}
+                                    <FormGroup>
+                                        {alert_something}
+                                        {register_success}
+                                        {error_button}
+                                    </FormGroup>
                                 </Col>
                                 <Col md={4}/>
                             </FormGroup>
@@ -318,17 +341,30 @@ export class RegisterAdmin extends Component<Props, State>{
     }
     checkInput = () =>{
         //console.log(this.getValidationStateFirstName()||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()||this.getValidationStateEmail2()==='warning'||this.getValidationStatePassword()==='warning'||this.getValidationStatePassword2()==='warning');
-        if(this.state.countyIsChanged===false||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()==='warning'||this.getValidationStateEmail2()==='warning'||this.getValidationPostNumber()==='warning'||this.getValidationAddress()==='warning'){
+        if(this.state.buttonValue===0){
+            this.setState({errorButton:true})
+        };
+
+        if(this.state.errorButton===0||this.state.countyIsChanged===false || this.getValidationStateFirstName()==='warning' || this.getValidationStateLastName()==='warning' || this.getValidationPhone()==='warning' || this.getValidationStateEmail()==='warning' || this.getValidationStateEmail2()==='warning' || this.getValidationPostNumber()==='warning' || this.getValidationAddress()==='warning'){
+            console.log("Kommer hit!!")
+            confirm('Du må fylle alle feltene');
             this.setState({
                 errorSomething:true
-            })
+            });
+            console.log("ERROR SOMETHING2: "+this.state.errorSomething)
         }else{
-            this.register();
+            if(this.state.buttonValue===1) {
+                this.register();
+            }else if(this.state.buttonValue===2){
+                this.register2();
+            }else{
+                console.log("DET ER FAIL");
+            }
         }
     };
 
     register = () => {
-        console.log("test", this.state);
+        console.log("test", this.state.buttonValue);
 
         const newAdmin = {
             mail: this.state.mail,
@@ -340,11 +376,10 @@ export class RegisterAdmin extends Component<Props, State>{
             phone: this.state.phone,
             countyId: this.state.choosen,
         };
-
         console.log("county", this.state.choosen);
         userService
             .addAdmin(newAdmin)
-            .then(user => (this.state = user)).then(Alert.success('Bruker registrert'))
+            .then(user => (this.state = user))
             .catch((error: Error) => Alert.danger(error.message));
 
         let theBody: Object = {
@@ -364,5 +399,43 @@ export class RegisterAdmin extends Component<Props, State>{
                 history.push('/admin/registrertSuksess');
             }, 2000
         )
-    }
+    };
+    register2 = () => {
+
+        console.log("test", this.state.buttonValue);
+
+        const newAdmin = {
+            mail: this.state.mail,
+            firstName: this.state.firstName,
+            lastName: this.state.lastName,
+            typeName: 'Employee',
+            address: this.state.address,
+            postNumber: this.state.postNumber,
+            phone: this.state.phone,
+            countyId: this.state.choosen,
+        };
+        console.log("county", this.state.choosen);
+        userService
+            .addAdmin(newAdmin)
+            .then(user => (this.state = user))
+            .catch((error: Error) => Alert.danger(error.message));
+
+        let theBody: Object = {
+            mail: newAdmin.mail,
+            registered: 1,
+            inProgress: 0,
+            completed: 1
+        };
+        notificationSettingService.addIssueNotificationSettings(theBody);
+        this.setState({errorSomething: false, registerSuccess: true});
+        this.goToRegNew();
+
+    };
+    goToRegNew = () => {
+        setTimeout(
+            function () {
+                history.push('/admin');
+            }, 2000
+        )
+    };
 }
