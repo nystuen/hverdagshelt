@@ -1,13 +1,13 @@
 // @flow
-import { Field, reduxForm } from 'redux-form';
-import validate from './validate';
-import renderCategoryField from './renderCategoryField';
-import React, { Component, createRef } from 'react';
-import { Map, TileLayer, Marker, Popup, withLeaflet } from 'react-leaflet';
-import * as ELG from 'esri-leaflet-geocoder';
-import L from 'leaflet';
-import { Button, ProgressBar } from 'react-bootstrap';
-import Geocode from 'react-geocode';
+import { Field, reduxForm } from "redux-form";
+import validate from "./validate";
+import renderCategoryField from "./renderCategoryField";
+import React, { Component, createRef } from "react";
+import { Map, TileLayer, Marker, Popup, withLeaflet } from "react-leaflet";
+import * as ELG from "esri-leaflet-geocoder";
+import L from "leaflet";
+import { Button, ProgressBar } from "react-bootstrap";
+import Geocode from "react-geocode";
 
 Geocode.setApiKey("AIzaSyDVZREoJuiobrxWVmBFhemEk1VdRB0MsSI");
 
@@ -49,7 +49,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
   mapRef = createRef<Map>();
 
   handleMapClick = (e: Object) => {
-    if (e === undefined) e = {latlng: {} };
+    if (e === undefined) e = { latlng: {} };
     this.setState({
       hasLocation: true,
       latlng: e.latlng,
@@ -105,30 +105,26 @@ export class WizardFormFirstPage extends Component<{}, State> {
     Geocode.fromAddress(this.state.address).then(
       response => {
         const { lat, lng } = response.results[0].geometry.location;
-        console.log(lat, lng)
-        Geocode.fromLatLng(lat, lng).then(
-          response => {
-            console.log("hei")
-            console.log(response.results[0])
-            const address_found = response.results[0].formatted_address;
-            const county_found = response.results[0].address_components[3].long_name;
-            console.log(county_found)
+        Geocode.fromLatLng(lat, lng).then(response => {
+          const address_found = response.results[0].formatted_address;
+          const county_found =
+            response.results[0].address_components[3].long_name;
+          console.log(county_found);
 
-            // Sjekk mot registrerte kommune
-            if(!console.log([""].includes(county_found))){
-              this.props.change("address", address_found);
-              this.setState({
-                hasLocation: true,
-                latlng: {
-                  lat: lat,
-                  lng: lng
-                },
-                address: address_found,
-                zoom: 17
-              });
-            }
-          },
-        )
+          // Sjekk mot registrerte kommune
+          if (!console.log([""].includes(county_found))) {
+            this.props.change("address", address_found);
+            this.setState({
+              hasLocation: true,
+              latlng: {
+                lat: lat,
+                lng: lng
+              },
+              address: address_found,
+              zoom: 17
+            });
+          }
+        });
       },
       error => {
         console.error(error);
@@ -207,7 +203,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
                 component={renderCategoryField}
               />
               <Button
-                  id="submitButton"
+                id="submitButton"
                 bsStyle="primary"
                 type="submit"
                 className="next + ' ' + submitButton"
