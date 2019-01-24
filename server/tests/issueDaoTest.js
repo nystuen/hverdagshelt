@@ -26,17 +26,18 @@ let pool = mysql.createPool({
 
 
 
-beforeAll( async () => {
-  await runsqlfile("tests/sqlFiles/createTables.sql", pool,() => {
-     runsqlfile("tests/sqlFiles/createTestData.sql", pool);
+beforeAll( done => {
+  runsqlfile("tests/sqlFiles/createTables.sql", pool,() => {
+     runsqlfile("tests/sqlFiles/createTestData.sql", pool, done);
   });
 });
 
 
 
 
-afterAll(() => {
+afterAll(done => {
   pool.end();
+  done();
 });
 
 let issueDao = new IssueDao(pool);
