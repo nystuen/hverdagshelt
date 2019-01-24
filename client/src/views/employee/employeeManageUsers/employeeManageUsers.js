@@ -1,12 +1,10 @@
 // @flow
 
 import React from 'react';
-import {Grid, Table} from "react-bootstrap";
+import {Grid, Table, Button,FormControl} from "react-bootstrap";
 import {User} from "../../../classTypes";
 import {EmployeeService} from "../../../services"
 import {UserService} from "../../../services";
-import Button from "react-bootstrap/es/Button";
-import FormControl from "react-bootstrap/es/FormControl";
 
 let employeeService = new EmployeeService;
 let userService = new UserService;

@@ -13,10 +13,10 @@ import {
   FormControl,
   PageHeader,
   Button,
-  ControlLabel
+  ControlLabel,
+    Image
 } from 'react-bootstrap';
 import { CountyService, getUsersCounties } from '../../services';
-import Image from 'react-bootstrap/es/Image';
 import { UserService } from '../../services';
 
 
@@ -37,11 +37,16 @@ export class Footer extends Component<{}> {
 
 
   componentDidMount = async ()=>{
-    if(!(window.localStorage.getItem('userToken') == '')) {
+    let user = {};
       await userService.getCurrentUser().then(r => {
-        this.setState({user: r[0]});
+        if (r[0] === undefined) {
+          user = {};
+        } else {
+          user = r[0];
+        }
+        this.setState({user: user});
       });
-    }
+
 
     await countyService.getCountyEmployee(this.state.user.countyId).then((re: Array<Object>) => {
       this.setState({
@@ -52,7 +57,7 @@ export class Footer extends Component<{}> {
 
   render() {
     let check;
-    if (this.state.user.countyId != []) {
+    if (this.state.user.countyId !== {}) {
       return (
         <footer className="footerClass2">
           <Col xs={12} md={12}>

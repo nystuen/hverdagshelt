@@ -2,23 +2,14 @@
 
 import React from 'react';
 import { CategoryService, IssueService, UserService } from '../../services';
-import Grid from 'react-bootstrap/es/Grid';
 import { Alert } from '../../widgets';
-import Row from 'react-bootstrap/es/Row';
-import Col from 'react-bootstrap/es/Col';
 import { Status } from '../../classTypes';
-import ProgressBar from 'react-bootstrap/es/ProgressBar';
-import Image from 'react-bootstrap/es/Image';
 import * as jwt from 'jsonwebtoken';
-import Button from 'react-bootstrap/es/Button';
 import { ImageService } from '../../services';
 import { history } from '../../index';
 import css from './oversiktOverSak.css';
 import { MailService } from '../../services';
-import { FormGroup } from 'react-bootstrap';
-import { FormControl } from 'react-bootstrap';
-import Card from 'reactstrap/es/Card';
-import Table from 'react-bootstrap/es/Table';
+import { FormGroup, Grid, ProgressBar, FormControl, Button, Image, Col } from 'react-bootstrap';
 import { User } from '../../classTypes';
 import axios from 'axios';
 import { NotificationSettingsService } from '../../services';

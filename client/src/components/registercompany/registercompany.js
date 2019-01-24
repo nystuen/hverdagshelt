@@ -3,20 +3,9 @@ import {Component} from 'react';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import {Category, County} from "../../classTypes";
-import DropdownButton from "react-bootstrap/es/DropdownButton";
-import MenuItem from "react-bootstrap/es/MenuItem";
-import Row from "react-bootstrap/es/Row";
-import Col from "react-bootstrap/es/Col";
-import Button from "react-bootstrap/es/Button";
-import FormGroup from "react-bootstrap/es/FormGroup";
-import {Form, FormControl, Label, PageHeader,InputGroup} from 'react-bootstrap';
-import ControlLabel from "react-bootstrap/es/ControlLabel";
-import Grid from "react-bootstrap/es/Grid";
-import Checkbox from "react-bootstrap/es/Checkbox";
+import {Form, FormControl, Label, InputGroup, PageHeader, Col, HelpBlock, Alert, Button, FormGroup, Checkbox, DropdownButton, MenuItem, Row, ControlLabel, Grid } from 'react-bootstrap';
 import Select from "react-select";
 import {history} from "../../index";
-import HelpBlock from "react-bootstrap/es/HelpBlock";
-import { Alert } from 'react-bootstrap';
 
 
 let categoryService = new CategoryService();

@@ -2,17 +2,10 @@ import { Col, Button, Form, FormGroup, Label, Overlay, Tooltip, InputGroup} from
 import { CountyService, UserService} from '../../services';
 import { Component } from 'react';
 import * as React from 'react';
-import { Alert } from 'react-bootstrap';
+import { Alert, Grid, FormControl, PageHeader, HelpBlock } from 'react-bootstrap';
 import ReactDOM from 'react-dom';
 import { County } from '../../classTypes';
-import DropdownButton from 'react-bootstrap/es/DropdownButton';
-import MenuItem from 'react-bootstrap/es/MenuItem';
-import Grid from 'react-bootstrap/es/Grid';
-import { FormControl, PageHeader } from 'react-bootstrap';
-import Checkbox from 'react-bootstrap/es/Checkbox';
 import Select from 'react-select';
-import HelpBlock from "react-bootstrap/es/HelpBlock";
-import Row from 'react-bootstrap';
 import {history} from "../../index";
 import {NotificationSettingsService} from "../../services";
 import css from "./registerUser.css";
@@ -249,7 +242,7 @@ export class RegisterUser extends Component<Props, State> {
 
     getValidationStateFirstName() {
         const firstNameLength = this.state.firstName.length;
-        let decimal = /^[A-Za-z _æøå]*[A-Za-zæøå][A-Za-z _æøå]*$/;
+        let decimal = /^[A-Za-z _ÆØÅæøå]*[A-Za-zÆØÅæøå][A-Za-z _ÆØÅæøå]*$/;
 
         if (firstNameLength === 1) {
             return 'warning';
@@ -263,7 +256,7 @@ export class RegisterUser extends Component<Props, State> {
 
     getValidationStateLastName() {
         const lastNameLength = this.state.lastName.length;
-        let dec = /^[A-Za-z _æøå]*[A-Za-z][A-Za-z _æøå]*$/;
+        let dec = /^[A-Za-z _ÆØÅæøå]*[A-Za-zÆØÅæøå][A-Za-z _ÆØÅæøå]*$/;
 
         if (lastNameLength === 1) {
             return 'warning';

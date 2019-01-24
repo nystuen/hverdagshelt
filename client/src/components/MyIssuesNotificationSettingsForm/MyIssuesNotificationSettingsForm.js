@@ -3,10 +3,7 @@
 import React from 'react';
 import {NotificationSettingsService, UserService} from "../../services";
 import jwt from "jsonwebtoken";
-import FormGroup from "react-bootstrap/es/FormGroup";
-import Checkbox from "react-bootstrap/es/Checkbox";
-import Button from "react-bootstrap/es/Button";
-import Grid from "react-bootstrap/es/Grid";
+import {FormGroup, Checkbox, Button, Grid} from "react-bootstrap";
 import {IssueNotificationSetting, User} from "../../classTypes";
 
 let notificationSettingsService = new NotificationSettingsService();

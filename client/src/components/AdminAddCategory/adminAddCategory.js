@@ -19,8 +19,7 @@ import {
 
 import { ChooseCategory } from '../ChooseCategory/ChooseCategory';
 import { CategoryService } from '../../services';
-import Checkbox from 'react-bootstrap/es/Checkbox';
-import Radio from 'react-bootstrap/es/Radio';
+import {Checkbox, Radio} from 'react-bootstrap';
 import { CategorySelectList } from '../CategorySelectList/CategorySelectList';
 
 
