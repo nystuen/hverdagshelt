@@ -3,6 +3,7 @@ Drop table if exists pushAlerts;
 Drop table if exists companyCategories;
 drop table if exists companyCounties;
 Drop table if exists companyIssues;
+Drop view  if exists allCats;
 Drop table if exists event;
 Drop table if exists issues;
 Drop table if exists userCounties;
@@ -206,6 +207,9 @@ CREATE TABLE companyComment(
   commentId int not null AUTO_INCREMENT,
   issueId int not null,
   text text,
+  mail varchar(30),
   CONSTRAINT companyComment_fk primary key(commentId)
 );
+
+CREATE view allCats AS SELECT category.categoryId, category2.category2Id, category.name from category natural join category2;
 

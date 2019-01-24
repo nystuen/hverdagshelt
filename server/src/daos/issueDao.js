@@ -18,7 +18,7 @@ export class IssueDao extends Dao {
       json.countyId
     ];
     super.query(
-      "insert into issues (userMail, latitude, longitude, address, text, pic, date, statusName, categoryId, categoryLevel, countyId, active) values(?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)",
+      "insert into issues (issueId, userMail, latitude, longitude, address, text, pic, date, statusName, categoryId, categoryLevel, countyId, active) values(default ,?, ?, ?, ?, ?, ?, ?, ?, ?, ?, ?, 1)",
       val,
       callback
     );
@@ -72,7 +72,8 @@ export class IssueDao extends Dao {
   }//end method
 
   addCommentToIssue(issueId: number, text: string, mail: string, callback: Function){
-    super.query("insert into companyComment(issueId,text, mail) values(?,?,?)", [issueId,text,mail], callback);
+    let val =[issueId, text,mail];
+    super.query("insert into companyComment(issueId,text, mail) values(?,?,?)", val, callback);
   }//end method
 
   deleteIssue(issueId: number, callback: Function){

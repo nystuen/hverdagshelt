@@ -12,6 +12,7 @@ module.exports = function(app: Object, issueDao: Object) {
     console.log("received post request from add_issue");
     issueDao.addIssue(req.body, (status, data) => {
       res.status(status);
+      res.json(data);
     });
   });
 

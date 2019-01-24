@@ -32,7 +32,7 @@ Insert into aadneny.companyCategories(companyMail, categoryId) values ('company2
 
 Insert into aadneny.user(mail, firstName, lastName, password, typeName, phone, points, countyId, active) values ('ola@usermail.com', 'Ola', 'Nordman','password1' , 'Admin', 97723342, 0, 1,1);
 Insert into aadneny.user(mail, firstName, lastName, password, typeName, phone, points, countyId, active) values ('kari@usermail.com', 'Kari', 'Olsen', 'password2' , 'Admin', 97766641, 0, 2,1);
-Insert into aadneny.user(mail, firstName, lastName, password, typeName, phone, points, countyId, active) values ('thea@usermail.com', 'Thea', 'Larsen','123' , 'Employee', 97725442, 0, 1,1);
+Insert into aadneny.user(mail, firstName, lastName, password, typeName, phone, points, countyId, active) values ('thea@usermail.com', 'Thea', 'Larsen','123', 'Employee', 97725442, 0, 1,1);
 
 
 Insert into aadneny.issues(issueId, userMail, latitude, longitude,address, text, pic, date, statusName, categoryId, categoryLevel,countyId, active) values (1, 'ola@usermail.com', 23.432, 43.12,'Dette er en adresse', 'en tekst', 'picture', '2001-01-01', 'In progress', 1, 1, 1, 1);
