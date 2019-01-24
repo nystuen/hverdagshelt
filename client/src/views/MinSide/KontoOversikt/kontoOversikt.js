@@ -40,7 +40,8 @@ export class InfoModule extends React.Component{
 
   render(){
     return(
-      <Col>
+
+      <Col className="bottomFooter">
         <Button
           bsStyle="primary"
           onClick={() => this.setState({ show: true })}

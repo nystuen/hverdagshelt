@@ -127,7 +127,7 @@ export class Statistics extends Component {
 		}
 
     return(
-      <Grid>
+      <Grid className="bottomFooter">
         <Row id="wrap-wrap">
           <Col sm={12} md={6} lg={6}>
             <Line

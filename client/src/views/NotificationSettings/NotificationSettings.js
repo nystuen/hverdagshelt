@@ -26,7 +26,7 @@ export class NotificationSettings extends React.Component <State> {
 
     render() {
         return(
-            <Grid className="notifications">
+            <Grid className="notifications bottomFooter">
             <Tabs defaultActiveKey={1} id="uncontrolled-tab-example">
                 <Tab eventKey={1} title="Mine kommuner">
                     <NotificationSettingsMyCountiesForm />

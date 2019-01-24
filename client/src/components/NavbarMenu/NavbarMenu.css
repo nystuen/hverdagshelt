@@ -1,17 +1,27 @@
 
-.navBar .logo {
 
+@keyframes slideInFromLeft {
+    0% {
+        transform: translateX(-10000%);
+    }
+    100% {
+        transform: translateX(0);
+    }
 }
 
 .navbar-default .navbar-nav > li > a {
     color: white;
+    animation: 1s ease-out 0s 1 slideInFromLeft;
 }
+
 
 .navbar-default .navbar-nav > a.active {
     color: blueviolet;
     background-color: blue;
 
 }
+
+
 
 .navbar-default {
     background-color: #5079b3;

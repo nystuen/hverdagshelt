@@ -41,7 +41,7 @@ export class mineSakerBedrift extends React.Component{
 
     render(){
         return(
-            <Grid>
+            <Grid className="bottomFooter">
                 <br/>
                 <br/>
                 <Table>

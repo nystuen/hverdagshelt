@@ -107,7 +107,7 @@ export class OversiktOverSak extends React.Component {
 
 
     return (
-      <div>
+      <div className="bottomFooter">
         <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
       <Grid className="sak">
 

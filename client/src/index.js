@@ -41,8 +41,8 @@ import { employeeHomepage } from './views/employee/employeeHomepage/employeeHome
 import { employeeManageUsers } from './views/employee/employeeManageUsers/employeeManageUsers';
 import { CreateAdminsOrEmployees } from './views/admin/createAdminsOrEmployees';
 import { Statistics } from './components/statistics/Statistics';
-import {adminIssues} from "./views/admin/adminIssues/adminIssues";
-
+import { adminIssues } from './views/admin/adminIssues/adminIssues';
+import { Footer2 } from './components/Footer/Footer2';
 
 
 // Reload application when not in production environment
@@ -109,9 +109,9 @@ if (root)
           component={CreateAdminsOrEmployees}
         />
         <Route path="/statistics" component={Statistics}/>
-        <Route path="/admin/adminSaker" component={adminIssues} />
-        <Footer/>
+        <Route path="/admin/adminSaker" component={adminIssues}/>
 
+        <Footer2/>
       </div>
     </HashRouter>,
     root

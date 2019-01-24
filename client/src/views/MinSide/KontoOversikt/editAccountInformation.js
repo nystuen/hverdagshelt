@@ -141,16 +141,15 @@ export class editAccountInformation extends React.Component<State> {
   };
 
 
-  buttonBack(){
+  buttonBack() {
     this.props.history.goBack();
   }
 
   render() {
     return (
-      <div>
-        <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
+      <div className="bottomFooter">
         <Grid>
-          <PageHeader title={'Endre kontoinformasjon'}/>
+        <PageHeader title={'Endre kontoinformasjon'}/>
 
           {this.state.user.typeName === 'Admin' ||
           this.state.user.typeName === 'Employee' ||
@@ -159,6 +158,7 @@ export class editAccountInformation extends React.Component<State> {
               <Form>
                 <Grid>
                   <Col xs={0} md={2}>
+                    <i id="backButton" onClick={() => this.buttonBack()} className="fas fa-arrow-circle-left"></i>
                   </Col>
 
                   <Col md={8}>
