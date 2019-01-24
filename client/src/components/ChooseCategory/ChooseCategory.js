@@ -1,21 +1,17 @@
+
 import * as React from 'react';
 import { Component } from 'react-simplified';
-import {
-    ButtonToolbar,
-    ToggleButtonGroup,
-    ToggleButton,
-    Collapse,
-    Button, Col, Alert, PageHeader
+import {Collapse,
+  Collapse,
+  Button,
+    ListGroup,
+    ListGroupItem,
+    Glyphicon
 } from 'react-bootstrap';
 import { CategoryService } from '../../services';
 import { Category, Category2, Category3 } from '../../classTypes';
-import PanelGroup from 'react-bootstrap/es/PanelGroup';
-import Panel from 'react-bootstrap/es/Panel';
-import ListGroup from 'react-bootstrap/es/ListGroup';
-import ListGroupItem from 'react-bootstrap/es/ListGroupItem';
 import cloneDeep from 'lodash/cloneDeep';
-import css from './chooseCategory.css';
-import Glyphicon from 'react-bootstrap/es/Glyphicon';
+import './chooseCategory.css';
 
 let categoryService = new CategoryService();
 
@@ -202,9 +198,6 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean, stat
   }
 
   render() {
-    console.log("KATEGORIAKTIV: "+ this.state.categoryActive);
-    console.log("kategori1Id " +this.state.category1Id);
-    console.log("Kategori2ID: "+this.state.category2Id);
     let inactive_button;
     if(this.props.statusButton===true){
 
@@ -252,7 +245,6 @@ export class ChooseCategory extends Component<{ registerCategory?: boolean, stat
                           <div key={cat2.id}>
                             <ListGroupItem className="cat2"
                                            onClick={() => this.handleClick2(cat2)}>{cat2.name}</ListGroupItem>
-
                           </div>
                         );
                       }

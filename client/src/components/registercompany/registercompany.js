@@ -3,20 +3,9 @@ import {Component} from 'react';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import {Category, County} from "../../classTypes";
-import DropdownButton from "react-bootstrap/es/DropdownButton";
-import MenuItem from "react-bootstrap/es/MenuItem";
-import Row from "react-bootstrap/es/Row";
-import Col from "react-bootstrap/es/Col";
-import Button from "react-bootstrap/es/Button";
-import FormGroup from "react-bootstrap/es/FormGroup";
-import {Form, FormControl, Label, PageHeader,InputGroup} from 'react-bootstrap';
-import ControlLabel from "react-bootstrap/es/ControlLabel";
-import Grid from "react-bootstrap/es/Grid";
-import Checkbox from "react-bootstrap/es/Checkbox";
+import {Form, FormControl, Label, InputGroup, PageHeader, Col, HelpBlock, Alert, Button, FormGroup, Checkbox, DropdownButton, MenuItem, Row, ControlLabel, Grid } from 'react-bootstrap';
 import Select from "react-select";
 import {history} from "../../index";
-import HelpBlock from "react-bootstrap/es/HelpBlock";
-import { Alert } from 'react-bootstrap';
 
 
 let categoryService = new CategoryService();
@@ -164,7 +153,7 @@ export class RegisterCompany extends Component<Props, State>{
 
     getValidationStatePassword(){
         const length = this.state.password.length;
-        let decimal = /(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!., ÆØÅæøå/@<>"¤=#$%^&*()]*$/;
+        let decimal = /(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!., æøå/@<>"¤=#$%^&*()]*$/;
         if (this.state.password.match(decimal)) return 'success';
         else if(length==0)return ;
         else return 'warning';
@@ -180,7 +169,7 @@ export class RegisterCompany extends Component<Props, State>{
     }
     getValidationStateFirstName() {
         const firstNameLength = this.state.firstName.length;
-        let decimal=/^[A-Za-z _ÆØÅæøå]*[A-Za-zÆØÅæøå][A-Za-z ÆØÅ_æøå]*$/;
+        let decimal=/^[A-Za-z _æøå]*[A-Za-zæøå][A-Za-z _æøå]*$/;
 
         if(firstNameLength===1){
             return 'warning';
@@ -193,7 +182,7 @@ export class RegisterCompany extends Component<Props, State>{
     }
     getValidationStateLastName() {
         const lastNameLength = this.state.lastName.length;
-        let dec=/^[A-Za-z _ÆØÅæøå]*[A-Za-zÆØÅæøå][A-Za-z ÆØÅ_æøå]*$/;
+        let dec=/^[A-Za-z _æøå]*[A-Za-zæøå][A-Za-z _æøå]*$/;
 
         if(lastNameLength===1){
             return 'warning';
@@ -463,7 +452,7 @@ export class RegisterCompany extends Component<Props, State>{
                             </FormGroup>
                             <FormGroup>
                                 <Col md={6}>
-                                    <FormGroup validationState={this.getValidationStatePassword()}>
+                                    <FormGroup>
                                       <InputGroup>
                                         <InputGroup.Button>
                                           <Button type="button" onClick={()=> this.handleClickPassword1()}>{changeIcon1}</Button>

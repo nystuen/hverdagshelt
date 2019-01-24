@@ -1,12 +1,10 @@
 // @flow
 
 import React from 'react';
-import { Grid, Col, Row, Button, Table, ListGroup, ListGroupItem } from 'react-bootstrap';
+import { Grid, Panel, PanelGroup, Col } from 'react-bootstrap';
 import { EventCategoryService } from '../../services';
 import { Event } from '../../classTypes';
 import css from './events.css';
-import Panel from 'react-bootstrap/es/Panel';
-import PanelGroup from 'react-bootstrap/es/PanelGroup';
 import { PageHeader } from '../../components/PageHeader/PageHeader';
 import { MapComponent } from '../../components/map/Map';
 

@@ -1,3 +1,5 @@
+//@flow
+
 import {Col, Button, Form, FormGroup, Label, Grid} from 'react-bootstrap';
 import {CountyService} from "../../services";
 import {Component} from 'react';
@@ -6,7 +8,6 @@ import {Alert} from "../../widgets";
 import ReactDOM from 'react-dom';
 //import {County} from "../../classTypes";
 import Select from "react-select";
-import Row from "react-bootstrap/es/Row";
 
 let countyService = new CountyService();
 
@@ -34,12 +35,12 @@ export class CountyList extends Component<Props, State> {
   };
 
   componentWillMount() {
-    var arr = [];
+    let arr = [];
     countyService
       .getCounties()
       .then(county2 => {
         county2.map(e => {
-          var elem = {
+          let elem = {
             name: e.name,
             countyId: e.countyId
           };
@@ -56,7 +57,7 @@ export class CountyList extends Component<Props, State> {
 
   render() {
     let optionTemplate = this.state.values.map(v => {
-      var data = {label: v.name, value: v.countyId, countyId: v.countyId};
+      let data = {label: v.name, value: v.countyId, countyId: v.countyId};
       return (data)
     });
     return (

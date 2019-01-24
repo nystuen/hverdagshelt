@@ -1,63 +1,83 @@
 import { NotificationSettingsService } from '../../services';
+import { MailService } from '../../services';
 import { history } from '../../index';
 
-let notifiationSettingsService = new NotificationSettingsService();
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
+let notificationSettingsService = new NotificationSettingsService();
+let mailService = new MailService();
 
 class FindDate {
-    day;
-    month;
-    year;
+  day;
+  month;
+  year;
 
-    constructor() {
-        var today = new Date();
-        this.day = today.getDate();
-        this.month = today.getMonth() + 1;
-        this.year = today.getFullYear();
-    }
+  constructor() {
+    var today = new Date();
+    this.day = today.getDate();
+    this.month = today.getMonth() + 1;
+    this.year = today.getFullYear();
+  }
 }
 
 export default (async function showResults(values) {
-    var day = new FindDate();
-    await sleep(500); // simulate server latency
-    fetch('http://localhost:3000/add_issue', {
-        method: 'POST',
-        headers: {
-            'Content-type': 'application/json; charset=utf-8'
-        },
-        body: JSON.stringify({
-            userMail: values.userMail,
-            latitude: values.latitude,
-            longitude: values.longitude,
-            address: values.address,
-            text: values.text,
-            pic: values.imagePath,
-            date: day.day + '.' + day.month + '.' + day.year,
-            statusName: 'Registered',
-            categoryId: values.categoryid,
-            categoryLevel: values.categorylevel,
-            countyId: values.countyId
-        })
-    }).then(res => {
-        notifiationSettingsService.getIssueNotificationSettingsFromUser(values.userMail).then(res => {
-            if (res[0].registered == 1) {
+  var day = new FindDate();
+  await sleep(500); // simulate server latency
+  let to = [];
+  let error = '';
 
-                fetch('http://localhost:3000/sendIssueRegistratedMail', {
-                    method: 'POST',
-                    headers: {
-                        'Content-type': 'application/json; charset=utf-8'
-                    },
-                    body: JSON.stringify({
-                        to: values.userMail
-                    })
-                });
-            }
-        }).then(res => {
-
-        });
+  fetch('http://localhost:3000/add_event', {
+    method: 'POST',
+    headers: {
+      'Content-type': 'application/json; charset=utf-8'
+    },
+    body: JSON.stringify({
+      title: values.title,
+      text: values.text,
+      latitude: values.latitude,
+      longitude: values.longitude,
+      date: day.day + '.' + day.month + '.' + day.year,
+      userMail: values.userMail,
+      eventCategoryId: values.categoryid,
+      countyId: values.countyId
     })
+  }).then(res => {
 
+    notificationSettingsService.getUsersWithNotificationsLikeThis(values.countyId, values.categoryid).then(res => {
+      to = res;
 
-    history.push("/min_side/mine_saker")
+      let event = {
+        title: values.title,
+        text: values.text,
+        latitude: values.latitude,
+        longitude: values.longitude,
+        date: day.day + '.' + day.month + '.' + day.year,
+        userMail: values.userMail,
+        eventCategoryId: values.categoryid,
+        countyId: values.countyId
+      };
 
+      console.log('event: ', event);
+      console.log('recipients: ', to);
+
+      mailService.sendEventMail(to, event).then(res => {
+
+        console.log('eventMail:', res);
+
+      });
+
+    });
+  }).catch(e => {
+    console.log('SHIT');
+    error = 'error';
+  }).finally(e => {
+    console.log('finally');
+    if (!(error == 'error')) {
+      console.log('erorrInFinally');
+      history.push = function(s) {
+
+      };
+    }
+  });
+
+  history.push('/events/' + values.countyId);
 });

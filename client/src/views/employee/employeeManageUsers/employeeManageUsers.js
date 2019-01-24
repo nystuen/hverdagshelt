@@ -25,7 +25,7 @@ export class employeeManageUsers extends React.Component<Props,State>{
     state = {
         user: [],
         employee: new User('', '', '', '', '', -1, -1, -1)
-    };
+};
 
 
     blockUser(mail: string){
@@ -39,7 +39,7 @@ export class employeeManageUsers extends React.Component<Props,State>{
     }
 
     buttonBack(){
-        this.props.history.goBack();
+      this.props.history.goBack();
     }
 
 
@@ -63,77 +63,77 @@ export class employeeManageUsers extends React.Component<Props,State>{
     }
 
     blockSwitch(e: User){
-        if(e.active == 1){
-            return <Button style={{"width": "6em"}} bsSize={"sm"} bsStyle={"danger"} onClick={this.blockUser.bind(null, e.mail)}>Block</Button>;
-        } else {
-            return <Button style={{"width": "6em"}}  bsSize={"sm"} bsStyle={"primary"} onClick={this.unblockUser.bind(null, e.mail)}>Unblock</Button>;
-        }
+      if(e.active == 1){
+        return <Button style={{"width": "6em"}} bsSize={"sm"} bsStyle={"danger"} onClick={this.blockUser.bind(null, e.mail)}>Block</Button>;
+      } else {
+        return <Button style={{"width": "6em"}}  bsSize={"sm"} bsStyle={"primary"} onClick={this.unblockUser.bind(null, e.mail)}>Unblock</Button>;
+      }
     }
 
     render(){
         return(
-            <div>
-                <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
-                <Grid>
+          <div>
+          <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
+            <Grid>
 
 
-                    <br/>
-                    <br/>
-                    <FormControl
-                        type="text"
-                        id="myInput"
-                        onKeyUp={this.myFunction}
-                        placeholder="Search for names.."/>
-                    <Table id={"myTable"}>
-                        <thead>
-                        <tr>
-                            <th>
-                                Epost
-                            </th>
-                            <th>
-                                Telefon
-                            </th>
-                            <th>
-                                Status
-                            </th>
-                            <th>
-                                Poeng
-                            </th>
-                            <th>
-                                Blokker/Aktiver
-                            </th>
+                <br/>
+                <br/>
+                <FormControl
+                    type="text"
+                    id="myInput"
+                    onKeyUp={this.myFunction}
+                    placeholder="Search for names.."/>
+                <Table id={"myTable"}>
+                    <thead>
+                    <tr>
+                        <th>
+                            Epost
+                        </th>
+                        <th>
+                            Telefon
+                        </th>
+                        <th>
+                            Status
+                        </th>
+                        <th>
+                            Poeng
+                        </th>
+                        <th>
+                            Blokker/Aktiver
+                        </th>
 
-                        </tr>
-                        </thead>
-                        <tbody>
-                        {this.state.user.map(e => {
+                    </tr>
+                    </thead>
+                    <tbody>
+                    {this.state.user.map(e => {
 
-                            return(
+                        return(
 
-                                <tr key={e.mail}>
-                                    <td>
-                                        {e.mail}
-                                    </td>
-                                    <td>
-                                        {e.phone}
-                                    </td>
-                                    <td>
-                                        {e.active}
-                                    </td>
-                                    <td>
-                                        {e.points}
-                                    </td>
-                                    <td>
-                                        {this.blockSwitch(e)}
-                                    </td>
+                            <tr key={e.mail}>
+                                <td>
+                                    {e.mail}
+                                </td>
+                                <td>
+                                    {e.phone}
+                                </td>
+                                <td>
+                                    {e.active}
+                                </td>
+                                <td>
+                                    {e.points}
+                                </td>
+                                <td>
+                                  {this.blockSwitch(e)}
+                                </td>
 
-                                </tr>
-                            )
-                        })}
-                        </tbody>
-                    </Table>
-                </Grid>
-            </div>
+                            </tr>
+                        )
+                    })}
+                    </tbody>
+                </Table>
+            </Grid>
+          </div>
         )}
 
     myFunction(){

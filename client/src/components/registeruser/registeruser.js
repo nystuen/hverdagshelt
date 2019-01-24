@@ -2,17 +2,10 @@ import { Col, Button, Form, FormGroup, Label, Overlay, Tooltip, InputGroup} from
 import { CountyService, UserService} from '../../services';
 import { Component } from 'react';
 import * as React from 'react';
-import { Alert } from 'react-bootstrap';
+import { Alert, Grid, FormControl, PageHeader, HelpBlock } from 'react-bootstrap';
 import ReactDOM from 'react-dom';
 import { County } from '../../classTypes';
-import DropdownButton from 'react-bootstrap/es/DropdownButton';
-import MenuItem from 'react-bootstrap/es/MenuItem';
-import Grid from 'react-bootstrap/es/Grid';
-import { FormControl, PageHeader } from 'react-bootstrap';
-import Checkbox from 'react-bootstrap/es/Checkbox';
 import Select from 'react-select';
-import HelpBlock from "react-bootstrap/es/HelpBlock";
-import Row from 'react-bootstrap';
 import {history} from "../../index";
 import {NotificationSettingsService} from "../../services";
 import css from "./registerUser.css";

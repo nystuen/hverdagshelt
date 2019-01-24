@@ -19,8 +19,7 @@ import {
 
 import { ChooseCategory } from '../ChooseCategory/ChooseCategory';
 import { CategoryService } from '../../services';
-import Checkbox from 'react-bootstrap/es/Checkbox';
-import Radio from 'react-bootstrap/es/Radio';
+import {Checkbox, Radio} from 'react-bootstrap';
 import { CategorySelectList } from '../CategorySelectList/CategorySelectList';
 
 
@@ -74,6 +73,10 @@ export class adminAddCategory extends Component<Props, State> {
   handlePriority = (pri: number) => {
     this.setState({ newPriority: pri });
   };
+
+  buttonBack(){
+    this.props.history.goBack();
+  }
 
   saveCategory = () => {
 
@@ -164,6 +167,8 @@ export class adminAddCategory extends Component<Props, State> {
 
 
     return (
+      <div>
+        <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
       <Grid>
 
         <Col xs={0} md={2}></Col>
@@ -197,6 +202,7 @@ export class adminAddCategory extends Component<Props, State> {
 
         <Col xs={0} md={2}></Col>
       </Grid>
+      </div>
     );
 
   }

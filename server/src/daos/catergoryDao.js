@@ -5,7 +5,6 @@ import {verifyToken} from "../helpers/verifyToken";
 
 export class CategoryDao extends Dao {
 
-
   //Skal vekk men vet ikke om den er i bruk
   getUserLogin(userMail: string, callback: Function) {
     super.query(
