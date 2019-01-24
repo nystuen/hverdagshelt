@@ -3,13 +3,16 @@ root {
   --main-dark: #232932;
 }
 
+.bottomFooter{
+  min-height: calc(100vh - 100px);
+}
+
 html {
   height: 100%;
 }
 
 body {
   height: 100%;
-
 }
 
 #app div {
@@ -93,11 +96,13 @@ body {
   position:absolute;
   text-align: center;
   width: 100%;
-  background-color: #40608d;
+  background-color: #f9f9f9;
   min-height: 70%;
-  bottom: auto;
-  color: white;
+  border-top: #bcc2cb solid 1px;
+  color: black;
 }
+
+
 
 .footerInfo{
   margin-top: 40px;
@@ -122,3 +127,4 @@ body {
   color: #5079b3;
   margin: 5px;
 }
+

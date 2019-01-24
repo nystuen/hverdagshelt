@@ -5,6 +5,7 @@ import { StatisticsService } from "../../services";
 import ReactDOMServer from "react-dom/server";
 import * as jsPDF  from 'jspdf'
 import html2canvas from 'html2canvas';
+import { PageHeader } from '../PageHeader/PageHeader';
 
 let statisticsService = new StatisticsService();
 
@@ -72,7 +73,7 @@ export class Statistics extends Component {
 
   componentWillMount() {
     statisticsService
-      .getStatus()
+      .getStatus(window.sessionStorage.getItem('countyId'))
       .then((res) => {
         let pieDummy = this.state.pieData
         pieDummy.datasets[0].data[0] = res[2].ant
@@ -84,7 +85,7 @@ export class Statistics extends Component {
       })
 
     statisticsService
-      .getDaily()
+      .getDaily(window.sessionStorage.getItem('countyId'))
       .then((res) => {
         let lineDummy = this.state.lineData
         lineDummy.labels = []
@@ -127,7 +128,8 @@ export class Statistics extends Component {
 		}
 
     return(
-      <Grid>
+      <Grid className="bottomFooter">
+        <PageHeader title={'Statistikk over ' + window.sessionStorage.getItem('countyName') + ' kommune'}/>
         <Row id="wrap-wrap">
           <Col sm={12} md={6} lg={6}>
             <Line

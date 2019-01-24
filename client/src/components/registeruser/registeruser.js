@@ -15,6 +15,7 @@ let userService = new UserService();
 let notificationSettingService = new NotificationSettingsService();
 
 interface State {
+    userExists: boolean,
     registerSuccess: boolean,
     errorSomething: boolean,
   errorEqualsPass: boolean,
@@ -56,6 +57,7 @@ export class RegisterUser extends Component<Props, State> {
     constructor(props) {
         super(props);
         this.state = {
+            userExists: false,
             registerSuccess: false,
             errorSomething: false,
             errorEqualsPass: false,
@@ -242,7 +244,7 @@ export class RegisterUser extends Component<Props, State> {
 
     getValidationStateFirstName() {
         const firstNameLength = this.state.firstName.length;
-        let decimal = /^[A-Za-z _æøå]*[A-Za-zæøå][A-Za-z _æøå]*$/;
+        let decimal = /^[A-Za-z _ÆØÅæøå]*[A-Za-zÆØÅæøå][A-Za-z _ÆØÅæøå]*$/;
 
         if (firstNameLength === 1) {
             return 'warning';
@@ -256,7 +258,7 @@ export class RegisterUser extends Component<Props, State> {
 
     getValidationStateLastName() {
         const lastNameLength = this.state.lastName.length;
-        let dec = /^[A-Za-z _æøå]*[A-Za-z][A-Za-z _æøå]*$/;
+        let dec = /^[A-Za-z _ÆØÅæøå]*[A-Za-zÆØÅæøå][A-Za-z _ÆØÅæøå]*$/;
 
         if (lastNameLength === 1) {
             return 'warning';
@@ -388,6 +390,15 @@ export class RegisterUser extends Component<Props, State> {
                 <p></p>
             );
         }
+        let alert_user_exists;
+        if (this.state.userExists) {
+            alert_user_exists = (
+                <Alert bsStyle="danger">
+                    <h6>Emailen er allerede registrert</h6>
+                </Alert>);
+        } else {
+            <p></p>
+        }
         return (
             <Grid>
                 <Col md={3}></Col>
@@ -496,6 +507,7 @@ export class RegisterUser extends Component<Props, State> {
                                     <FormGroup>
                                         {alert_something}
                                         {register_success}
+                                        {alert_user_exists}
                                     </FormGroup>
                                 </Col>
                                 <Col md={4}>
@@ -541,21 +553,33 @@ export class RegisterUser extends Component<Props, State> {
 
         console.log("JESSSSSSSS");
 
+        let userExists = false;
+        userService.getUserLogin(this.state.mail)
+            .then(r => {
+                userExists = r[0] !== undefined;
+                console.log(r[0])
+            });
 
-        userService
-            .addUser(newUser)
-            .then(user => (this.state = user))
-            .catch((error: Error) => Alert.danger(error.message));
+        if (!userExists) {
+            (console.log('fdsfd'));
+            userService
+                .addUser(newUser)
+                .then(user => (this.state = user))
+                .catch((error: Error) => Alert.danger(error.message));
 
-        let theBody: Object = {
-            mail: newUser.mail,
-            registered: 1,
-            inProgress: 0,
-            completed: 1
-        };
-        notificationSettingService.addIssueNotificationSettings(theBody);
-        this.setState({errorSomething: false, registerSuccess: true});
-        this.goToLogin();
+            let theBody: Object = {
+                mail: newUser.mail,
+                registered: 1,
+                inProgress: 0,
+                completed: 1
+            };
+            notificationSettingService.addIssueNotificationSettings(theBody)
+            this.setState({errorSomething: false, registerSuccess: true, userExists: false});
+            this.goToLogin();
+        } else {
+            this.setState({errorSomething: false, registerSuccess: false, userExists: true});
+        }
+
     };
 
     goToLogin = () => {

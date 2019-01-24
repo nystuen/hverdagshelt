@@ -355,14 +355,14 @@ export class RegisterEmployee extends Component<Props, State>{
         };
         notificationSettingService.addIssueNotificationSettings(theBody);
         this.setState({errorSomething: false, registerSuccess: true});
-        this.goToRegisterEmployee();
+        this.goToRegisterEmployee;
 
     };
     goToRegisterEmployee = () => {
         setTimeout(
             function () {
-                history.push('/registrer/kommuneansatt');
-            }, 4000
+                history.push('/admin/registrertSuksess');
+            }, 2000
         )
     }
 }

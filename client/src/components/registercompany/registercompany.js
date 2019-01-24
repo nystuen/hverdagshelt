@@ -7,17 +7,16 @@ import {Form, FormControl, Label, InputGroup, PageHeader, Col, HelpBlock, Alert,
 import Select from "react-select";
 import {history} from "../../index";
 
-
 let categoryService = new CategoryService();
 let countyService = new CountyService();
 let userService = new UserService();
-
 
 export class RegisterCompany extends Component<Props, State>{
 
     constructor(props) {
         super(props);
         this.state = {
+            companyExists: false,
             errorSomething: false,
             countyIsChanged: false,
             companyName: "",
@@ -343,6 +342,16 @@ export class RegisterCompany extends Component<Props, State>{
                 <p></p>
             );
         }
+        let alert_company_exists;
+        if (this.state.companyExists) {
+            alert_company_exists = (
+                <Alert bsStyle="danger">
+                    <h6>Emailen er allerede registrert</h6>
+                </Alert>);
+        } else {
+            <p></p>
+        }
+
 
 
         return(
@@ -531,6 +540,7 @@ export class RegisterCompany extends Component<Props, State>{
                                 <Col md={4}>
                                     {alert_something}
                                     {register_success}
+                                    {alert_company_exists}
                                 </Col>
                                 <Col md={4}>
                                 </Col>
@@ -582,26 +592,43 @@ export class RegisterCompany extends Component<Props, State>{
             orgNumber:this.state.orgNumber,
         };
 
-        await userService.addCompany(theBody3);
+        let companyExists = true;
+        await userService.getCompanyLogin(this.state.mail)
+            .then(r => {
+                companyExists = r[0] !== undefined;
+                console.log(r[0]);
+                console.log(companyExists)
+            });
+
+        if (!companyExists) {
+            await userService.addCompany(theBody3);
 
 
-        await this.state.countySubscription.map((e) => {
-            let theBody : Object={
-                companyMail : this.state.mail,
-                countyId : e.value,
-            };
-            countyService.addCompanyCounties(theBody);
-        });
+            await this.state.countySubscription.map((e) => {
+                let theBody : Object={
+                    companyMail : this.state.mail,
+                    countyId : e.value,
+                };
+                countyService.addCompanyCounties(theBody);
+            });
 
-        await this.state.categorySubscription.map((e) => {
-            let theBody2 : Object={
-                companyMail : this.state.mail,
-                categoryId : e.value,
-            };
-            categoryService.addCompanyCategories(theBody2);
-        });
-        this.setState({errorSomething: false, registerSuccess: true});
-        this.goToLogin();
+            await this.state.categorySubscription.map((e) => {
+                let theBody2 : Object={
+                    companyMail : this.state.mail,
+                    categoryId : e.value,
+                };
+                categoryService.addCompanyCategories(theBody2);
+            });
+            await this.setState({errorSomething: false, registerSuccess: true, companyExists: false});
+            await this.goToLogin();
+        } else {
+            console.log('Halo00');
+            this.setState({errorSomething: false, registerSuccess: false, companyExists: true})
+        }
+
+        console.log('Halo003123123');
+
+
     };
     goToLogin = () => {
         setTimeout(

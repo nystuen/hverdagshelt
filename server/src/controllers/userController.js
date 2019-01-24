@@ -72,6 +72,8 @@ module.exports = function(app: Object, userDao: Object) {
     });
   });
 
+
+
   app.post("/add_employee", urlencodedParser, (req, res) => {
     console.log("got post request from add_admin");
     console.log(req.body);
@@ -138,6 +140,7 @@ module.exports = function(app: Object, userDao: Object) {
       res.json(data);
     });
   });
+
 
   app.get("/verify_company/:email", urlencodedParser, (req, res) => {
     console.log("got get request from verify_company");

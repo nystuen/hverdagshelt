@@ -1,6 +1,6 @@
 //import mysql from "mysql2";
 
-let mysql = require("mysql2");
+let mysql = require("mysql");
 import runsqlfile from './runSqlFile';
 import {IssueDao} from "../src/daos/issueDao";
 import {UserDao} from "../src/daos/userDao";
@@ -10,10 +10,10 @@ import {EventDao} from '../src/daos/eventDao';
 import {EventCategoryDao} from '../src/daos/eventCategoryDao';
 import {MailDao} from '../src/daos/mailDao';
 import {NotificationSettingsDao} from '../src/daos/notificationSettingsDao';
-
+import {StatisticsDao} from '../src/daos/statisticsDao'
 // GitLab CI Pool
 let pool = mysql.createPool({
-  connectionLimit: 2,
+  connectionLimit: 1,
   host: "mysql.stud.iie.ntnu.no",
   user: "aadneny",
   password: "W9d7XVXV",
@@ -22,14 +22,7 @@ let pool = mysql.createPool({
   multipleStatements: true
 });
 
-let issueDao = new IssueDao(pool);
-let userDao = new UserDao(pool);
-let countyDao = new CountyDao(pool);
-let categoryDao = new CategoryDao(pool);
-let eventDao = new EventDao(pool);
-let eventCategoryDao = new EventCategoryDao(pool);
-let mailDao = new MailDao(pool);
-let notificationSettingsDao = new NotificationSettingsDao(pool);
+
 
 
 beforeAll(done => {
@@ -43,18 +36,59 @@ afterAll(() => {
 });
 
 
+
+
+let issueDao = new IssueDao(pool);
+let userDao = new UserDao(pool);
+let countyDao = new CountyDao(pool);
+let categoryDao = new CategoryDao(pool);
+let eventCategoryDao = new EventCategoryDao(pool);
+let notificationSettingsDao = new NotificationSettingsDao(pool);
+let mailDao = new MailDao(pool);
+let statisticDao = new StatisticsDao(pool);
+
+
 //ISSUE-TESTING
 //-----------------------------------------------------------------
-test("check if  issue is exist", done => {
+
+
+
+
+test("check all issues with one category",done => {
   function callback(status, data) {
+
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
     );
+   expect(data.length).toBe(2);
+   done();
+  }
+
+  issueDao.getCategoryIssue(1, callback);
+});
+
+ test("check get all issue", done => {
+  function callback1(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.length).toBe(2);
+    done();
+
+  };
+  issueDao.getAllIssues(callback1);
+});
+
+
+test("check if issue exist", done => {
+  function callback2(status, data) {
+    console.log("Test callback: status=" + status + ", data=" + JSON.stringify(data));
+    expect(data[0].issueId).toBe(1);
     expect(data[0].statusName).toBe('In progress');
     expect(data[0].userMail).toBe('ola@usermail.com');
     done();
   }
-  issueDao.getOneIssue(1, callback);
+  issueDao.getOneIssue(1, callback2);
 });
 
 
@@ -64,33 +98,34 @@ test("Add a issue to database", done => {
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
     );
     expect(data.affectedRows).toBeGreaterThanOrEqual(1);
-    done();
+    done()
   }
 
-
   let post = {
-    userMail: 'ola@usermail.com',
-    latitude: 23.234,
-    longitude: 40.91,
-    address: 'test adresse',
-    text: 'TEST',
-    pic: 'TEST',
-    date: 'TEST',
-    statusName: 'In progress',
-    categoryId: 1,
-    categoryLevel: 1,
-    countyId: 2,
+    "userMail": 'ola@usermail.com',
+    "latitude": 23.234,
+    "longitude": 40.91,
+    "address": 'test adresse',
+    "text": 'TEST',
+    "pic": 'TEST',
+    "date": 'TEST',
+    "statusName": 'In progress',
+    "categoryId": 1,
+    "categoryLevel": 1,
+    "countyId": 2,
   };
 
   issueDao.addIssue(post, callback);
 
 });
 
-test("check if ola added an issue", done => {
+
+test("check if ola added an issue",done=> {
   function callback(status, data) {
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
     );
+    expect(data[0].issueId).toBe(3);
     expect(data[0].userMail).toBe("ola@usermail.com");
     expect(data[0].latitude).toBe(23.234);
     expect(data[0].longitude).toBe(40.91);
@@ -103,14 +138,13 @@ test("check if ola added an issue", done => {
     expect(data[0].categoryLevel).toBe(1);
     expect(data[0].countyId).toBe(2);
     expect(data[0].active).toBe(1);
-
     done();
   }
   issueDao.getOneIssue(3, callback);
 });
 
 
-test("check if one of olas issues have county in Trondheim", done => {
+test("check if one of olas issues have county in Trondheim",done=> {
   function callback(status, data) {
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
@@ -135,7 +169,7 @@ test("check if one of olas issues have county in Trondheim", done => {
 });
 
 
-test("check get all issues from one user", done => {
+test("check get all issues from one user", done=> {
   function callback(status, data) {
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
@@ -145,7 +179,6 @@ test("check get all issues from one user", done => {
     expect(data[1].issueId).toBe(3);
     expect(data[0].text).toBe('en tekst');
     expect(data[1].text).toBe('TEST');
-
     done();
   }
   issueDao.getUserIssue('ola@usermail.com', callback);
@@ -159,32 +192,23 @@ test("check all issues a company have", done => {
     );
     expect(data.length).toBe(1);
     expect(data[0].issueId).toBe(1);
-
     done();
   }
   issueDao.getCompanyIssue('company1@company.com', callback);
 });
 
 
-test("check all issues with one category", done => {
-  function callback(status, data) {
-    console.log(
-      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
-    );
-    expect(data.length).toBe(3);
-    done();
-  }
-  issueDao.getCategoryIssue(1, callback);
-});
+
 
 test("check adding a comment to issue", done => {
   function callback(status,data){
     console.log("Test adding comment to issue. Status: " + status + ". Data: " + JSON.stringify(data));
-    expect(data.affectedRows).toBeGreaterThanOrEqual(1);
+    expect(data.affectedRows).toBe(1);
     done();
   }
   issueDao.addCommentToIssue(1, 'TEST', '7heaven@companymail.com', callback);
 });
+
 
 test("check getting comments for an issue", done => {
   function callback(status,data) {
@@ -198,10 +222,11 @@ test("check getting comments for an issue", done => {
 test("check getting all issues in one county", done => {
   function callback(status,data) {
     console.log("Testing getting issues in one county. Status: " + status + ". Data: " + JSON.stringify(data));
-    expect(data.length).toBeGreaterThanOrEqual(1);
+
+    expect(data.length).toBeGreaterThanOrEqual(0);
     done();
   }
-  issueDao.getAllIssuesInCounty(2,1,callback);
+   issueDao.getAllIssuesInCounty(2,1,callback);
 });
 
 test("check deleting one issue", done => {
@@ -219,7 +244,7 @@ test("check deleting one issue", done => {
 //USER-TESTING
 //-----------------------------------------------------------------
 
- test("Add a user nina@usermail.com to database", done => {
+ test("Add a user nina@usermail.com to database",done => {
     function callback(status, data) {
       console.log(
         "Test callback: status=" + status + ", data=" + JSON.stringify(data)
@@ -253,12 +278,12 @@ test("check deleting one issue", done => {
       expect(data[0].county).toBe('Oslo');
       done();
     }
-    userDao.getUser('nina@usermail.com', callback);
+     userDao.getUser('nina@usermail.com', callback);
   });
 
 
 
-  test("check get all issues from one user", done => {
+  test("check get all issues from one user",done => {
     function callback(status, data) {
       console.log(
         "Test callback: status=" + status + ", data=" + JSON.stringify(data)
@@ -266,7 +291,7 @@ test("check deleting one issue", done => {
       expect(data.length).toBe(0);
       done();
     }
-    userDao.getIssuesForOneUser('nina@usermail.com', callback);
+     userDao.getIssuesForOneUser('nina@usermail.com', callback);
   });
 
 
@@ -283,10 +308,9 @@ test("check deleting one issue", done => {
         "Test callback: status=" + status + ", data=" + JSON.stringify(data)
       );
       expect(data[0].password).toBe('passord123');
-
       done();
     }
-    userDao.resetPassword('nina@usermail.com','passord123', callback);
+     userDao.resetPassword('nina@usermail.com','passord123', callback);
     userDao.getUser('nina@usermail.com', callback2);
   });
 
@@ -296,7 +320,6 @@ test("check deleting one issue", done => {
         "Test callback: status=" + status + ", data=" + JSON.stringify(data)
       );
       expect(data.affectedRows).toBeGreaterThanOrEqual(1);
-
     }
 
     function callback2(status, data) {
@@ -306,7 +329,6 @@ test("check deleting one issue", done => {
       expect(data[0].firstName).toBe('Nina');
       expect(data[0].lastName).toBe('Larsen');
       expect(data[0].phone).toBe('90192384');
-
       done();
     }
 
@@ -318,7 +340,7 @@ test("check deleting one issue", done => {
     };
 
     userDao.updateUser('nina@usermail.com', post,callback);
-    userDao.getUser('nina@usermail.com', callback2);
+     userDao.getUser('nina@usermail.com', callback2);
   });
 
 //Finner ikke getCompany hvor er den eller skal den legges til?
@@ -348,7 +370,7 @@ test("check deleting one issue", done => {
 
 
 
-  test("check add points to user" , done =>{
+  test("check add points to user" ,done =>{
     function callback(status, data) {
       console.log(
         "Test callback: status=" + status + ", data=" + JSON.stringify(data)
@@ -366,7 +388,7 @@ test("check deleting one issue", done => {
   });
 
 
-  test("check get county employee" , done =>{
+  test("check get county employee" , done=>{
     function callback(status, data) {
       console.log(
         "Test callback: status=" + status + ", data=" + JSON.stringify(data)
@@ -378,8 +400,9 @@ test("check deleting one issue", done => {
     }
 
 
-    userDao.getCountyEmployee(1, callback);
+     userDao.getCountyEmployee(1, callback);
   });
+
 
 
 
@@ -388,7 +411,7 @@ test("check deleting one issue", done => {
 //-----------------------------------------------------------------
 
 
-test("check get all counties", done => {
+test("check get all counties", done=> {
   function callback(status, data) {
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
@@ -439,12 +462,12 @@ test("check get all counties where the user that the user dos not subscribe to",
     done();
   }
 
-  countyDao.getAllCountiesMinusUsers('kari@usermail.com',callback);
+   countyDao.getAllCountiesMinusUsers('kari@usermail.com',callback);
 });
 
 
 
-test("check delete all subscribed counties for one user", done => {
+test("check delete all subscribed counties for one user", done=> {
   function callback(status, data) {
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
@@ -460,8 +483,9 @@ test("check delete all subscribed counties for one user", done => {
     done();
   }
 
+
   countyDao.deleteAllSubscribedCounties('kari@usermail.com',callback);
-  countyDao.getSubscribedCounties('kari@usermail.com',callback2);
+countyDao.getSubscribedCounties('kari@usermail.com',callback2);
 });
 
 
@@ -478,13 +502,14 @@ test("check add countysubscription for companies", done => {
     companyMail: 'company1@company.com',
     countyId: 1,
   };
-  countyDao.addCompanySubscription(post,callback);
+   countyDao.addCompanySubscription(post,callback);
 });
+
 
 //CATEGORY-TESTING
 //-----------------------------------------------------------------
 
-test("check get all from category1", done => {
+test("check get all from category1", done=> {
   function callback(status, data) {
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
@@ -492,13 +517,12 @@ test("check get all from category1", done => {
     expect(data.length).toBe(2);
     expect(data[0].name).toBe('Strøm');
     expect(data[1].name).toBe('Vann og avløp');
-
     expect(data[0].priority).toBe(1);
     expect(data[1].priority).toBe(2);
     done();
   }
 
-  categoryDao.getCategory1(callback);
+   categoryDao.getCategory1(callback);
 });
 
 
@@ -516,17 +540,16 @@ test("check get all from category2", done => {
     done();
   }
 
-  categoryDao.getCategory2(callback);
+   categoryDao.getCategory2(callback);
 });
 
 
-test("check add one to category1 and get one from category1", done => {
+test("check add one to category1 and get one from category1", done=> {
   function callback(status, data) {
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
     );
     expect(data.affectedRows).toBeGreaterThanOrEqual(1);
-
   }
 
   function callback2(status, data) {
@@ -544,7 +567,7 @@ test("check add one to category1 and get one from category1", done => {
   };
 
   categoryDao.addCategory1(post,callback);
-  categoryDao.getOneCategory1(3, callback2);
+   categoryDao.getOneCategory1(3, callback2);
 
 });
 
@@ -590,7 +613,7 @@ test("check add categories to a company", done => {
     categoryId: 2,
   };
 
-  categoryDao.addCompanyCategories(post, callback);
+   categoryDao.addCompanyCategories(post, callback);
 });
 
 
@@ -602,14 +625,14 @@ test("check get all eventCategories", done => {
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
     );
     expect(data.length).toBe(1);
-    //expect(data.length).toBeGreaterThanOrEqual(1);
     done();
+    //expect(data.length).toBeGreaterThanOrEqual(1);
   }
 
   eventCategoryDao.getEventCategory(callback);
 });
 
-
+let eventDao = new EventDao(pool);
 //EVENT-TESTING
 //-----------------------------------------------------------------
 
@@ -623,11 +646,11 @@ test("check get 10 newest events", done => {
     done();
   }
 
-  eventDao.get10newestEvents(1,callback);
+   eventDao.get10newestEvents(1,callback);
 });
 
 
-test("check add event", done => {
+test("check add event", done=> {
   function callback(status, data) {
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
@@ -661,32 +684,41 @@ test("check add event", done => {
 
 
 
-
 //NOTIFICATION SETTINGS-TESTING
 //-----------------------------------------------------------------
 
 
-test("check add notificationsettings(pushalert)", done => {
-  function callback(status, data) {
+test("check add notificationsettings(pushalert)",done => {
+   function callback(status, data) {
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
     );
-    //expect(data.affectedRows).toBeGreaterThanOrEqual(1);
-
+    expect(data.affectedRows).toBe(1);
   }
 
-  function callback2(status, data) {
+ function callback2(status, data) {
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
     );
     expect(data.length).toBe(1);
     expect(data[0].categoryId).toBe(1);
     expect(data[0].countyId).toBe(1);
-    expect(data[0].name).toBe('Strøm');
-  }
+    expect(data[0].name).toBe('Konsert');
+    done();
+ }
+
+  let post = {
+    countyId:1,
+    categoryId: 1,
+  };
+
+  notificationSettingsDao.addNotificationSettings('ola@usermail.com',post,callback);
+  notificationSettingsDao.getNotificationSettings('ola@usermail.com', callback2);
+});
 
 
-  function callback3(status, data) {
+test("check add notificationsettings(pushalert) check get simple", done => {
+  function callback(status, data) {
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
     );
@@ -695,35 +727,24 @@ test("check add notificationsettings(pushalert)", done => {
   }
 
 
-  function callback4(status, data) {
+  function callback2(status, data) {
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
     );
     expect(data.length).toBe(2);
     expect(data[1].categoryId).toBe(2);
     expect(data[1].countyId).toBe(2);
-
     done();
   }
 
-
-
-  let post = {
-      countyId:1,
-      categoryId: 1,
-
-
-  };
 
   let post2 = {
     countyId:2,
     categoryId: 2,
   };
+  notificationSettingsDao.addNotificationSettings('kari@usermail.com',post2,callback);
+   notificationSettingsDao.getNotificationSettingsSimple('kari@usermail.com', callback2);
 
-  notificationSettingsDao.addNotificationSettings('kari@usermail.com',post,callback);
-  notificationSettingsDao.getNotificationSettings('kari@usermail.com', callback2);
-  notificationSettingsDao.addNotificationSettings('kari@usermail.com',post2,callback3);
-  notificationSettingsDao.getNotificationSettingsSimple('kari@usermail.com', callback4);
 });
 
 
@@ -742,11 +763,11 @@ test("check get pushalert with name on county and category", done => {
   }
 
 
-  notificationSettingsDao.getNotificationSettingsWithNames('kari@usermail.com',callback);
+   notificationSettingsDao.getNotificationSettingsWithNames('kari@usermail.com',callback);
 });
 
 
-test("check delete pushalert", done => {
+test("check delete pushalert",done => {
   function callback(status, data) {
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
@@ -827,10 +848,9 @@ test("check update notification", done => {
     completed:true,
   };
 
-  notificationSettingsDao.updateIssueNotificationSettings('kari@usermail.com',post,callback);
+   notificationSettingsDao.updateIssueNotificationSettings('kari@usermail.com',post,callback);
   notificationSettingsDao.getIssueNotificationSettings('kari@usermail.com',callback2);
 });
-
 
 
 
@@ -839,7 +859,7 @@ test("check update notification", done => {
 //-----------------------------------------------------------------
 
 
-/*
+
 test("check reset password", done => {
   function callback(status, data) {
     console.log(
@@ -848,12 +868,28 @@ test("check reset password", done => {
     expect(data.affectedRows).toBeGreaterThanOrEqual(1);
     done();
   }
-  let post = {
-  to:'ola@usermail.com',
-  };
 
-  mailDao.resetPassword(post,'detteErEtNyttPassord',callback);
+
+   mailDao.resetPassword('ola@usermail.com','detteErEtNyttPassord',callback);
 });
 
 
-*/
+//Statistic-TESTING
+//-----------------------------------------------------------------
+
+test("check get statusName from issues and numbers of each", done => {
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data[0].statusName).toBe('In progress');
+    expect(data[0].ant).toBe(2);
+
+    expect(data[1].statusName).toBe('Registered');
+    expect(data[1].ant).toBe(1);
+    done();
+  }
+
+
+   statisticDao.getNumberStatus(callback);
+});
