@@ -39,4 +39,12 @@ module.exports = function(app: Object, eventDao: Object) {
     });
   });
 
+  app.post("/deleteEvent/:eventId", (req, res) => {
+    console.log("Got post request from deleteEvent id " + req.params.eventId);
+    eventDao.deleteEvent(req.params.eventId, (status,data) => {
+      res.status(status);
+      res.json(data);
+    });
+  });
+
 };

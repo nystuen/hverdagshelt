@@ -115,7 +115,11 @@ export class EventCategoryService {
   updateEvent(event: Object): Promise<void>{
     return axios.post("/updateEvent", event);
   }//end method
-} //end class
+
+  deleteEvent(eventId: number): Promise<void>{
+    return axios.post("/deleteEvent/" + eventId);
+  }//end method
+}//end class
 
 export class ImageService {
   uploadImage(image: Object): Promise<JSON> {
