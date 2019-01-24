@@ -5,7 +5,7 @@ import ReactDOM from 'react-dom';
 import * as React from 'react';
 import { HashRouter, Route, NavLink } from 'react-router-dom';
 import { WizardFormComplete } from './components/ReduxRegisterForm/WizardFormComplete';
-import { MapComponent } from './components/map/Map';
+import { EventMapComponent } from './components/map/Map';
 import { NavbarMenu } from './components/NavbarMenu/NavbarMenu';
 import { Login } from './views/login/login';
 import { Alert } from './widgets';
@@ -72,7 +72,7 @@ if (root)
           component={editAccountInformation}
         />
         <Route path="/login" component={Login}/>
-        <Route path="/map" component={MapComponent}/>
+        <Route path="/map" component={EventMapComponent}/>
         <Route path="/min_side/mine_saker" component={MineSaker}/>
         <Route
           path="/min_side/mine_sakerBedrift"
