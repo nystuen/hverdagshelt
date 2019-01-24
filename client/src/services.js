@@ -336,6 +336,14 @@ export class StatisticsService {
   getDaily(countyId: number): Promise<Response>{
     return axios.get('/issuesDaily/'+ countyId)
   }
+
+  getStatusAllCounties(): Promise<Response>{
+    return axios.get('/issueCategoriesAllCounties/')
+  }
+
+  getDailyAllCounties(): Promise<Response>{
+    return axios.get('/issuesDailyAllCounties/')
+  }
 }
 
 

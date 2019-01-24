@@ -81,7 +81,7 @@ export class NavbarMenu extends React.Component {
                 <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
                   <NavItem eventKey={2} href={'/#/wizardForm'}><Glyphicon
                     glyph="glyphicon glyphicon-plus"/> Meld inn sak</NavItem>
-                  <NavItem eventKey={3} href={'/#/events/' + window.sessionStorage.getItem('countyId')}>
+                  <NavItem eventKey={3} href={'/#/hendelser/' + window.sessionStorage.getItem('countyId')}>
                     <i className="fas fa-exclamation-triangle"></i> Hendelser</NavItem>
                   <NavItem eventKey={4} href={'/#/statistics'}><Glyphicon
                     glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
@@ -121,7 +121,7 @@ export class NavbarMenu extends React.Component {
                 <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
                   <NavItem eventKey={2} href={'/#/wizardForm'}><Glyphicon
                     glyph="glyphicon glyphicon-plus"/> Meld inn sak</NavItem>
-                  <NavItem eventKey={3} href={'/#/events/' + window.sessionStorage.getItem('countyId')}>
+                  <NavItem eventKey={3} href={'/#/hendelser/' + window.sessionStorage.getItem('countyId')}>
                     <i className="fas fa-exclamation-triangle"></i> Hendelser</NavItem>
                   <NavItem eventKey={4} href={'/#/statistics'}><Glyphicon
                     glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
@@ -163,7 +163,7 @@ export class NavbarMenu extends React.Component {
                   </NavItem>
                   <NavItem eventKey={2} href={'/#/wizardForm'}><Glyphicon
                     glyph="glyphicon glyphicon-plus"/> Meld inn sak</NavItem>
-                  <NavItem eventKey={3} href={'/#/events/' + window.sessionStorage.getItem('countyId')}>
+                  <NavItem eventKey={3} href={'/#/hendelser/' + window.sessionStorage.getItem('countyId')}>
                     <i className="fas fa-exclamation-triangle"></i> Hendelser</NavItem>
                   <NavItem eventKey={4} href={'/#/statistics'}><Glyphicon
                     glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
@@ -173,8 +173,8 @@ export class NavbarMenu extends React.Component {
 
                 <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
                   <NavDropdown eventKey={9} title={'Min side'} id='1'>
-                    <MenuItem eventKey={9} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
-                    <MenuItem eventKey={9}
+                    <MenuItem id="dropdownMenuItem" eventKey={9} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
+                    <MenuItem id="dropdownMenuItem" eventKey={9}
                               href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
                   </NavDropdown>
                   {loginButton}

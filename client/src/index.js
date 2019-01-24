@@ -1,47 +1,47 @@
 // @flow
 
-import ReactDOM from "react-dom";
-import * as React from "react";
-import { HashRouter, Route, NavLink } from "react-router-dom";
-import { WizardFormComplete } from "./components/ReduxRegisterForm/WizardFormComplete";
-import { MapComponent } from "./components/map/Map";
-import { NavbarMenu } from "./components/NavbarMenu/NavbarMenu";
-import { Login } from "./views/login/login";
-import { Alert } from "./widgets";
-import store from "./components/ReduxRegisterForm/store";
-import { KontoOversikt } from "./views/MinSide/KontoOversikt/kontoOversikt";
-import { CountySubscription } from "./views/MinSide/countySubscription/countySubscription";
-import createHashHistory from "history/createHashHistory";
-import { MineSaker } from "./views/MinSide/mineSaker/mineSaker";
-import { Provider } from "react-redux";
-import { adminAddCategory } from "./components/AdminAddCategory/adminAddCategory";
-import { RegisterCompany } from "./components/registercompany/registercompany.js";
-import { RegisterUser } from "./components/registeruser/registeruser";
-import { ChooseCategory } from "./components/ChooseCategory/ChooseCategory.js";
-import { forside } from "./views/forside/forside";
-import { Frontpage } from "./views/frontpage/frontpage";
-import { editAccountInformation } from "./views/MinSide/KontoOversikt/editAccountInformation";
-import { NotificationSettings } from "./views/NotificationSettings/NotificationSettings";
-import { Component } from "react-simplified";
-import { MinSide } from "./views/MinSide/MinSide";
-import { EventWizardFormComplete } from "./components/RegisterEventForm/EventWizardFormComplete";
-import { OversiktOverSak } from "./views/oversiktOverSak/oversiktOverSak";
-import { mineSakerBedrift } from "./views/MinSide/mineSaker/mineSakerBedrift";
-import { events } from "./views/events/events";
-import { AdminResetUserPassword } from "./views/admin/resetPassword";
-import { adminPanel } from "./views/admin/adminPanel";
-import { SendTextMailWindow } from "./components/Mail/SendMail";
-import { Footer } from "./components/Footer/Footer";
-import { RegisterEmployee } from "./components/registeremployee/RegisterEmployee";
-import { RegisterAdmin } from "./components/registeradmin/registeradmin";
-import { ForgottenPassword } from "./views/login/ForgottenPassword";
-import { RegNew } from "./components/regNew/RegNew";
-import { employeeHomepage } from "./views/employee/employeeHomepage/employeeHomepage";
-import { employeeManageUsers } from "./views/employee/employeeManageUsers/employeeManageUsers";
-import { CreateAdminsOrEmployees } from "./views/admin/createAdminsOrEmployees";
-import { Statistics } from "./components/statistics/Statistics";
-import { adminIssues } from "./views/admin/adminIssues/adminIssues";
-import { EditIssue } from "./views/MinSide/mineSaker/editIssue";
+import ReactDOM from 'react-dom';
+import * as React from 'react';
+import { HashRouter, Route, NavLink } from 'react-router-dom';
+import { WizardFormComplete } from './components/ReduxRegisterForm/WizardFormComplete';
+import { MapComponent } from './components/map/Map';
+import { NavbarMenu } from './components/NavbarMenu/NavbarMenu';
+import { Login } from './views/login/login';
+import { Alert } from './widgets';
+import store from './components/ReduxRegisterForm/store';
+import { KontoOversikt } from './views/MinSide/KontoOversikt/kontoOversikt';
+import { CountySubscription } from './views/MinSide/countySubscription/countySubscription';
+import createHashHistory from 'history/createHashHistory';
+import { MineSaker } from './views/MinSide/mineSaker/mineSaker';
+import { Provider } from 'react-redux';
+import { adminAddCategory } from './components/AdminAddCategory/adminAddCategory';
+import { RegisterCompany } from './components/registercompany/registercompany.js';
+import { RegisterUser } from './components/registeruser/registeruser';
+import { ChooseCategory } from './components/ChooseCategory/ChooseCategory.js';
+import { forside } from './views/forside/forside';
+import { Frontpage } from './views/frontpage/frontpage';
+import { editAccountInformation } from './views/MinSide/KontoOversikt/editAccountInformation';
+import { NotificationSettings } from './views/NotificationSettings/NotificationSettings';
+import { Component } from 'react-simplified';
+import { MinSide } from './views/MinSide/MinSide';
+import { EventWizardFormComplete } from './components/RegisterEventForm/EventWizardFormComplete';
+import { OversiktOverSak } from './views/oversiktOverSak/oversiktOverSak';
+import { mineSakerBedrift } from './views/MinSide/mineSaker/mineSakerBedrift';
+import { events } from './views/events/events';
+import { AdminResetUserPassword } from './views/admin/resetPassword';
+import { adminPanel } from './views/admin/adminPanel';
+import { SendTextMailWindow } from './components/Mail/SendMail';
+import { Footer } from './components/Footer/Footer';
+import { RegisterEmployee } from './components/registeremployee/RegisterEmployee';
+import { RegisterAdmin } from './components/registeradmin/registeradmin';
+import { ForgottenPassword } from './views/login/ForgottenPassword';
+import { RegNew } from './components/regNew/RegNew';
+import { employeeHomepage } from './views/employee/employeeHomepage/employeeHomepage';
+import { employeeManageUsers } from './views/employee/employeeManageUsers/employeeManageUsers';
+import { CreateAdminsOrEmployees } from './views/admin/createAdminsOrEmployees';
+import { Statistics } from './components/statistics/Statistics';
+import { adminIssues } from './views/admin/adminIssues/adminIssues';
+import { EditIssue } from './views/MinSide/mineSaker/editIssue';
 import { Footer2 } from './components/Footer/Footer2';
 import { eventView } from './views/events/eventView';
 
@@ -62,8 +62,8 @@ if (root)
       <div className="route-container">
 
         <NavbarMenu/>
-        <Route exact path="/" component={Frontpage}/>
-        <Route path="/forside/:countyId" component={forside}/>
+        <Route exact path="/" component={forside}/>
+        <Route path="/endreKommune" component={Frontpage}/>
         <Route path="/wizardForm" component={WizardFormComplete}/>
         <Route path="/min_side/kontooversikt" component={KontoOversikt}/>
 
@@ -109,13 +109,12 @@ if (root)
           path="/admin/createAdminsOrEmployees"
           component={CreateAdminsOrEmployees}
         />
-        <Route path="/statistics" component={Statistics} />
-        <Route path="/admin/adminSaker" component={adminIssues} />
+        <Route path="/statistics" component={Statistics}/>
+        <Route path="/admin/adminSaker" component={adminIssues}/>
         <Route
           path="/min_side/mine_saker/rediger/:issueId"
           component={EditIssue}
         />
-        <Footer />
         <Route exact path="/hendelse/:eventId" component={eventView}/>
         <Footer2/>
       </div>
