@@ -1,21 +1,15 @@
 // @flow
 
 import React from 'react';
-import { Grid, Col, Row, Button, Table } from 'react-bootstrap';
+import { Grid, Col, Row, Button, Table, ProgressBar, Nav, NavItem } from 'react-bootstrap';
 import { Issue } from '../../../classTypes';
 import {CategoryService, IssueService, UserService} from '../../../services';
 import { Alert } from '../../../widgets';
-import ProgressBar from 'react-bootstrap/es/ProgressBar';
 import { Status } from '../../../classTypes';
-import NavLink from 'react-router-dom/es/NavLink';
-import Nav from 'react-bootstrap/es/Nav';
-import NavItem from 'react-bootstrap/es/NavItem';
-import Progress from 'reactstrap/es/Progress';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
 import { history } from "../../../index";
 import mineSaker from "./mineSaker.css";
 
-let jwt = require('jsonwebtoken');
 let userService = new UserService();
 let categoryService = new CategoryService();
 let issueService = new IssueService();
