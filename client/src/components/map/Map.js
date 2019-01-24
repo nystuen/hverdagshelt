@@ -112,6 +112,69 @@ export class EventMapComponent extends Component<{markers: string[]}> {
   }
 }
 
+export class OneIssueMapComponent extends Component<{markers: string[]}> {
+  constructor (props){
+    super(props);
+
+    this.state = {
+      hasLocation: true,
+      address: "",
+      latlng: {
+          lat: this.props.markers[0],
+          lng: this.props.markers[1]
+      },
+      zoom: 14
+    };
+  }
+
+  componentWillReceiveProps(e: Object){
+    this.setState({
+      latlng: {
+        lat: e.markers[0],
+        lng: e.markers[1]
+      }
+    })
+  }
+
+  mapRef = createRef<Map>()
+
+  render() {
+
+    let marker = this.state.hasLocation ? (
+      <Marker position={this.state.latlng}>
+      </Marker>
+    ): null
+
+
+    let mapStyle = {
+      height: '40vh',
+      width: '100%'
+    }
+
+
+    return (
+      <div id="containme">
+        <Map
+          center={this.state.latlng}
+          length={12}
+          onClick={this.handleMapClick}
+          onLocationFound={this.handleLocationFound}
+          ref={this.mapRef}
+          zoom={this.state.zoom}
+          doubleClickZoom= {true}
+          style={mapStyle}
+        >
+            <TileLayer
+              attribution='&amp;copy <a href="http://osm.org/copyright">OpenStreetMap</a> contributors'
+              url="https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png"
+            />
+            {marker}
+        </Map>
+      </div>
+    )
+  }
+}
+
 export class IssueMapComponent extends Component {
   constructor (props){
     super(props);
