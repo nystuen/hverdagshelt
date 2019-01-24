@@ -589,4 +589,6 @@ export class RegisterUser extends Component<Props, State> {
             }, 4000
         )
     }
+
+
 }
