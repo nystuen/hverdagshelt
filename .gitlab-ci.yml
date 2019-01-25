@@ -22,8 +22,8 @@ run_tests:
   - cd ../server && npm test
   artifacts:
     paths:
-    - client
-    - server
+    - client/coverage
+    - server/coverage
 
 
 pages:
