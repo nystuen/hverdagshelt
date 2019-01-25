@@ -90,6 +90,14 @@ export class UserDao extends Dao {
     );
   }
 
+  getCompanyIssuesWithCat(companyMail: string, callback: Function) {
+    super.query(
+      "select * from issues,allCats where ((issues.categoryLevel=1 and issues.categoryId=allCats.categoryId) or (issues.categoryLevel=2 and issues.categoryId=allCats.category2Id)) and active=1 and issueId in (select issueId from companyIssues where companyMail =?)  order by issueId DESC",
+      [companyMail],
+      callback
+    );
+  }
+
   getCompanyIssues(companyMail: string, callback: Function) {
     super.query(
       "select * from issues where issueId in (select issueId from companyIssues where companyMail =?) ORDER BY issueId DESC",
