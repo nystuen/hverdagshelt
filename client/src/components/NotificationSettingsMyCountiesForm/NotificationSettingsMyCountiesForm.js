@@ -196,8 +196,8 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
 
   renderAddCategory(renderBoolean: boolean) {
     if (!renderBoolean) {
-      return <Col>
-        <h3>Velg en kommune for å vise varselinnstillinger:</h3>
+      return <Col >
+        <h3>Velg en kommune for å vise varselinnstillinger</h3>
         <ListGroup>
           {
             this.state.userCounties.map(e => {
@@ -277,7 +277,7 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
 
 
     return (
-      <Grid>
+      <Grid className="myCountiesAddNotification">
         <form>
 
           {this.renderAddCategory(this.state.countySubscriptionOpen)}

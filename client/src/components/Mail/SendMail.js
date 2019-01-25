@@ -4,6 +4,7 @@
 import { MailService } from '../../services';
 import * as React from 'react';
 import { Col, Grid, Button, FormGroup, Form, ControlLabel, FormControl } from 'react-bootstrap';
+import { PageHeader } from '../PageHeader/PageHeader';
 
 let mailService = new MailService();
 
@@ -32,36 +33,47 @@ export class SendTextMailWindow extends React.Component {
 
 
   handleChange = e => {
-    this.setState({[e.target.name]: e.target.value })
+    this.setState({ [e.target.name]: e.target.value });
   };
-  buttonBack(){
+
+  buttonBack() {
     this.props.history.goBack();
   }
 
   render() {
     return (
       <div>
-        <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
+        <i id="backButton" onClick={() => this.buttonBack()} className="fas fa-arrow-circle-left"></i>
         <Grid>
-          <Form>
-            <FormGroup controlId="formInlineToMail">
-              <ControlLabel>Mottakers e-postadresse</ControlLabel>{' '}
-              <FormControl name="to" onChange={this.handleChange} type="email" placeholder="mottaker@example.com"/>
-            </FormGroup>{' '}
+          <PageHeader title="Kontakt bruker"/>
 
-            <FormGroup controlId="formInlineText">
-              <ControlLabel>Tittel</ControlLabel>{' '}
-              <FormControl name="subject" onChange={this.handleChange} type="text" placeholder="Hverdagshelt - " defaultValue={'Hverdagshelt - '}/>
-            </FormGroup>{' '}
+          <Col md={2} lg={2} sm={2}></Col>
 
-            <FormGroup controlId="formInlinePhone">
-              <ControlLabel>Innhold</ControlLabel>{' '}
-              <FormControl rows={5} name="text" onChange={this.handleChange} componentClass="textarea" placeholder="E-postens innhold"/>
-            </FormGroup>{' '}
+          <Col md={8} lg={8} sm={8}>
+            <Form>
+              <FormGroup controlId="formInlineToMail">
+                <ControlLabel>Mottakers e-postadresse</ControlLabel>{' '}
+                <FormControl name="to" onChange={this.handleChange} type="email" placeholder="mottaker@example.com"/>
+              </FormGroup>{' '}
 
-          </Form>
+              <FormGroup controlId="formInlineText">
+                <ControlLabel>Tittel</ControlLabel>{' '}
+                <FormControl name="subject" onChange={this.handleChange} type="text" placeholder="Hverdagshelt - "
+                             defaultValue={'Hverdagshelt - '}/>
+              </FormGroup>{' '}
 
-          <Button onClick={() => this.sendMail()}>Send e-post</Button>
+              <FormGroup controlId="formInlinePhone">
+                <ControlLabel>Innhold</ControlLabel>{' '}
+                <FormControl rows={5} name="text" onChange={this.handleChange} componentClass="textarea"
+                             placeholder="E-postens innhold"/>
+              </FormGroup>{' '}
+
+            </Form>
+            <Button onClick={() => this.sendMail()}>Send e-post</Button>
+          </Col>
+
+          <Col md={2} lg={2} sm={2}></Col>
+
         </Grid>
       </div>
     );

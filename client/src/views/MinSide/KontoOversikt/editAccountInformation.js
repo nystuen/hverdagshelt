@@ -197,6 +197,7 @@ export class editAccountInformation extends React.Component<State> {
                           defaultValue={this.state.user.lastName}
                         />
                       </FormGroup>{' '}
+                      <p>{this.state.user.county}</p>
                       <FormGroup controlId="formInlineHjemmekommune">
                         <ControlLabel>Hjemmekommune</ControlLabel>{' '}
                         <CountyList

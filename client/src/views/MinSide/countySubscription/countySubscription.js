@@ -5,7 +5,6 @@ import { Grid, Row, Col, ListGroup,ListGroupItem, Table, Image, Panel, Glyphicon
 import {CountyService, UserService, NotificationSettingsService} from "../../../services";
 import * as jwt from 'jsonwebtoken';
 import css from './countySubscription.css';
-import { PageHeader } from '../../../components/PageHeader/PageHeader';
 import { User } from '../../../classTypes';
 
 let countyService = new CountyService();
@@ -141,7 +140,7 @@ export class CountySubscription extends Component<Props, State> {
                   placeholder="Søk i alle kommuner"
                   inputRef={input => this.inputText1 = input}
                 />
-                <ListGroup id={'allCountiesList'}>
+                <ListGroup id={'allCountiesList'} style={{'max-height': 'calc(250px)', 'overflow-y': 'auto'}}>
                   {
                     this.state.allCounties.map((r, i) => {
                       return <li className="list-group-item" onClick={() => {
@@ -152,13 +151,13 @@ export class CountySubscription extends Component<Props, State> {
                 </ListGroup>
               </Col>
 
-              <Col xs={12} md={2} align={'center'} className="arrows">
+              <Col xs={12} md={2} align={'center'} >
 
                 <Row>
-                  <span> <Glyphicon glyph="arrow-left"/></span>
+                  <span className="arrows-right"> <Glyphicon glyph="arrow-left"/></span>
                 </Row>
                 <Row>
-                  <span> <Glyphicon glyph="arrow-right"/></span>
+                  <span className="arrows-right"> <Glyphicon glyph="arrow-right"/></span>
                 </Row>
 
               </Col>
@@ -172,7 +171,7 @@ export class CountySubscription extends Component<Props, State> {
                   placeholder="Søk i dine kommuner"
                   inputRef={input => this.inputText = input}
                 />
-                <ListGroup id="myCountiesList">
+                <ListGroup id="myCountiesList" style={{'max-height': 'calc(250px)', 'overflow-y': 'auto'}}>
                   {
                     this.state.userCounties.map((r, i) => {
                       return <li className="list-group-item" onClick={() => {

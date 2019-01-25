@@ -27,13 +27,11 @@ let userService = new UserService();
 //henter infoen hvis personen er koblet til en kommune
 export class Footer2 extends Component<{}> {
 
-
   state = {
     countyInformation: [],
     user: []
 
   };
-
 
   componentDidMount = async () => {
     if (!(window.localStorage.getItem('userToken') == '')) {
@@ -42,9 +40,9 @@ export class Footer2 extends Component<{}> {
       });
     }
 
-    await countyService.getCountyEmployee(this.state.user.countyId).then((re: Array<Object>) => {
+    await countyService.getCountyEmployee(window.sessionStorage.getItem('countyId')).then((re: Array<Object>) => {
       this.setState({
-        countyInformation: re
+        countyInformation: re[0]
       });
     });
   };
@@ -69,18 +67,12 @@ export class Footer2 extends Component<{}> {
               </Col>
               <Col sm={8}>
                 <div align="center">
-                  <h5>Kontaktinformasjon til {this.state.user.county}-kommune:</h5>
-                  {
-                    this.state.countyInformation.map((r, i) => {
-                      return (
-                        <ul key={i}>
-                          <li><span>Kommuneansatt: {r.firstName + ' ' + r.lastName}</span></li>
-                          <li><span>E-post: {r.mail}</span></li>
-                          <li><span>Telefonnr: {r.phone}</span></li>
+                  <h5>Kontaktinformasjon til {window.sessionStorage.getItem('countyName')} kommune:</h5>
+                        <ul key={0}>
+                          <li><span>Kommuneansatt: {this.state.countyInformation.firstName + ' ' + this.state.countyInformation.lastName}</span></li>
+                          <li><span>E-post: {this.state.countyInformation.mail}</span></li>
+                          <li><span>Telefonnr: {this.state.countyInformation.phone}</span></li>
                         </ul>
-                      );
-                    })
-                  }
                 </div>
               </Col>
 
@@ -88,9 +80,9 @@ export class Footer2 extends Component<{}> {
 
           </Grid>
 
-            <div className="footer-copyright">
-              <p>© 2019 Hverdagshelt </p>
-            </div>
+          <div className="footer-copyright">
+            <p>© 2019 Hverdagshelt </p>
+          </div>
         </footer>
       );
     } else {
@@ -99,8 +91,8 @@ export class Footer2 extends Component<{}> {
           <div className="container">
             <div align="center">
               <img id="logo" className="picture"
-                     src={'./resources/logo_white.png'}
-                     />
+                   src={'./resources/logo_white.png'}
+              />
               <h2>HVERDAGSHELT</h2>
             </div>
           </div>

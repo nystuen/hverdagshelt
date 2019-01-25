@@ -3,12 +3,12 @@
 import React from 'react';
 import { Grid, Col, Row, Button, Table, ProgressBar, Nav, NavItem } from 'react-bootstrap';
 import { Issue } from '../../../classTypes';
-import {CategoryService, IssueService, UserService} from '../../../services';
+import { CategoryService, IssueService, UserService } from '../../../services';
 import { Alert } from '../../../widgets';
 import { Status } from '../../../classTypes';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
-import { history } from "../../../index";
-import mineSaker from "./mineSaker.css";
+import { history } from '../../../index';
+import mineSaker from './mineSaker.css';
 
 let userService = new UserService();
 let categoryService = new CategoryService();
@@ -23,7 +23,8 @@ interface State {
   category3: Object[];
 } //end interface
 
-interface Props {}
+interface Props {
+}
 
 export class MineSaker extends React.Component<Props, State> {
   match: { params: { mail: string } };
@@ -36,15 +37,15 @@ export class MineSaker extends React.Component<Props, State> {
   };
 
   delete(issueId: number, statusName: string) {
-    if (statusName == "Registered") {
-      if (confirm("Er du sikker på at du vil slette denne saken?")) {
+    if (statusName == 'Registered') {
+      if (confirm('Er du sikker på at du vil slette denne saken?')) {
         issueService.deleteIssue(issueId);
         window.location.reload();
       }
-    } else if (statusName == "In progress") {
-      alert("denne saken er under arbeid, og kan ikke slettes");
+    } else if (statusName == 'In progress') {
+      alert('denne saken er under arbeid, og kan ikke slettes');
     } else {
-      alert("Du kan ikke slette ferdige saker");
+      alert('Du kan ikke slette ferdige saker');
     }
     console.log(issueId);
     console.log(statusName);
@@ -106,64 +107,62 @@ export class MineSaker extends React.Component<Props, State> {
 
       <div className="bottomFooter">
         <Grid>
-          <PageHeader title={"Mine saker"} />
+          <PageHeader title={'Mine saker'}/>
           <Table>
             <thead>
-              <tr>
-                <th>Beskrivelse</th>
-                <th>Kategori</th>
-                <th>Status</th>
-                <th>Endre</th>
-              </tr>
+            <tr>
+              <th>Beskrivelse</th>
+              <th>Kategori</th>
+              <th>Status</th>
+              <th>Endre</th>
+            </tr>
             </thead>
             <tbody>
-              {this.state.issues.map((e, i) => {
-                return (
-                  <tr key={e.text}>
-                    <td>
-                      <Nav bsStyle="pills">
-                        <NavItem href={"/#min_side/sakoversikt/" + e.issueId}>
-                          {e.text}
-                        </NavItem>
-                      </Nav>
-                    </td>
-                    <td>{this.setCategory(cat, i)}</td>
-                    <td>
-                      {this.updateStatus(e.statusName)}
-                      <ProgressBar>
-                        <ProgressBar
-                          bsStyle={this.status.progressBar}
-                          active={this.status.inProgress}
-                          now={this.status.progress}
-                          label={this.status.name}
-                          style={{ color: "black" }}
-                          key={1}
-                        />
-                      </ProgressBar>
-                    </td>
-                    <td>
-                      <Button
-                        className="knapp"
-                        bsStyle="primary"
-                        href={"/#/min_side/mine_saker/rediger/" + e.issueId}
-                      >
-                        Rediger beskrivelse
-                      </Button>
-                      <Button
-                        className="knapp"
-                        bsStyle="danger"
-                        onClick={this.delete.bind(
-                          this,
-                          e.issueId,
-                          e.statusName
-                        )}
-                      >
-                        Slett
-                      </Button>
-                    </td>
-                  </tr>
-                );
-              })}
+            {this.state.issues.map((e, i) => {
+              return (
+                <tr key={e.text}>
+                  <td>
+                    <Nav bsStyle="pills">
+                      <NavItem href={'/#min_side/sakoversikt/' + e.issueId}>
+                        {e.text}
+                      </NavItem>
+                    </Nav>
+                  </td>
+                  <td>{this.setCategory(cat, i)}</td>
+                  <td>
+                    {this.updateStatus(e.statusName)}
+                    <ProgressBar>
+                      <ProgressBar
+                        bsStyle={this.status.progressBar}
+                        active={this.status.inProgress}
+                        now={this.status.progress}
+                        label={this.status.name}
+                        style={{ color: 'black' }}
+                        key={1}
+                      />
+                    </ProgressBar>
+                  </td>
+                  <td>
+                    <Button
+                      className="knapp"
+                      bsStyle="primary"
+                      href={'/#/min_side/mine_saker/rediger/' + e.issueId}>
+                      <span className="glyphicon glyphicon-pencil"></span>
+                    </Button>
+                    <Button
+                      className="knapp"
+                      bsStyle="danger"
+                      onClick={this.delete.bind(
+                        this,
+                        e.issueId,
+                        e.statusName
+                      )}>
+                      <span className="glyphicon glyphicon-trash"></span>
+                    </Button>
+                  </td>
+                </tr>
+              );
+            })}
             </tbody>
           </Table>
         </Grid>
@@ -180,17 +179,17 @@ export class MineSaker extends React.Component<Props, State> {
     //Sorting view so completed issues are listed at the bottom
     let sorted: Object = [];
     this.state.issues.map(e => {
-      if (e.statusName === "Registered") {
+      if (e.statusName === 'Registered') {
         sorted.push(e);
       }
     });
     this.state.issues.map(e => {
-      if (e.statusName === "In progress") {
+      if (e.statusName === 'In progress') {
         sorted.push(e);
       }
     });
     this.state.issues.map(e => {
-      if (e.statusName === "Completed") {
+      if (e.statusName === 'Completed') {
         sorted.push(e);
       }
     });

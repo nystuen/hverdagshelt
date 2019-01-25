@@ -2,7 +2,20 @@
     font-size: 2em;
 }
 
-
 .countySubscription .arrows {
-    padding-top: 1em;
+    padding-top: 5em;
+
+}
+
+
+@media (max-width: 992px) {
+    .countySubscription .glyphicon {
+        transform: rotate(90deg);
+        font-size: 2em;
+
+    }
+    .countySubscription .arrows {
+        padding-top: 1em;
+        padding-bottom: 2em;
+    }
 }

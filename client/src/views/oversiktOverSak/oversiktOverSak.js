@@ -277,11 +277,16 @@ export class OversiktOverSak extends React.Component {
   };//end method
 
   addComment = () => {
-    issueService.addCommentToIssue(this.state.issue.issueId, this.state.comment, this.state.user.mail).then(response => {
-    }).catch((error: Error) => Alert.danger(error.message));
-    window.location.reload();
 
-    this.setState({ addCommentOpen: !this.state.addCommentOpen });
+    if(this.state.comment != ""){
+      issueService.addCommentToIssue(this.state.issue.issueId, this.state.comment, this.state.user.mail).then(response => {
+      }).catch((error: Error) => Alert.danger(error.message));
+      window.location.reload();
+
+      this.setState({ addCommentOpen: !this.state.addCommentOpen });
+
+    }
+
   };
 
   setStatus = (event: Event) => {

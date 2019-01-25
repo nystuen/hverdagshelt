@@ -7,6 +7,7 @@ import {MyIssuesNotificationSettingsForm} from "../../components/MyIssuesNotific
 import {NotificationSettingsMyCountiesForm} from "../../components/NotificationSettingsMyCountiesForm/NotificationSettingsMyCountiesForm";
 
 import css from './NotificationSettings.css';
+import { PageHeader } from '../../components/PageHeader/PageHeader';
 
 interface State {
     decoded: Object,
