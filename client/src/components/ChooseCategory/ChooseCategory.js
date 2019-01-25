@@ -271,10 +271,13 @@ export class ChooseCategory extends Component<{
       const category1 = this.state.category1Id;
       categoryService.updateCategory1(category1);
       this.handleShow();
+        location.reload()
     } else if (this.state.category2Id !== -1) {
       const category2 = this.state.category2Id;
       categoryService.updateCategory2(category2);
       this.handleShow();
+      location.reload()
     }
   };
+
 }
