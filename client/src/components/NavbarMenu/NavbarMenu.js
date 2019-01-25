@@ -52,7 +52,6 @@ export class NavbarMenu extends React.Component {
 
 
   handleSelect(selectedKey) {
-    console.log('selectec:', selectedKey);
     this.setState({ activeKey: selectedKey });
   }
 
@@ -65,11 +64,10 @@ export class NavbarMenu extends React.Component {
     }//end condition
 
     if (window.localStorage.getItem('userToken') !== '') {
-      console.log('suser:', this.state.user);
       if (this.state.user.typeName === 'Admin') {
         return (
           <div className={'logoBrand'}>
-            <Navbar collapseOnSelect fluid>
+            <Navbar collapseOnSelect fluid >
               <Navbar.Header>
                 <Navbar.Brand>
                   <a href={'/#/'}><img src={'./resources/logo_white.png'}></img></a>
@@ -250,7 +248,6 @@ export class NavbarMenu extends React.Component {
     if (window.localStorage.getItem('userToken') !== '') {
       if (this.state.user == undefined) {
         userService.getCurrentUser().then(r => {
-          console.log('R :) : ', r);
           this.setState({ user: r });
         }).catch((error: Error) => confirm(error.message));
 

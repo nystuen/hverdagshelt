@@ -46,6 +46,7 @@ import { Footer2 } from './components/Footer/Footer2';
 import { eventView } from './views/events/eventView';
 
 import {adminEvents} from "./views/admin/adminEvents/adminEvents";
+import { splitScreen } from './views/forside/splitScreen';
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
@@ -117,6 +118,7 @@ if (root)
           component={EditIssue}
         />
         <Route exact path="/hendelse/:eventId" component={eventView}/>
+        <Route path="/registreringsvalg" component={splitScreen}/>
         <Footer2/>
       </div>
     </HashRouter>,

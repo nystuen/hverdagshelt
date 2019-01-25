@@ -199,7 +199,6 @@ export class editAccountInformation extends React.Component<State> {
 
       userService.getCurrentUser().then(newUser => {
         window.sessionStorage.setItem('countyName', '');
-        console.log('currnetCompany:', newUser);
 
         let companyCounties = [];
 
@@ -386,6 +385,22 @@ export class editAccountInformation extends React.Component<State> {
 
     let defaultValues = this.state.defaultCounties;
 
+    let hjemme = <span></span>;
+
+    if (this.state.user != undefined) {
+      if (!(this.state.user.typeName === 'Employee')) {
+        hjemme = <FormGroup controlId="formInlineHjemmekommune">
+          <ControlLabel>Hjemmekommune</ControlLabel>{' '}
+          <CountyList
+            handleOnChangeCounty={this.handleOnChangeCounty.bind(
+              this
+            )}
+          />
+        </FormGroup>;
+
+      }
+    }
+
     return (
       <div className="bottomFooter editInfo">
         <Grid>
@@ -437,14 +452,9 @@ export class editAccountInformation extends React.Component<State> {
                           defaultValue={this.state.user.lastName}
                         />
                       </FormGroup>{' '}
-                      <FormGroup controlId="formInlineHjemmekommune">
-                        <ControlLabel>Hjemmekommune</ControlLabel>{' '}
-                        <CountyList
-                          handleOnChangeCounty={this.handleOnChangeCounty.bind(
-                            this
-                          )}
-                        />
-                      </FormGroup>{' '}
+
+                      {hjemme}
+
                     </Col>
                   </Col>
 

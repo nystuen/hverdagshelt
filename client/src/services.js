@@ -106,16 +106,13 @@ export class UserService {
   }
 
   updateOneCompany(json: Object){
-    console.log("got update request from " + json.companyMail);
     return axios.put("/updateCompany", json, { headers: authHeader() });
   }
 
   deleteCompanyCounties(mail: string){
-    console.log("got update request from " + mail);
     return axios.delete("/deleteCompanyCounties/" + mail, { headers: authHeader() });
   }
   insertCompanyCounty(id: number, mail:string){
-    console.log("got update request from ");
     return axios.post("/addSubscription/" + id +"/"+ mail);
   }
 
@@ -235,12 +232,10 @@ export class IssueService {
     };
 
     if (statusName == "In progress" && res.inProgress == 1) {
-      console.log();
       axios.post("/sendIssueInProgressMail", mailObject);
     }
 
     if (statusName == "Completed" && res.completed == 1) {
-      console.log("completed");
       axios.post("/sendIssueCompleteMail", mailObject);
     }
 
@@ -308,7 +303,6 @@ export class CountyService {
   }
 
   addSubscription(json: Object) {
-    console.log("addSubscription", json);
     return axios.post("/addSubscription", json, { headers: authHeader() });
   }
 }

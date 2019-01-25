@@ -355,7 +355,7 @@ export class RegisterCompany extends Component<Props, State>{
 
 
         return(
-            <Grid>
+            <Grid className="bottomFooter">
                 <Col md={3}></Col>
                 <Col md={6}>
                     <Form horizontal>

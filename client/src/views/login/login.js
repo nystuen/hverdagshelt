@@ -204,7 +204,7 @@ export class Login extends Component<Props, State> {
             });
 
             window.location.reload();
-            history.push('/wizardForm');
+            history.push('/');
           }).catch((error: Error) => confirm(error.message));
         } else { //check if the email is a company email
           userService.getCompanyLogin(this.state.email).then(r => {
@@ -217,7 +217,7 @@ export class Login extends Component<Props, State> {
                       console.log('hei');
 
                       window.location.reload();
-                      history.push('/wizardForm');
+                      history.push('/');
                   }).catch((error: Error) => confirm(error.message));
                 }else{
                   this.setState({
@@ -244,7 +244,7 @@ export class Login extends Component<Props, State> {
 
 
                 window.location.reload();
-                history.push('/wizardForm');
+                history.push('/');
             }).catch((error: Error) => {
               console.log(error);
               this.setState({
