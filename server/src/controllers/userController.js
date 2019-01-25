@@ -229,7 +229,21 @@ module.exports = function (app: Object, userDao: Object) {
         userDao.getCompanyIssues(req.params.email, (status, data) => {
             res.status(status);
             res.json(data);
-        });
+          });
+      });
+
+    app.get("/user/getMyIssuesWithCat", verifyToken, (req, res) => {
+      jwt.verify(req.token, privateKey, (err, decoded) => {
+        if (err) {
+          res.sendStatus(401);
+        } else {
+          console.log("got req from getMyIssuesWithCat");
+          userDao.getIssuesForAllUserWithCat((status, data) => {
+            res.status(status);
+            res.json(data);
+          });
+        }
+      });
     });
 
     app.put("/user/updateUser/", verifyToken, (req, res) => {
