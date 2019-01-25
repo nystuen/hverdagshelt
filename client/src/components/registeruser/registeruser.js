@@ -15,6 +15,7 @@ let userService = new UserService();
 let notificationSettingService = new NotificationSettingsService();
 
 interface State {
+    userExists: boolean,
     registerSuccess: boolean,
     errorSomething: boolean,
   errorEqualsPass: boolean,
@@ -34,9 +35,6 @@ interface State {
   isLoaded: boolean;
 }
 
-interface Props {
-  match: Object,
-}
 
 export class RegisterUser extends Component<Props, State> {
 
@@ -56,6 +54,7 @@ export class RegisterUser extends Component<Props, State> {
     constructor(props) {
         super(props);
         this.state = {
+            userExists: false,
             registerSuccess: false,
             errorSomething: false,
             errorEqualsPass: false,
@@ -388,6 +387,15 @@ export class RegisterUser extends Component<Props, State> {
                 <p></p>
             );
         }
+        let alert_user_exists;
+        if (this.state.userExists) {
+            alert_user_exists = (
+                <Alert bsStyle="danger">
+                    <h6>Emailen er allerede registrert</h6>
+                </Alert>);
+        } else {
+            <p></p>
+        }
         return (
             <Grid>
                 <Col md={3}></Col>
@@ -496,6 +504,7 @@ export class RegisterUser extends Component<Props, State> {
                                     <FormGroup>
                                         {alert_something}
                                         {register_success}
+                                        {alert_user_exists}
                                     </FormGroup>
                                 </Col>
                                 <Col md={4}>
@@ -504,7 +513,7 @@ export class RegisterUser extends Component<Props, State> {
                             <FormGroup>
                                 <Col md={4}/>
                                 <Col md={4}>
-                                    <Button type="button" onClick={this.checkInput}>Registrer</Button>
+                                    <Button id="theButton" type="button" onClick={this.checkInput}>Registrer</Button>
                                 </Col>
                                 <Col md={4}>
                                 </Col>
@@ -519,7 +528,7 @@ export class RegisterUser extends Component<Props, State> {
 
     checkInput = () => {
         //console.log(this.getValidationStateFirstName()||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()||this.getValidationStateEmail2()==='warning'||this.getValidationStatePassword()==='warning'||this.getValidationStatePassword2()==='warning');
-        if ((this.state.countyIsChanged===false)|| this.getValidationStateFirstName() === 'warning' || this.getValidationStateFirstName() === 'warning' || this.getValidationStateFirstName() === 'warning' || this.getValidationStateLastName() === 'warning' || this.getValidationPhone() === 'warning' || this.getValidationStateEmail() === 'warning' || this.getValidationStateEmail2() === 'warning' || this.getValidationStatePassword() === 'warning' || this.getValidationStatePassword2() === 'warning') {
+        if ((this.state.countyIsChanged===false)|| this.getValidationStateFirstName() === 'warning' || this.getValidationStateFirstName() === 'warning'|| this.getValidationStateLastName() === 'warning' || this.getValidationPhone() === 'warning' || this.getValidationStateEmail() === 'warning' || this.getValidationStateEmail2() === 'warning' || this.getValidationStatePassword() === 'warning' || this.getValidationStatePassword2() === 'warning') {
             this.setState({errorSomething: true});
         }else{
                 this.register();
@@ -527,7 +536,7 @@ export class RegisterUser extends Component<Props, State> {
     };
 
 
-    register = () => {
+    register = async () => {
 
         const newUser = {
             mail: this.state.mail,
@@ -541,21 +550,33 @@ export class RegisterUser extends Component<Props, State> {
 
         console.log("JESSSSSSSS");
 
+        let userExists;
+        await userService.getUserLogin(this.state.mail)
+            .then(r => {
+                userExists = r[0] !== undefined;
+                console.log(r[0])
+            });
 
-        userService
-            .addUser(newUser)
-            .then(user => (this.state = user))
-            .catch((error: Error) => Alert.danger(error.message));
+        if (!userExists) {
+            (console.log('fdsfd'));
+            await userService
+                .addUser(newUser)
+                .then(user => (this.state = user))
+                .catch((error: Error) => Alert.danger(error.message));
 
-        let theBody: Object = {
-            mail: newUser.mail,
-            registered: 1,
-            inProgress: 0,
-            completed: 1
-        };
-        notificationSettingService.addIssueNotificationSettings(theBody);
-        this.setState({errorSomething: false, registerSuccess: true});
-        this.goToLogin();
+            let theBody: Object = {
+                mail: newUser.mail,
+                registered: 1,
+                inProgress: 0,
+                completed: 1
+            };
+            await notificationSettingService.addIssueNotificationSettings(theBody);
+            await this.setState({errorSomething: false, registerSuccess: true, userExists: false});
+            await this.goToLogin();
+        } else {
+            this.setState({errorSomething: false, registerSuccess: false, userExists: true});
+        }
+
     };
 
     goToLogin = () => {
@@ -565,4 +586,6 @@ export class RegisterUser extends Component<Props, State> {
             }, 4000
         )
     }
+
+
 }

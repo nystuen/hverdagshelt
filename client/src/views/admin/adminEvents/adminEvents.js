@@ -31,7 +31,8 @@ export class adminEvents extends React.Component{
             events: [],
             selectedEvent: {},
             allEventCategories: [],
-            edit: {}
+            edit: {},
+            categoryIsChanged: false
         };
         this.handleTitleChange = this.handleTitleChange.bind(this);
         this.deleteEvent = this.deleteEvent.bind(this);
@@ -189,7 +190,8 @@ export class adminEvents extends React.Component{
     };
 
     handleCategoryChange = (index: number) => (event: Event) => {
-        this.setState({events: update(this.state.events, {[index]: {eventCategoryId: {$set: event.target.value}}})})
+        this.setState({events: update(this.state.events, {[index]: {eventCategoryId: {$set: event.target.value}}}),
+        categoryIsChanged: true})
     };
 
     deleteEvent(event: Object){
@@ -204,6 +206,7 @@ export class adminEvents extends React.Component{
         if(confirm('Vil du lagre dine endringer?'))eventCategoryService.updateEvent(this.state.events[index]).then(response => {
         }).catch((error: Error) => confirm(error.message));
         this.setState({edit: {}});
+        if(this.state.categoryIsChanged) window.location.reload();
     }//end method
 
     cancel(){

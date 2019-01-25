@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import * as React from "react";
 import { HashRouter, Route, NavLink } from "react-router-dom";
 import { WizardFormComplete } from "./components/ReduxRegisterForm/WizardFormComplete";
-import { MapComponent } from "./components/map/Map";
+import { EventMapComponent } from "./components/map/Map";
 import { NavbarMenu } from "./components/NavbarMenu/NavbarMenu";
 import { Login } from "./views/login/login";
 import { Alert } from "./widgets";
@@ -47,41 +47,40 @@ import { eventView } from './views/events/eventView';
 import {adminEvents} from "./views/admin/adminEvents/adminEvents";
 
 // Reload application when not in production environment
-if (process.env.NODE_ENV !== 'production') {
-  let script = document.createElement('script');
-  script.src = '/reload/reload.js';
+if (process.env.NODE_ENV !== "production") {
+  let script = document.createElement("script");
+  script.src = "/reload/reload.js";
   if (document.body) document.body.appendChild(script);
 }
 
 export const history = createHashHistory(); // Use history.push(...) to programmatically change path, for instance after successfully saving a student
 
-const root = document.getElementById('root');
+const root = document.getElementById("root");
 if (root)
   ReactDOM.render(
     <HashRouter>
       <div className="route-container">
-
-        <NavbarMenu/>
-        <Route path="/endreKommune" component={Frontpage}/>
-        <Route exact path="/" component={forside}/>
-        <Route path="/wizardForm" component={WizardFormComplete}/>
-        <Route path="/min_side/kontooversikt" component={KontoOversikt}/>
+        <NavbarMenu />
+        <Route exact path="/" component={Frontpage} />
+        <Route path="/forside/:countyId" component={forside} />
+        <Route path="/wizardForm" component={WizardFormComplete} />
+        <Route path="/min_side/kontooversikt" component={KontoOversikt} />
 
         <Route
           path="/min_side/editAccountInformation"
           component={editAccountInformation}
         />
-        <Route path="/login" component={Login}/>
-        <Route path="/map" component={MapComponent}/>
-        <Route path="/min_side/mine_saker" component={MineSaker}/>
+        <Route path="/login" component={Login} />
+        <Route path="/map" component={EventMapComponent} />
+        <Route path="/min_side/mine_saker" component={MineSaker} />
         <Route
           path="/min_side/mine_sakerBedrift"
           component={mineSakerBedrift}
         />
-        <Route path="/addCategory" component={adminAddCategory}/>
-        <Route path="/registrer/admin" component={RegisterAdmin}/>
-        <Route exact path="/registrer/privat" component={RegisterUser}/>
-        <Route exact path="/registrer/bedrift" component={RegisterCompany}/>
+        <Route path="/addCategory" component={adminAddCategory} />
+        <Route path="/registrer/admin" component={RegisterAdmin} />
+        <Route exact path="/registrer/privat" component={RegisterUser} />
+        <Route exact path="/registrer/bedrift" component={RegisterCompany} />
         <Route
           path="/min_side/varselinstillinger"
           component={NotificationSettings}
@@ -91,7 +90,7 @@ if (root)
           component={OversiktOverSak}
         />
 
-        <Route path="/registrer/kommuneansatt" component={RegisterEmployee}/>
+        <Route path="/registrer/kommuneansatt" component={RegisterEmployee} />
         <Route
           exact
           path="/registerEvent"

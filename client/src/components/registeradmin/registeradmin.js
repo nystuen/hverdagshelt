@@ -1,13 +1,13 @@
-import {Col, Button, Form, FormGroup, Label, Grid} from 'react-bootstrap';
+import {Alert, Col, ButtonToolbar, ToggleButtonGroup, ToggleButton, ButtonGroup, Button, Form, FormGroup, Label, Grid} from 'react-bootstrap';
 import {CountyService, NotificationSettingsService, UserService} from "../../services";
 import {Component} from 'react';
 import * as React from 'react';
-import {Alert} from "../../widgets";
 import ReactDOM from 'react-dom';
 import {County} from "../../classTypes";
-import {FormControl, PageHeader} from "react-bootstrap";
+import {FormControl} from "react-bootstrap";
 import Select from "react-select";
 import {history} from "../../index";
+import {PageHeader} from "../PageHeader/PageHeader";
 
 let countyService = new CountyService();
 let userService = new UserService();
@@ -19,6 +19,9 @@ export class RegisterAdmin extends Component<Props, State>{
     constructor(props) {
         super(props);
         this.state = {
+            errorButton: false,
+            buttonValue: 0,
+            userExists: false,
             errorSomething: false,
             countyIsChanged: false,
             mail: "",
@@ -39,9 +42,12 @@ export class RegisterAdmin extends Component<Props, State>{
                 {label: "Bergen", countyId: 1}
                 //{ name: this.county.name, countyId: this.county.countyId}
             ]
-        }
-
+        };
+        this.handleButtonChange = this.handleButtonChange.bind(this);
         this.handleChangeCounty = this.handleChangeCounty.bind(this)
+    }
+    handleButtonChange(e){
+        this.setState({buttonValue: e});
     }
 
 
@@ -114,7 +120,7 @@ export class RegisterAdmin extends Component<Props, State>{
 
     getValidationStateFirstName() {
         const firstNameLength = this.state.firstName.length;
-        let decimal=/^[A-Za-zÆØÅæøå]*[A-Za-zÆØÅæøå][A-Za-zÆØÅæøå]*$/;
+        let decimal=/^[A-Za-z ÆØÅæøå]*[A-Za-z ÆØÅæøå][A-Za-z ÆØÅæøå]*$/;
 
         if(firstNameLength===1){
             return 'warning';
@@ -127,7 +133,7 @@ export class RegisterAdmin extends Component<Props, State>{
     }
     getValidationStateLastName() {
         const lastNameLength = this.state.lastName.length;
-        let dec=/^[A-Za-zÆØÅæøå]*[A-Za-zÆØÅæøå][A-Za-z ÆØÅæøå]*$/;
+        let dec=/^[A-Za-z ÆØÅæøå]*[A-Za-z ÆØÅæøå][A-Za-z ÆØÅæøå]*$/;
 
         if(lastNameLength===1){
             return 'warning';
@@ -187,7 +193,7 @@ export class RegisterAdmin extends Component<Props, State>{
         if (this.state.errorSomething) {
             alert_something = (
                 <Alert bsStyle="danger">
-                    <h6>Pass på at alle felt er fylt ut korrekt</h6>
+                    <p id="errorSome">Pass på at alle felt er fylt ut korrekt</p>
                 </Alert>);
         } else {
             alert_something = (
@@ -202,24 +208,57 @@ export class RegisterAdmin extends Component<Props, State>{
                 </Alert>
             )
         }
+        let error_button;
+        if (this.state.errorButton) {
+            error_button = (
+                <Alert bsStyle="danger">
+                    <p id="errorBtn">Velg admin eller kommuneansatt</p>
+                </Alert>
+            )
+        } else {
+            <p></p>
+        }
+        let alert_user_exists;
+        if (this.state.userExists) {
+            alert_user_exists = (
+                <Alert bsStyle="danger">
+                    <h6>Emailen er allerede registrert</h6>
+                </Alert>);
+        } else {
+            <p></p>
+        }
         return(
           <div>
             <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
             <Grid>
                 <Col md={3}></Col>
                 <Col md={6}>
+                    <PageHeader title={"Registrer bruker"} />
+
                     <Form horizontal>
                         <FormGroup controlId="formHorizontalEmail">
                             <FormGroup>
                                 <FormGroup>
                                     <Col md={3}></Col>
                                     <Col md={6}>
-                                        <PageHeader>
-                                            Registrer admin
-                                        </PageHeader>
+
                                     </Col>
                                     <Col md={3}></Col>
                                 </FormGroup>
+                                <Col md={3}/>
+                                <Col md={6}>
+                                    <div align="center">
+                                    <FormGroup>
+                                        <ButtonToolbar>
+                                            <ToggleButtonGroup type="radio" name="chooseType" onChange={this.handleButtonChange}>
+                                                <ToggleButton style={{"width":"10em"}} value={1}>Admin</ToggleButton>
+                                                <ToggleButton style={{"width":"10em"}} value={2}>Kommuneansatt</ToggleButton>
+                                            </ToggleButtonGroup>
+                                        </ButtonToolbar>
+                                    </FormGroup>
+                                    </div>
+                                </Col>
+                                <Col md={3}/>
                                 <Col md={6}>
                                     <FormGroup validationState={this.getValidationStateFirstName()}>
                                         <FormControl type="text" value={this.state.firstName} placeholder="Fornavn"
@@ -235,12 +274,24 @@ export class RegisterAdmin extends Component<Props, State>{
                                         <FormControl.Feedback/>
                                     </FormGroup>
                                 </Col>
-                                <Col md={12}>
+                                <Col md={6}>
                                     <FormGroup validationState={this.getValidationAddress()}>
                                         <FormControl type="text" value={this.state.address} placeholder="Addresse"
                                                      onChange={this.handleStringChange("address")}
                                         />
                                         <FormControl.Feedback/>
+                                    </FormGroup>
+                                </Col>
+                                <Col md={6}>
+                                    <FormGroup>
+                                        <Select
+                                            placeholder={"Søk hjemmekommune"}
+                                            name="colors"
+                                            options={optionTemplate}
+                                            className="basic-multi-select"
+                                            classNamePrefix="select"
+                                            onChange={this.handleChangeCounty}
+                                        />
                                     </FormGroup>
                                 </Col>
                                 <Col md={6}>
@@ -274,39 +325,21 @@ export class RegisterAdmin extends Component<Props, State>{
                                 </Col>
                         </FormGroup>
                             <FormGroup>
-                                <Col md={4}>
-                                </Col>
+                                <Col md={4}/>
                                 <Col md={4}>
                                     <FormGroup>
-                                        <Select
-                                            placeholder={"Søk hjemmekommune"}
-                                            name="colors"
-                                            options={optionTemplate}
-                                            className="basic-multi-select"
-                                            classNamePrefix="select"
-                                            onChange={this.handleChangeCounty}
-                                        />
+                                        {alert_something}
+                                        {register_success}
+                                        {error_button}
+                                        {alert_user_exists}
                                     </FormGroup>
-                                </Col>
-                                <Col md={4}>
-
-                                </Col>
-                            </FormGroup>
-                            <FormGroup>
-                                <Col md={4}/>
-                                <Col md={4}>
-                                {alert_something}
-                                {register_success}
+                                    <div align="center">
+                                        <Button type="button" onClick={this.checkInput}>Registrer</Button>
+                                    </div>
                                 </Col>
                                 <Col md={4}/>
                             </FormGroup>
                             <FormGroup>
-                                <Col md={4}/>
-                                <Col md ={4}>
-                                    <Button type="button" onClick={this.checkInput}>Registrer</Button>
-                                </Col>
-                                <Col md={4}>
-                                </Col>
                             </FormGroup>
                         </FormGroup>
                     </Form>
@@ -318,51 +351,122 @@ export class RegisterAdmin extends Component<Props, State>{
     }
     checkInput = () =>{
         //console.log(this.getValidationStateFirstName()||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()||this.getValidationStateEmail2()==='warning'||this.getValidationStatePassword()==='warning'||this.getValidationStatePassword2()==='warning');
-        if(this.state.countyIsChanged===false||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()==='warning'||this.getValidationStateEmail2()==='warning'||this.getValidationPostNumber()==='warning'||this.getValidationAddress()==='warning'){
+        if(this.state.buttonValue===0){
+            this.setState({errorButton:true, errorSomething: false})
+        };
+
+        if(this.state.errorButton===0||this.state.countyIsChanged===false || this.getValidationStateFirstName()==='warning' || this.getValidationStateLastName()==='warning' || this.getValidationPhone()==='warning' || this.getValidationStateEmail()==='warning' || this.getValidationStateEmail2()==='warning' || this.getValidationPostNumber()==='warning' || this.getValidationAddress()==='warning'){
             this.setState({
-                errorSomething:true
-            })
+                errorSomething:true,
+                errorButton:false
+            });
         }else{
-            this.register();
+            if(this.state.buttonValue===1) {
+                this.register().catch(error => {
+                    console.log(error.message)
+                });
+
+            }else if(this.state.buttonValue===2){
+                this.register2().catch(error => {
+                    console.log(error.message)
+                });
+
+            }else{
+                console.log("DET ER FAIL");
+            }
         }
     };
 
-    register = () => {
-        console.log("test", this.state);
+    register = async () => {
+        console.log("test", this.state.buttonValue);
 
-        const newAdmin = {
-            mail: this.state.mail,
-            firstName: this.state.firstName,
-            lastName: this.state.lastName,
-            typeName: 'Admin',
-            address: this.state.address,
-            postNumber: this.state.postNumber,
-            phone: this.state.phone,
-            countyId: this.state.choosen,
-        };
+        let userExists;
+        await userService.getUserLogin(this.state.mail)
+            .then(r => {
+                userExists = (r[0] !== undefined);
+                console.log(r[0])
+            });
 
-        console.log("county", this.state.choosen);
-        userService
-            .addAdmin(newAdmin)
-            .then(user => (this.state = user)).then(Alert.success('Bruker registrert'))
-            .catch((error: Error) => Alert.danger(error.message));
+        if (!userExists) {
+            const newAdmin = {
+                mail: this.state.mail,
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                typeName: 'Admin',
+                address: this.state.address,
+                postNumber: this.state.postNumber,
+                phone: this.state.phone,
+                countyId: this.state.choosen,
+            };
+            console.log(userExists);
+            await userService
+                .addAdmin(newAdmin)
+                .then(user => this.state = user)
+                .catch((error: Error) => Alert.danger(error.message));
 
-        let theBody: Object = {
-            mail: newAdmin.mail,
-            registered: 1,
-            inProgress: 0,
-            completed: 1
-        };
-        notificationSettingService.addIssueNotificationSettings(theBody);
-        this.setState({errorSomething: false, registerSuccess: true});
-        this.goToRegNew();
+            let theBody: Object = {
+                mail: newAdmin.mail,
+                registered: 1,
+                inProgress: 0,
+                completed: 1
+            };
+            await notificationSettingService.addIssueNotificationSettings(theBody);
+            await this.setState({errorSomething: false, registerSuccess: true, userExists: false});
+            await this.goToRegNew();
+        } else {
+            this.setState({errorSomething: false, registerSuccess: false, userExists: true});
+
+        }
+
+    };
+    register2 = async () => {
+
+        console.log("test", this.state.buttonValue);
+
+        let userExists;
+        await userService.getCurrentUser()
+            .then(r => {
+                userExists = (r[0] !== undefined);
+                console.log(r[0])
+            });
+
+        if (!userExists) {
+            const newEmployee = {
+                mail: this.state.mail,
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                typeName: 'Employee',
+                address: this.state.address,
+                postNumber: this.state.postNumber,
+                phone: this.state.phone,
+                countyId: this.state.choosen,
+            };
+            console.log("county", this.state.choosen);
+            await userService
+                .addAdmin(newEmployee)
+                .then(user => (this.state = user))
+                .catch((error: Error) => Alert.danger(error.message));
+
+            let theBody: Object = {
+                mail: newEmployee.mail,
+                registered: 1,
+                inProgress: 0,
+                completed: 1
+            };
+            await notificationSettingService.addIssueNotificationSettings(theBody);
+            await this.setState({errorSomething: false, registerSuccess: true});
+            await this.goToRegNew();
+        } else {
+            this.setState({errorSomething: false, registerSuccess: false, userExists: true});
+        }
+
 
     };
     goToRegNew = () => {
         setTimeout(
             function () {
-                history.push('/admin/registrertSuksess');
+                history.push('/admin');
             }, 2000
         )
-    }
+    };
 }

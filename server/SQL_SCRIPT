@@ -130,6 +130,7 @@ CREATE TABLE issues(
   text text,
   pic varchar(30),
   date varchar(30),
+  completedDate varchar(30),
   statusName varchar(30) not null,
   categoryId int not null,
   categoryLevel int,

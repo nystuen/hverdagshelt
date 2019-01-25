@@ -5,9 +5,11 @@ import {Grid, Table, Button,FormControl} from "react-bootstrap";
 import {User} from "../../../classTypes";
 import {EmployeeService} from "../../../services"
 import {UserService} from "../../../services";
+import {Filter} from "../../../components/Filter/Filter";
 
 let employeeService = new EmployeeService;
 let userService = new UserService;
+let filter = new Filter();
 
 
 
@@ -61,9 +63,9 @@ export class employeeManageUsers extends React.Component<Props,State>{
 
     blockSwitch(e: User){
       if(e.active == 1){
-        return <Button style={{"width": "6em"}} bsSize={"sm"} bsStyle={"danger"} onClick={this.blockUser.bind(null, e.mail)}>Block</Button>;
+        return <Button style={{"width": "6em"}} bsSize={"sm"} bsStyle={"danger"} onClick={this.blockUser.bind(null, e.mail)}>Blokker</Button>;
       } else {
-        return <Button style={{"width": "6em"}}  bsSize={"sm"} bsStyle={"primary"} onClick={this.unblockUser.bind(null, e.mail)}>Unblock</Button>;
+        return <Button style={{"width": "6em"}}  bsSize={"sm"} bsStyle={"primary"} onClick={this.unblockUser.bind(null, e.mail)}>Aktiver</Button>;
       }
     }
 
@@ -79,8 +81,8 @@ export class employeeManageUsers extends React.Component<Props,State>{
                 <FormControl
                     type="text"
                     id="myInput"
-                    onKeyUp={this.myFunction}
-                    placeholder="Search for names.."/>
+                    onKeyUp={filter.filterTable}
+                    placeholder="Søk på epost"/>
                 <Table id={"myTable"}>
                     <thead>
                     <tr>
@@ -89,9 +91,6 @@ export class employeeManageUsers extends React.Component<Props,State>{
                         </th>
                         <th>
                             Telefon
-                        </th>
-                        <th>
-                            Status
                         </th>
                         <th>
                             Poeng
@@ -115,9 +114,6 @@ export class employeeManageUsers extends React.Component<Props,State>{
                                     {e.phone}
                                 </td>
                                 <td>
-                                    {e.active}
-                                </td>
-                                <td>
                                     {e.points}
                                 </td>
                                 <td>
@@ -132,27 +128,5 @@ export class employeeManageUsers extends React.Component<Props,State>{
             </Grid>
           </div>
         )}
-
-    myFunction(){
-        // Declare variables
-        var input, filter, Table, tr, td, i, txtValue;
-        input = document.getElementById("myInput");
-        filter = input.value.toUpperCase();
-        Table = document.getElementById("myTable");
-        tr = Table.getElementsByTagName("tr");
-
-        // Loop through all table rows, and hide those who don't match the search query
-        for (i = 0; i < tr.length; i++) {
-            td = tr[i].getElementsByTagName("td")[0];
-            if (td) {
-                txtValue = td.textContent || td.innerText;
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    tr[i].style.display = "";
-                } else {
-                    tr[i].style.display = "none";
-                }
-            }
-        }
-    }
 
 }//end class

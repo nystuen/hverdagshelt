@@ -1,23 +1,21 @@
-import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import validate from './validate';
-import renderField from './renderField';
-import renderCategoryField from './renderCategoryField';
-import { Button, ProgressBar, Grid, Col } from 'react-bootstrap';
-import { ChooseCategory } from '../ChooseCategory/ChooseCategory';
-import { ChooseEventCategory } from '../ChooseEventCategory/ChooseEventCategory';
-import store from './store';
-import issueReg from '../ReduxRegisterForm/issueReg.css';
+import React from "react";
+import { Field, reduxForm } from "redux-form";
+import validate from "./validate";
+import renderField from "./renderField";
+import renderCategoryField from "./renderCategoryField";
+import { Button, ProgressBar, Grid, Col } from "react-bootstrap";
+import { ChooseCategory } from "../ChooseCategory/ChooseCategory";
+import { ChooseEventCategory } from "../ChooseEventCategory/ChooseEventCategory";
+import store from "./store";
+import issueReg from "../ReduxRegisterForm/issueReg.css";
 
 const renderError = ({ meta: { touched, error } }) =>
   touched && error ? <span>{error}</span> : false;
 
 export class EventFormSecondPage extends React.Component {
   setProps = () => {
-    this.props.change('categoryid', this.state.selectedCategoryId);
-    this.props.change('categorylevel', this.state.selectedCategoryType);
-    console.log('setting props!');
-    console.log(this.state.selectedCategoryId);
+    this.props.change("categoryid", this.state.selectedCategoryId);
+    this.props.change("categorylevel", this.state.selectedCategoryType);
   };
   onChangeCategoryHeader = (name1, name2) => {
     this.setState(
@@ -56,7 +54,7 @@ export class EventFormSecondPage extends React.Component {
         <div className="container">
           <div className="formDiv">
             <div className="progressBar">
-              <ProgressBar now={66} label={'2/3'}/>
+              <ProgressBar now={66} label={"2/3"} />
             </div>
             <ChooseEventCategory
               changeCategoryHeader={this.onChangeCategoryHeader.bind(this)}
@@ -105,7 +103,7 @@ export class EventFormSecondPage extends React.Component {
 }
 
 export default reduxForm({
-  form: 'EventWizard', //Form name is same
+  form: "EventWizard", //Form name is same
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate

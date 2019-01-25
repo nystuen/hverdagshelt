@@ -1,27 +1,27 @@
-import React from 'react';
-import { Field, reduxForm } from 'redux-form';
-import validate from './validate';
-import renderField from './renderField';
-import renderCategoryField from './renderCategoryField';
-import renderEmail from './renderEmail';
-import { Button, ProgressBar } from 'react-bootstrap';
-import jwt from 'jsonwebtoken';
-import { User } from '../../classTypes';
-import { UserService } from '../../services';
-import { history } from '../../index';
-import { ImageService } from '../../services';
-import issueReg from './issueReg.css';
-import { Grid, Col, Row } from 'react-bootstrap';
+import React from "react";
+import { Field, reduxForm } from "redux-form";
+import validate from "./validate";
+import renderField from "./renderField";
+import renderCategoryField from "./renderCategoryField";
+import renderEmail from "./renderEmail";
+import { Button, ProgressBar } from "react-bootstrap";
+import jwt from "jsonwebtoken";
+import { User } from "../../classTypes";
+import { UserService } from "../../services";
+import { history } from "../../index";
+import { ImageService } from "../../services";
+import issueReg from "./issueReg.css";
+import { Grid, Col, Row } from "react-bootstrap";
 
 let imageService = new ImageService();
 
 let userService = new UserService();
 
-const countyID = ['1', '2', '3'];
+const countyID = ["1", "2", "3"];
 const counties = [
-  { county: 'Oslo', id: '1' },
-  { county: 'Trondheim', id: '2' },
-  { county: 'jhbdsahbds', id: '3' }
+  { county: "Oslo", id: "1" },
+  { county: "Trondheim", id: "2" },
+  { county: "jhbdsahbds", id: "3" }
 ];
 
 const renderCountySelector = ({ input, meta: { touched, error } }) => (
@@ -44,17 +44,15 @@ export class WizardFormThirdPage extends React.Component {
     this.state = {
       user: User,
       value: String,
-      image: ''
+      image: ""
     };
 
     this.handleImageUpload = this.handleImageUpload.bind(this);
   }
 
   setProps = () => {
-    this.props.change('userMail', this.state.user.mail);
-    this.props.change('countyId', this.state.user.countyId);
-    console.log('setting props! mail');
-    console.log(this.state.user.countyId);
+    this.props.change("userMail", this.state.user.mail);
+    this.props.change("countyId", this.state.user.countyId);
   };
 
   componentDidMount() {
@@ -67,7 +65,8 @@ export class WizardFormThirdPage extends React.Component {
   }
 
   handleImageUpload(e: Object) {
-    this.setState({
+    this.setState(
+      {
         image: e[0]
       },
       this.uploadImage
@@ -76,8 +75,7 @@ export class WizardFormThirdPage extends React.Component {
 
   uploadImage = () => {
     imageService.uploadImage(this.state.image).then(res => {
-      console.log('bilde:', res);
-      this.props.change('imagePath', res);
+      this.props.change("imagePath", res);
     });
   };
 
@@ -89,7 +87,7 @@ export class WizardFormThirdPage extends React.Component {
           <div className="container">
             <div className="formDiv">
               <div className="progressBar">
-                <ProgressBar now={100} label={'3/3'}/>
+                <ProgressBar now={100} label={"3/3"} />
               </div>
               <h3>Vennligst spesifiser din feilmelding</h3>
 
@@ -119,25 +117,21 @@ export class WizardFormThirdPage extends React.Component {
                   component={renderCategoryField}
                 />
                 <form encType="multipart/form-data">
-
-
                   <Col lg={12} md={12} sm={12} xs={12} align="center">
-
-
-                    <input type="file"
-                           id="file"
-                           name="avatar"
-                           placeholder="Bilde"
-                           label="Beskrivelse"
-                           className="inputfile"
-                           onChange={e => this.handleImageUpload(e.target.files)}/>
-
+                    <input
+                      type="file"
+                      id="file"
+                      name="avatar"
+                      placeholder="Bilde"
+                      label="Beskrivelse"
+                      className="inputfile"
+                      onChange={e => this.handleImageUpload(e.target.files)}
+                    />
                   </Col>
                 </form>
               </div>
 
               <div>
-
                 <Col lg={6} md={6} sm={6} xs={6}>
                   <Button
                     bsStyle="primary"
@@ -158,7 +152,6 @@ export class WizardFormThirdPage extends React.Component {
                     Send
                   </Button>
                 </Col>
-
               </div>
             </div>
           </div>
@@ -169,7 +162,7 @@ export class WizardFormThirdPage extends React.Component {
 }
 
 export default reduxForm({
-  form: 'wizard', //Form name is same
+  form: "wizard", //Form name is same
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate
