@@ -2,7 +2,7 @@
 
 import {shallow} from "enzyme/build";
 import * as React from "react";
-import {spy} from "sinon";
+import sinon from "sinon";
 
 import {RegisterUser} from "../src/components/registeruser/registeruser";
 import {CategorySelectList} from "../src/components/CategorySelectList/CategorySelectList";
@@ -268,7 +268,7 @@ describe('Test for Button component', () => {
     let wrapper, buttonType, buttonSpy, children;
     beforeEach(() => {
         buttonType = 'danger';
-        buttonSpy = spy();
+        buttonSpy = sinon.spy();
         children = 'clickMe';
         wrapper = shallow(<Button id="button" onClick={() => buttonSpy}>children</Button>);
     });
@@ -385,11 +385,42 @@ describe('Test for KontoOversikt view', () => {
 });
 
 describe('Test for Login view', () => {
+    const handleChangeEmailSpy = sinon.spy(Login.prototype, "handleChangeEmail");
+    const handleChangePasswordSpy = sinon.spy(Login.prototype, "handleChangePassword");
+    const saveSpy = sinon.spy(Login.prototype, 'save');
+    const mailEvent = {target: {name: "mailText", value: "test"}};
+    const passwordEvent = {target: {name: "passText", value: "test"}};
+
     const wrapper = shallow(<Login />);
 
     it('renders correctly', () => {
         expect(wrapper).toMatchSnapshot();
     });
+
+    it('responds to mail input change', () => {
+        wrapper.find("#mailText").simulate('change', mailEvent);
+        expect(handleChangeEmailSpy.calledOnce).toBe(true)
+    });
+
+    it('responds to mail input change', () => {
+        wrapper.find("#passText").simulate('change', passwordEvent);
+        expect(handleChangePasswordSpy.calledOnce).toBe(true)
+    });
+
+    it('responds to save button click', () => {
+        wrapper.find("#saveButton").simulate('click');
+        expect(saveSpy.calledOnce).toBe(true)
+    });
+
+    it('updates state.email when handlechangeemail is called', () => {
+        wrapper.find("#mailText").simulate('change', mailEvent);
+        expect(wrapper.state().email).toBe('test')
+    });
+
+    it('updates state.password when handlechangepassword is called', () => {
+        wrapper.find("#mailText").simulate('change', passwordEvent);
+        expect(wrapper.state().password).toBe('test')
+    })
 });
 
 describe('Test for mineSakerBedrift view', () => {
@@ -435,4 +466,3 @@ describe('Test for AdminResetUserPassword view', () => {
         expect(wrapper).toMatchSnapshot();
     });
 });
-

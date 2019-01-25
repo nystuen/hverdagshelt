@@ -41,13 +41,13 @@ export class Login extends Component<Props, State> {
     openPassword: "password"
   };
 
-  handleChangeEmail = (event: SyntheticEvent<HTMLButtonElement>) => {
+  handleChangeEmail(event: SyntheticEvent<HTMLButtonElement>) {
     this.setState({
       email: event.target.value
     });
   };
 
-  handleChangePassword = (event: SyntheticEvent<HTMLButtonElement>) => {
+  handleChangePassword(event: SyntheticEvent<HTMLButtonElement>) {
     this.setState({
       password: event.target.value
     });
@@ -129,6 +129,8 @@ export class Login extends Component<Props, State> {
                   <FormGroup>
                     <FormControl
                       type="text"
+                      id="mailText"
+                      name="mailText"
                       placeholder="Email"
                       value={this.state.email}
                       onChange={this.handleChangeEmail.bind(this)}
@@ -140,6 +142,8 @@ export class Login extends Component<Props, State> {
                   <FormGroup>
                     <FormControl
                       type={this.state.openPassword}
+                      id="passText"
+                      name="passText"
                       placeholder="Passord"
                       value={this.state.password}
                       onChange={this.handleChangePassword.bind(this)}
@@ -149,7 +153,7 @@ export class Login extends Component<Props, State> {
                 </Row>
 
                 <Row className="show-grid" align="center">
-                  <Button type="button" onClick={this.save} bsStyle="primary">
+                  <Button id="saveButton" type="button" onClick={this.save} bsStyle="primary">
                     Login
                   </Button>
                   <Button type="button" onClick={()=> this.handleClickPassword()}>{changeIcon}</Button>
@@ -178,7 +182,7 @@ export class Login extends Component<Props, State> {
     );
   } //end method
 
- save = async () => {
+ async save() {
      if (confirm('Ved å logge inn på Hverdagshelt.no godtar du at vi lagrer ' +
          'cookies med informasjon om brukernavnet  ditt og hvilken type bruker du er (privat / bedirft')) {
          await userService
