@@ -13,7 +13,8 @@ import {
   Form,
   FormGroup,
   FormControl,
-  ControlLabel, Panel
+  ControlLabel,
+  Panel
 } from 'react-bootstrap';
 import { ChooseCategory } from '../../../components/ChooseCategory/ChooseCategory';
 import { Category, Category2, Category3, User } from '../../../classTypes';
@@ -22,8 +23,11 @@ import { PageHeader } from '../../../components/PageHeader/PageHeader';
 import { CountyList } from '../../../components/CountyList/CountyList';
 import { history } from '../../../index';
 import css from './accountInformation.css';
+import { CountyService } from '../../../services';
+import Select from 'react-select';
 
 let userService = new UserService();
+let countyService = new CountyService();
 
 interface State {
   decoded: Object;
@@ -152,12 +156,19 @@ export class editAccountInformation extends React.Component<State> {
     mail: '',
     phone: '',
     companyMail: '',
+    companyName: '',
     adresse: '',
     postnr: '',
-    description: ''
+    description: '',
+    values: [
+      { label: 'Bergen', value: 1 }
+    ],
+    countySubscription: [],
+    defaultCounties: [{ label: 'Bergen', value: 1 }]
   };
 
-  componentDidMount() {
+
+  componentWillMount() {
     if (this.state.user.typeName === 'Admin' || this.state.user.typeName === 'Employee' || this.state.user.typeName === 'Private') {
       userService.getCurrentUser().then(newUser => {
         window.sessionStorage.setItem('countyId', newUser[0].countyId);
@@ -167,14 +178,68 @@ export class editAccountInformation extends React.Component<State> {
         });
       });
     } else {
+      var arr = [];
+      countyService
+        .getCounties()
+        .then(county2 => {
+          county2.map(e => {
+            var elem = {
+              name: e.name,
+              countyId: e.countyId
+            };
+            arr = arr.concat(elem);
+
+          });
+          this.setState({
+            values: arr
+          });
+        })
+        .catch((error: Error) => Alert.danger(error.message));
+
+
       userService.getCurrentUser().then(newUser => {
         window.sessionStorage.setItem('countyName', '');
+        console.log('currnetCompany:', newUser);
+
+        let companyCounties = [];
+
+        newUser.map(e => {
+          companyCounties.push(e.countyId);
+        });
+
+
+        let companyCountiesWithNames = [];
+
+        this.state.values.map(value => {
+
+          companyCounties.map(e => {
+            if (value.countyId == e) {
+
+              companyCountiesWithNames.push({ label: value.name, value: value.countyId });
+              this.setState({
+                user: newUser[0],
+                defaultCounties: companyCountiesWithNames
+              });
+            }
+          });
+        });
+
+
         this.setState({
-          user: newUser[0]
+          user: newUser[0],
+          defaultCounties: companyCountiesWithNames
         });
       });
+
+
     }
   }
+
+  /*
+
+
+   */
+
 
   handleChangeUser() {
 
@@ -196,14 +261,21 @@ export class editAccountInformation extends React.Component<State> {
       }
 
       userService.updateUser(this.state.user).then(response => {
-        console.log('res', response);
         window.location.reload();
       });
 
       history.push('/min_side/kontooversikt');
     } else {
 
+
       /*
+
+
+      userService.updateUser(this.state.user).then(response => {
+        window.location.reload();
+      });
+
+      history.push('/min_side/kontooversikt');
 
         companyMail: string,
   firstName: string,
@@ -226,43 +298,74 @@ export class editAccountInformation extends React.Component<State> {
       if (this.state.phone != '') {
         this.state.user.phone = this.state.phone;
       }
-      if (this.state.companyMail != 0) {
-        this.state.user.companyMail = this.state.companyMail;
-      }
 
-      if (this.state.companyName != 0) {
+      if (this.state.companyName != '') {
         this.state.user.companyName = this.state.companyName;
-      }
-
-      if (this.state.adresse != '') {
-        this.state.user.adresse = this.state.adresse;
       }
 
       if (this.state.description != '') {
         this.state.user.description = this.state.description;
       }
 
+      if (this.state.adresse != '') {
+        this.state.user.adresse = this.state.adresse;
+      }
+
       if (this.state.postnr != '') {
         this.state.user.postnr = this.state.postnr;
       }
 
-      userService.updateUser(this.state.user).then(response => {
-        console.log('res', response);
-        window.location.reload();
+
+      userService.updateOneCompany(this.state.user).then(res => {
       });
 
-      history.push('/min_side/kontooversikt');
+
+      if (this.state.countyIsChanged) {
+        let counties = [];
+
+        this.state.countySubscription.map(county => {
+          counties.push({ countyId: county.value });
+        });
+
+
+        if (!(counties.length < 1)) {
+
+          userService.deleteCompanyCounties(this.state.user.companyMail).then(res => {
+
+            counties.map(county => {
+              userService.insertCompanyCounty(county.countyId, this.state.user.companyMail).then(insert => {
+              });
+            });
+          }).then(e => {
+            history.push('/min_side/kontooversikt');
+          });
+        } else {
+          history.push('/min_side/kontooversikt');
+        }
+      } else {
+        history.push('/min_side/kontooversikt');
+      }
+
+
     }
 
 
   }
 
   handleOnChangeCounty = (name: number) => {
-    console.log('nae', name);
     this.setState({
       countyId: name
     });
   };
+
+
+  handleChangeCountyCompany = (e: Object) => {
+    this.setState({
+      countySubscription: e,
+      countyIsChanged: true
+    });
+  };
+
 
   handleChange = e => {
     this.setState({ [e.target.name]: e.target.value });
@@ -274,6 +377,15 @@ export class editAccountInformation extends React.Component<State> {
   }
 
   render() {
+
+
+    let optionTemplate = this.state.values.map(v => {
+      const data = { label: v.name, value: v.countyId };
+      return (data);
+    });
+
+    let defaultValues = this.state.defaultCounties;
+
     return (
       <div className="bottomFooter editInfo">
         <Grid>
@@ -348,18 +460,15 @@ export class editAccountInformation extends React.Component<State> {
               </Form>
             </div>
           ) : (
-<div>
+            <div>
               <Form>
                 <Grid>
                   <Col xs={0} md={2}>
                     <i id="backButton" onClick={() => this.buttonBack()} className="fas fa-arrow-circle-left"></i>
                   </Col>
 
-
                   <Col md={8}>
-
                     <Col xs={12} md={12}>
-
 
                       <Panel className="contact">
                         <h4 align="center">Kontaktperson</h4>
@@ -402,14 +511,15 @@ export class editAccountInformation extends React.Component<State> {
                       <Panel className="contact">
                         <h4 align="center">Bedriften</h4>
                         <Panel.Body>
-                          <FormGroup controlId="formInlineCompanyMail">
-                            <ControlLabel>Bedriftens e-post</ControlLabel>{' '}
+
+                          <FormGroup controlId="formInlineCompanyName">
+                            <ControlLabel>Bedriftens navn</ControlLabel>{' '}
                             <FormControl
                               onChange={this.handleChange}
-                              name="companyMail"
-                              type="text"
-                              placeholder="Bedriftens epost"
-                              defaultValue={this.state.user.companyMail}
+                              name="companyName"
+                              type="companyName"
+                              placeholder="companyName"
+                              defaultValue={this.state.user.companyName}
                             />
                           </FormGroup>{' '}
 
@@ -456,6 +566,19 @@ export class editAccountInformation extends React.Component<State> {
                               defaultValue={this.state.user.postnr}
                             />
                           </FormGroup>{' '}
+
+
+                          <FormGroup>
+                            <ControlLabel>Velg alle arbeidsområder</ControlLabel>{' '}
+                            <Select
+                              isMulti
+                              placeholder={'Arbeidsområder'}
+                              options={optionTemplate}
+                              className="frontpage-county"
+                              onChange={this.handleChangeCountyCompany}
+                            />
+                          </FormGroup>{' '}
+
                         </Panel.Body>
                       </Panel>
                     </Col>

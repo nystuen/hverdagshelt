@@ -198,6 +198,15 @@ class AccountInfoCard extends React.Component<{
     let change_password = this.state.changePassword ? (
       <ChangePassword/>) : null;
 
+    let hjemme = <span></span>;
+
+    if (this.state.user != undefined) {
+      if (!(this.state.user.typeName === 'Admin' || this.state.user.typeName === 'Employee')) {
+        hjemme = <InformationCard header={'Hjemmekommune'} content={this.props.county}/>;
+      }
+    }
+
+
     return (
       <div>
 
@@ -212,13 +221,13 @@ class AccountInfoCard extends React.Component<{
                 <Panel.Body>
                   <Col md={6}>
                     <InformationCard header={'Navn'} content={this.props.firstName + ' ' + this.props.lastName}/>
-                    <InformationCard header={'Hjemmekommune'} content={this.props.county}/>
+                    {hjemme}
+                    <InformationCard header={'Mine poeng'} content={this.props.points}/>
                   </Col>
 
                   <Col md={6}>
                     <InformationCard header={'E-post'} content={this.props.email}/>
                     <InformationCard header={'Mobilnummer'} content={this.props.phone}/>
-                    <InformationCard header={'Mine poeng'} content={this.props.points}/>
                   </Col>
                 </Panel.Body>
               </Panel>
