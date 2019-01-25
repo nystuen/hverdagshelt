@@ -33,7 +33,7 @@ module.exports = function(app: Object, eventDao: Object) {
 
   app.post("/updateEvent", (req, res) => {
     console.log('Got post request from updateEvent id ' + req.body.eventId);
-    eventDao.updateEvent(req.body.eventId, (status,data) => {
+    eventDao.updateEvent(req.body, (status,data) => {
       res.status(status);
       res.json(data);
     });

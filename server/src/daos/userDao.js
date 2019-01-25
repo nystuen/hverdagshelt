@@ -24,7 +24,7 @@ export class UserDao extends Dao {
 
   getUserLogin(userMail: string, callback: Function) {
     super.query(
-      "select mail, password, countyId, typeName from user where mail=? ",
+      "select mail, password, countyId, typeName, active from user where mail=?",
       [userMail],
       callback
     );
@@ -32,7 +32,7 @@ export class UserDao extends Dao {
 
   getCompanyLogin(userMail: string, callback: Function) {
     super.query(
-      "select companyMail, password from company where companyMail=?",
+      "select companyMail, password,active from company where companyMail=?",
       [userMail],
       callback
     );
@@ -50,7 +50,7 @@ export class UserDao extends Dao {
   getUser(userMail: string, callback: Function) {
     console.log("usermail, dao", userMail);
     super.query(
-      "SELECT countyId, active, mail, firstName, lastName, password, typeName, phone, points, name AS 'county' FROM user NATURAL JOIN county where mail=? ",
+      "SELECT countyId, active, mail, firstName, lastName, password, typeName, phone, points, name AS 'county' FROM user NATURAL JOIN county where mail=? and active=1 ",
       [userMail],
       callback
     );

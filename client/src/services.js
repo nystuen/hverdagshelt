@@ -118,6 +118,7 @@ export class EventCategoryService {
   }//end method
 
   updateEvent(event: Object): Promise<void>{
+    console.log(event);
     return axios.post("/updateEvent", event);
   }//end method
 
