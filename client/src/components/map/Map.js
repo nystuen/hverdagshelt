@@ -4,10 +4,7 @@ import React, { Component, createRef } from 'react'
 import { Map, TileLayer, Marker, Circle, Popup, withLeaflet } from 'react-leaflet'
 import * as ELG from 'esri-leaflet-geocoder'
 import L from 'leaflet'
-import { Button, Col, Row } from 'react-bootstrap';
-import NavLink from 'react-router-dom/es/NavLink';
-import Nav from 'react-bootstrap/es/Nav';
-import NavItem from 'react-bootstrap/es/NavItem';
+import { Button, Col, Row, Nav, NavItem } from 'react-bootstrap';
 import { UserService } from '../../services';
 import Geocode from "react-geocode";
 

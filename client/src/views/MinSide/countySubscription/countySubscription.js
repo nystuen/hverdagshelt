@@ -1,16 +1,16 @@
 //@flow
 import React, { Component } from 'react';
 import { Layout } from '../../../widgets';
-import { Grid, Row, Col, ListGroup, Glyphicon, Button, FormControl } from "react-bootstrap"
+import { Grid, Row, Col, ListGroup,ListGroupItem, Table, Image, Panel, Glyphicon, Button, FormControl } from "react-bootstrap"
 import {CountyService, UserService, NotificationSettingsService} from "../../../services";
-import {Filter} from "../../../components/Filter/Filter";
+import * as jwt from 'jsonwebtoken';
+import css from './countySubscription.css';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
 import { User } from '../../../classTypes';
 
 let countyService = new CountyService();
 let userService = new UserService();
 let notificationSettingsService = new NotificationSettingsService();
-let filter = new Filter();
 //Databasekall
 //Få alle kommuner som finnes som er active og som bruker ikke abonerer på
 // Få alle kommuner som den personen abonerer på
@@ -46,8 +46,8 @@ export class CountySubscription extends Component<Props, State> {
     const countyArray = this.state.allCounties;
 
     countyArray.splice(index, 1);
-    this.inputText1.value="";
-    filter.filterAll("");
+    this.inputText1.value = '';
+    this.filterAll('');
     userArray.push(name);
     this.setState({
       userCounties: userArray,
@@ -65,7 +65,7 @@ export class CountySubscription extends Component<Props, State> {
     userArray.splice(index, 1);
     countyArray.push(name);
     this.inputText.value = '';
-    filter.filterMine('');
+    this.filterMine('');
     this.setState({
       allCounties: countyArray,
       userCounties: userArray
@@ -137,11 +137,11 @@ export class CountySubscription extends Component<Props, State> {
                 <FormControl
                   type="text"
                   id='allCounties'
-                  onKeyUp={filter.filterAll}
+                  onKeyUp={this.filterAll}
                   placeholder="Søk i alle kommuner"
                   inputRef={input => this.inputText1 = input}
                 />
-                <ListGroup id={'allCountiesList'} style={{'max-height': 'calc(300px)', 'overflow-y': 'auto'}}>
+                <ListGroup id={'allCountiesList'} style={{'max-height': 'calc(250px)', 'overflow-y': 'auto'}}>
                   {
                     this.state.allCounties.map((r, i) => {
                       return <li className="list-group-item" onClick={() => {
@@ -152,14 +152,16 @@ export class CountySubscription extends Component<Props, State> {
                 </ListGroup>
               </Col>
 
-              <Col xs={12} md={2} align={'center'} className="arrows">
+              <Col xs={12} md={2} align={'center'} >
 
+                <div className="arrows">
                 <Row>
-                  <span> <Glyphicon glyph="arrow-left"/></span>
+                  <span className="arrows-right"> <Glyphicon glyph="arrow-left"/></span>
                 </Row>
                 <Row>
-                  <span> <Glyphicon glyph="arrow-right"/></span>
+                  <span className="arrows-right"> <Glyphicon glyph="arrow-right"/></span>
                 </Row>
+                </div>
 
               </Col>
 
@@ -168,11 +170,11 @@ export class CountySubscription extends Component<Props, State> {
                 <FormControl
                   type="text"
                   id='myCounties'
-                  onKeyUp={filter.filterMine}
+                  onKeyUp={this.filterMine}
                   placeholder="Søk i dine kommuner"
                   inputRef={input => this.inputText = input}
                 />
-                <ListGroup id="myCountiesList" style={{'max-height': 'calc(300px)', 'overflow-y': 'auto'}}>
+                <ListGroup id="myCountiesList" style={{'max-height': 'calc(250px)', 'overflow-y': 'auto'}}>
                   {
                     this.state.userCounties.map((r, i) => {
                       return <li className="list-group-item" onClick={() => {
@@ -195,4 +197,57 @@ export class CountySubscription extends Component<Props, State> {
 
     );
   }
+
+  filterAll() {
+    // Declare variables
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById('allCounties');
+    filter = input.value.toUpperCase();
+    ul = document.getElementById('allCountiesList');
+    li = ul.getElementsByTagName('li');
+
+    // Loop through all list items, and hide those who don't match the search query
+    for (i = 0; i < li.length; i++) {
+      a = li[i].getElementsByTagName('a')[0];
+      txtValue = a.textContent || a.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        li[i].style.display = '';
+      } else {
+        li[i].style.display = 'none';
+      }
+    }
+
+  }
+
+  filterMine() {
+    // Declare variables
+    var input, filter, ul, li, a, i, txtValue;
+    input = document.getElementById('myCounties');
+    filter = input.value.toUpperCase();
+    ul = document.getElementById('myCountiesList');
+    li = ul.getElementsByTagName('li');
+
+    // Loop through all list items, and hide those who don't match the search query
+    for (i = 0; i < li.length; i++) {
+      a = li[i].getElementsByTagName('a')[0];
+      txtValue = a.textContent || a.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        li[i].style.display = '';
+      } else {
+        li[i].style.display = 'none';
+      }
+    }
+  }
+
 }
+
+
+/* {
+                                this.state.userCounties.map((r,i)=>{
+                                   return <ListGroupItem key={i} >{r.name}</ListGroupItem>
+                                })
+
+                                  this.state.allCounties.map((r,i) =>{
+                                    return <tr><td key={i}>{r.name}</td></tr>
+                                })
+                            }*/

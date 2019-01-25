@@ -223,7 +223,7 @@ export class ChooseCategory extends Component<{
       }
     }
     return (
-      <div>
+      <div className="">
         <ListGroup>
           {this.state.category1.map(cat1 => {
             return (

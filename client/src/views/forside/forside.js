@@ -76,7 +76,8 @@ export class forside extends Component {
       <div className="forside">
         <Grid align="center">
 
-          <h1>Velkommen til Hverdagshelt</h1>
+          <h1>VELKOMMEN TIL HVERDAGSHELT</h1>
+
           <p>
             Dette er en felles portal på tvers av alle kommuner i Norge for å melde inn,
             se statistikk og ha oversikt over alle mangler og feil som er i din kommune.

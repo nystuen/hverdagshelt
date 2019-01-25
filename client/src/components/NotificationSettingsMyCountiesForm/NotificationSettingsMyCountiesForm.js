@@ -3,7 +3,7 @@
 import React from 'react';
 import {EventCategoryService, CountyService, NotificationSettingsService, UserService} from "../../services";
 import jwt from "jsonwebtoken";
-import {FormGroup, Checkbox, Button, Grid, ListGroupItem, ListGroup, Glyphicon, Col} from "react-bootstrap";
+import {FormGroup, Checkbox, Button, Grid, ListGroupItem, ListGroup, Glyphicon, Col, Alert, Row} from "react-bootstrap";
 import {Category, NotificationSetting, User} from "../../classTypes";
 import {Collapse} from "react-bootstrap";
 import cloneDeep from "lodash/cloneDeep";
@@ -21,7 +21,8 @@ interface State {
   userCounties: Object[],
   categories: Object[],
   selectedCounty: number,
-  countySubscriptionOpen: boolean
+  countySubscriptionOpen: boolean,
+    settingsSaved: boolean
 
 }
 
@@ -31,7 +32,8 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
     userCounties: [],
     categories: [],
     selectedCounty: -1,
-    countySubscriptionOpen: false
+    countySubscriptionOpen: false,
+      settingsSaved: false
   };
 
   onChangeHandler = (e) => {
@@ -134,7 +136,8 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
       {
         userCounties: countyArr,
         selectedCounty: county.countyId,
-        categories: catArr
+        categories: catArr,
+          settingsSaved: false
       }
     );
   }
@@ -181,7 +184,8 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
 
     this.setState({
       notificationSettings: settingsArr,
-      categories: catArr
+      categories: catArr,
+        settingsSaved: false
     });
   };
 
@@ -275,6 +279,14 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
       leftButtonText = <span>Varslingsinstillinger</span>;
     }
 
+      let settings_saved;
+      if (this.state.settingsSaved) {
+          settings_saved = (
+              <Alert bsStyle="success">
+                  <h5 style={{color: "grey"}} id="SuccessLogin">Innstillinger lagret!</h5>
+              </Alert>
+          )
+      }
 
     return (
       <Grid>
@@ -286,26 +298,23 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
             <Button
                 id="countySubButton"
               bsStyle="primary"
-              onClick={() => this.setState({ countySubscriptionOpen: !this.state.countySubscriptionOpen })}
+              onClick={() => this.setState({ countySubscriptionOpen: !this.state.countySubscriptionOpen, settingsSaved: false })}
               align="left">{leftButtonText}</Button>
           </Col>
 
           {savebuttonNotificationSettings}
-
+          <div align="center">
+            {settings_saved}
+          </div>
 
         </form>
+
       </Grid>
     );
   }
 
-  showCountySubscription = () => {
-    let bool = !this.state.countySubscriptionOpen;
-    this.setState({
-      countySubscriptionOpen: bool
-    });
-  };
 
-  save = () => {
+  save = async () => {
 
     notificationSettingsService.deleteNotificationSettings()
       .catch(error => {
@@ -319,8 +328,9 @@ export class NotificationSettingsMyCountiesForm extends React.Component <State> 
       };
       notificationSettingsService.addNotificationSettings(elem)
         .catch(error => {
-          console.log('Error when adding: ' + e + 'n\ ' + 'error: ' + error.message);
+          confirm('Error when adding: ' + e + 'n\ ' + 'error: ' + error.message);
         });
     });
+        this.setState({settingsSaved: true});
   };
 }

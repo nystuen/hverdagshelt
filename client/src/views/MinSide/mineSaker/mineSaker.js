@@ -2,24 +2,25 @@
 
 import React from 'react';
 import {
-    Grid,
-    Button,
-    Table,
-    ProgressBar,
-    Nav,
-    NavItem,
-    ToggleButton,
-    ToggleButtonGroup
+  Grid,
+  Button,
+  Table,
+  ProgressBar,
+  Nav,
+  NavItem,
+  ToggleButton,
+  ToggleButtonGroup,
 } from 'react-bootstrap';
 import { Issue } from '../../../classTypes';
-import { CategoryService, IssueService, UserService} from '../../../services';
-import { Filter } from '../../../components/Filter/Filter'
+import { CategoryService, IssueService, UserService } from '../../../services';
+import { Filter } from '../../../components/Filter/Filter';
 import { Alert } from '../../../widgets';
 import { Status } from '../../../classTypes';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
-import { history } from "../../../index";
-import mineSaker from "./mineSaker.css";
+import { history } from '../../../index';
+import mineSaker from './mineSaker.css';
 
+let jwt = require('jsonwebtoken');
 let userService = new UserService();
 let categoryService = new CategoryService();
 let issueService = new IssueService();
@@ -32,9 +33,11 @@ interface State {
   category1: Object[];
   category2: Object[];
   category3: Object[];
-} //end interface
+}//end interface
 
-interface Props {}
+interface Props {
+}
+
 
 export class MineSaker extends React.Component<Props, State> {
   match: { params: { mail: string } };
@@ -47,15 +50,15 @@ export class MineSaker extends React.Component<Props, State> {
   };
 
   delete(issueId: number, statusName: string) {
-    if (statusName == "Registered") {
-      if (confirm("Er du sikker på at du vil slette denne saken?")) {
+    if (statusName == 'Registered') {
+      if (confirm('Er du sikker på at du vil slette denne saken?')) {
         issueService.deleteIssue(issueId);
         window.location.reload();
       }
-    } else if (statusName == "In progress") {
-      alert("denne saken er under arbeid, og kan ikke slettes");
+    } else if (statusName == 'In progress') {
+      alert('denne saken er under arbeid, og kan ikke slettes');
     } else {
-      alert("Du kan ikke slette ferdige saker");
+      alert('Du kan ikke slette ferdige saker');
     }
     console.log(issueId);
     console.log(statusName);
@@ -63,161 +66,141 @@ export class MineSaker extends React.Component<Props, State> {
   }
 
   componentWillMount() {
-    userService
-      .getMyIssues()
-      .then(response => {
-        this.setState({ issues: response });
-        this.getSorted();
-      })
-      .catch((error: Error) => Alert.danger(error.message));
+    userService.getMyIssues().then(response => {
+      this.setState({ issues: response });
+      this.getSorted();
+    }).catch((error: Error) => Alert.danger(error.message));
 
-    categoryService
-      .getCategory1()
-      .then(response => {
-        this.setState({ category1: response });
-      })
-      .catch((error: Error) => Alert.danger(error.message));
+    categoryService.getCategory1().then(response => {
+      this.setState({ category1: response });
+    }).catch((error: Error) => Alert.danger(error.message));
 
-    categoryService
-      .getCategory2()
-      .then(response => {
-        this.setState({ category2: response });
-      })
-      .catch((error: Error) => Alert.danger(error.message));
+    categoryService.getCategory2().then(response => {
+      this.setState({ category2: response });
+    }).catch((error: Error) => Alert.danger(error.message));
 
-    categoryService
-      .getCategory3()
-      .then(response => {
-        this.setState({ category3: response });
-      })
-      .catch((error: Error) => Alert.danger(error.message));
-  } //end method
+    categoryService.getCategory3().then(response => {
+      this.setState({ category3: response });
+    }).catch((error: Error) => Alert.danger(error.message));
+  }//end method
 
   render() {
     let cat = [];
     this.state.issues.map(issue => {
       if (issue.categoryLevel === 1) {
-        this.category = this.state.category1.find(
-          e => e.categoryId === issue.categoryId
-        );
+        this.category = this.state.category1.find(e => e.categoryId === issue.categoryId);
         cat.push(this.category);
       } else if (issue.categoryLevel === 2) {
-        this.category = this.state.category2.find(
-          e => e.category2Id === issue.categoryId
-        );
+        this.category = this.state.category2.find(e => e.category2Id === issue.categoryId);
         cat.push(this.category);
       } else {
-        this.category = this.state.category3.find(
-          e => e.category3Id === issue.categoryId
-        );
+        this.category = this.state.category3.find(e => e.category3Id === issue.categoryId);
         cat.push(this.category);
-      } //end condition
+      }//end condition
     });
     return (
 
       <div className="bottomFooter">
         <Grid>
-          <PageHeader title={"Mine saker"} />
-            <div align="center">
+          <PageHeader title={'Mine saker'}/>
+          <div align="center">
             <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-                <ToggleButton onClick={filter.showAll} bsStyle={"primary"} value={1}>Alle</ToggleButton>
-                <ToggleButton onClick={filter.filterRegistered} bsStyle={"primary"} value={2}>Registrerte</ToggleButton>
-                <ToggleButton onClick={filter.filterInProgress} bsStyle={"primary"} value={3}>Behandles</ToggleButton>
-                <ToggleButton onClick={filter.filterCompleted} bsStyle={"primary"} value={4}>Fullført</ToggleButton>
+              <ToggleButton onClick={filter.showAll} bsStyle={'primary'} value={1}>Alle</ToggleButton>
+              <ToggleButton onClick={filter.filterRegistered} bsStyle={'primary'} value={2}>Registrerte</ToggleButton>
+              <ToggleButton onClick={filter.filterInProgress} bsStyle={'primary'} value={3}>Behandles</ToggleButton>
+              <ToggleButton onClick={filter.filterCompleted} bsStyle={'primary'} value={4}>Fullført</ToggleButton>
             </ToggleButtonGroup>
-            </div>
-          <Table id={"myTable"}>
+          </div>
+          <Table id={'myTable'}>
             <thead>
-              <tr>
-                <th>Beskrivelse</th>
-                <th>Kategori</th>
-                <th>Status</th>
-                <th>Endre</th>
-              </tr>
+            <tr>
+              <th>Beskrivelse</th>
+              <th>Kategori</th>
+              <th>Status</th>
+              <th>Endre</th>
+            </tr>
             </thead>
             <tbody>
-              {this.state.issues.map((e, i) => {
-                return (
-                  <tr key={e.text}>
-                    <td>
-                      <Nav bsStyle="pills">
-                        <NavItem href={"/#min_side/sakoversikt/" + e.issueId}>
-                          {e.text}
-                        </NavItem>
-                      </Nav>
-                    </td>
-                    <td>{this.setCategory(cat, i)}</td>
-                    <td>
-                      {this.updateStatus(e.statusName)}
-                      <ProgressBar>
-                        <ProgressBar
-                          bsStyle={this.status.progressBar}
-                          active={this.status.inProgress}
-                          now={this.status.progress}
-                          label={this.status.name}
-                          style={{ color: "black" }}
-                          key={1}
-                        />
-                      </ProgressBar>
-                    </td>
-                    <td>
-                      <Button
-                        className="knapp"
-                        bsStyle="primary"
-                        href={"/#/min_side/mine_saker/rediger/" + e.issueId}
-                      >
-                        Rediger beskrivelse
-                      </Button>
-                      <Button
-                        className="knapp"
-                        bsStyle="danger"
-                        onClick={this.delete.bind(
-                          this,
-                          e.issueId,
-                          e.statusName
-                        )}
-                      >
-                        Slett
-                      </Button>
-                    </td>
-                  </tr>
-                );
-              })}
+            {this.state.issues.map((e, i) => {
+              return (
+                <tr key={e.text}>
+                  <td>
+                    <Nav bsStyle="pills">
+                      <NavItem href={'/#min_side/sakoversikt/' + e.issueId}>
+                        {e.text}
+                      </NavItem>
+                    </Nav>
+                  </td>
+                  <td>{this.setCategory(cat, i)}</td>
+                  <td>
+                    {this.updateStatus(e.statusName)}
+                    <ProgressBar>
+                      <ProgressBar
+                        bsStyle={this.status.progressBar}
+                        active={this.status.inProgress}
+                        now={this.status.progress}
+                        label={this.status.name}
+                        style={{ color: 'black' }}
+                        key={1}
+                      />
+                    </ProgressBar>
+                  </td>
+                  <td>
+
+                    <Button className="knapp" bsStyle="link"
+                            href={'/#/min_side/mine_saker/rediger/' + e.issueId}>
+                      <span className="glyphicon glyphicon-pencil"></span>
+                    </Button>
+
+                    <Button className="knapp" bsStyle="link" style={{ color: 'darkred' }}
+                            onClick={this.delete.bind(
+                              this,
+                              e.issueId,
+                              e.statusName
+                            )}>
+                      <span className="glyphicon glyphicon-trash"></span>
+                    </Button>
+                  </td>
+                </tr>
+              );
+            })}
             </tbody>
           </Table>
         </Grid>
       </div>
     );
-  } //end method
+  }//end method
+
 
   //To set progressbar
   updateStatus(status: string) {
     this.status = new Status(status);
-  } //end method
+  }//end method
 
   getSorted = () => {
     //Sorting view so completed issues are listed at the bottom
     let sorted: Object = [];
     this.state.issues.map(e => {
-      if (e.statusName === "Registered") {
+      if (e.statusName === 'Registered') {
         sorted.push(e);
       }
     });
     this.state.issues.map(e => {
-      if (e.statusName === "In progress") {
+      if (e.statusName === 'In progress') {
         sorted.push(e);
       }
     });
     this.state.issues.map(e => {
-      if (e.statusName === "Completed") {
+      if (e.statusName === 'Completed') {
         sorted.push(e);
       }
     });
     this.setState({ issues: sorted });
-  }; //end method
+  };//end method
 
   setCategory = (cat: Object[], i: number) => {
-    if (cat[i] !== undefined) return <div> {cat[i].name}</div>;
-  }; //end method
+    if (cat[i] !== undefined)
+      return <div> {cat[i].name}</div>;
+  };//end method
 
-} //end class
+}//end class

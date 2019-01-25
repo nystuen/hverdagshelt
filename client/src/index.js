@@ -44,6 +44,7 @@ import { adminIssues } from "./views/admin/adminIssues/adminIssues";
 import { EditIssue } from "./views/MinSide/mineSaker/editIssue";
 import { Footer2 } from './components/Footer/Footer2';
 import { eventView } from './views/events/eventView';
+
 import {adminEvents} from "./views/admin/adminEvents/adminEvents";
 
 // Reload application when not in production environment
@@ -61,8 +62,8 @@ if (root)
     <HashRouter>
       <div className="route-container">
         <NavbarMenu />
-        <Route exact path="/" component={Frontpage} />
-        <Route path="/forside/:countyId" component={forside} />
+        <Route exact path="/" component={forside} />
+        <Route path="/endreKommune" component={Frontpage} />
         <Route path="/wizardForm" component={WizardFormComplete} />
         <Route path="/min_side/kontooversikt" component={KontoOversikt} />
 

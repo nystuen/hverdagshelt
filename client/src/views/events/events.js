@@ -6,7 +6,6 @@ import { EventCategoryService } from '../../services';
 import { Event } from '../../classTypes';
 import css from './events.css';
 import { PageHeader } from '../../components/PageHeader/PageHeader';
-import { EventMapComponent } from '../../components/map/Map';
 
 let eventCategoryService = new EventCategoryService();
 
@@ -57,12 +56,13 @@ export class events extends React.Component<Props, State> {
 
   render() {
     return (
-      <div className="bottomFooter">
+      <div className="bottomFooter events">
+        <PageHeader title={"Hendelser i " + window.sessionStorage.getItem('countyName') + " kommune"}/>
         <Grid className="sak">
 
           <Col sm={1} md={2} lg={2}></Col>
 
-          <Col md={10}>
+          <Col md={8}>
             <ListGroup>
               {
                 this.state.importantEvents.map((r, i) => {
@@ -77,7 +77,7 @@ export class events extends React.Component<Props, State> {
                   }
 
                   panel =
-                    <ListGroupItem href={'/#/hendelse/' + r.eventId} header={r.title}>Klikk her for å se
+                    <ListGroupItem align="center" href={'/#/hendelse/' + r.eventId} header={r.title}>Klikk her for å se
                       mer</ListGroupItem>
 
 
@@ -92,7 +92,7 @@ export class events extends React.Component<Props, State> {
             </ListGroup>
           </Col>
 
-          <Col md={1}></Col>
+          <Col  sm={1} md={2} lg={2}></Col>
         </Grid>
       </div>
 

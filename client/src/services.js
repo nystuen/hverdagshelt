@@ -124,7 +124,6 @@ export class EventCategoryService {
   }//end method
 
   updateEvent(event: Object): Promise<void>{
-    console.log(event);
     return axios.post("/updateEvent", event);
   }//end method
 
@@ -211,7 +210,7 @@ export class IssueService {
   } //end method
 
   getIssueAndCounty(issue: number): Promise<Object> {
-    return axios.get("/oversiktOverSak/" + issue);
+    return axios.get('/oversiktOverSak/' + issue);
   } //end method
 
   updateStatusOneIssue(id: number, statusName: string, res: Object) {
@@ -358,12 +357,21 @@ export class NotificationSettingsService {
 }
 
 export class StatisticsService {
-  getStatus(): Promise<Response> {
-    return axios.get("/issueCategories");
+
+  getStatus(countyId: number): Promise<Response>{
+    return axios.get('/issueCategories/' + countyId)
   }
 
-  getDaily(): Promise<Response> {
-    return axios.get("/issuesDaily");
+  getDaily(countyId: number): Promise<Response>{
+    return axios.get('/issuesDaily/'+ countyId)
+  }
+
+  getStatusAllCounties(): Promise<Response>{
+    return axios.get('/issueCategoriesAllCounties/')
+  }
+
+  getDailyAllCounties(): Promise<Response>{
+    return axios.get('/issuesDailyAllCounties/')
   }
 }
 

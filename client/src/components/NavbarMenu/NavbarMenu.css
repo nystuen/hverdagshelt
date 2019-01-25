@@ -58,10 +58,7 @@
 .active {
 }
 
-.logoBrand img{
-    padding-top: 8px;
-    padding-bottom: 8px;
-}
+
 
 .navbar-default .navbar-nav > li > a.active {
     background-color: #771200;
@@ -81,4 +78,13 @@
 
 .navbar-default .navbar-nav{
     transition: 0.3s;
+}
+
+.navbar-brand {
+    display: flex;
+    align-items: center;
+}
+.navbar-brand>img {
+    padding: 0px 14px;
+    max-width: 65px;
 }

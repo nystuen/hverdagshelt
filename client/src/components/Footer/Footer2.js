@@ -41,16 +41,29 @@ export class Footer2 extends Component<{}> {
       });
     }
 
-    await countyService.getCountyEmployee(this.state.user.countyId).then((re: Array<Object>) => {
+    await countyService.getCountyEmployee(window.sessionStorage.getItem('countyId')).then((re: Array<Object>) => {
       this.setState({
-        countyInformation: re
+        countyInformation: re[0]
       });
+      console.log('re:', re[0]);
     });
   };
 
   render() {
-    let check;
-    if (this.state.user.countyId != []) {
+    if (!(window.localStorage.getItem('userToken') == '') && this.state.countyInformation != undefined) {
+
+      let employee;
+      employee = <div align="center">
+        <h5>Kontaktinformasjon til {window.sessionStorage.getItem('countyName')} kommune:</h5>
+        <ul>
+          <li>
+            <span>Kommuneansatt: {this.state.countyInformation.firstName + ' ' + this.state.countyInformation.lastName}</span>
+          </li>
+          <li><span>E-post: {this.state.countyInformation.mail}</span></li>
+          <li><span>Telefonnr: {this.state.countyInformation.phone}</span></li>
+        </ul>
+      </div>;
+
       return (
         <footer id="myFooter">
           <Grid>
@@ -67,52 +80,42 @@ export class Footer2 extends Component<{}> {
                 </div>
               </Col>
               <Col sm={8}>
-                <div align="center">
-                  <h5>Kontaktinformasjon til {this.state.user.county}-kommune:</h5>
-                  {
-                    this.state.countyInformation.map((r, i) => {
-                      return (
-                        <ul key={i}>
-                          <li><span>Kommuneansatt: {r.firstName + ' ' + r.lastName}</span></li>
-                          <li><span>E-post: {r.mail}</span></li>
-                          <li><span>Telefonnr: {r.phone}</span></li>
-                        </ul>
-                      );
-                    })
-                  }
-                </div>
+                {employee}
               </Col>
 
             </Row>
 
           </Grid>
 
-            <div className="footer-copyright">
-              <p>© 2019 Hverdagshelt </p>
-            </div>
+          <div className="footer-copyright">
+            <p>© 2019 Hverdagshelt </p>
+          </div>
         </footer>
       );
     } else {
       return (
-        <footer className="footerClass2">
-          <div className="container">
-            <div align="center">
-              <img id="logo" className="picture"
-                     src={'./resources/logo_white.png'}
-                     />
-              <h2>HVERDAGSHELT</h2>
-            </div>
+        <footer id="myFooter">
+          <Grid>
+            <Row>
+
+                <div align="center">
+                  <h5>Kom igang</h5>
+                  <ul>
+                    <li><a href="#">Hjem</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">En ting til?</a></li>
+                  </ul>
+                </div>
+
+            </Row>
+
+          </Grid>
+
+          <div className="footer-copyright">
+            <p>© 2019 Hverdagshelt </p>
           </div>
         </footer>
       );
     }
-    return (
-
-      { check }
-
-    );
-
-
   }
-
 }
