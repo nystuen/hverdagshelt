@@ -56,8 +56,8 @@ export class UserService {
     return axios.get("/user/getMyIssues", { headers: authHeader() });
   } //end method
 
-  getMyIssuesWithCat(): Promise<JSON> {
-    return axios.get('/user/getMyIssuesWithCat', { headers: authHeader() });
+  getAllIssuesWithCat(): Promise<JSON> {
+    return axios.get('/user/getAllIssuesWithCat', { headers: authHeader() });
   }
 
   getCompanyIssues(companyMail: string): Promise<JSON> {

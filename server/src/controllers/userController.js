@@ -232,12 +232,12 @@ module.exports = function (app: Object, userDao: Object) {
           });
       });
 
-    app.get("/user/getMyIssuesWithCat", verifyToken, (req, res) => {
+    app.get("/user/getAllIssuesWithCat", verifyToken, (req, res) => {
       jwt.verify(req.token, privateKey, (err, decoded) => {
         if (err) {
           res.sendStatus(401);
         } else {
-          console.log("got req from getMyIssuesWithCat");
+          console.log("got req from getAllIssuesWithCat");
           userDao.getIssuesForAllUserWithCat((status, data) => {
             res.status(status);
             res.json(data);
