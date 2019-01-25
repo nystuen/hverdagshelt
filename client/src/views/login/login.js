@@ -6,7 +6,6 @@ import { Component } from "react";
 import { User } from "../../classTypes";
 import { UserService } from "../../services";
 import { Alert, FormGroup, Form, FormControl, Button, Grid, Image, Row, Col } from "react-bootstrap";
-
 let jwt = require("jsonwebtoken");
 import login from "./login.css";
 import { history } from "../../index";
@@ -130,7 +129,6 @@ export class Login extends Component<Props, State> {
                     <FormControl
                       type="text"
                       id="mailText"
-                      name="mailText"
                       placeholder="Email"
                       value={this.state.email}
                       onChange={this.handleChangeEmail.bind(this)}
@@ -143,7 +141,6 @@ export class Login extends Component<Props, State> {
                     <FormControl
                       type={this.state.openPassword}
                       id="passText"
-                      name="passText"
                       placeholder="Passord"
                       value={this.state.password}
                       onChange={this.handleChangePassword.bind(this)}
@@ -182,7 +179,7 @@ export class Login extends Component<Props, State> {
     );
   } //end method
 
- async save() {
+ save = async () => {
      if (confirm('Ved å logge inn på Hverdagshelt.no godtar du at vi lagrer ' +
          'cookies med informasjon om brukernavnet  ditt og hvilken type bruker du er (privat / bedirft')) {
          await userService

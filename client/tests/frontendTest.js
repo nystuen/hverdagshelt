@@ -35,6 +35,11 @@ import {MineSaker} from "../src/views/MinSide/mineSaker/mineSaker";
 import {NotificationSettings} from "../src/views/NotificationSettings/NotificationSettings";
 import {OversiktOverSak} from "../src/views/oversiktOverSak/oversiktOverSak";
 import {AdminResetUserPassword} from "../src/views/admin/resetPassword";
+import {RegisterAdmin} from "../src/components/registeradmin/registeradmin";
+import {WizardFormComplete} from "../src/components/ReduxRegisterForm/WizardFormComplete";
+import {InfoModule} from "../src/components/InfoModule/InfoModule";
+import {SetCategoryInactive} from "../src/components/setCategoryInactive/SetCategoryInactive";
+import {EditIssue} from "../src/views/MinSide/mineSaker/editIssue";
 
 describe('Test for RegisterUser component', () => {
     const wrapper = shallow(<RegisterUser />);
@@ -387,7 +392,6 @@ describe('Test for KontoOversikt view', () => {
 describe('Test for Login view', () => {
     const handleChangeEmailSpy = sinon.spy(Login.prototype, "handleChangeEmail");
     const handleChangePasswordSpy = sinon.spy(Login.prototype, "handleChangePassword");
-    const saveSpy = sinon.spy(Login.prototype, 'save');
     const mailEvent = {target: {name: "mailText", value: "test"}};
     const passwordEvent = {target: {name: "passText", value: "test"}};
 
@@ -405,11 +409,6 @@ describe('Test for Login view', () => {
     it('responds to mail input change', () => {
         wrapper.find("#passText").simulate('change', passwordEvent);
         expect(handleChangePasswordSpy.calledOnce).toBe(true)
-    });
-
-    it('responds to save button click', () => {
-        wrapper.find("#saveButton").simulate('click');
-        expect(saveSpy.calledOnce).toBe(true)
     });
 
     it('updates state.email when handlechangeemail is called', () => {
@@ -466,3 +465,44 @@ describe('Test for AdminResetUserPassword view', () => {
         expect(wrapper).toMatchSnapshot();
     });
 });
+
+describe('Test for RegisterAdmin component', () => {
+    const wrapper = shallow(<RegisterAdmin/>);
+
+    it('renders correctly', () => {
+        expect(wrapper).toMatchSnapshot();
+    })
+});
+
+describe('Test for WizardFormComplete component', () => {
+    const wrapper = shallow(<WizardFormComplete/>)
+
+    it('renders correctly', () => {
+        expect(wrapper).toMatchSnapshot();
+    })
+});
+
+describe('Test for InfoModule component', () => {
+    const wrapper = shallow(<InfoModule/>)
+
+    it('renders correctly', () => {
+        expect(wrapper).toMatchSnapshot();
+    })
+});
+
+describe('Test for SetCategoryInactive component', () => {
+    const wrapper = shallow(<SetCategoryInactive/>)
+
+    it('renders correctly', () => {
+        expect(wrapper).toMatchSnapshot();
+    })
+});
+
+describe('Test for EditIssue component', () => {
+    const wrapper = shallow(<EditIssue match={{params: {id: 1}, isExact: true, path: "", url: ""}}/>)
+
+    it('renders correctly', () => {
+        expect(wrapper).toMatchSnapshot();
+    })
+});
+
