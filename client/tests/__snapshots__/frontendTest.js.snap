@@ -12166,6 +12166,9 @@ ShallowWrapper {
             Lagre endringer
           </Button>
         </Col>
+        <div
+          align="center"
+        />
       </form>,
       "componentClass": "div",
       "fluid": false,
@@ -12231,6 +12234,9 @@ ShallowWrapper {
               Lagre endringer
             </Button>
           </Col>,
+          <div
+            align="center"
+          />,
         ],
       },
       "ref": null,
@@ -12382,6 +12388,18 @@ ShallowWrapper {
           },
           "type": [Function],
         },
+        Object {
+          "instance": null,
+          "key": undefined,
+          "nodeType": "host",
+          "props": Object {
+            "align": "center",
+            "children": undefined,
+          },
+          "ref": null,
+          "rendered": null,
+          "type": "div",
+        },
       ],
       "type": "form",
     },
@@ -12449,6 +12467,9 @@ ShallowWrapper {
               Lagre endringer
             </Button>
           </Col>
+          <div
+            align="center"
+          />
         </form>,
         "componentClass": "div",
         "fluid": false,
@@ -12514,6 +12535,9 @@ ShallowWrapper {
                 Lagre endringer
               </Button>
             </Col>,
+            <div
+              align="center"
+            />,
           ],
         },
         "ref": null,
@@ -12665,6 +12689,18 @@ ShallowWrapper {
             },
             "type": [Function],
           },
+          Object {
+            "instance": null,
+            "key": undefined,
+            "nodeType": "host",
+            "props": Object {
+              "align": "center",
+              "children": undefined,
+            },
+            "ref": null,
+            "rendered": null,
+            "type": "div",
+          },
         ],
         "type": "form",
       },
@@ -12745,10 +12781,44 @@ ShallowWrapper {
             md={8}
             sm={10}
           >
-            <img
-              src="image/[object Object]"
-              width="100%"
-            />
+            <Row
+              bsClass="row"
+              componentClass="div"
+            >
+              <h2
+                align="center"
+              >
+                Saksinformasjon
+              </h2>
+            </Row>
+            <Col
+              bsClass="col"
+              componentClass="div"
+              lg={6}
+              md={6}
+              sm={6}
+            >
+              <img
+                src="image/[object Object]"
+                width="100%"
+              />
+            </Col>
+            <Col
+              bsClass="col"
+              componentClass="div"
+              lg={6}
+              md={6}
+              sm={6}
+            >
+              <OneIssueMapComponent
+                markers={
+                  Array [
+                    "",
+                    "",
+                  ]
+                }
+              />
+            </Col>
             <Row
               bsClass="row"
               componentClass="div"
@@ -12900,10 +12970,44 @@ ShallowWrapper {
               md={8}
               sm={10}
             >
-              <img
-                src="image/[object Object]"
-                width="100%"
-              />
+              <Row
+                bsClass="row"
+                componentClass="div"
+              >
+                <h2
+                  align="center"
+                >
+                  Saksinformasjon
+                </h2>
+              </Row>
+              <Col
+                bsClass="col"
+                componentClass="div"
+                lg={6}
+                md={6}
+                sm={6}
+              >
+                <img
+                  src="image/[object Object]"
+                  width="100%"
+                />
+              </Col>
+              <Col
+                bsClass="col"
+                componentClass="div"
+                lg={6}
+                md={6}
+                sm={6}
+              >
+                <OneIssueMapComponent
+                  markers={
+                    Array [
+                      "",
+                      "",
+                    ]
+                  }
+                />
+              </Col>
               <Row
                 bsClass="row"
                 componentClass="div"
@@ -13044,10 +13148,44 @@ ShallowWrapper {
             "props": Object {
               "bsClass": "col",
               "children": Array [
-                <img
-                  src="image/[object Object]"
-                  width="100%"
-                />,
+                <Row
+                  bsClass="row"
+                  componentClass="div"
+                >
+                  <h2
+                    align="center"
+                  >
+                    Saksinformasjon
+                  </h2>
+                </Row>,
+                <Col
+                  bsClass="col"
+                  componentClass="div"
+                  lg={6}
+                  md={6}
+                  sm={6}
+                >
+                  <img
+                    src="image/[object Object]"
+                    width="100%"
+                  />
+                </Col>,
+                <Col
+                  bsClass="col"
+                  componentClass="div"
+                  lg={6}
+                  md={6}
+                  sm={6}
+                >
+                  <OneIssueMapComponent
+                    markers={
+                      Array [
+                        "",
+                        "",
+                      ]
+                    }
+                  />
+                </Col>,
                 <Row
                   bsClass="row"
                   componentClass="div"
@@ -13162,14 +13300,96 @@ ShallowWrapper {
               Object {
                 "instance": null,
                 "key": undefined,
-                "nodeType": "host",
+                "nodeType": "class",
                 "props": Object {
-                  "src": "image/[object Object]",
-                  "width": "100%",
+                  "bsClass": "row",
+                  "children": <h2
+                    align="center"
+                  >
+                    Saksinformasjon
+                  </h2>,
+                  "componentClass": "div",
                 },
                 "ref": null,
-                "rendered": null,
-                "type": "img",
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "align": "center",
+                    "children": "Saksinformasjon",
+                  },
+                  "ref": null,
+                  "rendered": "Saksinformasjon",
+                  "type": "h2",
+                },
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "bsClass": "col",
+                  "children": <img
+                    src="image/[object Object]"
+                    width="100%"
+                  />,
+                  "componentClass": "div",
+                  "lg": 6,
+                  "md": 6,
+                  "sm": 6,
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "host",
+                  "props": Object {
+                    "src": "image/[object Object]",
+                    "width": "100%",
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": "img",
+                },
+                "type": [Function],
+              },
+              Object {
+                "instance": null,
+                "key": undefined,
+                "nodeType": "class",
+                "props": Object {
+                  "bsClass": "col",
+                  "children": <OneIssueMapComponent
+                    markers={
+                      Array [
+                        "",
+                        "",
+                      ]
+                    }
+                  />,
+                  "componentClass": "div",
+                  "lg": 6,
+                  "md": 6,
+                  "sm": 6,
+                },
+                "ref": null,
+                "rendered": Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "markers": Array [
+                      "",
+                      "",
+                    ],
+                  },
+                  "ref": null,
+                  "rendered": null,
+                  "type": [Function],
+                },
+                "type": [Function],
               },
               Object {
                 "instance": null,
@@ -13753,10 +13973,44 @@ ShallowWrapper {
               md={8}
               sm={10}
             >
-              <img
-                src="image/[object Object]"
-                width="100%"
-              />
+              <Row
+                bsClass="row"
+                componentClass="div"
+              >
+                <h2
+                  align="center"
+                >
+                  Saksinformasjon
+                </h2>
+              </Row>
+              <Col
+                bsClass="col"
+                componentClass="div"
+                lg={6}
+                md={6}
+                sm={6}
+              >
+                <img
+                  src="image/[object Object]"
+                  width="100%"
+                />
+              </Col>
+              <Col
+                bsClass="col"
+                componentClass="div"
+                lg={6}
+                md={6}
+                sm={6}
+              >
+                <OneIssueMapComponent
+                  markers={
+                    Array [
+                      "",
+                      "",
+                    ]
+                  }
+                />
+              </Col>
               <Row
                 bsClass="row"
                 componentClass="div"
@@ -13908,10 +14162,44 @@ ShallowWrapper {
                 md={8}
                 sm={10}
               >
-                <img
-                  src="image/[object Object]"
-                  width="100%"
-                />
+                <Row
+                  bsClass="row"
+                  componentClass="div"
+                >
+                  <h2
+                    align="center"
+                  >
+                    Saksinformasjon
+                  </h2>
+                </Row>
+                <Col
+                  bsClass="col"
+                  componentClass="div"
+                  lg={6}
+                  md={6}
+                  sm={6}
+                >
+                  <img
+                    src="image/[object Object]"
+                    width="100%"
+                  />
+                </Col>
+                <Col
+                  bsClass="col"
+                  componentClass="div"
+                  lg={6}
+                  md={6}
+                  sm={6}
+                >
+                  <OneIssueMapComponent
+                    markers={
+                      Array [
+                        "",
+                        "",
+                      ]
+                    }
+                  />
+                </Col>
                 <Row
                   bsClass="row"
                   componentClass="div"
@@ -14052,10 +14340,44 @@ ShallowWrapper {
               "props": Object {
                 "bsClass": "col",
                 "children": Array [
-                  <img
-                    src="image/[object Object]"
-                    width="100%"
-                  />,
+                  <Row
+                    bsClass="row"
+                    componentClass="div"
+                  >
+                    <h2
+                      align="center"
+                    >
+                      Saksinformasjon
+                    </h2>
+                  </Row>,
+                  <Col
+                    bsClass="col"
+                    componentClass="div"
+                    lg={6}
+                    md={6}
+                    sm={6}
+                  >
+                    <img
+                      src="image/[object Object]"
+                      width="100%"
+                    />
+                  </Col>,
+                  <Col
+                    bsClass="col"
+                    componentClass="div"
+                    lg={6}
+                    md={6}
+                    sm={6}
+                  >
+                    <OneIssueMapComponent
+                      markers={
+                        Array [
+                          "",
+                          "",
+                        ]
+                      }
+                    />
+                  </Col>,
                   <Row
                     bsClass="row"
                     componentClass="div"
@@ -14170,14 +14492,96 @@ ShallowWrapper {
                 Object {
                   "instance": null,
                   "key": undefined,
-                  "nodeType": "host",
+                  "nodeType": "class",
                   "props": Object {
-                    "src": "image/[object Object]",
-                    "width": "100%",
+                    "bsClass": "row",
+                    "children": <h2
+                      align="center"
+                    >
+                      Saksinformasjon
+                    </h2>,
+                    "componentClass": "div",
                   },
                   "ref": null,
-                  "rendered": null,
-                  "type": "img",
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "align": "center",
+                      "children": "Saksinformasjon",
+                    },
+                    "ref": null,
+                    "rendered": "Saksinformasjon",
+                    "type": "h2",
+                  },
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "bsClass": "col",
+                    "children": <img
+                      src="image/[object Object]"
+                      width="100%"
+                    />,
+                    "componentClass": "div",
+                    "lg": 6,
+                    "md": 6,
+                    "sm": 6,
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "host",
+                    "props": Object {
+                      "src": "image/[object Object]",
+                      "width": "100%",
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": "img",
+                  },
+                  "type": [Function],
+                },
+                Object {
+                  "instance": null,
+                  "key": undefined,
+                  "nodeType": "class",
+                  "props": Object {
+                    "bsClass": "col",
+                    "children": <OneIssueMapComponent
+                      markers={
+                        Array [
+                          "",
+                          "",
+                        ]
+                      }
+                    />,
+                    "componentClass": "div",
+                    "lg": 6,
+                    "md": 6,
+                    "sm": 6,
+                  },
+                  "ref": null,
+                  "rendered": Object {
+                    "instance": null,
+                    "key": undefined,
+                    "nodeType": "class",
+                    "props": Object {
+                      "markers": Array [
+                        "",
+                        "",
+                      ],
+                    },
+                    "ref": null,
+                    "rendered": null,
+                    "type": [Function],
+                  },
+                  "type": [Function],
                 },
                 Object {
                   "instance": null,

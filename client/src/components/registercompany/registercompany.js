@@ -608,6 +608,7 @@ export class RegisterCompany extends Component<Props, State>{
             });
 
         if (!companyExists) {
+
             await userService.addCompany(theBody3);
 
 
