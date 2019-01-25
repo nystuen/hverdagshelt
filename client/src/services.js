@@ -219,12 +219,10 @@ export class IssueService {
     };
 
     if (statusName == "In progress" && res.inProgress == 1) {
-      console.log();
       axios.post("/sendIssueInProgressMail", mailObject);
     }
 
     if (statusName == "Completed" && res.completed == 1) {
-      console.log("completed");
       axios.post("/sendIssueCompleteMail", mailObject);
     }
 
@@ -292,7 +290,6 @@ export class CountyService {
   }
 
   addSubscription(json: Object) {
-    console.log("addSubscription", json);
     return axios.post("/addSubscription", json, { headers: authHeader() });
   }
 }
