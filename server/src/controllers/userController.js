@@ -19,24 +19,7 @@ let transporter = nodemailer.createTransport({
 import {verifyToken} from "../helpers/verifyToken";
 
 module.exports = function (app: Object, userDao: Object) {
-    /*
-      app.use("/user", (req, res, next) => {
-          let token = req.body;
-          console.log(req.body);
-          console.log(token);
-          jwt.verify(token, privateKey, (err, decoded) => {
-              console.log(err.message);
-              if (err) {
-                  console.log("Token IKKE ok");
-                  res.status(401);
-                  res.json({ error: "Not authorized" });
-              } else {
-                  console.log("Token ok: " + decoded.userMail);
-                  next();
-              }
-          });
-      });
-  */
+
     //brukes for å registrere kommuneansatte også
     app.post('/add_admin', urlencodedParser, (req, res) =>{
         console.log('got post request from add_admin');
@@ -223,7 +206,21 @@ module.exports = function (app: Object, userDao: Object) {
         userDao.getCompanyIssues(req.params.email, (status, data) => {
             res.status(status);
             res.json(data);
-        });
+          });
+      });
+
+    app.get("/user/getAllIssuesWithCat", verifyToken, (req, res) => {
+      jwt.verify(req.token, privateKey, (err, decoded) => {
+        if (err) {
+          res.sendStatus(401);
+        } else {
+          console.log("got req from getAllIssuesWithCat");
+          userDao.getIssuesForAllUserWithCat((status, data) => {
+            res.status(status);
+            res.json(data);
+          });
+        }
+      });
     });
 
     app.put("/user/updateUser/", verifyToken, (req, res) => {

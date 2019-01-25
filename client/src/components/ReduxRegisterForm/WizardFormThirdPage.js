@@ -84,7 +84,7 @@ export class WizardFormThirdPage extends React.Component {
     return (
       <Grid>
         <form onSubmit={handleSubmit}>
-          <div className="container">
+          <div className="container bottomFooter">
             <div className="formDiv">
               <div className="progressBar">
                 <ProgressBar now={100} label={"3/3"} />
@@ -163,7 +163,7 @@ export class WizardFormThirdPage extends React.Component {
 
 export default reduxForm({
   form: "wizard", //Form name is same
-  destroyOnUnmount: false,
+  destroyOnUnmount: true,
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate
 })(WizardFormThirdPage);

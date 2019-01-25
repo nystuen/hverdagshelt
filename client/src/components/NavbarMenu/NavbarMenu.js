@@ -1,16 +1,17 @@
 import React from 'react';
 import {
-    Navbar,
-    Nav,
-    NavItem,
-    NavDropdown,
-    MenuItem,
-    Glyphicon
+  Navbar,
+  Nav,
+  NavItem,
+  NavDropdown,
+  MenuItem,
+  Glyphicon,
+  Button
 } from 'react-bootstrap';
 import css from './NavbarMenu.css';
 import { PageHeader } from '../PageHeader/PageHeader';
-import {UserService} from '../../services';
-import {User} from "../../classTypes";
+import { UserService } from '../../services';
+import { User } from '../../classTypes';
 
 let userService = new UserService();
 
@@ -35,8 +36,7 @@ export class NavbarMenu extends React.Component {
     });
   }
 
-  componentWillMount = async ()=>  {
-      console.log(window.sessionStorage.getItem('countyId'));
+  componentWillMount = async () => {
     await userService.getCurrentUser()
       .then(resources => {
         let user = resources[0];
@@ -44,9 +44,9 @@ export class NavbarMenu extends React.Component {
           user: user
         });
       });
-    if(window.sessionStorage.getItem('countyId') === '' || window.sessionStorage.getItem('countyId') === null){
-        await window.sessionStorage.setItem('countyId',this.state.user.countyId);
-        await window.sessionStorage.setItem('countyName', this.state.user.county);
+    if (window.sessionStorage.getItem('countyId') === '' || window.sessionStorage.getItem('countyId') === null) {
+      await window.sessionStorage.setItem('countyId', this.state.user.countyId);
+      await window.sessionStorage.setItem('countyName', this.state.user.county);
     }
   };
 
@@ -56,7 +56,7 @@ export class NavbarMenu extends React.Component {
     this.setState({ activeKey: selectedKey });
   }
 
- render() {
+  render() {
     if (window.localStorage.getItem('userToken') === '') {
       loginButton = <NavItem eventKey={13} href="/#login">Login</NavItem>;
     } else {
@@ -71,7 +71,7 @@ export class NavbarMenu extends React.Component {
             <Navbar collapseOnSelect fluid>
               <Navbar.Header>
                 <Navbar.Brand>
-                  <img src={'./resources/logo_white.png'}></img>
+                  <a href={'/#/'}><img src={'./resources/logo_white.png'}></img></a>
                 </Navbar.Brand>
                 <Navbar.Toggle/>
               </Navbar.Header>
@@ -111,7 +111,7 @@ export class NavbarMenu extends React.Component {
             <Navbar collapseOnSelect fluid>
               <Navbar.Header>
                 <Navbar.Brand>
-                  <img src={'./resources/logo_white.png'}></img>
+                  <a href={'/#/'}><img src={'./resources/logo_white.png'}></img></a>
                 </Navbar.Brand>
                 <Navbar.Toggle/>
               </Navbar.Header>
@@ -150,7 +150,7 @@ export class NavbarMenu extends React.Component {
             <Navbar collapseOnSelect fluid>
               <Navbar.Header>
                 <Navbar.Brand>
-                  <img src={'./resources/logo_white.png'}></img>
+                  <a href={'/#/'}><img src={'./resources/logo_white.png'}></img></a>
                 </Navbar.Brand>
                 <Navbar.Toggle/>
               </Navbar.Header>
@@ -190,7 +190,7 @@ export class NavbarMenu extends React.Component {
             <Navbar collapseOnSelect fluid>
               <Navbar.Header>
                 <Navbar.Brand>
-                  <img src={'./resources/logo_white.png'}></img>
+                  <a href={'/#/'}><img src={'./resources/logo_white.png'}></img></a>
                 </Navbar.Brand>
                 <Navbar.Toggle/>
               </Navbar.Header>
@@ -224,14 +224,17 @@ export class NavbarMenu extends React.Component {
           <Navbar collapseOnSelect fluid>
             <Navbar.Header>
               <Navbar.Brand>
-                <img src={'./resources/logo_white.png'}></img>
+                <a href={'/#/'}><img src={'./resources/logo_white.png'}></img></a>
               </Navbar.Brand>
               <Navbar.Toggle/>
             </Navbar.Header>
 
             <Navbar.Collapse>
-
+              <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+                {loginButton}
+              </Nav>
             </Navbar.Collapse>
+
 
           </Navbar>
         </div>

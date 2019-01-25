@@ -31,15 +31,13 @@ export class employeeManageUsers extends React.Component<Props,State>{
 
 
     blockUser(mail: string){
-        console.log(mail);
         employeeService.blockUser(mail);
-        window.location.reload()
+        window.location.reload();
     }
 
     unblockUser(mail: string){
-        console.log(mail);
         employeeService.unblockUser(mail);
-        window.location.reload()
+        window.location.reload();
     }
 
     buttonBack(){
@@ -53,15 +51,12 @@ export class employeeManageUsers extends React.Component<Props,State>{
         userService.getCurrentUser()
             .then(resource => {
                 employee = resource;
-                console.log("res", resource);
                 this.setState({
                     employee: employee
                 });
                 console.log( "employee countyId", this.state.employee[0].countyId);
                 employeeService.getUsersInCounty(this.state.employee[0].countyId).then(response => {
                     this.setState({user: response});
-                    console.log("mail check", this.state.user);
-                    console.log("res", response)
                 });
             });
     }

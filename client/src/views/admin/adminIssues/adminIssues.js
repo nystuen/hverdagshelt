@@ -6,6 +6,7 @@ import {IssueService, UserService} from '../../../services';
 import { Filter } from '../../../components/Filter/Filter'
 import { Status } from '../../../classTypes';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
+import {history} from "../../../index";
 
 let userService = new UserService();
 let issueService = new IssueService();
@@ -45,6 +46,9 @@ export class adminIssues extends React.Component{
 
     componentWillMount(){
         userService.getCurrentUser().then(response => {
+            if(response[0].typeName === "Private" || response[0].typeName===undefined){
+                history.push('/');
+            }
             this.setState({user: response[0]});
             issueService.getAllIssuesInThisCounty(response[0].countyId,1).then(r => {
                 this.setState({issues: r});

@@ -50,7 +50,7 @@ export class WizardFormSecondPage extends React.Component {
     const { handleSubmit, previousPage, onChangeCategoryHeader } = this.props;
     return (
       <Grid>
-        <div className="container">
+        <div className="container bottomFooter">
           <div className="formDiv">
             <div className="progressBar">
               <ProgressBar now={66} label={"2/3"} />

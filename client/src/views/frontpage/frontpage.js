@@ -43,6 +43,7 @@ export class Frontpage extends Component<Props, State> {
     console.log(window.sessionStorage.getItem('countyId'));
     window.sessionStorage.setItem('countyName', this.state.choosen.label);
     console.log(window.sessionStorage.getItem('countyName'));
+    window.location.reload();
     history.push('/wizardForm/');
   };
 

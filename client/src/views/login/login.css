@@ -24,3 +24,7 @@
 .loginBox p :hover{
     color: #6e7bb3;
 }
+
+.forgottenPassword{
+    padding-top: 15em;
+}

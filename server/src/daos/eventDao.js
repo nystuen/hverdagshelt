@@ -41,7 +41,7 @@ export class EventDao extends Dao {
 
   getAllEventsInOneCounty(countyId: number, callback: Function){
     console.log('Events in county ' + countyId);
-    super.query("Select * from event natural join eventCategory where event.countyId=? and event.active=1", [countyId], callback);
+    super.query("Select * from event natural join eventCategory where event.countyId=? and event.active=1 order by eventId DESC", [countyId], callback);
   }//end method
 
   updateEvent(event: Object, callback: Function){
@@ -52,6 +52,6 @@ export class EventDao extends Dao {
 
   deleteEvent(eventId: number, callback: Function){
     console.log('Delete event with id ' + eventId);
-    super.query("UPDATE annabesa.event set annabesa.event.active=0 where eventId=?", [], callback);
+    super.query("UPDATE annabesa.event set annabesa.event.active=0 where eventId=?", [eventId], callback);
   }//end method
 }//end class

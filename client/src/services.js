@@ -56,6 +56,10 @@ export class UserService {
     return axios.get("/user/getMyIssues", { headers: authHeader() });
   } //end method
 
+  getAllIssuesWithCat(): Promise<JSON> {
+    return axios.get('/user/getAllIssuesWithCat', { headers: authHeader() });
+  }
+
   getCompanyIssues(companyMail: string): Promise<JSON> {
     return axios.get("/getCompanyIssues/" + companyMail);
   } //end method
@@ -206,8 +210,7 @@ export class IssueService {
   } //end method
 
   getIssueAndCounty(issue: number): Promise<Object> {
-    console.log("Hei");
-    return axios.get("/oversiktOverSak/" + issue);
+    return axios.get('/oversiktOverSak/' + issue);
   } //end method
 
   updateStatusOneIssue(id: number, statusName: string, res: Object) {
@@ -216,12 +219,10 @@ export class IssueService {
     };
 
     if (statusName == "In progress" && res.inProgress == 1) {
-      console.log();
       axios.post("/sendIssueInProgressMail", mailObject);
     }
 
     if (statusName == "Completed" && res.completed == 1) {
-      console.log("completed");
       axios.post("/sendIssueCompleteMail", mailObject);
     }
 
@@ -289,7 +290,6 @@ export class CountyService {
   }
 
   addSubscription(json: Object) {
-    console.log("addSubscription", json);
     return axios.post("/addSubscription", json, { headers: authHeader() });
   }
 }
@@ -340,7 +340,6 @@ export class NotificationSettingsService {
   }
 
   getIssueNotificationSettingsFromUser(userMail: string): Promise<Object[]> {
-    console.log("mail i services:", userMail);
     return axios.get("/get_issue_notification_settings_from_user/" + userMail);
   }
 
@@ -355,12 +354,21 @@ export class NotificationSettingsService {
 }
 
 export class StatisticsService {
-  getStatus(): Promise<Response> {
-    return axios.get("/issueCategories");
+
+  getStatus(countyId: number): Promise<Response>{
+    return axios.get('/issueCategories/' + countyId)
   }
 
-  getDaily(): Promise<Response> {
-    return axios.get("/issuesDaily");
+  getDaily(countyId: number): Promise<Response>{
+    return axios.get('/issuesDaily/'+ countyId)
+  }
+
+  getStatusAllCounties(): Promise<Response>{
+    return axios.get('/issueCategoriesAllCounties/')
+  }
+
+  getDailyAllCounties(): Promise<Response>{
+    return axios.get('/issuesDailyAllCounties/')
   }
 }
 
