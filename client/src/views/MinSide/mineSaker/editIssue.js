@@ -16,7 +16,6 @@ export class EditIssue extends React.Component<{
   };
 
   componentDidMount() {
-    console.log(this.props.match.params.issueId);
     issueService
       .getIssueAndCounty(this.props.match.params.issueId)
       .then(res => {
@@ -33,7 +32,6 @@ export class EditIssue extends React.Component<{
   };
 
   render() {
-    console.log(this.state.text);
     return (
       <div className="container">
         <Form>
@@ -56,8 +54,6 @@ export class EditIssue extends React.Component<{
   }
 
   save = () => {
-    console.log(this.props.match.params.issueId);
-    console.log(this.state.text);
     issueService.editIssue(this.props.match.params.issueId, this.state.text);
     history.push("/min_side/mine_saker");
     window.location.reload();
