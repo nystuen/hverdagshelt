@@ -163,7 +163,7 @@ export class UserDao extends Dao {
     );
   }
 
-  updateCompany(json: Object, callback: Function){
+  updateCompany(json: Object, updateCounties:? number[], callback: Function){
     let val= [
       json.companyName,
       json.firstName,
@@ -176,5 +176,15 @@ export class UserDao extends Dao {
     ];
     super.query("update company set companyName=?, firstName=?, lastName=?, adresse=?, postnr=?, phone=?, description=? where companyMail=?",
         val, callback);
+    if(updateCounties!== null){
+      this.updateCompanyCounties(updateCounties, json.companyMail, callback);
+    }
   }//end method
-} //end class
+
+  async updateCompanyCounties(counties: number[], companyMail: string,  callback: Function){
+   await super.query("delete from companyCounties where companyMail=?", [companyMail], callback);
+    counties.map(e => {
+      super.query("insert into companyCounties(companyMail, countyId) values(?,?)",[companyMail, e], callback);
+    });
+  }//end method
+}//end class

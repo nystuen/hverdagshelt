@@ -321,7 +321,7 @@ module.exports = function (app: Object, userDao: Object) {
                 res.sendStatus(401);
             } else {
                 console.log("got req from updateCompany");
-                userDao.updateCompany(req.body, (status,data) => {
+                userDao.updateCompany(req.body.company,req.body.counties, (status,data) => {
                    res.status(status);
                    res.json(data);
                 });
