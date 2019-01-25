@@ -13,6 +13,7 @@ import { FormGroup, Grid, ProgressBar, FormControl, Button, Image, Col, Row } fr
 import { User } from '../../classTypes';
 import axios from 'axios';
 import { NotificationSettingsService } from '../../services';
+import { OneIssueMapComponent } from '../../components/map/Map';
 
 let issueService = new IssueService();
 let categoryService = new CategoryService();
@@ -60,6 +61,8 @@ export class OversiktOverSak extends React.Component {
       category1: {},
       category2: {},
       category3: {},
+      latitude: "",
+      longitude: "",
       status: {},
       statusName: '',
       comment: '',
@@ -74,7 +77,7 @@ export class OversiktOverSak extends React.Component {
           <option value="Completed"> Fullført</option>
         </FormControl>
 
-        <Button onClick={this.saveThisStatus} > Lagre status</Button>
+        <Button onClick={this.saveThisStatus}> Lagre status</Button>
       </div>
     };
   }//end constructor
@@ -85,7 +88,7 @@ export class OversiktOverSak extends React.Component {
   }
 
   renderCommentArea() {
-    if (this.state.addCommentOpen) {
+    if (this.state.addCommentOpen && this.state.user.typeName !== 'Private') {
       return <div align="center">
         <br/>
         <FormGroup>
@@ -99,8 +102,9 @@ export class OversiktOverSak extends React.Component {
 
 
   renderCommentFeed(length: number) {
+
     let renderComment;
-    if (!this.state.addCommentOpen) {
+    if (!this.state.addCommentOpen && this.state.user.typeName !== 'Private') {
       renderComment = <div align="center"><Button bsStyle="primary" onClick={() => {
         this.setState({ addCommentOpen: !this.state.addCommentOpen });
       }} bsSize={'md'}>Legg til kommentar</Button></div>;
@@ -144,7 +148,17 @@ export class OversiktOverSak extends React.Component {
           <Col sm={1} md={2} lg={2}></Col>
 
           <Col sm={10} md={8} lg={8}>
-            <img width={'100%'} src={'image/' + this.state.image}/>
+
+            <Row>
+              <h2 align="center">Saksinformasjon</h2>
+            </Row>
+
+            <Col sm={6} md={6} lg={6}>
+              <img width={'100%'} src={'image/' + this.state.image}/>
+            </Col>
+            <Col sm={6} md={6} lg={6}>
+              <OneIssueMapComponent markers={[this.state.latitude, this.state.longitude]}/>
+            </Col>
 
             <Row>
               <Col sm={6} md={6}>
@@ -204,7 +218,7 @@ export class OversiktOverSak extends React.Component {
       });
 
     issueService.getIssueAndCounty(this.props.match.params.issueId).then(response => {
-      this.setState({ issue: response[0], categoryLevel: response[0].categoryLevel, image: response[0].pic });
+      this.setState({ issue: response[0], latitude: response[0].latitude, longitude: response[0].longitude ,categoryLevel: response[0].categoryLevel, image: response[0].pic });
       issueService.getCompanyComments(response[0].issueId).then(r => {
         this.setState({ issueComments: r });
       }).catch((error: Error) => Alert.danger(error.message));
@@ -277,7 +291,7 @@ export class OversiktOverSak extends React.Component {
 
   addComment = () => {
 
-    if(this.state.comment != ""){
+    if (this.state.comment != '') {
       issueService.addCommentToIssue(this.state.issue.issueId, this.state.comment, this.state.user.mail).then(response => {
       }).catch((error: Error) => Alert.danger(error.message));
       window.location.reload();

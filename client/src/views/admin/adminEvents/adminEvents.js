@@ -8,9 +8,11 @@ import {NavItem, Nav, FormControl} from "react-bootstrap";
 import OverlayTrigger from "../adminIssues/adminIssues";
 import update from 'immutability-helper';
 import {history} from "../../../index";
+import {Filter} from '../../../components/Filter/Filter';
 
 let eventCategoryService = new EventCategoryService();
 let userService = new UserService();
+let filter = new Filter();
 
 const toolTipEdit = (
     <Tooltip id="tooltip">
@@ -134,7 +136,14 @@ export class adminEvents extends React.Component{
                 <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
                 <Grid>
                     <PageHeader title={"Alle hendelser i " + window.sessionStorage.getItem('countyName')}/>
-                    <Table>
+                  <FormControl
+                    type ="text"
+                    id="myInput"
+                    onKeyUp={filter.filterTable}
+                    placeholder="Søk etter tittel">
+
+                  </FormControl>
+                    <Table id={"myTable"}>
                        <thead>
                             <tr>
                                 <th>

@@ -6,7 +6,6 @@ import { EventCategoryService } from '../../services';
 import { Event } from '../../classTypes';
 import css from './events.css';
 import { PageHeader } from '../../components/PageHeader/PageHeader';
-import { MapComponent } from '../../components/map/Map';
 
 let eventCategoryService = new EventCategoryService();
 
