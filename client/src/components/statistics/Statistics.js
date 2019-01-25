@@ -17,7 +17,7 @@ const pieData = {
   ],
   datasets: [{
     label: 'Antall feilmeldinger pr. status',
-    data: [100, 30, 10],
+    data: [0, 0, 0],
     backgroundColor: [
       '#FF6384',
       '#36A2EB',
@@ -39,7 +39,7 @@ const pieData2 = {
   ],
   datasets: [{
     label: 'Antall feilmeldinger pr. status',
-    data: [100, 30, 10],
+    data: [0, 0, 0],
     backgroundColor: [
       '#FF6384',
       '#36A2EB',
@@ -75,7 +75,7 @@ let lineData = {
       pointHoverBorderWidth: 2,
       pointRadius: 1,
       pointHitRadius: 10,
-      data: [65, 59, 80, 81, 56, 55, 40]
+      data: [0, 0, 0, 0, 0, 0, 0]
     }
   ]
 };
@@ -102,7 +102,7 @@ let lineData2 = {
       pointHoverBorderWidth: 2,
       pointRadius: 1,
       pointHitRadius: 10,
-      data: [65, 59, 80, 81, 56, 55, 40]
+      data: [0, 0, 0, 0, 0, 0, 0]
     }
   ]
 };
