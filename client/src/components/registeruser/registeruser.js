@@ -558,25 +558,33 @@ export class RegisterUser extends Component<Props, State> {
             });
 
         if (!userExists) {
-            (console.log('fdsfd'));
-            await userService
-                .addUser(newUser)
-                .then(user => (this.state = user))
-                .catch((error: Error) => Alert.danger(error.message));
+            if (confirm('Når du registrerer en bruker hos oss er varselinnstillingene slik at når du legger inn en ny sak, vil du få mail når det er registrert.' +
+                'Du vil også få mail når saken din er ferdig løst av kommunen. Ønsker du ikke mail på dette kan du endre ' +
+                'innstillinger under Min side -> varselinnstillinger.')){
 
-            let theBody: Object = {
-                mail: newUser.mail,
-                registered: 1,
-                inProgress: 0,
-                completed: 1
-            };
-            await notificationSettingService.addIssueNotificationSettings(theBody);
-            await this.setState({errorSomething: false, registerSuccess: true, userExists: false});
-            await this.goToLogin();
+                (console.log('fdsfd'));
+                await userService
+                    .addUser(newUser)
+                    .then(user => (this.state = user))
+                    .catch((error: Error) => Alert.danger(error.message));
+
+                let theBody: Object = {
+                    mail: newUser.mail,
+                    registered: 1,
+                    inProgress: 0,
+                    completed: 1
+                };
+                await notificationSettingService.addIssueNotificationSettings(theBody);
+                await this.setState({errorSomething: false, registerSuccess: true, userExists: false});
+                await this.goToLogin();
+            } else {
+                window.location.reload()
+            }
+
         } else {
-            this.setState({errorSomething: false, registerSuccess: false, userExists: true});
-        }
 
+            this.setState({errorSomething: false, registerSuccess: false, userExists: true});
+            }
     };
 
     goToLogin = () => {
@@ -586,6 +594,4 @@ export class RegisterUser extends Component<Props, State> {
             }, 4000
         )
     }
-
-
 }
