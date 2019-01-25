@@ -11693,7 +11693,7 @@ ShallowWrapper {
               <i
                 className="fas fa-map"
               />
-               Kart
+               Kart over tildelte saker
             </NavItem>
             <MenuItem
               bsClass="dropdown"
@@ -11806,7 +11806,7 @@ ShallowWrapper {
                 <i
                   className="fas fa-map"
                 />
-                 Kart
+                 Kart over tildelte saker
               </NavItem>
               <MenuItem
                 bsClass="dropdown"
@@ -11979,7 +11979,7 @@ ShallowWrapper {
                   <i
                     className="fas fa-map"
                   />
-                   Kart
+                   Kart over tildelte saker
                 </NavItem>
                 <MenuItem
                   bsClass="dropdown"
@@ -12070,7 +12070,7 @@ ShallowWrapper {
                     <i
                       className="fas fa-map"
                     />
-                     Kart
+                     Kart over tildelte saker
                   </NavItem>,
                   <MenuItem
                     bsClass="dropdown"
@@ -12136,7 +12136,7 @@ ShallowWrapper {
                       <i
                         className="fas fa-map"
                       />,
-                      " Kart",
+                      " Kart over tildelte saker",
                     ],
                     "disabled": false,
                     "eventKey": 5,
@@ -12155,7 +12155,7 @@ ShallowWrapper {
                       "rendered": null,
                       "type": "i",
                     },
-                    " Kart",
+                    " Kart over tildelte saker",
                   ],
                   "type": [Function],
                 },
@@ -12382,7 +12382,7 @@ ShallowWrapper {
                 <i
                   className="fas fa-map"
                 />
-                 Kart
+                 Kart over tildelte saker
               </NavItem>
               <MenuItem
                 bsClass="dropdown"
@@ -12495,7 +12495,7 @@ ShallowWrapper {
                   <i
                     className="fas fa-map"
                   />
-                   Kart
+                   Kart over tildelte saker
                 </NavItem>
                 <MenuItem
                   bsClass="dropdown"
@@ -12668,7 +12668,7 @@ ShallowWrapper {
                     <i
                       className="fas fa-map"
                     />
-                     Kart
+                     Kart over tildelte saker
                   </NavItem>
                   <MenuItem
                     bsClass="dropdown"
@@ -12759,7 +12759,7 @@ ShallowWrapper {
                       <i
                         className="fas fa-map"
                       />
-                       Kart
+                       Kart over tildelte saker
                     </NavItem>,
                     <MenuItem
                       bsClass="dropdown"
@@ -12825,7 +12825,7 @@ ShallowWrapper {
                         <i
                           className="fas fa-map"
                         />,
-                        " Kart",
+                        " Kart over tildelte saker",
                       ],
                       "disabled": false,
                       "eventKey": 5,
@@ -12844,7 +12844,7 @@ ShallowWrapper {
                         "rendered": null,
                         "type": "i",
                       },
-                      " Kart",
+                      " Kart over tildelte saker",
                     ],
                     "type": [Function],
                   },
