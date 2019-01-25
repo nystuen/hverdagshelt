@@ -62,7 +62,7 @@ export class adminPanel extends Component {
                       <div className="buttons">
                         <Button id="butt" bsStyle={buttonStyle} href="/#/registerEvent" block><span
                             className="glyphicon glyphicon-plus"/> Lag en hendelse</Button>
-                        <Button id="butt" bsStyle={buttonStyle} href="/#/" block><span
+                        <Button id="butt" bsStyle={buttonStyle} href="/#admin/adminHendelser" block><span
                             className="glyphicon glyphicon-edit"/> Administrere
                           Hendelser</Button>
                         <Button id="butt" bsStyle={buttonStyle} href="/#admin/adminSaker" block><span
@@ -163,7 +163,7 @@ export class adminPanel extends Component {
                       <div className="buttons">
                         <Button id="butt" bsStyle={buttonStyle} href="/#/registerEvent" block><span
                             className="glyphicon glyphicon-plus"/> Lag en hendelse</Button>
-                        <Button id="butt" bsStyle={buttonStyle} href="/#/" block><span
+                        <Button id="butt" bsStyle={buttonStyle} href="/#admin/adminHendelser" block><span
                             className="glyphicon glyphicon-edit"/> Administrere
                           Hendelser</Button>
                         <Button id="butt" bsStyle={buttonStyle} href="/#admin/adminSaker" block><span
