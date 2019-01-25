@@ -5,7 +5,8 @@ import {
     NavItem,
     NavDropdown,
     MenuItem,
-    Glyphicon
+    Glyphicon,
+    Button
 } from 'react-bootstrap';
 import css from './NavbarMenu.css';
 import { PageHeader } from '../PageHeader/PageHeader';
@@ -71,7 +72,7 @@ export class NavbarMenu extends React.Component {
             <Navbar collapseOnSelect fluid>
               <Navbar.Header>
                 <Navbar.Brand>
-                  <img src={'./resources/logo_white.png'}></img>
+                    <img src={'./resources/logo_white.png'}></img>
                 </Navbar.Brand>
                 <Navbar.Toggle/>
               </Navbar.Header>
@@ -158,7 +159,7 @@ export class NavbarMenu extends React.Component {
               <Navbar.Collapse>
 
                 <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
-                  <NavItem eventKey={1} href={'/#/endreKommune'}><Glyphicon
+                  <NavItem eventKey={1} href={'/#/'}><Glyphicon
                     glyph="glyphicon glyphicon-home"/> {window.sessionStorage.getItem('countyName')}
                   </NavItem>
                   <NavItem eventKey={2} href={'/#/wizardForm'}><Glyphicon
@@ -230,7 +231,9 @@ export class NavbarMenu extends React.Component {
             </Navbar.Header>
 
             <Navbar.Collapse>
-
+              <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+                {loginButton}
+              </Nav>
             </Navbar.Collapse>
 
           </Navbar>

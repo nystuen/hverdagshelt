@@ -51,7 +51,12 @@ export class RegisterEmployee extends Component<Props, State>{
         })
     };
 
-    componentWillMount() {
+   async componentWillMount() {
+        await userService.getCurrentUser().then(response=>{
+            if(response[0].typeName==="Private" || response[0].typeName === undefined){
+                history.push('/forside/' + window.sessionStorage.getItem('CountyId'));
+            }
+        }).catch((error: Error) => confirm(error.message));
         var arr = [];
         countyService
             .getCounties()

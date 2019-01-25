@@ -4,7 +4,7 @@ import ReactDOM from "react-dom";
 import * as React from "react";
 import { HashRouter, Route, NavLink } from "react-router-dom";
 import { WizardFormComplete } from "./components/ReduxRegisterForm/WizardFormComplete";
-import { EventMapComponent } from "./components/map/Map";
+import { EventMapComponent, IssueMapComponent } from './components/map/Map';
 import { NavbarMenu } from "./components/NavbarMenu/NavbarMenu";
 import { Login } from "./views/login/login";
 import { Alert } from "./widgets";
@@ -44,7 +44,6 @@ import { adminIssues } from "./views/admin/adminIssues/adminIssues";
 import { EditIssue } from "./views/MinSide/mineSaker/editIssue";
 import { Footer2 } from './components/Footer/Footer2';
 import { eventView } from './views/events/eventView';
-
 import {adminEvents} from "./views/admin/adminEvents/adminEvents";
 
 // Reload application when not in production environment
@@ -71,9 +70,9 @@ if (root)
           path="/min_side/editAccountInformation"
           component={editAccountInformation}
         />
-        <Route path="/login" component={Login} />
-        <Route path="/map" component={EventMapComponent} />
-        <Route path="/min_side/mine_saker" component={MineSaker} />
+        <Route path="/login" component={Login}/>
+        <Route path="/map" component={IssueMapComponent}/>
+        <Route path="/min_side/mine_saker" component={MineSaker}/>
         <Route
           path="/min_side/mine_sakerBedrift"
           component={mineSakerBedrift}

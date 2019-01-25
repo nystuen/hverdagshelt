@@ -1,7 +1,7 @@
 // @flow
 
 import React from 'react';
-import { Grid, Panel, PanelGroup, Col, ListGroupItem, ListGroup } from 'react-bootstrap';
+import { Grid, Panel, PanelGroup, Col, ListGroup, ListGroupItem } from 'react-bootstrap';
 import { EventCategoryService } from '../../services';
 import { Event } from '../../classTypes';
 import css from './events.css';

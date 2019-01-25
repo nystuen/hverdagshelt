@@ -56,6 +56,10 @@ export class UserService {
     return axios.get("/user/getMyIssues", { headers: authHeader() });
   } //end method
 
+  getMyIssuesWithCat(): Promise<JSON> {
+    return axios.get('/user/getMyIssuesWithCat', { headers: authHeader() });
+  }
+
   getCompanyIssues(companyMail: string): Promise<JSON> {
     return axios.get("/getCompanyIssues/" + companyMail);
   } //end method
@@ -120,6 +124,7 @@ export class EventCategoryService {
   }//end method
 
   updateEvent(event: Object): Promise<void>{
+    console.log(event);
     return axios.post("/updateEvent", event);
   }//end method
 
@@ -206,7 +211,6 @@ export class IssueService {
   } //end method
 
   getIssueAndCounty(issue: number): Promise<Object> {
-    console.log("Hei");
     return axios.get("/oversiktOverSak/" + issue);
   } //end method
 
@@ -340,7 +344,6 @@ export class NotificationSettingsService {
   }
 
   getIssueNotificationSettingsFromUser(userMail: string): Promise<Object[]> {
-    console.log("mail i services:", userMail);
     return axios.get("/get_issue_notification_settings_from_user/" + userMail);
   }
 

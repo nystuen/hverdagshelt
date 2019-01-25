@@ -22,6 +22,7 @@ interface State {
   countyId: 0;
   string: "./logo.png";
   openPassword: string;
+  blocked: boolean;
 } //end interface
 
 interface Props {
@@ -31,6 +32,7 @@ interface Props {
 export class Login extends Component<Props, State> {
   state = {
     error: false,
+    blocked: false,
     email: "",
     password: "",
     storedPassword: "",
@@ -77,7 +79,16 @@ export class Login extends Component<Props, State> {
           <h6>Brukernavn eller passord er feil. Prøv igjen!</h6>
         </Alert>
       );
-    } else {
+    } else if(this.state.blocked){
+      alert_login = (
+        <Alert bsStyle={"danger"}>
+          <h5> Du er blokkert fra å bruke hverdagshelt!
+            Dersom du mener det har skjedd en feil, kontakt oss på hverdagshelt.scrum@gmail.com
+          </h5>
+        </Alert>
+      );
+    }
+    else {
       alert_login = <p />;
     }
 
@@ -167,15 +178,19 @@ export class Login extends Component<Props, State> {
     );
   } //end method
 
-  save = () => {
-    //console.log(this.state.email);
-    userService
+ save = async () => {
+  await    userService
       .getUserLogin(this.state.email)
       .then(response => {
+        if(response[0].active === 1) {
         this.setState({
-          countyId: response[0].countyId,
-          storedPassword: response[0].password
-        });
+            countyId: response[0].countyId,
+            storedPassword: response[0].password
+          });
+        }else{
+          this.setState({blocked: true});
+          return;
+        }
 
       bcrypt.compare(this.state.password, response[0].password, (err, res) => {
         if (res) {
