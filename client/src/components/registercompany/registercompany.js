@@ -596,8 +596,6 @@ export class RegisterCompany extends Component<Props, State>{
         await userService.getCompanyLogin(this.state.mail)
             .then(r => {
                 companyExists = r[0] !== undefined;
-                console.log(r[0]);
-                console.log(companyExists)
             });
 
         if (!companyExists) {
@@ -622,11 +620,9 @@ export class RegisterCompany extends Component<Props, State>{
             await this.setState({errorSomething: false, registerSuccess: true, companyExists: false});
             await this.goToLogin();
         } else {
-            console.log('Halo00');
             this.setState({errorSomething: false, registerSuccess: false, companyExists: true})
         }
 
-        console.log('Halo003123123');
 
 
     };

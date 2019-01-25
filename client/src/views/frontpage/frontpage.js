@@ -47,6 +47,9 @@ export class Frontpage extends Component<Props, State> {
   };
 
   componentWillMount() {
+    if(window.localStorage.getItem('userToken') === ''){
+      history.push('/login');
+    }
     var arr = [];
     countyService
       .getCounties()

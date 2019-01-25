@@ -883,13 +883,11 @@ test("check get statusName from issues and numbers of each", done => {
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
     );
     expect(data[0].statusName).toBe('In progress');
-    expect(data[0].ant).toBe(2);
+    expect(data[0].ant).toBe(1);
 
     expect(data[1].statusName).toBe('Registered');
     expect(data[1].ant).toBe(1);
     done();
   }
-
-
-   statisticDao.getNumberStatus(callback);
+   statisticDao.getNumberStatus(1,callback);
 });
