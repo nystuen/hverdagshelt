@@ -186,7 +186,7 @@ export class IssueMapComponent extends Component {
         lat: 65.107877,
         lng: 12.074429
       },
-      zoom: 11,
+      zoom: 5,
       issues: []
     };
 
