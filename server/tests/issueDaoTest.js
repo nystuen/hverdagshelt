@@ -403,6 +403,47 @@ test("check deleting one issue", done => {
      userDao.getCountyEmployee(1, callback);
   });
 
+test("check get user login" , done=>{
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data[0].password).toBe("123");
+    expect(data[0].countyId).toBe(1);
+    done();
+  }
+
+
+  userDao.getUserLogin("thea@usermail.com", callback);
+});
+
+test("check get home county" , done=>{
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data[0].countyId).toBe(1);
+    expect(data[0].name).toBe("Oslo");
+    done();
+  }
+
+  userDao.getHomeCounty("thea@usermail.com", callback);
+});
+
+
+test("check all issues from one company" , done=>{
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.length).toBe(1);
+    expect(data[0].issueId).toBe(2);
+    expect(data[0].statusName).toBe("Registered");
+    done();
+  }
+
+  userDao.getCompanyIssues("company2@company.com", callback);
+});
 
 
 
@@ -882,11 +923,9 @@ test("check get statusName from issues and numbers of each", done => {
     console.log(
       "Test callback: status=" + status + ", data=" + JSON.stringify(data)
     );
-    expect(data[0].statusName).toBe('In progress');
+    expect(data[0].statusName).toBe('Registered');
     expect(data[0].ant).toBe(1);
 
-    expect(data[1].statusName).toBe('Registered');
-    expect(data[1].ant).toBe(1);
     done();
   }
    statisticDao.getNumberStatus(1,callback);
