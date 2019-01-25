@@ -399,6 +399,7 @@ export class RegisterAdmin extends Component<Props, State>{
                 countyId: this.state.choosen,
             };
             console.log(userExists);
+            console.log(newAdmin);
             await userService
                 .addAdmin(newAdmin)
                 .then(user => this.state = user)
@@ -411,7 +412,7 @@ export class RegisterAdmin extends Component<Props, State>{
                 completed: 1
             };
             await notificationSettingService.addIssueNotificationSettings(theBody);
-            await this.setState({errorSomething: false, registerSuccess: true, userExists: false});
+            await this.setState({errorSomething: false, errorButton: false, registerSuccess: true, userExists: false});
             await this.goToRegNew();
         } else {
             this.setState({errorSomething: false, registerSuccess: false, userExists: true});
@@ -424,7 +425,7 @@ export class RegisterAdmin extends Component<Props, State>{
         console.log("test", this.state.buttonValue);
 
         let userExists;
-        await userService.getCurrentUser()
+        await userService.getUserLogin()
             .then(r => {
                 userExists = (r[0] !== undefined);
                 console.log(r[0])
@@ -454,7 +455,7 @@ export class RegisterAdmin extends Component<Props, State>{
                 completed: 1
             };
             await notificationSettingService.addIssueNotificationSettings(theBody);
-            await this.setState({errorSomething: false, registerSuccess: true});
+            await this.setState({errorSomething: false, errorButton: false, registerSuccess: true, userExists: false});
             await this.goToRegNew();
         } else {
             this.setState({errorSomething: false, registerSuccess: false, userExists: true});
