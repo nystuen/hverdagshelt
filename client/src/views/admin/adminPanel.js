@@ -74,8 +74,8 @@ export class adminPanel extends Component {
                 </Panel>
               </Col>
 
-              <Col xs={12} md={4} lg={4} id="col">
-                <Panel bsStyle={panelStyle} id="collapsible-panel-example-2" defaultExpanded>
+              <Col xs={12} md={4} lg={4} id="col" >
+                <Panel bsStyle={panelStyle} id="collapsible-panel-example-2" defaultExpanded >
                   <Panel.Heading>
                     <Panel.Title toggle>
                       Brukere
@@ -126,7 +126,7 @@ export class adminPanel extends Component {
       );
     }else{
       return(
-          <div className="panels">
+          <div className="panels bottomFooter">
             <Grid>
 
               <Col xs={12} md={4} lg={4} id="col">

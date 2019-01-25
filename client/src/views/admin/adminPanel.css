@@ -28,13 +28,16 @@
     margin: 0;
 }
 
-.buttons a {
-}
 
 #col {
     padding-top: 4em;
+    min-height: 400px;
 }
 
+
+#collapsible-panel-example-2{
+    height: 16em;
+}
 
 #col1{
     padding-top: 4em;
