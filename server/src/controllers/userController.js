@@ -291,4 +291,12 @@ module.exports = function (app: Object, userDao: Object) {
             }
         });
     });
+
+    app.get("/getCompanyIssuesWithCat/:email", urlencodedParser, (req, res) => {
+        console.log("got request from getCompanyIssues", req.params.email);
+        userDao.getCompanyIssuesWithCat(req.params.email, (status, data) => {
+            res.status(status);
+            res.json(data);
+          });
+    });
 };

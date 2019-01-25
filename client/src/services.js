@@ -64,6 +64,10 @@ export class UserService {
     return axios.get("/getCompanyIssues/" + companyMail);
   } //end method
 
+  getCompanyIssuesWithCat(companyMail: string): Promise<JSON> {
+    return axios.get("/getCompanyIssuesWithCat/" + companyMail);
+  } //end method
+
   updateUser(user: User): Promise<Response> {
     return axios.put("/user/updateUser", user, { headers: authHeader() });
   }
