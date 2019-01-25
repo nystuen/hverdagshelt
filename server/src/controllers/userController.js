@@ -314,4 +314,18 @@ module.exports = function (app: Object, userDao: Object) {
             }
         });
     });
+
+    app.put("/updateCompany", verifyToken, (req,res) => {
+        jwt.verify(req.token, privateKey, (err, decoded) => {
+            if (err) {
+                res.sendStatus(401);
+            } else {
+                console.log("got req from updateCompany");
+                userDao.updateCompany(req.body.company,req.body.counties, (status,data) => {
+                   res.status(status);
+                   res.json(data);
+                });
+            }//end condition
+        });
+    });
 };

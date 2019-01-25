@@ -58,7 +58,7 @@ export class UserDao extends Dao {
 
   getCompany(userMail: string, callback: Function) {
     super.query(
-      "select * from company where companyMail = ? and active = 1",
+      "select * from company natural join companyCounties where companyMail = ? and active = 1",
       [userMail],
       callback
     );
@@ -162,4 +162,29 @@ export class UserDao extends Dao {
       callback
     );
   }
-} //end class
+
+  updateCompany(json: Object, updateCounties:? number[], callback: Function){
+    let val= [
+      json.companyName,
+      json.firstName,
+      json.lastName,
+      json.address,
+      json.postNumber,
+      json.phone,
+      json.description,
+      json.companyMail
+    ];
+    super.query("update company set companyName=?, firstName=?, lastName=?, adresse=?, postnr=?, phone=?, description=? where companyMail=?",
+        val, callback);
+    if(updateCounties!== null){
+      this.updateCompanyCounties(updateCounties, json.companyMail, callback);
+    }
+  }//end method
+
+  async updateCompanyCounties(counties: number[], companyMail: string,  callback: Function){
+   await super.query("delete from companyCounties where companyMail=?", [companyMail], callback);
+    counties.map(e => {
+      super.query("insert into companyCounties(companyMail, countyId) values(?,?)",[companyMail, e], callback);
+    });
+  }//end method
+}//end class
