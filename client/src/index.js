@@ -72,7 +72,7 @@ if (root)
           component={editAccountInformation}
         />
         <Route path="/login" component={Login} />
-        <Route path="/map" component={MapComponent} />
+        <Route path="/map" component={EventMapComponent} />
         <Route path="/min_side/mine_saker" component={MineSaker} />
         <Route
           path="/min_side/mine_sakerBedrift"

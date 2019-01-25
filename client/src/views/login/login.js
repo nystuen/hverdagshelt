@@ -251,14 +251,4 @@ export class Login extends Component<Props, State> {
     });
   };//end method
 
-  sjekk = () => {
-    let decoded = jwt.verify(
-      window.localStorage.getItem("userToken"),
-      "shhhhhverysecret"
-    );
-    console.log(decoded.email + "\n" + "type: " + decoded.typeId);
-    userService.getUser(decoded.email).then(e => {
-      console.log(e);
-    });
-  };
 } //end class
