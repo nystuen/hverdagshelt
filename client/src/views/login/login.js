@@ -6,6 +6,7 @@ import { Component } from "react";
 import { User } from "../../classTypes";
 import { UserService } from "../../services";
 import { Alert, FormGroup, Form, FormControl, Button, Grid, Image, Row, Col } from "react-bootstrap";
+
 let jwt = require("jsonwebtoken");
 import login from "./login.css";
 import { history } from "../../index";
@@ -128,7 +129,6 @@ export class Login extends Component<Props, State> {
                   <FormGroup>
                     <FormControl
                       type="text"
-                      id="mailText"
                       placeholder="Email"
                       value={this.state.email}
                       onChange={this.handleChangeEmail.bind(this)}
@@ -140,7 +140,6 @@ export class Login extends Component<Props, State> {
                   <FormGroup>
                     <FormControl
                       type={this.state.openPassword}
-                      id="passText"
                       placeholder="Passord"
                       value={this.state.password}
                       onChange={this.handleChangePassword.bind(this)}
@@ -150,7 +149,7 @@ export class Login extends Component<Props, State> {
                 </Row>
 
                 <Row className="show-grid" align="center">
-                  <Button id="saveButton" type="button" onClick={this.save} bsStyle="primary">
+                  <Button type="button" onClick={this.save} bsStyle="primary">
                     Login
                   </Button>
                   <Button type="button" onClick={()=> this.handleClickPassword()}>{changeIcon}</Button>

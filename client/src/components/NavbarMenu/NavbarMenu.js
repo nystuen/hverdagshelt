@@ -52,7 +52,6 @@ export class NavbarMenu extends React.Component {
 
 
   handleSelect(selectedKey) {
-    console.log('selectec:', selectedKey);
     this.setState({ activeKey: selectedKey });
   }
 
@@ -68,7 +67,7 @@ export class NavbarMenu extends React.Component {
       if (this.state.user.typeName === 'Admin') {
         return (
           <div className={'logoBrand'}>
-            <Navbar collapseOnSelect fluid>
+            <Navbar collapseOnSelect fluid >
               <Navbar.Header>
                 <Navbar.Brand>
                   <a href={'/#/'}><img src={'./resources/logo_white.png'}></img></a>
@@ -132,11 +131,7 @@ export class NavbarMenu extends React.Component {
                 </Nav>
 
                 <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
-                  <NavDropdown eventKey={9} title={'Min side'} id='1'>
-                    <MenuItem eventKey={9} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
-                    <MenuItem eventKey={9}
-                              href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
-                  </NavDropdown>
+                  <NavItem eventKey={9} href="/#min_side/kontooversikt">Kontooversikt </NavItem>
                   {loginButton}
                 </Nav>
               </Navbar.Collapse>
@@ -205,11 +200,7 @@ export class NavbarMenu extends React.Component {
                 </Nav>
 
                 <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
-                  <NavDropdown eventKey={9} title={'Min side'} id='1'>
-                    <MenuItem eventKey={9} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
-                    <MenuItem eventKey={9}
-                              href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
-                  </NavDropdown>
+                  <NavItem eventKey={9} href="/#min_side/kontooversikt">Kontooversikt</NavItem>
                   {loginButton}
                 </Nav>
               </Navbar.Collapse>
@@ -255,11 +246,13 @@ export class NavbarMenu extends React.Component {
 
   viewCases = () => {
     if (window.localStorage.getItem('userToken') !== '') {
-      if (this.state.user === {}) {
+      if (this.state.user == undefined) {
         userService.getCurrentUser().then(r => {
           this.setState({ user: r });
         }).catch((error: Error) => confirm(error.message));
+
       }
+
       if (this.state.user.typeName === undefined) {
         return <MenuItem eventKey={19} href="/#min_side/mine_sakerBedrift">Mine saker</MenuItem>;
       } else {

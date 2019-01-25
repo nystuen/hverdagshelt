@@ -34,36 +34,34 @@ module.exports = function (app: Object, userDao: Object) {
                     let newPassword = generator.generate({length: 10, numbers: true});
                     console.log('newPassword:', newPassword);
 
-                    let hashed = '';
-                    bcrypt.hash(newPassword, null, null, function (error, hash) {
-                        console.log("HASH: " + newPassword);
-                        hashed = hash;
-                        userDao.addUser(req.body, hashed, (status, data) => {
-                            res.status(status);
-                            res.json(data);
-                        });
+                let hashed = '';
+                bcrypt.hash(newPassword, null, null, function (error, hash) {
+                    console.log("HASH: " + newPassword);
+                    hashed = hash;
+                    userDao.addUser(req.body, hashed, (status, data) => {
+                        res.status(status);
+                        res.json(data);
                     });
+                });
 
-                    let mailOptions = {
-                        from: "hverdagshelt.scrum@gmail.com",
-                        to: req.body.mail,
-                        subject: "Hverdagshelt - Adminbruker",
-                        text: "Ditt autogenererte passord er: " + newPassword + ""
-                    };
+                let mailOptions = {
+                    from: "hverdagshelt.scrum@gmail.com",
+                    to: req.body.mail,
+                    subject: "Hverdagshelt - Adminbruker",
+                    text: "Ditt autogenererte passord er: " + newPassword + ""
+                };
 
-                    transporter.sendMail(mailOptions, function (error, info) {
-                        if (error) {
-                            console.log("her skjer feilen");
-                            console.log(error);
-                        } else {
-                            console.log("Email sent: " + info.response);
-                        }
-                    });
-                } else {
-                    res.status(401)
-                }
+                transporter.sendMail(mailOptions, function (error, info) {
+                    if (error) {
+                        console.log("her skjer feilen");
+                        console.log(error);
+                    } else {
+                        console.log("Email sent: " + info.response);
+                    }
+                });
+            } else {
+                res.status(401)
             }
-
         });
 
     });
@@ -218,21 +216,21 @@ module.exports = function (app: Object, userDao: Object) {
         userDao.getCompanyIssues(req.params.email, (status, data) => {
             res.status(status);
             res.json(data);
-        });
-    });
+          });
+      });
 
-    app.get("/user/getAllIssuesWithCat", verifyToken, (req, res) => {
-        jwt.verify(req.token, privateKey, (err, decoded) => {
-            if (err) {
-                res.sendStatus(401);
-            } else {
-                console.log("got req from getAllIssuesWithCat");
-                userDao.getIssuesForAllUserWithCat((status, data) => {
-                    res.status(status);
-                    res.json(data);
-                });
-            }
-        });
+    app.get("/user/getMyIssuesWithCat", verifyToken, (req, res) => {
+      jwt.verify(req.token, privateKey, (err, decoded) => {
+        if (err) {
+          res.sendStatus(401);
+        } else {
+          console.log("got req from getMyIssuesWithCat");
+          userDao.getIssuesForAllUserWithCat((status, data) => {
+            res.status(status);
+            res.json(data);
+          });
+        }
+      });
     });
 
     app.put("/user/updateUser/", verifyToken, (req, res) => {
@@ -311,4 +309,87 @@ module.exports = function (app: Object, userDao: Object) {
             res.json(data);
         });
     });
+  app.put('/user/change_password', verifyToken, (req, res) => {
+    jwt.verify(req.token, privateKey, (err, decoded) => {
+      console.log(decoded.email);
+      if (err) {
+        res.sendStatus(401);
+      } else {
+        console.log('got req from change_password');
+        let hashed = '';
+        bcrypt.hash(req.body.newPassword, null, null, function(error, hash) {
+          hashed = hash;
+          userDao.createNewPassword(
+            {
+              newPassword: hashed,
+              email: decoded.email
+            },
+            (status, data) => {
+              res.status(status);
+              res.json(data);
+            }
+          );
+        });
+      }
+    });
+  });
+
+  app.put('/updateCompany', verifyToken, (req, res) => {
+    jwt.verify(req.token, privateKey, (err, decoded) => {
+      if (err) {
+        res.sendStatus(401);
+      } else {
+        console.log('got req from updateCompany');
+        userDao.updateCompany(req.body, (status, data) => {
+          res.status(status);
+          res.json(data);
+        });
+
+
+        /*
+         Error: Cannot add or update a child row: a foreign key constraint fails
+          (`annabesa`.`companyCounties`, CONSTRAINT `CCounties2_fk` FOREIGN KEY (`countyId`) REFERENCES `county` (`countyId`))
+         */
+
+
+      }//end condition
+    });
+  });
+
+  /*
+   req.body.counties.map(county => {
+          userDao.insertCompanyCounties(county, req.body.company.companyMail, (status, data) => {
+            res.status(status);
+            res.json(data);
+          })
+        })
+   */
+
+
+  //deleteCompanyCounties/7heaven@companymail.com
+
+  app.delete('/deleteCompanyCounties/:companyMail', verifyToken, (req, res) => {
+    jwt.verify(req.token, privateKey, (err, decoded) => {
+      if (err) {
+        res.sendStatus(401);
+      } else {
+        console.log('delete all subscribed counties request');
+        userDao.deleteCompanyCounties(req.params.companyMail, (status, data) => {
+          res.status(status);
+          res.json(data);
+        });
+      }
+    });
+  });
+
+  app.post('/addSubscription/:countyId/:companyMail', (req, res) => {
+
+    console.log('post all subscribed counties request');
+    userDao.insertCompanyCounties(req.params.countyId, req.params.companyMail, (status, data) => {
+      res.status(status);
+      res.json(data);
+    });
+
+  });
+
 };
