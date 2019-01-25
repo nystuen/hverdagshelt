@@ -44,7 +44,6 @@ import { adminIssues } from "./views/admin/adminIssues/adminIssues";
 import { EditIssue } from "./views/MinSide/mineSaker/editIssue";
 import { Footer2 } from './components/Footer/Footer2';
 import { eventView } from './views/events/eventView';
-
 import {adminEvents} from "./views/admin/adminEvents/adminEvents";
 
 // Reload application when not in production environment
@@ -72,7 +71,7 @@ if (root)
           component={editAccountInformation}
         />
         <Route path="/login" component={Login} />
-        <Route path="/map" component={MapComponent} />
+        <Route path="/map" component={EventMapComponent} />
         <Route path="/min_side/mine_saker" component={MineSaker} />
         <Route
           path="/min_side/mine_sakerBedrift"
