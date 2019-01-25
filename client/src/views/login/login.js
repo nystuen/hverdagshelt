@@ -181,7 +181,7 @@ export class Login extends Component<Props, State> {
 
  save = async () => {
      if (confirm('Ved å logge inn på Hverdagshelt.no godtar du at vi lagrer ' +
-         'cookies med informasjon om brukernavnet  ditt og hvilken type bruker du er (privat / bedirft')) {
+         'cookies med informasjon om brukernavnet  ditt og hvilken type bruker du er (privat / bedrift)')) {
          await userService
              .getUserLogin(this.state.email)
              .then(response => {
