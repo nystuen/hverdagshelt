@@ -56,7 +56,7 @@ export class RegisterAdmin extends Component<Props, State>{
         this.setState({errorButton: false });
     }
     handleDismissUserExists() {
-        this.setState({errorUserExists: false });
+        this.setState({userExists: false });
     }
     handleDismissErrorSomething() {
         this.setState({errorSomething: false});
@@ -445,7 +445,7 @@ export class RegisterAdmin extends Component<Props, State>{
         console.log("test", this.state.buttonValue);
 
         let userExists;
-        await userService.getUserLogin()
+        await userService.getUserLogin(this.state.mail)
             .then(r => {
                 userExists = (r[0] !== undefined);
                 console.log(r[0])
