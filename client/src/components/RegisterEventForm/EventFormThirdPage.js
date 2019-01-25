@@ -64,7 +64,7 @@ export class EventFormThirdPage extends React.Component {
       return (
         <Grid>
         <form onSubmit={handleSubmit}>
-          <div className="container">
+          <div className="container bottomFooter">
             <div className="formDiv">
               <div className="progressBar">
                 <ProgressBar now={100} label={'3/3'}/>

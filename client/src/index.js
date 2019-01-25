@@ -62,8 +62,8 @@ if (root)
     <HashRouter>
       <div className="route-container">
         <NavbarMenu />
-        <Route exact path="/" component={Frontpage} />
-        <Route path="/forside/:countyId" component={forside} />
+        <Route exact path="/" component={forside} />
+        <Route path="/endreKommune" component={Frontpage} />
         <Route path="/wizardForm" component={WizardFormComplete} />
         <Route path="/min_side/kontooversikt" component={KontoOversikt} />
 
@@ -72,7 +72,7 @@ if (root)
           component={editAccountInformation}
         />
         <Route path="/login" component={Login} />
-        <Route path="/map" component={MapComponent} />
+        <Route path="/map" component={EventMapComponent} />
         <Route path="/min_side/mine_saker" component={MineSaker} />
         <Route
           path="/min_side/mine_sakerBedrift"
