@@ -34,7 +34,7 @@ export class InfoModule extends React.Component{
   render(){
     return(
 
-      <Col className="bottomFooter">
+      <Col>
         <Button
           bsStyle="primary"
           onClick={() => this.setState({ show: true })}
@@ -75,6 +75,87 @@ class InformationCard extends React.Component<{ header: string, content: string 
       <div align="center">
         <h4>{this.props.header}</h4>
         <p>{this.props.content}</p>
+      </div>
+    );
+  }
+}
+
+class CompanyInfoCard extends React.Component<{
+  firstName: string,
+  lastName: string,
+  county: string,
+  email: string,
+  phone: string
+
+}> {
+
+  constructor(props) {
+    super(props);
+
+    this.state = {
+      changePassword: false
+    };
+
+  }
+
+  changePassword = () => {
+    this.setState({
+      changePassword: !this.state.changePassword
+    });
+  };
+
+
+  render() {
+
+
+    let change_password = this.state.changePassword ? (
+      <ChangePassword/>) : null;
+
+    return (
+      <div>
+
+        <div>
+          <Grid>
+            <Col xs={2} md={2}>
+            </Col>
+            <Col xs={8} md={8}>
+
+
+              <Panel>
+                <Panel.Body>
+                  <Col md={6}>
+                    <InformationCard header={'Navn'} content={this.props.firstName + ' ' + this.props.lastName}/>
+                    <InformationCard header={'Hjemmekommune'} content={this.props.county}/>
+                  </Col>
+
+                  <Col md={6}>
+                    <InformationCard header={'E-post'} content={this.props.email}/>
+                    <InformationCard header={'Mobilnummer'} content={this.props.phone}/>
+                    <InformationCard header={'Mine poeng'} content={this.props.points}/>
+                  </Col>
+                </Panel.Body>
+              </Panel>
+
+              <div align="center">
+                <Col xs={12} md={6} sm={6} lg={6}>
+                  <Button id="accountInformationButton" bsStyle="primary" href={'/#/min_side/editAccountInformation'}>Endre kontoinformasjon</Button>
+                </Col>
+                <Col xs={12} md={6} sm={6} lg={6}>
+                  <Button id="accountInformationButton" bsStyle="primary" onClick={() => this.changePassword()}>Endre passord</Button>
+                </Col>
+              </div>
+
+
+              {change_password}
+            </Col>
+            <Col xs={2} md={2}>
+              <InfoModule/>
+            </Col>
+          </Grid>
+
+
+
+        </div>
       </div>
     );
   }
@@ -185,7 +266,7 @@ export class KontoOversikt extends React.Component <State> {
 
     return (
 
-      <Grid>
+      <Grid className="bottomFooter">
         <PageHeader title={'Kontooversikt'}/>
 
         {
