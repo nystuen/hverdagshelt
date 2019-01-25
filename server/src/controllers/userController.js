@@ -21,12 +21,10 @@ import {verifyToken} from "../helpers/verifyToken";
 module.exports = function (app: Object, userDao: Object) {
 
     //brukes for å registrere kommuneansatte også
-    app.post('/add_admin', verifyToken, urlencodedParser, (req, res) => {
+    app.post('/add_admin', urlencodedParser, (req, res) =>{
         console.log('got post request from add_admin');
-        jwt.verify(res.token, privateKey, (err, decoded) => {
-            if (err) {
-                res.status(401)
-            } else if (decoded.typeId === 'Admin') {
+        console.log(req.body);
+        console.log('got request from sendTextMail');
                 let newPassword = generator.generate({length: 10, numbers: true});
                 console.log('newPassword:', newPassword);
 
@@ -55,12 +53,8 @@ module.exports = function (app: Object, userDao: Object) {
                         console.log("Email sent: " + info.response);
                     }
                 });
-            } else {
-                res.status(401)
-            }
         });
 
-    });
 
 
     app.post("/add_employee", urlencodedParser, (req, res) => {
