@@ -85,7 +85,7 @@ export class NavbarMenu extends React.Component {
                     <i className="fas fa-exclamation-triangle"></i> Hendelser</NavItem>
                   <NavItem eventKey={4} href={'/#/statistics'}><Glyphicon
                     glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
-                  <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Kart</NavItem>
+                  <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Alle saker</NavItem>
                   {this.viewCases()}
                   <NavItem eventKey={7} href={'/#/admin'}><Glyphicon
                     glyph="glyphicon glyphicon-user"/> Admin</NavItem>
@@ -125,7 +125,7 @@ export class NavbarMenu extends React.Component {
                     <i className="fas fa-exclamation-triangle"></i> Hendelser</NavItem>
                   <NavItem eventKey={4} href={'/#/statistics'}><Glyphicon
                     glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
-                  <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Kart</NavItem>
+                  <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Alle saker</NavItem>
                   {this.viewCases()}
                   <NavItem eventKey={7} href={'/#/admin'}><Glyphicon
                     glyph="glyphicon glyphicon-user"/> Ansatt</NavItem>
@@ -167,7 +167,7 @@ export class NavbarMenu extends React.Component {
                     <i className="fas fa-exclamation-triangle"></i> Hendelser</NavItem>
                   <NavItem eventKey={4} href={'/#/statistics'}><Glyphicon
                     glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
-                  <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Kart</NavItem>
+                  <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Alle saker</NavItem>
                   {this.viewCases()}
                 </Nav>
 
@@ -200,7 +200,7 @@ export class NavbarMenu extends React.Component {
                 <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
                   <NavItem eventKey={4} href={'/#/statistics'}><Glyphicon
                     glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
-                  <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Kart</NavItem>
+                  <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Kart over tildelte saker</NavItem>
                   {this.viewCases()}
                 </Nav>
 

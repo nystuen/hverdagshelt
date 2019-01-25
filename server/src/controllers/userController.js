@@ -21,40 +21,52 @@ import {verifyToken} from "../helpers/verifyToken";
 module.exports = function (app: Object, userDao: Object) {
 
     //brukes for å registrere kommuneansatte også
-    app.post('/add_admin', urlencodedParser, (req, res) =>{
+    app.post('/add_admin', verifyToken, urlencodedParser, (req, res) => {
         console.log('got post request from add_admin');
         console.log(req.body);
         console.log('got request from sendTextMail');
-                let newPassword = generator.generate({length: 10, numbers: true});
-                console.log('newPassword:', newPassword);
 
-                let hashed = '';
-                bcrypt.hash(newPassword, null, null, function (error, hash) {
-                    console.log("HASH: " + newPassword);
-                    hashed = hash;
-                    userDao.addUser(req.body, hashed, (status, data) => {
-                        res.status(status);
-                        res.json(data);
+        jwt.verify(req.token, privateKey, (err, decoded) => {
+            if (err) {
+                res.status(401)
+            } else {
+                if (decoded.typeId === "Admin") {
+                    let newPassword = generator.generate({length: 10, numbers: true});
+                    console.log('newPassword:', newPassword);
+
+                    let hashed = '';
+                    bcrypt.hash(newPassword, null, null, function (error, hash) {
+                        console.log("HASH: " + newPassword);
+                        hashed = hash;
+                        userDao.addUser(req.body, hashed, (status, data) => {
+                            res.status(status);
+                            res.json(data);
+                        });
                     });
-                });
 
-                let mailOptions = {
-                    from: "hverdagshelt.scrum@gmail.com",
-                    to: req.body.mail,
-                    subject: "Hverdagshelt - Adminbruker",
-                    text: "Ditt autogenererte passord er: " + newPassword + ""
-                };
+                    let mailOptions = {
+                        from: "hverdagshelt.scrum@gmail.com",
+                        to: req.body.mail,
+                        subject: "Hverdagshelt - Adminbruker",
+                        text: "Ditt autogenererte passord er: " + newPassword + ""
+                    };
 
-                transporter.sendMail(mailOptions, function (error, info) {
-                    if (error) {
-                        console.log("her skjer feilen");
-                        console.log(error);
-                    } else {
-                        console.log("Email sent: " + info.response);
-                    }
-                });
+                    transporter.sendMail(mailOptions, function (error, info) {
+                        if (error) {
+                            console.log("her skjer feilen");
+                            console.log(error);
+                        } else {
+                            console.log("Email sent: " + info.response);
+                        }
+                    });
+                } else {
+                    res.status(401)
+                }
+            }
+
         });
 
+    });
 
 
     app.post("/add_employee", urlencodedParser, (req, res) => {
@@ -206,21 +218,21 @@ module.exports = function (app: Object, userDao: Object) {
         userDao.getCompanyIssues(req.params.email, (status, data) => {
             res.status(status);
             res.json(data);
-          });
-      });
+        });
+    });
 
     app.get("/user/getAllIssuesWithCat", verifyToken, (req, res) => {
-      jwt.verify(req.token, privateKey, (err, decoded) => {
-        if (err) {
-          res.sendStatus(401);
-        } else {
-          console.log("got req from getAllIssuesWithCat");
-          userDao.getIssuesForAllUserWithCat((status, data) => {
-            res.status(status);
-            res.json(data);
-          });
-        }
-      });
+        jwt.verify(req.token, privateKey, (err, decoded) => {
+            if (err) {
+                res.sendStatus(401);
+            } else {
+                console.log("got req from getAllIssuesWithCat");
+                userDao.getIssuesForAllUserWithCat((status, data) => {
+                    res.status(status);
+                    res.json(data);
+                });
+            }
+        });
     });
 
     app.put("/user/updateUser/", verifyToken, (req, res) => {
@@ -297,6 +309,6 @@ module.exports = function (app: Object, userDao: Object) {
         userDao.getCompanyIssuesWithCat(req.params.email, (status, data) => {
             res.status(status);
             res.json(data);
-          });
+        });
     });
 };

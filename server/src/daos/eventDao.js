@@ -52,6 +52,6 @@ export class EventDao extends Dao {
 
   deleteEvent(eventId: number, callback: Function){
     console.log('Delete event with id ' + eventId);
-    super.query("UPDATE annabesa.event set annabesa.event.active=0 where eventId=?", [eventId], callback);
+    super.query("UPDATE event set active=0 where eventId=?", [eventId], callback);
   }//end method
 }//end class

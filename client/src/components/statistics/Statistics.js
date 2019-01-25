@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Button } from 'react-bootstrap';
 import {Line, Doughnut} from 'react-chartjs-2';
-import { StatisticsService } from "../../services";
+import {StatisticsService, UserService} from "../../services";
 import ReactDOMServer from "react-dom/server";
 import * as jsPDF  from 'jspdf'
 import html2canvas from 'html2canvas';
 import { PageHeader } from '../PageHeader/PageHeader';
 
 let statisticsService = new StatisticsService();
+let userService = new UserService();
 
 const pieData = {
   labels: [
@@ -119,10 +120,14 @@ export class Statistics extends Component {
       pieData: pieData,
       lineDataAllCounties: lineData2,
       pieDataAllCounties: pieData2,
+      user: {}
     }
   }
 
-  componentWillMount() {
+ async componentWillMount() {
+      await userService.getCurrentUser().then(response => {
+          this.setState({user: response});
+      }).catch((error: Error) => confirm(error.message));
     statisticsService
       .getStatus(window.sessionStorage.getItem('countyId'))
       .then((res) => {
@@ -213,94 +218,145 @@ export class Statistics extends Component {
     let styling = {
       marginTop: "25px",
       marginBottom: "25px"
-    }
+    };
 
     console.log('pieData equals pieDataAllCounties', (this.state.pieData==this.state.pieDataAllCounties));
     console.log('lineData equals lineDataAllCounties', (this.state.lineData==this.state.lineDataAllCounties));
+    if(this.state.user.typeName === undefined){
+        return(
+            <Grid>
+                <PageHeader title={'Statistikk over alle kommuner'}/>
+                <Row id="wrap-wrap">
+                    <Col sm={12} md={6} lg={6}>
+                        {console.log('pieData equals lineDataAllCounties', (this.state.lineData == this.state.lineDataAllCounties))}
 
-    return(
-      <Grid className="bottomFooter">
-        <PageHeader title={'Statistikk over ' + window.sessionStorage.getItem('countyName') + ' kommune'}/>
-        <Row id="wrap-wrap">
-          <Col sm={12} md={6} lg={6}>
-            {console.log('pieData equals lineDataAllCounties', (this.state.lineData==this.state.lineDataAllCounties))}
-            <Line
-              data={this.state.lineData}
-              width={500}
-              height={500}
-              options={{
-                maintainAspectRatio: false,
-                title: {
-                  display: true,
-                  text: "Antall feilmeldinger pr. måned"
-                }
-              }}
-            />
-          </Col>
-          {console.log('pieData equals lineDataAllCounties', (this.state.lineData==this.state.lineDataAllCounties))}
+                        <Line
+                            data={this.state.lineDataAllCounties}
+                            width={500}
+                            height={500}
+                            options={{
+                                maintainAspectRatio: false,
+                                title: {
+                                    display: true,
+                                    text: "Antall feilmeldinger pr. måned"
+                                }
+                            }}
+                        />
+                    </Col>
+                    <Col sm={12} md={6} lg={6}>
+                        <Doughnut
+                            data={this.state.pieDataAllCounties}
+                            width={500}
+                            height={500}
+                            options={{
+                                maintainAspectRatio: false,
+                                title: {
+                                    display: true,
+                                    text: "Antall feilmeldinger pr. status"
+                                }
+                            }}
+                        />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Button style={styling} className="center-block" bsStyle="primary" onClick={() => {
+                            this.pdf2HTML()
+                        }}>Last ned som PDF</Button>
+                    </Col>
+                </Row>
 
-          <Col sm={12} md={6} lg={6}>
-            <Doughnut
-              data={this.state.pieData}
-              width={500}
-              height={500}
-              options={{
-                maintainAspectRatio: false,
-                title: {
-                  display: true,
-                  text: "Antall feilmeldinger pr. status"
-                }
-              }}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Button style={styling} className="center-block" bsStyle="primary" onClick={() => {this.pdf2HTML()}}>Last ned som PDF</Button>
-          </Col>
-        </Row>
+            </Grid>
+        )
+    }else {
+        return (
+            <Grid className="bottomFooter">
+                <PageHeader title={'Statistikk over ' + window.sessionStorage.getItem('countyName') + ' kommune'}/>
+                <Row id="wrap-wrap">
+                    <Col sm={12} md={6} lg={6}>
+                        {console.log('pieData equals lineDataAllCounties', (this.state.lineData == this.state.lineDataAllCounties))}
+                        <Line
+                            data={this.state.lineData}
+                            width={500}
+                            height={500}
+                            options={{
+                                maintainAspectRatio: false,
+                                title: {
+                                    display: true,
+                                    text: "Antall feilmeldinger pr. måned"
+                                }
+                            }}
+                        />
+                    </Col>
+                    {console.log('pieData equals lineDataAllCounties', (this.state.lineData == this.state.lineDataAllCounties))}
 
-        <PageHeader title={'Statistikk over alle kommuner'}/>
-        <Row id="wrap-wrap">
-          <Col sm={12} md={6} lg={6}>
-            {console.log('pieData equals lineDataAllCounties', (this.state.lineData==this.state.lineDataAllCounties))}
+                    <Col sm={12} md={6} lg={6}>
+                        <Doughnut
+                            data={this.state.pieData}
+                            width={500}
+                            height={500}
+                            options={{
+                                maintainAspectRatio: false,
+                                title: {
+                                    display: true,
+                                    text: "Antall feilmeldinger pr. status"
+                                }
+                            }}
+                        />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Button style={styling} className="center-block" bsStyle="primary" onClick={() => {
+                            this.pdf2HTML()
+                        }}>Last ned som PDF</Button>
+                    </Col>
+                </Row>
 
-            <Line
-              data={this.state.lineDataAllCounties}
-              width={500}
-              height={500}
-              options={{
-                maintainAspectRatio: false,
-                title: {
-                  display: true,
-                  text: "Antall feilmeldinger pr. måned"
-                }
-              }}
-            />
-          </Col>
-          <Col sm={12} md={6} lg={6}>
-            <Doughnut
-              data={this.state.pieDataAllCounties}
-              width={500}
-              height={500}
-              options={{
-                maintainAspectRatio: false,
-                title: {
-                  display: true,
-                  text: "Antall feilmeldinger pr. status"
-                }
-              }}
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Button style={styling} className="center-block" bsStyle="primary" onClick={() => {this.pdf2HTML()}}>Last ned som PDF</Button>
-          </Col>
-        </Row>
+                <PageHeader title={'Statistikk over alle kommuner'}/>
+                <Row id="wrap-wrap">
+                    <Col sm={12} md={6} lg={6}>
+                        {console.log('pieData equals lineDataAllCounties', (this.state.lineData == this.state.lineDataAllCounties))}
+
+                        <Line
+                            data={this.state.lineDataAllCounties}
+                            width={500}
+                            height={500}
+                            options={{
+                                maintainAspectRatio: false,
+                                title: {
+                                    display: true,
+                                    text: "Antall feilmeldinger pr. måned"
+                                }
+                            }}
+                        />
+                    </Col>
+                    <Col sm={12} md={6} lg={6}>
+                        <Doughnut
+                            data={this.state.pieDataAllCounties}
+                            width={500}
+                            height={500}
+                            options={{
+                                maintainAspectRatio: false,
+                                title: {
+                                    display: true,
+                                    text: "Antall feilmeldinger pr. status"
+                                }
+                            }}
+                        />
+                    </Col>
+                </Row>
+                <Row>
+                    <Col>
+                        <Button style={styling} className="center-block" bsStyle="primary" onClick={() => {
+                            this.pdf2HTML()
+                        }}>Last ned som PDF</Button>
+                    </Col>
+                </Row>
 
 
-      </Grid>
-    )
+            </Grid>
+        )
+    }//end condition
   }
 }
