@@ -53,6 +53,8 @@ export class RegisterUser extends Component<Props, State> {
     };*/
     constructor(props) {
         super(props);
+        this.handleDismissErrorSomething = this.handleDismissErrorSomething.bind(this);
+        this.handleDismissUserExists = this.handleDismissUserExists.bind(this);
         this.state = {
             userExists: false,
             registerSuccess: false,
@@ -85,6 +87,13 @@ export class RegisterUser extends Component<Props, State> {
         };
 
         this.handleChangeCounty = this.handleChangeCounty.bind(this);
+    }
+
+    handleDismissUserExists() {
+        this.setState({userExists: false });
+    }
+    handleDismissErrorSomething() {
+        this.setState({errorSomething: false});
     }
 
     getTarget() {
@@ -198,7 +207,7 @@ export class RegisterUser extends Component<Props, State> {
     };
 
     checkPasswordRequirements() {
-        let decimal = /(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!., /@<>"¤=#$%^&*()]*$/;
+        let decimal = /(?=^.{8,64}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!., /@<>"¤=#$%^&*()]*$/;
         if (this.state.password.match(decimal)) {
             this.register();
         }
@@ -210,13 +219,13 @@ export class RegisterUser extends Component<Props, State> {
             Alert.warning('Gjenta passord matcher ikke passord');
         }
         else {
-            let decimal = /(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!., /@<>"¤=#$%^&*()]*$/;
+            let decimal = /(?=^.{8,64}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!., /@<>"¤=#$%^&*()]*$/;
             if (this.state.password.match(decimal)) {
                 this.register();
             }
             else {
                 console.log("passord må ha tegn osv")
-                Alert.warning('Password has to be between 8 to 15 characters which contain at least one lowercase letter, one uppercase letter, one numeric digit, and one special character');
+                Alert.warning('Password has to be between 8 to 64 characters which contain at least one lowercase letter, one uppercase letter and one numeric digit');
             }
         }
     };
@@ -232,9 +241,10 @@ export class RegisterUser extends Component<Props, State> {
 
     getValidationStatePassword2() {
         const password2Length = this.state.password2.length;
+        let decimal = /(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!., æøå/@<>"¤=#$%^&*()]*$/;
         if (password2Length == 0) return;
         else {
-            if (this.state.password !== this.state.password2) return 'warning';
+            if (this.state.password !== this.state.password2||!(this.state.password2.match(decimal))) return 'warning';
             else return 'success';
         }
     }
@@ -261,7 +271,7 @@ export class RegisterUser extends Component<Props, State> {
             return 'warning';
         } else if (lastNameLength === 0) {
             return
-        } else if (this.state.firstName.match(dec)) {
+        } else if (this.state.lastName.match(dec)) {
             return 'success';
         } else {
             return 'warning'
@@ -379,7 +389,7 @@ export class RegisterUser extends Component<Props, State> {
         let alert_something;
         if (this.state.errorSomething) {
             alert_something = (
-                <Alert bsStyle="danger">
+                <Alert bsStyle="danger" onDismiss={this.handleDismissErrorSomething}>
                     <h6>Pass på at alle felt er fylt ut korrekt</h6>
                 </Alert>);
         } else {
@@ -390,7 +400,7 @@ export class RegisterUser extends Component<Props, State> {
         let alert_user_exists;
         if (this.state.userExists) {
             alert_user_exists = (
-                <Alert bsStyle="danger">
+                <Alert bsStyle="danger" onDismiss={this.handleDismissUserExists}>
                     <h6>Emailen er allerede registrert</h6>
                 </Alert>);
         } else {
@@ -583,7 +593,7 @@ export class RegisterUser extends Component<Props, State> {
         setTimeout(
             function () {
                 history.push('/login');
-            }, 4000
+            }, 3000
         )
     }
 

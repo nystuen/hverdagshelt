@@ -18,6 +18,9 @@ export class RegisterAdmin extends Component<Props, State>{
 
     constructor(props) {
         super(props);
+        this.handleDismissErrorSomething = this.handleDismissErrorSomething.bind(this);
+        this.handleDismissUserExists = this.handleDismissUserExists.bind(this);
+        this.handleDismissErrorButton = this.handleDismissErrorButton.bind(this);
         this.state = {
             errorButton: false,
             buttonValue: 0,
@@ -44,11 +47,21 @@ export class RegisterAdmin extends Component<Props, State>{
             ]
         };
         this.handleButtonChange = this.handleButtonChange.bind(this);
-        this.handleChangeCounty = this.handleChangeCounty.bind(this)
+        this.handleChangeCounty = this.handleChangeCounty.bind(this);
     }
     handleButtonChange(e){
         this.setState({buttonValue: e});
     }
+    handleDismissErrorButton() {
+        this.setState({errorButton: false });
+    }
+    handleDismissUserExists() {
+        this.setState({errorUserExists: false });
+    }
+    handleDismissErrorSomething() {
+        this.setState({errorSomething: false});
+    }
+
 
 
     handleChangeCounty(e: Object){
@@ -192,7 +205,7 @@ export class RegisterAdmin extends Component<Props, State>{
         let alert_something;
         if (this.state.errorSomething) {
             alert_something = (
-                <Alert bsStyle="danger">
+                <Alert bsStyle="danger" onDismiss={this.handleDismissErrorSomething}>
                     <p id="errorSome">Pass på at alle felt er fylt ut korrekt</p>
                 </Alert>);
         } else {
@@ -211,7 +224,7 @@ export class RegisterAdmin extends Component<Props, State>{
         let error_button;
         if (this.state.errorButton) {
             error_button = (
-                <Alert bsStyle="danger">
+                <Alert bsStyle="danger" onDismiss={this.handleDismissErrorButton}>
                     <p id="errorBtn">Velg admin eller kommuneansatt</p>
                 </Alert>
             )
@@ -221,7 +234,7 @@ export class RegisterAdmin extends Component<Props, State>{
         let alert_user_exists;
         if (this.state.userExists) {
             alert_user_exists = (
-                <Alert bsStyle="danger">
+                <Alert bsStyle="danger" onDismiss={this.handleDismissUserExists}>
                     <h6>Emailen er allerede registrert</h6>
                 </Alert>);
         } else {
@@ -324,15 +337,19 @@ export class RegisterAdmin extends Component<Props, State>{
                                     </FormGroup>
                                 </Col>
                         </FormGroup>
+                            <Col md={4}/>
+                            <Col md={4}>
+                                <FormGroup>
+                                    {alert_something}
+                                    {register_success}
+                                    {error_button}
+                                    {alert_user_exists}
+                                </FormGroup>
+                            </Col>
+                            <Col md={4}/>
                             <FormGroup>
                                 <Col md={4}/>
                                 <Col md={4}>
-                                    <FormGroup>
-                                        {alert_something}
-                                        {register_success}
-                                        {error_button}
-                                        {alert_user_exists}
-                                    </FormGroup>
                                     <div align="center">
                                         <Button type="button" onClick={this.checkInput}>Registrer</Button>
                                     </div>
@@ -371,8 +388,6 @@ export class RegisterAdmin extends Component<Props, State>{
                     console.log(error.message)
                 });
 
-            }else{
-                console.log("DET ER FAIL");
             }
         }
     };
