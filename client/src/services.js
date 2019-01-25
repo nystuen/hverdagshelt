@@ -104,6 +104,11 @@ export class UserService {
   updatePoints(json: Object) {
     return axios.put("/updatePoints", json);
   }
+
+  updateOneCompany(json: Object){
+    console.log("got update request from " + json.companyMail);
+    return axios.put("/updateCompany", json)
+  }
 } //end class
 
 export class EventCategoryService {

@@ -58,7 +58,7 @@ export class UserDao extends Dao {
 
   getCompany(userMail: string, callback: Function) {
     super.query(
-      "select * from company where companyMail = ? and active = 1",
+      "select * from company natural join companyCounties where companyMail = ? and active = 1",
       [userMail],
       callback
     );
@@ -162,4 +162,19 @@ export class UserDao extends Dao {
       callback
     );
   }
+
+  updateCompany(json: Object, callback: Function){
+    let val= [
+      json.companyName,
+      json.firstName,
+      json.lastName,
+      json.address,
+      json.postNumber,
+      json.phone,
+      json.description,
+      json.companyMail
+    ];
+    super.query("update company set companyName=?, firstName=?, lastName=?, adresse=?, postnr=?, phone=?, description=? where companyMail=?",
+        val, callback);
+  }//end method
 } //end class
