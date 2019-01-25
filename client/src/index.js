@@ -34,8 +34,7 @@ import { SendTextMailWindow } from "./components/Mail/SendMail";
 import { Footer } from "./components/Footer/Footer";
 import { RegisterEmployee } from "./components/registeremployee/RegisterEmployee";
 import { RegisterAdmin } from "./components/registeradmin/registeradmin";
-import { ForgottenPassword } from "./views/login/forgottenPassword";
-import { RegNew } from "./components/regNew/RegNew";
+import { ForgottenPassword } from "./views/login/ForgottenPassword";
 import { employeeHomepage } from "./views/employee/employeeHomepage/employeeHomepage";
 import { employeeManageUsers } from "./views/employee/employeeManageUsers/employeeManageUsers";
 import { CreateAdminsOrEmployees } from "./views/admin/createAdminsOrEmployees";
@@ -46,6 +45,7 @@ import { Footer2 } from './components/Footer/Footer2';
 import { eventView } from './views/events/eventView';
 
 import {adminEvents} from "./views/admin/adminEvents/adminEvents";
+import {SetCategoryInactive, setCategoryInactive} from "./components/setCategoryInactive/SetCategoryInactive";
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
@@ -101,7 +101,6 @@ if (root)
         <Route exact path="/admin" component={adminPanel}/>
         <Route path="/admin/sendMailTilBruker" component={SendTextMailWindow}/>
         <Route path="/admin/resetPassord" component={AdminResetUserPassword}/>
-        <Route path="/admin/registrertSuksess" component={RegNew}/>
         <Route path="/employee/home" component={employeeHomepage}/>
         <Route path="/employee/manageusers" component={employeeManageUsers}/>
         <Route path="/forgotPassword" component={ForgottenPassword}/>
@@ -110,6 +109,7 @@ if (root)
           component={CreateAdminsOrEmployees}
         />
         <Route path="/statistics" component={Statistics} />
+          <Route path="/admin/endreKategorier" component={SetCategoryInactive}/>
         <Route path="/admin/adminSaker" component={adminIssues} />
         <Route path="/admin/adminHendelser" component={adminEvents} />
         <Route

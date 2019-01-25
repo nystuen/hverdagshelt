@@ -179,91 +179,95 @@ export class Login extends Component<Props, State> {
   } //end method
 
  save = async () => {
-  await    userService
-      .getUserLogin(this.state.email)
-      .then(response => {
-        if(response[0].active === 1) {
-        this.setState({
-            countyId: response[0].countyId,
-            storedPassword: response[0].password
-          });
-        }else{
-          this.setState({blocked: true});
-          return;
-        }
+     if (confirm('Ved å logge inn på Hverdagshelt.no godtar du at vi lagrer ' +
+         'cookies med informasjon om brukernavnet  ditt og hvilken type bruker du er (privat / bedirft')) {
+         await userService
+             .getUserLogin(this.state.email)
+             .then(response => {
+                 if (response[0].active === 1) {
+                     this.setState({
+                         countyId: response[0].countyId,
+                         storedPassword: response[0].password
+                     });
+                 } else {
+                     this.setState({blocked: true});
+                     return;
+                 }
 
-      bcrypt.compare(this.state.password, response[0].password, (err, res) => {
-        if (res) {
-          userService.login({ userMail: response[0].mail, typeId: response[0].typeName }).then(r => {
-            let token = r.jwt;
-            window.localStorage.setItem('userToken', token);
-            console.log('login in success');
-            userService.getCurrentUser().then(r3 => {
-              window.sessionStorage.setItem('countyId', r3[0].countyId);
-              window.sessionStorage.setItem('countyName', r3[0].county);
-            });
+                 bcrypt.compare(this.state.password, response[0].password, (err, res) => {
+                     if (res) {
+                         userService.login({userMail: response[0].mail, typeId: response[0].typeName}).then(r => {
+                             let token = r.jwt;
+                             window.localStorage.setItem('userToken', token);
+                             console.log('login in success');
+                             userService.getCurrentUser().then(r3 => {
+                                 window.sessionStorage.setItem('countyId', r3[0].countyId);
+                                 window.sessionStorage.setItem('countyName', r3[0].county);
+                             });
 
-            window.location.reload();
-            history.push('/wizardForm');
-          }).catch((error: Error) => confirm(error.message));
-        } else { //check if the email is a company email
-          userService.getCompanyLogin(this.state.email).then(r => {
-            bcrypt.compare(this.state.password, r[0].password, (err, res) => {
-              if (res) {
-                userService.login({ userMail: r[0].mail, typeId: 'Company' }).then(r => {
-                  let token = r.jwt;
-                  window.localStorage.setItem('userToken', token);
-                  console.log('login in success');
-                      console.log('hei');
+                             window.location.reload();
+                             history.push('/wizardForm');
+                         }).catch((error: Error) => confirm(error.message));
+                     } else { //check if the email is a company email
+                         userService.getCompanyLogin(this.state.email).then(r => {
+                             bcrypt.compare(this.state.password, r[0].password, (err, res) => {
+                                 if (res) {
+                                     userService.login({userMail: r[0].mail, typeId: 'Company'}).then(r => {
+                                         let token = r.jwt;
+                                         window.localStorage.setItem('userToken', token);
+                                         console.log('login in success');
+                                         console.log('hei');
 
-                      window.location.reload();
-                      history.push('/wizardForm');
-                  }).catch((error: Error) => confirm(error.message));
-                }else{
-                  this.setState({
-                    error: true
-                  });
-                }//end condition
-              });
-            }).catch((error: Error) => {
-              console.log(error);
-              this.setState({
-                error: true
-              });
-            });
-        }//end condition
-      });
-    }).catch((error: Error) => {
-      userService.getCompanyLogin(this.state.email).then(r => {
-        bcrypt.compare(this.state.password, r[0].password, (err, res) => {
-          if (res) {
-            userService.login({ userMail: this.state.email, typeId: 'Company' }).then(r => {
-              let token = r.jwt;
-              window.localStorage.setItem('userToken', token);
-              console.log('login in success');
+                                         window.location.reload();
+                                         history.push('/wizardForm');
+                                     }).catch((error: Error) => confirm(error.message));
+                                 } else {
+                                     this.setState({
+                                         error: true
+                                     });
+                                 }//end condition
+                             });
+                         }).catch((error: Error) => {
+                             console.log(error);
+                             this.setState({
+                                 error: true
+                             });
+                         });
+                     }//end condition
+                 });
+             }).catch((error: Error) => {
+                 userService.getCompanyLogin(this.state.email).then(r => {
+                     bcrypt.compare(this.state.password, r[0].password, (err, res) => {
+                         if (res) {
+                             userService.login({userMail: this.state.email, typeId: 'Company'}).then(r => {
+                                 let token = r.jwt;
+                                 window.localStorage.setItem('userToken', token);
+                                 console.log('login in success');
 
 
-                window.location.reload();
-                history.push('/wizardForm');
-            }).catch((error: Error) => {
-              console.log(error);
-              this.setState({
-                error: true
-              });
-            });
-          }else{
-            this.setState({
-              error: true
-            });
-          }//end condition
-        });
-      }).catch((error: Error) => {
-        console.log(error);
-        this.setState({
-          error: true
-        });
-      });
-    });
-  };//end method
-
+                                 window.location.reload();
+                                 history.push('/wizardForm');
+                             }).catch((error: Error) => {
+                                 console.log(error);
+                                 this.setState({
+                                     error: true
+                                 });
+                             });
+                         } else {
+                             this.setState({
+                                 error: true
+                             });
+                         }//end condition
+                     });
+                 }).catch((error: Error) => {
+                     console.log(error);
+                     this.setState({
+                         error: true
+                     });
+                 });
+             });
+     } else {
+        window.location.reload()
+     }
+ }//end method
 } //end class

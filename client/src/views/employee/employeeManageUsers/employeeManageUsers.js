@@ -31,13 +31,17 @@ export class employeeManageUsers extends React.Component<Props,State>{
 
 
     blockUser(mail: string){
-        employeeService.blockUser(mail);
-        window.location.reload();
+        if (confirm('Er du sikker på du vil blokkere' + mail + ' ?')) {
+            employeeService.blockUser(mail);
+            window.location.reload();
+        }
     }
 
     unblockUser(mail: string){
-        employeeService.unblockUser(mail);
-        window.location.reload();
+        if (confirm('Er du sikker på di vil gi ' + mail + 'tilgang igjen?')) {
+            employeeService.unblockUser(mail);
+            window.location.reload();
+        }
     }
 
     buttonBack(){
@@ -65,7 +69,7 @@ export class employeeManageUsers extends React.Component<Props,State>{
       if(e.active == 1){
         return <Button style={{"width": "6em"}} bsSize={"sm"} bsStyle={"danger"} onClick={this.blockUser.bind(null, e.mail)}>Blokker</Button>;
       } else {
-        return <Button style={{"width": "6em"}}  bsSize={"sm"} bsStyle={"primary"} onClick={this.unblockUser.bind(null, e.mail)}>Aktiver</Button>;
+        return <Button style={{"width": "6em"}} bsSize={"sm"} bsStyle={"primary"} onClick={this.unblockUser.bind(null, e.mail)}>Aktiver</Button>;
       }
     }
 
