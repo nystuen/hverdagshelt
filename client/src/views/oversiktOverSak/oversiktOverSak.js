@@ -88,7 +88,7 @@ export class OversiktOverSak extends React.Component {
   }
 
   renderCommentArea() {
-    if (this.state.addCommentOpen) {
+    if (this.state.addCommentOpen && this.state.user.typeName !== 'Private') {
       return <div align="center">
         <br/>
         <FormGroup>
@@ -102,8 +102,9 @@ export class OversiktOverSak extends React.Component {
 
 
   renderCommentFeed(length: number) {
+
     let renderComment;
-    if (!this.state.addCommentOpen) {
+    if (!this.state.addCommentOpen && this.state.user.typeName !== 'Private') {
       renderComment = <div align="center"><Button bsStyle="primary" onClick={() => {
         this.setState({ addCommentOpen: !this.state.addCommentOpen });
       }} bsSize={'md'}>Legg til kommentar</Button></div>;
