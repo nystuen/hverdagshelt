@@ -15,6 +15,8 @@ export class RegisterCompany extends Component<Props, State>{
 
     constructor(props) {
         super(props);
+        this.handleDismissErrorSomething = this.handleDismissErrorSomething.bind(this);
+        this.handleDismissUserExists = this.handleDismissUserExists.bind(this);
         this.state = {
             companyExists: false,
             errorSomething: false,
@@ -63,6 +65,12 @@ export class RegisterCompany extends Component<Props, State>{
         })
     };
 
+    handleDismissUserExists() {
+        this.setState({userExists: false });
+    }
+    handleDismissErrorSomething() {
+        this.setState({errorSomething: false});
+    }
 
     componentWillMount() {
         var arr = [];
@@ -152,7 +160,7 @@ export class RegisterCompany extends Component<Props, State>{
 
     getValidationStatePassword(){
         const length = this.state.password.length;
-        let decimal = /(?=^.{8,}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!., æøå/@<>"¤=#$%^&*()]*$/;
+        let decimal = /(?=^.{8,64}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!., æøå/@<>"¤=#$%^&*()]*$/;
         if (this.state.password.match(decimal)) return 'success';
         else if(length==0)return ;
         else return 'warning';
@@ -160,9 +168,10 @@ export class RegisterCompany extends Component<Props, State>{
 
     getValidationStatePassword2(){
         const password2Length = this.state.password2.length;
+        let decimal = /(?=^.{8,64}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!., æøå/@<>"¤=#$%^&*()]*$/;
         if(password2Length==0) return;
         else{
-            if(this.state.password !== this.state.password2) return 'warning';
+            if(this.state.password !== this.state.password2||!(this.state.password2.match(decimal))) return 'warning';
             else return 'success';
         }
     }
@@ -334,7 +343,7 @@ export class RegisterCompany extends Component<Props, State>{
         let alert_something;
         if (this.state.errorSomething) {
             alert_something = (
-                <Alert bsStyle="danger">
+                <Alert bsStyle="danger" onDismiss={this.handleDismissErrorSomething}>
                     <h6>Pass på at alle felt er fylt ut korrekt</h6>
                 </Alert>);
         } else {
@@ -345,7 +354,7 @@ export class RegisterCompany extends Component<Props, State>{
         let alert_company_exists;
         if (this.state.companyExists) {
             alert_company_exists = (
-                <Alert bsStyle="danger">
+                <Alert bsStyle="danger" onDismiss={this.handleDismissUserExists}>
                     <h6>Emailen er allerede registrert</h6>
                 </Alert>);
         } else {
@@ -599,6 +608,7 @@ export class RegisterCompany extends Component<Props, State>{
             });
 
         if (!companyExists) {
+
             await userService.addCompany(theBody3);
 
 

@@ -163,7 +163,7 @@ export class WizardFormThirdPage extends React.Component {
 
 export default reduxForm({
   form: "wizard", //Form name is same
-  destroyOnUnmount: false,
+  destroyOnUnmount: true,
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate
 })(WizardFormThirdPage);

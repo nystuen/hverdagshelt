@@ -105,21 +105,23 @@ export class editAccountInformation extends React.Component<State> {
   }
 
   handleChangeUser() {
-    if (this.state.countyId != 0) {
+    if (this.state.countyId !== 0) {
       this.state.user.countyId = this.state.countyId;
     }
 
-    if (this.state.firstName != '') {
+    if (this.state.firstName !== ''&&this.getValidationStateFirstName()==='warning') {
       this.state.user.firstName = this.state.firstName;
     }
 
-    if (this.state.lastName != '') {
+    if (this.state.lastName !== ''&&this.getValidationStateLastName()==='warning') {
       this.state.user.lastName = this.state.lastName;
     }
 
-    if (this.state.phone != '') {
+    if (this.state.phone !== ''&&this.getValidationPhone()==='warning') {
       this.state.user.phone = this.state.phone;
     }
+
+
 
     userService.updateUser(this.state.user).then(response => {
       console.log('res', response);
@@ -130,6 +132,7 @@ export class editAccountInformation extends React.Component<State> {
   }
 
   handleOnChangeCounty = (name: number) => {
+
     console.log('nae', name);
     this.setState({
       countyId: name
@@ -144,6 +147,44 @@ export class editAccountInformation extends React.Component<State> {
   buttonBack() {
     this.props.history.goBack();
   }
+    getValidationStateFirstName() {
+        const firstNameLength = this.state.firstName.length;
+        let decimal=/^[A-Za-z _æøå]*[A-Za-zæøå][A-Za-z _æøå]*$/;
+
+        if(firstNameLength===1){
+            return 'warning';
+        } else if(firstNameLength===0) return ;
+        else if(this.state.firstName.match(decimal)){
+            return 'success';
+        } else{
+            return 'warning'
+        }
+    }
+    getValidationStateLastName() {
+        const lastNameLength = this.state.lastName.length;
+        let dec=/^[A-Za-z _æøå]*[A-Za-zæøå][A-Za-z _æøå]*$/;
+
+        if(lastNameLength===1){
+            return 'warning';
+        } else if(lastNameLength===0) return ;
+        else if(this.state.lastName.match(dec)){
+            return 'success';
+        } else{
+            return 'warning'
+        }
+    }
+    getValidationPhone(){
+        const phoneLength = this.state.phone.length;
+        let decimal =/^(\d|,)*\d*$/;
+        if(phoneLength ==8 && this.state.phone.match(decimal)) {
+            return 'success';
+        }
+        else if(phoneLength==0)return ;
+        else{
+            return 'warning';
+        }
+    }
+
 
   render() {
     return (
@@ -164,7 +205,7 @@ export class editAccountInformation extends React.Component<State> {
                   <Col md={8}>
 
                     <Col xs={12} md={6}>
-                      <FormGroup controlId="formInlineFirstName">
+                      <FormGroup controlId="formInlineFirstName" validationState={this.getValidationStateFirstName()}>
                         <ControlLabel>Fornavn</ControlLabel>{' '}
                         <FormControl
                           onChange={this.handleChange}
@@ -173,8 +214,9 @@ export class editAccountInformation extends React.Component<State> {
                           placeholder="Fornavn"
                           defaultValue={this.state.user.firstName}
                         />
+                          <FormControl.Feedback/>
                       </FormGroup>{' '}
-                      <FormGroup controlId="formInlinePhone">
+                      <FormGroup controlId="formInlinePhone" validationState={this.getValidationPhone()}>
                         <ControlLabel>Mobilnummer</ControlLabel>{' '}
                         <FormControl
                           onChange={this.handleChange}
@@ -183,11 +225,12 @@ export class editAccountInformation extends React.Component<State> {
                           placeholder="phone"
                           defaultValue={this.state.user.phone}
                         />
+                          <FormControl.Feedback/>
                       </FormGroup>{' '}
                     </Col>
 
                     <Col xs={12} md={6}>
-                      <FormGroup controlId="formInlineLastName">
+                      <FormGroup controlId="formInlineLastName" validationState={this.getValidationStateLastName()}>
                         <ControlLabel>Etternavn</ControlLabel>{' '}
                         <FormControl
                           onChange={this.handleChange}
@@ -196,6 +239,8 @@ export class editAccountInformation extends React.Component<State> {
                           placeholder="Etternavn"
                           defaultValue={this.state.user.lastName}
                         />
+                          <FormControl.Feedback/>
+
                       </FormGroup>{' '}
                       <FormGroup controlId="formInlineHjemmekommune">
                         <ControlLabel>Hjemmekommune</ControlLabel>{' '}

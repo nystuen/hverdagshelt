@@ -41,7 +41,7 @@ export class CategoryDao extends Dao {
     }
 
   getCategory2(callback: Function) {
-    super.query("select * from category2", [], callback);
+    super.query("select * from category2 where active =1", [], callback);
   }
 
   //Skal ikke brukes så tas ikke med i testing

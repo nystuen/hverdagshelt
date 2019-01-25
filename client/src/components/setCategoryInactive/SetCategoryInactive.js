@@ -19,7 +19,7 @@ export class SetCategoryInactive extends React.Component {
     };
 
     render() {
-        const {onChangeCategoryHeader} = this.props
+        const {onChangeCategoryHeader} = this.props;
         return (
             <Grid>
                 <Col md={3}/>

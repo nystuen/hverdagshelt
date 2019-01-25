@@ -19,31 +19,12 @@ let transporter = nodemailer.createTransport({
 import {verifyToken} from "../helpers/verifyToken";
 
 module.exports = function (app: Object, userDao: Object) {
-    /*
-      app.use("/user", (req, res, next) => {
-          let token = req.body;
-          console.log(req.body);
-          console.log(token);
-          jwt.verify(token, privateKey, (err, decoded) => {
-              console.log(err.message);
-              if (err) {
-                  console.log("Token IKKE ok");
-                  res.status(401);
-                  res.json({ error: "Not authorized" });
-              } else {
-                  console.log("Token ok: " + decoded.userMail);
-                  next();
-              }
-          });
-      });
-  */
+
     //brukes for å registrere kommuneansatte også
-    app.post('/add_admin', verifyToken, urlencodedParser, (req, res) => {
+    app.post('/add_admin', urlencodedParser, (req, res) =>{
         console.log('got post request from add_admin');
-        jwt.verify(res.token, privateKey, (err, decoded) => {
-            if (err) {
-                res.status(401)
-            } else if (decoded.typeId === 'Admin') {
+        console.log(req.body);
+        console.log('got request from sendTextMail');
                 let newPassword = generator.generate({length: 10, numbers: true});
                 console.log('newPassword:', newPassword);
 
@@ -72,12 +53,8 @@ module.exports = function (app: Object, userDao: Object) {
                         console.log("Email sent: " + info.response);
                     }
                 });
-            } else {
-                res.status(401)
-            }
         });
 
-    });
 
 
     app.post("/add_employee", urlencodedParser, (req, res) => {
@@ -232,12 +209,12 @@ module.exports = function (app: Object, userDao: Object) {
           });
       });
 
-    app.get("/user/getMyIssuesWithCat", verifyToken, (req, res) => {
+    app.get("/user/getAllIssuesWithCat", verifyToken, (req, res) => {
       jwt.verify(req.token, privateKey, (err, decoded) => {
         if (err) {
           res.sendStatus(401);
         } else {
-          console.log("got req from getMyIssuesWithCat");
+          console.log("got req from getAllIssuesWithCat");
           userDao.getIssuesForAllUserWithCat((status, data) => {
             res.status(status);
             res.json(data);
@@ -313,5 +290,13 @@ module.exports = function (app: Object, userDao: Object) {
                 });
             }
         });
+    });
+
+    app.get("/getCompanyIssuesWithCat/:email", urlencodedParser, (req, res) => {
+        console.log("got request from getCompanyIssues", req.params.email);
+        userDao.getCompanyIssuesWithCat(req.params.email, (status, data) => {
+            res.status(status);
+            res.json(data);
+          });
     });
 };

@@ -56,12 +56,16 @@ export class UserService {
     return axios.get("/user/getMyIssues", { headers: authHeader() });
   } //end method
 
-  getMyIssuesWithCat(): Promise<JSON> {
-    return axios.get('/user/getMyIssuesWithCat', { headers: authHeader() });
+  getAllIssuesWithCat(): Promise<JSON> {
+    return axios.get('/user/getAllIssuesWithCat', { headers: authHeader() });
   }
 
   getCompanyIssues(companyMail: string): Promise<JSON> {
     return axios.get("/getCompanyIssues/" + companyMail);
+  } //end method
+
+  getCompanyIssuesWithCat(companyMail: string): Promise<JSON> {
+    return axios.get("/getCompanyIssuesWithCat/" + companyMail);
   } //end method
 
   updateUser(user: User): Promise<Response> {
@@ -219,12 +223,10 @@ export class IssueService {
     };
 
     if (statusName == "In progress" && res.inProgress == 1) {
-      console.log();
       axios.post("/sendIssueInProgressMail", mailObject);
     }
 
     if (statusName == "Completed" && res.completed == 1) {
-      console.log("completed");
       axios.post("/sendIssueCompleteMail", mailObject);
     }
 
@@ -292,7 +294,6 @@ export class CountyService {
   }
 
   addSubscription(json: Object) {
-    console.log("addSubscription", json);
     return axios.post("/addSubscription", json, { headers: authHeader() });
   }
 }
