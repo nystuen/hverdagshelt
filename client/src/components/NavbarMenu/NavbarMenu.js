@@ -159,7 +159,7 @@ export class NavbarMenu extends React.Component {
               <Navbar.Collapse>
 
                 <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
-                  <NavItem eventKey={1} href={'/#/endreKommune'}><Glyphicon
+                  <NavItem eventKey={1} href={'/#/'}><Glyphicon
                     glyph="glyphicon glyphicon-home"/> {window.sessionStorage.getItem('countyName')}
                   </NavItem>
                   <NavItem eventKey={2} href={'/#/wizardForm'}><Glyphicon
