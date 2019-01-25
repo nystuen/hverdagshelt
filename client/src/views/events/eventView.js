@@ -1,12 +1,9 @@
 // @flow
 
 import React from 'react';
-import Grid from 'react-bootstrap/es/Grid';
 import { Alert } from '../../widgets';
-import Col from 'react-bootstrap/es/Col';
 import { Event, Status } from '../../classTypes';
-import Image from 'react-bootstrap/es/Image';
-
+import {Grid, Col} from 'react-bootstrap';
 import { EventCategoryService } from '../../services';
 import { EventMapComponent, MapComponent } from '../../components/map/Map';
 import { PageHeader } from '../../components/PageHeader/PageHeader';

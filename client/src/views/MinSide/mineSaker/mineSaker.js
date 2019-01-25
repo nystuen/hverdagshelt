@@ -2,24 +2,23 @@
 
 import React from 'react';
 import {
-    Grid,
-    Button,
-    Table,
-    ProgressBar,
-    Nav,
-    NavItem,
-    ToggleButton,
-    ToggleButtonGroup
+  Grid,
+  Button,
+  Table,
+  ProgressBar,
+  Nav,
+  NavItem,
+  ToggleButton,
+  ToggleButtonGroup,
 } from 'react-bootstrap';
 import { Issue } from '../../../classTypes';
-import { CategoryService, IssueService, UserService} from '../../../services';
-import { Filter } from '../../../components/Filter/Filter'
+import { CategoryService, IssueService, UserService } from '../../../services';
+import { Filter } from '../../../components/Filter/Filter';
 import { Alert } from '../../../widgets';
 import { Status } from '../../../classTypes';
-import NavLink from 'react-router-dom/es/NavLink';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
-import { history } from "../../../index";
-import mineSaker from "./mineSaker.css";
+import { history } from '../../../index';
+import mineSaker from './mineSaker.css';
 
 let jwt = require('jsonwebtoken');
 let userService = new UserService();
@@ -47,30 +46,30 @@ export class MineSaker extends React.Component<Props, State> {
     category: [],
     category1: [],
     category2: [],
-    category3: [],
+    category3: []
   };
 
   delete(issueId: number, statusName: string) {
-    if (statusName == "Registered") {
-      if (confirm("Er du sikker på at du vil slette denne saken?")) {
+    if (statusName == 'Registered') {
+      if (confirm('Er du sikker på at du vil slette denne saken?')) {
         issueService.deleteIssue(issueId);
         window.location.reload();
       }
-    } else if (statusName == "In progress") {
-      alert("denne saken er under arbeid, og kan ikke slettes");
+    } else if (statusName == 'In progress') {
+      alert('denne saken er under arbeid, og kan ikke slettes');
     } else {
-      alert("Du kan ikke slette ferdige saker");
+      alert('Du kan ikke slette ferdige saker');
     }
     console.log(issueId);
     console.log(statusName);
     //issueService.deleteIssue(issueId);
   }
 
-    componentWillMount(){
-        userService.getMyIssues().then(response => {
-            this.setState({issues: response});
-            this.getSorted();
-        }).catch((error: Error) => Alert.danger(error.message));
+  componentWillMount() {
+    userService.getMyIssues().then(response => {
+      this.setState({ issues: response });
+      this.getSorted();
+    }).catch((error: Error) => Alert.danger(error.message));
 
     categoryService.getCategory1().then(response => {
       this.setState({ category1: response });
@@ -103,23 +102,23 @@ export class MineSaker extends React.Component<Props, State> {
 
       <div className="bottomFooter">
         <Grid>
-          <PageHeader title={"Mine saker"} />
-            <div align="center">
+          <PageHeader title={'Mine saker'}/>
+          <div align="center">
             <ToggleButtonGroup type="radio" name="options" defaultValue={1}>
-                <ToggleButton onClick={filter.showAll} bsStyle={"primary"} value={1}>Alle</ToggleButton>
-                <ToggleButton onClick={filter.filterRegistered} bsStyle={"primary"} value={2}>Registrerte</ToggleButton>
-                <ToggleButton onClick={filter.filterInProgress} bsStyle={"primary"} value={3}>Behandles</ToggleButton>
-                <ToggleButton onClick={filter.filterCompleted} bsStyle={"primary"} value={4}>Fullført</ToggleButton>
+              <ToggleButton onClick={filter.showAll} bsStyle={'primary'} value={1}>Alle</ToggleButton>
+              <ToggleButton onClick={filter.filterRegistered} bsStyle={'primary'} value={2}>Registrerte</ToggleButton>
+              <ToggleButton onClick={filter.filterInProgress} bsStyle={'primary'} value={3}>Behandles</ToggleButton>
+              <ToggleButton onClick={filter.filterCompleted} bsStyle={'primary'} value={4}>Fullført</ToggleButton>
             </ToggleButtonGroup>
-            </div>
-          <Table id={"myTable"}>
+          </div>
+          <Table id={'myTable'}>
             <thead>
-              <tr>
-                <th>Beskrivelse</th>
-                <th>Kategori</th>
-                <th>Status</th>
-                <th>Endre</th>
-              </tr>
+            <tr>
+              <th>Beskrivelse</th>
+              <th>Kategori</th>
+              <th>Status</th>
+              <th>Endre</th>
+            </tr>
             </thead>
             <tbody>
             {this.state.issues.map((e, i) => {
@@ -178,26 +177,26 @@ export class MineSaker extends React.Component<Props, State> {
     this.status = new Status(status);
   }//end method
 
-    getSorted = () => {
-        //Sorting view so completed issues are listed at the bottom
-        let sorted: Object = [];
-        this.state.issues.map(e => {
-            if(e.statusName === 'Registered'){
-                sorted.push(e)
-            }
-        });
-        this.state.issues.map(e => {
-            if(e.statusName === 'In progress'){
-                sorted.push(e)
-            }
-        });
-        this.state.issues.map(e => {
-            if(e.statusName === 'Completed'){
-                sorted.push(e)
-            }
-        });
-        this.setState({issues: sorted});
-    };//end method
+  getSorted = () => {
+    //Sorting view so completed issues are listed at the bottom
+    let sorted: Object = [];
+    this.state.issues.map(e => {
+      if (e.statusName === 'Registered') {
+        sorted.push(e);
+      }
+    });
+    this.state.issues.map(e => {
+      if (e.statusName === 'In progress') {
+        sorted.push(e);
+      }
+    });
+    this.state.issues.map(e => {
+      if (e.statusName === 'Completed') {
+        sorted.push(e);
+      }
+    });
+    this.setState({ issues: sorted });
+  };//end method
 
   setCategory = (cat: Object[], i: number) => {
     if (cat[i] !== undefined)
