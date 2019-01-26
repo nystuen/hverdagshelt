@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Button } from 'react-bootstrap';
-import {Line, Doughnut} from 'react-chartjs-2';
+import {Line, Pie} from 'react-chartjs-2';
 import { StatisticsService } from "../../services";
 import ReactDOMServer from "react-dom/server";
 import * as jsPDF  from 'jspdf'
@@ -10,47 +10,45 @@ import { PageHeader } from '../PageHeader/PageHeader';
 let statisticsService = new StatisticsService();
 
 const pieData = {
-  labels: [
-    'Registrert',
-    'Behandles',
-    'Fullført'
-  ],
-  datasets: [{
-    label: 'Antall feilmeldinger pr. status',
-    data: [0, 0, 0],
-    backgroundColor: [
-      '#FF6384',
-      '#36A2EB',
-      '#FFCE56'
-    ],
-    hoverBackgroundColor: [
-      '#FF6384',
-      '#36A2EB',
-      '#FFCE56'
-    ]
-  }]
+	labels: [
+		'Red',
+		'Green',
+		'Yellow'
+	],
+	datasets: [{
+		data: [10, 10, 10],
+		backgroundColor: [
+		'#FF6384',
+		'#36A2EB',
+		'#FFCE56'
+		],
+		hoverBackgroundColor: [
+		'#FF6384',
+		'#36A2EB',
+		'#FFCE56'
+		]
+	}]
 };
 
 const pieData2 = {
-  labels: [
-    'Registrert',
-    'Behandles',
-    'Fullført'
-  ],
-  datasets: [{
-    label: 'Antall feilmeldinger pr. status',
-    data: [0, 0, 0],
-    backgroundColor: [
-      '#FF6384',
-      '#36A2EB',
-      '#FFCE56'
-    ],
-    hoverBackgroundColor: [
-      '#FF6384',
-      '#36A2EB',
-      '#FFCE56'
-    ]
-  }]
+	labels: [
+		'Red',
+		'Green',
+		'Yellow'
+	],
+	datasets: [{
+		data: [10, 10, 10],
+		backgroundColor: [
+		'#FF6384',
+		'#36A2EB',
+		'#FFCE56'
+		],
+		hoverBackgroundColor: [
+		'#FF6384',
+		'#36A2EB',
+		'#FFCE56'
+		]
+	}]
 };
 
 let lineData = {
@@ -122,7 +120,7 @@ export class Statistics extends Component {
     }
   }
 
-  componentWillMount() {
+  componentDidMount() {
     statisticsService
       .getStatus(window.sessionStorage.getItem('countyId'))
       .then((res) => {
@@ -219,9 +217,9 @@ export class Statistics extends Component {
     console.log('lineData equals lineDataAllCounties', (this.state.lineData==this.state.lineDataAllCounties));
 
     return(
-      <Grid className="bottomFooter">
+      <Grid className="bottomFooter" id="wrap-wrap">
         <PageHeader title={'Statistikk over ' + window.sessionStorage.getItem('countyName') + ' kommune'}/>
-        <Row id="wrap-wrap">
+        <Row>
           <Col sm={12} md={6} lg={6}>
             {console.log('pieData equals lineDataAllCounties', (this.state.lineData==this.state.lineDataAllCounties))}
             <Line
@@ -240,7 +238,7 @@ export class Statistics extends Component {
           {console.log('pieData equals lineDataAllCounties', (this.state.lineData==this.state.lineDataAllCounties))}
 
           <Col sm={12} md={6} lg={6}>
-            <Doughnut
+            <Pie
               data={this.state.pieData}
               width={500}
               height={500}
@@ -251,6 +249,7 @@ export class Statistics extends Component {
                   text: "Antall feilmeldinger pr. status"
                 }
               }}
+              redraw
             />
           </Col>
         </Row>
@@ -279,7 +278,7 @@ export class Statistics extends Component {
             />
           </Col>
           <Col sm={12} md={6} lg={6}>
-            <Doughnut
+            <Pie
               data={this.state.pieDataAllCounties}
               width={500}
               height={500}
@@ -290,6 +289,7 @@ export class Statistics extends Component {
                   text: "Antall feilmeldinger pr. status"
                 }
               }}
+              redraw
             />
           </Col>
         </Row>
@@ -298,8 +298,6 @@ export class Statistics extends Component {
             <Button style={styling} className="center-block" bsStyle="primary" onClick={() => {this.pdf2HTML()}}>Last ned som PDF</Button>
           </Col>
         </Row>
-
-
       </Grid>
     )
   }
