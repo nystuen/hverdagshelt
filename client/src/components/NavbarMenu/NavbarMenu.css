@@ -58,7 +58,10 @@
 .active {
 }
 
-
+#dropdownMenuItem{
+    color: black;
+    background-color: white;
+}
 
 .navbar-default .navbar-nav > li > a.active {
     background-color: #771200;

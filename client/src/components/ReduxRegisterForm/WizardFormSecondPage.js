@@ -1,19 +1,19 @@
-import React from "react";
-import { Field, reduxForm } from "redux-form";
-import validate from "./validate";
-import renderField from "./renderField";
-import renderCategoryField from "./renderCategoryField";
-import { Button, ProgressBar, Grid, Col } from "react-bootstrap";
-import { ChooseCategory } from "../ChooseCategory/ChooseCategory";
-import issueReg from "./issueReg.css";
+import React from 'react';
+import { Field, reduxForm } from 'redux-form';
+import validate from './validate';
+import renderField from './renderField';
+import renderCategoryField from './renderCategoryField';
+import { Button, ProgressBar, Grid, Col } from 'react-bootstrap';
+import { ChooseCategory } from '../ChooseCategory/ChooseCategory';
+import issueReg from './issueReg.css';
 
 const renderError = ({ meta: { touched, error } }) =>
   touched && error ? <span>{error}</span> : false;
 
 export class WizardFormSecondPage extends React.Component {
   setProps = () => {
-    this.props.change("categoryid", this.state.selectedCategoryId);
-    this.props.change("categorylevel", this.state.selectedCategoryType);
+    this.props.change('categoryid', this.state.selectedCategoryId);
+    this.props.change('categorylevel', this.state.selectedCategoryType);
   };
   onChangeCategoryHeader = (name1, name2) => {
     this.setState(
@@ -50,52 +50,55 @@ export class WizardFormSecondPage extends React.Component {
     const { handleSubmit, previousPage, onChangeCategoryHeader } = this.props;
     return (
       <Grid>
-        <div className="container bottomFooter">
-          <div className="formDiv">
-            <div className="progressBar">
-              <ProgressBar now={66} label={"2/3"} />
-            </div>
-            <h3>Velg passende kategori</h3>
-            <ChooseCategory
-              changeCategoryHeader={this.onChangeCategoryHeader.bind(this)}
-              //  onClick={this.handleCategoryClick.bind(this)}
-              registerCategory={false}
-            />
-            <form onSubmit={handleSubmit}>
-              <Field
-                name="categoryId"
-                type="hidden"
-                label="categoryid"
-                component={renderCategoryField}
-                defaultValue={this.state.selectedCategory}
-              />
-              <Field
-                name="categoryLevel"
-                type="hidden"
-                //onChange={this.handleCategoryClick.bind(this)}
-                component={renderCategoryField}
-                label="categorylevel"
-                //defaultValue={this.state.selectedCategoryType}
-              />
-              <div>
-                <Col lg={6} md={6} sm={6} xs={6}>
-                  <Button
-                    bsStyle="primary"
-                    type="button"
-                    className="previous"
-                    onClick={previousPage}
-                  >
-                    Forrige
-                  </Button>
-                </Col>
-                <Col lg={6} md={6} sm={6} xs={6} align="right">
-                  <Button bsStyle="primary" type="submit" className="next">
-                    Neste
-                  </Button>
-                </Col>
+        <div className=" bottomFooter">
+          <Col md={8} mdOffset={2}>
+
+            <div className="formDiv">
+              <div className="progressBar">
+                <ProgressBar now={66} label={'2/3'}/>
               </div>
-            </form>
-          </div>
+              <h3>Velg passende kategori</h3>
+              <ChooseCategory
+                changeCategoryHeader={this.onChangeCategoryHeader.bind(this)}
+                //  onClick={this.handleCategoryClick.bind(this)}
+                registerCategory={false}
+              />
+              <form onSubmit={handleSubmit}>
+                <Field
+                  name="categoryId"
+                  type="hidden"
+                  label="categoryid"
+                  component={renderCategoryField}
+                  defaultValue={this.state.selectedCategory}
+                />
+                <Field
+                  name="categoryLevel"
+                  type="hidden"
+                  //onChange={this.handleCategoryClick.bind(this)}
+                  component={renderCategoryField}
+                  label="categorylevel"
+                  //defaultValue={this.state.selectedCategoryType}
+                />
+                <div>
+                  <Col lg={6} md={6} sm={6} xs={6}>
+                    <Button
+                      bsStyle="primary"
+                      type="button"
+                      className="previous"
+                      onClick={previousPage}
+                    >
+                      Forrige
+                    </Button>
+                  </Col>
+                  <Col lg={6} md={6} sm={6} xs={6} align="right">
+                    <Button bsStyle="primary" type="submit" className="next">
+                      Neste
+                    </Button>
+                  </Col>
+                </div>
+              </form>
+            </div>
+          </Col>
         </div>
       </Grid>
     );
@@ -103,7 +106,7 @@ export class WizardFormSecondPage extends React.Component {
 }
 
 export default reduxForm({
-  form: "wizard", //Form name is same
+  form: 'wizard', //Form name is same
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate

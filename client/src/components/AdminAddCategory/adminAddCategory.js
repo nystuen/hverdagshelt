@@ -27,7 +27,10 @@ import {history} from "../../index";
 let categoryService = new CategoryService();
 
 
-export class adminAddCategory extends Component {
+/**
+ * @class adminAddCategory
+ */
+export class adminAddCategory extends Component<Props, State> {
 
 
   constructor() {
@@ -71,6 +74,11 @@ export class adminAddCategory extends Component {
   buttonBack(){
     this.props.history.goBack();
   }
+
+    /**
+     * @method saveCategory
+     * @returns {Promise<void>}
+     */
 
   saveCategory = async () => {
 

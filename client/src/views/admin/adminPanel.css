@@ -34,7 +34,6 @@
 
 #col1 {
     padding-top: 4em;
-    height: 100px;
 }
 
 .title {
@@ -56,8 +55,6 @@
 
 .fixed-panel {
     min-height: 14em;
-    overflow-y: scroll;
-
 }
 
 .sakInformasjon {

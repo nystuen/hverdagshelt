@@ -31,6 +31,9 @@ interface State {
 interface Props {
 }
 
+/**
+ * @class CountySubscription
+ */
 export class CountySubscription extends Component<Props, State> {
 
   state = {
@@ -39,7 +42,14 @@ export class CountySubscription extends Component<Props, State> {
     user: new User('', '', '', '', '', -1, -1, -1)
   };
 
-  //fra Alle kommuner til abonerte kommuner
+    /**
+     * adds the chosen county to the users subscribed counties list
+     *
+     * @method addCounty
+     * @param name
+     * @param index
+     * @returns void
+     */
   addCounty = (name, index) => {
 
     const userArray = this.state.userCounties;
@@ -57,6 +67,14 @@ export class CountySubscription extends Component<Props, State> {
   };
 
   //fra abonerte kommuner til alle kommuner
+    /**
+     * deletes county from the users subscribed county list
+     *
+     * @deleteCounty
+     * @param name
+     * @param index
+     * @returns void
+     */
   deleteCounty = (name, index) => {
 
     const userArray = this.state.userCounties;
@@ -198,6 +216,12 @@ export class CountySubscription extends Component<Props, State> {
     );
   }
 
+    /**
+     *filters the search for counties
+     *
+     * @method filterAll
+     * @returns void
+     */
   filterAll() {
     // Declare variables
     var input, filter, ul, li, a, i, txtValue;
