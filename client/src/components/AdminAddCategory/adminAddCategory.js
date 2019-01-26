@@ -19,7 +19,7 @@ import {
 
 import { ChooseCategory } from '../ChooseCategory/ChooseCategory';
 import { CategoryService } from '../../services';
-import {Checkbox, Radio} from 'react-bootstrap';
+import { Checkbox, Radio } from 'react-bootstrap';
 import { CategorySelectList } from '../CategorySelectList/CategorySelectList';
 
 
@@ -74,7 +74,7 @@ export class adminAddCategory extends Component<Props, State> {
     this.setState({ newPriority: pri });
   };
 
-  buttonBack(){
+  buttonBack() {
     this.props.history.goBack();
   }
 
@@ -96,7 +96,10 @@ export class adminAddCategory extends Component<Props, State> {
       console.log('body', theBody1);
       categoryService.addCategory1(theBody1).then(res => {
         console.log('added cat1', res);
+
         this.setState({ error: false });
+      }).then(e => {
+        history.push('/#/admin/endreKategorier');
       }).catch(error => {
         console.log(error);
         this.setState({ error: true });
@@ -116,6 +119,8 @@ export class adminAddCategory extends Component<Props, State> {
       categoryService.addCategory2(theBody2).then(res => {
         console.log('added cat2', res);
         this.setState({ error: false });
+      }).then(e => {
+        history.push('/#/admin/endreKategorier');
       }).catch(error => {
         console.log(error);
         this.setState({ error: true });
@@ -168,40 +173,40 @@ export class adminAddCategory extends Component<Props, State> {
 
     return (
       <div className="bottomFooter">
-        <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
-      <Grid>
+        <i id="backButton" onClick={() => this.buttonBack()} className="fas fa-arrow-circle-left"></i>
+        <Grid>
 
-        <Col xs={0} md={2}></Col>
+          <Col xs={0} md={2}></Col>
 
-        <Col xs={12} md={8}>
-          <FormGroup className="text-center">
-            <PageHeader>Legg til en kategori</PageHeader>
-            <ControlLabel>Kategori navn</ControlLabel>
-            <FormControl type="text" placeholder="Skriv inn kategorinavn"
-                         onChange={this.handleChange('newCategoryName')}></FormControl>
-            <ListGroup>
+          <Col xs={12} md={8}>
+            <FormGroup className="text-center">
+              <PageHeader>Legg til en kategori</PageHeader>
+              <ControlLabel>Kategori navn</ControlLabel>
+              <FormControl type="text" placeholder="Skriv inn kategorinavn"
+                           onChange={this.handleChange('newCategoryName')}></FormControl>
+              <ListGroup>
 
-              <br/>
+                <br/>
 
-              <FormGroup>
-                <Checkbox inline onClick={() => this.onClickHovedkategori()}>Registrer som hovedkategori</Checkbox>
-              </FormGroup>
+                <FormGroup>
+                  <Checkbox inline onClick={() => this.onClickHovedkategori()}>Registrer som hovedkategori</Checkbox>
+                </FormGroup>
 
-            </ListGroup>
+              </ListGroup>
 
 
-            {mainCat}
+              {mainCat}
 
-          </FormGroup>
+            </FormGroup>
 
-          <div align="center">
-            <Button bsStyle="primary" onClick={() => this.saveCategory()}>Lagre kategori</Button>
-          </div>
-          {alert}
-        </Col>
+            <div align="center">
+              <Button bsStyle="primary" onClick={() => this.saveCategory()}>Lagre kategori</Button>
+            </div>
+            {alert}
+          </Col>
 
-        <Col xs={0} md={2}></Col>
-      </Grid>
+          <Col xs={0} md={2}></Col>
+        </Grid>
       </div>
     );
 

@@ -14,6 +14,7 @@ import { User } from '../../classTypes';
 import axios from 'axios';
 import { NotificationSettingsService } from '../../services';
 import { OneIssueMapComponent } from '../../components/map/Map';
+import { PageHeader } from '../../components/PageHeader/PageHeader';
 
 let issueService = new IssueService();
 let categoryService = new CategoryService();
@@ -61,8 +62,8 @@ export class OversiktOverSak extends React.Component {
       category1: {},
       category2: {},
       category3: {},
-      latitude: "",
-      longitude: "",
+      latitude: '',
+      longitude: '',
       status: {},
       statusName: '',
       comment: '',
@@ -149,16 +150,12 @@ export class OversiktOverSak extends React.Component {
 
           <Col sm={10} md={8} lg={8}>
 
-            <Row>
-              <h2 align="center">Saksinformasjon</h2>
-            </Row>
+            <PageHeader title={'Saksinformasjon'}/>
 
-            <Col sm={6} md={6} lg={6}>
+            <Col sm={12} md={12} lg={12}>
               <img width={'100%'} src={'image/' + this.state.image}/>
             </Col>
-            <Col sm={6} md={6} lg={6}>
-              <OneIssueMapComponent markers={[this.state.latitude, this.state.longitude]}/>
-            </Col>
+
 
             <Row>
               <Col sm={6} md={6}>
@@ -171,9 +168,9 @@ export class OversiktOverSak extends React.Component {
                 <h3>Beskrivelse</h3>
                 <p>{this.state.issue.text}</p>
 
-
               </Col>
               <Col sm={6} md={6}>
+
 
                 <h3>Status</h3>
                 <ProgressBar>
@@ -188,13 +185,17 @@ export class OversiktOverSak extends React.Component {
                 {this.state.issue.date}
 
               </Col>
+
             </Row>
+
+            <Col>
+              <OneIssueMapComponent markers={[this.state.latitude, this.state.longitude]}/>
+            </Col>
 
             <Col>
               {this.renderCommentFeed(this.state.issueComments.length)}
               {this.renderCommentArea()}
             </Col>
-
 
           </Col>
 
@@ -218,7 +219,13 @@ export class OversiktOverSak extends React.Component {
       });
 
     issueService.getIssueAndCounty(this.props.match.params.issueId).then(response => {
-      this.setState({ issue: response[0], latitude: response[0].latitude, longitude: response[0].longitude ,categoryLevel: response[0].categoryLevel, image: response[0].pic });
+      this.setState({
+        issue: response[0],
+        latitude: response[0].latitude,
+        longitude: response[0].longitude,
+        categoryLevel: response[0].categoryLevel,
+        image: response[0].pic
+      });
       issueService.getCompanyComments(response[0].issueId).then(r => {
         this.setState({ issueComments: r });
       }).catch((error: Error) => Alert.danger(error.message));

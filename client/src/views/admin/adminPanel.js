@@ -123,10 +123,10 @@ export class adminPanel extends Component {
               </Col>
             </Grid>
           </div>
-      );
+      )
     }else{
       return(
-          <div className="panels">
+          <div className="panels bottomFooter">
             <Grid>
 
               <Col xs={12} md={4} lg={4} id="col">

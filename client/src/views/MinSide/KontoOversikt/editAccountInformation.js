@@ -235,29 +235,116 @@ export class editAccountInformation extends React.Component<State> {
   }
 
   handleChangeUser() {
-    if (this.state.countyId != 0) {
-      this.state.user.countyId = this.state.countyId;
+
+    if (this.state.user.typeName === 'Admin' || this.state.user.typeName === 'Employee' || this.state.user.typeName === 'Private') {
+      if (this.state.countyId != 0) {
+        this.state.user.countyId = this.state.countyId;
+      }
+
+      if (this.state.firstName != '') {
+        this.state.user.firstName = this.state.firstName;
+      }
+
+      if (this.state.lastName != '') {
+        this.state.user.lastName = this.state.lastName;
+      }
+
+      if (this.state.phone != '') {
+        this.state.user.phone = this.state.phone;
+      }
+
+      userService.updateUser(this.state.user).then(response => {
+        window.location.reload();
+      });
+
+      history.push('/min_side/kontooversikt');
+    } else {
+
+
+      /*
+
+
+      userService.updateUser(this.state.user).then(response => {
+        window.location.reload();
+      });
+
+      history.push('/min_side/kontooversikt');
+
+        companyMail: string,
+  firstName: string,
+  lastName: string,
+  adresse: string,
+  postnr: number,
+  phone: string,
+  description: string,
+
+       */
+
+      if (this.state.firstName != '') {
+        this.state.user.firstName = this.state.firstName;
+      }
+
+      if (this.state.lastName != '') {
+        this.state.user.lastName = this.state.lastName;
+      }
+
+      if (this.state.phone != '') {
+        this.state.user.phone = this.state.phone;
+      }
+
+      if (this.state.companyName != '') {
+        this.state.user.companyName = this.state.companyName;
+      }
+
+      if (this.state.description != '') {
+        this.state.user.description = this.state.description;
+      }
+
+      if (this.state.adresse != '') {
+        this.state.user.adresse = this.state.adresse;
+      }
+
+      if (this.state.postnr != '') {
+        this.state.user.postnr = this.state.postnr;
+      }
+
+
+      userService.updateOneCompany(this.state.user).then(res => {
+      });
+
+
+      if (this.state.countyIsChanged) {
+        let counties = [];
+
+        this.state.countySubscription.map(county => {
+          counties.push({ countyId: county.value });
+        });
+
+
+        if (!(counties.length < 1)) {
+
+          userService.deleteCompanyCounties(this.state.user.companyMail).then(res => {
+
+            counties.map(county => {
+              userService.insertCompanyCounty(county.countyId, this.state.user.companyMail).then(insert => {
+              });
+            });
+          }).then(e => {
+            history.push('/min_side/kontooversikt');
+          });
+        } else {
+          history.push('/min_side/kontooversikt');
+        }
+      } else {
+        history.push('/min_side/kontooversikt');
+      }
+
+
     }
 
-    if (this.state.firstName != '') {
-      this.state.user.firstName = this.state.firstName;
-    }
 
-    if (this.state.lastName != '') {
-      this.state.user.lastName = this.state.lastName;
-    }
-
-    if (this.state.phone != '') {
-      this.state.user.phone = this.state.phone;
-    }
-
-    userService.updateUser(this.state.user).then(response => {
-      console.log('res', response);
-      window.location.reload();
-    });
-
-    history.push('/min_side/kontooversikt');
   }
+
 
   handleOnChangeCounty = (name: number) => {
     console.log('nae', name);
@@ -484,17 +571,6 @@ export class editAccountInformation extends React.Component<State> {
                             />
                           </FormGroup>{' '}
 
-                          <FormGroup controlId="formInlineOrgNumber">
-                            <ControlLabel>Organisasjonsnummer</ControlLabel>{' '}
-                            <FormControl
-                              onChange={this.handleChange}
-                              name="orgNumber"
-                              type="text"
-                              placeholder="Organisasjonsnummer"
-                              defaultValue={this.state.user.orgNumber}
-                            />
-                          </FormGroup>{' '}
-
                           <FormGroup controlId="formInlineDescription">
                             <ControlLabel>Bedriftens beskrivelse</ControlLabel>{' '}
                             <FormControl
@@ -556,11 +632,10 @@ export class editAccountInformation extends React.Component<State> {
                 </div>
               </Form>
             </div>
-          ) : (
-            <div>bedriftinfo</div>
           )}
         </Grid>
       </div>
     );
   }
 }
+
