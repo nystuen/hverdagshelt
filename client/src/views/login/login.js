@@ -28,6 +28,10 @@ interface Props {
   notLoggedIn: boolean;
 } //end interface
 
+/**
+ * @class Login
+ */
+
 export class Login extends Component<Props, State> {
   state = {
     error: false,
@@ -52,6 +56,12 @@ export class Login extends Component<Props, State> {
     });
   };
 
+    /**
+     * Shows the password that's been written
+     *
+     * @method handleClickPassword
+     * @reutrns void
+     */
   handleClickPassword=()=>{
     if(this.state.openPassword == "text"){
       this.setState({openPassword: "password"})
@@ -60,6 +70,13 @@ export class Login extends Component<Props, State> {
     }
   };
 
+    /**
+     * logs in when enter is pressed
+     *
+     * @method handleKeyPress
+     * @param event
+     * @returns void
+     */
     handleKeyPress = (event) => {
         if(event.key === 'Enter'){
             this.save();
@@ -115,7 +132,6 @@ export class Login extends Component<Props, State> {
 
 
     return (
-
       <div className="login">
         <Grid>
           <Form>
@@ -185,7 +201,12 @@ export class Login extends Component<Props, State> {
       </div>
     );
   } //end method
-
+    /**
+     * checks if the mail and password is registered in the database and logs the user in
+     *
+     * @method save
+     * @returns {Promise<void>}
+     */
  save = async () => {
      if (confirm('Ved å logge inn på Hverdagshelt.no godtar du at vi lagrer ' +
          'cookies med informasjon om brukernavnet  ditt og hvilken type bruker du er (privat / bedrift)')) {

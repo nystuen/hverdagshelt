@@ -17,6 +17,9 @@ let userService = new UserService();
 
 let loginButton;
 
+/**
+ * @class NavbarMenu
+ */
 export class NavbarMenu extends React.Component {
 
   constructor(props) {
@@ -242,6 +245,12 @@ export class NavbarMenu extends React.Component {
     }//end condition
   }//end method
 
+    /**
+     * Logs the user out by emptying localstorage and sessionstorage
+     *
+     * @method logout
+     * @returns void
+     */
   logout = () => {
     window.localStorage.setItem('userToken', '');
     window.sessionStorage.setItem('countyId', '');
@@ -253,6 +262,12 @@ export class NavbarMenu extends React.Component {
     window.location.reload();
   };//end method
 
+    /**
+     * Contitional rendering for "mine saker" button on navbar, depending on which user is logged in
+     *
+     * @method viewCases
+     * @returns {*}
+     */
   viewCases = () => {
     if (window.localStorage.getItem('userToken') !== '') {
       if (this.state.user === {}) {

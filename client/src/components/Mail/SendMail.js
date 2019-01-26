@@ -8,7 +8,9 @@ import { PageHeader } from '../PageHeader/PageHeader';
 
 let mailService = new MailService();
 
-
+/**
+ * @class SendTextMailWindow
+ */
 export class SendTextMailWindow extends React.Component {
 
   state = {
@@ -17,6 +19,12 @@ export class SendTextMailWindow extends React.Component {
     text: String
   };
 
+    /**
+     * Sends an email to the emailaddress specified in the state
+     *
+     * @method sendMail
+     * @returns void
+     */
   sendMail() {
 
     let mailObject = {

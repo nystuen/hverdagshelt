@@ -24,6 +24,9 @@ const toolTipDelete = (
   </Tooltip>
 );
 
+/**
+ * @class adminIssues
+ */
 export class adminIssues extends React.Component{
     constructor(props){
         super(props);
@@ -173,8 +176,13 @@ export class adminIssues extends React.Component{
         this.status = new Status(status);
     }//end method
 
+    /**
+     * Sorting view so completed issues are listed at the bottom
+     *
+     * @method getSorted
+     * @returns void
+     */
     getSorted = () => {
-        //Sorting view so completed issues are listed at the bottom
         let sorted: Object = [];
         this.state.issues.map(e => {
             if(e.statusName === 'Registered'){
