@@ -87,7 +87,7 @@ body {
   bottom: 0;
   left: 0;
   right: 0;
-  height: 100vh;
+  height: 90vh;
   width: 100vw;
   z-index: 100;
 }
@@ -127,4 +127,3 @@ body {
   color: #5079b3;
   margin: 5px;
 }
-
