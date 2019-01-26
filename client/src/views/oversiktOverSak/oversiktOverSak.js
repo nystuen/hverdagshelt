@@ -140,57 +140,59 @@ export class OversiktOverSak extends React.Component {
       editStatus = this.state.editStatus;
     }
 
+    console.log(this.state.image)
+
+
     return (
       <div className="bottomFooter">
         <i id="backButton" onClick={() => this.buttonBack()} className="fas fa-arrow-circle-left"></i>
         <Grid className="sak">
 
 
-          <Col sm={1} md={2} lg={2}></Col>
-
-          <Col sm={10} md={8} lg={8}>
+          <Col>
 
             <PageHeader title={'Saksinformasjon'}/>
 
-            <Col sm={12} md={12} lg={12}>
+            <Col sm={12} md={8} lg={8}>
               <img width={'100%'} src={'image/' + this.state.image}/>
+              <Row>
+                <Col sm={6} md={6}>
+                  <h3>Kategori</h3>
+                  <p>{this.Categories()}</p>
+
+
+                  <h3>Beskrivelse</h3>
+                  <p>{this.state.issue.text}</p>
+
+                </Col>
+                <Col sm={6} md={6}>
+
+
+                  <h3>Status</h3>
+                  <ProgressBar>
+                    <ProgressBar bsStyle={this.state.status.progressBar} active={this.state.status.inProgress}
+                                 now={this.state.status.progress}
+                                 label={this.state.status.name} style={{ color: 'black' }}/>
+                  </ProgressBar>
+
+                  {editStatus}
+
+                  <h3>Dato sendt inn</h3>
+                  {this.state.issue.date}
+
+                </Col>
+
+              </Row>
             </Col>
 
-
-            <Row>
-              <Col sm={6} md={6}>
-                <h3>Kategori</h3>
-                <p>{this.Categories()}</p>
-
-                <h3>Adresse</h3>
-                <p>{this.state.issue.address}</p>
-
-                <h3>Beskrivelse</h3>
-                <p>{this.state.issue.text}</p>
-
-              </Col>
-              <Col sm={6} md={6}>
-
-
-                <h3>Status</h3>
-                <ProgressBar>
-                  <ProgressBar bsStyle={this.state.status.progressBar} active={this.state.status.inProgress}
-                               now={this.state.status.progress}
-                               label={this.state.status.name} style={{ color: 'black' }}/>
-                </ProgressBar>
-
-                {editStatus}
-
-                <h3>Dato sendt inn</h3>
-                {this.state.issue.date}
-
-              </Col>
-
-            </Row>
-
-            <Col>
+            <Col sm={12} md={4} lg={4}>
               <OneIssueMapComponent markers={[this.state.latitude, this.state.longitude]}/>
+              <h3>Adresse</h3>
+              <p>{this.state.issue.address}</p>
             </Col>
+
+
+
 
             <Col>
               {this.renderCommentFeed(this.state.issueComments.length)}
@@ -198,8 +200,6 @@ export class OversiktOverSak extends React.Component {
             </Col>
 
           </Col>
-
-          <Col sm={1} md={2} lg={2}></Col>
 
 
         </Grid>
