@@ -266,7 +266,7 @@ export class RegisterAdmin extends Component<Props, State> {
       <p></p>;
     }
     return (
-      <div>
+      <div className="bottomFooter">
         <i id="backButton" onClick={() => this.buttonBack()} className="fas fa-arrow-circle-left"></i>
         <Grid>
           <Col md={3}></Col>

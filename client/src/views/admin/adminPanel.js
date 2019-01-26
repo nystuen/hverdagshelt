@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Grid, Row, Col, ListGroup, ListGroupItem, Table, Image, Panel, Button, ButtonGroup } from 'react-bootstrap';
 import css from './adminPanel.css';
 import { UserService } from '../../services';
+import { PageHeader } from '../../components/PageHeader/PageHeader';
 
 // get viktige hendelser
 
@@ -27,7 +28,7 @@ export class adminPanel extends Component {
       return (
         <div className="panels bottomFooter">
           <Grid>
-
+          <PageHeader title={"Adminpanel"}/>
             <Col xs={12} md={4} lg={4} id="col1">
               <Panel bsStyle={panelStyle} id="collapsible-panel-example-2" className="fixed-panel" defaultExpanded>
                 <Panel.Heading>
