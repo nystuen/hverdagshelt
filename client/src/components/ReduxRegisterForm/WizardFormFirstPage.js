@@ -66,7 +66,9 @@ export class WizardFormFirstPage extends Component<{}, State> {
         console.log(response.results[0])
         let county_found
         (response.results[0].address_components[3] != undefined ) ? county_found = response.results[0].address_components[2].long_name: county_found=""
-        if(window.sessionStorage.getItem('countyName') == county_found){
+        console.log('found', county_found)
+        console.log('window', window.sessionStorage.getItem('countyName'))
+        if((window.sessionStorage.getItem('countyName') == county_found) || ((window.sessionStorage.getItem('countyName')).includes(county_found.split(' ')[0]))){
           this.props.change("countyId", window.sessionStorage.getItem('countyId'))
           this.setState({
             correct_county: true
@@ -97,7 +99,9 @@ export class WizardFormFirstPage extends Component<{}, State> {
       response => {
         let county_found
         (response.results[0].address_components[3] != undefined ) ? county_found = response.results[0].address_components[2].long_name: county_found=""
-        if(window.sessionStorage.getItem('countyName') == county_found){
+        console.log('found', county_found)
+        console.log('window', window.sessionStorage.getItem('countyName'))
+        if((window.sessionStorage.getItem('countyName') == county_found) || ((window.sessionStorage.getItem('countyName')).includes(county_found))){
           this.props.change("countyId", window.sessionStorage.getItem('countyId'))
           this.setState({
             correct_county: true
@@ -137,8 +141,9 @@ export class WizardFormFirstPage extends Component<{}, State> {
           const address_found = response.results[0].formatted_address;
           let county_found
           (response.results[0].address_components[3] != undefined ) ? county_found = response.results[0].address_components[3].long_name: county_found=""
-          console.log(county_found)
-          if(window.sessionStorage.getItem('countyName') == county_found){
+          console.log('found', county_found)
+          console.log('window', window.sessionStorage.getItem('countyName'))
+          if((window.sessionStorage.getItem('countyName') == county_found) || ((window.sessionStorage.getItem('countyName')).includes(county_found))){
             this.props.change("countyId", window.sessionStorage.getItem('countyId'))
             this.setState({
               correct_county: true
