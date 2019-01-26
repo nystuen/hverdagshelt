@@ -38,11 +38,11 @@ export class CategoryDao extends Dao {
 
 
     getCategory1(callback: Function) {
-        super.query("select * from category where active=1", [], callback);
+        super.query("select * from category", [], callback);
     }
 
   getCategory2(callback: Function) {
-    super.query("select * from category2 where active =1", [], callback);
+    super.query("select * from category2", [], callback);
   }
 
   //Skal ikke brukes så tas ikke med i testing
@@ -52,11 +52,11 @@ export class CategoryDao extends Dao {
 
 
     getOneCategory1(categoryId: number, callback: Function){
-        super.query("select * from category where categoryId=? and active=1",[categoryId], callback);
+        super.query("select * from category where categoryId=? ",[categoryId], callback);
     }
 
     getOneCategory2(categoryId: number, callback: Function) {
-        super.query("select * from category2 where category2Id=? and active=1", [categoryId], callback);
+        super.query("select * from category2 where category2Id=?", [categoryId], callback);
     }
 
 
