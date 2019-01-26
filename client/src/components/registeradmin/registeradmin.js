@@ -26,7 +26,9 @@ let countyService = new CountyService();
 let userService = new UserService();
 let notificationSettingService = new NotificationSettingsService();
 
-
+/**
+ * @class RegisterAdmin
+ */
 export class RegisterAdmin extends Component<Props, State>{
 
     constructor(props) {
@@ -130,6 +132,12 @@ export class RegisterAdmin extends Component<Props, State>{
         }
     };
 
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationStateEmail
+     * @returns {string}
+     */
     getValidationStateEmail(){
         var validator = require('email-validator');
         const length = this.state.mail.length;
@@ -139,6 +147,12 @@ export class RegisterAdmin extends Component<Props, State>{
         else if(bool) return 'success';
     }
 
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationStateEmail2
+     * @returns {string}
+     */
     getValidationStateEmail2(){
         var validator = require('email-validator');
         const length = this.state.mail2.length;
@@ -149,71 +163,100 @@ export class RegisterAdmin extends Component<Props, State>{
         else return 'warning';
     }
 
-  getValidationStateFirstName() {
-    const firstNameLength = this.state.firstName.length;
-    let decimal = /^[A-Za-z ÆØÅæøå]*[A-Za-z ÆØÅæøå][A-Za-z ÆØÅæøå]*$/;
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationStateFirstName
+     * @returns {string}
+     */
+    getValidationStateFirstName() {
+        const firstNameLength = this.state.firstName.length;
+        let decimal=/^[A-Za-z ÆØÅæøå]*[A-Za-z ÆØÅæøå][A-Za-z ÆØÅæøå]*$/;
 
-    if (firstNameLength === 1) {
-      return 'warning';
-    } else if (firstNameLength === 0) return;
-    else if (this.state.firstName.match(decimal)) {
-      return 'success';
-    } else {
-      return 'warning';
+        if(firstNameLength===1){
+            return 'warning';
+        } else if(firstNameLength===0) return ;
+        else if(this.state.firstName.match(decimal)){
+            return 'success';
+        } else{
+            return 'warning'
+        }
     }
-  }
 
-  getValidationStateLastName() {
-    const lastNameLength = this.state.lastName.length;
-    let dec = /^[A-Za-z ÆØÅæøå]*[A-Za-z ÆØÅæøå][A-Za-z ÆØÅæøå]*$/;
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationStateLastName
+     * @returns {string}
+     */
+    getValidationStateLastName() {
+        const lastNameLength = this.state.lastName.length;
+        let dec=/^[A-Za-z ÆØÅæøå]*[A-Za-z ÆØÅæøå][A-Za-z ÆØÅæøå]*$/;
 
-    if (lastNameLength === 1) {
-      return 'warning';
-    } else if (lastNameLength === 0) return;
-    else if (this.state.lastName.match(dec)) {
-      return 'success';
-    } else {
-      return 'warning';
+        if(lastNameLength===1){
+            return 'warning';
+        } else if(lastNameLength===0) return ;
+        else if(this.state.lastName.match(dec)){
+            return 'success';
+        } else{
+            return 'warning'
+        }
     }
-  }
 
-  getValidationPhone() {
-    const phoneLength = this.state.phone.length;
-    let decimal = /^(\d|,)*\d*$/;
-    if (phoneLength == 8 && this.state.phone.match(decimal)) {
-      return 'success';
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationPhone
+     * @returns {string}
+     */
+    getValidationPhone(){
+        const phoneLength = this.state.phone.length;
+        let decimal =/^(\d|,)*\d*$/;
+        if(phoneLength ==8 && this.state.phone.match(decimal)) {
+            return 'success';
+        }
+        else if(phoneLength==0)return ;
+        else{
+            return 'warning';
+        }
     }
-    else if (phoneLength == 0) return;
-    else {
-      return 'warning';
-    }
-  }
 
-  getValidationAddress() {
-    const addressLength = this.state.address.length;
-    let decimal = /^[A-Za-z0-9 _æøå]*[A-Za-z0-9æøå][A-Za-z0-9 _æøå]*$/;
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationAdress
+     * @returns {string}
+     */
+    getValidationAddress(){
+        const addressLength = this.state.address.length;
+        let decimal=/^[A-Za-z0-9 _æøå]*[A-Za-z0-9æøå][A-Za-z0-9 _æøå]*$/;
 
-    if (addressLength < 4 && addressLength > 0) {
-      return 'warning';
-    } else if (addressLength === 0) return;
-    else if (this.state.address.match(decimal)) {
-      return 'success';
-    } else {
-      return 'warning';
+        if(addressLength<4 && addressLength>0){
+            return 'warning';
+        } else if(addressLength===0) return ;
+        else if(this.state.address.match(decimal)){
+            return 'success';
+        } else{
+            return 'warning'
+        }
     }
-  }
-
-  getValidationPostNumber() {
-    const postNumberLength = this.state.postNumber.length;
-    let decimal = /^(\d|,)*\d*$/;
-    if (postNumberLength == 4 && this.state.postNumber.match(decimal)) {
-      return 'success';
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationPostNumber
+     * @returns {string}
+     */
+    getValidationPostNumber(){
+        const postNumberLength= this.state.postNumber.length;
+        let decimal =/^(\d|,)*\d*$/;
+        if(postNumberLength ==4 && this.state.postNumber.match(decimal)) {
+            return 'success';
+        }
+        else if(postNumberLength==0)return ;
+        else{
+            return 'warning';
+        }
     }
-    else if (postNumberLength == 0) return;
-    else {
-      return 'warning';
-    }
-  }
 
   buttonBack() {
     this.props.history.goBack();
@@ -271,20 +314,12 @@ export class RegisterAdmin extends Component<Props, State>{
             <PageHeader title={'Registrer bruker'}/>
 
 
-            <Form horizontal>
-              <FormGroup controlId="formHorizontalEmail">
-                <FormGroup>
-                  <div align="center">
-                      <ToggleButtonGroup type="radio" name="chooseType" onChange={this.handleButtonChange}>
-                        <ToggleButton style={{ 'width': '10em' }} value={1}>Admin</ToggleButton>
-                        <ToggleButton style={{ 'width': '10em' }} value={2}>Kommuneansatt</ToggleButton>
-                      </ToggleButtonGroup>
-                  </div>
-                </FormGroup>
-                <FormGroup>
-                  <FormGroup>
-                    <Col md={3}></Col>
-                    <Col md={6}>
+                    <Form horizontal>
+                        <FormGroup controlId="formHorizontalEmail">
+                            <FormGroup>
+                                <FormGroup>
+                                    <Col md={3}></Col>
+                                    <Col md={6}>
 
                                     </Col>
                                     <Col md={3}></Col>
@@ -398,7 +433,6 @@ export class RegisterAdmin extends Component<Props, State>{
         );
     }
     checkInput = () =>{
-        //console.log(this.getValidationStateFirstName()||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()||this.getValidationStateEmail2()==='warning'||this.getValidationStatePassword()==='warning'||this.getValidationStatePassword2()==='warning');
         if(this.state.buttonValue===0){
             this.setState({errorButton:true, errorSomething: false})
         };
@@ -424,7 +458,6 @@ export class RegisterAdmin extends Component<Props, State>{
     };
 
     register = async () => {
-        console.log("test", this.state.buttonValue);
 
         let userExists;
         await userService.getUserLogin(this.state.mail)
@@ -444,8 +477,6 @@ export class RegisterAdmin extends Component<Props, State>{
                 phone: this.state.phone,
                 countyId: this.state.choosen,
             };
-            console.log(userExists);
-            console.log(newAdmin);
             await userService
                 .addAdmin(newAdmin)
                 .then(user => this.state = user)
@@ -468,13 +499,11 @@ export class RegisterAdmin extends Component<Props, State>{
     };
     register2 = async () => {
 
-        console.log("test", this.state.buttonValue);
 
         let userExists;
         await userService.getUserLogin(this.state.mail)
             .then(r => {
                 userExists = (r[0] !== undefined);
-                console.log(r[0])
             });
 
         if (!userExists) {
@@ -488,7 +517,6 @@ export class RegisterAdmin extends Component<Props, State>{
                 phone: this.state.phone,
                 countyId: this.state.choosen,
             };
-            console.log("county", this.state.choosen);
             await userService
                 .addAdmin(newEmployee)
                 .then(user => (this.state = user))

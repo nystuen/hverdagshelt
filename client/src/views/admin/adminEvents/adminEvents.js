@@ -109,22 +109,19 @@ export class adminEvents extends React.Component {
               {event.userMail}
             </td>
             <td>
-              <Row>
-                <Col xs={6}>
-                  <Button bsStyle="link"
-                          onClick={() => this.editEvent(event.eventId)}
-                          type={'button'}>
-                    <i className="glyphicon glyphicon-pencil"></i>
-                  </Button>
-                </Col>
-                <Col md={6}>
-                  <Button bsStyle="link" style={{ color: 'darkred' }}
-                          onClick={() => this.deleteEvent(event)}
-                          type={'button'}>
-                    <span className="glyphicon glyphicon-trash"></span>
-                  </Button>
-                </Col>
-              </Row>
+              <Col>
+
+                <Button bsStyle="link"
+                        onClick={() => this.editEvent(event.eventId)}
+                        type={'button'}>
+                  <i className="glyphicon glyphicon-pencil"></i>
+                </Button>
+                <Button bsStyle="link" style={{ color: 'darkred' }}
+                        onClick={() => this.deleteEvent(event)}
+                        type={'button'}>
+                  <span className="glyphicon glyphicon-trash"></span>
+                </Button>
+              </Col>
 
             </td>
           </tr>

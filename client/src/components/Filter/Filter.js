@@ -1,7 +1,14 @@
-
-
+/**
+ * @class Filter
+ */
 export class Filter {
 
+    /**
+     * Filters out everything not matching the input.
+     *
+     * @method filterAll
+     * @returns void
+     */
     filterAll() {
         // Declare variables
         var input, filter, ul, li, a, i, txtValue;
@@ -23,6 +30,12 @@ export class Filter {
 
     }
 
+    /**
+     * Filters out the counties not matching your input (among your chosen counties)
+     *
+     * @method filterMine
+     * @returns void
+     */
     filterMine() {
         // Declare variables
         var input, filter, ul, li, a, i, txtValue;
@@ -43,6 +56,12 @@ export class Filter {
         }
     }
 
+    /**
+     * Filters out everything in a table not matching the input
+     *
+     * @method filterTable()
+     * @returns void
+     */
     filterTable(){
         // Declare variables
         var input, filter, Table, tr, td, i, txtValue;
@@ -65,6 +84,12 @@ export class Filter {
         }
     }
 
+    /**
+     * Unfilter a filtered table
+     *
+     * @method showAll
+     * @returns void
+     */
     showAll() {
         // Declare variables
         var input, filter, Table, tr, td, i, txtValue;
@@ -87,6 +112,13 @@ export class Filter {
         }
     }
 
+    /**
+     * Filter out issues that does not have the status Registered.
+     * ("td")[2] means that it's the third column from the left
+     *
+     * @method filterRegistered
+     * @returns void
+     */
     filterRegistered() {
         // Declare variables
         var input, filter, Table, tr, td, i, txtValue;
@@ -109,6 +141,13 @@ export class Filter {
         }
     }
 
+    /**
+     * Filter out issues that does not have the status In progress.
+     * ("td")[2] means that it's the third column from the left
+     *
+     * @method filterInProgress
+     * @returns void
+     */
     filterInProgress() {
         // Declare variables
         var input, filter, Table, tr, td, i, txtValue;
@@ -131,6 +170,13 @@ export class Filter {
         }
     }
 
+    /**
+     * Filter out issues that does not have the status Completed.
+     * ("td")[2] means that it's the third column from the left
+     *
+     * @method filterCompleted
+     * @returns void
+     */
     filterCompleted() {
         // Declare variables
         var input, filter, Table, tr, td, i, txtValue;

@@ -39,7 +39,9 @@ interface State {
 interface Props {
 }
 
-
+/**
+ * @class MineSaker
+ */
 export class MineSaker extends React.Component<Props, State> {
   match: { params: { mail: string } };
   constructor(props){
@@ -54,7 +56,14 @@ export class MineSaker extends React.Component<Props, State> {
     };
   }//end constructor
 
-
+    /**
+     * deletes an event from user's list of events registered
+     *
+     * @method delete
+     * @param issueId
+     * @param statusName
+     * @returns void
+     */
   delete(issueId: number, statusName: string) {
     if (statusName == 'Registered') {
       if (confirm('Er du sikker på at du vil slette denne saken?')) {
@@ -167,7 +176,7 @@ export class MineSaker extends React.Component<Props, State> {
               }else{
                 return (
                     <tr key={e.text}>
-                      <td>
+                      <td style={{'max-width':'10px'}}>
                         <Nav bsStyle="pills">
                           <NavItem href={'/#min_side/sakoversikt/' + e.issueId}>
                             {e.text}
