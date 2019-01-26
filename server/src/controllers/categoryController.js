@@ -90,7 +90,6 @@ module.exports = function(app: Object, categoriesDao: Object) {
             } else {
                 console.log("got req from updateCategory");
                 categoriesDao.updateCategory1(req.body.cat1Id, (status, data) => {
-                    console.log("KOMMER HIT");
                     res.status(status);
                     res.json(data);
                 })
