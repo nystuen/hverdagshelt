@@ -26,6 +26,7 @@ let userService = new UserService();
 let categoryService = new CategoryService();
 let issueService = new IssueService();
 let filter = new Filter();
+let buffer = {};
 
 interface State {
   issues: Object[];
@@ -73,8 +74,7 @@ export class MineSaker extends React.Component<Props, State> {
 
   componentWillMount() {
     userService.getMyIssues().then(response => {
-      this.setState({ issues: response });
-      this.getSorted();
+      this.setState({ issues: response }, () => this.getSorted());
     }).catch((error: Error) => Alert.danger(error.message));
 
     categoryService.getCategory1().then(response => {
@@ -239,7 +239,7 @@ export class MineSaker extends React.Component<Props, State> {
         sorted.push(e);
       }
     });
-    this.setState({ issues: sorted });
+    this.setState({ issues: sorted }, () => buffer = this.state.issues);
   };//end method
 
   setCategory = (cat: Object[], i: number) => {
@@ -257,7 +257,7 @@ export class MineSaker extends React.Component<Props, State> {
   };
 
   cancel(){
-    this.setState({edit: {}})
+    this.setState({edit: {}, issues: buffer})
   }//end method
 
   handleTextChange = (index: number) => (event: Event) => {

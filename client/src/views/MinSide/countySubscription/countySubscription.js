@@ -73,11 +73,11 @@ export class CountySubscription extends Component<Props, State> {
   };
 
 
-  change = () => {
+  change = async () => {
 
     countyService.deleteSubscription();
 
-    this.state.userCounties.map((e) => {
+    await this.state.userCounties.map((e) => {
       let theBody: Object = {
         countyId: e.countyId
       };

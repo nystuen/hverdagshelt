@@ -13,6 +13,7 @@ import { Filter } from '../../../components/Filter/Filter';
 let eventCategoryService = new EventCategoryService();
 let userService = new UserService();
 let filter = new Filter();
+let buffer = {};
 
 const toolTipEdit = (
   <Tooltip id="tooltip">
@@ -181,6 +182,7 @@ export class adminEvents extends React.Component {
     }).catch((error: Error) => confirm(error.message));
     eventCategoryService.getAllEventsInOneCounty(window.sessionStorage.getItem('countyId')).then(response => {
       this.setState({ events: response });
+      buffer = response;
     }).catch((error: Error) => confirm(error.message));
     eventCategoryService.getEventCategory().then(response => {
       this.setState({ allEventCategories: response });
@@ -222,8 +224,9 @@ export class adminEvents extends React.Component {
   }//end method
 
   cancel() {
-    this.setState({ edit: {} });
-  }
+    this.setState({ edit: {}, events: buffer}
+    );
+  }//end method
 
   buttonBack() {
     this.props.history.goBack();

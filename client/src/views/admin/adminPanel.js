@@ -3,7 +3,7 @@ import { Grid, Row, Col, ListGroup, ListGroupItem, Table, Image, Panel, Button, 
 import css from './adminPanel.css';
 import { UserService } from '../../services';
 import { PageHeader } from '../../components/PageHeader/PageHeader';
-
+import {history} from "../../index";
 // get viktige hendelser
 
 let userService = new UserService();
@@ -17,6 +17,9 @@ export class adminPanel extends Component {
   componentWillMount() {
     userService.getCurrentUser().then(response => {
       this.setState({ user: response[0] });
+      if(response[0].typeName==="Private" || response[0].typeName=== undefined){
+        history.push('/');
+      }
     }).catch((error: Error) => confirm(error.message));
   };
 
