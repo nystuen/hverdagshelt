@@ -28,13 +28,11 @@
     margin: 0;
 }
 
-
 #col {
     padding-top: 4em;
 }
 
-
-#col1{
+#col1 {
     padding-top: 4em;
     height: 100px;
 }
@@ -52,12 +50,16 @@
     text-transform: uppercase;
 }
 
-#butt{
+#butt {
     color: #5d5f6a;
 }
 
 .fixed-panel {
     min-height: 14em;
     overflow-y: scroll;
+
+}
+
+.sakInformasjon {
 
 }

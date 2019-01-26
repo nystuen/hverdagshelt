@@ -90,17 +90,20 @@ export class OversiktOverSak extends React.Component {
 
   renderCommentArea() {
     if (this.state.addCommentOpen && this.state.user.typeName !== 'Private') {
-      return <div align="center">
-        <br/>
-        <FormGroup>
-          <FormControl componentClass="textarea" value={this.state.comment} placeholder="Legg til kommentar til sak"
-                       onChange={this.editComment}/>
-          <Button onClick={this.addComment} bsStyle={'primary'}> Legg til kommentar</Button>
-        </FormGroup>
-      </div>;
+      return (
+        <Grid>
+          <div align="center">
+            <br/>
+            <FormGroup>
+              <FormControl componentClass="textarea" value={this.state.comment} placeholder="Legg til kommentar til sak"
+                           onChange={this.editComment}/>
+              <Button onClick={this.addComment} bsStyle={'primary'}> Legg til kommentar</Button>
+            </FormGroup>
+          </div>
+        </Grid>
+      );
     }
   }
-
 
   renderCommentFeed(length: number) {
 
@@ -111,23 +114,36 @@ export class OversiktOverSak extends React.Component {
       }} bsSize={'md'}>Legg til kommentar</Button></div>;
     }
     if (length > 0) {
+      return <div><Grid>
+        <div>
+          <hr/>
+          <div align="center">
+            <h3>Kommentarer</h3>
+          </div>
+          <br/>
+          {this.state.issueComments.map(e => {
+            return (
+
+              <div className="comment">
+                <Col>
+                  <h4><b>{e.mail}</b></h4>
+                  <h4><i>{e.text}</i></h4>
+                </Col>
+              </div>
+            );
+          })}
+        </div>
+      </Grid>
+        {renderComment}
+      </div>;
+    } else if (this.state.user.typeName !== 'Private') {
       return <div>
         <hr/>
         <div align="center">
-          <h3>Kommentarer</h3>
+          <h5>Denne saken har ingen kommentarer enda</h5>
+          <p>{this.state.addCommentOpen}</p>
         </div>
         <br/>
-        {this.state.issueComments.map(e => {
-          return (
-
-            <div className="comment">
-              <Col>
-                <h4><b>{e.mail}</b></h4>
-                <h4><i>{e.text}</i></h4>
-              </Col>
-            </div>
-          );
-        })}
         {renderComment}
       </div>;
     }
@@ -140,38 +156,88 @@ export class OversiktOverSak extends React.Component {
       editStatus = this.state.editStatus;
     }
 
-    return (
-      <div className="bottomFooter">
-        <i id="backButton" onClick={() => this.buttonBack()} className="fas fa-arrow-circle-left"></i>
-        <Grid className="sak">
+    console.log(this.state.image);
 
 
-          <Col sm={1} md={2} lg={2}></Col>
+    if (this.state.image != null) {
 
-          <Col sm={10} md={8} lg={8}>
+      return (
+        <div className="bottomFooter">
+          <i id="backButton" onClick={() => this.buttonBack()} className="fas fa-arrow-circle-left"/>
+          <Grid className="sak">
 
-            <PageHeader title={'Saksinformasjon'}/>
+            <Col className="sakInformasjon">
+              <div className="caseInfo">
+                <PageHeader title={'Saksinformasjon'}/>
 
-            <Col sm={12} md={12} lg={12}>
-              <img width={'100%'} src={'image/' + this.state.image}/>
+                <Col sm={12} md={8} lg={8}>
+                  <img width={'100%'} src={'image/' + this.state.image}/>
+                  <Row>
+
+                    <Col sm={6} md={6}>
+                      <h3>Kategori</h3>
+                      <p>{this.Categories()}</p>
+                      <h3>Beskrivelse</h3>
+                      <p>{this.state.issue.text}</p>
+                      <h3>Adresse</h3>
+                      <p>{this.state.issue.address}</p>
+                    </Col>
+
+                    <Col sm={6} md={6}>
+                      <h3>Status</h3>
+                      <ProgressBar>
+                        <ProgressBar bsStyle={this.state.status.progressBar} active={this.state.status.inProgress}
+                                     now={this.state.status.progress}
+                                     label={this.state.status.name} style={{ color: 'black' }}/>
+                      </ProgressBar>
+                      {editStatus}
+                      <h3>Dato sendt inn</h3>
+                      {this.state.issue.date}
+                    </Col>
+
+                  </Row>
+                </Col>
+
+                <Col sm={12} md={4} lg={4}>
+                  <OneIssueMapComponent markers={[this.state.latitude, this.state.longitude]}/>
+                </Col>
+              </div>
             </Col>
 
 
-            <Row>
+          </Grid>
+
+          <div className="commentsDiv">
+            {this.renderCommentFeed(this.state.issueComments.length)}
+            {this.renderCommentArea()}
+          </div>
+
+        </div>
+      );
+    } else {
+      return (
+        <div className="bottomFooter">
+          <i id="backButton" onClick={() => this.buttonBack()} className="fas fa-arrow-circle-left"/>
+          <Grid className="sak">
+
+            <Col md={2} lg={2}></Col>
+
+            <Col md={8} lg={8}>
+
+              <PageHeader title={'Saksinformasjon'}/>
+
               <Col sm={6} md={6}>
-                <h3>Kategori</h3>
-                <p>{this.Categories()}</p>
-
-                <h3>Adresse</h3>
-                <p>{this.state.issue.address}</p>
-
                 <h3>Beskrivelse</h3>
                 <p>{this.state.issue.text}</p>
 
+                <h3>Kategori</h3>
+                <p>{this.Categories()}</p>
+
+
+                <h3>Adresse</h3>
+                <p>{this.state.issue.address}</p>
               </Col>
               <Col sm={6} md={6}>
-
-
                 <h3>Status</h3>
                 <ProgressBar>
                   <ProgressBar bsStyle={this.state.status.progressBar} active={this.state.status.inProgress}
@@ -186,26 +252,23 @@ export class OversiktOverSak extends React.Component {
 
               </Col>
 
-            </Row>
-
-            <Col>
               <OneIssueMapComponent markers={[this.state.latitude, this.state.longitude]}/>
+
+
             </Col>
 
-            <Col>
-              {this.renderCommentFeed(this.state.issueComments.length)}
-              {this.renderCommentArea()}
-            </Col>
+          </Grid>
 
-          </Col>
+          <div className="commentsDiv">
+            {this.renderCommentFeed(this.state.issueComments.length)}
+            {this.renderCommentArea()}
+          </div>
+        </div>
+      );
+    }
 
-          <Col sm={1} md={2} lg={2}></Col>
 
-
-        </Grid>
-      </div>
-    );
-  }//end method
+  }
 
 
   componentWillMount() {
@@ -276,7 +339,7 @@ export class OversiktOverSak extends React.Component {
 
   showPic() {
     if (this.state.issue.pic !== null) {
-      return <Image className="picture" src={this.state.issue.pic} rounded/>;
+      return true;
     }
   }//end method
 

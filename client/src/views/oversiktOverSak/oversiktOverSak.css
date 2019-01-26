@@ -18,3 +18,10 @@
 }
 
 
+.editStatus{
+    display: flex;
+}
+
+.caseInfo{
+    padding-bottom: 2em;
+}
