@@ -57,8 +57,8 @@ export class events extends React.Component<Props, State> {
   render() {
     return (
       <div className="bottomFooter events">
-        <PageHeader title={"Hendelser i " + window.sessionStorage.getItem('countyName') + " kommune"}/>
         <Grid className="sak">
+        <PageHeader title={'Hendelser i ' + window.sessionStorage.getItem('countyName') + ' kommune'}/>
 
           <Col sm={1} md={2} lg={2}></Col>
 
@@ -78,21 +78,21 @@ export class events extends React.Component<Props, State> {
 
                   panel =
                     <ListGroupItem align="center" href={'/#/hendelse/' + r.eventId} header={r.title}>Klikk her for å se
-                      mer</ListGroupItem>
+                      mer</ListGroupItem>;
 
 
                   return (
                     <Col md={6}>
                       {panel}
                     </Col>
-                  )
+                  );
 
                 })
               }
             </ListGroup>
           </Col>
 
-          <Col  sm={1} md={2} lg={2}></Col>
+          <Col sm={1} md={2} lg={2}></Col>
         </Grid>
       </div>
 
