@@ -17,6 +17,10 @@ import {
   EventCategory
 } from "./classTypes";
 
+/**
+ * @method authHeader
+ * @returns authentication header object
+ */
 let authHeader = function authHeader() {
   // return authorization header with jwt token
   let token = window.localStorage.getItem("userToken");
@@ -30,28 +34,56 @@ let authHeader = function authHeader() {
 
 axios.interceptors.response.use(response => response.data);
 
+/**
+ * @Class UserServices
+ */
 export class UserService {
+
+    /**
+     * @method addUser
+     * @param {Object}
+     * @returns POST /add_user
+     */
   addUser(newUser: User): Promise<Response> {
     return axios.post("/add_user", newUser);
   } //end method
-
+    /**
+     *
+     * @param email
+     * @returns {*}
+     */
   getUserLogin(email: string): Promise<string[]> {
     return axios.get("/verify_user/" + email);
   } //end method
-
+    /**
+     *
+     * @param email
+     * @returns {*}
+     */
   getCompanyLogin(email: string): Promise<Object> {
     return axios.get("/verify_company/" + email);
   } //end method
-
+    /**
+     * @method getCurrentUser
+     * @return User Object
+     */
   // returns currently logged in user or company
   getCurrentUser(): Promise<User> {
     return axios.get("/user/get_current_user", { headers: authHeader() });
   } //end method
-
+    /**
+     * @method login
+     * @param userMail
+     * @returns {User} the current logged in user.
+     * @GET /login/:userMail
+     */
   login(userMail: Object<JSON>): Promise<void> {
     return axios.post("/login/", userMail);
   } //end method
-
+    /**
+     *
+     * @return {}
+     */
   getMyIssues(): Promise<JSON> {
     return axios.get("/user/getMyIssues", { headers: authHeader() });
   } //end method
