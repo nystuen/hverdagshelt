@@ -67,7 +67,7 @@ export class NavbarMenu extends React.Component {
       if (this.state.user.typeName === 'Admin') {
         return (
           <div className={'logoBrand'}>
-            <Navbar collapseOnSelect fluid >
+            <Navbar collapseOnSelect fluid>
               <Navbar.Header>
                 <Navbar.Brand>
                   <a href={'/#/'}><img src={'./resources/logo_white.png'}></img></a>
@@ -78,6 +78,9 @@ export class NavbarMenu extends React.Component {
               <Navbar.Collapse>
 
                 <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+                  <NavItem eventKey={1} href={'/#/endreKommune'}><Glyphicon
+                    glyph="glyphicon glyphicon-home"/> {window.sessionStorage.getItem('countyName')}
+                  </NavItem>
                   <NavItem eventKey={2} href={'/#/wizardForm'}><Glyphicon
                     glyph="glyphicon glyphicon-plus"/> Meld inn sak</NavItem>
                   <NavItem eventKey={3} href={'/#/hendelser/' + window.sessionStorage.getItem('countyId')}>
@@ -195,7 +198,8 @@ export class NavbarMenu extends React.Component {
                 <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
                   <NavItem eventKey={4} href={'/#/statistics'}><Glyphicon
                     glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
-                  <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Kart over tildelte saker</NavItem>
+                  <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Kart over tildelte
+                    saker</NavItem>
                   {this.viewCases()}
                 </Nav>
 
@@ -256,7 +260,8 @@ export class NavbarMenu extends React.Component {
       if (this.state.user.typeName === undefined) {
         return <MenuItem eventKey={19} href="/#min_side/mine_sakerBedrift"><i className="fas fa-list-ul"></i> Mine saker</MenuItem>;
       } else {
-        return <MenuItem eventKey={19} href="/#min_side/mine_saker"><i className="fas fa-th-list"></i> Mine saker</MenuItem>;
+        return <MenuItem eventKey={19} href="/#min_side/mine_saker"><i className="fas fa-th-list"></i> Mine
+          saker</MenuItem>;
       }//end condition
     } else {
       return <MenuItem eventKey={19} href="/#login"><i className="fas fa-th-list"></i> Mine saker</MenuItem>;

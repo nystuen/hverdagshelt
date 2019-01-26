@@ -89,9 +89,7 @@ export class adminIssues extends React.Component{
                                     Status
                                 </th>
                                 <th>
-                                    <Col align={"middle"}>
-                                    Behandle sak
-                                    </Col>
+
                                 </th>
                             </tr>
                             </thead>
@@ -118,22 +116,21 @@ export class adminIssues extends React.Component{
                                             </ProgressBar>
                                         </td>
                                         <td>
-                                            <Col xs={6} align={"right"}>
-                                                <OverlayTrigger placement="top" overlay={toolTipAssign}>
-                                                    <Button bsStyle="link"
-                                                            onClick={() => this.handleShow(e.categoryId, e)} type="button">
-                                                        <i className="glyphicon glyphicon-briefcase"></i>
-                                                    </Button>
-                                                </OverlayTrigger>
-                                            </Col>
-                                            <Col md={6} align={"left"}>
-                                                <OverlayTrigger placement="top" overlay={toolTipDelete}>
-                                                    <Button bsStyle="link" style={{color: 'darkred'}}
-                                                            onClick={() => this.confirm(e.issueId)}>
-                                                        <span className="glyphicon glyphicon-trash"></span>
-                                                    </Button>
-                                                </OverlayTrigger>
-                                            </Col>
+                                           <Col>
+                                               <OverlayTrigger placement="top" overlay={toolTipAssign}>
+                                                 <Button bsStyle="link"
+                                                         onClick={() => this.handleShow(e.categoryId, e)} type="button">
+                                                   <i className="glyphicon glyphicon-briefcase"></i>
+                                                 </Button>
+                                               </OverlayTrigger>
+                                               <OverlayTrigger placement="top" overlay={toolTipDelete}>
+                                                 <Button bsStyle="link" style={{color: 'darkred'}}
+                                                         onClick={() => this.confirm(e.issueId)}>
+                                                   <span className="glyphicon glyphicon-trash"></span>
+                                                 </Button>
+                                               </OverlayTrigger>
+                                           </Col>
+
                                         </td>
                                     </tr>
                                 )

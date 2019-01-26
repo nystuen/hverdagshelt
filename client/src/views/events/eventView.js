@@ -68,7 +68,7 @@ export class eventView extends React.Component {
             </div>
 
             <Col xs={12} sm={12} md={9} lg={9}>
-              <EventMapComponent markers={[this.state.lat, this.state.long]}/>
+              <EventMapComponent markers={[this.state.lat, this.state.long]} eventView={true}/>
             </Col>
 
             <Col xs={12} sm={12} md={3} lg={3}>

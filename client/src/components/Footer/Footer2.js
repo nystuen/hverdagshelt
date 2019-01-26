@@ -49,7 +49,7 @@ export class Footer2 extends Component<{}> {
   };
 
   render() {
-    if (!(window.localStorage.getItem('userToken') == '') && this.state.countyInformation != undefined) {
+    if ((!(window.localStorage.getItem('userToken') == '') && this.state.countyInformation != undefined)) {
 
       let employee;
       employee = <div align="center">

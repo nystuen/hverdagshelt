@@ -52,7 +52,7 @@ var blueIcon = new L.Icon({
 
 let userService = new UserService();
 
-export class EventMapComponent extends Component<{markers: string[]}> {
+export class EventMapComponent extends Component<{markers: string[], eventView:? boolean}> {
   constructor (props){
     super(props);
 
@@ -89,10 +89,17 @@ export class EventMapComponent extends Component<{markers: string[]}> {
 
 
     let mapStyle = {
-      height: '100vh',
+      height: '130vh',
       width: '90%'
     }
 
+
+    if(this.props.eventView){
+      mapStyle = {
+        height: '50vh',
+        width: '90%'
+      }
+    }
 
     return (
       <div>
