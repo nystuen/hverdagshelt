@@ -11,6 +11,8 @@ import {EventCategoryDao} from '../src/daos/eventCategoryDao';
 import {MailDao} from '../src/daos/mailDao';
 import {NotificationSettingsDao} from '../src/daos/notificationSettingsDao';
 import {StatisticsDao} from '../src/daos/statisticsDao'
+import {EmployeeDao} from '../src/daos/employeeDao';
+
 // GitLab CI Pool
 let pool = mysql.createPool({
   connectionLimit: 1,
@@ -46,6 +48,7 @@ let eventCategoryDao = new EventCategoryDao(pool);
 let notificationSettingsDao = new NotificationSettingsDao(pool);
 let mailDao = new MailDao(pool);
 let statisticDao = new StatisticsDao(pool);
+let employeeDao = new EmployeeDao(pool);
 
 
 //ISSUE-TESTING
@@ -723,7 +726,81 @@ test("check add event", done=> {
 });
 
 
+test("check get event", done => {
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
 
+    expect(data[0].title).toBe("Veiarbeid i midtbyen");
+    expect(data[0].userMail).toBe("ola@usermail.com");
+    expect(data[0].countyId).toBe(2);
+    done();
+  }
+  eventDao.getEvent(1,callback);
+});
+
+test("check get all events in one county", done => {
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+
+    expect(data.length).toBe(2);
+    expect(data[0].eventId).toBe(3);
+    expect(data[1].eventId).toBe(1);
+    done();
+  }
+  eventDao.getAllEventsInOneCounty(2,callback);
+});
+
+
+test("check delete one event", done => {
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+
+  }
+  function callback2(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.length).toBe(1);
+
+    done();
+  }
+  eventDao.deleteEvent(3,callback);
+  eventDao.getAllEventsInOneCounty(2, callback2);
+});
+
+
+test("check update one event", done => {
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.affectedRows).toBe(1);
+  }
+  function callback2(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data[0].title).toBe("HeiHei");
+    expect(data[0].text).toBe("dette er en heihei tekst");
+    done();
+  }
+
+  let val={
+    title: "HeiHei",
+    text:"dette er en heihei tekst",
+    eventCategoryId:1,
+    eventId:2,
+  };
+
+  eventDao.updateEvent(val,callback);
+  eventDao.getEvent(2, callback2);
+});
 
 //NOTIFICATION SETTINGS-TESTING
 //-----------------------------------------------------------------
@@ -930,3 +1007,40 @@ test("check get statusName from issues and numbers of each", done => {
   }
    statisticDao.getNumberStatus(1,callback);
 });
+
+
+
+//Employee-TESTING
+//-----------------------------------------------------------------
+test("check get statusName from issues and numbers of each", done => {
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.length).toBe(1);
+    done();
+  }
+  employeeDao.getUsersInCountyAdmin(2,callback);
+});
+
+
+
+test("check get statusName from issues and numbers of each", done => {
+  function callback(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+
+  }
+
+  function callback2(status, data) {
+    console.log(
+      "Test callback: status=" + status + ", data=" + JSON.stringify(data)
+    );
+    expect(data.length).toBe(0);
+    done();
+  }
+  employeeDao.blockUser("thea@usermail.com",callback);
+  userDao.getUser("thea@usermail.com", callback2);
+});
+
