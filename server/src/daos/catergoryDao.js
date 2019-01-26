@@ -28,7 +28,6 @@ export class CategoryDao extends Dao {
   }
 
   updateCategory2(id:number, callback: Function){
-      console.log("Det her er kategoriID: "+id);
       super.query('Update category2 SET active=0 WHERE category2Id=?',
           [id],
           callback
