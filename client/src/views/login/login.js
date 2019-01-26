@@ -224,8 +224,6 @@ export class Login extends Component<Props, State> {
                                          let token = r.jwt;
                                          window.localStorage.setItem('userToken', token);
                                          console.log('login in success');
-                                         console.log('hei');
-
                                          window.location.reload();
                                          history.push('/wizardForm');
                                      }).catch((error: Error) => confirm(error.message));

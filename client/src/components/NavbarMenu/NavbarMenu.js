@@ -78,7 +78,7 @@ export class NavbarMenu extends React.Component {
 
               <Navbar.Collapse>
 
-                <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+                <Nav activekey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
                   <NavItem eventKey={2} href={'/#/wizardForm'}><Glyphicon
                     glyph="glyphicon glyphicon-plus"/> Meld inn sak</NavItem>
                   <NavItem eventKey={3} href={'/#/hendelser/' + window.sessionStorage.getItem('countyId')}>
@@ -91,7 +91,7 @@ export class NavbarMenu extends React.Component {
                     glyph="glyphicon glyphicon-user"/> Admin</NavItem>
                 </Nav>
 
-                <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+                <Nav pullRight activekey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
                   <NavDropdown eventKey={9} title={'Min side'} id='1'>
                     <MenuItem id={'dropdownMenuItem'} eventKey={9}
                               href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
@@ -118,7 +118,7 @@ export class NavbarMenu extends React.Component {
 
               <Navbar.Collapse>
 
-                <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+                <Nav activekey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
                   <NavItem eventKey={2} href={'/#/wizardForm'}><Glyphicon
                     glyph="glyphicon glyphicon-plus"/> Meld inn sak</NavItem>
                   <NavItem eventKey={3} href={'/#/hendelser/' + window.sessionStorage.getItem('countyId')}>
@@ -131,7 +131,7 @@ export class NavbarMenu extends React.Component {
                     glyph="glyphicon glyphicon-user"/> Ansatt</NavItem>
                 </Nav>
 
-                <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+                <Nav pullRight activekey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
                   <NavDropdown eventKey={9} title={'Min side'} id='1'>
                     <MenuItem eventKey={9} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
                     <MenuItem eventKey={9}
@@ -157,7 +157,7 @@ export class NavbarMenu extends React.Component {
 
               <Navbar.Collapse>
 
-                <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+                <Nav activekey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
                   <NavItem eventKey={1} href={'/#/endreKommune'}><Glyphicon
                     glyph="glyphicon glyphicon-home"/> {window.sessionStorage.getItem('countyName')}
                   </NavItem>
@@ -171,7 +171,7 @@ export class NavbarMenu extends React.Component {
                   {this.viewCases()}
                 </Nav>
 
-                <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+                <Nav pullRight activekey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
                   <NavDropdown eventKey={9} title={'Min side'} id='1'>
                     <MenuItem eventKey={9} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
                     <MenuItem eventKey={9}
@@ -197,14 +197,14 @@ export class NavbarMenu extends React.Component {
 
               <Navbar.Collapse>
 
-                <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+                <Nav activekey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
                   <NavItem eventKey={4} href={'/#/statistics'}><Glyphicon
                     glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
                   <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Kart over tildelte saker</NavItem>
                   {this.viewCases()}
                 </Nav>
 
-                <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+                <Nav pullRight activekey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
                   <NavDropdown eventKey={9} title={'Min side'} id='1'>
                     <MenuItem eventKey={9} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
                     <MenuItem eventKey={9}
@@ -230,7 +230,7 @@ export class NavbarMenu extends React.Component {
             </Navbar.Header>
 
             <Navbar.Collapse>
-              <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+              <Nav pullRight activekey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
                 {loginButton}
               </Nav>
             </Navbar.Collapse>

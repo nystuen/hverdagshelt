@@ -26,17 +26,8 @@ import {history} from "../../index";
 
 let categoryService = new CategoryService();
 
-interface State {
 
-  newCategoryName: string,
-}
-
-interface Props {
-}
-
-//Prioritet 1,2,3
-
-export class adminAddCategory extends Component<Props, State> {
+export class adminAddCategory extends Component {
 
 
   constructor() {

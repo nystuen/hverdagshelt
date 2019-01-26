@@ -6,7 +6,7 @@ import Select from 'react-select';
 
 let categoryService = new CategoryService();
 
-export class CategorySelectList extends Component<Props, State> {
+export class CategorySelectList extends Component {
 
   constructor(props) {
     super(props);
