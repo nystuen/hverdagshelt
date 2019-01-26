@@ -198,16 +198,16 @@ export class IssueMapComponent extends Component {
         lng: 12.074429
       },
       zoom: 5,
-      issues: []
+      issues: [],
+      private: true
     };
-
-    this.popupClick = this.popupClick.bind(this);
   }
 
   mapRef = createRef<Map>()
 
   componentDidMount(){
     userService.getCurrentUser().then(res => {
+      console.log(res[0])
       if(res[0].companyMail != undefined){
         userService.getCompanyIssuesWithCat(res[0].companyMail).then(res => {
           this.setState({
@@ -215,9 +215,22 @@ export class IssueMapComponent extends Component {
           });
         });
       } else {
-        userService.getAllIssuesWithCat().then(response => {
-            this.setState({issues: response});
-        }).catch((error: Error) => console.log("Insert alert here Magnus"));
+        if(res[0].typeName != "Private"){
+          userService.getAllIssuesWithCat().then(response => {
+              this.setState({
+                issues: response,
+                private: true
+              });
+          }).catch((error: Error) => console.log("Insert alert here Magnus"));
+        } else {
+          userService.getAllIssuesWithCat().then(response => {
+              this.setState({
+                issues: response,
+                private: false
+              });
+          }).catch((error: Error) => console.log("Insert alert here Magnus"));
+        }
+
       }
     })
 
@@ -279,11 +292,7 @@ export class IssueMapComponent extends Component {
             return (
               <Marker key={id} position={[e.latitude, e.longitude]} icon={icon_color}>
                 <Popup>
-                  <Nav bsStyle="pills">
-                    <NavItem href={'/#min_side/sakoversikt/' + e.issueId}>
-                      {"Kategori: " +e.name + ", Innsendt: "+ e.date + ", Status: " + status}
-                    </NavItem>
-                  </Nav>
+                  {this.state.private ? (<Nav bsStyle="pills"><NavItem href={'/#min_side/sakoversikt/' + e.issueId}>{"Kategori: " +e.name + ", Innsendt: "+ e.date + ", Status: " + status}</NavItem></Nav>) : (<div>{"Kategori: " +e.name + ", Innsendt: "+ e.date + ", Status: " + status}</div>)}
                 </Popup>
               </Marker>
             )}
