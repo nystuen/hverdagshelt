@@ -249,6 +249,8 @@ export class Login extends Component<Props, State> {
                       }).catch((error: Error) => confirm(error.message));
                     } else {
                       this.setState({
+
+                        isLoading: false,
                         error: true
                       });
                     }//end condition
@@ -256,7 +258,9 @@ export class Login extends Component<Props, State> {
                 }).catch((error: Error) => {
                   console.log(error);
                   this.setState({
+                    isLoading: false,
                     error: true
+
                   });
                 });
               }//end condition
@@ -280,11 +284,13 @@ export class Login extends Component<Props, State> {
                 }).catch((error: Error) => {
                   console.log(error);
                   this.setState({
+                    isLoading: false,
                     error: true
                   });
                 });
               } else {
                 this.setState({
+                  isLoading: false,
                   error: true
                 });
               }//end condition
@@ -292,6 +298,7 @@ export class Login extends Component<Props, State> {
           }).catch((error: Error) => {
             console.log(error);
             this.setState({
+              isLoading: false,
               error: true
             });
           });

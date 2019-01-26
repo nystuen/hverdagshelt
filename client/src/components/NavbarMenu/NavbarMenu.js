@@ -171,8 +171,9 @@ export class NavbarMenu extends React.Component {
 
                 <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
                   <NavDropdown eventKey={9} title={'Min side'} id='1'>
-                    <MenuItem eventKey={9} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
-                    <MenuItem eventKey={9}
+                    <MenuItem id={'dropdownMenuItem'} eventKey={9}
+                              href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
+                    <MenuItem id={'dropdownMenuItem'} eventKey={9}
                               href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
                   </NavDropdown>
                   {loginButton}
@@ -258,13 +259,16 @@ export class NavbarMenu extends React.Component {
       }
 
       if (this.state.user.typeName === undefined) {
-        return <MenuItem eventKey={19} href="/#min_side/mine_sakerBedrift"><i className="fas fa-list-ul"></i> Mine saker</MenuItem>;
+        return <MenuItem id={'dropdownMenuItem'} eventKey={19} href="/#min_side/mine_sakerBedrift"><i
+          className="fas fa-list-ul"></i> Mine saker</MenuItem>;
       } else {
-        return <MenuItem eventKey={19} href="/#min_side/mine_saker"><i className="fas fa-th-list"></i> Mine
+        return <MenuItem id={'dropdownMenuItem'} eventKey={19} href="/#min_side/mine_saker"><i
+          className="fas fa-th-list"></i> Mine
           saker</MenuItem>;
       }//end condition
     } else {
-      return <MenuItem eventKey={19} href="/#login"><i className="fas fa-th-list"></i> Mine saker</MenuItem>;
+      return <MenuItem id={'dropdownMenuItem'} eventKey={19} href="/#login"><i className="fas fa-th-list"></i> Mine
+        saker</MenuItem>;
     }//end condition
   };//end method
 }
