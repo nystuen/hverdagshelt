@@ -80,7 +80,6 @@ export class EventMapComponent extends Component<{markers: string[]}> {
 
   render() {
     let markers = this.props.markers
-    console.log("Hello", markers)
 
     let marker = this.state.hasLocation ? (
       <Circle center={this.state.latlng} radius={100}>
@@ -229,10 +228,6 @@ export class IssueMapComponent extends Component {
     });
   };
 
-  popupClick = (e: Object) => {
-    console.log("hello")
-  }
-
   render() {
 
     let mapStyle = {
@@ -246,7 +241,6 @@ export class IssueMapComponent extends Component {
 
     return (
       <div id="containme">
-        {console.log('trigg', this.state.issues)}
         <Map
           center={this.state.latlng}
           length={12}
