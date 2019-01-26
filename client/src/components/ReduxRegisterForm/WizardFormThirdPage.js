@@ -83,7 +83,7 @@ export class WizardFormThirdPage extends React.Component {
     return (
       <Grid>
         <form onSubmit={handleSubmit}>
-          <Col md={8} mdOffset={2}>
+          <Col md={8} xsOffset={1}>
             <div className="container bottomFooter">
               <div className="formDiv">
                 <div className="progressBar">
