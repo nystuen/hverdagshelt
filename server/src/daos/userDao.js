@@ -32,7 +32,7 @@ export class UserDao extends Dao {
 
   getCompanyLogin(userMail: string, callback: Function) {
     super.query(
-      "select companyMail, password,active from company where companyMail=?",
+      "select companyMail, password, active from company where companyMail=?",
       [userMail],
       callback
     );
