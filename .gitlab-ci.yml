@@ -41,5 +41,4 @@ pages:
     paths:
     - public
   only:
-  - testing/frontend
-  - testing/backend
+  - master
