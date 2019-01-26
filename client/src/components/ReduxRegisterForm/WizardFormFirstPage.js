@@ -6,7 +6,7 @@ import React, { Component, createRef } from "react";
 import { Map, TileLayer, Marker, Popup, withLeaflet } from "react-leaflet";
 import * as ELG from "esri-leaflet-geocoder";
 import L from "leaflet";
-import { Button, ProgressBar, Glyphicon } from "react-bootstrap";
+import { Button, ProgressBar, Glyphicon, Alert } from "react-bootstrap";
 import Geocode from "react-geocode";
 
 Geocode.setApiKey("AIzaSyDVZREoJuiobrxWVmBFhemEk1VdRB0MsSI");
@@ -136,7 +136,8 @@ export class WizardFormFirstPage extends Component<{}, State> {
         Geocode.fromLatLng(lat, lng).then(response => {
           const address_found = response.results[0].formatted_address;
           let county_found
-          (response.results[0].address_components[3] != undefined ) ? county_found = response.results[0].address_components[2].long_name: county_found=""
+          (response.results[0].address_components[3] != undefined ) ? county_found = response.results[0].address_components[3].long_name: county_found=""
+          console.log(county_found)
           if(window.sessionStorage.getItem('countyName') == county_found){
             this.props.change("countyId", window.sessionStorage.getItem('countyId'))
             this.setState({
@@ -184,6 +185,16 @@ export class WizardFormFirstPage extends Component<{}, State> {
         <Popup>{this.state.address}</Popup>
       </Marker>
     ) : null;
+
+    let alert_county
+    if (!this.state.correct_county) {
+      alert_county = (<Alert bsStyle="danger">
+        <h6>Du kan ikke melde feil utenfor {window.sessionStorage.getItem("countyName")}.</h6>
+        <h6>Bytt kommune til venstre i navigasjonsbaren for å kunne melde feil her.</h6>
+      </Alert>)
+    } else {
+      alert_county = null
+    }
 
     return (
       <div style={styles}>
@@ -240,6 +251,9 @@ export class WizardFormFirstPage extends Component<{}, State> {
                   Meld feil <Glyphicon glyph="glyphicon glyphicon-arrow-right"/>
               </Button>
             </form>
+            <div align="center">
+              {alert_county}
+            </div>
           </div>
         </div>
       </div>
