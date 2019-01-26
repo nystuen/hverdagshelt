@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Button } from 'react-bootstrap';
-import {Line, Doughnut} from 'react-chartjs-2';
-import {StatisticsService, UserService} from "../../services";
+import {Line, Pie} from 'react-chartjs-2';
+import { StatisticsService, UserService } from "../../services";
 import ReactDOMServer from "react-dom/server";
 import * as jsPDF  from 'jspdf'
 import html2canvas from 'html2canvas';
@@ -11,47 +11,45 @@ let statisticsService = new StatisticsService();
 let userService = new UserService();
 
 const pieData = {
-  labels: [
-    'Registrert',
-    'Behandles',
-    'Fullført'
-  ],
-  datasets: [{
-    label: 'Antall feilmeldinger pr. status',
-    data: [100, 30, 10],
-    backgroundColor: [
-      '#FF6384',
-      '#36A2EB',
-      '#FFCE56'
-    ],
-    hoverBackgroundColor: [
-      '#FF6384',
-      '#36A2EB',
-      '#FFCE56'
-    ]
-  }]
+	labels: [
+		'Red',
+		'Green',
+		'Yellow'
+	],
+	datasets: [{
+		data: [10, 10, 10],
+		backgroundColor: [
+		'#FF6384',
+		'#36A2EB',
+		'#FFCE56'
+		],
+		hoverBackgroundColor: [
+		'#FF6384',
+		'#36A2EB',
+		'#FFCE56'
+		]
+	}]
 };
 
 const pieData2 = {
-  labels: [
-    'Registrert',
-    'Behandles',
-    'Fullført'
-  ],
-  datasets: [{
-    label: 'Antall feilmeldinger pr. status',
-    data: [100, 30, 10],
-    backgroundColor: [
-      '#FF6384',
-      '#36A2EB',
-      '#FFCE56'
-    ],
-    hoverBackgroundColor: [
-      '#FF6384',
-      '#36A2EB',
-      '#FFCE56'
-    ]
-  }]
+	labels: [
+		'Red',
+		'Green',
+		'Yellow'
+	],
+	datasets: [{
+		data: [10, 10, 10],
+		backgroundColor: [
+		'#FF6384',
+		'#36A2EB',
+		'#FFCE56'
+		],
+		hoverBackgroundColor: [
+		'#FF6384',
+		'#36A2EB',
+		'#FFCE56'
+		]
+	}]
 };
 
 let lineData = {
@@ -76,7 +74,7 @@ let lineData = {
       pointHoverBorderWidth: 2,
       pointRadius: 1,
       pointHitRadius: 10,
-      data: [65, 59, 80, 81, 56, 55, 40]
+      data: [0, 0, 0, 0, 0, 0, 0]
     }
   ]
 };
@@ -103,7 +101,7 @@ let lineData2 = {
       pointHoverBorderWidth: 2,
       pointRadius: 1,
       pointHitRadius: 10,
-      data: [65, 59, 80, 81, 56, 55, 40]
+      data: [0, 0, 0, 0, 0, 0, 0]
     }
   ]
 };
@@ -266,86 +264,88 @@ export class Statistics extends Component {
                 <Row id="wrap-wrap">
                     <Col sm={12} md={6} lg={6}>
 
-                        <Line
-                            data={this.state.lineData}
-                            width={500}
-                            height={500}
-                            options={{
-                                maintainAspectRatio: false,
-                                title: {
-                                    display: true,
-                                    text: "Antall feilmeldinger pr. måned"
-                                }
-                            }}
-                        />
-                    </Col>
+    return(
+      <Grid className="bottomFooter" id="wrap-wrap">
+        <PageHeader title={'Statistikk over ' + window.sessionStorage.getItem('countyName') + ' kommune'}/>
+        <Row>
+          <Col sm={12} md={6} lg={6}>
+            {console.log('pieData equals lineDataAllCounties', (this.state.lineData==this.state.lineDataAllCounties))}
+            <Line
+              data={this.state.lineData}
+              width={500}
+              height={500}
+              options={{
+                maintainAspectRatio: false,
+                title: {
+                  display: true,
+                  text: "Antall feilmeldinger pr. måned"
+                }
+              }}
+            />
+          </Col>
+          {console.log('pieData equals lineDataAllCounties', (this.state.lineData==this.state.lineDataAllCounties))}
 
-                    <Col sm={12} md={6} lg={6}>
-                        <Doughnut
-                            data={this.state.pieData}
-                            width={500}
-                            height={500}
-                            options={{
-                                maintainAspectRatio: false,
-                                title: {
-                                    display: true,
-                                    text: "Antall feilmeldinger pr. status"
-                                }
-                            }}
-                        />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Button style={styling} className="center-block" bsStyle="primary" onClick={() => {
-                            this.pdf2HTML()
-                        }}>Last ned som PDF</Button>
-                    </Col>
-                </Row>
+          <Col sm={12} md={6} lg={6}>
+            <Pie
+              data={this.state.pieData}
+              width={500}
+              height={500}
+              options={{
+                maintainAspectRatio: false,
+                title: {
+                  display: true,
+                  text: "Antall feilmeldinger pr. status"
+                }
+              }}
+              redraw
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Button style={styling} className="center-block" bsStyle="primary" onClick={() => {this.pdf2HTML()}}>Last ned som PDF</Button>
+          </Col>
+        </Row>
 
                 <PageHeader title={'Statistikk over alle kommuner'}/>
                 <Row id="wrap-wrap">
                     <Col sm={12} md={6} lg={6}>
 
-                        <Line
-                            data={this.state.lineDataAllCounties}
-                            width={500}
-                            height={500}
-                            options={{
-                                maintainAspectRatio: false,
-                                title: {
-                                    display: true,
-                                    text: "Antall feilmeldinger pr. måned"
-                                }
-                            }}
-                        />
-                    </Col>
-                    <Col sm={12} md={6} lg={6}>
-                        <Doughnut
-                            data={this.state.pieDataAllCounties}
-                            width={500}
-                            height={500}
-                            options={{
-                                maintainAspectRatio: false,
-                                title: {
-                                    display: true,
-                                    text: "Antall feilmeldinger pr. status"
-                                }
-                            }}
-                        />
-                    </Col>
-                </Row>
-                <Row>
-                    <Col>
-                        <Button style={styling} className="center-block" bsStyle="primary" onClick={() => {
-                            this.pdf2HTML()
-                        }}>Last ned som PDF</Button>
-                    </Col>
-                </Row>
-
-
-            </Grid>
-        )
-    }//end condition
+            <Line
+              data={this.state.lineDataAllCounties}
+              width={500}
+              height={500}
+              options={{
+                maintainAspectRatio: false,
+                title: {
+                  display: true,
+                  text: "Antall feilmeldinger pr. måned"
+                }
+              }}
+            />
+          </Col>
+          <Col sm={12} md={6} lg={6}>
+            <Pie
+              data={this.state.pieDataAllCounties}
+              width={500}
+              height={500}
+              options={{
+                maintainAspectRatio: false,
+                title: {
+                  display: true,
+                  text: "Antall feilmeldinger pr. status"
+                }
+              }}
+              redraw
+            />
+          </Col>
+        </Row>
+        <Row>
+          <Col>
+            <Button style={styling} className="center-block" bsStyle="primary" onClick={() => {this.pdf2HTML()}}>Last ned som PDF</Button>
+          </Col>
+        </Row>
+      </Grid>
+    )
   }
 }
