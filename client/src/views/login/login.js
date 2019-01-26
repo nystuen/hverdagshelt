@@ -152,8 +152,7 @@ export class Login extends Component<Props, State> {
                 <Row className="show-grid">
                   <FormGroup>
                     <FormControl
-                      type="text"
-                      id="mailText"
+                      type="email"
                       placeholder="Email"
                       value={this.state.email}
                       onChange={this.handleChangeEmail.bind(this)}
