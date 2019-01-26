@@ -41,31 +41,31 @@ export class UserService {
 
     /**
      * @method addUser
-     * @param {Object}
+     * @param {Object} {mail: string;firstName: string, lastName: string, password: string, typeName: string, phone: string, points: number, countyId: number,active: number}
      * @returns POST /add_user
      */
   addUser(newUser: User): Promise<Response> {
     return axios.post("/add_user", newUser);
   } //end method
     /**
-     *
-     * @param email
-     * @returns {*}
+     * @method getUserLogin
+     * @param {string} email
+     * @returns GET /verify_user/:email
      */
   getUserLogin(email: string): Promise<string[]> {
     return axios.get("/verify_user/" + email);
   } //end method
     /**
-     *
-     * @param email
-     * @returns {*}
+     * @method getCompanyLogin
+     * @param {string} email
+     * @returns GET /verify_company/:email
      */
   getCompanyLogin(email: string): Promise<Object> {
     return axios.get("/verify_company/" + email);
   } //end method
     /**
      * @method getCurrentUser
-     * @return User Object
+     * @return GET /user/get_current_user
      */
   // returns currently logged in user or company
   getCurrentUser(): Promise<User> {
@@ -73,21 +73,23 @@ export class UserService {
   } //end method
     /**
      * @method login
-     * @param userMail
-     * @returns {User} the current logged in user.
-     * @GET /login/:userMail
+     * @param {string} userMail
+     * @returns GET /login/:userMail
      */
   login(userMail: Object<JSON>): Promise<void> {
     return axios.post("/login/", userMail);
   } //end method
     /**
-     *
-     * @return {}
+     * @method getMyIssues
+     * @return GET /user/getMyIssues
      */
   getMyIssues(): Promise<JSON> {
     return axios.get("/user/getMyIssues", { headers: authHeader() });
   } //end method
-
+    /**
+     * @method getMyIssuesWithCat
+     * @returns GET
+     */
   getMyIssuesWithCat(): Promise<JSON> {
     return axios.get('/user/getMyIssuesWithCat', { headers: authHeader() });
   }
