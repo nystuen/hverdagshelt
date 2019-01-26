@@ -6,7 +6,6 @@ import { Component } from "react";
 import { User } from "../../classTypes";
 import { UserService } from "../../services";
 import { Alert, FormGroup, Form, FormControl, Button, Grid, Image, Row, Col } from "react-bootstrap";
-
 let jwt = require("jsonwebtoken");
 import login from "./login.css";
 import { history } from "../../index";
@@ -41,13 +40,13 @@ export class Login extends Component<Props, State> {
     openPassword: "password"
   };
 
-  handleChangeEmail = (event: SyntheticEvent<HTMLButtonElement>) => {
+  handleChangeEmail(event: SyntheticEvent<HTMLButtonElement>) {
     this.setState({
       email: event.target.value
     });
   };
 
-  handleChangePassword = (event: SyntheticEvent<HTMLButtonElement>) => {
+  handleChangePassword(event: SyntheticEvent<HTMLButtonElement>) {
     this.setState({
       password: event.target.value
     });
@@ -60,6 +59,12 @@ export class Login extends Component<Props, State> {
       this.setState({openPassword: "text"})
     }
   };
+
+    handleKeyPress = (event) => {
+        if(event.key === 'Enter'){
+            this.save();
+        }
+    };
 
 
 
@@ -110,6 +115,7 @@ export class Login extends Component<Props, State> {
 
 
     return (
+
       <div className="login">
         <Grid>
           <Form>
@@ -124,11 +130,12 @@ export class Login extends Component<Props, State> {
                 />
               </div>
 
-              <div className="loginBox">
+              <div className="loginBox" onKeyPress={this.handleKeyPress}>
                 <Row className="show-grid">
                   <FormGroup>
                     <FormControl
                       type="text"
+                      id="mailText"
                       placeholder="Email"
                       value={this.state.email}
                       onChange={this.handleChangeEmail.bind(this)}
@@ -140,6 +147,7 @@ export class Login extends Component<Props, State> {
                   <FormGroup>
                     <FormControl
                       type={this.state.openPassword}
+                      id="passText"
                       placeholder="Passord"
                       value={this.state.password}
                       onChange={this.handleChangePassword.bind(this)}
@@ -149,7 +157,7 @@ export class Login extends Component<Props, State> {
                 </Row>
 
                 <Row className="show-grid" align="center">
-                  <Button type="button" onClick={this.save} bsStyle="primary">
+                  <Button id="saveButton" type="button" onClick={this.save} bsStyle="primary">
                     Login
                   </Button>
                   <Button type="button" onClick={()=> this.handleClickPassword()}>{changeIcon}</Button>
@@ -179,91 +187,95 @@ export class Login extends Component<Props, State> {
   } //end method
 
  save = async () => {
-  await    userService
-      .getUserLogin(this.state.email)
-      .then(response => {
-        if(response[0].active === 1) {
-        this.setState({
-            countyId: response[0].countyId,
-            storedPassword: response[0].password
-          });
-        }else{
-          this.setState({blocked: true});
-          return;
-        }
+     if (confirm('Ved å logge inn på Hverdagshelt.no godtar du at vi lagrer ' +
+         'cookies med informasjon om brukernavnet  ditt og hvilken type bruker du er (privat / bedrift)')) {
+         await userService
+             .getUserLogin(this.state.email)
+             .then(response => {
+                 if (response[0].active === 1) {
+                     this.setState({
+                         countyId: response[0].countyId,
+                         storedPassword: response[0].password
+                     });
+                 } else {
+                     this.setState({blocked: true});
+                     return;
+                 }
 
-      bcrypt.compare(this.state.password, response[0].password, (err, res) => {
-        if (res) {
-          userService.login({ userMail: response[0].mail, typeId: response[0].typeName }).then(r => {
-            let token = r.jwt;
-            window.localStorage.setItem('userToken', token);
-            console.log('login in success');
-            userService.getCurrentUser().then(r3 => {
-              window.sessionStorage.setItem('countyId', r3[0].countyId);
-              window.sessionStorage.setItem('countyName', r3[0].county);
-            });
+                 bcrypt.compare(this.state.password, response[0].password, (err, res) => {
+                     if (res) {
+                         userService.login({userMail: response[0].mail, typeId: response[0].typeName}).then(r => {
+                             let token = r.jwt;
+                             window.localStorage.setItem('userToken', token);
+                             console.log('login in success');
+                             userService.getCurrentUser().then(r3 => {
+                                 window.sessionStorage.setItem('countyId', r3[0].countyId);
+                                 window.sessionStorage.setItem('countyName', r3[0].county);
+                             });
 
-            window.location.reload();
-            history.push('/wizardForm');
-          }).catch((error: Error) => confirm(error.message));
-        } else { //check if the email is a company email
-          userService.getCompanyLogin(this.state.email).then(r => {
-            bcrypt.compare(this.state.password, r[0].password, (err, res) => {
-              if (res) {
-                userService.login({ userMail: r[0].mail, typeId: 'Company' }).then(r => {
-                  let token = r.jwt;
-                  window.localStorage.setItem('userToken', token);
-                  console.log('login in success');
-                      console.log('hei');
+                             window.location.reload();
+                             history.push('/wizardForm');
+                         }).catch((error: Error) => confirm(error.message));
+                     } else { //check if the email is a company email
+                         userService.getCompanyLogin(this.state.email).then(r => {
+                             bcrypt.compare(this.state.password, r[0].password, (err, res) => {
+                                 if (res) {
+                                     userService.login({userMail: r[0].mail, typeId: 'Company'}).then(r => {
+                                         let token = r.jwt;
+                                         window.localStorage.setItem('userToken', token);
+                                         console.log('login in success');
+                                         console.log('hei');
 
-                      window.location.reload();
-                      history.push('/wizardForm');
-                  }).catch((error: Error) => confirm(error.message));
-                }else{
-                  this.setState({
-                    error: true
-                  });
-                }//end condition
-              });
-            }).catch((error: Error) => {
-              console.log(error);
-              this.setState({
-                error: true
-              });
-            });
-        }//end condition
-      });
-    }).catch((error: Error) => {
-      userService.getCompanyLogin(this.state.email).then(r => {
-        bcrypt.compare(this.state.password, r[0].password, (err, res) => {
-          if (res) {
-            userService.login({ userMail: this.state.email, typeId: 'Company' }).then(r => {
-              let token = r.jwt;
-              window.localStorage.setItem('userToken', token);
-              console.log('login in success');
+                                         window.location.reload();
+                                         history.push('/wizardForm');
+                                     }).catch((error: Error) => confirm(error.message));
+                                 } else {
+                                     this.setState({
+                                         error: true
+                                     });
+                                 }//end condition
+                             });
+                         }).catch((error: Error) => {
+                             console.log(error);
+                             this.setState({
+                                 error: true
+                             });
+                         });
+                     }//end condition
+                 });
+             }).catch((error: Error) => {
+                 userService.getCompanyLogin(this.state.email).then(r => {
+                     bcrypt.compare(this.state.password, r[0].password, (err, res) => {
+                         if (res) {
+                             userService.login({userMail: this.state.email, typeId: 'Company'}).then(r => {
+                                 let token = r.jwt;
+                                 window.localStorage.setItem('userToken', token);
+                                 console.log('login in success');
 
 
-                window.location.reload();
-                history.push('/wizardForm');
-            }).catch((error: Error) => {
-              console.log(error);
-              this.setState({
-                error: true
-              });
-            });
-          }else{
-            this.setState({
-              error: true
-            });
-          }//end condition
-        });
-      }).catch((error: Error) => {
-        console.log(error);
-        this.setState({
-          error: true
-        });
-      });
-    });
-  };//end method
-
+                                 window.location.reload();
+                                 history.push('/wizardForm');
+                             }).catch((error: Error) => {
+                                 console.log(error);
+                                 this.setState({
+                                     error: true
+                                 });
+                             });
+                         } else {
+                             this.setState({
+                                 error: true
+                             });
+                         }//end condition
+                     });
+                 }).catch((error: Error) => {
+                     console.log(error);
+                     this.setState({
+                         error: true
+                     });
+                 });
+             });
+     } else {
+        window.location.reload()
+     }
+ }//end method
 } //end class

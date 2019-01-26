@@ -40,7 +40,7 @@ export class adminPanel extends Component {
                       <div className="buttons">
                         <Button id="butt" bsStyle="default" href="/#/addCategory" block><span
                             className="glyphicon glyphicon-plus"/> Lag en kategori</Button>
-                        <Button id="butt" bsStyle={buttonStyle} href="/#/" block><span
+                        <Button id="butt" bsStyle={buttonStyle} href="/#/admin/endreKategorier" block><span
                             className="glyphicon glyphicon-edit"/> Administrere
                           Kategorier</Button>
                       </div>
@@ -87,7 +87,7 @@ export class adminPanel extends Component {
                         <Button
                             id="butt"
                             bsStyle={buttonStyle}
-                            href="/#/registrer/kommuneansatt"
+                            href="/#/registrer/admin"
                             block
                         >
                           <span className="glyphicon glyphicon-plus"/> Lag en

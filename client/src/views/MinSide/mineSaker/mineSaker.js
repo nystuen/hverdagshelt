@@ -9,7 +9,7 @@ import {
   Nav,
   NavItem,
   ToggleButton,
-  ToggleButtonGroup,
+  ToggleButtonGroup, FormControl,
 } from 'react-bootstrap';
 import { Issue } from '../../../classTypes';
 import { CategoryService, IssueService, UserService } from '../../../services';
@@ -19,6 +19,7 @@ import { Status } from '../../../classTypes';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
 import { history } from '../../../index';
 import mineSaker from './mineSaker.css';
+import update from "immutability-helper";
 
 let jwt = require('jsonwebtoken');
 let userService = new UserService();
@@ -28,11 +29,11 @@ let filter = new Filter();
 
 interface State {
   issues: Object[];
-  decoded: Object;
   category: Object;
   category1: Object[];
   category2: Object[];
   category3: Object[];
+  edit: Object;
 }//end interface
 
 interface Props {
@@ -41,13 +42,18 @@ interface Props {
 
 export class MineSaker extends React.Component<Props, State> {
   match: { params: { mail: string } };
-  state = {
-    issues: [],
-    category: [],
-    category1: [],
-    category2: [],
-    category3: []
-  };
+  constructor(props){
+    super(props);
+    this.state = {
+      issues: [],
+      category: [],
+      category1: [],
+      category2: [],
+      category3: [],
+      edit: {}
+    };
+  }//end constructor
+
 
   delete(issueId: number, statusName: string) {
     if (statusName == 'Registered') {
@@ -121,48 +127,86 @@ export class MineSaker extends React.Component<Props, State> {
             </tr>
             </thead>
             <tbody>
-            {this.state.issues.map((e, i) => {
-              return (
-                <tr key={e.text}>
-                  <td>
-                    <Nav bsStyle="pills">
-                      <NavItem href={'/#min_side/sakoversikt/' + e.issueId}>
-                        {e.text}
-                      </NavItem>
-                    </Nav>
-                  </td>
-                  <td>{this.setCategory(cat, i)}</td>
-                  <td>
-                    {this.updateStatus(e.statusName)}
-                    <ProgressBar>
-                      <ProgressBar
-                        bsStyle={this.status.progressBar}
-                        active={this.status.inProgress}
-                        now={this.status.progress}
-                        label={this.status.name}
-                        style={{ color: 'black' }}
-                        key={1}
-                      />
-                    </ProgressBar>
-                  </td>
-                  <td>
+            {this.state.issues.map((e,i) => {
+              if(e.issueId === this.state.edit) {
+                return (
+                    <tr key={e.issueId}>
+                      <td>
+                        <FormControl componentClass={"textarea"}
+                                     value={e.text}
+                                     onChange={this.handleTextChange(i)}/>
+                      </td>
+                      <td>{this.setCategory(cat, i)}</td>
+                      <td>
+                        {this.updateStatus(e.statusName)}
+                        <ProgressBar>
+                          <ProgressBar
+                              bsStyle={this.status.progressBar}
+                              active={this.status.inProgress}
+                              now={this.status.progress}
+                              label={this.status.name}
+                              style={{color: 'black'}}
+                              key={1}
+                          />
+                        </ProgressBar>
+                      </td>
+                      <td>
 
-                    <Button className="knapp" bsStyle="link"
-                            href={'/#/min_side/mine_saker/rediger/' + e.issueId}>
-                      <span className="glyphicon glyphicon-pencil"></span>
-                    </Button>
+                        <Button className="knapp" bsStyle="primary"
+                                onClick={() => this.save(e)}>
+                          Lagre
+                        </Button>
 
-                    <Button className="knapp" bsStyle="link" style={{ color: 'darkred' }}
-                            onClick={this.delete.bind(
-                              this,
-                              e.issueId,
-                              e.statusName
-                            )}>
-                      <span className="glyphicon glyphicon-trash"></span>
-                    </Button>
-                  </td>
-                </tr>
-              );
+                        <Button className="knapp" bsStyle="link" style={{color: 'darkred'}}
+                                onClick={() => this.cancel()}>
+                          Avbryt
+                        </Button>
+                      </td>
+                    </tr>
+                )
+              }else{
+                return (
+                    <tr key={e.text}>
+                      <td>
+                        <Nav bsStyle="pills">
+                          <NavItem href={'/#min_side/sakoversikt/' + e.issueId}>
+                            {e.text}
+                          </NavItem>
+                        </Nav>
+                      </td>
+                      <td>{this.setCategory(cat, i)}</td>
+                      <td>
+                        {this.updateStatus(e.statusName)}
+                        <ProgressBar>
+                          <ProgressBar
+                              bsStyle={this.status.progressBar}
+                              active={this.status.inProgress}
+                              now={this.status.progress}
+                              label={this.status.name}
+                              style={{color: 'black'}}
+                              key={1}
+                          />
+                        </ProgressBar>
+                      </td>
+                      <td>
+
+                        <Button className="knapp" bsStyle="link"
+                                onClick={() => this.editNow(e.issueId)}>
+                          <span className="glyphicon glyphicon-pencil"></span>
+                        </Button>
+
+                        <Button className="knapp" bsStyle="link" style={{color: 'darkred'}}
+                                onClick={this.delete.bind(
+                                    this,
+                                    e.issueId,
+                                    e.statusName
+                                )}>
+                          <span className="glyphicon glyphicon-trash"></span>
+                        </Button>
+                      </td>
+                    </tr>
+                )
+              }//end method
             })}
             </tbody>
           </Table>
@@ -202,5 +246,22 @@ export class MineSaker extends React.Component<Props, State> {
     if (cat[i] !== undefined)
       return <div> {cat[i].name}</div>;
   };//end method
+
+  editNow(issueId: number){
+    this.setState({edit: issueId});
+  }//end method
+
+  save = (issue: Object) => {
+    issueService.editIssue(issue.issueId, issue.text);
+    this.setState({edit: {}})
+  };
+
+  cancel(){
+    this.setState({edit: {}})
+  }//end method
+
+  handleTextChange = (index: number) => (event: Event) => {
+    this.setState({issues: update(this.state.issues, {[index]: {text: {$set: event.target.value}}})})
+  };
 
 }//end class

@@ -86,16 +86,17 @@ export class UserService {
   getMyIssues(): Promise<JSON> {
     return axios.get("/user/getMyIssues", { headers: authHeader() });
   } //end method
-    /**
-     * @method getMyIssuesWithCat
-     * @returns GET
-     */
-  getMyIssuesWithCat(): Promise<JSON> {
-    return axios.get('/user/getMyIssuesWithCat', { headers: authHeader() });
+
+  getAllIssuesWithCat(): Promise<JSON> {
+    return axios.get('/user/getAllIssuesWithCat', { headers: authHeader() });
   }
 
   getCompanyIssues(companyMail: string): Promise<JSON> {
     return axios.get("/getCompanyIssues/" + companyMail);
+  } //end method
+
+  getCompanyIssuesWithCat(companyMail: string): Promise<JSON> {
+    return axios.get("/getCompanyIssuesWithCat/" + companyMail);
   } //end method
 
   updateUser(user: User): Promise<Response> {
@@ -191,6 +192,9 @@ export class CategoryService {
   updateCategory1(category1: number): Promise<void> {
         return axios.put("/category1/updateCategory1", {cat1Id: category1}, {headers: authHeader()});
     }
+  updateCategory2before1(category1: number): Promise<void>{
+      return axios.put("/category1/updateCategory2", {cat1Id: category1}, {headers: authHeader()});
+  }
 
   getCategory1(): Promise<Category[]> {
     return axios.get("/get_category1");
@@ -253,12 +257,10 @@ export class IssueService {
     };
 
     if (statusName == "In progress" && res.inProgress == 1) {
-      console.log();
       axios.post("/sendIssueInProgressMail", mailObject);
     }
 
     if (statusName == "Completed" && res.completed == 1) {
-      console.log("completed");
       axios.post("/sendIssueCompleteMail", mailObject);
     }
 
@@ -326,7 +328,6 @@ export class CountyService {
   }
 
   addSubscription(json: Object) {
-    console.log("addSubscription", json);
     return axios.post("/addSubscription", json, { headers: authHeader() });
   }
 }

@@ -6,7 +6,7 @@ import {
   Button,
   ListGroup,
   ListGroupItem,
-  Glyphicon
+  Glyphicon, Alert
 } from "react-bootstrap";
 import { CategoryService } from "../../services";
 import { Category, Category2, Category3 } from "../../classTypes";
@@ -210,15 +210,14 @@ export class ChooseCategory extends Component<{
     }
     let alert_delete;
     if (this.props.statusButton === true) {
-      let alert_delete;
-      if (this.props.statusButton === true && this.state.show === true) {
+      if (this.state.show) {
+
         alert_delete = (
-          <Alert bsStyle="danger" onDismiss={this.handleDismiss}>
+          <Alert bsStyle="success" onDismiss={this.handleDismiss}>
             <h5>Du satt en kategori til inaktiv</h5>
           </Alert>
         );
       } else {
-        let alert_delete;
         alert_delete = <p />;
       }
     }
@@ -254,10 +253,14 @@ export class ChooseCategory extends Component<{
             );
           })}
         </ListGroup>
+        <Col md={3}/>
+        <Col md={6}>
+          {alert_delete}
+        </Col>
+        <Col md={3}/>
         <Col md={4} />
         <Col md={4}>
-          {inactive_button}
-          {alert_delete}
+            {inactive_button}
         </Col>
         <Col md={4} />
       </div>
@@ -266,12 +269,15 @@ export class ChooseCategory extends Component<{
   changeToInactive = () => {
     if (this.state.category1Id !== -1 && this.state.category2Id === -1) {
       const category1 = this.state.category1Id;
+      categoryService.updateCategory2before1(category1);
       categoryService.updateCategory1(category1);
-      this.setState({ show: true });
+      location.reload()
     } else if (this.state.category2Id !== -1) {
       const category2 = this.state.category2Id;
       categoryService.updateCategory2(category2);
-      this.setState({ show: true });
+      this.handleShow();
+      location.reload()
     }
   };
+
 }

@@ -83,8 +83,7 @@ export class EventMapComponent extends Component<{markers: string[]}> {
     console.log("Hello", markers)
 
     let marker = this.state.hasLocation ? (
-      <Circle center={this.state.latlng} radius={200}>
-        <Popup>{this.state.address}</Popup>
+      <Circle center={this.state.latlng} radius={100}>
       </Circle>
     ): null
 
@@ -202,10 +201,20 @@ export class IssueMapComponent extends Component {
   mapRef = createRef<Map>()
 
   componentDidMount(){
+    userService.getCurrentUser().then(res => {
+      if(res[0].companyMail != undefined){
+        userService.getCompanyIssuesWithCat(res[0].companyMail).then(res => {
+          this.setState({
+            issues: res
+          });
+        });
+      } else {
+        userService.getAllIssuesWithCat().then(response => {
+            this.setState({issues: response});
+        }).catch((error: Error) => console.log("Insert alert here Magnus"));
+      }
+    })
 
-    userService.getMyIssuesWithCat().then(response => {
-        this.setState({issues: response});
-    }).catch((error: Error) => console.log("Insert alert here Magnus"));
     const map = this.mapRef.current.leafletElement;
 
     if (map != null) {
