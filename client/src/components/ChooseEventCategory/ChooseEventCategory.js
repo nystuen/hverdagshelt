@@ -1,6 +1,5 @@
 import ReactDOM from "react-dom";
 import * as React from "react";
-import { Component } from "react-simplified";
 import {
     ListGroup, ListGroupItem
 } from "react-bootstrap";
@@ -10,7 +9,7 @@ import cloneDeep from "lodash/cloneDeep";
 
 let eventCategoryService = new EventCategoryService();
 
-export class ChooseEventCategory extends Component<{
+export class ChooseEventCategory extends React.Component<{
   registerCategory?: boolean
 }> {
   constructor(props) {
