@@ -51,7 +51,9 @@ class FindDate {
   }
 }
 
-
+/**
+ * @class OversiktOverSak
+ */
 export class OversiktOverSak extends React.Component {
   constructor(props) {
     super(props);
@@ -343,7 +345,12 @@ export class OversiktOverSak extends React.Component {
     }
   }//end method
 
-
+    /**
+     * adds points to an account for registering an event
+     *
+     * @method sendPoints
+     * @returns void
+     */
   sendPoints() {
     if (this.state.statusName === 'Completed') {
       let newPoints: number = (this.state.user.points + 10);

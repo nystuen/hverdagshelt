@@ -29,6 +29,10 @@ interface Props {
   notLoggedIn: boolean;
 } //end interface
 
+/**
+ * @class Login
+ */
+
 export class Login extends Component<Props, State> {
   state = {
     error: false,
@@ -54,24 +58,37 @@ export class Login extends Component<Props, State> {
     });
   };
 
-  handleClickPassword = () => {
-    if (this.state.openPassword == 'text') {
-      this.setState({ openPassword: 'password' });
-    } else {
-      this.setState({ openPassword: 'text' });
+    /**
+     * Shows the password that's been written
+     *
+     * @method handleClickPassword
+     * @reutrns void
+     */
+  handleClickPassword=()=>{
+    if(this.state.openPassword == "text"){
+      this.setState({openPassword: "password"})
+    }else{
+      this.setState({openPassword: "text"})
     }
   };
 
-  handleKeyPress = (event) => {
-    if (event.key === 'Enter') {
-      this.save();
-    }
-  };
+    /**
+     * logs in when enter is pressed
+     *
+     * @method handleKeyPress
+     * @param event
+     * @returns void
+     */
+    handleKeyPress = (event) => {
+        if(event.key === 'Enter'){
+            this.save();
+        }
+    };
 
 
   render() {
-    window.onload = function() {
-      if (!window.location.hash) {
+      window.onload = function(){
+      if(!window.location.hash){
         window.location = window.location + '#loaded';
         window.location.reload();
       }//end condition
@@ -102,7 +119,7 @@ export class Login extends Component<Props, State> {
     if (this.props.notLoggedIn) {
       alert_notLoggedIn = confirm('Du må være logget inn for å gå videre');
     } else {
-      <p/>;
+      <p />;
     } //end condition
 
 
@@ -117,7 +134,6 @@ export class Login extends Component<Props, State> {
     const { isLoading } = this.state;
 
     return (
-
       <div className="login">
         <Grid>
           <Form>
@@ -136,7 +152,8 @@ export class Login extends Component<Props, State> {
                 <Row className="show-grid">
                   <FormGroup>
                     <FormControl
-                      type="email"
+                      type="text"
+                      id="mailText"
                       placeholder="Email"
                       value={this.state.email}
                       onChange={this.handleChangeEmail.bind(this)}
@@ -185,30 +202,27 @@ export class Login extends Component<Props, State> {
       </div>
     );
   } //end method
-
-  save = async () => {
-
-    this.setState({ isLoading: true });
-
-    // This probably where you would have an `ajax` call
-
-
-      if (confirm('Ved å logge inn på Hverdagshelt.no godtar du at vi lagrer ' +
-        'cookies med informasjon om brukernavnet  ditt og hvilken type bruker du er (privat / bedrift)')) {
-
-
-        userService
-          .getUserLogin(this.state.email)
-          .then(response => {
-            if (response[0].active === 1) {
-              this.setState({
-                countyId: response[0].countyId,
-                storedPassword: response[0].password
-              });
-            } else {
-              this.setState({ blocked: true });
-              return;
-            }
+    /**
+     * checks if the mail and password is registered in the database and logs the user in
+     *
+     * @method save
+     * @returns {Promise<void>}
+     */
+ save = async () => {
+     if (confirm('Ved å logge inn på Hverdagshelt.no godtar du at vi lagrer ' +
+         'cookies med informasjon om brukernavnet  ditt og hvilken type bruker du er (privat / bedrift)')) {
+         await userService
+             .getUserLogin(this.state.email)
+             .then(response => {
+                 if (response[0].active === 1) {
+                     this.setState({
+                         countyId: response[0].countyId,
+                         storedPassword: response[0].password
+                     });
+                 } else {
+                     this.setState({blocked: true});
+                     return;
+                 }
 
             bcrypt.compare(this.state.password, response[0].password, (err, res) => {
               if (res) {
