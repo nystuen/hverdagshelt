@@ -74,7 +74,7 @@ export class Footer2 extends Component<{}> {
                   <ul>
                     <li><a href="#">Hjem</a></li>
                     <li><a href="#">FAQ</a></li>
-                    <li><a href="#">En ting til?</a></li>
+                    <li><a href="#">Kontakt oss</a></li>
                   </ul>
                 </div>
               </Col>

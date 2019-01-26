@@ -106,8 +106,22 @@ export class UserService {
   } //end method
 
   updatePoints(json: Object) {
-    return axios.put("/updatePoints", json);
+    return axios.put('/updatePoints', json);
   }
+
+  updateOneCompany(json: Object) {
+    return axios.put('/updateCompany', json, { headers: authHeader() });
+  }
+
+  deleteCompanyCounties(mail: string) {
+    return axios.delete('/deleteCompanyCounties/' + mail, { headers: authHeader() });
+  }
+
+  insertCompanyCounty(id: number, mail: string) {
+    return axios.post('/addSubscription/' + id + '/' + mail);
+  }
+
+
 } //end class
 
 export class EventCategoryService {

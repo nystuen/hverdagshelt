@@ -215,7 +215,7 @@ export class Statistics extends Component {
 
     if(this.state.user.typeName === undefined){
         return(
-            <Grid>
+            <Grid className="bottomFooter">
                 <PageHeader title={'Statistikk over alle kommuner'}/>
                 <Row id="wrap-wrap">
                     <Col sm={12} md={6} lg={6}>

@@ -407,7 +407,7 @@ export class RegisterUser extends Component<Props, State> {
             <p></p>
         }
         return (
-            <Grid>
+            <Grid className="bottomFooter">
                 <Col md={3}></Col>
                 <Col md={6}>
                     <Form horizontal>

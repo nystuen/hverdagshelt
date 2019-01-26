@@ -1,8 +1,8 @@
 // @flow
 
-import { Dao } from "../dao";
+import { Dao } from '../dao';
 
-const bcrypt = require("bcrypt-nodejs"); //to hash password
+const bcrypt = require('bcrypt-nodejs'); //to hash password
 
 export class UserDao extends Dao {
   addUser(json: Object, hashed: string, callback: Function) {
@@ -16,7 +16,7 @@ export class UserDao extends Dao {
       json.countyId
     ];
     super.query(
-      "insert into user (mail, firstName, lastName, password, typeName, phone, points, countyId, active) values(?, ?, ?, ?, ?, ?, 0, ?, 1)",
+      'insert into user (mail, firstName, lastName, password, typeName, phone, points, countyId, active) values(?, ?, ?, ?, ?, ?, 0, ?, 1)',
       val,
       callback
     );
@@ -24,7 +24,7 @@ export class UserDao extends Dao {
 
   getUserLogin(userMail: string, callback: Function) {
     super.query(
-      "select mail, password, countyId, typeName, active from user where mail=?",
+      'select mail, password, countyId, typeName, active from user where mail=?',
       [userMail],
       callback
     );
@@ -32,33 +32,34 @@ export class UserDao extends Dao {
 
   getCompanyLogin(userMail: string, callback: Function) {
     super.query(
-      "select companyMail, password,active from company where companyMail=?",
+      'select companyMail, password,active from company where companyMail=?',
       [userMail],
       callback
     );
   }
 
   getCountyEmployee(id: number, callback: Function) {
-    let val = ["Employee", id, 1];
+    let val = ['Employee', id, 1];
     super.query(
-      "SELECT * from user WHERE (typeName LIKE ? && countyId LIKE ? && active Like ?)",
+      'SELECT * from user WHERE (typeName LIKE ? && countyId LIKE ? && active Like ?)',
       val,
       callback
     );
   } //end method
 
   getUser(userMail: string, callback: Function) {
-    console.log("usermail, dao", userMail);
+    console.log('usermail, dao', userMail);
     super.query(
-      "SELECT countyId, active, mail, firstName, lastName, password, typeName, phone, points, name AS 'county' FROM user NATURAL JOIN county where mail=? and active=1 ",
+      'SELECT countyId, active, mail, firstName, lastName, password, typeName, phone, points, name AS \'county\' FROM user NATURAL JOIN county where mail=? and active=1 ',
       [userMail],
       callback
     );
   } //end method}
 
   getCompany(userMail: string, callback: Function) {
+    console.log('usermail dao:', userMail);
     super.query(
-      "select * from company where companyMail = ? and active = 1",
+      'select * from company natural join companyCounties where companyMail = ? and active = 1',
       [userMail],
       callback
     );
@@ -66,17 +67,16 @@ export class UserDao extends Dao {
 
   getHomeCounty(userMail: string, callback: Function) {
     super.query(
-      "select countyId, name from user natural join county where mail=?",
+      'select countyId, name from user natural join county where mail=?',
       [userMail],
       callback
     );
   }
 
 
-
   getIssuesForOneUser(userMail: string, callback: Function) {
     super.query(
-      "select * from issues where userMail=? and active=1 ORDER BY issueId DESC",
+      'select * from issues where userMail=? and active=1 ORDER BY issueId DESC',
       [userMail],
       callback
     );
@@ -84,7 +84,7 @@ export class UserDao extends Dao {
 
   getIssuesForAllUserWithCat(callback: Function) {
     super.query(
-      "select * from issues,allCats where ((issues.categoryLevel=1 and issues.categoryId=allCats.categoryId) or (issues.categoryLevel=2 and issues.categoryId=allCats.category2Id)) and active=1 order by issueId DESC",
+      'select * from issues,allCats where ((issues.categoryLevel=1 and issues.categoryId=allCats.categoryId) or (issues.categoryLevel=2 and issues.categoryId=allCats.category2Id)) and active=1 order by issueId DESC',
       [],
       callback
     );
@@ -100,34 +100,34 @@ export class UserDao extends Dao {
 
   getCompanyIssues(companyMail: string, callback: Function) {
     super.query(
-      "select * from issues where issueId in (select issueId from companyIssues where companyMail =?) ORDER BY issueId DESC",
+      'select * from issues where issueId in (select issueId from companyIssues where companyMail =?) ORDER BY issueId DESC',
       companyMail,
       callback
     );
   } //end method
 
-    getCompanyCategories(categoryId: number, countyId: number,  callback: Function){
-      console.log('category ' + categoryId + ' countyId ' + countyId);
-      super.query("Select * from companyCategories natural join company where categoryId=? " +
-          "and companyCategories.companyMail IN(SELECT companyCounties.companyMail FROM companyCounties WHERE companyCounties.countyId=?)",
-          [categoryId, countyId], callback);
-    }//end method
+  getCompanyCategories(categoryId: number, countyId: number, callback: Function) {
+    console.log('category ' + categoryId + ' countyId ' + countyId);
+    super.query('Select * from companyCategories natural join company where categoryId=? ' +
+      'and companyCategories.companyMail IN(SELECT companyCounties.companyMail FROM companyCounties WHERE companyCounties.countyId=?)',
+      [categoryId, countyId], callback);
+  }//end method
 
-    assignIssueToCompany(issueId: number, companyMail: string, callback: Function){
-      console.log('Assigning issue to company with mail ' + companyMail + ' and issueId ' + issueId);
-      super.query("insert into companyIssues(issueId,companyMail) values(?,?)", [issueId,companyMail], callback);
-    }//end method
+  assignIssueToCompany(issueId: number, companyMail: string, callback: Function) {
+    console.log('Assigning issue to company with mail ' + companyMail + ' and issueId ' + issueId);
+    super.query('insert into companyIssues(issueId,companyMail) values(?,?)', [issueId, companyMail], callback);
+  }//end method
 
   resetPassword(json: Object, hashed: string, callback: Function) {
     let val = [hashed, json];
-    console.log("maildao", val);
-    super.query(" UPDATE user SET password=? WHERE user.mail=?", val, callback);
+    console.log('maildao', val);
+    super.query(' UPDATE user SET password=? WHERE user.mail=?', val, callback);
   } //end method
 
   createNewPassword(json: Object, callback: Function) {
     let val = [json.newPassword, json.email];
     super.query(
-      "UPDATE user SET password=? WHERE user.mail = ?",
+      'UPDATE user SET password=? WHERE user.mail = ?',
       val,
       callback
     );
@@ -135,19 +135,19 @@ export class UserDao extends Dao {
 
   updateUser(email: string, json: Object, callback: Function) {
     let val = [json.firstName, json.lastName, json.phone, json.countyId, email];
-    console.log("hei");
+    console.log('hei');
     console.log(val);
     super.query(
-      "UPDATE user SET firstName =?, lastName=?, phone=?, countyId=? WHERE user.mail =?",
+      'UPDATE user SET firstName =?, lastName=?, phone=?, countyId=? WHERE user.mail =?',
       val,
       callback
     );
   }
 
 
-  updatePoints(json:Object, callback){
-    let val = [json.points,json.userMail];
-    super.query('Update user set points =? where user.mail =?',val,callback);
+  updatePoints(json: Object, callback) {
+    let val = [json.points, json.userMail];
+    super.query('Update user set points =? where user.mail =?', val, callback);
   }
 
 
@@ -165,9 +165,41 @@ export class UserDao extends Dao {
       json.orgNumber
     ];
     super.query(
-      "insert into company(companyMail, companyName, firstName, lastName, adresse, postnr, password,phone, description, orgNumber)values(?,?,?,?,?,?,?,?,?,?)",
+      'insert into company(companyMail, companyName, firstName, lastName, adresse, postnr, password,phone, description, orgNumber)values(?,?,?,?,?,?,?,?,?,?)',
       val,
       callback
     );
   }
-} //end class
+
+  updateCompany(json: Object, callback: Function) {
+    let val = [
+      json.companyName,
+      json.firstName,
+      json.lastName,
+      json.adresse,
+      json.postnr,
+      json.phone,
+      json.description,
+      json.companyMail
+    ];
+    super.query('update company set companyName=?, firstName=?, lastName=?, adresse=?, postnr=?, phone=?, description=? where companyMail=?',
+      val, callback);
+  }//end method
+
+  updatePoints(json: Object, callback) {
+    let val = [json.points, json.userMail];
+    super.query('Update user set points =? where user.mail =?', val, callback);
+  }
+
+  deleteCompanyCounties(companyMail: string, callback: Function) {
+    super.query('delete from companyCounties where companyMail=?',
+      [companyMail],
+      callback);
+  }//end method
+
+  insertCompanyCounties(county: number, companyMail: string, callback: Function) {
+    super.query('insert into companyCounties(companyMail, countyId) values(?,?)',
+      [companyMail,county],
+      callback);
+  }
+}//end class

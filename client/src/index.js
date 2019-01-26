@@ -35,6 +35,7 @@ import { Footer } from "./components/Footer/Footer";
 import { RegisterEmployee } from "./components/registeremployee/RegisterEmployee";
 import { RegisterAdmin } from "./components/registeradmin/registeradmin";
 import { ForgottenPassword } from "./views/login/forgottenPassword";
+import { RegNew } from "./components/regNew/RegNew";
 import { employeeHomepage } from "./views/employee/employeeHomepage/employeeHomepage";
 import { employeeManageUsers } from "./views/employee/employeeManageUsers/employeeManageUsers";
 import { CreateAdminsOrEmployees } from "./views/admin/createAdminsOrEmployees";
@@ -46,6 +47,7 @@ import { eventView } from './views/events/eventView';
 
 import {adminEvents} from "./views/admin/adminEvents/adminEvents";
 import {SetCategoryInactive, setCategoryInactive} from "./components/setCategoryInactive/SetCategoryInactive";
+import { splitScreen } from './views/forside/splitScreen';
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
@@ -101,6 +103,7 @@ if (root)
         <Route exact path="/admin" component={adminPanel}/>
         <Route path="/admin/sendMailTilBruker" component={SendTextMailWindow}/>
         <Route path="/admin/resetPassord" component={AdminResetUserPassword}/>
+        <Route path="/admin/registrertSuksess" component={RegNew}/>
         <Route path="/employee/home" component={employeeHomepage}/>
         <Route path="/employee/manageusers" component={employeeManageUsers}/>
         <Route path="/forgotPassword" component={ForgottenPassword}/>
@@ -117,6 +120,7 @@ if (root)
           component={EditIssue}
         />
         <Route exact path="/hendelse/:eventId" component={eventView}/>
+        <Route path="/registreringsvalg" component={splitScreen}/>
         <Footer2/>
       </div>
     </HashRouter>,

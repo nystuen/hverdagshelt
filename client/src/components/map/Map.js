@@ -89,7 +89,7 @@ export class EventMapComponent extends Component<{markers: string[]}> {
 
 
     let mapStyle = {
-      height: '50vh',
+      height: '100vh',
       width: '90%'
     }
 
@@ -152,7 +152,7 @@ export class OneIssueMapComponent extends Component<{markers: string[]}> {
 
 
     let mapStyle = {
-      height: '40vh',
+      height: '60vh',
       width: '100%'
     }
 

@@ -60,13 +60,13 @@ export class eventView extends React.Component {
         <Grid>
 
           <Col sm={1} md={2} lg={2}> </Col>
-
           <Col sm={10} md={8} lg={8}>
 
             <div align="center">
               <h2>{this.state.event.title}</h2>
               <hr/>
             </div>
+
             <Col xs={12} sm={12} md={9} lg={9}>
               <EventMapComponent markers={[this.state.lat, this.state.long]}/>
             </Col>
