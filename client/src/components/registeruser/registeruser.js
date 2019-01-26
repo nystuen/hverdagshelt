@@ -601,7 +601,7 @@ export class RegisterUser extends Component<Props, State> {
         setTimeout(
             function () {
                 history.push('/login');
-            }, 3000
+            }, 1000
         )
     }
 }

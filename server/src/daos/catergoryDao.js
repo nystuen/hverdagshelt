@@ -52,11 +52,11 @@ export class CategoryDao extends Dao {
 
 
     getOneCategory1(categoryId: number, callback: Function){
-        super.query("select * from category where categoryId=?",[categoryId], callback);
+        super.query("select * from category where categoryId=? and active=1",[categoryId], callback);
     }
 
     getOneCategory2(categoryId: number, callback: Function) {
-        super.query("select * from category2 where category2Id=?", [categoryId], callback);
+        super.query("select * from category2 where category2Id=? and active=1", [categoryId], callback);
     }
 
 
