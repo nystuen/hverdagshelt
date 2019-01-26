@@ -233,7 +233,7 @@ export class Statistics extends Component {
                         />
                     </Col>
                     <Col sm={12} md={6} lg={6}>
-                        <Doughnut
+                        <Pie
                             data={this.state.pieDataAllCounties}
                             width={500}
                             height={500}
@@ -244,6 +244,7 @@ export class Statistics extends Component {
                                     text: "Antall feilmeldinger pr. status"
                                 }
                             }}
+                            redraw
                         />
                     </Col>
                 </Row>
@@ -258,94 +259,90 @@ export class Statistics extends Component {
             </Grid>
         )
     }else {
-        return (
-            <Grid className="bottomFooter">
-                <PageHeader title={'Statistikk over ' + window.sessionStorage.getItem('countyName') + ' kommune'}/>
-                <Row id="wrap-wrap">
-                    <Col sm={12} md={6} lg={6}>
 
-    return(
-      <Grid className="bottomFooter" id="wrap-wrap">
-        <PageHeader title={'Statistikk over ' + window.sessionStorage.getItem('countyName') + ' kommune'}/>
-        <Row>
-          <Col sm={12} md={6} lg={6}>
+      return(
+        <Grid className="bottomFooter" id="wrap-wrap">
+          <PageHeader title={'Statistikk over ' + window.sessionStorage.getItem('countyName') + ' kommune'}/>
+          <Row>
+            <Col sm={12} md={6} lg={6}>
+              {console.log('pieData equals lineDataAllCounties', (this.state.lineData==this.state.lineDataAllCounties))}
+              <Line
+                data={this.state.lineData}
+                width={500}
+                height={500}
+                options={{
+                  maintainAspectRatio: false,
+                  title: {
+                    display: true,
+                    text: "Antall feilmeldinger pr. måned"
+                  }
+                }}
+              />
+            </Col>
             {console.log('pieData equals lineDataAllCounties', (this.state.lineData==this.state.lineDataAllCounties))}
-            <Line
-              data={this.state.lineData}
-              width={500}
-              height={500}
-              options={{
-                maintainAspectRatio: false,
-                title: {
-                  display: true,
-                  text: "Antall feilmeldinger pr. måned"
-                }
-              }}
-            />
-          </Col>
-          {console.log('pieData equals lineDataAllCounties', (this.state.lineData==this.state.lineDataAllCounties))}
 
-          <Col sm={12} md={6} lg={6}>
-            <Pie
-              data={this.state.pieData}
-              width={500}
-              height={500}
-              options={{
-                maintainAspectRatio: false,
-                title: {
-                  display: true,
-                  text: "Antall feilmeldinger pr. status"
-                }
-              }}
-              redraw
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Button style={styling} className="center-block" bsStyle="primary" onClick={() => {this.pdf2HTML()}}>Last ned som PDF</Button>
-          </Col>
-        </Row>
+            <Col sm={12} md={6} lg={6}>
+              <Pie
+                data={this.state.pieData}
+                width={500}
+                height={500}
+                options={{
+                  maintainAspectRatio: false,
+                  title: {
+                    display: true,
+                    text: "Antall feilmeldinger pr. status"
+                  }
+                }}
+                redraw
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Button style={styling} className="center-block" bsStyle="primary" onClick={() => {this.pdf2HTML()}}>Last ned som PDF</Button>
+            </Col>
+          </Row>
 
-                <PageHeader title={'Statistikk over alle kommuner'}/>
-                <Row id="wrap-wrap">
-                    <Col sm={12} md={6} lg={6}>
+                  <PageHeader title={'Statistikk over alle kommuner'}/>
+                  <Row id="wrap-wrap">
+                      <Col sm={12} md={6} lg={6}>
 
-            <Line
-              data={this.state.lineDataAllCounties}
-              width={500}
-              height={500}
-              options={{
-                maintainAspectRatio: false,
-                title: {
-                  display: true,
-                  text: "Antall feilmeldinger pr. måned"
-                }
-              }}
-            />
-          </Col>
-          <Col sm={12} md={6} lg={6}>
-            <Pie
-              data={this.state.pieDataAllCounties}
-              width={500}
-              height={500}
-              options={{
-                maintainAspectRatio: false,
-                title: {
-                  display: true,
-                  text: "Antall feilmeldinger pr. status"
-                }
-              }}
-              redraw
-            />
-          </Col>
-        </Row>
-        <Row>
-          <Col>
-            <Button style={styling} className="center-block" bsStyle="primary" onClick={() => {this.pdf2HTML()}}>Last ned som PDF</Button>
-          </Col>
-        </Row>
-      </Grid>
-    )
+              <Line
+                data={this.state.lineDataAllCounties}
+                width={500}
+                height={500}
+                options={{
+                  maintainAspectRatio: false,
+                  title: {
+                    display: true,
+                    text: "Antall feilmeldinger pr. måned"
+                  }
+                }}
+              />
+            </Col>
+            <Col sm={12} md={6} lg={6}>
+              <Pie
+                data={this.state.pieDataAllCounties}
+                width={500}
+                height={500}
+                options={{
+                  maintainAspectRatio: false,
+                  title: {
+                    display: true,
+                    text: "Antall feilmeldinger pr. status"
+                  }
+                }}
+                redraw
+              />
+            </Col>
+          </Row>
+          <Row>
+            <Col>
+              <Button style={styling} className="center-block" bsStyle="primary" onClick={() => {this.pdf2HTML()}}>Last ned som PDF</Button>
+            </Col>
+          </Row>
+        </Grid>
+      )
+    }
   }
 }
