@@ -114,53 +114,50 @@ class CompanyInfoCard extends React.Component<{
 
     return (
       <div>
-
-        <div>
-          <Grid>
-            <Col xs={2} md={2}>
-            </Col>
-            <Col xs={8} md={8}>
+        <Grid>
+          <Col md={2}>
+          </Col>
+          <Col md={8}>
 
 
-              <Panel>
-                <Panel.Body>
-                  <Col md={6}>
-                    <InformationCard header={'Bedriftens navn'} content={this.props.companyName}/>
+            <Panel>
+              <Panel.Body>
+                <Col md={6}>
+                  <InformationCard header={'Bedriftens navn'} content={this.props.companyName}/>
 
-                    <InformationCard header={'Kontaktperson'}
-                                     content={this.props.firstName + ' ' + this.props.lastName}/>
-                    <InformationCard header={'Kontaktpersonens mobilnummer'} content={this.props.phone}/>
-                  </Col>
-
-                  <Col md={6}>
-                    <InformationCard header={'E-post'} content={this.props.companyMail}/>
-                    <InformationCard header={'Beskrivelse'} content={this.props.description}/>
-                    <InformationCard header={'Organisasjonsnummer'} content={this.props.orgNumber}/>
-
-                  </Col>
-                </Panel.Body>
-              </Panel>
-
-              <div align="center">
-                <Col xs={12} md={6} sm={6} lg={6}>
-                  <Button id="accountInformationButton" bsStyle="primary" href={'/#/min_side/editAccountInformation'}>Endre
-                    kontoinformasjon</Button>
+                  <InformationCard header={'Kontaktperson'}
+                                   content={this.props.firstName + ' ' + this.props.lastName}/>
+                  <InformationCard header={'Kontaktpersonens mobilnummer'} content={this.props.phone}/>
                 </Col>
-                <Col xs={12} md={6} sm={6} lg={6}>
-                  <Button id="accountInformationButton" bsStyle="primary" onClick={() => this.changePassword()}>Endre
-                    passord</Button>
+
+                <Col md={6}>
+                  <InformationCard header={'E-post'} content={this.props.companyMail}/>
+                  <InformationCard header={'Beskrivelse'} content={this.props.description}/>
+                  <InformationCard header={'Organisasjonsnummer'} content={this.props.orgNumber}/>
+
                 </Col>
-              </div>
+              </Panel.Body>
+            </Panel>
+
+            <div align="center">
+              <Col xs={12} md={6} sm={6} lg={6}>
+                <Button id="accountInformationButton" bsStyle="primary" href={'/#/min_side/editAccountInformation'}>Endre
+                  kontoinformasjon</Button>
+              </Col>
+              <Col xs={12} md={6} sm={6} lg={6}>
+                <Button id="accountInformationButton" bsStyle="primary" onClick={() => this.changePassword()}>Endre
+                  passord</Button>
+              </Col>
+            </div>
 
 
-              {change_password}
-            </Col>
-            <Col xs={2} md={2}>
-            </Col>
-          </Grid>
+            {change_password}
+          </Col>
+          <Col md={2}>
+          </Col>
+        </Grid>
 
 
-        </div>
       </div>
     );
   }
@@ -203,9 +200,9 @@ class AccountInfoCard extends React.Component<{
 
         <div>
           <Grid>
-            <Col xs={2} md={2}>
+            <Col md={2}>
             </Col>
-            <Col xs={8} md={8}>
+            <Col md={8}>
 
 
               <Panel>
@@ -224,11 +221,11 @@ class AccountInfoCard extends React.Component<{
               </Panel>
 
               <div align="center">
-                <Col xs={12} md={6} sm={6} lg={6}>
+                <Col md={6} sm={6} lg={6}>
                   <Button id="accountInformationButton" bsStyle="primary" href={'/#/min_side/editAccountInformation'}>Endre
                     kontoinformasjon</Button>
                 </Col>
-                <Col xs={12} md={6} sm={6} lg={6}>
+                <Col md={6} sm={6} lg={6}>
                   <Button id="accountInformationButton" bsStyle="primary" onClick={() => this.changePassword()}>Endre
                     passord</Button>
                 </Col>
@@ -237,7 +234,7 @@ class AccountInfoCard extends React.Component<{
 
               {change_password}
             </Col>
-            <Col xs={2} md={2}>
+            <Col md={2}>
               <InfoModule/>
             </Col>
           </Grid>

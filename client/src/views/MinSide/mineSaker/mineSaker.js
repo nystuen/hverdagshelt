@@ -167,7 +167,7 @@ export class MineSaker extends React.Component<Props, State> {
               }else{
                 return (
                     <tr key={e.text}>
-                      <td>
+                      <td style={{'max-width':'10px'}}>
                         <Nav bsStyle="pills">
                           <NavItem href={'/#min_side/sakoversikt/' + e.issueId}>
                             {e.text}

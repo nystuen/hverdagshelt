@@ -99,7 +99,7 @@ export class adminIssues extends React.Component{
                             {this.state.issues.map((e, i) => {
                                 return (
                                     <tr key={e.issueId}>
-                                        <td>
+                                        <td style={{'max-width':'10px'}}>
                                             <Nav bsStyle="pills">
                                                 <NavItem href={'/#min_side/sakoversikt/' + e.issueId}>
                                                     {e.text}
