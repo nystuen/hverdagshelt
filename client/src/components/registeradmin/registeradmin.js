@@ -372,7 +372,6 @@ export class RegisterAdmin extends Component<Props, State>{
         );
     }
     checkInput = () =>{
-        //console.log(this.getValidationStateFirstName()||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()||this.getValidationStateEmail2()==='warning'||this.getValidationStatePassword()==='warning'||this.getValidationStatePassword2()==='warning');
         if(this.state.buttonValue===0){
             this.setState({errorButton:true, errorSomething: false})
         };
@@ -398,7 +397,6 @@ export class RegisterAdmin extends Component<Props, State>{
     };
 
     register = async () => {
-        console.log("test", this.state.buttonValue);
 
         let userExists;
         await userService.getUserLogin(this.state.mail)
@@ -418,8 +416,6 @@ export class RegisterAdmin extends Component<Props, State>{
                 phone: this.state.phone,
                 countyId: this.state.choosen,
             };
-            console.log(userExists);
-            console.log(newAdmin);
             await userService
                 .addAdmin(newAdmin)
                 .then(user => this.state = user)
@@ -442,13 +438,11 @@ export class RegisterAdmin extends Component<Props, State>{
     };
     register2 = async () => {
 
-        console.log("test", this.state.buttonValue);
 
         let userExists;
         await userService.getUserLogin(this.state.mail)
             .then(r => {
                 userExists = (r[0] !== undefined);
-                console.log(r[0])
             });
 
         if (!userExists) {
@@ -462,7 +456,6 @@ export class RegisterAdmin extends Component<Props, State>{
                 phone: this.state.phone,
                 countyId: this.state.choosen,
             };
-            console.log("county", this.state.choosen);
             await userService
                 .addAdmin(newEmployee)
                 .then(user => (this.state = user))
