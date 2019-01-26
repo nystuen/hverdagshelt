@@ -161,6 +161,9 @@ export class CategoryService {
   updateCategory1(category1: number): Promise<void> {
         return axios.put("/category1/updateCategory1", {cat1Id: category1}, {headers: authHeader()});
     }
+  updateCategory2before1(category1: number): Promise<void>{
+      return axios.put("/category1/updateCategory2", {cat1Id: category1}, {headers: authHeader()});
+  }
 
   getCategory1(): Promise<Category[]> {
     return axios.get("/get_category1");

@@ -98,6 +98,20 @@ module.exports = function(app: Object, categoriesDao: Object) {
         });
   });
 
+    app.put("/category1/updateCategory2", verifyToken, (req, res)=>{
+        jwt.verify(req.token, privateKey, (err, decoded) => {
+            if (err) {
+                res.sendStatus(401)
+            } else {
+                console.log("got req from updateCategory");
+                categoriesDao.updateCategory2before1(req.body.cat1Id, (status, data) => {
+                    res.status(status);
+                    res.json(data);
+                })
+            }
+        });
+    });
+
   app.put("/category2/updateCategory2", verifyToken, (req, res)=>{
       jwt.verify(req.token, privateKey, (err, decoded) => {
           if (err) {

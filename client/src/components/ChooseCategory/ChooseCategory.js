@@ -269,8 +269,8 @@ export class ChooseCategory extends Component<{
   changeToInactive = () => {
     if (this.state.category1Id !== -1 && this.state.category2Id === -1) {
       const category1 = this.state.category1Id;
+      categoryService.updateCategory2before1(category1);
       categoryService.updateCategory1(category1);
-      this.handleShow();
         location.reload()
     } else if (this.state.category2Id !== -1) {
       const category2 = this.state.category2Id;

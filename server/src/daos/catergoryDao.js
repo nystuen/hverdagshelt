@@ -15,15 +15,16 @@ export class CategoryDao extends Dao {
   }
 
   updateCategory1(id:number, callback: Function){
-        console.log("Det her er kategoriID: "+id);
-        super.query('Update category SET active=0 WHERE categoryId=?',
-            [id],
-            callback
-        );
-        super.query('Update category2 SET active=0 WHERE categoryID=?',
-            [id],
-            callback
-        );
+      super.query('Update category2 SET active=0 WHERE categoryId=?',
+          [id],
+          callback
+      );
+  }
+  updateCategory2before1(id:number, callback: Function){
+      super.query('Update category SET active=0 WHERE categoryId=?',
+          [id],
+          callback
+      )
   }
 
   updateCategory2(id:number, callback: Function){
