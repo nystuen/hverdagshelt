@@ -28,8 +28,6 @@
     margin: 0;
 }
 
-.buttons a {
-}
 
 #col {
     padding-top: 4em;
@@ -39,7 +37,6 @@
 #col1{
     padding-top: 4em;
     height: 100px;
-    line-heigth: 100px;
 }
 
 .title {
@@ -59,3 +56,8 @@
     color: #5d5f6a;
 }
 
+.fixed-panel {
+    min-height: 14em;
+    overflow-y: scroll;
+
+}
