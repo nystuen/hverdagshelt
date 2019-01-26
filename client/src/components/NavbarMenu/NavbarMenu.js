@@ -259,15 +259,15 @@ export class NavbarMenu extends React.Component {
       }
 
       if (this.state.user.typeName === undefined) {
-        return <MenuItem id={'dropdownMenuItem'} eventKey={19} href="/#min_side/mine_sakerBedrift"><i
+        return <MenuItem id={'dropdownMenuItem'} eventKey={22} href="/#min_side/mine_sakerBedrift"><i
           className="fas fa-list-ul"></i> Mine saker</MenuItem>;
       } else {
-        return <MenuItem id={'dropdownMenuItem'} eventKey={19} href="/#min_side/mine_saker"><i
+        return <MenuItem id={'dropdownMenuItem'} eventKey={22} href="/#min_side/mine_saker"><i
           className="fas fa-th-list"></i> Mine
           saker</MenuItem>;
       }//end condition
     } else {
-      return <MenuItem id={'dropdownMenuItem'} eventKey={19} href="/#login"><i className="fas fa-th-list"></i> Mine
+      return <MenuItem id={'dropdownMenuItem'} eventKey={22} href="/#login"><i className="fas fa-th-list"></i> Mine
         saker</MenuItem>;
     }//end condition
   };//end method
