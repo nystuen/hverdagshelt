@@ -45,7 +45,6 @@ export class Footer2 extends Component<{}> {
       this.setState({
         countyInformation: re[0]
       });
-      console.log('re:', re[0]);
     });
   };
 
