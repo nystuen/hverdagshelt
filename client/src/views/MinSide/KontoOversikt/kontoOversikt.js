@@ -255,25 +255,18 @@ export class KontoOversikt extends React.Component <State> {
   };
 
   componentDidMount() {
-
-    if (this.state.user.typeName === 'Admin' || this.state.user.typeName === 'Employee' || this.state.user.typeName === 'Private') {
-      userService.getCurrentUser().then(newUser => {
-        window.sessionStorage.setItem('countyId', newUser[0].countyId);
-        window.sessionStorage.setItem('countyName', newUser[0].county);
-        this.setState({
-          user: newUser[0]
-        });
+    userService.getCurrentUser().then(newUser => {
+      this.setState({
+        user: newUser[0]
+      }, () => {
+        if (this.state.user.typeName === 'Admin' || this.state.user.typeName === 'Employee' || this.state.user.typeName === 'Private') {
+          window.sessionStorage.setItem('countyId', newUser[0].countyId);
+          window.sessionStorage.setItem('countyName', newUser[0].county);
+        } else {
+          window.sessionStorage.setItem('countyName', '');
+        }
       });
-    } else {
-      userService.getCurrentUser().then(newUser => {
-        window.sessionStorage.setItem('countyName', '');
-        this.setState({
-          user: newUser[0]
-        });
-      });
-    }
-
-
+    });
   }
 
 

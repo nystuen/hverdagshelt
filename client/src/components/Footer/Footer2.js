@@ -48,8 +48,11 @@ export class Footer2 extends Component<{}> {
     });
   };
 
+
   render() {
-    if ((!(window.localStorage.getItem('userToken') == '') && this.state.countyInformation != undefined)) {
+    console.log('ils', (window.sessionStorage.getItem('countyName')));
+
+    if (!(window.localStorage.getItem('userToken') == '') && !(window.sessionStorage.getItem('countyName') == 'undefined')) {
 
       let employee;
       employee = <div align="center">
@@ -97,14 +100,14 @@ export class Footer2 extends Component<{}> {
           <Grid>
             <Row>
 
-                <div align="center">
-                  <h5>Kom igang</h5>
-                  <ul>
-                    <li><a href="#">Hjem</a></li>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">En ting til?</a></li>
-                  </ul>
-                </div>
+              <div align="center">
+                <h5>Kom igang</h5>
+                <ul>
+                  <li><a href="#">Hjem</a></li>
+                  <li><a href="#">FAQ</a></li>
+                  <li><a href="#">En ting til?</a></li>
+                </ul>
+              </div>
 
             </Row>
 

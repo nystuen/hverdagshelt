@@ -188,8 +188,6 @@ export class Login extends Component<Props, State> {
 
   save = async () => {
 
-    this.setState({ isLoading: true });
-
     // This probably where you would have an `ajax` call
 
 
