@@ -89,7 +89,7 @@ export class EventMapComponent extends Component<{markers: string[]}> {
 
 
     let mapStyle = {
-      height: '50vh',
+      height: '100vh',
       width: '90%'
     }
 
