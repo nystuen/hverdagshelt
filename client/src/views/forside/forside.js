@@ -59,22 +59,23 @@ export class forside extends Component {
     this.getInformation();
   }
 
-  register(){
-    return <InfoModule/>
+  register() {
+    return <InfoModule/>;
   }
 
   login() {
     if (window.localStorage.getItem('userToken') === '') {
       return <div>
-        <Button id="homepageButton" bsStyle="primary" onClick={this.register} >Bli en hverdagshelt!</Button>
-      </div>
+        <Button id="homepageButton" bsStyle="primary" href={'/#/registreringsvalg'} onClick={this.register}>Bli en
+          hverdagshelt!</Button>
+      </div>;
     }
   }
 
   render() {
     return (
       <div className="forside">
-        <Grid align="center">
+        <Grid align="center" className="forsideText">
 
           <h1>VELKOMMEN TIL HVERDAGSHELT</h1>
 

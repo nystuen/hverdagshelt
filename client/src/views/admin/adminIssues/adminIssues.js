@@ -24,6 +24,9 @@ const toolTipDelete = (
   </Tooltip>
 );
 
+/**
+ * @class adminIssues
+ */
 export class adminIssues extends React.Component{
     constructor(props){
         super(props);
@@ -89,9 +92,7 @@ export class adminIssues extends React.Component{
                                     Status
                                 </th>
                                 <th>
-                                    <Col align={"middle"}>
-                                    Behandle sak
-                                    </Col>
+
                                 </th>
                             </tr>
                             </thead>
@@ -99,7 +100,7 @@ export class adminIssues extends React.Component{
                             {this.state.issues.map((e, i) => {
                                 return (
                                     <tr key={e.issueId}>
-                                        <td>
+                                        <td style={{'max-width':'10px'}}>
                                             <Nav bsStyle="pills">
                                                 <NavItem href={'/#min_side/sakoversikt/' + e.issueId}>
                                                     {e.text}
@@ -118,22 +119,21 @@ export class adminIssues extends React.Component{
                                             </ProgressBar>
                                         </td>
                                         <td>
-                                            <Col xs={6} align={"right"}>
-                                                <OverlayTrigger placement="top" overlay={toolTipAssign}>
-                                                    <Button bsStyle="link"
-                                                            onClick={() => this.handleShow(e.categoryId, e)} type="button">
-                                                        <i className="glyphicon glyphicon-briefcase"></i>
-                                                    </Button>
-                                                </OverlayTrigger>
-                                            </Col>
-                                            <Col md={6} align={"left"}>
-                                                <OverlayTrigger placement="top" overlay={toolTipDelete}>
-                                                    <Button bsStyle="link" style={{color: 'darkred'}}
-                                                            onClick={() => this.confirm(e.issueId)}>
-                                                        <span className="glyphicon glyphicon-trash"></span>
-                                                    </Button>
-                                                </OverlayTrigger>
-                                            </Col>
+                                           <Col>
+                                               <OverlayTrigger placement="top" overlay={toolTipAssign}>
+                                                 <Button bsStyle="link"
+                                                         onClick={() => this.handleShow(e.categoryId, e)} type="button">
+                                                   <i className="glyphicon glyphicon-briefcase"></i>
+                                                 </Button>
+                                               </OverlayTrigger>
+                                               <OverlayTrigger placement="top" overlay={toolTipDelete}>
+                                                 <Button bsStyle="link" style={{color: 'darkred'}}
+                                                         onClick={() => this.confirm(e.issueId)}>
+                                                   <span className="glyphicon glyphicon-trash"></span>
+                                                 </Button>
+                                               </OverlayTrigger>
+                                           </Col>
+
                                         </td>
                                     </tr>
                                 )
@@ -173,8 +173,13 @@ export class adminIssues extends React.Component{
         this.status = new Status(status);
     }//end method
 
+    /**
+     * Sorting view so completed issues are listed at the bottom
+     *
+     * @method getSorted
+     * @returns void
+     */
     getSorted = () => {
-        //Sorting view so completed issues are listed at the bottom
         let sorted: Object = [];
         this.state.issues.map(e => {
             if(e.statusName === 'Registered'){

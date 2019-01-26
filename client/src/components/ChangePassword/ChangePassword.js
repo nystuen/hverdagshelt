@@ -11,6 +11,9 @@ let userService = new UserService();
 let mailService = new MailService();
 const bcrypt = require('bcrypt-nodejs');
 
+/**
+ * @class ChangePassword
+ */
 export class ChangePassword extends Component {
   constructor(props) {
     super(props);
@@ -47,6 +50,36 @@ export class ChangePassword extends Component {
       newPassword2: event.target.value
     });
   }
+
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationStatePassword
+     * @returns {string}
+     */
+  getValidationStatePassword(){
+        const length = this.state.newPassword.length;
+        let decimal = /(?=^.{8,64}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!., æøå/@<>"¤=#$%^&*()]*$/;
+        if (this.state.newPassword.match(decimal)) return 'success';
+        else if(length==0)return ;
+        else return 'warning';
+    }
+
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationStatePassword2
+     * @returns {string}
+     */
+    getValidationStatePassword2(){
+        const password2Length = this.state.newPassword2.length;
+        let decimal = /(?=^.{8,64}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!., æøå/@<>"¤=#$%^&*()]*$/;
+        if(password2Length==0) return;
+        else{
+            if(this.state.newPassword !== this.state.newPassword2||!(this.state.newPassword2.match(decimal))) return 'warning';
+            else return 'success';
+        }
+    }
 
   submit() {
     if (this.state.newPassword == this.state.newPassword2) {
@@ -92,7 +125,7 @@ export class ChangePassword extends Component {
               placeholder="passord"
             />
           </FormGroup>{' '}
-          <FormGroup controlId="formInlineToPassword">
+          <FormGroup controlId="formInlineToPassword" validationState={this.getValidationStatePassword()}>
             <ControlLabel>Nytt passord</ControlLabel>{' '}
             <FormControl
               name="newPassword"
@@ -100,8 +133,9 @@ export class ChangePassword extends Component {
               type="password"
               placeholder="nytt passord"
             />
+            <FormControl.Feedback/>
           </FormGroup>{' '}
-          <FormGroup controlId="formInlineToPassword">
+          <FormGroup controlId="formInlineToPassword" validationState={this.getValidationStatePassword2()}>
             <ControlLabel>Gjenta nytt passord</ControlLabel>{' '}
             <FormControl
               name="newPassword2"
@@ -109,6 +143,7 @@ export class ChangePassword extends Component {
               type="password"
               placeholder="nytt passord"
             />
+            <FormControl.Feedback/>
           </FormGroup>{' '}
           <div align="right">
             <Button onClick={this.submit} bsStyle="primary">

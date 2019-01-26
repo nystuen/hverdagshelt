@@ -52,7 +52,7 @@ var blueIcon = new L.Icon({
 
 let userService = new UserService();
 
-export class EventMapComponent extends Component<{markers: string[]}> {
+export class EventMapComponent extends Component<{markers: string[], eventView:? boolean}> {
   constructor (props){
     super(props);
 
@@ -83,17 +83,23 @@ export class EventMapComponent extends Component<{markers: string[]}> {
     console.log("Hello", markers)
 
     let marker = this.state.hasLocation ? (
-      <Circle center={this.state.latlng} radius={200}>
-        <Popup>{this.state.address}</Popup>
+      <Circle center={this.state.latlng} radius={100}>
       </Circle>
     ): null
 
 
     let mapStyle = {
-      height: '50vh',
+      height: '130vh',
       width: '90%'
     }
 
+
+    if(this.props.eventView){
+      mapStyle = {
+        height: '50vh',
+        width: '90%'
+      }
+    }
 
     return (
       <div>
@@ -153,7 +159,7 @@ export class OneIssueMapComponent extends Component<{markers: string[]}> {
 
 
     let mapStyle = {
-      height: '40vh',
+      height: '60vh',
       width: '100%'
     }
 
@@ -202,10 +208,20 @@ export class IssueMapComponent extends Component {
   mapRef = createRef<Map>()
 
   componentDidMount(){
+    userService.getCurrentUser().then(res => {
+      if(res[0].companyMail != undefined){
+        userService.getCompanyIssuesWithCat(res[0].companyMail).then(res => {
+          this.setState({
+            issues: res
+          });
+        });
+      } else {
+        userService.getAllIssuesWithCat().then(response => {
+            this.setState({issues: response});
+        }).catch((error: Error) => console.log("Insert alert here Magnus"));
+      }
+    })
 
-    userService.getMyIssuesWithCat().then(response => {
-        this.setState({issues: response});
-    }).catch((error: Error) => console.log("Insert alert here Magnus"));
     const map = this.mapRef.current.leafletElement;
 
     if (map != null) {

@@ -63,66 +63,70 @@ export class EventFormThirdPage extends React.Component {
     ) {
       return (
         <Grid>
-        <form onSubmit={handleSubmit}>
-          <div className="container bottomFooter">
-            <div className="formDiv">
-              <div className="progressBar">
-                <ProgressBar now={100} label={'3/3'}/>
-              </div>
-              <h3>Vennligst spesifiser hendelsen</h3>
-              <div className="paddingBot">
-                <div>
-                  <Field
-                    name="title"
-                    type="text"
-                    component={renderField1}
-                    label="Tittel"
-                  />
-                  <Field
-                    name="text"
-                    type="text"
-                    component={renderField}
-                    label="Beskrivelse"
-                  />
-                  <Field
-                    name="userMail"
-                    type="hidden"
-                    component={renderEmail}
-                    label="userMail"
-                  />
-                  <Field
-                    name="countyId"
-                    type="hidden"
-                    component={renderEmail}
-                    label="countyId"
-                  />
+          <form onSubmit={handleSubmit}>
+            <Col md={8} mdOffset={2}>
+              <div className="bottomFooter">
+                <div className="formDiv">
+
+
+                  <div className="progressBar">
+                    <ProgressBar now={100} label={'3/3'}/>
+                  </div>
+                  <h3>Vennligst spesifiser hendelsen</h3>
+                  <div className="paddingBot">
+                    <div>
+                      <Field
+                        name="title"
+                        type="text"
+                        component={renderField1}
+                        label="Tittel"
+                      />
+                      <Field
+                        name="text"
+                        type="text"
+                        component={renderField}
+                        label="Beskrivelse"
+                      />
+                      <Field
+                        name="userMail"
+                        type="hidden"
+                        component={renderEmail}
+                        label="userMail"
+                      />
+                      <Field
+                        name="countyId"
+                        type="hidden"
+                        component={renderEmail}
+                        label="countyId"
+                      />
+                    </div>
+                  </div>
+                  <div>
+                    <Col lg={6} md={6} sm={6} xs={6}>
+                      <Button
+                        bsStyle="primary"
+                        type="button"
+                        className="previous"
+                        onClick={previousPage}
+                      >
+                        Previous
+                      </Button>
+                    </Col>
+                    <Col lg={6} md={6} sm={6} xs={6} align="right">
+                      <Button
+                        bsStyle="primary"
+                        type="submit"
+                        onClick={this.setProps.bind(this)}
+                        disabled={pristine || submitting}
+                      >
+                        Submit
+                      </Button>
+                    </Col>
+                  </div>
                 </div>
               </div>
-              <div>
-                <Col lg={6} md={6} sm={6} xs={6}>
-                  <Button
-                    bsStyle="primary"
-                    type="button"
-                    className="previous"
-                    onClick={previousPage}
-                  >
-                    Previous
-                  </Button>
-                </Col>
-                <Col lg={6} md={6} sm={6} xs={6} align="right">
-                  <Button
-                    bsStyle="primary"
-                    type="submit"
-                    onClick={this.setProps.bind(this)}
-                    disabled={pristine || submitting}
-                  >
-                    Submit
-                  </Button>
-                </Col>
-              </div>
-            </div>
-          </div>
-        </form>
+            </Col>
+          </form>
         </Grid>
       );
     } else {
@@ -137,7 +141,7 @@ export class EventFormThirdPage extends React.Component {
 
 export default reduxForm({
   form: 'EventWizard', //Form name is same
-  destroyOnUnmount: false,
+  destroyOnUnmount: true,
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate
 })(EventFormThirdPage);

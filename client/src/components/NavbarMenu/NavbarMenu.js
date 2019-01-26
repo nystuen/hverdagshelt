@@ -17,6 +17,9 @@ let userService = new UserService();
 
 let loginButton;
 
+/**
+ * @class NavbarMenu
+ */
 export class NavbarMenu extends React.Component {
 
   constructor(props) {
@@ -48,11 +51,14 @@ export class NavbarMenu extends React.Component {
       await window.sessionStorage.setItem('countyId', this.state.user.countyId);
       await window.sessionStorage.setItem('countyName', this.state.user.county);
     }
+
+
   };
 
 
   handleSelect(selectedKey) {
-    console.log('selectec:', selectedKey);
+    console.log('activeKey:', this.state.activeKey)
+    console.log('selectedKey:', selectedKey)
     this.setState({ activeKey: selectedKey });
   }
 
@@ -75,17 +81,19 @@ export class NavbarMenu extends React.Component {
                 </Navbar.Brand>
                 <Navbar.Toggle/>
               </Navbar.Header>
-
               <Navbar.Collapse>
 
                 <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
+                  <NavItem eventKey={1} href={'/#/endreKommune'}><Glyphicon
+                    glyph="glyphicon glyphicon-home"/> {window.sessionStorage.getItem('countyName')}
+                  </NavItem>
                   <NavItem eventKey={2} href={'/#/wizardForm'}><Glyphicon
                     glyph="glyphicon glyphicon-plus"/> Meld inn sak</NavItem>
                   <NavItem eventKey={3} href={'/#/hendelser/' + window.sessionStorage.getItem('countyId')}>
                     <i className="fas fa-exclamation-triangle"></i> Hendelser</NavItem>
                   <NavItem eventKey={4} href={'/#/statistics'}><Glyphicon
                     glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
-                  <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Kart</NavItem>
+                  <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Alle saker</NavItem>
                   {this.viewCases()}
                   <NavItem eventKey={7} href={'/#/admin'}><Glyphicon
                     glyph="glyphicon glyphicon-user"/> Admin</NavItem>
@@ -125,18 +133,14 @@ export class NavbarMenu extends React.Component {
                     <i className="fas fa-exclamation-triangle"></i> Hendelser</NavItem>
                   <NavItem eventKey={4} href={'/#/statistics'}><Glyphicon
                     glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
-                  <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Kart</NavItem>
+                  <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Alle saker</NavItem>
                   {this.viewCases()}
                   <NavItem eventKey={7} href={'/#/admin'}><Glyphicon
                     glyph="glyphicon glyphicon-user"/> Ansatt</NavItem>
                 </Nav>
 
                 <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
-                  <NavDropdown eventKey={9} title={'Min side'} id='1'>
-                    <MenuItem eventKey={9} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
-                    <MenuItem eventKey={9}
-                              href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
-                  </NavDropdown>
+                  <NavItem eventKey={9} href="/#min_side/kontooversikt">Kontooversikt </NavItem>
                   {loginButton}
                 </Nav>
               </Navbar.Collapse>
@@ -167,14 +171,15 @@ export class NavbarMenu extends React.Component {
                     <i className="fas fa-exclamation-triangle"></i> Hendelser</NavItem>
                   <NavItem eventKey={4} href={'/#/statistics'}><Glyphicon
                     glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
-                  <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Kart</NavItem>
+                  <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Alle saker</NavItem>
                   {this.viewCases()}
                 </Nav>
 
                 <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
                   <NavDropdown eventKey={9} title={'Min side'} id='1'>
-                    <MenuItem eventKey={9} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
-                    <MenuItem eventKey={9}
+                    <MenuItem id={'dropdownMenuItem'} eventKey={9}
+                              href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
+                    <MenuItem id={'dropdownMenuItem'} eventKey={9}
                               href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
                   </NavDropdown>
                   {loginButton}
@@ -200,16 +205,13 @@ export class NavbarMenu extends React.Component {
                 <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
                   <NavItem eventKey={4} href={'/#/statistics'}><Glyphicon
                     glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
-                  <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Kart</NavItem>
+                  <NavItem eventKey={5} href={'/#/map'}><i className="fas fa-map"></i> Kart over tildelte
+                    saker</NavItem>
                   {this.viewCases()}
                 </Nav>
 
                 <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
-                  <NavDropdown eventKey={9} title={'Min side'} id='1'>
-                    <MenuItem eventKey={9} href="/#min_side/kontooversikt">Kontooversikt </MenuItem>
-                    <MenuItem eventKey={9}
-                              href="/#min_side/varselinstillinger">Varselinstillinger</MenuItem>
-                  </NavDropdown>
+                  <NavItem eventKey={9} href="/#min_side/kontooversikt">Kontooversikt</NavItem>
                   {loginButton}
                 </Nav>
               </Navbar.Collapse>
@@ -242,6 +244,12 @@ export class NavbarMenu extends React.Component {
     }//end condition
   }//end method
 
+    /**
+     * Logs the user out by emptying localstorage and sessionstorage
+     *
+     * @method logout
+     * @returns void
+     */
   logout = () => {
     window.localStorage.setItem('userToken', '');
     window.sessionStorage.setItem('countyId', '');
@@ -253,20 +261,31 @@ export class NavbarMenu extends React.Component {
     window.location.reload();
   };//end method
 
+    /**
+     * Contitional rendering for "mine saker" button on navbar, depending on which user is logged in
+     *
+     * @method viewCases
+     * @returns {*}
+     */
   viewCases = () => {
     if (window.localStorage.getItem('userToken') !== '') {
-      if (this.state.user === {}) {
+      if (this.state.user == undefined) {
         userService.getCurrentUser().then(r => {
           this.setState({ user: r });
         }).catch((error: Error) => confirm(error.message));
+
       }
       if (this.state.user.typeName === undefined) {
-        return <MenuItem eventKey={19} href="/#min_side/mine_sakerBedrift">Mine saker</MenuItem>;
+        return <MenuItem eventKey={22} href="/#min_side/mine_sakerBedrift"><i
+          className="fas fa-list-ul"></i> Mine saker</MenuItem>;
       } else {
-        return <MenuItem eventKey={19} href="/#min_side/mine_saker">Mine saker</MenuItem>;
+        return <MenuItem eventKey={22} href="/#min_side/mine_saker"><i
+          className="fas fa-th-list"></i> Mine
+          saker</MenuItem>;
       }//end condition
     } else {
-      return <MenuItem eventKey={19} href="/#login">Mine saker</MenuItem>;
+      return <MenuItem eventKey={22} href="/#login"><i className="fas fa-th-list"></i> Mine
+        saker</MenuItem>;
     }//end condition
   };//end method
 }

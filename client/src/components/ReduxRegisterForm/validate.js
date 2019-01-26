@@ -1,10 +1,16 @@
+/**
+ * Checks fields in the form and validates the input
+ *
+ * @method validate
+ * @returns void
+ */
 const validate = values => {
   const errors = {};
   if (!values.firstName) {
-    errors.firstName = "Required";
+    errors.firstName = "Nødvendig";
   }
   if (!values.lastName) {
-    errors.lastName = "Required";
+    errors.lastName = "Nødvendig";
   }
   if (!values.email) {
     errors.email = "Required";
@@ -12,13 +18,13 @@ const validate = values => {
     errors.email = "Invalid email address";
   }
   if (!values.phone) {
-    errors.phone = "Required";
+    errors.phone = "Nødvendig";
   }
   if (!values.text) {
-    errors.text = "Required nice";
+    errors.text = "Nødvendig";
   }
   if (!values.date) {
-    errors.date = "Required";
+    errors.date = "Nødvendig";
   }
   return errors;
 };

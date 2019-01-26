@@ -2,7 +2,7 @@
 
 import {shallow} from "enzyme/build";
 import * as React from "react";
-import {spy} from "sinon";
+import sinon from "sinon";
 
 import {RegisterUser} from "../src/components/registeruser/registeruser";
 import {CategorySelectList} from "../src/components/CategorySelectList/CategorySelectList";
@@ -35,6 +35,11 @@ import {MineSaker} from "../src/views/MinSide/mineSaker/mineSaker";
 import {NotificationSettings} from "../src/views/NotificationSettings/NotificationSettings";
 import {OversiktOverSak} from "../src/views/oversiktOverSak/oversiktOverSak";
 import {AdminResetUserPassword} from "../src/views/admin/resetPassword";
+import {RegisterAdmin} from "../src/components/registeradmin/registeradmin";
+import {WizardFormComplete} from "../src/components/ReduxRegisterForm/WizardFormComplete";
+import {InfoModule} from "../src/components/InfoModule/InfoModule";
+import {SetCategoryInactive} from "../src/components/setCategoryInactive/SetCategoryInactive";
+import {EditIssue} from "../src/views/MinSide/mineSaker/editIssue";
 
 describe('Test for RegisterUser component', () => {
     const wrapper = shallow(<RegisterUser />);
@@ -268,7 +273,7 @@ describe('Test for Button component', () => {
     let wrapper, buttonType, buttonSpy, children;
     beforeEach(() => {
         buttonType = 'danger';
-        buttonSpy = spy();
+        buttonSpy = sinon.spy();
         children = 'clickMe';
         wrapper = shallow(<Button id="button" onClick={() => buttonSpy}>children</Button>);
     });
@@ -385,11 +390,36 @@ describe('Test for KontoOversikt view', () => {
 });
 
 describe('Test for Login view', () => {
+    const handleChangeEmailSpy = sinon.spy(Login.prototype, "handleChangeEmail");
+    const handleChangePasswordSpy = sinon.spy(Login.prototype, "handleChangePassword");
+    const mailEvent = {target: {name: "mailText", value: "test"}};
+    const passwordEvent = {target: {name: "passText", value: "test"}};
+
     const wrapper = shallow(<Login />);
 
     it('renders correctly', () => {
         expect(wrapper).toMatchSnapshot();
     });
+
+    it('responds to mail input change', () => {
+        wrapper.find("#mailText").simulate('change', mailEvent);
+        expect(handleChangeEmailSpy.calledOnce).toBe(true)
+    });
+
+    it('responds to mail input change', () => {
+        wrapper.find("#passText").simulate('change', passwordEvent);
+        expect(handleChangePasswordSpy.calledOnce).toBe(true)
+    });
+
+    it('updates state.email when handlechangeemail is called', () => {
+        wrapper.find("#mailText").simulate('change', mailEvent);
+        expect(wrapper.state().email).toBe('test')
+    });
+
+    it('updates state.password when handlechangepassword is called', () => {
+        wrapper.find("#mailText").simulate('change', passwordEvent);
+        expect(wrapper.state().password).toBe('test')
+    })
 });
 
 describe('Test for mineSakerBedrift view', () => {
@@ -434,5 +464,45 @@ describe('Test for AdminResetUserPassword view', () => {
     it('renders correctly', () => {
         expect(wrapper).toMatchSnapshot();
     });
+});
+
+describe('Test for RegisterAdmin component', () => {
+    const wrapper = shallow(<RegisterAdmin/>);
+
+    it('renders correctly', () => {
+        expect(wrapper).toMatchSnapshot();
+    })
+});
+
+describe('Test for WizardFormComplete component', () => {
+    const wrapper = shallow(<WizardFormComplete/>)
+
+    it('renders correctly', () => {
+        expect(wrapper).toMatchSnapshot();
+    })
+});
+
+describe('Test for InfoModule component', () => {
+    const wrapper = shallow(<InfoModule/>)
+
+    it('renders correctly', () => {
+        expect(wrapper).toMatchSnapshot();
+    })
+});
+
+describe('Test for SetCategoryInactive component', () => {
+    const wrapper = shallow(<SetCategoryInactive/>)
+
+    it('renders correctly', () => {
+        expect(wrapper).toMatchSnapshot();
+    })
+});
+
+describe('Test for EditIssue component', () => {
+    const wrapper = shallow(<EditIssue match={{params: {id: 1}, isExact: true, path: "", url: ""}}/>)
+
+    it('renders correctly', () => {
+        expect(wrapper).toMatchSnapshot();
+    })
 });
 

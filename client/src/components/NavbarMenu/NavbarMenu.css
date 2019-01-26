@@ -58,17 +58,20 @@
 .active {
 }
 
-
+#dropdownMenuItem{
+    color: black;
+    background-color: white;
+}
 
 .navbar-default .navbar-nav > li > a.active {
     background-color: #771200;
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
-@media screen and (max-width: 915px) and (min-width: 765px) {
+@media screen and (max-width: 950px) and (min-width: 765px) {
     .navbar-default .navbar-nav > li > a {
-        padding-right: 0.4em;
-        padding-left: 0.4em;
+        padding-right: 0.28em;
+        padding-left: 0.28em;
     }
 
     #hiddenWhenSmall {
@@ -88,3 +91,4 @@
     padding: 0px 14px;
     max-width: 65px;
 }
+

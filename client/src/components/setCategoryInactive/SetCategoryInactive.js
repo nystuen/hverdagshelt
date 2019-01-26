@@ -19,9 +19,9 @@ export class SetCategoryInactive extends React.Component {
     };
 
     render() {
-        const {onChangeCategoryHeader} = this.props
+        const {onChangeCategoryHeader} = this.props;
         return (
-            <Grid>
+            <Grid className={"bottomFooter"}>
                 <Col md={3}/>
                 <Col md={6}>
                     <PageHeader>

@@ -1,6 +1,19 @@
-import {Alert, Col, ButtonToolbar, ToggleButtonGroup, ToggleButton, ButtonGroup, Button, Form, FormGroup, Label, Grid} from 'react-bootstrap';
-import {CountyService, NotificationSettingsService, UserService} from "../../services";
-import {Component} from 'react';
+import {
+  Alert,
+  Col,
+  ButtonToolbar,
+  ToggleButtonGroup,
+  ToggleButton,
+  ButtonGroup,
+  Button,
+  Form,
+  FormGroup,
+  Label,
+  Grid,
+  Row
+} from 'react-bootstrap';
+import { CountyService, NotificationSettingsService, UserService } from '../../services';
+import { Component } from 'react';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
 import {County} from "../../classTypes";
@@ -13,11 +26,16 @@ let countyService = new CountyService();
 let userService = new UserService();
 let notificationSettingService = new NotificationSettingsService();
 
-
+/**
+ * @class RegisterAdmin
+ */
 export class RegisterAdmin extends Component<Props, State>{
 
     constructor(props) {
         super(props);
+        this.handleDismissErrorSomething = this.handleDismissErrorSomething.bind(this);
+        this.handleDismissUserExists = this.handleDismissUserExists.bind(this);
+        this.handleDismissErrorButton = this.handleDismissErrorButton.bind(this);
         this.state = {
             errorButton: false,
             buttonValue: 0,
@@ -44,11 +62,21 @@ export class RegisterAdmin extends Component<Props, State>{
             ]
         };
         this.handleButtonChange = this.handleButtonChange.bind(this);
-        this.handleChangeCounty = this.handleChangeCounty.bind(this)
+        this.handleChangeCounty = this.handleChangeCounty.bind(this);
     }
     handleButtonChange(e){
         this.setState({buttonValue: e});
     }
+    handleDismissErrorButton() {
+        this.setState({errorButton: false });
+    }
+    handleDismissUserExists() {
+        this.setState({userExists: false });
+    }
+    handleDismissErrorSomething() {
+        this.setState({errorSomething: false});
+    }
+
 
 
     handleChangeCounty(e: Object){
@@ -104,6 +132,12 @@ export class RegisterAdmin extends Component<Props, State>{
         }
     };
 
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationStateEmail
+     * @returns {string}
+     */
     getValidationStateEmail(){
         var validator = require('email-validator');
         const length = this.state.mail.length;
@@ -113,6 +147,12 @@ export class RegisterAdmin extends Component<Props, State>{
         else if(bool) return 'success';
     }
 
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationStateEmail2
+     * @returns {string}
+     */
     getValidationStateEmail2(){
         var validator = require('email-validator');
         const length = this.state.mail2.length;
@@ -123,6 +163,12 @@ export class RegisterAdmin extends Component<Props, State>{
         else return 'warning';
     }
 
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationStateFirstName
+     * @returns {string}
+     */
     getValidationStateFirstName() {
         const firstNameLength = this.state.firstName.length;
         let decimal=/^[A-Za-z ÆØÅæøå]*[A-Za-z ÆØÅæøå][A-Za-z ÆØÅæøå]*$/;
@@ -136,6 +182,13 @@ export class RegisterAdmin extends Component<Props, State>{
             return 'warning'
         }
     }
+
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationStateLastName
+     * @returns {string}
+     */
     getValidationStateLastName() {
         const lastNameLength = this.state.lastName.length;
         let dec=/^[A-Za-z ÆØÅæøå]*[A-Za-z ÆØÅæøå][A-Za-z ÆØÅæøå]*$/;
@@ -150,6 +203,12 @@ export class RegisterAdmin extends Component<Props, State>{
         }
     }
 
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationPhone
+     * @returns {string}
+     */
     getValidationPhone(){
         const phoneLength = this.state.phone.length;
         let decimal =/^(\d|,)*\d*$/;
@@ -161,6 +220,13 @@ export class RegisterAdmin extends Component<Props, State>{
             return 'warning';
         }
     }
+
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationAdress
+     * @returns {string}
+     */
     getValidationAddress(){
         const addressLength = this.state.address.length;
         let decimal=/^[A-Za-z0-9 _æøå]*[A-Za-z0-9æøå][A-Za-z0-9 _æøå]*$/;
@@ -174,6 +240,12 @@ export class RegisterAdmin extends Component<Props, State>{
             return 'warning'
         }
     }
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationPostNumber
+     * @returns {string}
+     */
     getValidationPostNumber(){
         const postNumberLength= this.state.postNumber.length;
         let decimal =/^(\d|,)*\d*$/;
@@ -186,59 +258,61 @@ export class RegisterAdmin extends Component<Props, State>{
         }
     }
 
-    buttonBack(){
-        this.props.history.goBack();
+  buttonBack() {
+    this.props.history.goBack();
+  }
+
+  render() {
+    let optionTemplate = this.state.values.map(v => {
+      const data = { label: v.name, value: v.countyId, countyId: v.countyId };
+      return (data);
+    });
+    let alert_something;
+    if (this.state.errorSomething) {
+      alert_something = (
+        <Alert bsStyle="danger" onDismiss={this.handleDismissErrorSomething}>
+          <p id="errorSome">Pass på at alle felt er fylt ut korrekt</p>
+        </Alert>);
+    } else {
+      alert_something = (
+        <p></p>
+      );
     }
-    render(){
-        let optionTemplate = this.state.values.map(v => {
-            const data = {label: v.name, value: v.countyId, countyId: v.countyId};
-            return(data)
-        });
-        let alert_something;
-        if (this.state.errorSomething) {
-            alert_something = (
-                <Alert bsStyle="danger">
-                    <p id="errorSome">Pass på at alle felt er fylt ut korrekt</p>
-                </Alert>);
-        } else {
-            alert_something = (
-                <p></p>
-            );
-        }
-        let register_success;
-        if (this.state.registerSuccess) {
-            register_success = (
-                <Alert bsStyle="success">
-                    <p id="SuccessLogin">Bruker ble registrert</p>
-                </Alert>
-            )
-        }
-        let error_button;
-        if (this.state.errorButton) {
-            error_button = (
-                <Alert bsStyle="danger">
-                    <p id="errorBtn">Velg admin eller kommuneansatt</p>
-                </Alert>
-            )
-        } else {
-            <p></p>
-        }
-        let alert_user_exists;
-        if (this.state.userExists) {
-            alert_user_exists = (
-                <Alert bsStyle="danger">
-                    <h6>Emailen er allerede registrert</h6>
-                </Alert>);
-        } else {
-            <p></p>
-        }
-        return(
-          <div>
-            <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
-            <Grid>
-                <Col md={3}></Col>
-                <Col md={6}>
-                    <PageHeader title={"Registrer bruker"} />
+    let register_success;
+    if (this.state.registerSuccess) {
+      register_success = (
+        <Alert bsStyle="success">
+          <p id="SuccessLogin">Bruker ble registrert</p>
+        </Alert>
+      );
+    }
+    let error_button;
+    if (this.state.errorButton) {
+      error_button = (
+        <Alert bsStyle="danger" onDismiss={this.handleDismissErrorButton}>
+          <p id="errorBtn">Velg admin eller kommuneansatt</p>
+        </Alert>
+      );
+    } else {
+      <p></p>;
+    }
+    let alert_user_exists;
+    if (this.state.userExists) {
+      alert_user_exists = (
+        <Alert bsStyle="danger" onDismiss={this.handleDismissUserExists}>
+          <h6>Emailen er allerede registrert</h6>
+        </Alert>);
+    } else {
+      <p></p>;
+    }
+    return (
+      <div className="bottomFooter">
+        <i id="backButton" onClick={() => this.buttonBack()} className="fas fa-arrow-circle-left"></i>
+        <Grid>
+          <Col md={3}></Col>
+          <Col md={6}>
+            <PageHeader title={'Registrer bruker'}/>
+
 
                     <Form horizontal>
                         <FormGroup controlId="formHorizontalEmail">
@@ -329,15 +403,19 @@ export class RegisterAdmin extends Component<Props, State>{
                                     </FormGroup>
                                 </Col>
                         </FormGroup>
+                            <Col md={4}/>
+                            <Col md={4}>
+                                <FormGroup>
+                                    {alert_something}
+                                    {register_success}
+                                    {error_button}
+                                    {alert_user_exists}
+                                </FormGroup>
+                            </Col>
+                            <Col md={4}/>
                             <FormGroup>
                                 <Col md={4}/>
                                 <Col md={4}>
-                                    <FormGroup>
-                                        {alert_something}
-                                        {register_success}
-                                        {error_button}
-                                        {alert_user_exists}
-                                    </FormGroup>
                                     <div align="center">
                                         <Button type="button" onClick={this.checkInput}>Registrer</Button>
                                     </div>
@@ -355,7 +433,6 @@ export class RegisterAdmin extends Component<Props, State>{
         );
     }
     checkInput = () =>{
-        //console.log(this.getValidationStateFirstName()||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()||this.getValidationStateEmail2()==='warning'||this.getValidationStatePassword()==='warning'||this.getValidationStatePassword2()==='warning');
         if(this.state.buttonValue===0){
             this.setState({errorButton:true, errorSomething: false})
         };
@@ -376,14 +453,11 @@ export class RegisterAdmin extends Component<Props, State>{
                     console.log(error.message)
                 });
 
-            }else{
-                console.log("DET ER FAIL");
             }
         }
     };
 
     register = async () => {
-        console.log("test", this.state.buttonValue);
 
         let userExists;
         await userService.getUserLogin(this.state.mail)
@@ -403,7 +477,6 @@ export class RegisterAdmin extends Component<Props, State>{
                 phone: this.state.phone,
                 countyId: this.state.choosen,
             };
-            console.log(userExists);
             await userService
                 .addAdmin(newAdmin)
                 .then(user => this.state = user)
@@ -416,7 +489,7 @@ export class RegisterAdmin extends Component<Props, State>{
                 completed: 1
             };
             await notificationSettingService.addIssueNotificationSettings(theBody);
-            await this.setState({errorSomething: false, registerSuccess: true, userExists: false});
+            await this.setState({errorSomething: false, errorButton: false, registerSuccess: true, userExists: false});
             await this.goToRegNew();
         } else {
             this.setState({errorSomething: false, registerSuccess: false, userExists: true});
@@ -426,13 +499,11 @@ export class RegisterAdmin extends Component<Props, State>{
     };
     register2 = async () => {
 
-        console.log("test", this.state.buttonValue);
 
         let userExists;
-        await userService.getCurrentUser()
+        await userService.getUserLogin(this.state.mail)
             .then(r => {
                 userExists = (r[0] !== undefined);
-                console.log(r[0])
             });
 
         if (!userExists) {
@@ -446,7 +517,6 @@ export class RegisterAdmin extends Component<Props, State>{
                 phone: this.state.phone,
                 countyId: this.state.choosen,
             };
-            console.log("county", this.state.choosen);
             await userService
                 .addAdmin(newEmployee)
                 .then(user => (this.state = user))
@@ -459,7 +529,7 @@ export class RegisterAdmin extends Component<Props, State>{
                 completed: 1
             };
             await notificationSettingService.addIssueNotificationSettings(theBody);
-            await this.setState({errorSomething: false, registerSuccess: true});
+            await this.setState({errorSomething: false, errorButton: false, registerSuccess: true, userExists: false});
             await this.goToRegNew();
         } else {
             this.setState({errorSomething: false, registerSuccess: false, userExists: true});

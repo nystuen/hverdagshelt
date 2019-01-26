@@ -1,5 +1,5 @@
 .sak {
-    padding-top: 1em;
+
 }
 
 .picture {
@@ -8,4 +8,19 @@
 
 .comment:nth-child(odd) {
     background-color: #fafafa;
+}
+
+
+.caseImage{
+    width: 310px;
+    height: 310px;
+}
+
+
+.editStatus{
+    display: flex;
+}
+
+.caseInfo{
+    padding-bottom: 2em;
 }

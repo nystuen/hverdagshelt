@@ -1,3 +1,12 @@
 #accountInformationButton{
     width: 13em;
+    margin-top: 1em;
+}
+
+.contact{
+    padding: 2em;
+}
+
+.editInfo {
+    padding-bottom: 2em;
 }

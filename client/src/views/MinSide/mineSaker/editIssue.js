@@ -55,7 +55,8 @@ export class EditIssue extends React.Component<{
 
   save = () => {
     issueService.editIssue(this.props.match.params.issueId, this.state.text);
-    history.push("/min_side/mine_saker");
     window.location.reload();
   };
+
+
 }

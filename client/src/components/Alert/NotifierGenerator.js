@@ -25,6 +25,7 @@ export class NotifierGenerator extends React.Component {
         });
     }
 
+
     onAlertDismissed(alert) {
         const alerts = this.state.alerts;
 

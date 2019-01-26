@@ -46,6 +46,8 @@ import { Footer2 } from './components/Footer/Footer2';
 import { eventView } from './views/events/eventView';
 
 import {adminEvents} from "./views/admin/adminEvents/adminEvents";
+import {SetCategoryInactive, setCategoryInactive} from "./components/setCategoryInactive/SetCategoryInactive";
+import { splitScreen } from './views/forside/splitScreen';
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
@@ -110,6 +112,7 @@ if (root)
           component={CreateAdminsOrEmployees}
         />
         <Route path="/statistics" component={Statistics} />
+          <Route path="/admin/endreKategorier" component={SetCategoryInactive}/>
         <Route path="/admin/adminSaker" component={adminIssues} />
         <Route path="/admin/adminHendelser" component={adminEvents} />
         <Route
@@ -117,6 +120,7 @@ if (root)
           component={EditIssue}
         />
         <Route exact path="/hendelse/:eventId" component={eventView}/>
+        <Route path="/registreringsvalg" component={splitScreen}/>
         <Footer2/>
       </div>
     </HashRouter>,
