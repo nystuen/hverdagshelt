@@ -12,7 +12,7 @@ let eventCategoryService = new EventCategoryService();
 /**
  * @class ChooseEventCategory
  */
-export class ChooseEventCategory extends Component<{
+export class ChooseEventCategory extends React.Component<{
   registerCategory?: boolean
 }> {
   constructor(props) {
