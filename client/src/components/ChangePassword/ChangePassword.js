@@ -11,6 +11,9 @@ let userService = new UserService();
 let mailService = new MailService();
 const bcrypt = require('bcrypt-nodejs');
 
+/**
+ * @class ChangePassword
+ */
 export class ChangePassword extends Component {
   constructor(props) {
     super(props);
@@ -47,7 +50,14 @@ export class ChangePassword extends Component {
       newPassword2: event.target.value
     });
   }
-    getValidationStatePassword(){
+
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationStatePassword
+     * @returns {string}
+     */
+  getValidationStatePassword(){
         const length = this.state.newPassword.length;
         let decimal = /(?=^.{8,64}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!., æøå/@<>"¤=#$%^&*()]*$/;
         if (this.state.newPassword.match(decimal)) return 'success';
@@ -55,6 +65,12 @@ export class ChangePassword extends Component {
         else return 'warning';
     }
 
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationStatePassword2
+     * @returns {string}
+     */
     getValidationStatePassword2(){
         const password2Length = this.state.newPassword2.length;
         let decimal = /(?=^.{8,64}$)(?=.*\d)(?=.*[a-z])(?=.*[A-Z])(?!.*\s)[0-9a-zA-Z!., æøå/@<>"¤=#$%^&*()]*$/;

@@ -13,7 +13,9 @@ let countyService = new CountyService();
 let userService = new UserService();
 let notificationSettingService = new NotificationSettingsService();
 
-
+/**
+ * @class RegisterAdmin
+ */
 export class RegisterAdmin extends Component<Props, State>{
 
     constructor(props) {
@@ -117,6 +119,12 @@ export class RegisterAdmin extends Component<Props, State>{
         }
     };
 
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationStateEmail
+     * @returns {string}
+     */
     getValidationStateEmail(){
         var validator = require('email-validator');
         const length = this.state.mail.length;
@@ -126,6 +134,12 @@ export class RegisterAdmin extends Component<Props, State>{
         else if(bool) return 'success';
     }
 
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationStateEmail2
+     * @returns {string}
+     */
     getValidationStateEmail2(){
         var validator = require('email-validator');
         const length = this.state.mail2.length;
@@ -136,6 +150,12 @@ export class RegisterAdmin extends Component<Props, State>{
         else return 'warning';
     }
 
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationStateFirstName
+     * @returns {string}
+     */
     getValidationStateFirstName() {
         const firstNameLength = this.state.firstName.length;
         let decimal=/^[A-Za-z ÆØÅæøå]*[A-Za-z ÆØÅæøå][A-Za-z ÆØÅæøå]*$/;
@@ -149,6 +169,13 @@ export class RegisterAdmin extends Component<Props, State>{
             return 'warning'
         }
     }
+
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationStateLastName
+     * @returns {string}
+     */
     getValidationStateLastName() {
         const lastNameLength = this.state.lastName.length;
         let dec=/^[A-Za-z ÆØÅæøå]*[A-Za-z ÆØÅæøå][A-Za-z ÆØÅæøå]*$/;
@@ -163,6 +190,12 @@ export class RegisterAdmin extends Component<Props, State>{
         }
     }
 
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationPhone
+     * @returns {string}
+     */
     getValidationPhone(){
         const phoneLength = this.state.phone.length;
         let decimal =/^(\d|,)*\d*$/;
@@ -174,6 +207,13 @@ export class RegisterAdmin extends Component<Props, State>{
             return 'warning';
         }
     }
+
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationAdress
+     * @returns {string}
+     */
     getValidationAddress(){
         const addressLength = this.state.address.length;
         let decimal=/^[A-Za-z0-9 _æøå]*[A-Za-z0-9æøå][A-Za-z0-9 _æøå]*$/;
@@ -187,6 +227,12 @@ export class RegisterAdmin extends Component<Props, State>{
             return 'warning'
         }
     }
+    /**
+     * returns success or warning depending on if the string written matches the criteria in the function
+     *
+     * @method getValidationPostNumber
+     * @returns {string}
+     */
     getValidationPostNumber(){
         const postNumberLength= this.state.postNumber.length;
         let decimal =/^(\d|,)*\d*$/;

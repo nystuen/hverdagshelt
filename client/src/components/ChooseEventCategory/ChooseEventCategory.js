@@ -10,6 +10,9 @@ import cloneDeep from "lodash/cloneDeep";
 
 let eventCategoryService = new EventCategoryService();
 
+/**
+ * @class ChooseEventCategory
+ */
 export class ChooseEventCategory extends Component<{
   registerCategory?: boolean
 }> {
@@ -34,14 +37,26 @@ export class ChooseEventCategory extends Component<{
     );
   };
 
+    /**
+     * @method: getSelectedCategoryId
+     * @returns {number|*}
+     */
   getSelectedCategoryId() {
     return this.state.selectedCategoryId;
   }
 
+    /**
+     * @method: getSelectedCategoryType
+     * @returns {number}
+     */
   getSelectedCategoryType() {
     return this.state.selectedCategoryType;
   }
 
+    /**
+     * @method: getSelectedCategoryName
+     * @returns {string}
+     */
   getSelectedCategoryName() {
     return this.state.selectedCategory;
   }

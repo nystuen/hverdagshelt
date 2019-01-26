@@ -36,6 +36,9 @@ interface Props {
 
 //Prioritet 1,2,3
 
+/**
+ * @class adminAddCategory
+ */
 export class adminAddCategory extends Component<Props, State> {
 
 
@@ -80,6 +83,11 @@ export class adminAddCategory extends Component<Props, State> {
   buttonBack(){
     this.props.history.goBack();
   }
+
+    /**
+     * @method saveCategory
+     * @returns {Promise<void>}
+     */
 
   saveCategory = async () => {
 
