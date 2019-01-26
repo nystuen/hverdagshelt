@@ -61,7 +61,7 @@ export class IssueDao extends Dao {
   } //end method
 
   getAllCategories(callback: Function) {
-    super.query("select * from category", [], callback);
+    super.query("select * from category where active=1", [], callback);
   }
 
   getUserIssue(id: String, callback: Function) {

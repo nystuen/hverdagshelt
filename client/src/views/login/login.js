@@ -61,6 +61,12 @@ export class Login extends Component<Props, State> {
     }
   };
 
+    handleKeyPress = (event) => {
+        if(event.key === 'Enter'){
+            this.save();
+        }
+    };
+
 
 
   render() {
@@ -110,6 +116,7 @@ export class Login extends Component<Props, State> {
 
 
     return (
+
       <div className="login">
         <Grid>
           <Form>
@@ -124,7 +131,7 @@ export class Login extends Component<Props, State> {
                 />
               </div>
 
-              <div className="loginBox">
+              <div className="loginBox" onKeyPress={this.handleKeyPress}>
                 <Row className="show-grid">
                   <FormGroup>
                     <FormControl

@@ -574,7 +574,7 @@ export class RegisterCompany extends Component<Props, State>{
 
 
     checkInput = () =>{
-        //console.log(this.getValidationStateFirstName()||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()||this.getValidationStateEmail2()==='warning'||this.getValidationStatePassword()==='warning'||this.getValidationStatePassword2()==='warning');
+
         if(this.state.countyIsChanged===false||this.getValidationStateFirstName()==='warning'||this.getValidationStateFirstName()==='warning'||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()==='warning'||this.getValidationStateEmail2()==='warning'||this.getValidationStatePassword()==='warning'||this.getValidationStatePassword2()==='warning'||this.getValidationCompanyName()==='warning'||this.getValidationPostNumber()==='warning'){
             this.setState({
                 errorSomething:true

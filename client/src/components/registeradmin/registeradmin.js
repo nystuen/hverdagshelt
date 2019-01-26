@@ -16,141 +16,138 @@ import { CountyService, NotificationSettingsService, UserService } from '../../s
 import { Component } from 'react';
 import * as React from 'react';
 import ReactDOM from 'react-dom';
-import { County } from '../../classTypes';
-import { FormControl } from 'react-bootstrap';
-import Select from 'react-select';
-import { history } from '../../index';
-import { PageHeader } from '../PageHeader/PageHeader';
+import {County} from "../../classTypes";
+import {FormControl} from "react-bootstrap";
+import Select from "react-select";
+import {history} from "../../index";
+import {PageHeader} from "../PageHeader/PageHeader";
 
 let countyService = new CountyService();
 let userService = new UserService();
 let notificationSettingService = new NotificationSettingsService();
 
 
-export class RegisterAdmin extends Component<Props, State> {
+export class RegisterAdmin extends Component<Props, State>{
 
-  constructor(props) {
-    super(props);
-    this.handleDismissErrorSomething = this.handleDismissErrorSomething.bind(this);
-    this.handleDismissUserExists = this.handleDismissUserExists.bind(this);
-    this.handleDismissErrorButton = this.handleDismissErrorButton.bind(this);
-    this.state = {
-      errorButton: false,
-      buttonValue: 0,
-      userExists: false,
-      errorSomething: false,
-      countyIsChanged: false,
-      mail: '',
-      mail2: '',
-      firstName: '',
-      lastName: '',
-      address: '',
-      postNumber: '',
-      password: '',
-      password2: '',
-      typeName: '',
-      phone: '',
-      points: 0,
-      active: 0,
-      isLoaded: false,
-      choosen: { label: 'Bergen', countyId: 1 },
-      values: [
-        { label: 'Bergen', countyId: 1 }
-        //{ name: this.county.name, countyId: this.county.countyId}
-      ]
-    };
-    this.handleButtonChange = this.handleButtonChange.bind(this);
-    this.handleChangeCounty = this.handleChangeCounty.bind(this);
-  }
-
-  handleButtonChange(e) {
-    this.setState({ buttonValue: e });
-  }
-
-  handleDismissErrorButton() {
-    this.setState({ errorButton: false });
-  }
-
-  handleDismissUserExists() {
-    this.setState({ userExists: false });
-  }
-
-  handleDismissErrorSomething() {
-    this.setState({ errorSomething: false });
-  }
-
-
-  handleChangeCounty(e: Object) {
-    this.setState({
-      choosen: JSON.parse(e.value),
-      countyIsChanged: true
-    });
-  };
-
-  async componentWillMount() {
-    await userService.getCurrentUser().then(response => {
-      if (response[0].typeName === 'Private' || response[0].typeName === undefined) {
-        history.push('/forside/' + window.sessionStorage.getItem('CountyId'));
-      }
-    }).catch((error: Error) => confirm(error.message));
-    var arr = [];
-    countyService
-      .getCounties()
-      .then(county2 => {
-        county2.map(e => {
-          var elem = {
-            name: e.name,
-            countyId: e.countyId
-          };
-          arr = arr.concat(elem);
-
-        });
-        this.setState({
-          values: arr
-        });
-      })
-
-
-      //this.state.countyName.push(this.state.county.name)})
-      .catch((error: Error) => Alert.danger(error.message));
-
-  }
-
-  handleStringChange = (name: string) => (event: SyntheticEvent<HTMLInputElement>) => {
-    this.setState({
-      // $FlowFixMe
-      [name]: event.target.value
-    });
-  };
-
-  handleNumberChange = (value: number) => (event: SyntheticEvent<HTMLInputElement>) => {
-    const re = /^[0-9\b]+$/;
-    if (event.target.value === '' || re.test(event.target.value)) {
-      this.setState({
-        // $FlowFixMe
-        [value]: event.target.value
-      });
+    constructor(props) {
+        super(props);
+        this.handleDismissErrorSomething = this.handleDismissErrorSomething.bind(this);
+        this.handleDismissUserExists = this.handleDismissUserExists.bind(this);
+        this.handleDismissErrorButton = this.handleDismissErrorButton.bind(this);
+        this.state = {
+            errorButton: false,
+            buttonValue: 0,
+            userExists: false,
+            errorSomething: false,
+            countyIsChanged: false,
+            mail: "",
+            mail2:"",
+            firstName: "",
+            lastName: "",
+            address: "",
+            postNumber: "",
+            password: "",
+            password2: "",
+            typeName: "",
+            phone: "",
+            points: 0,
+            active: 0,
+            isLoaded: false,
+            choosen: {label: "Bergen", countyId: 1},
+            values:[
+                {label: "Bergen", countyId: 1}
+                //{ name: this.county.name, countyId: this.county.countyId}
+            ]
+        };
+        this.handleButtonChange = this.handleButtonChange.bind(this);
+        this.handleChangeCounty = this.handleChangeCounty.bind(this);
     }
-  };
+    handleButtonChange(e){
+        this.setState({buttonValue: e});
+    }
+    handleDismissErrorButton() {
+        this.setState({errorButton: false });
+    }
+    handleDismissUserExists() {
+        this.setState({userExists: false });
+    }
+    handleDismissErrorSomething() {
+        this.setState({errorSomething: false});
+    }
 
-  getValidationStateEmail() {
-    var validator = require('email-validator');
-    const length = this.state.mail.length;
-    const bool = validator.validate(this.state.mail);
-    if (length == 0) return;
-    else if (!(bool)) return 'warning';
-    else if (bool) return 'success';
-  }
 
-  getValidationStateEmail2() {
-    var validator = require('email-validator');
-    const length = this.state.mail2.length;
-    const bool = validator.validate(this.state.mail2);
-    if (length == 0) return;
-    else if (!(bool)) return 'warning';
-    else if (bool && this.state.mail === this.state.mail2) return 'success';
-    else return 'warning';
-  }
+
+    handleChangeCounty(e: Object){
+        this.setState({
+            choosen: JSON.parse(e.value),
+            countyIsChanged: true
+        })
+    };
+
+   async componentWillMount() {
+       await userService.getCurrentUser().then(response=>{
+           if(response[0].typeName==="Private" || response[0].typeName === undefined){
+               history.push('/forside/' + window.sessionStorage.getItem('CountyId'));
+           }
+       }).catch((error: Error) => confirm(error.message));
+        var arr = [];
+        countyService
+            .getCounties()
+            .then(county2 => {
+                county2.map(e => {
+                    var elem = {
+                        name: e.name,
+                        countyId: e.countyId
+                    };
+                    arr = arr.concat(elem)
+
+                });
+                this.setState({
+                    values: arr
+                })
+            })
+
+
+            //this.state.countyName.push(this.state.county.name)})
+            .catch((error: Error)=>Alert.danger(error.message))
+
+    }
+
+    handleStringChange = (name: string) =>(event:SyntheticEvent<HTMLInputElement>)=>{
+        this.setState({
+            // $FlowFixMe
+            [name]:event.target.value,
+        })
+    };
+
+    handleNumberChange = (value: number) => (event: SyntheticEvent<HTMLInputElement>) => {
+        const re = /^[0-9\b]+$/;
+        if(event.target.value === '' ||re.test(event.target.value)){
+            this.setState({
+                // $FlowFixMe
+                [value]: event.target.value
+            });
+        }
+    };
+
+    getValidationStateEmail(){
+        var validator = require('email-validator');
+        const length = this.state.mail.length;
+        const bool = validator.validate(this.state.mail);
+        if(length==0) return ;
+        else if(!(bool)) return 'warning';
+        else if(bool) return 'success';
+    }
+
+    getValidationStateEmail2(){
+        var validator = require('email-validator');
+        const length = this.state.mail2.length;
+        const bool = validator.validate(this.state.mail2);
+        if(length==0)return;
+        else if(!(bool)) return 'warning';
+        else if(bool && this.state.mail===this.state.mail2) return 'success';
+        else return 'warning';
+    }
 
   getValidationStateFirstName() {
     const firstNameLength = this.state.firstName.length;
@@ -289,230 +286,234 @@ export class RegisterAdmin extends Component<Props, State> {
                     <Col md={3}></Col>
                     <Col md={6}>
 
-                    </Col>
-                    <Col md={3}></Col>
-                  </FormGroup>
-                  <Col md={3}/>
-                  <Col md={6}>
-
-                  </Col>
-                  <Col md={3}/>
-                  <Col md={6}>
-                    <FormGroup validationState={this.getValidationStateFirstName()}>
-                      <FormControl type="text" value={this.state.firstName} placeholder="Fornavn"
-                                   onChange={this.handleStringChange('firstName')}
-                      />
-                      <FormControl.Feedback/>
-                    </FormGroup>
-                  </Col>
-                  <Col md={6}>
-                    <FormGroup validationState={this.getValidationStateLastName()}>
-                      <FormControl type="text" value={this.state.lastName} placeholder="Etternavn"
-                                   onChange={this.handleStringChange('lastName')}/>
-                      <FormControl.Feedback/>
-                    </FormGroup>
-                  </Col>
-                  <Col md={6}>
-                    <FormGroup validationState={this.getValidationAddress()}>
-                      <FormControl type="text" value={this.state.address} placeholder="Addresse"
-                                   onChange={this.handleStringChange('address')}
-                      />
-                      <FormControl.Feedback/>
-                    </FormGroup>
-                  </Col>
-                  <Col md={6}>
-                    <FormGroup>
-                      <Select
-                        placeholder={'Søk hjemmekommune'}
-                        name="colors"
-                        options={optionTemplate}
-                        className="basic-multi-select"
-                        classNamePrefix="select"
-                        onChange={this.handleChangeCounty}
-                      />
-                    </FormGroup>
-                  </Col>
-                  <Col md={6}>
-                    <FormGroup validationState={this.getValidationPostNumber()}>
-                      <FormControl type="text" value={this.state.postNumber} placeholder="Postnummer"
-                                   onChange={this.handleNumberChange('postNumber')}/>
-                      <FormControl.Feedback/>
-                    </FormGroup>
-                  </Col>
-                  <Col md={6}>
-                    <FormGroup validationState={this.getValidationPhone()}>
-                      <FormControl type="text" value={this.state.phone} placeholder="Telefonnummer"
-                                   onChange={this.handleNumberChange('phone')}
-                      />
-                      <FormControl.Feedback/>
-                    </FormGroup>
-                  </Col>
-                  <Col md={6}>
-                    <FormGroup validationState={this.getValidationStateEmail()}>
-                      <FormControl type="text" value={this.state.mail} placeholder="Epost"
-                                   onChange={this.handleStringChange('mail')}/>
-                      <FormControl.Feedback/>
-                    </FormGroup>
-                  </Col>
-                  <Col md={6}>
-                    <FormGroup validationState={this.getValidationStateEmail2()}>
-                      <FormControl type="text" value={this.state.mail2} placeholder="Gjenta epost"
-                                   onChange={this.handleStringChange('mail2')}/>
-                      <FormControl.Feedback/>
-                    </FormGroup>
-                  </Col>
-                </FormGroup>
-                <Col md={4}/>
-                <Col md={4}>
-                  <FormGroup>
-
-                    {error_button}
-                  </FormGroup>
-                  <Row>
-                    <FormGroup>
-                      {alert_something}
-                      {register_success}
-                      {alert_user_exists}
-                    </FormGroup>
-                  </Row>
+                                    </Col>
+                                    <Col md={3}></Col>
+                                </FormGroup>
+                                <Col md={3}/>
+                                <Col md={6}>
+                                    <div align="center">
+                                    <FormGroup>
+                                        <ButtonToolbar>
+                                            <ToggleButtonGroup type="radio" name="chooseType" onChange={this.handleButtonChange}>
+                                                <ToggleButton style={{"width":"10em"}} value={1}>Admin</ToggleButton>
+                                                <ToggleButton style={{"width":"10em"}} value={2}>Kommuneansatt</ToggleButton>
+                                            </ToggleButtonGroup>
+                                        </ButtonToolbar>
+                                    </FormGroup>
+                                    </div>
+                                </Col>
+                                <Col md={3}/>
+                                <Col md={6}>
+                                    <FormGroup validationState={this.getValidationStateFirstName()}>
+                                        <FormControl type="text" value={this.state.firstName} placeholder="Fornavn"
+                                                     onChange={this.handleStringChange("firstName")}
+                                        />
+                                        <FormControl.Feedback/>
+                                    </FormGroup>
+                                </Col>
+                                <Col md={6}>
+                                    <FormGroup validationState={this.getValidationStateLastName()}>
+                                        <FormControl type="text" value={this.state.lastName} placeholder="Etternavn"
+                                                     onChange={this.handleStringChange("lastName")}/>
+                                        <FormControl.Feedback/>
+                                    </FormGroup>
+                                </Col>
+                                <Col md={6}>
+                                    <FormGroup validationState={this.getValidationAddress()}>
+                                        <FormControl type="text" value={this.state.address} placeholder="Addresse"
+                                                     onChange={this.handleStringChange("address")}
+                                        />
+                                        <FormControl.Feedback/>
+                                    </FormGroup>
+                                </Col>
+                                <Col md={6}>
+                                    <FormGroup>
+                                        <Select
+                                            placeholder={"Søk hjemmekommune"}
+                                            name="colors"
+                                            options={optionTemplate}
+                                            className="basic-multi-select"
+                                            classNamePrefix="select"
+                                            onChange={this.handleChangeCounty}
+                                        />
+                                    </FormGroup>
+                                </Col>
+                                <Col md={6}>
+                                    <FormGroup validationState={this.getValidationPostNumber()}>
+                                        <FormControl type="text" value={this.state.postNumber} placeholder="Postnummer"
+                                                     onChange={this.handleNumberChange("postNumber")}/>
+                                        <FormControl.Feedback/>
+                                    </FormGroup>
+                                </Col>
+                                <Col md={6}>
+                                    <FormGroup validationState={this.getValidationPhone()}>
+                                        <FormControl type="text" value={this.state.phone} placeholder="Telefonnummer"
+                                                     onChange={this.handleNumberChange("phone")}
+                                        />
+                                        <FormControl.Feedback/>
+                                    </FormGroup>
+                                </Col>
+                                <Col md={6}>
+                                    <FormGroup validationState={this.getValidationStateEmail()}>
+                                        <FormControl type="text" value={this.state.mail} placeholder="Epost"
+                                                     onChange={this.handleStringChange("mail")}/>
+                                        <FormControl.Feedback/>
+                                    </FormGroup>
+                                </Col>
+                                <Col md={6} >
+                                    <FormGroup validationState={this.getValidationStateEmail2()}>
+                                        <FormControl type="text" value={this.state.mail2} placeholder="Gjenta epost"
+                                                     onChange={this.handleStringChange("mail2")}/>
+                                        <FormControl.Feedback/>
+                                    </FormGroup>
+                                </Col>
+                        </FormGroup>
+                            <Col md={4}/>
+                            <Col md={4}>
+                                <FormGroup>
+                                    {alert_something}
+                                    {register_success}
+                                    {error_button}
+                                    {alert_user_exists}
+                                </FormGroup>
+                            </Col>
+                            <Col md={4}/>
+                            <FormGroup>
+                                <Col md={4}/>
+                                <Col md={4}>
+                                    <div align="center">
+                                        <Button type="button" onClick={this.checkInput}>Registrer</Button>
+                                    </div>
+                                </Col>
+                                <Col md={4}/>
+                            </FormGroup>
+                            <FormGroup>
+                            </FormGroup>
+                        </FormGroup>
+                    </Form>
                 </Col>
-                <Col md={4}/>
-                <FormGroup>
-                  <Col md={12}>
-                    <div align="center">
-                      <Button bsStyle="primary" type="button" onClick={this.checkInput}>Registrer</Button>
-                    </div>
-                  </Col>
-                </FormGroup>
-                <FormGroup>
-                </FormGroup>
-              </FormGroup>
-            </Form>
-          </Col>
-          <Col md={3}></Col>
-        </Grid>
-      </div>
-    );
-  }
-
-  checkInput = () => {
-    //console.log(this.getValidationStateFirstName()||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()||this.getValidationStateEmail2()==='warning'||this.getValidationStatePassword()==='warning'||this.getValidationStatePassword2()==='warning');
-    if (this.state.buttonValue === 0) {
-      this.setState({ errorButton: true, errorSomething: false });
+                <Col md={3}></Col>
+            </Grid>
+          </div>
+        );
     }
-    ;
+    checkInput = () =>{
+        //console.log(this.getValidationStateFirstName()||this.getValidationStateFirstName()==='warning'||this.getValidationStateLastName()==='warning'||this.getValidationPhone()==='warning'||this.getValidationStateEmail()||this.getValidationStateEmail2()==='warning'||this.getValidationStatePassword()==='warning'||this.getValidationStatePassword2()==='warning');
+        if(this.state.buttonValue===0){
+            this.setState({errorButton:true, errorSomething: false})
+        };
 
-    if (this.state.errorButton === 0 || this.state.countyIsChanged === false || this.getValidationStateFirstName() === 'warning' || this.getValidationStateLastName() === 'warning' || this.getValidationPhone() === 'warning' || this.getValidationStateEmail() === 'warning' || this.getValidationStateEmail2() === 'warning' || this.getValidationPostNumber() === 'warning' || this.getValidationAddress() === 'warning') {
-      this.setState({
-        errorSomething: true,
-        errorButton: false
-      });
-    } else {
-      if (this.state.buttonValue === 1) {
-        this.register().catch(error => {
-          console.log(error.message);
-        });
+        if(this.state.errorButton===0||this.state.countyIsChanged===false || this.getValidationStateFirstName()==='warning' || this.getValidationStateLastName()==='warning' || this.getValidationPhone()==='warning' || this.getValidationStateEmail()==='warning' || this.getValidationStateEmail2()==='warning' || this.getValidationPostNumber()==='warning' || this.getValidationAddress()==='warning'){
+            this.setState({
+                errorSomething:true,
+                errorButton:false
+            });
+        }else{
+            if(this.state.buttonValue===1) {
+                this.register().catch(error => {
+                    console.log(error.message)
+                });
 
-      } else if (this.state.buttonValue === 2) {
-        this.register2().catch(error => {
-          console.log(error.message);
-        });
+            }else if(this.state.buttonValue===2){
+                this.register2().catch(error => {
+                    console.log(error.message)
+                });
 
-      }
-    }
-  };
+            }
+        }
+    };
 
-  register = async () => {
-    console.log('test', this.state.buttonValue);
+    register = async () => {
+        console.log("test", this.state.buttonValue);
 
-    let userExists;
-    await userService.getUserLogin(this.state.mail)
-      .then(r => {
-        userExists = (r[0] !== undefined);
-        console.log(r[0]);
-      });
+        let userExists;
+        await userService.getUserLogin(this.state.mail)
+            .then(r => {
+                userExists = (r[0] !== undefined);
+                console.log(r[0])
+            });
 
-    if (!userExists) {
-      const newAdmin = {
-        mail: this.state.mail,
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        typeName: 'Admin',
-        address: this.state.address,
-        postNumber: this.state.postNumber,
-        phone: this.state.phone,
-        countyId: this.state.choosen
-      };
-      console.log(userExists);
-      console.log(newAdmin);
-      await userService
-        .addAdmin(newAdmin)
-        .then(user => this.state = user)
-        .catch((error: Error) => Alert.danger(error.message));
+        if (!userExists) {
+            const newAdmin = {
+                mail: this.state.mail,
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                typeName: 'Admin',
+                address: this.state.address,
+                postNumber: this.state.postNumber,
+                phone: this.state.phone,
+                countyId: this.state.choosen,
+            };
+            console.log(userExists);
+            console.log(newAdmin);
+            await userService
+                .addAdmin(newAdmin)
+                .then(user => this.state = user)
+                .catch((error: Error) => Alert.danger(error.message));
 
-      let theBody: Object = {
-        mail: newAdmin.mail,
-        registered: 1,
-        inProgress: 0,
-        completed: 1
-      };
-      await notificationSettingService.addIssueNotificationSettings(theBody);
-      await this.setState({ errorSomething: false, errorButton: false, registerSuccess: true, userExists: false });
-      await this.goToRegNew();
-    } else {
-      this.setState({ errorSomething: false, registerSuccess: false, userExists: true });
+            let theBody: Object = {
+                mail: newAdmin.mail,
+                registered: 1,
+                inProgress: 0,
+                completed: 1
+            };
+            await notificationSettingService.addIssueNotificationSettings(theBody);
+            await this.setState({errorSomething: false, errorButton: false, registerSuccess: true, userExists: false});
+            await this.goToRegNew();
+        } else {
+            this.setState({errorSomething: false, registerSuccess: false, userExists: true});
 
-    }
+        }
 
-  };
-  register2 = async () => {
+    };
+    register2 = async () => {
 
-    console.log('test', this.state.buttonValue);
+        console.log("test", this.state.buttonValue);
 
-    let userExists;
-    await userService.getUserLogin(this.state.mail)
-      .then(r => {
-        userExists = (r[0] !== undefined);
-        console.log(r[0]);
-      });
+        let userExists;
+        await userService.getUserLogin(this.state.mail)
+            .then(r => {
+                userExists = (r[0] !== undefined);
+                console.log(r[0])
+            });
 
-    if (!userExists) {
-      const newEmployee = {
-        mail: this.state.mail,
-        firstName: this.state.firstName,
-        lastName: this.state.lastName,
-        typeName: 'Employee',
-        address: this.state.address,
-        postNumber: this.state.postNumber,
-        phone: this.state.phone,
-        countyId: this.state.choosen
-      };
-      console.log('county', this.state.choosen);
-      await userService
-        .addAdmin(newEmployee)
-        .then(user => (this.state = user))
-        .catch((error: Error) => Alert.danger(error.message));
+        if (!userExists) {
+            const newEmployee = {
+                mail: this.state.mail,
+                firstName: this.state.firstName,
+                lastName: this.state.lastName,
+                typeName: 'Employee',
+                address: this.state.address,
+                postNumber: this.state.postNumber,
+                phone: this.state.phone,
+                countyId: this.state.choosen,
+            };
+            console.log("county", this.state.choosen);
+            await userService
+                .addAdmin(newEmployee)
+                .then(user => (this.state = user))
+                .catch((error: Error) => Alert.danger(error.message));
 
-      let theBody: Object = {
-        mail: newEmployee.mail,
-        registered: 1,
-        inProgress: 0,
-        completed: 1
-      };
-      await notificationSettingService.addIssueNotificationSettings(theBody);
-      await this.setState({ errorSomething: false, errorButton: false, registerSuccess: true, userExists: false });
-      await this.goToRegNew();
-    } else {
-      this.setState({ errorSomething: false, registerSuccess: false, userExists: true });
-    }
+            let theBody: Object = {
+                mail: newEmployee.mail,
+                registered: 1,
+                inProgress: 0,
+                completed: 1
+            };
+            await notificationSettingService.addIssueNotificationSettings(theBody);
+            await this.setState({errorSomething: false, errorButton: false, registerSuccess: true, userExists: false});
+            await this.goToRegNew();
+        } else {
+            this.setState({errorSomething: false, registerSuccess: false, userExists: true});
+        }
 
 
-  };
-  goToRegNew = () => {
-    setTimeout(
-      function() {
-        history.push('/admin');
-      }, 2000
-    );
-  };
+    };
+    goToRegNew = () => {
+        setTimeout(
+            function () {
+                history.push('/admin');
+            }, 2000
+        )
+    };
 }
