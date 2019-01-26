@@ -265,7 +265,6 @@ export class Statistics extends Component {
           <PageHeader title={'Statistikk over ' + window.sessionStorage.getItem('countyName') + ' kommune'}/>
           <Row>
             <Col sm={12} md={6} lg={6}>
-              {console.log('pieData equals lineDataAllCounties', (this.state.lineData==this.state.lineDataAllCounties))}
               <Line
                 data={this.state.lineData}
                 width={500}
@@ -279,7 +278,6 @@ export class Statistics extends Component {
                 }}
               />
             </Col>
-            {console.log('pieData equals lineDataAllCounties', (this.state.lineData==this.state.lineDataAllCounties))}
 
             <Col sm={12} md={6} lg={6}>
               <Pie
