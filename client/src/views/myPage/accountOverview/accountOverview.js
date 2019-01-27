@@ -246,7 +246,7 @@ class AccountInfoCard extends React.Component<{
 }
 
 
-export class KontoOversikt extends React.Component <State> {
+export class accountOverview extends React.Component <State> {
 
   state = {
     user: User,

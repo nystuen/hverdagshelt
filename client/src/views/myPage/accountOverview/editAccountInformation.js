@@ -45,7 +45,6 @@ class AccountInfoEditCardCompany extends React.Component<{
   description: string,
 }> {
 
-
   render() {
     return (
       <div>

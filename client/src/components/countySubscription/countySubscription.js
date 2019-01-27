@@ -1,12 +1,12 @@
 //@flow
 import React, { Component } from 'react';
-import { Layout } from '../../../widgets';
+import { Layout } from '../../widgets';
 import { Grid, Row, Col, ListGroup,ListGroupItem, Table, Image, Panel, Glyphicon, Button, FormControl } from "react-bootstrap"
-import {CountyService, UserService, NotificationSettingsService} from "../../../services";
+import {CountyService, UserService, NotificationSettingsService} from "../../services";
 import * as jwt from 'jsonwebtoken';
 import css from './countySubscription.css';
-import { PageHeader } from '../../../components/PageHeader/PageHeader';
-import { User } from '../../../classTypes';
+import { PageHeader } from '../PageHeader/PageHeader';
+import { User } from '../../classTypes';
 
 let countyService = new CountyService();
 let userService = new UserService();

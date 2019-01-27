@@ -18,7 +18,7 @@ import { Alert } from '../../../widgets';
 import { Status } from '../../../classTypes';
 import { PageHeader } from '../../../components/PageHeader/PageHeader';
 import { history } from '../../../index';
-import mineSaker from './mineSaker.css';
+import './myIssues.css';
 import update from "immutability-helper";
 
 let jwt = require('jsonwebtoken');
@@ -41,9 +41,9 @@ interface Props {
 }
 
 /**
- * @class MineSaker
+ * @class MyIssues
  */
-export class MineSaker extends React.Component<Props, State> {
+export class myIssues extends React.Component<Props, State> {
   match: { params: { mail: string } };
   constructor(props){
     super(props);

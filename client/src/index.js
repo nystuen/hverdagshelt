@@ -6,27 +6,26 @@ import { HashRouter, Route, NavLink } from "react-router-dom";
 import { WizardFormComplete } from "./components/ReduxRegisterForm/WizardFormComplete";
 import { EventMapComponent, IssueMapComponent } from './components/map/Map';
 import { NavbarMenu } from "./components/NavbarMenu/NavbarMenu";
-import { Login } from "./views/login/login";
+import { login } from "./views/login/login";
 import { Alert } from "./widgets";
 import store from "./components/ReduxRegisterForm/store";
-import { KontoOversikt } from "./views/myPage/KontoOversikt/kontoOversikt";
-import { CountySubscription } from "./views/myPage/countySubscription/countySubscription";
+import { accountOverview } from "./views/myPage/accountOverview/accountOverview";
+import { countySubscription } from "./components/countySubscription/countySubscription";
 import createHashHistory from "history/createHashHistory";
-import { MineSaker } from "./views/myPage/mineSaker/mineSaker";
+import { myIssues } from "./views/myPage/myIssues/myIssues";
 import { Provider } from "react-redux";
-import { adminAddCategory } from "./components/AdminAddCategory/adminAddCategory";
+import { adminAddCategory } from "./components/adminAddCategory/adminAddCategory";
 import { RegisterCompany } from "./components/registercompany/registercompany.js";
 import { RegisterUser } from "./components/registeruser/registeruser";
 import { ChooseCategory } from "./components/ChooseCategory/ChooseCategory.js";
 import { welcomePage } from "./views/welcomePage/welcomePage";
 import { ChangeCounty } from "./views/changeCounty/changeCounty";
-import { editAccountInformation } from "./views/myPage/KontoOversikt/editAccountInformation";
-import { NotificationSettings } from "./views/NotificationSettings/NotificationSettings";
+import { editAccountInformation } from "./views/myPage/accountOverview/editAccountInformation";
+import { notificationSettings } from "./views/notificationSettings/notificationSettings";
 import { Component } from "react-simplified";
-import { MinSide } from "./views/myPage/MinSide";
 import { EventWizardFormComplete } from "./components/RegisterEventForm/EventWizardFormComplete";
-import { OversiktOverSak } from "./views/oversiktOverSak/oversiktOverSak";
-import { mineSakerBedrift } from "./views/myPage/mineSaker/mineSakerBedrift";
+import { issueOverview } from "./views/issueOverview/issueOverview";
+import { myIssuesCompany } from "./views/myPage/myIssues/myIssuesCompany";
 import { events } from "./views/events/events";
 import { adminPanel } from "./views/admin/adminPanel/adminPanel";
 import { SendTextMailWindow } from "./components/Mail/SendMail";
@@ -38,7 +37,7 @@ import { manageUsers } from "./views/admin/mangeUsers/manageUsers";
 import { CreateAdminsOrEmployees } from "./views/admin/createAdminOrEmployees/createAdminsOrEmployees";
 import { Statistics } from "./components/statistics/Statistics";
 import { adminIssues } from "./views/admin/adminIssues/adminIssues";
-import { EditIssue } from "./views/myPage/mineSaker/editIssue";
+import { EditIssue } from "./views/myPage/myIssues/editIssue";
 import { Footer2 } from './components/Footer/Footer2';
 import { eventView } from './views/events/eventView';
 
@@ -64,18 +63,18 @@ if (root)
         <Route exact path="/" component={welcomePage} />
         <Route path="/endreKommune" component={ChangeCounty} />
         <Route path="/wizardForm" component={WizardFormComplete} />
-        <Route path="/min_side/kontooversikt" component={KontoOversikt} />
+        <Route path="/min_side/kontooversikt" component={accountOverview} />
 
         <Route
           path="/min_side/editAccountInformation"
           component={editAccountInformation}
         />
-        <Route path="/login" component={Login}/>
+        <Route path="/login" component={login}/>
         <Route path="/map" component={IssueMapComponent}/>
-        <Route path="/min_side/mine_saker" component={MineSaker}/>
+        <Route path="/min_side/mine_saker" component={myIssues}/>
         <Route
           path="/min_side/mine_sakerBedrift"
-          component={mineSakerBedrift}
+          component={myIssuesCompany}
         />
         <Route path="/addCategory" component={adminAddCategory} />
         <Route path="/registrer/admin" component={RegisterAdmin} />
@@ -83,11 +82,11 @@ if (root)
         <Route exact path="/registrer/bedrift" component={RegisterCompany} />
         <Route
           path="/min_side/varselinstillinger"
-          component={NotificationSettings}
+          component={notificationSettings}
         />
         <Route
           path="/min_side/sakoversikt/:issueId"
-          component={OversiktOverSak}
+          component={issueOverview}
         />
         <Route
           exact

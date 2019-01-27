@@ -563,14 +563,14 @@ export class IssueService {
     });
   } //end method
     /**
-     * GET /oversiktOverSak/:issue
+     * GET /issueOverview/:issue
      *
      * @method getIssueAndCounty
      * @param {number} issue
      * @returns {Object[]}
      */
   getIssueAndCounty(issue: number): Promise<Object> {
-    return axios.get('/oversiktOverSak/' + issue);
+    return axios.get('/issueOverview/' + issue);
   } //end method
     /**
      * POST /sendIssueInProgressMail

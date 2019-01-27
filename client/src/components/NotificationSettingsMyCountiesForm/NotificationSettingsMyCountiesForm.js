@@ -8,7 +8,7 @@ import {Category, NotificationSetting, User} from "../../classTypes";
 import {Collapse} from "react-bootstrap";
 import cloneDeep from "lodash/cloneDeep";
 import css from './NotificationSettingsForm.css';
-import {CountySubscription} from "../../views/myPage/countySubscription/countySubscription";
+import {CountySubscription} from "../countySubscription/countySubscription";
 
 
 let notificationSettingsService = new NotificationSettingsService();

@@ -6,7 +6,7 @@ import {User} from "../../classTypes";
 import {MyIssuesNotificationSettingsForm} from "../../components/MyIssuesNotificationSettingsForm/MyIssuesNotificationSettingsForm";
 import {NotificationSettingsMyCountiesForm} from "../../components/NotificationSettingsMyCountiesForm/NotificationSettingsMyCountiesForm";
 
-import css from './NotificationSettings.css';
+import './notificationSettings.css';
 
 interface State {
     decoded: Object,
@@ -15,7 +15,7 @@ interface State {
 
 }
 
-export class NotificationSettings extends React.Component <State> {
+export class notificationSettings extends React.Component <State> {
 
     state = {
         categoryChoises: []

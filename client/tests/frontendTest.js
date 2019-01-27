@@ -25,21 +25,21 @@ import {Button} from "react-bootstrap";
 import {WizardFormFirstPage} from "../src/components/ReduxRegisterForm/WizardFormFirstPage";
 import {WizardFormSecondPage} from "../src/components/ReduxRegisterForm/WizardFormSecondPage";
 import {WizardFormThirdPage} from "../src/components/ReduxRegisterForm/WizardFormThirdPage";
-import {CountySubscription} from "../src/views/myPage/countySubscription/countySubscription";
+import {CountySubscription} from "../src/components/countySubscription/countySubscription";
 import {ForgottenPassword} from "../src/views/login/forgottenPassword";
 import {ChangeCounty} from "../src/views/changeCounty/changeCounty";
-import {KontoOversikt} from "../src/views/myPage/KontoOversikt/kontoOversikt";
+import {AccountOverview} from "../src/views/myPage/accountOverview/accountOverview";
 import {User} from "../src/classTypes";
 import {Login} from "../src/views/login/login";
-import {MineSaker} from "../src/views/myPage/mineSaker/mineSaker";
-import {NotificationSettings} from "../src/views/NotificationSettings/NotificationSettings";
-import {OversiktOverSak} from "../src/views/oversiktOverSak/oversiktOverSak";
+import {MyIssues} from "../src/views/myPage/myIssues/myIssues";
+import {NotificationSettings} from "../src/views/notificationSettings/notificationSettings";
+import {IssueOverview} from "../src/views/issueOverview/issueOverview";
 import {AdminResetUserPassword} from "../src/views/admin/resetPassword";
 import {RegisterAdmin} from "../src/components/registeradmin/registeradmin";
 import {WizardFormComplete} from "../src/components/ReduxRegisterForm/WizardFormComplete";
 import {InfoModule} from "../src/components/InfoModule/InfoModule";
 import {SetCategoryInactive} from "../src/components/setCategoryInactive/SetCategoryInactive";
-import {EditIssue} from "../src/views/myPage/mineSaker/editIssue";
+import {EditIssue} from "../src/views/myPage/myIssues/editIssue";
 
 describe('Test for RegisterUser component', () => {
     const wrapper = shallow(<RegisterUser />);
@@ -381,8 +381,8 @@ describe('Test for interactWithIssue view', () => {
     });
 });
 
-describe('Test for KontoOversikt view', () => {
-    const wrapper = shallow(<KontoOversikt user={new User('a@a.no', 'per', 'hansen', 'Private', '12345678', 2, 1, 1)} changePassword={false}/>);
+describe('Test for accountOverview view', () => {
+    const wrapper = shallow(<AccountOverview user={new User('a@a.no', 'per', 'hansen', 'Private', '12345678', 2, 1, 1)} changePassword={false}/>);
 
     it('renders correctly', () => {
         expect(wrapper).toMatchSnapshot();
@@ -422,7 +422,7 @@ describe('Test for Login view', () => {
     })
 });
 
-describe('Test for mineSakerBedrift view', () => {
+describe('Test for myIssuesCompany view', () => {
     const wrapper = shallow(<mineSakerBedrift />);
 
     it('renders correctly', () => {
@@ -432,15 +432,15 @@ describe('Test for mineSakerBedrift view', () => {
 
 });
 
-describe('Test for MineSaker view', () => {
-    const wrapper = shallow(<MineSaker />);
+describe('Test for MyIssues view', () => {
+    const wrapper = shallow(<MyIssues />);
 
     it('renders correctly', () => {
         expect(wrapper).toMatchSnapshot();
     });
 });
 
-describe('Test for NotificationSettings view', () => {
+describe('Test for notificationSettings view', () => {
     const wrapper = shallow(<NotificationSettings />);
 
     it('renders correctly', () => {
@@ -448,10 +448,10 @@ describe('Test for NotificationSettings view', () => {
     });
 });
 
-describe('Test for OversiktOverSak view', () => {
+describe('Test for IssueOverview view', () => {
 
 
-    const wrapper = shallow(<OversiktOverSak match={{params: {id: 1}, isExact: true, path: "", url: ""}}/>);
+    const wrapper = shallow(<IssueOverview match={{params: {id: 1}, isExact: true, path: "", url: ""}}/>);
 
     it('renders correctly', () => {
         expect(wrapper).toMatchSnapshot();

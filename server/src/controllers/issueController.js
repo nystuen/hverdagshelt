@@ -52,8 +52,8 @@ module.exports = function(app: Object, issueDao: Object) {
     });
   });
 
-  app.get("/oversiktOverSak/:id", (req, res) => {
-    console.log("received get request from /oversiktOverSak");
+  app.get("/issueOverview/:id", (req, res) => {
+    console.log("received get request from /issueOverview");
     issueDao.getIssueAndCounty(req.params.id, (status, data) => {
       res.status(status);
       res.json(data);

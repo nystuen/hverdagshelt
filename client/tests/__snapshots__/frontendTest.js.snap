@@ -7599,10 +7599,10 @@ ShallowWrapper {
 }
 `;
 
-exports[`Test for KontoOversikt view renders correctly 1`] = `
+exports[`Test for AccountOverview view renders correctly 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <KontoOversikt
+  Symbol(enzyme.__unrendered__): <AccountOverview
     changePassword={false}
     user={
       User {
@@ -10042,10 +10042,10 @@ ShallowWrapper {
 }
 `;
 
-exports[`Test for MineSaker view renders correctly 1`] = `
+exports[`Test for MyIssues view renders correctly 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <MineSaker />,
+  Symbol(enzyme.__unrendered__): <MyIssues />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -13926,10 +13926,10 @@ ShallowWrapper {
 }
 `;
 
-exports[`Test for OversiktOverSak view renders correctly 1`] = `
+exports[`Test for IssueOverview view renders correctly 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <OversiktOverSak
+  Symbol(enzyme.__unrendered__): <IssueOverview
     match={
       Object {
         "isExact": true,
@@ -52283,10 +52283,10 @@ ShallowWrapper {
 }
 `;
 
-exports[`Test for mineSakerBedrift view renders correctly 1`] = `
+exports[`Test for myIssuesCompany view renders correctly 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <mineSakerBedrift />,
+  Symbol(enzyme.__unrendered__): <myIssuesCompany />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -52302,7 +52302,7 @@ ShallowWrapper {
     "props": Object {},
     "ref": null,
     "rendered": null,
-    "type": "mineSakerBedrift",
+    "type": "myIssuesCompany",
   },
   Symbol(enzyme.__nodes__): Array [
     Object {
@@ -52312,7 +52312,7 @@ ShallowWrapper {
       "props": Object {},
       "ref": null,
       "rendered": null,
-      "type": "mineSakerBedrift",
+      "type": "myIssuesCompany",
     },
   ],
   Symbol(enzyme.__options__): Object {

@@ -7,7 +7,7 @@ import { Status } from '../../classTypes';
 import * as jwt from 'jsonwebtoken';
 import { ImageService } from '../../services';
 import { history } from '../../index';
-import css from './oversiktOverSak.css';
+import './issueOverview.css';
 import { MailService } from '../../services';
 import { FormGroup, Grid, ProgressBar, FormControl, Button, Image, Col, Row } from 'react-bootstrap';
 import { User } from '../../classTypes';
@@ -52,9 +52,9 @@ class FindDate {
 }
 
 /**
- * @class OversiktOverSak
+ * @class IssueOverview
  */
-export class OversiktOverSak extends React.Component {
+export class issueOverview extends React.Component {
   constructor(props) {
     super(props);
     this.state = {

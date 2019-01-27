@@ -16,7 +16,7 @@ interface State{
     decoded: Object;
 }
 
-export class mineSakerBedrift extends React.Component{
+export class myIssuesCompany extends React.Component{
     state = {
       issues: [],
       user: new Company('1',1,'121232','','')
