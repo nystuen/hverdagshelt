@@ -22,7 +22,6 @@ export class SetCategoryInactive extends React.Component {
     this.props.history.goBack();
   }
 
-
   render() {
     const { onChangeCategoryHeader } = this.props;
     return (
