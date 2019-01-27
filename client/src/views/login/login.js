@@ -133,8 +133,11 @@ export class Login extends Component<Props, State> {
 
     const { isLoading } = this.state;
 
+
+
     return (
-      <div className="login">
+      <div className="login backgroundImage">
+
         <Grid>
           <Form>
             <Col sm={2} md={3}/>
@@ -230,7 +233,6 @@ export class Login extends Component<Props, State> {
                 userService.login({ userMail: response[0].mail, typeId: response[0].typeName }).then(r => {
                   let token = r.jwt;
                   window.localStorage.setItem('userToken', token);
-                  console.log('login in success');
                   userService.getCurrentUser().then(r3 => {
                     window.sessionStorage.setItem('countyId', r3[0].countyId);
                     window.sessionStorage.setItem('countyName', r3[0].county);
@@ -252,8 +254,6 @@ export class Login extends Component<Props, State> {
                       userService.login({ userMail: r[0].mail, typeId: 'Company' }).then(r => {
                         let token = r.jwt;
                         window.localStorage.setItem('userToken', token);
-                        console.log('login in success');
-                        console.log('hei');
 
                         setTimeout(() => {
                           // Completed of async action, set loading state back
@@ -271,7 +271,6 @@ export class Login extends Component<Props, State> {
                     }//end condition
                   });
                 }).catch((error: Error) => {
-                  console.log(error);
                   this.setState({
                     isLoading: false,
                     error: true
@@ -287,7 +286,6 @@ export class Login extends Component<Props, State> {
                 userService.login({ userMail: this.state.email, typeId: 'Company' }).then(r => {
                   let token = r.jwt;
                   window.localStorage.setItem('userToken', token);
-                  console.log('login in success');
 
 
                   setTimeout(() => {
@@ -297,7 +295,6 @@ export class Login extends Component<Props, State> {
                     history.push('/');
                   }, 500);
                 }).catch((error: Error) => {
-                  console.log(error);
                   this.setState({
                     isLoading: false,
                     error: true
@@ -311,7 +308,6 @@ export class Login extends Component<Props, State> {
               }//end condition
             });
           }).catch((error: Error) => {
-            console.log(error);
             this.setState({
               isLoading: false,
               error: true

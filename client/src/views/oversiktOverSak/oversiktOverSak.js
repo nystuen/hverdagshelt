@@ -158,7 +158,6 @@ export class OversiktOverSak extends React.Component {
       editStatus = this.state.editStatus;
     }
 
-    console.log(this.state.image);
 
 
     if (this.state.image != null) {

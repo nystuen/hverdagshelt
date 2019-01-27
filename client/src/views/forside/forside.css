@@ -9,11 +9,7 @@
 }
 
 .forside {
-    height: 100%;
-    background-image: url('https://i.imgur.com/AxF4TMa.png');
-    background-size: cover;
     padding-top: 20em;
-    z-index: 9999;
 }
 
 .text-uppercase {
@@ -34,7 +30,7 @@
 }
 
 .forsideText{
-    animation: 2s ease-out 0s fadeIn;
+    animation: 1s ease-out 0s fadeIn;
 }
 
 

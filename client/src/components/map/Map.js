@@ -207,7 +207,6 @@ export class IssueMapComponent extends Component {
 
   componentDidMount(){
     userService.getCurrentUser().then(res => {
-      console.log(res[0])
       if(res[0].companyMail != undefined){
         userService.getCompanyIssuesWithCat(res[0].companyMail).then(res => {
           this.setState({

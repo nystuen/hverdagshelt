@@ -50,7 +50,6 @@ export class forside extends Component {
       this.setState({
         importantEvents: events
       });
-      console.log(this.state.importantEvents[0].title);
     });
   };
 
@@ -74,7 +73,7 @@ export class forside extends Component {
 
   render() {
     return (
-      <div className="forside">
+      <div className="forside backgroundImage">
         <Grid align="center" className="forsideText">
 
           <h1>VELKOMMEN TIL HVERDAGSHELT</h1>

@@ -6,7 +6,7 @@ import React, { Component, createRef } from "react";
 import { Map, TileLayer, Marker, Popup, withLeaflet } from "react-leaflet";
 import * as ELG from "esri-leaflet-geocoder";
 import L from "leaflet";
-import { Button, Glyphicon, ProgressBar } from 'react-bootstrap';
+import { Button, Col, Glyphicon, Grid, ProgressBar } from 'react-bootstrap';
 import Geocode from "react-geocode";
 
 Geocode.setApiKey("AIzaSyDVZREoJuiobrxWVmBFhemEk1VdRB0MsSI");
@@ -165,39 +165,53 @@ export class EventFormFirstPage extends Component<{}, State> {
         </Map>
         <div className="choice-map-container">
           <div className="choice-map">
-            <input
-              className="input-map"
-              placeholder="Adresse, by"
-              onChange={this.onChange.bind(this)}
-              value={this.state.address}
-            />
-            <Button bsStyle="primary" onClick={this.handleClick}>
-              Finn addresse
-            </Button>
-          </div>
-          <div className="choice-map">
-            <form onSubmit={handleSubmit} style={centerStyle}>
-              <Field
-                name="lat"
-                type="hidden"
-                label="latitude"
-                component={renderCategoryField}
-              />
-              <Field
-                name="lng"
-                type="hidden"
-                label="longitude"
-                component={renderCategoryField}
-              />
-              <Button
-                bsStyle="primary"
-                type="submit"
-                className="next + ' ' + submitButton"
-                onClick={this.handleSubmit}
-              >
-                Meld hendelse her <Glyphicon glyph="glyphicon glyphicon-arrow-right"/>
-              </Button>
-            </form>
+            <Grid>
+              <Col mdOffset={1} smOffset={1} md={10} sm={10} xs={12} >
+                <Col md={8} className="gridPad">
+                  <input
+                    className="input-map"
+                    placeholder="Adresse, by"
+                    onChange={this.onChange.bind(this)}
+                    value={this.state.address}
+                  />
+                </Col>
+
+                <Col md={4} className="gridPad">
+                  <Button id="findAddress" bsStyle="primary" onClick={this.handleClick}>
+                    Finn addresse
+                  </Button>
+                </Col>
+
+                <Col md={12} className="gridPad">
+                  <div className="choice-map">
+                    <form onSubmit={handleSubmit} style={centerStyle}>
+                      <Field
+                        name="lat"
+                        type="hidden"
+                        label="latitude"
+                        component={renderCategoryField}
+                      />
+                      <Field
+                        name="lng"
+                        type="hidden"
+                        label="longitude"
+                        component={renderCategoryField}
+                      />
+                      <Button
+                        id="submitButton"
+                        bsStyle="primary"
+                        type="submit"
+                        className="next + ' ' + submitButton"
+                        onClick={this.handleSubmit}
+                      >
+                        Meld feil <Glyphicon glyph="glyphicon glyphicon-arrow-right"/>
+                      </Button>
+                    </form>
+                  </div>
+                </Col>
+              </Col>
+
+            </Grid>
           </div>
         </div>
       </div>
