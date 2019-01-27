@@ -332,6 +332,17 @@ export class EventCategoryService {
   deleteEvent(eventId: number): Promise<void>{
     return axios.post("/deleteEvent/" + eventId);
   }//end method
+
+  /**
+   * POST /addevent
+   *
+   * @method addEvent
+   * @param {Event} event
+   * @returns void
+   */
+  addEvent(event: Event): Promise<void>{
+    return axios.post("add_event", event);
+  }
 }//end class
 
 /**
