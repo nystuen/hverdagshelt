@@ -928,6 +928,27 @@ export class StatisticsService {
   getFreqCategories(): Promise<Response>{
     return axios.get('/frequencyCategories/')
   }
+
+  /**
+    * GET /frequencyCategoriesOneCounty/
+    *
+    * @method getFreqCategoriesOneCounty
+    * @return {numbers}
+  */
+  getFreqCategoriesOneCounty(countyId: number): Promise<Response> {
+    return axios.get('/freqCategoriesOneCounty/'+ countyId);
+  }
+
+  /**
+    * GET /ProcessingTime/
+    *
+    * @method getProcessingTime
+    * @return {numbers}
+  */
+  getProcessingTime(countyId: number): Promise<Response> {
+    const url = '/processingTime/' + countyId
+    return axios.get(url);
+  }
 }
 
 /**

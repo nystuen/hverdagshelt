@@ -25,6 +25,21 @@ const barData = {
   ]
 };
 
+const barDataAllCounties = {
+  labels: ['January'],
+  datasets: [
+    {
+      label: 'Antall feilmeldinger pr. kategori',
+      backgroundColor: 'rgba(255,99,132,0.2)',
+      borderColor: 'rgba(255,99,132,1)',
+      borderWidth: 1,
+      hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+      hoverBorderColor: 'rgba(255,99,132,1)',
+      data: [65, 59, 80, 81, 56]
+    }
+  ]
+};
+
 const pieData = {
 	labels: [
     'Registrert',
@@ -134,6 +149,8 @@ export class Statistics extends Component {
       lineDataAllCounties: lineData2,
       pieDataAllCounties: pieData2,
       barData: barData,
+      barDataAllCounties: barDataAllCounties,
+      processingTime: 0,
       user: {},
     }
   }
@@ -155,7 +172,7 @@ export class Statistics extends Component {
         })
       })
 
-    statisticsService
+    await statisticsService
       .getDaily(window.sessionStorage.getItem('countyId'))
       .then((res) => {
         let lineDummy = this.state.lineData
@@ -170,10 +187,9 @@ export class Statistics extends Component {
         })
       })
 
-    statisticsService
+    await statisticsService
       .getStatusAllCounties()
       .then((res) => {
-        console.log(res)
         let pieDummy = this.state.pieDataAllCounties
         pieDummy.datasets[0].data[0] = res[2].ant
         pieDummy.datasets[0].data[1] = res[1].ant
@@ -184,7 +200,7 @@ export class Statistics extends Component {
 
       })
 
-    statisticsService
+    await statisticsService
       .getDailyAllCounties()
       .then((res) => {
         let lineDummy2 = this.state.lineDataAllCounties
@@ -199,8 +215,23 @@ export class Statistics extends Component {
         })
       })
 
-      statisticsService
+      await statisticsService
         .getFreqCategories()
+        .then((res) => {
+          let barDummy2 = this.state.barDataAllCounties
+          barDummy2.labels = []
+          barDummy2.datasets[0].data = []
+          res.map(e => {
+            barDummy2.labels.push(e.name)
+            barDummy2.datasets[0].data.push(e.ant)
+          })
+          this.setState({
+            barDataAllCounties: barDummy2
+          })
+        })
+
+    await statisticsService
+        .getFreqCategoriesOneCounty(window.sessionStorage.getItem('countyId'))
         .then((res) => {
           let barDummy = this.state.barData
           barDummy.labels = []
@@ -209,10 +240,43 @@ export class Statistics extends Component {
             barDummy.labels.push(e.name)
             barDummy.datasets[0].data.push(e.ant)
           })
-          this.setState({
-            barData: barDummy
-          })
+        this.setState({
+          barData: barDummy
         })
+      })
+
+    await statisticsService
+      .getProcessingTime(window.sessionStorage.getItem('countyId'))
+      .then((res) => {
+        let processTime = []
+        res.map(e => {
+          if(e.completedDate != null && e.completedDate != ""){
+            var parts1 = e.date.split('.');
+            var us_date1 = parts1[2]+'-'+parts1[1]+'-'+parts1[0];
+            let date1string = us_date1.replace(/\./g, "/")
+            let date1 = new Date(date1string)
+
+            var parts2 = e.completedDate.split('.');
+            var us_date2 = parts2[2]+'-'+parts2[1]+'-'+parts2[0];
+            let date2string = us_date2.replace(/\./g, "/")
+            let date2 = new Date(date2string)
+
+            var timeDiff = Math.abs(date2.getTime() - date1.getTime());
+            var diffDays = Math.ceil(timeDiff / (1000 * 3600 * 24));
+            processTime.push(diffDays)
+          }
+          }
+        )
+        let totalDiff = 0
+        processTime.forEach((diff) => {
+          totalDiff += diff
+        })
+        let avgDiff = totalDiff/processTime.length
+        this.setState({
+          processingTime: avgDiff
+        })
+      }
+      )
 
 
   }
@@ -242,6 +306,11 @@ export class Statistics extends Component {
       marginTop: "25px",
       marginBottom: "25px"
     };
+
+    let styles = {
+      minHeight: '500px',
+      paddingTop: '100px'
+    }
 
     if(this.state.user.typeName === undefined){
         return(
@@ -326,6 +395,26 @@ export class Statistics extends Component {
                 redraw
               />
             </Col>
+            <Col sm={12} md={6} lg={6}>
+              <Bar
+                data={this.state.barData}
+                width={500}
+                height={500}
+                options={{
+                  maintainAspectRatio: false,
+                  title: {
+                    display: true,
+                    text: "Antall feilmeldinger pr. status"
+                  }
+                }}
+              />
+            </Col>
+            <Col align="center" style={styles}  sm={12} md={6} lg={6}>
+              <div align="center" style={styles}>
+                <h2>Gjennomsnittlig behandlingstid:</h2>
+                <h3>{this.state.processingTime.toFixed(2) + "dager"}</h3>
+              </div>
+            </Col>
           </Row>
           <Row>
             <Col>
@@ -367,7 +456,7 @@ export class Statistics extends Component {
             </Col>
             <Col sm={12} md={6} lg={6}>
               <Bar
-                data={this.state.barData}
+                data={this.state.barDataAllCounties}
                 width={500}
                 height={500}
                 options={{
@@ -377,7 +466,6 @@ export class Statistics extends Component {
                     text: "Antall feilmeldinger pr. status"
                   }
                 }}
-                redraw
               />
             </Col>
           </Row>
