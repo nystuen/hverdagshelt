@@ -240,7 +240,7 @@ export class ChooseCategory extends Component<{
           </Alert>
         );
       } else {
-        alert_delete = <p />;
+        alert_delete =  <p />;
       }
     }
     return (
