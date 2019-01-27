@@ -293,6 +293,7 @@ export class Login extends Component<Props, State> {
                     this.setState({ isLoading: false });
                     window.location.reload();
                     history.push('/');
+
                   }, 500);
                 }).catch((error: Error) => {
                   this.setState({
