@@ -118,7 +118,7 @@ export class NavbarMenu extends React.Component {
             <Navbar collapseOnSelect fluid>
               <Navbar.Header>
                 <Navbar.Brand>
-                  <a href={'/#/'}><img src={'./resources/logo_white.png'}></img></a>
+                  <a href={'/#/'} onClick={() => this.setState({activeKey: 0})}><img src={'./resources/logo_white.png'}></img></a>
                 </Navbar.Brand>
                 <Navbar.Toggle/>
               </Navbar.Header>
@@ -158,7 +158,7 @@ export class NavbarMenu extends React.Component {
             <Navbar collapseOnSelect fluid>
               <Navbar.Header>
                 <Navbar.Brand>
-                  <a href={'/#/'}><img src={'./resources/logo_white.png'}></img></a>
+                  <a href={'/#/'} onClick={() => this.setState({activeKey: 0})}><img src={'./resources/logo_white.png'}></img></a>
                 </Navbar.Brand>
                 <Navbar.Toggle/>
               </Navbar.Header>
@@ -201,7 +201,7 @@ export class NavbarMenu extends React.Component {
             <Navbar collapseOnSelect fluid>
               <Navbar.Header>
                 <Navbar.Brand>
-                  <a href={'/#/'}><img src={'./resources/logo_white.png'}></img></a>
+                  <a href={'/#/'} onClick={() => this.setState({activeKey: 0})}><img src={'./resources/logo_white.png'}></img></a>
                 </Navbar.Brand>
                 <Navbar.Toggle/>
               </Navbar.Header>
