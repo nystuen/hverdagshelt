@@ -6,7 +6,7 @@ import React, { Component, createRef } from "react";
 import { Map, TileLayer, Marker, Popup, withLeaflet } from "react-leaflet";
 import * as ELG from "esri-leaflet-geocoder";
 import L from "leaflet";
-import { Button, ProgressBar } from "react-bootstrap";
+import { Button, ProgressBar, Glyphicon } from "react-bootstrap";
 import Geocode from "react-geocode";
 
 Geocode.setApiKey("AIzaSyDVZREoJuiobrxWVmBFhemEk1VdRB0MsSI");
@@ -209,7 +209,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
                 className="next + ' ' + submitButton"
                 onClick={this.handleSubmit}
               >
-                Meld feil
+                  Meld feil <Glyphicon glyph="glyphicon glyphicon-arrow-right"/>
               </Button>
             </form>
           </div>

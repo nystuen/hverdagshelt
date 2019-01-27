@@ -15,19 +15,19 @@ export class CategoryDao extends Dao {
   }
 
   updateCategory1(id:number, callback: Function){
-        console.log("Det her er kategoriID: "+id);
-        super.query('Update category SET active=0 WHERE categoryId=?',
-            [id],
-            callback
-        );
-        super.query('Update category2 SET active=0 WHERE categoryID=?',
-            [id],
-            callback
-        );
+      super.query('Update category2 SET active=0 WHERE categoryId=?',
+          [id],
+          callback
+      );
+  }
+  updateCategory2before1(id:number, callback: Function){
+      super.query('Update category SET active=0 WHERE categoryId=?',
+          [id],
+          callback
+      )
   }
 
   updateCategory2(id:number, callback: Function){
-      console.log("Det her er kategoriID: "+id);
       super.query('Update category2 SET active=0 WHERE category2Id=?',
           [id],
           callback
@@ -41,7 +41,7 @@ export class CategoryDao extends Dao {
     }
 
   getCategory2(callback: Function) {
-    super.query("select * from category2 where active =1", [], callback);
+    super.query("select * from category2 where active=1", [], callback);
   }
 
   //Skal ikke brukes så tas ikke med i testing
@@ -51,7 +51,7 @@ export class CategoryDao extends Dao {
 
 
     getOneCategory1(categoryId: number, callback: Function){
-        super.query("select * from category where categoryId=?",[categoryId], callback);
+        super.query("select * from category where categoryId=? ",[categoryId], callback);
     }
 
     getOneCategory2(categoryId: number, callback: Function) {

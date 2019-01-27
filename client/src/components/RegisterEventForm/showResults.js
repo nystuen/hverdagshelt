@@ -73,5 +73,5 @@ export default (async function showResults(values) {
       }
     });
 
-  history.push("/events/" + values.countyId);
+  history.push("/hendelser/" + values.countyId);
 });

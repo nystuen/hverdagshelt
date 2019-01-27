@@ -2,13 +2,14 @@ import { Col, Button, Form, FormGroup, Label, Overlay, Tooltip, InputGroup} from
 import { CountyService, UserService} from '../../services';
 import { Component } from 'react';
 import * as React from 'react';
-import { Alert, Grid, FormControl, PageHeader, HelpBlock } from 'react-bootstrap';
+import { Alert, Grid, FormControl, HelpBlock } from 'react-bootstrap';
 import ReactDOM from 'react-dom';
 import { County } from '../../classTypes';
 import Select from 'react-select';
 import {history} from "../../index";
 import {NotificationSettingsService} from "../../services";
 import css from "./registerUser.css";
+import { PageHeader } from '../PageHeader/PageHeader';
 
 let countyService = new CountyService();
 let userService = new UserService();
@@ -407,18 +408,19 @@ export class RegisterUser extends Component<Props, State> {
             <p></p>
         }
         return (
-            <Grid>
+            <Grid className="bottomFooter">
+
+
                 <Col md={3}></Col>
                 <Col md={6}>
+                  <PageHeader title="Registrer bruker"/>
                     <Form horizontal>
                         <FormGroup controlId="formHorizontalEmail">
                             <FormGroup>
                                 <FormGroup>
                                     <Col md={3}></Col>
                                     <Col md={6}>
-                                        <PageHeader>
-                                            Registrer bruker
-                                        </PageHeader>
+
                                     </Col>
                                     <Col md={3}></Col>
                                 </FormGroup>
@@ -601,7 +603,7 @@ export class RegisterUser extends Component<Props, State> {
         setTimeout(
             function () {
                 history.push('/login');
-            }, 3000
+            }, 1000
         )
     }
 }

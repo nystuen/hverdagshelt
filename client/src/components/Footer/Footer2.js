@@ -45,12 +45,14 @@ export class Footer2 extends Component<{}> {
       this.setState({
         countyInformation: re[0]
       });
-      console.log('re:', re[0]);
     });
   };
 
+
   render() {
-    if (!(window.localStorage.getItem('userToken') == '') && this.state.countyInformation != undefined) {
+    console.log('ils', (window.sessionStorage.getItem('countyName')));
+
+    if ((!(window.localStorage.getItem('userToken') == '') && !(window.sessionStorage.getItem('countyName') == 'undefined') && this.state.countyInformation != undefined )) {
 
       let employee;
       employee = <div align="center">
@@ -75,7 +77,7 @@ export class Footer2 extends Component<{}> {
                   <ul>
                     <li><a href="#">Hjem</a></li>
                     <li><a href="#">FAQ</a></li>
-                    <li><a href="#">En ting til?</a></li>
+                    <li><a href="#">Kontakt oss</a></li>
                   </ul>
                 </div>
               </Col>
@@ -98,14 +100,14 @@ export class Footer2 extends Component<{}> {
           <Grid>
             <Row>
 
-                <div align="center">
-                  <h5>Kom igang</h5>
-                  <ul>
-                    <li><a href="#">Hjem</a></li>
-                    <li><a href="#">FAQ</a></li>
-                    <li><a href="#">En ting til?</a></li>
-                  </ul>
-                </div>
+              <div align="center">
+                <h5>Kom igang</h5>
+                <ul>
+                  <li><a href="#">Hjem</a></li>
+                  <li><a href="#">FAQ</a></li>
+                  <li><a href="#">En ting til?</a></li>
+                </ul>
+              </div>
 
             </Row>
 

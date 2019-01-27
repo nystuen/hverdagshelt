@@ -21,20 +21,15 @@ import { ChooseCategory } from '../ChooseCategory/ChooseCategory';
 import { CategoryService } from '../../services';
 import {Checkbox, Radio} from 'react-bootstrap';
 import { CategorySelectList } from '../CategorySelectList/CategorySelectList';
+import {history} from "../../index";
 
 
 let categoryService = new CategoryService();
 
-interface State {
 
-  newCategoryName: string,
-}
-
-interface Props {
-}
-
-//Prioritet 1,2,3
-
+/**
+ * @class adminAddCategory
+ */
 export class adminAddCategory extends Component<Props, State> {
 
 
@@ -46,8 +41,10 @@ export class adminAddCategory extends Component<Props, State> {
       selectedCategoryType: 1,
       newPriority: {},
       mainCategory: false,
-      error: false
+      error: false,
+      success: false
     };
+    this.saveCategory = this.saveCategory.bind(this);
   }
 
 
@@ -78,7 +75,12 @@ export class adminAddCategory extends Component<Props, State> {
     this.props.history.goBack();
   }
 
-  saveCategory = () => {
+    /**
+     * @method saveCategory
+     * @returns {Promise<void>}
+     */
+
+  saveCategory = async () => {
 
 
     if (this.state.mainCategory) {
@@ -96,6 +98,14 @@ export class adminAddCategory extends Component<Props, State> {
       console.log('body', theBody1);
       categoryService.addCategory1(theBody1).then(res => {
         console.log('added cat1', res);
+        this.setState({success: true},() => {
+          setTimeout(
+              function () {
+                console.log(this.props);
+                history.push('/admin')
+              }, 1000
+          )
+        });
         this.setState({ error: false });
       }).catch(error => {
         console.log(error);
@@ -115,6 +125,14 @@ export class adminAddCategory extends Component<Props, State> {
       };
       categoryService.addCategory2(theBody2).then(res => {
         console.log('added cat2', res);
+        this.setState({success: true},() => {
+          setTimeout(
+              function () {
+                console.log(this.props);
+                history.push('/admin')
+              }, 1000
+          )
+        });
         this.setState({ error: false });
       }).catch(error => {
         console.log(error);
@@ -165,6 +183,17 @@ export class adminAddCategory extends Component<Props, State> {
       <span></span>;
     }
 
+    let success;
+    if(this.state.success){
+      success = (
+          <Alert bsStyle={"success"}>
+            <h5>Du har lagt til kategorien {this.state.newCategoryName}</h5>
+          </Alert>
+      )
+    }else{
+      <span></span>;
+    }//end condition
+
 
     return (
       <div className="bottomFooter">
@@ -198,6 +227,7 @@ export class adminAddCategory extends Component<Props, State> {
             <Button bsStyle="primary" onClick={() => this.saveCategory()}>Lagre kategori</Button>
           </div>
           {alert}
+          {success}
         </Col>
 
         <Col xs={0} md={2}></Col>
