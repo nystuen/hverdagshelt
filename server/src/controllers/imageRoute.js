@@ -49,13 +49,13 @@ module.exports = function(app: Object) {
           res.status(200);
           res.json(req.file.filename + '.jpeg');
         });
-      } else if (path.extname(req.file.originalname).toLowerCase() === '.HEIC') {
-        const targetPath = path.join(__dirname, '../../images/' + (req.file.filename) + '.HEIC');
+      } else if (path.extname(req.file.originalname).toLowerCase() === '.heic') {
+        const targetPath = path.join(__dirname, '../../images/' + (req.file.filename) + '.heic');
         console.log('HEIC');
         fs.rename(tempPath, targetPath, err => {
           if (err) return handleError(err, res);
           res.status(200);
-          res.json(req.file.filename + '.HEIC');
+          res.json(req.file.filename + '.heic');
         });
       } else {
         fs.unlink(tempPath, err => {

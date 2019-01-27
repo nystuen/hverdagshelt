@@ -32,7 +32,7 @@ export class UserDao extends Dao {
 
   getCompanyLogin(userMail: string, callback: Function) {
     super.query(
-      'select companyMail, password,active from company where companyMail=?',
+      "select companyMail, password, active from company where companyMail=?",
       [userMail],
       callback
     );
@@ -57,7 +57,6 @@ export class UserDao extends Dao {
   } //end method}
 
   getCompany(userMail: string, callback: Function) {
-    console.log('usermail dao:', userMail);
     super.query(
       'select * from company natural join companyCounties where companyMail = ? and active = 1',
       [userMail],

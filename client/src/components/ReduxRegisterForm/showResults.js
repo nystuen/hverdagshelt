@@ -1,8 +1,10 @@
-import {UserService, NotificationSettingsService} from '../../services';
+import {UserService, NotificationSettingsService, IssueService, MailService} from '../../services';
 import { history } from '../../index';
 
-let notifiationSettingsService = new NotificationSettingsService();
+let notificationSettingsService = new NotificationSettingsService();
 let userService = new UserService();
+let issuesService = new IssueService();
+let mailService = new MailService();
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 
 class FindDate {
@@ -33,6 +35,35 @@ export default (async function showResults(values) {
       });
 
   if (issuesRegistered < 15) {
+
+      let theBody = {
+          userMail: values.userMail,
+          latitude: values.latitude,
+          longitude: values.longitude,
+          address: values.address,
+          text: values.text,
+          pic: values.imagePath,
+          date: day.day + '.' + day.month + '.' + day.year,
+          statusName: 'Registered',
+          categoryId: values.categoryid,
+          categoryLevel: values.categorylevel,
+          countyId: values.countyId
+      };
+
+      await issuesService.addIssue(theBody)
+          .then(res => {
+              notificationSettingsService.getIssueNotificationSettingsFromUser(values.userMail).then(res => {
+                  if (res[0].registered === 1) {
+
+                      mailService.sendIssueRegisteredMail()
+                          .catch(err => {
+                              alert("Feil: " + err.message)
+                          })
+                  }
+              })
+          });
+
+      /*
       await fetch('http://localhost:3000/add_issue', {
           method: 'POST',
           headers: {
@@ -70,12 +101,12 @@ export default (async function showResults(values) {
           });
       });
 
+      */
 
-      history.push("/min_side/mine_saker");
+      //window.location.href="/#min_side/mine_saker";
+      history.push("min_side/mine_saker");
   } else {
     confirm('Du kan kun ha 15 ubehandlede saker inne om gangen. Vennligst vent til en av sakene dine har endret status til "under behandling"');
   }
-
-
 
 });

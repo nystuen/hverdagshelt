@@ -156,6 +156,7 @@ export class Login extends Component<Props, State> {
                   <FormGroup>
                     <FormControl
                       type="email"
+                      id="mailText"
                       placeholder="Email"
                       value={this.state.email}
                       onChange={this.handleChangeEmail.bind(this)}
@@ -167,6 +168,7 @@ export class Login extends Component<Props, State> {
                   <FormGroup>
                     <FormControl
                       type={this.state.openPassword}
+                      id="passText"
                       placeholder="Passord"
                       value={this.state.password}
                       onChange={this.handleChangePassword.bind(this)}
