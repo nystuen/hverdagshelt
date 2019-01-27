@@ -13,7 +13,6 @@ import {CountyList} from "../src/components/countyList/CountyList";
 import {Footer} from "../src/components/footer/Footer";
 import {MyIssuesNotificationSettingsForm} from "../src/components/myIssuesNotificationSettingsForm/MyIssuesNotificationSettingsForm";
 import {NavbarMenu} from "../src/components/navbarMenu/NavbarMenu";
-import {NotificationSettingsForm} from "../src/components/NotificationSettingsForm/NotificationSettingsForm";
 import {NotificationSettingsMyCountiesForm} from "../src/components/notificationSettingsMyCountiesForm/NotificationSettingsMyCountiesForm";
 import {PageHeader} from "../src/components/pageHeader/PageHeader";
 import {RegisterCompany} from "../src/components/registercompany/registercompany";
@@ -22,23 +21,22 @@ import {RegNew} from "../src/components/regNew/RegNew";
 import {SendTextMailWindow} from "../src/components/mail/SendMail";
 import {Alert} from "../src/widgets";
 import {Button} from "react-bootstrap";
-import {WizardFormFirstPage} from "../src/components/reduxRegisterForm/WizardFormFirstPage";
-import {WizardFormSecondPage} from "../src/components/reduxRegisterForm/WizardFormSecondPage";
-import {WizardFormThirdPage} from "../src/components/reduxRegisterForm/WizardFormThirdPage";
+import {WizardFormFirstPage} from "../src/views/registerIssue/reduxRegisterForm/WizardFormFirstPage";
+import {WizardFormSecondPage} from "../src/views/registerIssue/reduxRegisterForm/WizardFormSecondPage";
+import {WizardFormThirdPage} from "../src/views/registerIssue/reduxRegisterForm/WizardFormThirdPage";
 import {CountySubscription} from "../src/components/countySubscription/countySubscription";
 import {ForgottenPassword} from "../src/views/login/forgottenPassword";
 import {ChangeCounty} from "../src/views/changeCounty/changeCounty";
-import {AccountOverview} from "../src/views/myPage/accountOverview/accountOverview";
+import {accountOverview} from "../src/views/myPage/accountOverview/accountOverview";
 import {User} from "../src/classTypes";
 import {Login} from "../src/views/login/login";
-import {MyIssues} from "../src/views/myPage/myIssues/myIssues";
-import {NotificationSettings} from "../src/views/notificationSettings/notificationSettings";
-import {IssueOverview} from "../src/views/issueOverview/issueOverview";
-import {AdminResetUserPassword} from "../src/views/admin/resetPassword";
+import {myIssues} from "../src/views/myPage/myIssues/myIssues";
+import {notificationSettings} from "../src/views/notificationSettings/notificationSettings";
+import {issueOverview} from "../src/views/issueOverview/issueOverview";
 import {RegisterAdmin} from "../src/components/registeradmin/registeradmin";
-import {WizardFormComplete} from "../src/components/reduxRegisterForm/WizardFormComplete";
-import {InfoModule} from "../src/components/InfoModule/InfoModule";
-import {SetCategoryInactive} from "../src/components/setCategoryInactive/SetCategoryInactive";
+import {WizardFormComplete} from "../src/views/registerIssue/reduxRegisterForm/WizardFormComplete";
+import {InfoModule} from "../src/components/infoModule/InfoModule";
+import {SetCategoryInactive} from "../src/views/admin/setCategoryInactive/SetCategoryInactive";
 import {EditIssue} from "../src/views/myPage/myIssues/editIssue";
 
 describe('Test for RegisterUser component', () => {
@@ -151,15 +149,6 @@ describe('Test for navbarMenu component', () => {
 
 });
 
-describe('Test for NotificationSettingsForm component', () => {
-    const wrapper = shallow(<NotificationSettingsForm />);
-
-
-    it('renders correctly', () => {
-        expect(wrapper).toMatchSnapshot();
-    });
-
-});
 
 describe('Test for notificationSettingsMyCountiesForm component', () => {
 
@@ -382,7 +371,7 @@ describe('Test for interactWithIssue view', () => {
 });
 
 describe('Test for accountOverview view', () => {
-    const wrapper = shallow(<AccountOverview user={new User('a@a.no', 'per', 'hansen', 'Private', '12345678', 2, 1, 1)} changePassword={false}/>);
+    const wrapper = shallow(<accountOverview user={new User('a@a.no', 'per', 'hansen', 'Private', '12345678', 2, 1, 1)} changePassword={false}/>);
 
     it('renders correctly', () => {
         expect(wrapper).toMatchSnapshot();
@@ -423,7 +412,7 @@ describe('Test for Login view', () => {
 });
 
 describe('Test for myIssuesCompany view', () => {
-    const wrapper = shallow(<mineSakerBedrift />);
+    const wrapper = shallow(<myIssuesCompany />);
 
     it('renders correctly', () => {
         expect(wrapper).toMatchSnapshot();
@@ -433,7 +422,7 @@ describe('Test for myIssuesCompany view', () => {
 });
 
 describe('Test for MyIssues view', () => {
-    const wrapper = shallow(<MyIssues />);
+    const wrapper = shallow(<myIssues />);
 
     it('renders correctly', () => {
         expect(wrapper).toMatchSnapshot();
@@ -441,7 +430,7 @@ describe('Test for MyIssues view', () => {
 });
 
 describe('Test for notificationSettings view', () => {
-    const wrapper = shallow(<NotificationSettings />);
+    const wrapper = shallow(<notificationSettings />);
 
     it('renders correctly', () => {
         expect(wrapper).toMatchSnapshot();
@@ -451,20 +440,13 @@ describe('Test for notificationSettings view', () => {
 describe('Test for IssueOverview view', () => {
 
 
-    const wrapper = shallow(<IssueOverview match={{params: {id: 1}, isExact: true, path: "", url: ""}}/>);
+    const wrapper = shallow(<issueOverview match={{params: {id: 1}, isExact: true, path: "", url: ""}}/>);
 
     it('renders correctly', () => {
         expect(wrapper).toMatchSnapshot();
     });
 });
 
-describe('Test for AdminResetUserPassword view', () => {
-    const wrapper = shallow(<AdminResetUserPassword />);
-
-    it('renders correctly', () => {
-        expect(wrapper).toMatchSnapshot();
-    });
-});
 
 describe('Test for RegisterAdmin component', () => {
     const wrapper = shallow(<RegisterAdmin/>);
@@ -482,7 +464,7 @@ describe('Test for WizardFormComplete component', () => {
     })
 });
 
-describe('Test for InfoModule component', () => {
+describe('Test for infoModule component', () => {
     const wrapper = shallow(<InfoModule/>)
 
     it('renders correctly', () => {

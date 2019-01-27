@@ -1,6 +1,6 @@
-import { NotificationSettingsService, EventCategoryService } from '../../services';
-import { MailService } from '../../services';
-import { history } from '../../index';
+import { NotificationSettingsService, EventCategoryService } from '../../../../services';
+import { MailService } from '../../../../services';
+import { history } from '../../../../index';
 
 const sleep = ms => new Promise(resolve => setTimeout(resolve, ms));
 let notificationSettingsService = new NotificationSettingsService();

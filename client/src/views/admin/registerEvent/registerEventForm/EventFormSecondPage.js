@@ -4,10 +4,10 @@ import validate from './validate';
 import renderField from './renderField';
 import renderCategoryField from './renderCategoryField';
 import { Button, ProgressBar, Grid, Col } from 'react-bootstrap';
-import { ChooseCategory } from '../chooseCategory/ChooseCategory';
-import { ChooseEventCategory } from '../chooseEventCategory/ChooseEventCategory';
+import { ChooseCategory } from '../../../../components/chooseCategory/ChooseCategory';
+import { ChooseEventCategory } from '../../../../components/chooseEventCategory/ChooseEventCategory';
 import store from './store';
-import issueReg from '../reduxRegisterForm/issueReg.css';
+import issueReg from '../../../registerIssue/reduxRegisterForm/issueReg.css';
 
 const renderError = ({ meta: { touched, error } }) =>
   touched && error ? <span>{error}</span> : false;

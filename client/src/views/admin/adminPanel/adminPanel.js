@@ -42,9 +42,9 @@ export class adminPanel extends Component {
                 <Panel.Collapse>
                   <Panel.Body>
                     <div className="buttons">
-                      <Button id="butt" bsStyle="default" href="/#/addCategory" block><span
+                      <Button id="butt" bsStyle="default" href="/#/handlinger/leggTilKategori" block><span
                         className="glyphicon glyphicon-plus"/> Lag en kategori</Button>
-                      <Button id="butt" bsStyle={buttonStyle} href="/#/admin/endreKategorier" block><span
+                      <Button id="butt" bsStyle={buttonStyle} href="/#/handlinger/endreKategorier" block><span
                         className="glyphicon glyphicon-edit"/> Administrere
                         Kategorier</Button>
                     </div>
@@ -66,10 +66,10 @@ export class adminPanel extends Component {
                     <div className="buttons">
                       <Button id="butt" bsStyle={buttonStyle} href="/#/registerEvent" block><span
                         className="glyphicon glyphicon-plus"/> Lag en hendelse</Button>
-                      <Button id="butt" bsStyle={buttonStyle} href="/#admin/adminHendelser" block><span
+                      <Button id="butt" bsStyle={buttonStyle} href="/#/handlinger/adminHendelser" block><span
                         className="glyphicon glyphicon-edit"/> Administrere
                         Hendelser</Button>
-                      <Button id="butt" bsStyle={buttonStyle} href="/#admin/adminSaker" block><span
+                      <Button id="butt" bsStyle={buttonStyle} href="/#/handlinger/adminSaker" block><span
                         className="glyphicon glyphicon-edit"/> Administrere
                         Saker</Button>
                     </div>
@@ -94,7 +94,7 @@ export class adminPanel extends Component {
                       <Button
                         id="butt"
                         bsStyle={buttonStyle}
-                        href="/#/admin/sendMailTilBruker"
+                        href="/#/handlinger/SendMailTilBruker"
                         block
                       >
                         <span className="glyphicon glyphicon-envelope"/> Kontakt
@@ -117,7 +117,7 @@ export class adminPanel extends Component {
       return (
         <div className="panels bottomFooter">
           <Grid>
-
+            <PageHeader title={"Ansattpanel"}/>
             <Col xs={12} md={6} lg={6} id="col">
               <Panel bsStyle={panelStyle} id="collapsible-panel-example-2" className="fixed-panel" defaultExpanded>
                 <Panel.Heading>
@@ -130,10 +130,10 @@ export class adminPanel extends Component {
                     <div className="buttons">
                       <Button id="butt" bsStyle={buttonStyle} href="/#/registerEvent" block><span
                         className="glyphicon glyphicon-plus"/> Lag en hendelse</Button>
-                      <Button id="butt" bsStyle={buttonStyle} href="/#admin/adminHendelser" block><span
+                      <Button id="butt" bsStyle={buttonStyle} href="/#/handlinger/adminHendelser" block><span
                         className="glyphicon glyphicon-edit"/> Administrere
                         Hendelser</Button>
-                      <Button id="butt" bsStyle={buttonStyle} href="/#admin/adminSaker" block><span
+                      <Button id="butt" bsStyle={buttonStyle} href="/#/handlinger/adminSaker" block><span
                         className="glyphicon glyphicon-edit"/> Administrere
                         Saker</Button>
                     </div>
@@ -155,7 +155,7 @@ export class adminPanel extends Component {
                       <Button
                         id="butt"
                         bsStyle={buttonStyle}
-                        href="/#/admin/sendMailTilBruker"
+                        href="/#/handlinger/SendMailTilBruker"
                         block
                       >
                         <span className="glyphicon glyphicon-envelope"/> Kontakt

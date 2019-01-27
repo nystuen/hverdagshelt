@@ -15,7 +15,7 @@ import { CountyService, EventCategoryService } from '../../services';
 import css from './welcomePage.css';
 import { Event } from '../../classTypes';
 import { CategorySelectList } from '../../components/categorySelectList/CategorySelectList';
-import { InfoModule } from '../../components/InfoModule/InfoModule';
+import { InfoModule } from '../../components/infoModule/InfoModule';
 
 let countyService = new CountyService();
 let eventCategoryService = new EventCategoryService();

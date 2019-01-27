@@ -110,7 +110,7 @@ class CompanyInfoCard extends React.Component<{
   render() {
 
     let change_password = this.state.changePassword ? (
-      <ChangePassword open={this.state.changePassword} />) : null;
+      <ChangePassword open={this.state.changePassword}/>) : null;
 
     return (
       <div>
@@ -141,7 +141,7 @@ class CompanyInfoCard extends React.Component<{
 
             <div align="center">
               <Col xs={12} md={6} sm={6} lg={6}>
-                <Button id="accountInformationButton" bsStyle="primary" href={'/#/min_side/editAccountInformation'}>Endre
+                <Button id="accountInformationButton" bsStyle="primary" href={'/#/endreKontoinformasjon'}>Endre
                   kontoinformasjon</Button>
               </Col>
               <Col xs={12} md={6} sm={6} lg={6}>
@@ -156,8 +156,6 @@ class CompanyInfoCard extends React.Component<{
           <Col md={2}>
           </Col>
         </Grid>
-
-
       </div>
     );
   }
@@ -192,7 +190,7 @@ class AccountInfoCard extends React.Component<{
   render() {
 
     let change_password = this.state.changePassword ? (
-      <ChangePassword open={this.changePassword.bind()} />) : null;
+      <ChangePassword open={this.changePassword.bind()}/>) : null;
 
     return (
       <div>
@@ -202,7 +200,6 @@ class AccountInfoCard extends React.Component<{
             <Col md={2}>
             </Col>
             <Col md={8}>
-
 
               <Panel>
                 <Panel.Body>
@@ -221,7 +218,7 @@ class AccountInfoCard extends React.Component<{
 
               <div align="center">
                 <Col md={6} sm={6} lg={6}>
-                  <Button id="accountInformationButton" bsStyle="primary" href={'/#/min_side/editAccountInformation'}>Endre
+                  <Button id="accountInformationButton" bsStyle="primary" href={'/#/endreKontoinformasjon'}>Endre
                     kontoinformasjon</Button>
                 </Col>
                 <Col md={6} sm={6} lg={6}>
@@ -229,7 +226,6 @@ class AccountInfoCard extends React.Component<{
                     passord</Button>
                 </Col>
               </div>
-
 
               {change_password}
             </Col>
@@ -244,7 +240,6 @@ class AccountInfoCard extends React.Component<{
     );
   }
 }
-
 
 export class accountOverview extends React.Component <State> {
 
@@ -267,7 +262,6 @@ export class accountOverview extends React.Component <State> {
       });
     });
   }
-
 
   render() {
 

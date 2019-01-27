@@ -13,11 +13,11 @@ import {
   FormControl,
   PageHeader,
   Button,
-  ControlLabel,
-    Image
+  ControlLabel
 } from 'react-bootstrap';
 import { CountyService, getUsersCounties } from '../../services';
 import { UserService } from '../../services';
+import css from './footer.css';
 
 
 let countyService = new CountyService();
@@ -34,80 +34,89 @@ export class Footer extends Component<{}> {
   };
 
 
-
-
-  componentDidMount = async ()=>{
-    let user = {};
+  componentDidMount = async () => {
+    if (!(window.localStorage.getItem('userToken') == '')) {
       await userService.getCurrentUser().then(r => {
-        if (r[0] === undefined) {
-          user = {};
-        } else {
-          user = r[0];
-        }
-        this.setState({user: user});
+        this.setState({ user: r[0] });
       });
+    }
 
-
-    await countyService.getCountyEmployee(this.state.user.countyId).then((re: Array<Object>) => {
+    await countyService.getCountyEmployee(window.sessionStorage.getItem('countyId')).then((re: Array<Object>) => {
       this.setState({
-        countyInformation: re
+        countyInformation: re[0]
       });
     });
   };
 
+
   render() {
-    let check;
-    if (this.state.user.countyId !== {}) {
+
+    if ((!(window.localStorage.getItem('userToken') == '') && !(window.sessionStorage.getItem('countyName') == 'undefined') && this.state.countyInformation != undefined )) {
+
+      let employee;
+      employee = <div align="center">
+        <h5>Kontaktinformasjon til {window.sessionStorage.getItem('countyName')} kommune:</h5>
+        <ul>
+          <li>
+            <span>Kommuneansatt: {this.state.countyInformation.firstName + ' ' + this.state.countyInformation.lastName}</span>
+          </li>
+          <li><span>E-post: {this.state.countyInformation.mail}</span></li>
+          <li><span>Telefonnr: {this.state.countyInformation.phone}</span></li>
+        </ul>
+      </div>;
+
       return (
-        <footer className="footerClass2">
-          <Col xs={12} md={12}>
-            <h4 className="footerInfo">Kontaktinformasjon til {this.state.user.county}-kommune:</h4>
-            {
-              this.state.countyInformation.map((r, i) => {
-                return (
+        <footer id="myFooter">
+          <Grid>
+            <Row>
 
-                  <div key={i} className="footerInfo">
-                    <Row>kommuneansatt: {r.firstName + ' ' + r.lastName}</Row>
-                    <Row> e-post: {r.mail}</Row>
-                    <Row> telefonnr: {r.phone}</Row>
-                  </div>
-                );
-              })
-            }
-          </Col>
+              <Col sm={4}>
+                <div align="center">
+                  <h5>Kom igang</h5>
+                  <ul>
+                    <li><a href="#">Hjem</a></li>
+                    <li><a href="#">FAQ</a></li>
+                    <li><a href="#">Kontakt oss</a></li>
+                  </ul>
+                </div>
+              </Col>
+              <Col sm={8}>
+                {employee}
+              </Col>
 
-          <div align="center">
+            </Row>
 
-            <Image className="picture"
-                   src={'./resources/logo_svart.png'}
-                   rounded/>
-            <h2>HVERDAGSHELT</h2>
+          </Grid>
 
+          <div className="footer-copyright">
+            <p>© 2019 Hverdagshelt </p>
           </div>
-
         </footer>
       );
     } else {
       return (
-        <footer className="footerClass2">
-          <div className="container">
-            <div align="center">
-              <Image className="picture"
-                     src={'./resources/logo_white.png'}
-                     rounded/>
-              <h2>HVERDAGSHELT</h2>
-            </div>
+        <footer id="myFooter">
+          <Grid>
+            <Row>
+
+              <div align="center">
+                <h5>Kom igang</h5>
+                <ul>
+                  <li><a href="#">Hjem</a></li>
+                  <li><a href="#">FAQ</a></li>
+                  <li><a href="#">En ting til?</a></li>
+                </ul>
+              </div>
+
+            </Row>
+
+          </Grid>
+
+          <div className="footer-copyright">
+            <p>© 2019 Hverdagshelt </p>
           </div>
         </footer>
       );
     }
-    return (
-
-      { check }
-
-    );
-
-
   }
-
 }

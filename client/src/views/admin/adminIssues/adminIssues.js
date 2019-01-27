@@ -67,7 +67,7 @@ export class adminIssues extends React.Component{
    render(){
         if(this.state.user.county !== undefined) {
             return (
-                <div>
+                <div className="bottomFooter">
                   <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
                     <Grid>
                         <PageHeader title={'Alle saker i ' + this.state.user.county}/>

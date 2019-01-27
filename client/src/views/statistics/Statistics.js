@@ -5,7 +5,7 @@ import { StatisticsService, UserService } from "../../services";
 import ReactDOMServer from "react-dom/server";
 import * as jsPDF  from 'jspdf'
 import html2canvas from 'html2canvas';
-import { PageHeader } from '../pageHeader/PageHeader';
+import { PageHeader } from '../../components/pageHeader/PageHeader';
 
 let statisticsService = new StatisticsService();
 let userService = new UserService();

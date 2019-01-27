@@ -7,7 +7,7 @@ import { User } from '../../classTypes';
 import { UserService } from '../../services';
 import { Alert, FormGroup, Form, FormControl, Button, Grid, Image, Row, Col } from 'react-bootstrap';
 let jwt = require('jsonwebtoken');
-import './login.css';
+import css from './login.css';
 import { history } from '../../index';
 
 let userService = new UserService();
@@ -32,7 +32,7 @@ interface Props {
  * @class Login
  */
 
-export class login extends Component<Props, State> {
+export class Login extends Component<Props, State> {
   state = {
     error: false,
     blocked: false,
@@ -192,7 +192,7 @@ export class login extends Component<Props, State> {
 
                     bedrift.</a></p>
                   <p>
-                    <a href={'/#/forgotPassword'}>Glemt passord</a>
+                    <a href={'/#/glemt_passord'}>Glemt passord</a>
                   </p>
                 </div>
               </div>

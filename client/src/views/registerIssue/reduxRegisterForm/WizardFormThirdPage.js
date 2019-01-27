@@ -6,10 +6,10 @@ import renderCategoryField from './renderCategoryField';
 import renderEmail from './renderEmail';
 import { Button, ProgressBar } from 'react-bootstrap';
 import jwt from 'jsonwebtoken';
-import { User } from '../../classTypes';
-import { UserService } from '../../services';
-import { history } from '../../index';
-import { ImageService } from '../../services';
+import { User } from '../../../classTypes';
+import { UserService } from '../../../services';
+import { history } from '../../../index';
+import { ImageService } from '../../../services';
 import issueReg from './issueReg.css';
 import { Grid, Col, Row } from 'react-bootstrap';
 

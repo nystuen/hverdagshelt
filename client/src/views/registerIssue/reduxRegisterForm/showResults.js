@@ -1,5 +1,5 @@
-import {UserService, NotificationSettingsService, IssueService, MailService} from '../../services';
-import { history } from '../../index';
+import {UserService, NotificationSettingsService, IssueService, MailService} from '../../../services';
+import { history } from '../../../index';
 
 let notificationSettingsService = new NotificationSettingsService();
 let userService = new UserService();

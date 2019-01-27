@@ -2,13 +2,13 @@ import React from 'react';
 import { Field, reduxForm } from 'redux-form';
 import validate from './validate';
 import renderField1 from './renderField';
-import renderField from '../reduxRegisterForm/renderField';
-import renderEmail from '../reduxRegisterForm/renderEmail';
+import renderField from '../../../registerIssue/reduxRegisterForm/renderField';
+import renderEmail from '../../../registerIssue/reduxRegisterForm/renderEmail';
 import { Button, ProgressBar, Grid, Col } from 'react-bootstrap';
-import issueReg from '../reduxRegisterForm/issueReg.css';
-import { User } from '../../classTypes';
-import { UserService } from '../../services';
-import { history } from '../../index';
+import issueReg from '../../../registerIssue/reduxRegisterForm/issueReg.css';
+import { User } from '../../../../classTypes';
+import { UserService } from '../../../../services';
+import { history } from '../../../../index';
 
 let userService = new UserService();
 

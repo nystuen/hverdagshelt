@@ -4,7 +4,7 @@ import validate from './validate';
 import renderField from './renderField';
 import renderCategoryField from './renderCategoryField';
 import { Button, ProgressBar, Grid, Col } from 'react-bootstrap';
-import { ChooseCategory } from '../chooseCategory/ChooseCategory';
+import { ChooseCategory } from '../../../components/chooseCategory/ChooseCategory';
 import issueReg from './issueReg.css';
 
 const renderError = ({ meta: { touched, error } }) =>
