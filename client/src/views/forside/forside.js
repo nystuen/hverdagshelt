@@ -74,7 +74,7 @@ export class forside extends Component {
 
   render() {
     return (
-      <div className="forside">
+      <div className="forside backgroundImage">
         <Grid align="center" className="forsideText">
 
           <h1>VELKOMMEN TIL HVERDAGSHELT</h1>

@@ -133,8 +133,11 @@ export class Login extends Component<Props, State> {
 
     const { isLoading } = this.state;
 
+
+
     return (
-      <div className="login">
+      <div className="login backgroundImage">
+
         <Grid>
           <Form>
             <Col sm={2} md={3}/>

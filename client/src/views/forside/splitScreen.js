@@ -18,7 +18,7 @@ export class splitScreen extends React.Component<Props, State> {
   render() {
     return (
 
-      <section className="intro">
+      <section className="intro backgroundImage">
         <row>
           <a href={'/#/registrer/privat'}>
             <div className="col-lg-6 col-sm-12 left">

@@ -126,3 +126,9 @@ body {
   color: #5079b3;
   margin: 5px;
 }
+
+.backgroundImage{
+  height: 100%;
+  background-image: url('/resources/backgroundImage.png');
+  background-size: cover;
+}
