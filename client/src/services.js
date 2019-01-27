@@ -918,6 +918,16 @@ export class StatisticsService {
   getDailyAllCounties(): Promise<Response>{
     return axios.get('/issuesDailyAllCounties/')
   }
+
+  /**
+    * GET /frequencyCategories/
+    *
+    * @method getFreqCategories
+    * @return {numbers}
+  */
+  getFreqCategories(): Promise<Response>{
+    return axios.get('/frequencyCategories/')
+  }
 }
 
 /**

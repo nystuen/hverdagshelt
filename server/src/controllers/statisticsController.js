@@ -33,4 +33,12 @@ module.exports = function(app: Object, statisticsDao: Object) {
       res.json(data);
     })
   })
+
+  app.get('/frequencyCategories/', (req, res) => {
+    console.log("Counting issues pr cat");
+    statisticsDao.getFreqCategories((status, data) => {
+      res.status(status);
+      res.json(data);
+    })
+  })
 }

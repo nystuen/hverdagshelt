@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, Button } from 'react-bootstrap';
-import {Line, Pie} from 'react-chartjs-2';
+import {Line, Pie, Bar} from 'react-chartjs-2';
 import { StatisticsService, UserService } from "../../services";
 import ReactDOMServer from "react-dom/server";
 import * as jsPDF  from 'jspdf'
@@ -10,11 +10,26 @@ import { PageHeader } from '../PageHeader/PageHeader';
 let statisticsService = new StatisticsService();
 let userService = new UserService();
 
+const barData = {
+  labels: ['January'],
+  datasets: [
+    {
+      label: 'Antall feilmeldinger pr. kategori',
+      backgroundColor: 'rgba(255,99,132,0.2)',
+      borderColor: 'rgba(255,99,132,1)',
+      borderWidth: 1,
+      hoverBackgroundColor: 'rgba(255,99,132,0.4)',
+      hoverBorderColor: 'rgba(255,99,132,1)',
+      data: [65, 59, 80, 81, 56]
+    }
+  ]
+};
+
 const pieData = {
 	labels: [
-		'Red',
-		'Green',
-		'Yellow'
+    'Registrert',
+		'Under behandling',
+		'Fullført'
 	],
 	datasets: [{
 		data: [10, 10, 10],
@@ -33,9 +48,9 @@ const pieData = {
 
 const pieData2 = {
 	labels: [
-		'Red',
-		'Green',
-		'Yellow'
+		'Registrert',
+		'Under behandling',
+		'Fullført'
 	],
 	datasets: [{
 		data: [10, 10, 10],
@@ -118,6 +133,7 @@ export class Statistics extends Component {
       pieData: pieData,
       lineDataAllCounties: lineData2,
       pieDataAllCounties: pieData2,
+      barData: barData,
       user: {},
     }
   }
@@ -157,6 +173,7 @@ export class Statistics extends Component {
     statisticsService
       .getStatusAllCounties()
       .then((res) => {
+        console.log(res)
         let pieDummy = this.state.pieDataAllCounties
         pieDummy.datasets[0].data[0] = res[2].ant
         pieDummy.datasets[0].data[1] = res[1].ant
@@ -181,6 +198,21 @@ export class Statistics extends Component {
           lineDataAllCounties: lineDummy2
         })
       })
+
+      statisticsService
+        .getFreqCategories()
+        .then((res) => {
+          let barDummy = this.state.barData
+          barDummy.labels = []
+          barDummy.datasets[0].data = []
+          res.map(e => {
+            barDummy.labels.push(e.name)
+            barDummy.datasets[0].data.push(e.ant)
+          })
+          this.setState({
+            barData: barDummy
+          })
+        })
 
 
   }
@@ -321,6 +353,21 @@ export class Statistics extends Component {
             <Col sm={12} md={6} lg={6}>
               <Pie
                 data={this.state.pieDataAllCounties}
+                width={500}
+                height={500}
+                options={{
+                  maintainAspectRatio: false,
+                  title: {
+                    display: true,
+                    text: "Antall feilmeldinger pr. status"
+                  }
+                }}
+                redraw
+              />
+            </Col>
+            <Col sm={12} md={6} lg={6}>
+              <Bar
+                data={this.state.barData}
                 width={500}
                 height={500}
                 options={{

@@ -32,4 +32,11 @@ export class StatisticsDao extends Dao {
       callback
     )
   }
+
+  getFreqCategories(callback: Function){
+    super.query("SELECT issues.categoryId, category.name, COUNT(*) as ant from issues NATURAL JOIN category GROUP BY categoryId ORDER BY ant DESC",
+      [],
+      callback
+    )
+  }
 }
