@@ -34,7 +34,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
         lng: 12.074429
       },
       zoom: 5,
-      correct_county: false
+      correct_county: true
     };
 
     this.handleMapClick = this.handleMapClick.bind(this);
