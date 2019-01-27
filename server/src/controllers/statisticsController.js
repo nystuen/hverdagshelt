@@ -33,4 +33,28 @@ module.exports = function(app: Object, statisticsDao: Object) {
       res.json(data);
     })
   })
+
+  app.get('/frequencyCategories/', (req, res) => {
+    console.log("Counting issues pr cat");
+    statisticsDao.getFreqCategories((status, data) => {
+      res.status(status);
+      res.json(data);
+    })
+  })
+
+  app.get('/freqCategoriesOneCounty/:countyId', (req, res) => {
+    console.log("Counting issues pr cat for one county");
+    statisticsDao.getFreqCategoriesOneCounty(req.params.countyId, (status, data) => {
+      res.status(status);
+      res.json(data);
+    })
+  })
+
+  app.get('/processingTime/:countyId', (req, res) => {
+    console.log("Get processing time");
+    statisticsDao.getProcessingTime(req.params.countyId, (status, data) => {
+      res.status(status);
+      res.json(data);
+    })
+  })
 }

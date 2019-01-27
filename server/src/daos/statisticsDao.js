@@ -32,4 +32,24 @@ export class StatisticsDao extends Dao {
       callback
     )
   }
+
+  getFreqCategories(callback: Function){
+    super.query("SELECT issues.categoryId, category.name, COUNT(*) as ant from issues NATURAL JOIN category GROUP BY categoryId ORDER BY ant DESC",
+      [],
+      callback
+    )
+  }
+
+  getFreqCategoriesOneCounty(countyId: number, callback: Function){
+    super.query("SELECT issues.categoryId, category.name, COUNT(*) as ant from issues NATURAL JOIN category WHERE issues.countyId=? GROUP BY categoryId ORDER BY ant DESC",
+      [countyId],
+      callback
+    )
+  }
+
+  getProcessingTime(countyId: number, callback: Function){
+    super.query("SELECT date, completedDate from issues where countyId=?",
+      [countyId],
+      callback)
+  }
 }
