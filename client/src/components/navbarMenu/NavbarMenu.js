@@ -62,7 +62,7 @@ export class NavbarMenu extends React.Component {
   }
 
   render() {
-    if (window.localStorage.getItem('userToken') === null) {
+    if (window.localStorage.getItem('userToken') === null || window.localStorage.getItem('userToken') === '' ) {
       loginButton = <NavItem eventKey={13} href="/#login">Login</NavItem>;
     } else {
       loginButton = <NavItem eventKey={13} href="/#login" onClick={() => this.logout()}> Logg ut</NavItem>;
