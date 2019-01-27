@@ -68,16 +68,14 @@
 }
 
 /* On smaller screens, where height is less than 450px, change the style of the sidebar (less padding and a smaller font size) */
-@media screen and (max-width: 950px) and (min-width: 765px) {
+@media screen and (max-width: 1100px) and (min-width: 765px) {
     .navbar-default .navbar-nav > li > a {
-        padding-right: 0.28em;
-        padding-left: 0.28em;
+        padding-right: 0.27em;
+        padding-left: 0.27em;
     }
 
-    #hiddenWhenSmall {
-        display: none;
-    }
 }
+
 
 .navbar-default .navbar-nav{
     transition: 0.3s;
