@@ -191,7 +191,6 @@ class AccountInfoCard extends React.Component<{
 
   render() {
 
-
     let change_password = this.state.changePassword ? (
       <ChangePassword open={this.changePassword.bind()} />) : null;
 
