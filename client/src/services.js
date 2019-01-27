@@ -466,8 +466,8 @@ export class CategoryService {
      */
 
   getOneCategory1(id: number) {
-    return axios.get("/getOneCategory1/" + id);
-  } //end method
+  return axios.get("/getOneCategory1/" + id);
+} //end method
 
     /**
      * GET /getOneCategory2/:id

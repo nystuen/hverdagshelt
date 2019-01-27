@@ -25,13 +25,13 @@ import {Button} from "react-bootstrap";
 import {WizardFormFirstPage} from "../src/components/ReduxRegisterForm/WizardFormFirstPage";
 import {WizardFormSecondPage} from "../src/components/ReduxRegisterForm/WizardFormSecondPage";
 import {WizardFormThirdPage} from "../src/components/ReduxRegisterForm/WizardFormThirdPage";
-import {CountySubscription} from "../src/views/MinSide/countySubscription/countySubscription";
+import {CountySubscription} from "../src/views/myPage/countySubscription/countySubscription";
 import {ForgottenPassword} from "../src/views/login/forgottenPassword";
-import {Frontpage} from "../src/views/frontpage/frontpage";
-import {KontoOversikt} from "../src/views/MinSide/KontoOversikt/kontoOversikt";
+import {ChangeCounty} from "../src/views/changeCounty/changeCounty";
+import {KontoOversikt} from "../src/views/myPage/KontoOversikt/kontoOversikt";
 import {User} from "../src/classTypes";
 import {Login} from "../src/views/login/login";
-import {MineSaker} from "../src/views/MinSide/mineSaker/mineSaker";
+import {MineSaker} from "../src/views/myPage/mineSaker/mineSaker";
 import {NotificationSettings} from "../src/views/NotificationSettings/NotificationSettings";
 import {OversiktOverSak} from "../src/views/oversiktOverSak/oversiktOverSak";
 import {AdminResetUserPassword} from "../src/views/admin/resetPassword";
@@ -39,7 +39,7 @@ import {RegisterAdmin} from "../src/components/registeradmin/registeradmin";
 import {WizardFormComplete} from "../src/components/ReduxRegisterForm/WizardFormComplete";
 import {InfoModule} from "../src/components/InfoModule/InfoModule";
 import {SetCategoryInactive} from "../src/components/setCategoryInactive/SetCategoryInactive";
-import {EditIssue} from "../src/views/MinSide/mineSaker/editIssue";
+import {EditIssue} from "../src/views/myPage/mineSaker/editIssue";
 
 describe('Test for RegisterUser component', () => {
     const wrapper = shallow(<RegisterUser />);
@@ -357,7 +357,7 @@ describe('Test for ForgottenPassword view', () => {
     });
 });
 
-describe('Test for forside view', () => {
+describe('Test for welcomePage view', () => {
     const wrapper = shallow(<forside />);
 
     it('renders correctly', () => {
@@ -365,8 +365,8 @@ describe('Test for forside view', () => {
     });
 });
 
-describe('Test for Frontpage view', () => {
-    const wrapper = shallow(<Frontpage />);
+describe('Test for ChangeCounty view', () => {
+    const wrapper = shallow(<ChangeCounty />);
 
     it('renders correctly', () => {
         expect(wrapper).toMatchSnapshot();

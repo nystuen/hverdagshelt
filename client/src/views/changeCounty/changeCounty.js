@@ -5,16 +5,15 @@ import * as React from 'react';
 import { Alert } from '../../widgets';
 import ReactDOM from 'react-dom';
 //import {County} from "../../classTypes";
-import css from './frontpage.css';
+import css from './changeCounty.css';
 import {history} from "../../index";
 
 import Select from 'react-select';
 
 let countyService = new CountyService();
-import logo from './osloBackground.png';
 
 
-export class Frontpage extends Component<Props, State> {
+export class ChangeCounty extends Component<Props, State> {
 
   constructor(props) {
     super(props);
@@ -24,7 +23,6 @@ export class Frontpage extends Component<Props, State> {
       values: [
         { label: 'Bergen', countyId: 1 }
       ],
-      background: logo
     };
 
     this.handleChangeCounty = this.handleChangeCounty.bind(this);
@@ -94,7 +92,7 @@ export class Frontpage extends Component<Props, State> {
               </FormGroup>
 
               <div align="center">
-                <Button bsStyle="primary" className={'frontpage-button'} onClick={() => this.handleClick()}>Gå
+                <Button bsStyle="primary" className={'changeCounty-button'} onClick={() => this.handleClick()}>Gå
                   videre!</Button>
               </div>
             </Col>

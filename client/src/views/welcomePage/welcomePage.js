@@ -12,7 +12,7 @@ import {
   ButtonGroup
 } from 'react-bootstrap';
 import { CountyService, EventCategoryService } from '../../services';
-import css from './forside.css';
+import css from './welcomePage.css';
 import { Event } from '../../classTypes';
 import { CategorySelectList } from '../../components/CategorySelectList/CategorySelectList';
 import { InfoModule } from '../../components/InfoModule/InfoModule';
@@ -21,7 +21,7 @@ let countyService = new CountyService();
 let eventCategoryService = new EventCategoryService();
 
 // get viktige hendelser
-export class forside extends Component {
+export class welcomePage extends Component {
 
   state = {
     countyId: -1,

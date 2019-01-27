@@ -5925,10 +5925,10 @@ ShallowWrapper {
 }
 `;
 
-exports[`Test for Frontpage view renders correctly 1`] = `
+exports[`Test for ChangeCounty view renders correctly 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <Frontpage />,
+  Symbol(enzyme.__unrendered__): <ChangeCounty />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -52179,10 +52179,10 @@ ShallowWrapper {
 }
 `;
 
-exports[`Test for forside view renders correctly 1`] = `
+exports[`Test for welcomePage view renders correctly 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <forside />,
+  Symbol(enzyme.__unrendered__): <welcomePage />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -52198,7 +52198,7 @@ ShallowWrapper {
     "props": Object {},
     "ref": null,
     "rendered": null,
-    "type": "forside",
+    "type": "welcomePage",
   },
   Symbol(enzyme.__nodes__): Array [
     Object {
@@ -52208,7 +52208,7 @@ ShallowWrapper {
       "props": Object {},
       "ref": null,
       "rendered": null,
-      "type": "forside",
+      "type": "welcomePage",
     },
   ],
   Symbol(enzyme.__options__): Object {

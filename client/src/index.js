@@ -9,29 +9,28 @@ import { NavbarMenu } from "./components/NavbarMenu/NavbarMenu";
 import { Login } from "./views/login/login";
 import { Alert } from "./widgets";
 import store from "./components/ReduxRegisterForm/store";
-import { KontoOversikt } from "./views/MinSide/KontoOversikt/kontoOversikt";
-import { CountySubscription } from "./views/MinSide/countySubscription/countySubscription";
+import { KontoOversikt } from "./views/myPage/KontoOversikt/kontoOversikt";
+import { CountySubscription } from "./views/myPage/countySubscription/countySubscription";
 import createHashHistory from "history/createHashHistory";
-import { MineSaker } from "./views/MinSide/mineSaker/mineSaker";
+import { MineSaker } from "./views/myPage/mineSaker/mineSaker";
 import { Provider } from "react-redux";
 import { adminAddCategory } from "./components/AdminAddCategory/adminAddCategory";
 import { RegisterCompany } from "./components/registercompany/registercompany.js";
 import { RegisterUser } from "./components/registeruser/registeruser";
 import { ChooseCategory } from "./components/ChooseCategory/ChooseCategory.js";
-import { forside } from "./views/forside/forside";
-import { Frontpage } from "./views/frontpage/frontpage";
-import { editAccountInformation } from "./views/MinSide/KontoOversikt/editAccountInformation";
+import { welcomePage } from "./views/welcomePage/welcomePage";
+import { ChangeCounty } from "./views/changeCounty/changeCounty";
+import { editAccountInformation } from "./views/myPage/KontoOversikt/editAccountInformation";
 import { NotificationSettings } from "./views/NotificationSettings/NotificationSettings";
 import { Component } from "react-simplified";
-import { MinSide } from "./views/MinSide/MinSide";
+import { MinSide } from "./views/myPage/MinSide";
 import { EventWizardFormComplete } from "./components/RegisterEventForm/EventWizardFormComplete";
 import { OversiktOverSak } from "./views/oversiktOverSak/oversiktOverSak";
-import { mineSakerBedrift } from "./views/MinSide/mineSaker/mineSakerBedrift";
+import { mineSakerBedrift } from "./views/myPage/mineSaker/mineSakerBedrift";
 import { events } from "./views/events/events";
 import { adminPanel } from "./views/admin/adminPanel/adminPanel";
 import { SendTextMailWindow } from "./components/Mail/SendMail";
 import { Footer } from "./components/Footer/Footer";
-import { RegisterEmployee } from "./components/registeremployee/RegisterEmployee";
 import { RegisterAdmin } from "./components/registeradmin/registeradmin";
 import { ForgottenPassword } from "./views/login/forgottenPassword";
 import { RegNew } from "./components/regNew/RegNew";
@@ -39,13 +38,13 @@ import { manageUsers } from "./views/admin/mangeUsers/manageUsers";
 import { CreateAdminsOrEmployees } from "./views/admin/createAdminOrEmployees/createAdminsOrEmployees";
 import { Statistics } from "./components/statistics/Statistics";
 import { adminIssues } from "./views/admin/adminIssues/adminIssues";
-import { EditIssue } from "./views/MinSide/mineSaker/editIssue";
+import { EditIssue } from "./views/myPage/mineSaker/editIssue";
 import { Footer2 } from './components/Footer/Footer2';
 import { eventView } from './views/events/eventView';
 
 import {adminEvents} from "./views/admin/adminEvents/adminEvents";
 import {SetCategoryInactive, setCategoryInactive} from "./components/setCategoryInactive/SetCategoryInactive";
-import { splitScreen } from './views/forside/splitScreen';
+import { splitScreen } from './views/welcomePage/splitScreen';
 
 // Reload application when not in production environment
 if (process.env.NODE_ENV !== "production") {
@@ -62,8 +61,8 @@ if (root)
     <HashRouter>
       <div className="route-container">
         <NavbarMenu />
-        <Route exact path="/" component={forside} />
-        <Route path="/endreKommune" component={Frontpage} />
+        <Route exact path="/" component={welcomePage} />
+        <Route path="/endreKommune" component={ChangeCounty} />
         <Route path="/wizardForm" component={WizardFormComplete} />
         <Route path="/min_side/kontooversikt" component={KontoOversikt} />
 
@@ -90,8 +89,6 @@ if (root)
           path="/min_side/sakoversikt/:issueId"
           component={OversiktOverSak}
         />
-
-        <Route path="/registrer/kommuneansatt" component={RegisterEmployee} />
         <Route
           exact
           path="/registerEvent"
