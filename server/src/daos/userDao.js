@@ -99,7 +99,7 @@ export class UserDao extends Dao {
 
   getCompanyIssues(companyMail: string, callback: Function) {
     super.query(
-      'select * from issues where issueId in (select issueId from companyIssues where companyMail =?) ORDER BY issueId DESC',
+      'select * from issues where issueId in (select issueId from companyIssues where companyMail =?) AND active=1 ORDER BY issueId DESC',
       companyMail,
       callback
     );

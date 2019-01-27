@@ -110,7 +110,7 @@ class CompanyInfoCard extends React.Component<{
   render() {
 
     let change_password = this.state.changePassword ? (
-      <ChangePassword/>) : null;
+      <ChangePassword open={this.state.changePassword} />) : null;
 
     return (
       <div>
@@ -191,9 +191,8 @@ class AccountInfoCard extends React.Component<{
 
   render() {
 
-
     let change_password = this.state.changePassword ? (
-      <ChangePassword/>) : null;
+      <ChangePassword open={this.changePassword.bind()} />) : null;
 
     return (
       <div>

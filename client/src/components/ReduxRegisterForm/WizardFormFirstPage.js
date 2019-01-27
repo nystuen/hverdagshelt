@@ -208,11 +208,13 @@ export class WizardFormFirstPage extends Component<{}, State> {
           />
           {marker}
         </Map>
+
+
         <div className="choice-map-container">
           <div className="choice-map">
 
             <Grid>
-              <Col mdOffset={1} smOffset={1} md={10} sm={10} xs={12} >
+              <Col mdOffset={1} smOffset={1} md={10} sm={10} xs={12}>
                 <Col md={8} className="gridPad">
                   <input
                     className="input-map"
