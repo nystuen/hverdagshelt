@@ -34,7 +34,7 @@ export class CreateAdminsOrEmployees extends Component<Props, State> {
     );
   }
   goToRegisterAdmin = () => {
-    history.push("/registrer/admin");
+    history.push("/registrer/handlinger");
   };
   goToRegisterEmployee = () => {
     history.push("/registrer/kommuneansatt");
