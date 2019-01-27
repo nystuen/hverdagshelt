@@ -80,7 +80,7 @@ export class OversiktOverSak extends React.Component {
           <option value="Completed"> Fullført</option>
         </FormControl>
 
-        <Button onClick={this.saveThisStatus}> Lagre status</Button>
+        <Button bsStyle="primary" onClick={this.saveThisStatus}> Lagre status</Button>
       </div>
     };
   }//end constructor

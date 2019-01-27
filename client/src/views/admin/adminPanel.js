@@ -118,29 +118,7 @@ export class adminPanel extends Component {
         <div className="panels bottomFooter">
           <Grid>
 
-            <Col xs={12} md={4} lg={4} id="col">
-              <Panel bsStyle={panelStyle} id="collapsible-panel-example-2" className="fixed-panel" defaultExpanded>
-                <Panel.Heading>
-                  <Panel.Title toggle>
-                    Kommuner & Kategorier
-                  </Panel.Title>
-                </Panel.Heading>
-                <Panel.Collapse>
-                  <Panel.Body>
-                    <div className="buttons">
-                      <Button id="butt" bsStyle="default" href="/#/addCategory" block><span
-                        className="glyphicon glyphicon-plus"/> Lag en kategori</Button>
-                      <Button id="butt" bsStyle={buttonStyle} href="/#/" block><span
-                        className="glyphicon glyphicon-edit"/> Administrere
-                        Kategorier</Button>
-                    </div>
-                  </Panel.Body>
-                </Panel.Collapse>
-              </Panel>
-            </Col>
-
-
-            <Col xs={12} md={4} lg={4} id="col">
+            <Col xs={12} md={6} lg={6} id="col">
               <Panel bsStyle={panelStyle} id="collapsible-panel-example-2" className="fixed-panel" defaultExpanded>
                 <Panel.Heading>
                   <Panel.Title toggle>
@@ -164,7 +142,7 @@ export class adminPanel extends Component {
               </Panel>
             </Col>
 
-            <Col xs={12} md={4} lg={4} id="col">
+            <Col xs={12} md={6} lg={6} id="col">
               <Panel bsStyle={panelStyle} id="collapsible-panel-example-2" className="fixed-panel" defaultExpanded>
                 <Panel.Heading>
                   <Panel.Title toggle>

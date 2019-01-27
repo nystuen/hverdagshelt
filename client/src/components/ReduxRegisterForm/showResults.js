@@ -103,8 +103,8 @@ export default (async function showResults(values) {
 
       */
 
-      //window.location.href="/#min_side/mine_saker";
-      history.push("min_side/mine_saker");
+      window.location.href="/#min_side/mine_saker";
+      //history.push("min_side/mine_saker");
   } else {
     confirm('Du kan kun ha 15 ubehandlede saker inne om gangen. Vennligst vent til en av sakene dine har endret status til "under behandling"');
   }
