@@ -196,8 +196,8 @@ export class adminAddCategory extends Component<Props, State> {
 
 
     return (
-      <div className="bottomFooter">
-        <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
+      <div className="bottomFooter"><i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
+
       <Grid>
 
         <Col xs={0} md={2}></Col>
