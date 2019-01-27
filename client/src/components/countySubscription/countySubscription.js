@@ -5,7 +5,7 @@ import { Grid, Row, Col, ListGroup,ListGroupItem, Table, Image, Panel, Glyphicon
 import {CountyService, UserService, NotificationSettingsService} from "../../services";
 import * as jwt from 'jsonwebtoken';
 import css from './countySubscription.css';
-import { PageHeader } from '../PageHeader/PageHeader';
+import { PageHeader } from '../pageHeader/PageHeader';
 import { User } from '../../classTypes';
 
 let countyService = new CountyService();

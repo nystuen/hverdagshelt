@@ -113,7 +113,7 @@ export class Filter {
     }
 
     /**
-     * Filter out issues that does not have the status Registered.
+     * filter out issues that does not have the status Registered.
      * ("td")[2] means that it's the third column from the left
      *
      * @method filterRegistered
@@ -142,7 +142,7 @@ export class Filter {
     }
 
     /**
-     * Filter out issues that does not have the status In progress.
+     * filter out issues that does not have the status In progress.
      * ("td")[2] means that it's the third column from the left
      *
      * @method filterInProgress
@@ -171,7 +171,7 @@ export class Filter {
     }
 
     /**
-     * Filter out issues that does not have the status Completed.
+     * filter out issues that does not have the status Completed.
      * ("td")[2] means that it's the third column from the left
      *
      * @method filterCompleted

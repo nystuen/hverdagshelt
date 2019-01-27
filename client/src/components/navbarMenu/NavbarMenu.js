@@ -9,7 +9,7 @@ import {
   Button
 } from 'react-bootstrap';
 import css from './NavbarMenu.css';
-import { PageHeader } from '../PageHeader/PageHeader';
+import { PageHeader } from '../pageHeader/PageHeader';
 import { UserService } from '../../services';
 import { User } from '../../classTypes';
 

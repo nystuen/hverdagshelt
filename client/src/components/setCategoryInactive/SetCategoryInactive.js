@@ -1,4 +1,4 @@
-import { ChooseCategory } from '../ChooseCategory/ChooseCategory';
+import { ChooseCategory } from '../chooseCategory/ChooseCategory';
 import React from 'react';
 import { Col, Grid, PageHeader, Alert } from 'react-bootstrap';
 

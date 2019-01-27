@@ -2514,7 +2514,7 @@ declare module "sequelize" {
    */
   declare export type IncludeThroughOptions = {
     /**
-     * Filter on the join model for belongsToMany relations
+     * filter on the join model for belongsToMany relations
      */
     where?: WhereOptions,
 
@@ -2874,7 +2874,7 @@ declare module "sequelize" {
    */
   declare export type DestroyOptions = {
     /**
-     * Filter the destroy
+     * filter the destroy
      */
     where?: WhereOptions,
 
@@ -2915,7 +2915,7 @@ declare module "sequelize" {
    */
   declare export type RestoreOptions = {
     /**
-     * Filter the restore
+     * filter the restore
      */
     where?: WhereOptions,
 

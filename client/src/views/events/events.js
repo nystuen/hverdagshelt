@@ -5,7 +5,7 @@ import { Grid, Panel, PanelGroup, Col, ListGroup, ListGroupItem } from 'react-bo
 import { EventCategoryService } from '../../services';
 import { Event } from '../../classTypes';
 import css from './events.css';
-import { PageHeader } from '../../components/PageHeader/PageHeader';
+import { PageHeader } from '../../components/pageHeader/PageHeader';
 
 let eventCategoryService = new EventCategoryService();
 

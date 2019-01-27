@@ -4,13 +4,15 @@ import validate from './validate';
 import renderField from './renderField';
 import renderCategoryField from './renderCategoryField';
 import { Button, ProgressBar, Grid, Col } from 'react-bootstrap';
-import { ChooseCategory } from '../ChooseCategory/ChooseCategory';
-import issueReg from './issueReg.css';
+import { ChooseCategory } from '../chooseCategory/ChooseCategory';
+import { ChooseEventCategory } from '../chooseEventCategory/ChooseEventCategory';
+import store from './store';
+import issueReg from '../reduxRegisterForm/issueReg.css';
 
 const renderError = ({ meta: { touched, error } }) =>
   touched && error ? <span>{error}</span> : false;
 
-export class WizardFormSecondPage extends React.Component {
+export class EventFormSecondPage extends React.Component {
   setProps = () => {
     this.props.change('categoryid', this.state.selectedCategoryId);
     this.props.change('categorylevel', this.state.selectedCategoryType);
@@ -45,20 +47,20 @@ export class WizardFormSecondPage extends React.Component {
     this.props.change("categorylevel", e.selectededCategoryType);
   };
 */
-
   render() {
     const { handleSubmit, previousPage, onChangeCategoryHeader } = this.props;
     return (
       <Grid>
-        <div className=" bottomFooter">
-          <Col md={8} mdOffset={2}>
+        <div className="container bottomFooter ">
+          <div className="formDiv">
 
-            <div className="formDiv">
+            <Col md={8} mdOffset={2}>
+
+
               <div className="progressBar">
                 <ProgressBar now={66} label={'2/3'}/>
               </div>
-              <h3>Velg passende kategori</h3>
-              <ChooseCategory
+              <ChooseEventCategory
                 changeCategoryHeader={this.onChangeCategoryHeader.bind(this)}
                 //  onClick={this.handleCategoryClick.bind(this)}
                 registerCategory={false}
@@ -87,18 +89,18 @@ export class WizardFormSecondPage extends React.Component {
                       className="previous"
                       onClick={previousPage}
                     >
-                      Forrige
+                      Previous
                     </Button>
                   </Col>
                   <Col lg={6} md={6} sm={6} xs={6} align="right">
                     <Button bsStyle="primary" type="submit" className="next">
-                      Neste
+                      Next
                     </Button>
                   </Col>
                 </div>
               </form>
-            </div>
-          </Col>
+            </Col>
+          </div>
         </div>
       </Grid>
     );
@@ -106,8 +108,8 @@ export class WizardFormSecondPage extends React.Component {
 }
 
 export default reduxForm({
-  form: 'wizard', //Form name is same
+  form: 'EventWizard', //Form name is same
   destroyOnUnmount: false,
   forceUnregisterOnUnmount: true, // <------ unregister fields on unmount
   validate
-})(WizardFormSecondPage);
+})(EventFormSecondPage);

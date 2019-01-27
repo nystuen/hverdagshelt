@@ -13,10 +13,10 @@ import {
 } from 'react-bootstrap';
 import { Issue } from '../../../classTypes';
 import { CategoryService, IssueService, UserService } from '../../../services';
-import { Filter } from '../../../components/Filter/Filter';
+import { Filter } from '../../../components/filter/Filter';
 import { Alert } from '../../../widgets';
 import { Status } from '../../../classTypes';
-import { PageHeader } from '../../../components/PageHeader/PageHeader';
+import { PageHeader } from '../../../components/pageHeader/PageHeader';
 import { history } from '../../../index';
 import './myIssues.css';
 import update from "immutability-helper";
@@ -139,7 +139,7 @@ export class myIssues extends React.Component<Props, State> {
             {this.state.issues.map((e,i) => {
               if(e.issueId === this.state.edit) {
                 return (
-                    <tr key={e.issueId}>
+                    <tr key={i}>
                       <td>
                         <FormControl componentClass={"textarea"}
                                      value={e.text}
@@ -175,8 +175,8 @@ export class myIssues extends React.Component<Props, State> {
                 )
               }else{
                 return (
-                    <tr key={e.text}>
-                      <td style={{'max-width':'10px'}}>
+                    <tr key={e.issueId}>
+                      <td style={{'maxWidth':'10px'}}>
                         <Nav bsStyle="pills">
                           <NavItem href={'/#min_side/sakoversikt/' + e.issueId}>
                             {e.text}

@@ -20,7 +20,7 @@ import {County} from "../../classTypes";
 import {FormControl} from "react-bootstrap";
 import Select from "react-select";
 import {history} from "../../index";
-import {PageHeader} from "../PageHeader/PageHeader";
+import {PageHeader} from "../pageHeader/PageHeader";
 
 let countyService = new CountyService();
 let userService = new UserService();

@@ -5,7 +5,7 @@ import {Grid, Table, Button,FormControl} from "react-bootstrap";
 import {User} from "../../../classTypes";
 import {EmployeeService} from "../../../services"
 import {UserService} from "../../../services";
-import {Filter} from "../../../components/Filter/Filter";
+import {Filter} from "../../../components/filter/Filter";
 
 let employeeService = new EmployeeService;
 let userService = new UserService;

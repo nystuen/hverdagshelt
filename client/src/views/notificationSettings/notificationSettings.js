@@ -3,8 +3,8 @@
 import React from 'react';
 import {Grid, Tabs, Tab} from 'react-bootstrap';
 import {User} from "../../classTypes";
-import {MyIssuesNotificationSettingsForm} from "../../components/MyIssuesNotificationSettingsForm/MyIssuesNotificationSettingsForm";
-import {NotificationSettingsMyCountiesForm} from "../../components/NotificationSettingsMyCountiesForm/NotificationSettingsMyCountiesForm";
+import {MyIssuesNotificationSettingsForm} from "../../components/myIssuesNotificationSettingsForm/MyIssuesNotificationSettingsForm";
+import {NotificationSettingsMyCountiesForm} from "../../components/notificationSettingsMyCountiesForm/NotificationSettingsMyCountiesForm";
 
 import './notificationSettings.css';
 

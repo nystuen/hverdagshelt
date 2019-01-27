@@ -3,9 +3,9 @@
 import React from 'react';
 import { Grid, Col, Row, Button, Table, ProgressBar, Nav, NavItem, OverlayTrigger, Modal, Tooltip, ToggleButton, ToggleButtonGroup} from 'react-bootstrap';
 import {IssueService, UserService} from '../../../services';
-import { Filter } from '../../../components/Filter/Filter'
+import { Filter } from '../../../components/filter/Filter'
 import { Status } from '../../../classTypes';
-import { PageHeader } from '../../../components/PageHeader/PageHeader';
+import { PageHeader } from '../../../components/pageHeader/PageHeader';
 import {history} from "../../../index";
 
 let userService = new UserService();
@@ -54,8 +54,8 @@ export class adminIssues extends React.Component{
             }
             this.setState({user: response[0]});
             issueService.getAllIssuesInThisCounty(response[0].countyId,1).then(r => {
-                this.setState({issues: r});
-                this.getSorted();
+                this.setState({issues: r}, () => {this.getSorted()});
+
             }).catch((error: Error) => confirm(error.message));
         }).catch((error: Error) => confirm(error.message));
     }//end method

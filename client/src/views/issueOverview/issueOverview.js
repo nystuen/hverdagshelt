@@ -14,7 +14,7 @@ import { User } from '../../classTypes';
 import axios from 'axios';
 import { NotificationSettingsService } from '../../services';
 import { OneIssueMapComponent } from '../../components/map/Map';
-import { PageHeader } from '../../components/PageHeader/PageHeader';
+import { PageHeader } from '../../components/pageHeader/PageHeader';
 
 let issueService = new IssueService();
 let categoryService = new CategoryService();

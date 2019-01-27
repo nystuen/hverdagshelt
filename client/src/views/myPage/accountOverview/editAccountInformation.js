@@ -16,11 +16,11 @@ import {
   ControlLabel,
   Panel
 } from 'react-bootstrap';
-import { ChooseCategory } from '../../../components/ChooseCategory/ChooseCategory';
+import { ChooseCategory } from '../../../components/chooseCategory/ChooseCategory';
 import { Category, Category2, Category3, User } from '../../../classTypes';
 import { UserService } from '../../../services';
-import { PageHeader } from '../../../components/PageHeader/PageHeader';
-import { CountyList } from '../../../components/CountyList/CountyList';
+import { PageHeader } from '../../../components/pageHeader/PageHeader';
+import { CountyList } from '../../../components/countyList/CountyList';
 import { history } from '../../../index';
 import css from './accountInformation.css';
 import { CountyService } from '../../../services';

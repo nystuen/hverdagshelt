@@ -5,8 +5,8 @@ import React from 'react';
 import { Grid, Row, Col, ListGroup, ListGroupItem, Modal, Button } from 'react-bootstrap';
 import { Category, Category2, Category3, User } from '../../../classTypes';
 import { MailService, UserService } from '../../../services';
-import { PageHeader } from '../../../components/PageHeader/PageHeader';
-import { ChangePassword } from '../../../components/ChangePassword/ChangePassword';
+import { PageHeader } from '../../../components/pageHeader/PageHeader';
+import { ChangePassword } from '../../../components/changePassword/ChangePassword';
 import css from './accountInformation.css';
 
 import { Panel } from 'react-bootstrap';

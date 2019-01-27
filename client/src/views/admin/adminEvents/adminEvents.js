@@ -2,13 +2,13 @@
 
 import React from 'react';
 import { Button, Col, Grid, Table, Tooltip, Row } from 'react-bootstrap';
-import { PageHeader } from '../../../components/PageHeader/PageHeader';
+import { PageHeader } from '../../../components/pageHeader/PageHeader';
 import { EventCategoryService, UserService } from '../../../services';
 import { NavItem, Nav, FormControl } from 'react-bootstrap';
 import OverlayTrigger from '../adminIssues/adminIssues';
 import update from 'immutability-helper';
 import { history } from '../../../index';
-import { Filter } from '../../../components/Filter/Filter';
+import { Filter } from '../../../components/filter/Filter';
 
 let eventCategoryService = new EventCategoryService();
 let userService = new UserService();

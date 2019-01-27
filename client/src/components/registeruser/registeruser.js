@@ -9,7 +9,7 @@ import Select from 'react-select';
 import {history} from "../../index";
 import {NotificationSettingsService} from "../../services";
 import css from "./registerUser.css";
-import { PageHeader } from '../PageHeader/PageHeader';
+import { PageHeader } from '../pageHeader/PageHeader';
 
 let countyService = new CountyService();
 let userService = new UserService();

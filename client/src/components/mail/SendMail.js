@@ -4,7 +4,7 @@
 import { MailService } from '../../services';
 import * as React from 'react';
 import { Col, Grid, Button, FormGroup, Form, ControlLabel, FormControl } from 'react-bootstrap';
-import { PageHeader } from '../PageHeader/PageHeader';
+import { PageHeader } from '../pageHeader/PageHeader';
 
 let mailService = new MailService();
 

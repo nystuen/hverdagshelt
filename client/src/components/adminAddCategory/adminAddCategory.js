@@ -17,10 +17,10 @@ import {
   ControlLabel, Alert
 } from 'react-bootstrap';
 
-import { ChooseCategory } from '../ChooseCategory/ChooseCategory';
+import { ChooseCategory } from '../chooseCategory/ChooseCategory';
 import { CategoryService } from '../../services';
 import {Checkbox, Radio} from 'react-bootstrap';
-import { CategorySelectList } from '../CategorySelectList/CategorySelectList';
+import { CategorySelectList } from '../categorySelectList/CategorySelectList';
 import {history} from "../../index";
 import css from './adminAddCategory.css';
 

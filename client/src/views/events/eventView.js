@@ -6,7 +6,7 @@ import { Event, Status } from '../../classTypes';
 import {Grid, Col} from 'react-bootstrap';
 import { EventCategoryService } from '../../services';
 import { EventMapComponent, MapComponent } from '../../components/map/Map';
-import { PageHeader } from '../../components/PageHeader/PageHeader';
+import { PageHeader } from '../../components/pageHeader/PageHeader';
 
 let eventCategoryService = new EventCategoryService();
 

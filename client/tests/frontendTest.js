@@ -5,26 +5,26 @@ import * as React from "react";
 import sinon from "sinon";
 
 import {RegisterUser} from "../src/components/registeruser/registeruser";
-import {CategorySelectList} from "../src/components/CategorySelectList/CategorySelectList";
-import {ChangePassword} from "../src/components/ChangePassword/ChangePassword";
-import {ChooseCategory} from "../src/components/ChooseCategory/ChooseCategory";
-import {ChooseEventCategory} from "../src/components/ChooseEventCategory/ChooseEventCategory";
-import {CountyList} from "../src/components/CountyList/CountyList";
-import {Footer} from "../src/components/Footer/Footer";
-import {MyIssuesNotificationSettingsForm} from "../src/components/MyIssuesNotificationSettingsForm/MyIssuesNotificationSettingsForm";
-import {NavbarMenu} from "../src/components/NavbarMenu/NavbarMenu";
+import {CategorySelectList} from "../src/components/categorySelectList/CategorySelectList";
+import {ChangePassword} from "../src/components/changePassword/ChangePassword";
+import {ChooseCategory} from "../src/components/chooseCategory/ChooseCategory";
+import {ChooseEventCategory} from "../src/components/chooseEventCategory/ChooseEventCategory";
+import {CountyList} from "../src/components/countyList/CountyList";
+import {Footer} from "../src/components/footer/Footer";
+import {MyIssuesNotificationSettingsForm} from "../src/components/myIssuesNotificationSettingsForm/MyIssuesNotificationSettingsForm";
+import {NavbarMenu} from "../src/components/navbarMenu/NavbarMenu";
 import {NotificationSettingsForm} from "../src/components/NotificationSettingsForm/NotificationSettingsForm";
-import {NotificationSettingsMyCountiesForm} from "../src/components/NotificationSettingsMyCountiesForm/NotificationSettingsMyCountiesForm";
-import {PageHeader} from "../src/components/PageHeader/PageHeader";
+import {NotificationSettingsMyCountiesForm} from "../src/components/notificationSettingsMyCountiesForm/NotificationSettingsMyCountiesForm";
+import {PageHeader} from "../src/components/pageHeader/PageHeader";
 import {RegisterCompany} from "../src/components/registercompany/registercompany";
 import {RegisterEmployee} from "../src/components/registeremployee/RegisterEmployee";
 import {RegNew} from "../src/components/regNew/RegNew";
-import {SendTextMailWindow} from "../src/components/Mail/SendMail";
+import {SendTextMailWindow} from "../src/components/mail/SendMail";
 import {Alert} from "../src/widgets";
 import {Button} from "react-bootstrap";
-import {WizardFormFirstPage} from "../src/components/ReduxRegisterForm/WizardFormFirstPage";
-import {WizardFormSecondPage} from "../src/components/ReduxRegisterForm/WizardFormSecondPage";
-import {WizardFormThirdPage} from "../src/components/ReduxRegisterForm/WizardFormThirdPage";
+import {WizardFormFirstPage} from "../src/components/reduxRegisterForm/WizardFormFirstPage";
+import {WizardFormSecondPage} from "../src/components/reduxRegisterForm/WizardFormSecondPage";
+import {WizardFormThirdPage} from "../src/components/reduxRegisterForm/WizardFormThirdPage";
 import {CountySubscription} from "../src/components/countySubscription/countySubscription";
 import {ForgottenPassword} from "../src/views/login/forgottenPassword";
 import {ChangeCounty} from "../src/views/changeCounty/changeCounty";
@@ -36,7 +36,7 @@ import {NotificationSettings} from "../src/views/notificationSettings/notificati
 import {IssueOverview} from "../src/views/issueOverview/issueOverview";
 import {AdminResetUserPassword} from "../src/views/admin/resetPassword";
 import {RegisterAdmin} from "../src/components/registeradmin/registeradmin";
-import {WizardFormComplete} from "../src/components/ReduxRegisterForm/WizardFormComplete";
+import {WizardFormComplete} from "../src/components/reduxRegisterForm/WizardFormComplete";
 import {InfoModule} from "../src/components/InfoModule/InfoModule";
 import {SetCategoryInactive} from "../src/components/setCategoryInactive/SetCategoryInactive";
 import {EditIssue} from "../src/views/myPage/myIssues/editIssue";
@@ -71,7 +71,7 @@ describe('Test for adminAddCategory component', () => {
 
 });
 
-describe('Test for CategorySelectList component', () => {
+describe('Test for categorySelectList component', () => {
     const wrapper = shallow(<CategorySelectList />);
 
 
@@ -81,7 +81,7 @@ describe('Test for CategorySelectList component', () => {
 
 });
 
-describe('Test for ChangePassword component', () => {
+describe('Test for changePassword component', () => {
     const wrapper = shallow(<ChangePassword />);
 
 
@@ -91,7 +91,7 @@ describe('Test for ChangePassword component', () => {
 
 });
 
-describe('Test for ChooseCategory component', () => {
+describe('Test for chooseCategory component', () => {
     const wrapper = shallow(<ChooseCategory />);
 
 
@@ -101,7 +101,7 @@ describe('Test for ChooseCategory component', () => {
 
 });
 
-describe('Test for ChooseEventCategory component', () => {
+describe('Test for chooseEventCategory component', () => {
     const wrapper = shallow(<ChooseEventCategory />);
 
 
@@ -111,7 +111,7 @@ describe('Test for ChooseEventCategory component', () => {
 
 });
 
-describe('Test for CountyList component', () => {
+describe('Test for countyList component', () => {
     const wrapper = shallow(<CountyList />);
 
 
@@ -121,7 +121,7 @@ describe('Test for CountyList component', () => {
 
 });
 
-describe('Test for Footer component', () => {
+describe('Test for footer component', () => {
     const wrapper = shallow(<Footer />);
 
 
@@ -131,7 +131,7 @@ describe('Test for Footer component', () => {
 
 });
 
-describe('Test for MyIssuesNotificationSettingsForm component', () => {
+describe('Test for myIssuesNotificationSettingsForm component', () => {
     const wrapper = shallow(<MyIssuesNotificationSettingsForm />);
 
 
@@ -141,7 +141,7 @@ describe('Test for MyIssuesNotificationSettingsForm component', () => {
 
 });
 
-describe('Test for NavbarMenu component', () => {
+describe('Test for navbarMenu component', () => {
     const wrapper = shallow(<NavbarMenu />);
 
 
@@ -161,7 +161,7 @@ describe('Test for NotificationSettingsForm component', () => {
 
 });
 
-describe('Test for NotificationSettingsMyCountiesForm component', () => {
+describe('Test for notificationSettingsMyCountiesForm component', () => {
 
 
 
@@ -182,7 +182,7 @@ describe('Test for NotificationSettingsMyCountiesForm component', () => {
 
 });
 
-describe('Test for PageHeader component', () => {
+describe('Test for pageHeader component', () => {
     const wrapper = shallow(<PageHeader />);
 
 
