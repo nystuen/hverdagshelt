@@ -58,37 +58,37 @@ export class Login extends Component<Props, State> {
     });
   };
 
-    /**
-     * Shows the password that's been written
-     *
-     * @method handleClickPassword
-     * @reutrns void
-     */
-  handleClickPassword=()=>{
-    if(this.state.openPassword == "text"){
-      this.setState({openPassword: "password"})
-    }else{
-      this.setState({openPassword: "text"})
+  /**
+   * Shows the password that's been written
+   *
+   * @method handleClickPassword
+   * @reutrns void
+   */
+  handleClickPassword = () => {
+    if (this.state.openPassword == 'text') {
+      this.setState({ openPassword: 'password' });
+    } else {
+      this.setState({ openPassword: 'text' });
     }
   };
 
-    /**
-     * logs in when enter is pressed
-     *
-     * @method handleKeyPress
-     * @param event
-     * @returns void
-     */
-    handleKeyPress = (event) => {
-        if(event.key === 'Enter'){
-            this.save();
-        }
-    };
+  /**
+   * logs in when enter is pressed
+   *
+   * @method handleKeyPress
+   * @param event
+   * @returns void
+   */
+  handleKeyPress = (event) => {
+    if (event.key === 'Enter') {
+      this.save();
+    }
+  };
 
 
   render() {
-      window.onload = function(){
-      if(!window.location.hash){
+    window.onload = function() {
+      if (!window.location.hash) {
         window.location = window.location + '#loaded';
         window.location.reload();
       }//end condition
@@ -119,7 +119,7 @@ export class Login extends Component<Props, State> {
     if (this.props.notLoggedIn) {
       alert_notLoggedIn = confirm('Du må være logget inn for å gå videre');
     } else {
-      <p />;
+      <p/>;
     } //end condition
 
 
@@ -132,7 +132,6 @@ export class Login extends Component<Props, State> {
     }
 
     const { isLoading } = this.state;
-
 
 
     return (
@@ -206,80 +205,80 @@ export class Login extends Component<Props, State> {
       </div>
     );
   } //end method
-    /**
-     * checks if the mail and password is registered in the database and logs the user in
-     *
-     * @method save
-     * @returns {Promise<void>}
-     */
- save = async () => {
-     if (confirm('Ved å logge inn på Hverdagshelt.no godtar du at vi lagrer ' +
-         'cookies med informasjon om brukernavnet  ditt og hvilken type bruker du er (privat / bedrift)')) {
-         await userService
-             .getUserLogin(this.state.email)
-             .then(response => {
-                 if (response[0].active === 1) {
-                     this.setState({
-                         countyId: response[0].countyId,
-                         storedPassword: response[0].password
-                     });
-                 } else {
-                     this.setState({blocked: true});
-                     return;
-                 }
-
-            bcrypt.compare(this.state.password, response[0].password, (err, res) => {
-              if (res) {
-                userService.login({ userMail: response[0].mail, typeId: response[0].typeName }).then(r => {
-                  let token = r.jwt;
-                  window.localStorage.setItem('userToken', token);
-                  userService.getCurrentUser().then(r3 => {
-                    window.sessionStorage.setItem('countyId', r3[0].countyId);
-                    window.sessionStorage.setItem('countyName', r3[0].county);
-                  });
-
-                  setTimeout(() => {
-                    // Completed of async action, set loading state back
-                    this.setState({ isLoading: false });
-                    window.location.reload();
-                  history.push('/');
-                  }, 500);
-
-
-                }).catch((error: Error) => confirm(error.message));
-              } else { //check if the email is a company email
-                userService.getCompanyLogin(this.state.email).then(r => {
-                  bcrypt.compare(this.state.password, r[0].password, (err, res) => {
-                    if (res) {
-                      userService.login({ userMail: r[0].mail, typeId: 'Company' }).then(r => {
-                        let token = r.jwt;
-                        window.localStorage.setItem('userToken', token);
-
-                        setTimeout(() => {
-                          // Completed of async action, set loading state back
-                          this.setState({ isLoading: false });
-                          window.location.reload();
-                          history.push('/');
-                        }, 500);
-                      }).catch((error: Error) => confirm(error.message));
-                    } else {
-                      this.setState({
-
-                        isLoading: false,
-                        error: true
-                      });
-                    }//end condition
-                  });
-                }).catch((error: Error) => {
-                  this.setState({
-                    isLoading: false,
-                    error: true
-
-                  });
-                });
-              }//end condition
+  /**
+   * checks if the mail and password is registered in the database and logs the user in
+   *
+   * @method save
+   * @returns {Promise<void>}
+   */
+  save = async () => {
+    if (confirm('Ved å logge inn på Hverdagshelt.no godtar du at vi lagrer ' +
+      'cookies med informasjon om brukernavnet  ditt og hvilken type bruker du er (privat / bedrift)')) {
+      await userService
+        .getUserLogin(this.state.email)
+        .then(response => {
+          if (response[0].active === 1) {
+            this.setState({
+              countyId: response[0].countyId,
+              storedPassword: response[0].password
             });
-          }).catch((error: Error) => {
+          } else {
+            this.setState({ blocked: true });
+            return;
+          }
+
+          bcrypt.compare(this.state.password, response[0].password, (err, res) => {
+            if (res) {
+              userService.login({ userMail: response[0].mail, typeId: response[0].typeName }).then(r => {
+                let token = r.jwt;
+                window.localStorage.setItem('userToken', token);
+                userService.getCurrentUser().then(r3 => {
+                  window.sessionStorage.setItem('countyId', r3[0].countyId);
+                  window.sessionStorage.setItem('countyName', r3[0].county);
+                });
+
+                setTimeout(() => {
+                  // Completed of async action, set loading state back
+                  this.setState({ isLoading: false });
+                  window.location.href = '/#/';
+                  window.location.reload();
+                }, 500);
+
+
+              }).catch((error: Error) => confirm(error.message));
+            } else { //check if the email is a company email
+              userService.getCompanyLogin(this.state.email).then(r => {
+                bcrypt.compare(this.state.password, r[0].password, (err, res) => {
+                  if (res) {
+                    userService.login({ userMail: r[0].mail, typeId: 'Company' }).then(r => {
+                      let token = r.jwt;
+                      window.localStorage.setItem('userToken', token);
+
+                      setTimeout(() => {
+                        // Completed of async action, set loading state back
+                        this.setState({ isLoading: false });
+                        window.location.href = "/#/";
+                        window.location.reload();
+                      }, 500);
+                    }).catch((error: Error) => confirm(error.message));
+                  } else {
+                    this.setState({
+
+                      isLoading: false,
+                      error: true
+                    });
+                  }//end condition
+                });
+              }).catch((error: Error) => {
+                this.setState({
+                  isLoading: false,
+                  error: true
+
+                });
+              });
+            }//end condition
+          });
+        }).catch((error: Error) => {
           userService.getCompanyLogin(this.state.email).then(r => {
             bcrypt.compare(this.state.password, r[0].password, (err, res) => {
               if (res) {
@@ -291,8 +290,8 @@ export class Login extends Component<Props, State> {
                   setTimeout(() => {
                     // Completed of async action, set loading state back
                     this.setState({ isLoading: false });
+                    window.location.href = "/#/";
                     window.location.reload();
-                    history.push('/');
 
                   }, 500);
                 }).catch((error: Error) => {
@@ -315,9 +314,9 @@ export class Login extends Component<Props, State> {
             });
           });
         });
-      } else {
-        window.location.reload();
-      }
-      //end method
+    } else {
+      window.location.reload();
+    }
+    //end method
   };
 } //end class

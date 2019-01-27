@@ -602,7 +602,7 @@ export class RegisterUser extends Component<Props, State> {
     goToLogin = () => {
         setTimeout(
             function () {
-                history.push('/login');
+                window.location.href = "/#/login";
             }, 1000
         )
     }
