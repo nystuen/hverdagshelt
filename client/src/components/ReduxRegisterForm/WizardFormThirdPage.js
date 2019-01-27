@@ -51,8 +51,7 @@ export class WizardFormThirdPage extends React.Component {
   }
 
   setProps = () => {
-    this.props.change('userMail', this.state.user.mail);
-    this.props.change('countyId', this.state.user.countyId);
+    this.props.change("userMail", this.state.user.mail);
   };
 
   componentDidMount() {
@@ -84,7 +83,7 @@ export class WizardFormThirdPage extends React.Component {
     return (
       <Grid>
         <form onSubmit={handleSubmit}>
-          <Col md={8} mdOffset={2}>
+          <Col md={8} xsOffset={1}>
             <div className="container bottomFooter">
               <div className="formDiv">
                 <div className="progressBar">

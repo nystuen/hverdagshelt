@@ -31,6 +31,7 @@ export class NavbarMenu extends React.Component {
       isOpen: false,
       activeKey: 0
     };
+    this.handleSelect = this.handleSelect.bind(this);
   }
 
   toggle() {
@@ -57,9 +58,7 @@ export class NavbarMenu extends React.Component {
 
 
   handleSelect(selectedKey) {
-    console.log('activeKey:', this.state.activeKey)
-    console.log('selectedKey:', selectedKey)
-    this.setState({ activeKey: selectedKey });
+    this.setState({activeKey: selectedKey});
   }
 
   render() {
@@ -77,7 +76,7 @@ export class NavbarMenu extends React.Component {
             <Navbar collapseOnSelect fluid>
               <Navbar.Header>
                 <Navbar.Brand>
-                  <a href={'/#/'}><img src={'./resources/logo_white.png'}></img></a>
+                  <a href={'/#/'} onClick={() => this.setState({activeKey: 0})}><img src={'./resources/logo_white.png'}></img></a>
                 </Navbar.Brand>
                 <Navbar.Toggle/>
               </Navbar.Header>

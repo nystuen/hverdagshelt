@@ -6,7 +6,7 @@ import React, { Component, createRef } from "react";
 import { Map, TileLayer, Marker, Popup, withLeaflet } from "react-leaflet";
 import * as ELG from "esri-leaflet-geocoder";
 import L from "leaflet";
-import { Button, ProgressBar, Glyphicon } from "react-bootstrap";
+import { Button, ProgressBar, Glyphicon, Alert } from "react-bootstrap";
 import Geocode from "react-geocode";
 
 Geocode.setApiKey("AIzaSyDVZREoJuiobrxWVmBFhemEk1VdRB0MsSI");
@@ -18,7 +18,8 @@ type State = {
     lat: number,
     lng: number
   },
-  zoom: number
+  zoom: number,
+  correct_county: boolean
 };
 
 export class WizardFormFirstPage extends Component<{}, State> {
@@ -32,7 +33,8 @@ export class WizardFormFirstPage extends Component<{}, State> {
         lat: 65.107877,
         lng: 12.074429
       },
-      zoom: 5
+      zoom: 5,
+      correct_county: false
     };
 
     this.handleMapClick = this.handleMapClick.bind(this);
@@ -61,6 +63,21 @@ export class WizardFormFirstPage extends Component<{}, State> {
 
     Geocode.fromLatLng(e.latlng.lat, e.latlng.lng).then(
       response => {
+        console.log(response.results[0])
+        let county_found
+        (response.results[0].address_components[3] != undefined ) ? county_found = response.results[0].address_components[2].long_name: county_found=""
+        console.log('found', county_found)
+        console.log('window', window.sessionStorage.getItem('countyName'))
+        if((window.sessionStorage.getItem('countyName') == county_found) || ((window.sessionStorage.getItem('countyName')).includes(county_found.split(' ')[0]))){
+          this.props.change("countyId", window.sessionStorage.getItem('countyId'))
+          this.setState({
+            correct_county: true
+          })
+        } else {
+          this.setState({
+            correct_county: false
+          })
+        }
         const address_found = response.results[0].formatted_address;
         this.props.change("address", address_found);
         this.setState({
@@ -80,7 +97,22 @@ export class WizardFormFirstPage extends Component<{}, State> {
     this.props.change("longitude", e.latlng.lng);
     Geocode.fromLatLng(e.latlng.lat, e.latlng.lng).then(
       response => {
+        let county_found
+        (response.results[0].address_components[3] != undefined ) ? county_found = response.results[0].address_components[2].long_name: county_found=""
+        console.log('found', county_found)
+        console.log('window', window.sessionStorage.getItem('countyName'))
+        if((window.sessionStorage.getItem('countyName') == county_found) || ((window.sessionStorage.getItem('countyName')).includes(county_found))){
+          this.props.change("countyId", window.sessionStorage.getItem('countyId'))
+          this.setState({
+            correct_county: true
+          })
+        } else {
+          this.setState({
+            correct_county: false
+          })
+        }
         const address_found = response.results[0].formatted_address;
+        (response.results[0].address_components[3] != undefined ) ? county_found = response.results[0].address_components[2].long_name: county_found=""
         this.props.change("address", address_found);
         this.setState({
           hasLocation: true,
@@ -107,27 +139,34 @@ export class WizardFormFirstPage extends Component<{}, State> {
         const { lat, lng } = response.results[0].geometry.location;
         Geocode.fromLatLng(lat, lng).then(response => {
           const address_found = response.results[0].formatted_address;
-          const county_found =
-            response.results[0].address_components[3].long_name;
-          console.log(county_found);
-
-          // Sjekk mot registrerte kommune
-          if (!console.log([""].includes(county_found))) {
-            this.props.change("address", address_found);
+          let county_found
+          (response.results[0].address_components[3] != undefined ) ? county_found = response.results[0].address_components[3].long_name: county_found=""
+          console.log('found', county_found)
+          console.log('window', window.sessionStorage.getItem('countyName'))
+          if((window.sessionStorage.getItem('countyName') == county_found) || ((window.sessionStorage.getItem('countyName')).includes(county_found))){
+            this.props.change("countyId", window.sessionStorage.getItem('countyId'))
             this.setState({
-              hasLocation: true,
-              latlng: {
-                lat: lat,
-                lng: lng
-              },
-              address: address_found,
-              zoom: 17
-            });
+              correct_county: true
+            })
+          } else {
+            this.setState({
+              correct_county: false
+            })
           }
-        });
-      },
-      error => {
-        console.error(error);
+          this.props.change("address", address_found);
+          this.setState({
+            hasLocation: true,
+            latlng: {
+              lat: lat,
+              lng: lng
+            },
+            address: address_found,
+            zoom: 17
+          });
+      });
+    },
+    error => {
+      console.error(error);
       }
     );
   };
@@ -139,12 +178,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
       height: "100%"
     };
 
-    let mapStyle = {
-      top: "0",
-      bottom: "0",
-      left: "0",
-      right: "0"
-    };
+
 
     let centerStyle = {
       alignItems: "center",
@@ -157,6 +191,16 @@ export class WizardFormFirstPage extends Component<{}, State> {
       </Marker>
     ) : null;
 
+    let alert_county
+    if (!this.state.correct_county) {
+      alert_county = (<Alert bsStyle="danger">
+        <h6>Du kan ikke melde feil utenfor {window.sessionStorage.getItem("countyName")}.</h6>
+        <h6>Bytt kommune til venstre i navigasjonsbaren for å kunne melde feil her.</h6>
+      </Alert>)
+    } else {
+      alert_county = null
+    }
+
     return (
       <div style={styles}>
         <div className="formDiv" />
@@ -168,7 +212,6 @@ export class WizardFormFirstPage extends Component<{}, State> {
           ref={this.mapRef}
           zoom={this.state.zoom}
           doubleClickZoom={true}
-          style={mapStyle}
         >
           <TileLayer
             attribution="&amp;copy <a href=&quot;http://osm.org/copyright&quot;>OpenStreetMap</a> contributors"
@@ -207,11 +250,15 @@ export class WizardFormFirstPage extends Component<{}, State> {
                 bsStyle="primary"
                 type="submit"
                 className="next + ' ' + submitButton"
+                disabled= {!this.state.correct_county}
                 onClick={this.handleSubmit}
               >
                   Meld feil <Glyphicon glyph="glyphicon glyphicon-arrow-right"/>
               </Button>
             </form>
+            <div align="center">
+              {alert_county}
+            </div>
           </div>
         </div>
       </div>
