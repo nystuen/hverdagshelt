@@ -522,23 +522,12 @@ export class RegisterCompany extends Component<Props, State> {
                 </Col>
               </FormGroup>
               <FormGroup>
-                <Col md={4}>
-                  <FormGroup>
-                    <Select
-                      placeholder={'Hjemmekommune'}
-                      name="colors"
-                      options={optionTemplate}
-                      className="basic-multi-select"
-                      classNamePrefix="select"
-                      onChange={this.handleChangeCounty}
-                    />
-                  </FormGroup>
-                </Col>
+
                 <Col md={4}>
                   <FormGroup>
 
                     <Select
-                      placeholder={'Kommuner å følge'}
+                      placeholder={'Mine kommuner'}
                       isMulti
                       name="colors"
                       options={optionTemplate}
@@ -595,7 +584,7 @@ export class RegisterCompany extends Component<Props, State> {
 
   checkInput = () => {
 
-    if (this.state.countyIsChanged === false || this.getValidationStateFirstName() === 'warning' || this.getValidationStateFirstName() === 'warning' || this.getValidationStateFirstName() === 'warning' || this.getValidationStateLastName() === 'warning' || this.getValidationPhone() === 'warning' || this.getValidationStateEmail() === 'warning' || this.getValidationStateEmail2() === 'warning' || this.getValidationStatePassword() === 'warning' || this.getValidationStatePassword2() === 'warning' || this.getValidationCompanyName() === 'warning' || this.getValidationPostNumber() === 'warning') {
+    if ( this.getValidationStateFirstName() === 'warning' || this.getValidationStateFirstName() === 'warning' || this.getValidationStateFirstName() === 'warning' || this.getValidationStateLastName() === 'warning' || this.getValidationPhone() === 'warning' || this.getValidationStateEmail() === 'warning' || this.getValidationStateEmail2() === 'warning' || this.getValidationStatePassword() === 'warning' || this.getValidationStatePassword2() === 'warning' || this.getValidationCompanyName() === 'warning' || this.getValidationPostNumber() === 'warning') {
       this.setState({
         errorSomething: true
       });
@@ -657,7 +646,7 @@ export class RegisterCompany extends Component<Props, State> {
     setTimeout(
       function() {
         history.push('/login');
-      }, 4000
+      }, 2000
     );
   };
 }

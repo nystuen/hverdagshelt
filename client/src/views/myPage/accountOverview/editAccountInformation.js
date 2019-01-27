@@ -256,7 +256,7 @@ export class editAccountInformation extends React.Component<State> {
         window.location.reload();
       });
 
-      history.push('/min_side/kontooversikt');
+      history.push('/kontoinnstillinger');
     } else {
 
 
@@ -329,13 +329,13 @@ export class editAccountInformation extends React.Component<State> {
               });
             });
           }).then(e => {
-            history.push('/min_side/kontooversikt');
+            history.push('/kontoinnstillinger');
           });
         } else {
-          history.push('/min_side/kontooversikt');
+          history.push('/kontoinnstillinger');
         }
       } else {
-        history.push('/min_side/kontooversikt');
+        history.push('/kontoinnstillinger');
       }
 
 
