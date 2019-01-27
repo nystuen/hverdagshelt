@@ -641,6 +641,20 @@ export class IssueService {
   deleteThisIssue(id: number): Promise<void> {
     return axios.post("/deleteThisIssue/" + id);
   } //end method
+
+
+    /**
+     * POST /add_issue
+     *
+     * @method addIssue
+     * @param {Issue} newIssue
+     * @returns void
+     */
+  addIssue(newIssue: Issue): Promise<viod> {
+    return axios.post("/add_issue", newIssue);
+  }
+
+
     /**
      * PUT /deleteIssue/:issueId
      *
@@ -946,6 +960,17 @@ export class MailService {
      */
   sendResetPasswordMail(to: string): Promise<Response> {
     return axios.post("/sendResetPasswordMail", to);
+  }
+
+    /**
+     * POST /sendIssueRegisteredMail
+     *
+     * @method sendIssueRegisteredMail
+     * @param {string} to
+     * @returns void
+     */
+  sendIssueRegisteredMail(to: string): Promise<Response> {
+    return acios.post("/sendIssueRegisteredMail", to);
   }
 
     /**
