@@ -75,7 +75,7 @@ export class employeeManageUsers extends React.Component<Props,State>{
 
     render(){
         return(
-          <div>
+          <div className="bottomFooter">
           <i id="backButton"  onClick={()=> this.buttonBack()} className="fas fa-arrow-circle-left"></i>
             <Grid>
 

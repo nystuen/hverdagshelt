@@ -158,8 +158,6 @@ export class OversiktOverSak extends React.Component {
       editStatus = this.state.editStatus;
     }
 
-
-
     if (this.state.image != null) {
 
       return (
@@ -368,9 +366,20 @@ export class OversiktOverSak extends React.Component {
   addComment = () => {
 
     if (this.state.comment != '') {
-      issueService.addCommentToIssue(this.state.issue.issueId, this.state.comment, this.state.user.mail).then(response => {
-      }).catch((error: Error) => Alert.danger(error.message));
-      window.location.reload();
+
+
+      if(this.state.user.typeName !== undefined || this.state.user.typeName !== 'undefined'){
+        issueService.addCommentToIssue(this.state.issue.issueId, this.state.comment, this.state.user.companyMail).then(response => {
+        }).catch((error: Error) => Alert.danger(error.message));
+        window.location.reload();
+      } else {
+        issueService.addCommentToIssue(this.state.issue.issueId, this.state.comment, this.state.user.mail).then(response => {
+        }).catch((error: Error) => Alert.danger(error.message));
+        window.location.reload();
+      }
+
+
+
 
       this.setState({ addCommentOpen: !this.state.addCommentOpen });
 

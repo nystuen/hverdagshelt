@@ -26,3 +26,21 @@
 .paddingBot {
   padding-bottom: 1em;
 }
+
+
+.mapHeader{
+  top: 200px;
+  left:0;
+  z-index: 1000;
+  position: absolute;
+
+  background-color: #5079b3;
+}
+
+
+.mapHeader h1 {
+  font-weight: 700;
+  font-size: 2em;
+  color: #FFFFFF;
+  font-family: 'Merriweather', 'Helvetica Neue', Arial, sans-serif;
+}

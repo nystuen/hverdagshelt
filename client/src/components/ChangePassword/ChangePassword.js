@@ -21,7 +21,8 @@ export class ChangePassword extends Component {
       user: User,
       oldPassword: '',
       newPassword: '',
-      newPassword2: ''
+      newPassword2: '',
+      changePasswordOpen: false
     };
   }
 
@@ -81,13 +82,20 @@ export class ChangePassword extends Component {
         }
     }
 
-  submit() {
+    open(){
+      this.props.open()
+    }
+
+    submit() {
+
+
     if (this.state.newPassword == this.state.newPassword2) {
       bcrypt.compare(
         this.state.oldPassword,
         this.state.user.password,
         (err, res) => {
           if (res) {
+
             userService.resetPassword({
               newPassword: this.state.newPassword,
               email: this.state.email
@@ -110,6 +118,8 @@ export class ChangePassword extends Component {
     } else {
       alert('Passordene samsvarer ikke');
     }
+
+    this.open();
   }
 
   render() {
