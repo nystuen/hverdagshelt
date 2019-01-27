@@ -65,7 +65,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
       response => {
         console.log(response.results[0])
         let county_found
-        (response.results[0].address_components[3] != undefined ) ? county_found = response.results[0].address_components[2].long_name: county_found=""
+        (response.results[0].address_components[3] != undefined ) ? county_found = response.results[0].address_components[3].long_name: county_found=""
         console.log('found', county_found)
         console.log('window', window.sessionStorage.getItem('countyName'))
         if((window.sessionStorage.getItem('countyName') == county_found) || ((window.sessionStorage.getItem('countyName')).includes(county_found.split(' ')[0]))){
@@ -98,7 +98,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
     Geocode.fromLatLng(e.latlng.lat, e.latlng.lng).then(
       response => {
         let county_found
-        (response.results[0].address_components[3] != undefined ) ? county_found = response.results[0].address_components[2].long_name: county_found=""
+        (response.results[0].address_components[3] != undefined ) ? county_found = response.results[0].address_components[3].long_name: county_found=""
         console.log('found', county_found)
         console.log('window', window.sessionStorage.getItem('countyName'))
         if((window.sessionStorage.getItem('countyName') == county_found) || ((window.sessionStorage.getItem('countyName')).includes(county_found))){
@@ -112,7 +112,7 @@ export class WizardFormFirstPage extends Component<{}, State> {
           })
         }
         const address_found = response.results[0].formatted_address;
-        (response.results[0].address_components[3] != undefined ) ? county_found = response.results[0].address_components[2].long_name: county_found=""
+        (response.results[0].address_components[3] != undefined ) ? county_found = response.results[0].address_components[3].long_name: county_found=""
         this.props.change("address", address_found);
         this.setState({
           hasLocation: true,
