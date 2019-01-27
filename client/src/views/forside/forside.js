@@ -50,7 +50,6 @@ export class forside extends Component {
       this.setState({
         importantEvents: events
       });
-      console.log(this.state.importantEvents[0].title);
     });
   };
 

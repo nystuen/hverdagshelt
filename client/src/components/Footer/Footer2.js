@@ -50,7 +50,6 @@ export class Footer2 extends Component<{}> {
 
 
   render() {
-    console.log('ils', (window.sessionStorage.getItem('countyName')));
 
     if ((!(window.localStorage.getItem('userToken') == '') && !(window.sessionStorage.getItem('countyName') == 'undefined') && this.state.countyInformation != undefined )) {
 
