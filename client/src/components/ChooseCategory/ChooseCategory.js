@@ -236,7 +236,7 @@ export class ChooseCategory extends Component<{
 
         alert_delete = (
           <Alert bsStyle="success" onDismiss={this.handleDismiss}>
-            <h5>Du satt en kategori til inaktiv</h5>
+            <h5 id="successText" >Du satt en kategori til inaktiv</h5>
           </Alert>
         );
       } else {
@@ -300,6 +300,7 @@ export class ChooseCategory extends Component<{
       const category1 = this.state.category1Id;
       categoryService.updateCategory2before1(category1);
       categoryService.updateCategory1(category1);
+      this.handleShow();
       location.reload()
     } else if (this.state.category2Id !== -1) {
       const category2 = this.state.category2Id;

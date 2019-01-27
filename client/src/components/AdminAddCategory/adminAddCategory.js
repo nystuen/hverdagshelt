@@ -22,6 +22,7 @@ import { CategoryService } from '../../services';
 import {Checkbox, Radio} from 'react-bootstrap';
 import { CategorySelectList } from '../CategorySelectList/CategorySelectList';
 import {history} from "../../index";
+import css from './adminAddCategory.css';
 
 
 let categoryService = new CategoryService();
@@ -38,7 +39,7 @@ export class adminAddCategory extends Component<Props, State> {
     this.state = {
       newCategoryName: {},
       selectedCategoryId: {},
-      selectedCategoryType: 1,
+      selectedCategoryType: {},
       newPriority: {},
       mainCategory: false,
       error: false,
@@ -177,7 +178,7 @@ export class adminAddCategory extends Component<Props, State> {
     if (this.state.error) {
       alert = (
         <Alert bsStyle="danger">
-          <h6>Noe gikk galt, er du sikkert på at du har valg alt du skal velge?</h6>
+          <h5 >Noe gikk galt, er du sikkert på at du har valg alt du skal velge?</h5>
         </Alert>);
     } else {
       <span></span>;
@@ -187,7 +188,7 @@ export class adminAddCategory extends Component<Props, State> {
     if(this.state.success){
       success = (
           <Alert bsStyle={"success"}>
-            <h5>Du har lagt til kategorien {this.state.newCategoryName}</h5>
+            <h5 id="successText" >Du har lagt til kategorien {this.state.newCategoryName}</h5>
           </Alert>
       )
     }else{
