@@ -22,7 +22,7 @@ interface State{
 interface Props{}
 
 
-export class employeeManageUsers extends React.Component<Props,State>{
+export class manageUsers extends React.Component<Props,State>{
     match: { params: { mail: string } }
     state = {
         user: [],

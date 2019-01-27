@@ -341,7 +341,7 @@ describe('Test for editAccountInformation view', () => {
     });
 });
 
-describe('Test for employeeManageUsers view', () => {
+describe('Test for manageUsers view', () => {
     const wrapper = shallow(<employeeManageUsers />);
 
     it('renders correctly', () => {

@@ -1,7 +1,7 @@
 import { Grid, Row, Col, PageHeader, Button } from "react-bootstrap";
 import { Component } from "react";
 import * as React from "react";
-import { history } from "../../index";
+import { history } from "../../../index";
 
 export class CreateAdminsOrEmployees extends Component<Props, State> {
   render() {

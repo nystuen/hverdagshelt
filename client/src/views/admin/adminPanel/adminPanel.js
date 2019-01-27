@@ -100,7 +100,7 @@ export class adminPanel extends Component {
                         <span className="glyphicon glyphicon-envelope"/> Kontakt
                         bruker
                       </Button>
-                      <Button id="butt" bsStyle={buttonStyle} href="/#/employee/manageusers" block>
+                      <Button id="butt" bsStyle={buttonStyle} href="/#/handlinger/brukerbehandling" block>
                         <span className="glyphicon glyphicon-edit"/> Administrere
                         Brukere
                       </Button>
@@ -161,7 +161,7 @@ export class adminPanel extends Component {
                         <span className="glyphicon glyphicon-envelope"/> Kontakt
                         bruker
                       </Button>
-                      <Button id="butt" bsStyle={buttonStyle} href="/#/employee/manageusers" block>
+                      <Button id="butt" bsStyle={buttonStyle} href="/#/handlinger/brukerbehandling" block>
                         <span className="glyphicon glyphicon-edit"/> Administrere
                         Brukere
                       </Button>

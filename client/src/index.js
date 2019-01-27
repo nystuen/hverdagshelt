@@ -35,9 +35,8 @@ import { RegisterEmployee } from "./components/registeremployee/RegisterEmployee
 import { RegisterAdmin } from "./components/registeradmin/registeradmin";
 import { ForgottenPassword } from "./views/login/forgottenPassword";
 import { RegNew } from "./components/regNew/RegNew";
-import { employeeHomepage } from "./views/employee/employeeHomepage/employeeHomepage";
-import { employeeManageUsers } from "./views/employee/employeeManageUsers/employeeManageUsers";
-import { CreateAdminsOrEmployees } from "./views/admin/createAdminsOrEmployees";
+import { manageUsers } from "./views/admin/mangeUsers/manageUsers";
+import { CreateAdminsOrEmployees } from "./views/admin/createAdminOrEmployees/createAdminsOrEmployees";
 import { Statistics } from "./components/statistics/Statistics";
 import { adminIssues } from "./views/admin/adminIssues/adminIssues";
 import { EditIssue } from "./views/MinSide/mineSaker/editIssue";
@@ -101,9 +100,7 @@ if (root)
         <Route exact path="/hendelser/:countyId" component={events}/>
         <Route exact path="/admin" component={adminPanel}/>
         <Route path="/admin/sendMailTilBruker" component={SendTextMailWindow}/>
-        <Route path="/admin/registrertSuksess" component={RegNew}/>
-        <Route path="/employee/home" component={employeeHomepage}/>
-        <Route path="/employee/manageusers" component={employeeManageUsers}/>
+        <Route path="/handlinger/brukerbehandling" component={manageUsers}/>
         <Route path="/forgotPassword" component={ForgottenPassword}/>
         <Route
           path="/admin/createAdminsOrEmployees"

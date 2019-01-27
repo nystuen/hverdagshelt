@@ -52127,10 +52127,10 @@ ShallowWrapper {
 }
 `;
 
-exports[`Test for employeeManageUsers view renders correctly 1`] = `
+exports[`Test for manageUsers view renders correctly 1`] = `
 ShallowWrapper {
   Symbol(enzyme.__root__): [Circular],
-  Symbol(enzyme.__unrendered__): <employeeManageUsers />,
+  Symbol(enzyme.__unrendered__): <manageUsers />,
   Symbol(enzyme.__renderer__): Object {
     "batchedUpdates": [Function],
     "getNode": [Function],
@@ -52146,7 +52146,7 @@ ShallowWrapper {
     "props": Object {},
     "ref": null,
     "rendered": null,
-    "type": "employeeManageUsers",
+    "type": "manageUsers",
   },
   Symbol(enzyme.__nodes__): Array [
     Object {
@@ -52156,7 +52156,7 @@ ShallowWrapper {
       "props": Object {},
       "ref": null,
       "rendered": null,
-      "type": "employeeManageUsers",
+      "type": "manageUsers",
     },
   ],
   Symbol(enzyme.__options__): Object {
