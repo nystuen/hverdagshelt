@@ -1,9 +1,9 @@
 import React, { Component } from 'react';
 import { Grid, Row, Col, ListGroup, ListGroupItem, Table, Image, Panel, Button, ButtonGroup } from 'react-bootstrap';
 import css from './adminPanel.css';
-import { UserService } from '../../services';
-import { PageHeader } from '../../components/PageHeader/PageHeader';
-import {history} from "../../index";
+import { UserService } from '../../../services';
+import { PageHeader} from '../../../components/PageHeader/PageHeader';
+import {history} from "../../../index";
 // get viktige hendelser
 
 let userService = new UserService();
