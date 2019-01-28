@@ -281,12 +281,31 @@ export class Statistics extends Component {
 
   }
 
-  pdf2HTML(){
+  pdf2HTML_local(){
 
     let fileName = "statistikk-" +today + '.pdf'
-    const input = document.getElementById('wrap-wrap');
-    var divHeight =  document.getElementById('wrap-wrap').clientHeight;
-    var divWidth =  document.getElementById('wrap-wrap').clientWidth;
+    const input = document.getElementById('wrap-wrap-local');
+    var divHeight =  document.getElementById('wrap-wrap-local').clientHeight;
+    var divWidth =  document.getElementById('wrap-wrap-local').clientWidth;
+    var ratio = divHeight / divWidth;
+    const pdf = new jsPDF("p", "mm", "a4");
+    var width = pdf.internal.pageSize.getWidth();
+    var height = ratio*width
+    html2canvas(input)
+      .then((canvas) => {
+        const imgData = canvas.toDataURL('image/png');
+        // Page 1
+        pdf.addImage(imgData, 'PNG', 0, 0, width, height);
+        pdf.save(fileName);
+      });
+  }
+
+  pdf2HTML_global(){
+
+    let fileName = "statistikk-" +today + '.pdf'
+    const input = document.getElementById('wrap-wrap-global');
+    var divHeight =  document.getElementById('wrap-wrap-global').clientHeight;
+    var divWidth =  document.getElementById('wrap-wrap-global').clientWidth;
     var ratio = divHeight / divWidth;
     const pdf = new jsPDF("p", "mm", "a4");
     var width = pdf.internal.pageSize.getWidth();
@@ -316,7 +335,7 @@ export class Statistics extends Component {
         return(
             <Grid className="bottomFooter">
                 <PageHeader title={'Statistikk over alle kommuner'}/>
-                <Row id="wrap-wrap">
+                <Row id="wrap-wrap-global">
                     <Col sm={12} md={6} lg={6}>
 
 
@@ -352,7 +371,7 @@ export class Statistics extends Component {
                 <Row>
                     <Col>
                         <Button style={styling} className="center-block" bsStyle="primary" onClick={() => {
-                            this.pdf2HTML()
+                            this.pdf2HTML_global()
                         }}>Last ned som PDF</Button>
                     </Col>
                 </Row>
@@ -362,7 +381,8 @@ export class Statistics extends Component {
     }else {
 
       return(
-        <Grid className="bottomFooter" id="wrap-wrap">
+        <div>
+        <Grid className="bottomFooter" id="wrap-wrap-local">
           <PageHeader title={'Statistikk over ' + window.sessionStorage.getItem('countyName') + ' kommune'}/>
           <Row>
             <Col sm={12} md={6} lg={6}>
@@ -418,13 +438,14 @@ export class Statistics extends Component {
           </Row>
           <Row>
             <Col>
-              <Button style={styling} className="center-block" bsStyle="primary" onClick={() => {this.pdf2HTML()}}>Last ned som PDF</Button>
+              <Button style={styling} className="center-block" bsStyle="primary" onClick={() => {this.pdf2HTML_local()}}>Last ned som PDF</Button>
             </Col>
           </Row>
-
-                  <PageHeader title={'Statistikk over alle kommuner'}/>
-                  <Row id="wrap-wrap">
-                      <Col sm={12} md={6} lg={6}>
+        </Grid>
+        <Grid id="wrap-wrap-global">
+            <PageHeader title={'Statistikk over alle kommuner'}/>
+            <Row>
+            <Col sm={12} md={6} lg={6}>
 
               <Line
                 data={this.state.lineDataAllCounties}
@@ -471,10 +492,11 @@ export class Statistics extends Component {
           </Row>
           <Row>
             <Col>
-              <Button style={styling} className="center-block" bsStyle="primary" onClick={() => {this.pdf2HTML()}}>Last ned som PDF</Button>
+              <Button style={styling} className="center-block" bsStyle="primary" onClick={() => {this.pdf2HTML_global()}}>Last ned som PDF</Button>
             </Col>
           </Row>
         </Grid>
+        </div>
       )
     }
   }
