@@ -103,7 +103,7 @@ export class adminAddCategory extends Component<Props, State> {
           setTimeout(
               function () {
                 console.log(this.props);
-                history.push('/admin')
+                history.push('/handlinger')
               }, 1000
           )
         });

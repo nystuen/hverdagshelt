@@ -342,12 +342,12 @@ export class issueOverview extends React.Component {
     }
   }//end method
 
-    /**
-     * adds points to an account for registering an event
-     *
-     * @method sendPoints
-     * @returns void
-     */
+  /**
+   * adds points to an account for registering an event
+   *
+   * @method sendPoints
+   * @returns void
+   */
   sendPoints() {
     if (this.state.statusName === 'Completed') {
       let newPoints: number = (this.state.user.points + 10);
@@ -364,11 +364,8 @@ export class issueOverview extends React.Component {
   };//end method
 
   addComment = () => {
-
     if (this.state.comment != '') {
-
-
-      if(this.state.user.typeName !== undefined || this.state.user.typeName !== 'undefined'){
+      if (this.state.user.typeName == undefined || this.state.user.typeName == 'undefined') {
         issueService.addCommentToIssue(this.state.issue.issueId, this.state.comment, this.state.user.companyMail).then(response => {
         }).catch((error: Error) => Alert.danger(error.message));
         window.location.reload();
@@ -377,14 +374,8 @@ export class issueOverview extends React.Component {
         }).catch((error: Error) => Alert.danger(error.message));
         window.location.reload();
       }
-
-
-
-
       this.setState({ addCommentOpen: !this.state.addCommentOpen });
-
     }
-
   };
 
   setStatus = (event: Event) => {
