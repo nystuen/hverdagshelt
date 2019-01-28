@@ -42,12 +42,12 @@ export class ChangeCounty extends Component<Props, State> {
     window.sessionStorage.setItem('countyName', this.state.choosen.label);
     console.log(window.sessionStorage.getItem('countyName'));
     window.location.reload();
-    history.push('/innsending');
+    window.location.href="/#/innsending"
   };
 
   componentWillMount() {
     if(window.localStorage.getItem('userToken') === ''){
-      history.push('/login');
+      window.location.href="/#/login"
     }
     var arr = [];
     countyService

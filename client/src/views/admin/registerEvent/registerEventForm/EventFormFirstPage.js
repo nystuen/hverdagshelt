@@ -204,7 +204,7 @@ export class EventFormFirstPage extends Component<{}, State> {
                         className="next + ' ' + submitButton"
                         onClick={this.handleSubmit}
                       >
-                        Meld inn hendelse <Glyphicon glyph="glyphicon glyphicon-arrow-right"/>
+                        Meld hendelse <Glyphicon glyph="glyphicon glyphicon-arrow-right"/>
                       </Button>
                     </form>
                   </div>

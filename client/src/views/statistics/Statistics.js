@@ -47,7 +47,7 @@ const pieData = {
 		'Fullført'
 	],
 	datasets: [{
-		data: [10, 10, 10],
+		data: [0, 0, 0],
 		backgroundColor: [
 		'#FF6384',
 		'#36A2EB',
@@ -68,7 +68,7 @@ const pieData2 = {
 		'Fullført'
 	],
 	datasets: [{
-		data: [10, 10, 10],
+		data: [0, 0, 0],
 		backgroundColor: [
 		'#FF6384',
 		'#36A2EB',

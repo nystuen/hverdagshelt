@@ -55,7 +55,7 @@ export class adminIssues extends React.Component{
             this.setState({user: response[0]});
             issueService.getAllIssuesInThisCounty(response[0].countyId,1).then(r => {
                 this.setState({issues: r}, () => {this.getSorted()});
-
+                console.log(r);
             }).catch((error: Error) => confirm(error.message));
         }).catch((error: Error) => confirm(error.message));
     }//end method
@@ -100,7 +100,7 @@ export class adminIssues extends React.Component{
                             {this.state.issues.map((e, i) => {
                                 return (
                                     <tr key={e.issueId}>
-                                        <td style={{'max-width':'10px'}}>
+                                        <td style={{'max-width': '10px'}}>
                                             <Nav bsStyle="pills">
                                                 <NavItem href={'/#min_side/sakoversikt/' + e.issueId}>
                                                     {e.text}
@@ -114,29 +114,33 @@ export class adminIssues extends React.Component{
                                             {this.updateStatus(e.statusName)}
                                             <ProgressBar>
                                                 <ProgressBar bsStyle={this.status.progressBar}
-                                                             active={this.status.inProgress} now={this.status.progress}
-                                                             label={this.status.name} style={{color: 'black'}} key={1}/>
+                                                             active={this.status.inProgress}
+                                                             now={this.status.progress}
+                                                             label={this.status.name} style={{color: 'black'}}
+                                                             key={1}/>
                                             </ProgressBar>
                                         </td>
                                         <td>
-                                           <Col>
-                                               <OverlayTrigger placement="top" overlay={toolTipAssign}>
-                                                 <Button bsStyle="link"
-                                                         onClick={() => this.handleShow(e.categoryId, e)} type="button">
-                                                   <i className="glyphicon glyphicon-briefcase"></i>
-                                                 </Button>
-                                               </OverlayTrigger>
-                                               <OverlayTrigger placement="top" overlay={toolTipDelete}>
-                                                 <Button bsStyle="link" style={{color: 'darkred'}}
-                                                         onClick={() => this.confirm(e.issueId)}>
-                                                   <span className="glyphicon glyphicon-trash"></span>
-                                                 </Button>
-                                               </OverlayTrigger>
-                                           </Col>
+                                            <Col>
+                                                <OverlayTrigger placement="top" overlay={toolTipAssign}>
+                                                    <Button bsStyle="link"
+                                                            onClick={() => this.handleShow(e.categoryId, e)}
+                                                            type="button">
+                                                        <i className="glyphicon glyphicon-briefcase"></i>
+                                                    </Button>
+                                                </OverlayTrigger>
+                                                <OverlayTrigger placement="top" overlay={toolTipDelete}>
+                                                    <Button bsStyle="link" style={{color: 'darkred'}}
+                                                            onClick={() => this.confirm(e.issueId)}>
+                                                        <span className="glyphicon glyphicon-trash"></span>
+                                                    </Button>
+                                                </OverlayTrigger>
+                                            </Col>
 
                                         </td>
                                     </tr>
                                 )
+//end condition
                             })}
                             </tbody>
                         </Table>
