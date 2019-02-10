@@ -21,7 +21,7 @@ class FindDate {
 }
 
 export default (async function showResults(values) {
-  let day = new FindDate();
+  let   day = new FindDate();
   await sleep(500); // simulate server latency
 
   let issuesRegistered = -1;

@@ -58,25 +58,27 @@ export class NavbarMenu extends React.Component {
 
 
   handleSelect(selectedKey) {
-    this.setState({activeKey: selectedKey});
+    this.setState({ activeKey: selectedKey });
   }
 
   render() {
-    if (window.localStorage.getItem('userToken') === null || window.localStorage.getItem('userToken') === '' ) {
+    if (window.localStorage.getItem('userToken') === null || window.localStorage.getItem('userToken') === '') {
       loginButton = <NavItem eventKey={13} href="/#login">Login</NavItem>;
     } else {
       loginButton = <NavItem eventKey={13} href="/#login" onClick={() => this.logout()}> Logg ut</NavItem>;
       this.viewCases();
     }//end condition
 
-    if (window.localStorage.getItem('userToken') !== '') {
+    if (!(window.localStorage.getItem('userToken') === null || window.localStorage.getItem('userToken') === ''))  {
+      console.log('cookies');
       if (this.state.user.typeName === 'Admin') {
         return (
           <div className={'logoBrand'}>
             <Navbar collapseOnSelect fluid>
               <Navbar.Header>
                 <Navbar.Brand>
-                  <a href={'/#/'} onClick={() => this.setState({activeKey: 0})}><img src={'./resources/logo_white.png'}></img></a>
+                  <a href={'/#/'} onClick={() => this.setState({ activeKey: 0 })}><img
+                    src={'./resources/logo_white.png'}></img></a>
                 </Navbar.Brand>
                 <Navbar.Toggle/>
               </Navbar.Header>
@@ -84,7 +86,8 @@ export class NavbarMenu extends React.Component {
 
                 <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
                   <NavItem eventKey={1} href={'/#/endreKommune'}><Glyphicon
-                    className="hideIconWhenSmall"  glyph="glyphicon glyphicon-home"/> {window.sessionStorage.getItem('countyName')}
+                    className="hideIconWhenSmall"
+                    glyph="glyphicon glyphicon-home"/> {window.sessionStorage.getItem('countyName')}
                   </NavItem>
                   <NavItem eventKey={2} href={'/#/innsending'}><Glyphicon
                     className="hideIconWhenSmall" glyph="glyphicon glyphicon-plus"/> Meld inn sak</NavItem>
@@ -92,14 +95,15 @@ export class NavbarMenu extends React.Component {
                     <i className="fas fa-exclamation-triangle hideIconWhenSmall"></i> Hendelser</NavItem>
                   <NavItem eventKey={4} href={'/#/statistikk'}><Glyphicon
                     className="hideIconWhenSmall" glyph="glyphicon glyphicon-stats"/> Statistikk</NavItem>
-                  <NavItem eventKey={5} href={'/#/kart'}><i className="fas fa-map hideIconWhenSmall"></i> Alle saker</NavItem>
+                  <NavItem eventKey={5} href={'/#/kart'}><i className="fas fa-map hideIconWhenSmall"></i> Alle
+                    saker</NavItem>
                   {this.viewCases()}
                   <NavItem eventKey={7} href={'/#/handlinger'}><Glyphicon
-                    className="hideIconWhenSmall"  glyph="glyphicon glyphicon-user"/> Admin</NavItem>
+                    className="hideIconWhenSmall" glyph="glyphicon glyphicon-user"/> Admin</NavItem>
                 </Nav>
 
                 <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
-                  <NavDropdown eventKey={9} title={this.state.user.firstName}  id='1'>
+                  <NavDropdown eventKey={9} title={this.state.user.firstName} id='1'>
                     <MenuItem id={'dropdownMenuItem'} eventKey={9}
                               href="/#/kontoinnstillinger">Kontoinstillinger</MenuItem>
                     <MenuItem id={'dropdownMenuItem'} eventKey={9}
@@ -118,7 +122,8 @@ export class NavbarMenu extends React.Component {
             <Navbar collapseOnSelect fluid>
               <Navbar.Header>
                 <Navbar.Brand>
-                  <a href={'/#/'} onClick={() => this.setState({activeKey: 0})}><img src={'./resources/logo_white.png'}></img></a>
+                  <a href={'/#/'} onClick={() => this.setState({ activeKey: 0 })}><img
+                    src={'./resources/logo_white.png'}></img></a>
                 </Navbar.Brand>
                 <Navbar.Toggle/>
               </Navbar.Header>
@@ -158,13 +163,13 @@ export class NavbarMenu extends React.Component {
             <Navbar collapseOnSelect fluid>
               <Navbar.Header>
                 <Navbar.Brand>
-                  <a href={'/#/'} onClick={() => this.setState({activeKey: 0})}><img src={'./resources/logo_white.png'}></img></a>
+                  <a href={'/#/'} onClick={() => this.setState({ activeKey: 0 })}><img
+                    src={'./resources/logo_white.png'}></img></a>
                 </Navbar.Brand>
                 <Navbar.Toggle/>
               </Navbar.Header>
 
               <Navbar.Collapse>
-
 
 
                 <Nav activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
@@ -182,7 +187,7 @@ export class NavbarMenu extends React.Component {
                 </Nav>
 
                 <Nav pullRight activeKey={this.state.activeKey} onSelect={this.handleSelect.bind(this)}>
-                  <NavDropdown eventKey={9} title={this.state.user.firstName}  id='1'>
+                  <NavDropdown eventKey={9} title={this.state.user.firstName} id='1'>
                     <MenuItem id={'dropdownMenuItem'} eventKey={9}
                               href="/#kontoinnstillinger">Kontoinstillinger</MenuItem>
                     <MenuItem id={'dropdownMenuItem'} eventKey={9}
@@ -202,7 +207,8 @@ export class NavbarMenu extends React.Component {
             <Navbar collapseOnSelect fluid>
               <Navbar.Header>
                 <Navbar.Brand>
-                  <a href={'/#/'} onClick={() => this.setState({activeKey: 0})}><img src={'./resources/logo_white.png'}></img></a>
+                  <a href={'/#/'} onClick={() => this.setState({ activeKey: 0 })}><img
+                    src={'./resources/logo_white.png'}></img></a>
                 </Navbar.Brand>
                 <Navbar.Toggle/>
               </Navbar.Header>
@@ -233,7 +239,8 @@ export class NavbarMenu extends React.Component {
           <Navbar collapseOnSelect fluid>
             <Navbar.Header>
               <Navbar.Brand>
-                <a href={'/#/'} onClick={() => this.setState({activeKey: 0})}><img src={'./resources/logo_white.png'}></img></a>
+                <a href={'/#/'} onClick={() => this.setState({ activeKey: 0 })}><img
+                  src={'./resources/logo_white.png'}></img></a>
               </Navbar.Brand>
               <Navbar.Toggle/>
             </Navbar.Header>
@@ -251,12 +258,12 @@ export class NavbarMenu extends React.Component {
     }//end condition
   }//end method
 
-    /**
-     * Logs the user out by emptying localstorage and sessionstorage
-     *
-     * @method logout
-     * @returns void
-     */
+  /**
+   * Logs the user out by emptying localstorage and sessionstorage
+   *
+   * @method logout
+   * @returns void
+   */
   logout = () => {
     window.localStorage.setItem('userToken', '');
     window.sessionStorage.setItem('countyId', '');
@@ -268,12 +275,12 @@ export class NavbarMenu extends React.Component {
     window.location.reload();
   };//end method
 
-    /**
-     * Contitional rendering for "mine saker" button on navbar, depending on which user is logged in
-     *
-     * @method viewCases
-     * @returns {*}
-     */
+  /**
+   * Contitional rendering for "mine saker" button on navbar, depending on which user is logged in
+   *
+   * @method viewCases
+   * @returns {*}
+   */
   viewCases = () => {
     if (window.localStorage.getItem('userToken') !== '') {
       if (this.state.user == undefined) {
